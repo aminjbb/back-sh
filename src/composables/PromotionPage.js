@@ -75,7 +75,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `system/menu/crud/get/${route.params.menuId}`
+        AxiosMethod.end_point = `page/promotion/crud/get/${route.params.menuId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             promotion.value = data.data
