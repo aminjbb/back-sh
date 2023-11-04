@@ -69,7 +69,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        <template v-if="item.pivot.priority">
+                        <template v-if="item.pivot && item.pivot.priority">
                             <v-text-field
                                 density="compact"
                                 variant="outlined"
@@ -212,7 +212,7 @@ export default {
             active: [],
             panelFilter: new PanelFilter(),
             activeColumn: false,
-            priority: [],
+            priorityModal: [],
         }
     },
 
