@@ -1,0 +1,24 @@
+// ----------------------------------------------------- //
+// Style
+// ---------------------------------------------------- //
+
+// General
+@import "./general/font";
+@import "./general/main";
+@import "./general/container";
+@import "./general/typography";
+
+// Components
+@import "./components/menu";
+@import "./components/table";
+@import "./components/slider";
+@import "./components/ticket";
+@import "./components/ckeditor";
+@import "./components/chat-page";
+@import "./components/message-list";
+@import "./components/image-uploader";
+@import "./components/modal-table-filter";
+
+// Views
+@import "./views/products";
+@import "./views/supplier";

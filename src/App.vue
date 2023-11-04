@@ -1,79 +1,112 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+
 
 <template>
-  <header>
-
-    <div class="wrapper">
-      <v-card min-width="100" min-height="100" class="pa-10"> as</v-card>
-    </div>
-  </header>
-
-  <RouterView />
+  <v-app>
+    <RouterView />
+    <Toast />
+    <ConfirmModal />
+  </v-app>
 </template>
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+import Toast from '@/components/Public/Toast.vue'
+import ConfirmModal from '@/components/Public/ConfirmModal.vue'
+import Notifications from '@/composables/Notifications'
+import Echo from "laravel-echo";
+import {AxiosCall} from "@/assets/js/axios_call";
+export default {
+  components: {
+    ConfirmModal,
+    Toast
+  },
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+  setup(props) {
+    const { getNotifications } = Notifications();
+    return { getNotifications };
+  },
+  methods:{
+    setEcho(){
+      if (this.$cookies.get('adminToken')){
+        const filter = {
+          per_page: 5,
+          order:'created_at',
+          order_type:'desc'
+        }
+        this.getNotifications(filter, this.$store)
+        window.Echo = new Echo({
+          broadcaster: 'pusher',
+          key: import.meta.env.VITE_APP_WEBSOCKETS_KEY,
+          wsHost: import.meta.env.VITE_APP_WEBSOCKETS_SERVER,
+          wsPort: import.meta.env.VITE_APP_WEBSOCKETS_wsPort,
+          cluster: "mt1",
+          forceTLS: import.meta.env.VITE_APP_FORCE_TLS !== 'false',
+          disableStats: true,
+          encrypted: true,
+          authEndpoint: import.meta.env.VITE_API_BASEURL +'/v1/admin/broadcasting/auth',
+          auth: {
+            headers: {
+              Authorization: 'Bearer ' + this.$cookies.get('adminToken'),
+            }
+          },
+          // authorizer: (channel) => {
+          //     return {
+          //         authorize: (socketId, callback) => {
+          //             axios.post(import.meta.env.VITE_API_BASEURL +'/v1/admin/broadcasting/auth', {
+          //                 socket_id: socketId,
+          //                 channel_name: channel.name
+          //             }, {
+          //                 headers: {
+          //                     Authorization: this.$cookies.get('token')
+          //                 }
+          //             })
+          //                 .then(response => {
+          //                     callback(false, response.data);
+          //                 })
+          //                 .catch(error => {
+          //                     console.log('error')
+          //                     callback(true, error);
+          //                 });
+          //         }
+          //     };
+          // }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+        });
+        setTimeout(()=>{
+          window.Echo.private(`export.notification.${localStorage.getItem('userId')}`).listen('ExportNotification', (event) => {
+            console.log('ExportNotification call' , event); // the data from the server
+            this.getNotifications( filter, this.$store)
+          })}, 300)
+      }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+    },
+    async getProfile(){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'auth/admin/profile'
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading=false
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+        localStorage.setItem('fullName' ,data.data.first_name + ' ' + data.data.last_name)
+        localStorage.setItem('userId' ,data.data.id )
+      }
+      else{
+        this.loading=false
+      }
+    }
+  },
+  watch:{
+    $route(to, from){
+      if (from.name === "login") this.setEcho()
+      else this.getProfile()
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+    }
+  },
+  mounted() {
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    this.setEcho()
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
-</style>
+</script>

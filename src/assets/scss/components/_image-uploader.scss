@@ -1,0 +1,35 @@
+.image-uploader {
+    &__item {
+        &__image {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            height: 293px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                border-radius: 5px;
+                height: -webkit-fill-available;
+            }
+        }
+    }
+
+    &__delete-icon {
+        position: absolute !important;
+        top: 5px;
+        left: 5px;
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    &__button{
+        border-color:#ebe5e5 !important;
+    }
+}

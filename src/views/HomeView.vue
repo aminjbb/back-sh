@@ -1,9 +1,17 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import DashboardLayout from '../components/Layouts/DashboardLayout.vue'
+import Header from '../components/Public/Header.vue'
+import HomeSection from '../components/Home/HomeSection.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <v-layout class="bg-gray">
+    <DashboardLayout />
+    <v-main class="h-100vh">
+      <Header/>
+       <HomeSection/>
+    </v-main>
+  </v-layout>
+
+  
 </template>

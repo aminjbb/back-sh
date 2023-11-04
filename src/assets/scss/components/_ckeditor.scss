@@ -1,0 +1,31 @@
+// ----------------------------------------------------- //
+// CKEditor Components
+// ---------------------------------------------------- //
+.cke{
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.cke_top,
+.cke_bottom{
+    background-color: #f7f8fa !important;
+}
+
+.cke_top *{
+    font-weight: 500 !important;
+}
+
+.cke_contents,
+.cke_contents *{
+    direction: rtl !important;
+}
+
+.cke_contents iframe,
+.cke_contents iframe html{
+    direction: rtl !important;
+}
+
+.cke_editable,
+.cke_editable *{
+    direction: rtl !important;
+} 

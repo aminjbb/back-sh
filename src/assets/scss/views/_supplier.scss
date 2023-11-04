@@ -1,0 +1,61 @@
+/*-----------------------------------------------
+ Supplier View
+------------------------------------------------*/
+
+.supplier {
+    .c-table {
+        overflow-x: auto;
+        height: calc(100% - 70px);
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 3px;
+            background-color: #F8BBD0;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background-color: #F06292;
+        }
+
+        &__header,
+        .stretch-table{
+            width: 2200px;
+            color: #9E9E9E !important;
+        }
+    }
+}
+
+.sku-seller {
+    .c-table {
+        overflow-x: auto;
+        height: calc(100% - 70px);
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 3px;
+            background-color: #F8BBD0;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background-color: #F06292;
+        }
+
+        &__header,
+        .stretch-table{
+            width: 1700px;
+            color: #9E9E9E !important;
+        }
+    }
+}
