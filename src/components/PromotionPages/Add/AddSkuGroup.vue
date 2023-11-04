@@ -51,9 +51,9 @@
 
         <v-col cols="6">
           <v-row justify="end">
-<!--            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="skuGroupHeader" />-->
+            <!--            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="skuGroupHeader" />-->
 
-<!--            <ModalTableFilter path="menu/index" :filterField="filterField" />-->
+            <!--            <ModalTableFilter path="menu/index" :filterField="filterField" />-->
           </v-row>
         </v-col>
       </v-row>
@@ -77,7 +77,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-                        <ModalExcelDownload getEndPoint="page/csv/get/export" />
+            <ModalExcelDownload getEndPoint="page/csv/get/export" />
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
