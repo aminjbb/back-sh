@@ -49,7 +49,7 @@ export default {
   components: {PromotionPageForm},
   methods:{
     validate(){
-      this.$refs.PromotionPageForm.$refs.createMenu.validate()
+      this.$refs.PromotionPageForm.$refs.createPromotionPage.validate()
       setTimeout(()=>{
         if (this.$refs.PromotionPageForm.valid) this.createPromotionPage()
       } , 200)

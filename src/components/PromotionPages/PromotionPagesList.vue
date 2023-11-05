@@ -18,7 +18,7 @@
             </template>
             افزودن تکی
           </v-btn>
-          <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="seller/sku/csv/bulk" />
+<!--          <ModalGroupAdd getEndPoint="page/promotion/csv/get/template" uploadEndpoint="page/promotion/csv/bulk/sku_group" />-->
           </v-row>
 
         </v-col>
@@ -37,11 +37,11 @@
       <Table
           class="flex-grow-1"
           :header="header"
-          :items="[]"
+          :items="promotions.data"
           :page="page"
           :perPage="dataTableLength"
-          activePath="system/menu/crud/update/activation/"
-          deletePath="system/menu/crud/delete/"
+          activePath="page/promotion/crud/update/activation/"
+          deletePath="page/promotion/crud/delete/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
           model="page" />
@@ -51,7 +51,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <!--            <ModalExcelDownload getEndPoint="page/csv/get/export" />-->
+                        <ModalExcelDownload getEndPoint="page/promotion/csv/get/export" />
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
@@ -133,7 +133,7 @@ export default {
       this.addPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if ( localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
           this.getPromotions();
           openToast(
@@ -141,7 +141,7 @@ export default {
               'منو مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

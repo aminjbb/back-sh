@@ -11,6 +11,7 @@
       </div>
       <v-divider></v-divider>
       <PromotionPageForm
+          :promotion="promotion"
           ref="PromotionPageForm"
       />
       <footer class="create-warehouse__actions">
@@ -55,9 +56,9 @@ export default {
   components: {PromotionPageForm},
   methods:{
     validate(){
-      this.$refs.MenuForm.$refs.createMenu.validate()
+      this.$refs.PromotionPageForm.$refs.createPromotionPage.validate()
       setTimeout(()=>{
-        if (this.$refs.MenuForm.valid) this.createMenu()
+        if (this.$refs.PromotionPageForm.valid) this.createMenu()
       } , 200)
     },
 
@@ -77,7 +78,7 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
-        this.$router.push('/menu/index')
+        this.$router.push('/promotion-page/index')
 
       }
       else{
@@ -85,6 +86,8 @@ export default {
       }
     }
   },
-
+  mounted() {
+    this.getPromotion()
+  }
 }
 </script>

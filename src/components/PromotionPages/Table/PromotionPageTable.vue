@@ -21,9 +21,7 @@
       </template>
 
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-icon v-bind="props">
-          mdi-dots-vertical
-        </v-icon>
+       <span class="t12500 text-black">عملیات</span>
       </div>
     </header>
 
@@ -60,66 +58,55 @@
                     </span>
           </div>
           <div
-              v-if="item.level && header[3].show"
+              v-if="item.id && header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.level }}
+                        {{ item.id }}
                     </span>
           </div>
           <div
-              v-if=" header[4].show"
+              v-if="item.id && header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5" v-if="item.menu_id">
-                        {{ item.menu_id }}
-                    </span>
-            <span class="t14300 text-gray500 py-5" v-else>
-                        -----
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.created_at_fa }}
                     </span>
           </div>
           <div
-              v-if=" header[5].show"
+              v-if="item.id && header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5" >
-                        {{ item.priority }}
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.updated_at_fa }}
+                    </span>
+          </div>
+          <div
+              v-if="item.id && header[6].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                       <v-switch
+                           v-model="active[index]"
+                           inset
+                           color="success"
+                           @change="changeActive(index,item)" />
                     </span>
           </div>
 
-          <div
-              v-if="(item.is_active  != undefined && checkActive )"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
-<!--                        <v-switch-->
-                      <!--                            v-model="active[index]"-->
-                      <!--                            inset-->
-                      <!--                            color="success"-->
-                      <!--                            @change="changeActive(index,item)" />-->
-                      <ActivationModal :changeValue="changeValue" url="system/menu/crud/update/activation/" :id="item.id" :index="index" :active="active[index]"/>
-                    </span>
-          </div>
 
 
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
               <template v-slot:activator="{ props }">
-
+                <v-icon v-bind="props">
+                  mdi-dots-vertical
+                </v-icon>
               </template>
 
               <v-list class="c-table__more-options">
                 <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/menu/update/${item.id}`)">
-                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                      ویرایش
-                    </span>
-
-                    </div>
-                  </v-list-item-title>
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
@@ -130,17 +117,25 @@
                     </div>
                   </v-list-item-title>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/menu/${item.id}/add/image`)">
-                      <v-icon class="text-grey-darken-1">mdi-image</v-icon>
+                    <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.id}`)">
+                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
-                      بارگذاری تصویر
+                      ویرایش
+                    </span>
+
+                    </div>
+                  </v-list-item-title>
+
+                  <v-list-item-title>
+                    <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.id}/sku-group/add`)">
+                      <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14300">
+                      مدیریت محصولات
                     </span>
 
                     </div>
                   </v-list-item-title>
                 </v-list-item>
-
-
               </v-list>
             </v-menu>
           </div>
