@@ -28,15 +28,16 @@ export default function setup(posts) {
     ]);
     const headerSku =ref([
         { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه', show: true, value: 'id', order:false },
-        { name: 'SHPS', show: true, value: 'unique_code', order:false },
-        { name:'نام انگلیسی' , show:true , value:'name', order:true},
-        { name:'نام فارسی' , show:true ,  value:'label', order:true},
-        { name: 'گروه', show: true, value: 'sku_group', order:false },
-        { name: 'دسته‌بندی', show: true, value: 'category', order:true },
-        { name: ' برند', show: true, value: 'brand', order:true },
-        { name: ' اندازه', show: true, value: 'volume', order:false },
-        { name: 'فعال سازی', show: true , value:'is_active', order:false},
+        { name: 'شناسه کالا', show: true, value: 'id', order:false },
+        { name: 'شناسه shps', show: true, value: 'unique_code', order:false },
+        { name:'نام کالا' , show:true ,  value:'label', order:true},
+        { name: 'موجودی انبار', show: true, value: 'sku_quntity', order:false },
+        { name: 'موجودی سایت', show: true, value: 'category', order:true },
+        { name: ' قیمت مصرف کننده', show: true, value: 'brand', order:true },
+        { name: ' تخفیف پایه', show: true, value: 'volume', order:false },
+        { name: 'تخفیف مارکتینگ', show: true , value:'is_active', order:false},
+        { name: 'قیمت فروش', show: true , value:'is_active', order:false},
+        { name: 'وضعیت', show: true , value:'is_active', order:false},
     ]
     );
     const filterField = [

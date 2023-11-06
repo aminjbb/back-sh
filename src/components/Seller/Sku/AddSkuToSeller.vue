@@ -73,7 +73,7 @@
       <Table
           class="flex-grow-1"
           :header="headerSku"
-          :items="sellerSku.data"
+          :items="[]"
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
           deletePath="seller/crud/update/activation/"

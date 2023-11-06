@@ -15,11 +15,10 @@
                 <div
                     v-if="head.show"
                     @click="createOrdering(head.value, head.order)"
-                    class="text-right c-table__header__item t12500"
+                    class="text-right c-table__header__item t12500 px-0"
                     :class="head.order == true ? 'pointer' : ''"
                     :key="index"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
+                    :style="{ width: itemsWidth, flex:head.value === 'label' ? `0.9 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
                     {{head.name}}
                 </div>
             </template>
@@ -34,35 +33,11 @@
             </template>
         </template>
         <div
-            v-if="model !== 'permission'"
             class="c-table__header__item"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-menu :location="location">
-                <template v-slot:activator="{ props }">
-                    <v-icon v-bind="props">
-                        mdi-dots-vertical
-                    </v-icon>
-                </template>
-
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title>
-                            <v-btn
-                                @click="massUpdateModal()"
-                                variant="text"
-                                height="40"
-                                rounded
-                                class="px-5 mt-1 mr-5">
-                                <template v-slot:prepend>
-                                    <v-icon>mdi-pen-minus</v-icon>
-                                </template>
-                                ویرایش گروهی
-                            </v-btn>
-                        </v-list-item-title>
-
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+            <span class="t12500 ">
+              عملیات
+            </span>
         </div>
     </header>
     <div class="stretch-table">
@@ -460,7 +435,7 @@ export default {
                         headerLength++;
                     }
                 });
-                const width = 100 / (headerLength + 1);
+                const width = 70 / (headerLength + 1);
                 return `${width}%`;
             }
             return 'auto';
