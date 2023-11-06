@@ -1,38 +1,26 @@
 <template>
-<div class="chat-page">
+  <div class="chat-page">
     <v-row>
-        <v-col cols="3">
-            <ChatList
-                :getConversation="getConversation"
-                :userList="userConversationList"
-                :adminList="adminConversationList" />
+      <v-col cols="3">
+        <ChatList :getConversation="getConversation" :userList="userConversationList" :adminList="adminConversationList"/>
 
-        </v-col>
-        <v-col cols="9">
-            <div class="pl-5">
-                <v-card class="ma-5 br-12 chat-page__message-list ma-0">
-                    <MessageList
-                        :getConversationList="getConversationList"
-                        :getConversation="getConversation"
-                        :conversation="conversation"
-                        :conversationMessages="conversationMessages" />
-                </v-card>
-            </div>
-        </v-col>
+      </v-col>
+      <v-col cols="9">
+        <div class="pl-5">
+          <v-card class="ma-5 br-12 chat-page__message-list ma-0">
+            <MessageList :getConversationList="getConversationList" :getConversation="getConversation" :conversation="conversation" :conversationMessages="conversationMessages" />
+          </v-card>
+        </div>
+      </v-col>
     </v-row>
-</div>
+  </div>
 </template>
-
 <script>
-import {
-    ref
-} from 'vue'
+import { ref } from 'vue'
 //components
 import MessageList from '@/components/Chat/MessageList/MessageList.vue'
 import ChatList from '@/components/Chat/ChatList.vue'
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {
@@ -65,19 +53,20 @@ export default {
     },
     async  getConversation(id , userType , user){
       this.$store.commit('set_adminNewChat' , null)
-
+      this.clearConversation()
       let userId = ''
       if (user){
-        userId = user.id
+        if (user.id)  userId = user.id
+        else  userId = user
+
       }
-      this.$router.push({ query: { user_type: userType , user_id:userId}})
+      this.$router.push({ query: { user_type: userType , user_id:userId , conversation_id :id}})
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `conversation/crud/get/${id}`
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.using_auth =  true
       let data = await AxiosMethod.axios_get()
       if (data) {
-
         this.conversation = data.data
         this.conversationId = data.data.id
       }
@@ -92,7 +81,6 @@ export default {
       if (this.$cookies.get('adminToken')){
         setTimeout(()=>{
           window.Echo.channel(`admin.chat`).listen('ConversationCreated', (event) => {
-            console.log(event)
             this.getConversationList()
           })
 
@@ -109,7 +97,9 @@ export default {
 
   },
   mounted() {
-
+    if (this.$route.query.user_type && this.$route.query.user_id && this.$route.query.conversation_id){
+      this.getConversation(this.$route.query.conversation_id , this.$route.query.user_type ,  this.$route.query.user_id  )
+    }
     this.getConversationList()
     this.setEcho()
   },
@@ -151,4 +141,5 @@ export default {
   }
 
 }
+
 </script>
