@@ -44,7 +44,7 @@
           deletePath="page/promotion/crud/delete/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-          model="page" />
+          model="promotionPage" />
 
       <v-divider />
 

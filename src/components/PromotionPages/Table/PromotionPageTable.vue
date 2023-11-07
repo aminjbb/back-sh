@@ -40,105 +40,156 @@
                         {{rowIndexTable(index)}}
                     </span>
           </div>
-
-          <div
-              v-if="item.label && header[1].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.label }}
-                    </span>
-          </div>
-          <div
-              v-if="item.name && header[2].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <template v-if="model === 'promotionPage'">
+            <div
+                v-if="item.name && header[1].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.name }}
                     </span>
-          </div>
-          <div
-              v-if="item.id && header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            </div>
+            <div
+                v-if="item.label && header[2].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.label }}
+                    </span>
+            </div>
+            <div
+                v-if="item.id && header[3].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.id }}
                     </span>
-          </div>
-          <div
-              v-if="item.id && header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            </div>
+            <div
+                v-if="item.created_at_fa && header[4].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.created_at_fa }}
                     </span>
-          </div>
-          <div
-              v-if="item.id && header[5].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            </div>
+            <div
+                v-if="item.updated_at_fa && header[5].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.updated_at_fa }}
                     </span>
-          </div>
-          <div
-              v-if="item.id && header[6].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                       <v-switch
-                           v-model="active[index]"
-                           inset
-                           color="success"
-                           @change="changeActive(index,item)" />
+            </div>
+            <div
+                v-if="header[6]?.show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                 <span class="t14300">
+                        <v-switch
+                            color="success"
+                            v-model="active[index]"
+                            inset
+                            @change="changeActive(index,item)" />
                     </span>
-          </div>
+            </div>
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+              <v-menu :location="location">
+                <template v-slot:activator="{ props }">
+                  <v-icon v-bind="props">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
 
-
-
-
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.id)">
+                        <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
                       حذف
                     </span>
 
-                    </div>
-                  </v-list-item-title>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.id}`)">
-                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      </div>
+                    </v-list-item-title>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.id}`)">
+                        <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
                       ویرایش
                     </span>
 
-                    </div>
-                  </v-list-item-title>
+                      </div>
+                    </v-list-item-title>
 
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.id}/sku-group/add`)">
-                      <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.id}/sku-group/add`)">
+                        <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
                       مدیریت محصولات
                     </span>
 
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </template>
+          <template v-if="model === 'skuPromotionPage'">
+
+            <div
+                v-if="item.label && header[1].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.label }}
+                    </span>
+            </div>
+            <div
+                v-if="item.id && header[2].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.id }}
+                    </span>
+            </div>
+            <div
+                v-if="item.pivot?.priority && header[3].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+<!--                        {{ item.pivot?.priority }}-->
+                      <v-text-field variant="outlined"  v-model="priorities[index]" type="number" @change="skuGroupPriorityChange(item.id , index)" />
+
+
+                    </span>
+            </div>
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+              <v-menu :location="location">
+                <template v-slot:activator="{ props }">
+                  <v-icon v-bind="props">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.id)">
+                        <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                          حذف
+                        </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </template>
+
+
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -162,6 +213,8 @@ import {
 } from "@/assets/js/filter_supplier"
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
+import { debounce } from 'vue-debounce'
+
 import {
   openToast,
   openConfirm,
@@ -247,6 +300,7 @@ export default {
       active: [],
       isIndex: [],
       isFollow: [],
+      priorities:[],
       panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
     }
@@ -292,12 +346,29 @@ export default {
         var active = false
         if (element.is_active == 1) active = true
         this.active.push(active)
-
+        if (this.model === 'skuPromotionPage'){
+          this.priorities.push(element.pivot?.priority)
+        }
       });
+
     }
   },
 
   methods: {
+    skuGroupPriorityChange : debounce(async function (id , index) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
+      formdata.append('sku_group_id', id)
+      formdata.append('priority', this.priorities[index])
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+    }, 1000),
+
     changeValue(index , value){
       this.active[index] = value
     },

@@ -44,7 +44,7 @@
               </template>
             </v-autocomplete>
 
-            <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="seller/sku/csv/bulk" />
+            <ModalGroupAdd getEndPoint="page/promotion/csv/get/template" uploadEndpoint="page/promotion/csv/bulk/sku_group" />
 
           </v-row>
         </v-col>
@@ -63,21 +63,21 @@
       <Table
           class="flex-grow-1"
           :header="skuGroupHeader"
-          :items="[]"
+          :items="promotionSkuGroups.data"
           :page="page"
           :perPage="dataTableLength"
           activePath="system/menu/crud/update/activation/"
           deletePath="system/menu/crud/delete/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-          model="page" />
+          model="skuPromotionPage" />
 
       <v-divider />
 
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="page/csv/get/export" />
+            <ModalExcelDownload getEndPoint="page/promotion/csv/get/export" />
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
@@ -209,12 +209,15 @@ export default {
   },
 
   mounted() {
-    this.getPromotionSkuGroups();
+    this.getPromotionSkuGroups(1 , this.dataTableLength);
   },
 
   watch: {
     dataTableLength(val) {
-      this.addPerPage(val)
+      this.getPromotionSkuGroups(1 , val);
+    },
+    page(val){
+      this.getPromotionSkuGroups(val , this.dataTableLength);
     },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {

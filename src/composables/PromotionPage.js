@@ -8,7 +8,7 @@ import { useCookies } from "vue3-cookies";
 export default function setup(posts) {
     const promotions =ref([])
     const promotion = ref(null)
-    const promotionSkuGroups = ref(null)
+    const promotionSkuGroups = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const pageLengthSkuGroup = ref(1)
@@ -70,11 +70,16 @@ export default function setup(posts) {
         else {
         }
     };
-    async function getPromotionSkuGroups(query) {
+    async function getPromotionSkuGroups(page , perPage) {
         loading.value = true
+        const form ={
+            page :page,
+            per_page : perPage
+        }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.form = form
         AxiosMethod.end_point = `page/promotion/crud/get/sku_groups/${route.params.promotionId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
