@@ -50,7 +50,7 @@
         <v-card class="ma-5 br-12 scroller"  >
             <div class="example pa-15 mb-10">
               <v-row>
-                <v-col cols="6" v-for="(item, index) in images">
+                <v-col cols="6" v-for="(item, index) in images" :key="`image_${index}`">
                   <div class="d-flex justify-center align-center">
                     <div class="position__relative">
                      <v-btn @click="removeItem(item.imageId)" variant="icon" class="position__absolute position__top-left">
