@@ -1,0 +1,49 @@
+.modal {
+    &__header {
+        position: relative;
+
+        span {
+            font-variation-settings: "wght" 600
+        }
+
+        &__btn {
+            position: absolute !important;
+            left: 15px;
+            top: 0;
+            height: 100% !important;
+        }
+    }
+
+    &__label {
+        color: #757575;
+        margin-bottom: 8px;
+        display: block;
+        font-variation-settings: "wght" 400;
+    }
+
+    &__content {
+        border-radius: 12px;
+        border: 1px solid var(--gray-200, #EEE);
+
+        &__title{
+            color: #110833;
+            font-size: 12px;
+            font-variation-settings: "wght" 500;
+            margin-left: 5px
+        }
+
+        &__txt{
+            color: #9E9E9E;
+            font-size: 12px;
+            font-variation-settings: "wght" 500
+        }
+
+        &--cols{
+            flex-wrap: wrap;
+            > div{
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+    }
+}

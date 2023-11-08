@@ -10,21 +10,9 @@
             justify="start"
             align="center"
             class="pa-5 pt-8">
-            <img 
-                src="@/assets/img/openMenu.svg"
-                @click.stop="rail = !rail"
-                width="24"
-                class="mb-5 ml-10"
-                alt="shavaz image"
-            >
+            <img src="@/assets/img/openMenu.svg" @click.stop="rail = !rail" width="24" class="mb-5 ml-10" alt="shavaz image">
 
-            <img
-                v-if="!rail"
-                src="@/assets/img/shavaz-logo2.png"
-                width="56"
-                class="mb-5 mr-7"
-                alt="shavaz image"
-            >
+            <img v-if="!rail" src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
         </v-row>
 
         <v-list v-model:opened="open">
@@ -32,11 +20,7 @@
 
             <v-list-item active-class="bg-active" to="/">
                 <template v-slot:prepend>
-                    <img
-                        class="ml-5"
-                        src="@/assets/img/Dasboard.svg"
-                        alt="shavaz image"
-                    >
+                    <img class="ml-5" src="@/assets/img/Dasboard.svg" alt="shavaz image">
                 </template>
 
                 <span class="t14500">
@@ -79,10 +63,7 @@
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>
-                            <img
-                                class="ml-5"
-                                src="@/assets/img/ProductIcon.svg" alt="shavaz image"
-                            >
+                            <img class="ml-5" src="@/assets/img/ProductIcon.svg" alt="shavaz image">
                         </template>
 
                         <span class="t14500">
@@ -155,36 +136,36 @@
 
             </v-list-group>
             <v-list-group value="marketing">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" active-class="bg-active">
-                <template v-slot:prepend>
-                  <v-icon>mdi-cart-outline</v-icon>
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-chart-line</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            مارکتینگ
+                        </span>
+                    </v-list-item>
                 </template>
 
-                <span class="t14500">
-                           مارکتینگ
-                        </span>
-              </v-list-item>
-            </template>
+                <v-list-item
+                    v-for="([title, to, icon], i) in marketing"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
 
-            <v-list-item
-                v-for="([title, to, icon], i) in marketing"
-                v-bind="props"
-                :key="i"
-                :value="title"
-                :to="to"
-                active-class="bg-active"
-                style="padding-right:16px !important">
-              <template v-slot:prepend>
-                <v-icon size="x-small">{{icon}}</v-icon>
-              </template>
-
-              <span class="t14500">
+                    <span class="t14500">
                         {{title}}
                     </span>
-            </v-list-item>
+                </v-list-item>
 
-          </v-list-group>
+            </v-list-group>
             <v-list-group value="commerce">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
@@ -216,7 +197,6 @@
                 </v-list-item>
 
             </v-list-group>
-
 
             <v-list-group value="setting">
                 <template v-slot:activator="{ props }">
@@ -286,7 +266,7 @@ export default {
                 ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته بندی ', '/', 'mdi-checkbox-blank-circle-outline'],
             ],
-            commerce:[
+            commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله‌ها ', '/', 'mdi-checkbox-blank-circle-outline'],
