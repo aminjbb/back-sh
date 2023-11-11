@@ -82,11 +82,11 @@
                         </template>
                     </span>
                 </div>
-                <v-col cols="12" md="2" class="d-flex justify-center align-center">
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="d-flex justify-center align-center">
                 <v-btn fab icon color="#FCE4EC" @click="sendSelectedSku(item,index, item.pivot.shps)">
                 <v-icon>mdi-plus</v-icon>
                 </v-btn>
-            </v-col>
+            </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
