@@ -731,7 +731,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'add/sku/:sellerId',
+          path: ':sellerId/add/sku',
           name: 'AddSkuSellerView',
           component: AddSkuSellerView,
           meta:{
