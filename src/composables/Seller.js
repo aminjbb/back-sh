@@ -95,7 +95,26 @@ export default function setup(posts) {
         { name: 'قابل فروش', type: 'select', value: 'sellable' },
         { name: 'محصول', type: 'auto-complete', value: 'product' },
     ];
-    
+    const filterPriceHistory = [
+
+        { name: 'کمترین قیمت مصرف‌کننده', type: 'text', value: 'min_price' },
+        { name: 'بیشترین قیمت مصرف‌کننده', type: 'text', value: 'max_price' },
+        { name: 'کمترین قیمت فروش', type: 'text', value: 'created_at' },
+        { name: 'بیشترین قیمت فروش', type: 'text', value: 'created_at' },
+        { name: 'کمترین تخفیف پایه', type: 'text', value: 'created_at' },
+        { name: 'بیشترین تخفیف پایه', type: 'text', value: 'created_at' },
+        { name: 'کمترین تخفیف مارکتینگ', type: 'text', value: 'created_at' },
+        { name: 'بیشترین تخفیف مارکتینگ', type: 'text', value: 'created_at' },
+
+    ];
+    const filterInventorySite = [
+
+        { name: 'کمترین موجودی', type: 'text', value: 'min_price' },
+        { name: 'بیشترین موجودی', type: 'text', value: 'max_price' },
+        { name: 'تاریخ', type: 'text', value: 'created_at' },
+
+
+    ];
     const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
@@ -177,15 +196,15 @@ export default function setup(posts) {
     }
     async function getSiteInventoryHistory(){
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = filter.params_generator(query.query)
+        // }
+        // else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `site/stock/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/site/stock/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -200,15 +219,15 @@ export default function setup(posts) {
     }
     async function getPriceHistory(){
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = filter.params_generator(query.query)
+        // }
+        // else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `history/price/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -266,5 +285,5 @@ export default function setup(posts) {
         }
     })
 
-    return {headerPriceHistory,headerSiteInventoryHistory,headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
+    return {filterInventorySite,filterPriceHistory,getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
 }

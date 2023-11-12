@@ -11,9 +11,9 @@
 
         <v-col cols="6">
           <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
+            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerPriceHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterField" />
+            <ModalTableFilter path="seller/index" :filterField="filterPriceHistory" />
           </v-row>
         </v-col>
       </v-row>
@@ -22,7 +22,7 @@
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
-          :header="headerWarehouseInventoryHistory"
+          :header="headerPriceHistory"
           :items="[]"
           :page="page"
           :perPage="dataTableLength"
@@ -32,7 +32,7 @@
           :loading="loading"
           @updateList = "updateList"
           updateUrl="seller/csv/mass-update"
-          model="seller" />
+          model="price" />
 
       <v-divider />
 
@@ -81,7 +81,7 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
@@ -90,24 +90,26 @@ export default {
     const {
       pageLength,
       sellerList,
-      filterField,
+      filterPriceHistory,
       dataTableLength,
       page,
-      headerWarehouseInventoryHistory,
+      headerPriceHistory,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      getPriceHistory
     } = Seller();
     return {
       pageLength,
       sellerList,
-      filterField,
+      filterPriceHistory,
       dataTableLength,
       page,
-      headerWarehouseInventoryHistory,
+      headerPriceHistory,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      getPriceHistory
     };
   },
 
@@ -137,7 +139,7 @@ export default {
   },
 
   mounted() {
-
+    this.getPriceHistory()
   },
 
   watch: {

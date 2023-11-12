@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterField" />
+            <ModalTableFilter path="seller/index" :filterField="filterInventorySite" />
           </v-row>
         </v-col>
       </v-row>
@@ -32,7 +32,7 @@
           :loading="loading"
           @updateList = "updateList"
           updateUrl="seller/csv/mass-update"
-          model="seller" />
+          model="siteInventory" />
 
       <v-divider />
 
@@ -90,24 +90,26 @@ export default {
     const {
       pageLength,
       sellerList,
-      filterField,
+      filterInventorySite,
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      getSiteInventoryHistory
     } = Seller();
     return {
       pageLength,
       sellerList,
-      filterField,
+      filterInventorySite,
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      getSiteInventoryHistory
     };
   },
 
@@ -137,7 +139,7 @@ export default {
   },
 
   mounted() {
-
+    this.getSiteInventoryHistory()
   },
 
   watch: {

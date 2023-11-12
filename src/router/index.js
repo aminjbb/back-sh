@@ -751,7 +751,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'sku/:sellerId/history/site-inventory',
+          path: 'sku/:sellerId/history/site-inventory/:skuId',
           name: 'SiteInventoryHistoryView',
           component: SiteInventoryHistoryView,
           meta:{
@@ -759,7 +759,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'sku/:sellerId/history/price',
+          path: 'sku/:sellerId/history/price/:skuId',
           name: 'PriceHistoryView',
           component: PriceHistoryView,
           meta:{

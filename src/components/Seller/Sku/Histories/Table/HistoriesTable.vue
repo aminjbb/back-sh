@@ -29,53 +29,112 @@
             :key="index"
             :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-between c-table__contents__row">
+            <div
+                v-if="header[0].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                              {{rowIndexTable(index)}}
+                          </span>
+              </div>
+            </div>
+          <template v-if="model === 'siteInventory'">
+            <div
+                v-if="header[1].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.previous_site_stock}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[3].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.change_amount}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[4].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.site_stock}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[5].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.created_at}}
+                          </span>
+              </div>
+            </div>
+          </template>
 
+          <template v-if="model === 'price'">
+            <div
+                v-if="header[1].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.customer_price}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[2].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.base_discount}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[3].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.marketing_discount}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[4].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.site_price}}
+                          </span>
+              </div>
+            </div>
+            <div
+                v-if="header[4].show"
+                class="c-table__contents__item"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300 text-gray500 py-5 number-font">
+                             {{item.created_at}}
+                          </span>
+              </div>
+            </div>
+          </template>
 
-<!--          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">-->
-<!--            <v-menu :location="location">-->
-<!--              <template v-slot:activator="{ props }">-->
-<!--                <v-icon v-bind="props" class="text-gray500">-->
-<!--                  mdi-dots-vertical-->
-<!--                </v-icon>-->
-<!--              </template>-->
-
-<!--              <v-list class="c-table__more-options">-->
-<!--                <v-list-item>-->
-<!--                  <v-list-item-title>-->
-<!--                    <div class="ma-5 pointer" @click="$router.push(editRoute(item.id  , item.type))">-->
-<!--                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>-->
-<!--                      <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            ویرایش-->
-<!--                                        </span>-->
-<!--                    </div>-->
-<!--                  </v-list-item-title>-->
-
-<!--                  <v-list-item-title>-->
-<!--                    <div class="ma-5 pointer" @click="changeStatus(item)">-->
-<!--                      <template v-if="item.contract_status === 'associate'">-->
-<!--                        <v-icon class="text-grey-darken-1">mdi-close-circle-outline</v-icon>-->
-<!--                        <span class="mr-2 text-grey-darken-1 t14300">توقف همکاری </span>-->
-<!--                      </template>-->
-
-<!--                      <template v-if="item.contract_status === 'disassociate'">-->
-<!--                        <v-icon class="text-grey-darken-1">mdi-check-circle-outline</v-icon>-->
-<!--                        <span class="mr-2 text-grey-darken-1 t14300">شروع همکاری </span>-->
-<!--                      </template>-->
-<!--                    </div>-->
-<!--                  </v-list-item-title>-->
-
-<!--                  <v-list-item-title>-->
-<!--                    <div class="ma-5 pointer" @click="$router.push('/seller/add/sku/'+ item.id)">-->
-<!--                      <v-icon class="text-grey-darken-1">mdi-view-list-outline</v-icon>-->
-<!--                      <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            لیست کالا‌ها-->
-<!--                                        </span>-->
-<!--                    </div>-->
-<!--                  </v-list-item-title>-->
-<!--                </v-list-item>-->
-<!--              </v-list>-->
-<!--            </v-menu>-->
-<!--          </div>-->
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
