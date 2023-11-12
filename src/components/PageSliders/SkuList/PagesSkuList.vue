@@ -62,6 +62,8 @@
             <v-row class="px-8">
                 <v-col cols="3" class="d-flex justify-start">
                     <ModalExcelDownload getEndPoint="page/csv/get/export" />
+                    
+
                 </v-col>
 
                 <v-col cols="6" class="d-flex justify-center">
@@ -85,6 +87,8 @@
                         <span class="ml-5">
                             تعداد سطر در هر صفحه
                         </span>
+
+                        
                         <span class="mt-2" id="row-selector">
                             <v-select
                                 v-model="dataTableLength"
@@ -92,10 +96,29 @@
                                 variant="outlined"
                                 :items="[25,50,100]" />
                         </span>
+                        
+                       
                     </div>
                 </v-col>
             </v-row>
+            
         </v-card-actions>
+        <v-divider />
+        <v-card-actions class="mt-auto">
+        <v-row justify="end" class="px-8 py-4">
+          <v-btn
+            color="white"
+            height="40"
+            rounded
+            style="background-color: #E91E63;"
+            class="px-8"
+            @click="goBack"
+          >
+            تایید و ثبت
+          </v-btn>
+        </v-row>
+      </v-card-actions>
+
     </v-card>
 </div>
 </template>
@@ -204,6 +227,13 @@ export default {
             }
         },
 
+        goBack() {
+    if (this.$router) {
+      this.$router.back();
+    } else {
+      console.error('Router instance is not available');
+    }
+  },
         updateList(status) {
             if (status === 'true') {
                 this.getSliderSkuList();
