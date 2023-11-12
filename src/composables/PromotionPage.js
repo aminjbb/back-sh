@@ -8,8 +8,10 @@ import { useCookies } from "vue3-cookies";
 export default function setup(posts) {
     const promotions =ref([])
     const promotion = ref(null)
+    const promotionSkuGroups = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
+    const pageLengthSkuGroup = ref(1)
     const cookies = useCookies()
     const page = ref(1)
     const router = useRouter()
@@ -34,10 +36,7 @@ export default function setup(posts) {
 
     const filterField = [
         {name:'نام فارسی' , type:'text', value:'label'},
-        { name:'نام انگلیسی' , type: 'text', value:'name'},
-        { name: 'منو مادر', type:'select', value:'menu'},
-        { name: 'آیکون', type:'select', value:'has_icon'},
-        { name: 'تصویر', type:'select', value:'has_image'},
+        { name:'تاریخ ساخت' , type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'is_active'},
     ];
 
@@ -71,11 +70,36 @@ export default function setup(posts) {
         else {
         }
     };
+    async function getPromotionSkuGroups(page , perPage) {
+        loading.value = true
+        const form ={
+            page :page,
+            per_page : perPage
+        }
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.form = form
+        AxiosMethod.end_point = `page/promotion/crud/get/sku_groups/${route.params.promotionId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLengthSkuGroup.value = Math.ceil(data.data.total / data.data.per_page)
+            promotionSkuGroups.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+        else {
+        }
+    };
     async function getPromotion(){
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `system/menu/crud/get/${route.params.menuId}`
+        AxiosMethod.end_point = `page/promotion/crud/get/${route.params.promotionId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             promotion.value = data.data
@@ -113,6 +137,6 @@ export default function setup(posts) {
         }
     })
 
-    return {promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading }
+    return {getPromotionSkuGroups,promotionSkuGroups, pageLengthSkuGroup,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading }
 }
 

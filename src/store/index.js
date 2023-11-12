@@ -1,5 +1,6 @@
-
-import { createStore } from "vuex";
+import {
+  createStore
+} from "vuex";
 
 export default createStore({
   state: {
@@ -15,54 +16,76 @@ export default createStore({
       confirmModalEndpoint: '',
       confirmModalClose: true,
     },
-    progressUpload:0,
-    menuNotifications:[],
-    massUpdateModal:false,
-    adminNewChat:null,
+    progressUpload: 0,
+    menuNotifications: [],
+    massUpdateModal: false,
+    adminNewChat: null,
     avatar: null,
-    naturalSellerStep1:null,
-    naturalSellerStep2:null,
-    naturalSellerStep3:null,
-    legalSellerStep1:null,
-    legalSellerStep2:null,
-    legalSellerStep3:null,
-    legalSellerStep4:null,
+    naturalSellerStep1: null,
+    naturalSellerStep2: null,
+    naturalSellerStep3: null,
+    legalSellerStep1: null,
+    legalSellerStep2: null,
+    legalSellerStep3: null,
+    legalSellerStep4: null,
+    //seller modals
+    orderLimitModal: {
+      dialog: false,
+      id: ''
+    },
+    marketingDiscountModal: {
+      dialog: false,
+      id: ''
+    },
+    inventoryManagementModal: {
+      dialog: false,
+      id: ''
+    },
+    consumerPriceModal: {
+      dialog: false,
+      id: ''
+    },
+    basicDiscountModal: {
+      dialog: false,
+      id: ''
+    },
   },
+
   mutations: {
-    set_legalSellerStep4(state , obj){
+    set_legalSellerStep4(state, obj) {
       state.legalSellerStep4 = obj
     },
-    set_legalSellerStep3(state , obj){
+    set_legalSellerStep3(state, obj) {
       state.legalSellerStep3 = obj
     },
-    set_legalSellerStep2(state , obj){
+    set_legalSellerStep2(state, obj) {
       state.legalSellerStep2 = obj
     },
-    set_legalSellerStep1(state , obj){
+    set_legalSellerStep1(state, obj) {
       state.legalSellerStep1 = obj
     },
-    set_naturalSellerStep3(state , obj){
+    set_naturalSellerStep3(state, obj) {
       state.naturalSellerStep3 = obj
     },
-    set_naturalSellerStep2(state , obj){
+    set_naturalSellerStep2(state, obj) {
       state.naturalSellerStep2 = obj
     },
-    set_naturalSellerStep1(state , obj){
+    set_naturalSellerStep1(state, obj) {
       state.naturalSellerStep1 = obj
     },
-    set_avatar(state , avatar){
+    set_avatar(state, avatar) {
       state.avatar = avatar
     },
-    set_adminNewChat(state , user){
+    set_adminNewChat(state, user) {
       state.adminNewChat = user
     },
-    set_massUpdateModal(state , bool){
+    set_massUpdateModal(state, bool) {
       state.massUpdateModal = bool
     },
-    set_menuNotifications(state , obj){
+    set_menuNotifications(state, obj) {
       state.menuNotifications = obj
     },
-    set_progressUpload(state , number){
+    set_progressUpload(state, number) {
       state.progressUpload = number
     },
     set_toast(state, form) {
@@ -78,49 +101,68 @@ export default createStore({
       state.confirmForm.confirmModalIcon = form.confirmModalIcon
       state.confirmForm.confirmModalEndpoint = form.confirmModalEndpoint
       state.confirmForm.confirmModalClose = form.confirmModalClose
-    }
-
+    },
+    //seller modals
+    set_orderLimitModal(state, form) {
+      state.orderLimitModal.dialog = form.dialog
+      state.orderLimitModal.id = form.id
+    },
+    set_marketingDiscountModal(state, form) {
+      state.marketingDiscountModal.dialog = form.dialog
+      state.marketingDiscountModal.id = form.id
+    },
+    set_inventoryManagementModal(state, form) {
+      state.inventoryManagementModal.dialog = form.dialog
+      state.inventoryManagementModal.id = form.id
+    },
+    set_consumerPriceModal(state, form) {
+      state.consumerPriceModal.dialog = form.dialog
+      state.consumerPriceModal.id = form.id
+    },
+    set_basicDiscountModal(state, form) {
+      state.basicDiscountModal.dialog = form.dialog
+      state.basicDiscountModal.id = form.id
+    },
   },
 
-  actions: {
-  },
+  actions: {},
 
   getters: {
-    get_legalSellerStep4(state ){
-     return  state.legalSellerStep4
+    get_legalSellerStep4(state) {
+      return state.legalSellerStep4
     },
-    get_legalSellerStep3(state){
-     return  state.legalSellerStep3
+    get_legalSellerStep3(state) {
+      return state.legalSellerStep3
     },
-    get_legalSellerStep2(state){
-     return  state.legalSellerStep2
+    get_legalSellerStep2(state) {
+      return state.legalSellerStep2
     },
-    get_legalSellerStep1(state){
-     return  state.legalSellerStep1
+    get_legalSellerStep1(state) {
+      return state.legalSellerStep1
     },
-    get_naturalSellerStep3(state){
-     return  state.naturalSellerStep3
+    get_naturalSellerStep3(state) {
+      return state.naturalSellerStep3
     },
-    get_naturalSellerStep2(state){
-     return  state.naturalSellerStep2
+    get_naturalSellerStep2(state) {
+      return state.naturalSellerStep2
     },
-    get_naturalSellerStep1(state){
-      return  state.naturalSellerStep1
+    get_naturalSellerStep1(state) {
+      return state.naturalSellerStep1
     },
-    get_avatar(state){
-      return  state.avatar
+    get_avatar(state) {
+      return state.avatar
     },
-    get_adminNewChat(state ){
-     return  state.adminNewChat
+    get_adminNewChat(state) {
+      return state.adminNewChat
     },
-    get_massUpdateModal(state){
-      return   state.massUpdateModal
+    get_massUpdateModal(state) {
+      return state.massUpdateModal
     },
-    get_menuNotifications(state ){
-      return state.menuNotifications 
+    get_menuNotifications(state) {
+      return state.menuNotifications
     },
-    get_progressUpload(state ){
-      return  state.progressUpload
+    get_progressUpload(state) {
+      return state.progressUpload
     },
     get_confirmForm(state) {
       return state.confirmForm
@@ -128,13 +170,27 @@ export default createStore({
     get_toast(state) {
       return state.toast
     },
-
     get_toastText(state) {
       return state.toastText
     },
-
     get_toastStatus(state) {
       return state.toastStatus
-    }
+    },
+    //seller modals
+    get_orderLimitModal(state) {
+      return state.orderLimitModal
+    },
+    get_marketingDiscountModal(state) {
+      return state.marketingDiscountModal
+    },
+    get_inventoryManagementModal(state) {
+      return state.inventoryManagementModal
+    },
+    get_consumerPriceModal(state) {
+      return state.consumerPriceModal
+    },
+    get_basicDiscountModal(state) {
+      return state.basicDiscountModal
+    },
   }
 });

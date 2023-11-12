@@ -82,6 +82,11 @@
                         </template>
                     </span>
                 </div>
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="d-flex justify-center align-center">
+                <v-btn fab icon color="#FCE4EC" @click="sendSelectedSku(item,index, item.pivot.shps)">
+                <v-icon>mdi-plus</v-icon>
+                </v-btn>
+            </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -253,9 +258,8 @@ export default {
         items(val) {
             this.active = []
             val.forEach(element => {
-                var active = false
-                if (element.is_active == 1) active = true
-                this.active.push(active)
+             
+                this.priorityModal.push(element.pivot?.priority)
             });
         }
     },
@@ -269,6 +273,39 @@ export default {
             this.$store.commit('set_massUpdateModal', true)
         },
 
+        sendSelectedSku(sku,index,shps) {
+            console.log('SKU:', sku);
+            console.log('SKU:', sku);
+    console.log('Priority:', this.priorityModal[index]);
+
+
+        const formData = new FormData();
+        formData.append('sku_id', sku.id);
+        formData.append('priority', this.priorityModal[index]);
+        formData.append('shps', shps );
+
+
+
+        this.sendSkus(formData);
+    },
+
+    async sendSkus(formData) {
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken');
+        AxiosMethod.end_point = `page/slider/${this.$route.params.sliderId}/sku/attach`;
+        AxiosMethod.form = formData;
+
+        try {
+            let response = await AxiosMethod.axios_post();
+            if (response) {
+                openToast(this.$store, 'ثبت با موفقیت', "success");
+            }
+        } catch (error) {
+            console.error(error);
+            openToast(this.$store, 'اشکال در ثبت', "error");
+        }
+    },
         /**
          * Get row index in table
          * @param {*} index

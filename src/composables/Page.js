@@ -70,6 +70,8 @@ export default function setup(posts) {
         { name: 'نام کالا', show: true , value:'label', order: false},
         { name: 'SHPS', show: true, value:'shps' , order: false},
         { name: 'ترتیب نمایش', show: true , value:'sort', order: false},
+        { name: 'ذخیره', show: true, value:'save' , order: false},
+
     ]);
     
     const loading = ref(false)

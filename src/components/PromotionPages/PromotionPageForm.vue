@@ -85,23 +85,16 @@ export default {
      */
     setForm() {
       try {
-        this.form.lable = this.menu.label
-        this.form.name = this.menu.name
-        if (this.menu.menu_id) this.form.menu = this.menu.menu_id
-        else this.form.menu = 'none'
-        this.form.priority = this.menu.priority
-        this.form.icon = this.menu.icon
-        this.form.url = this.menu.url
-        this.form.deviceType = this.menu.type
-        this.form.flashIcon = this.menu.has_chevron
-        this.form.position = this.menu.position
+        this.form.lable = this.promotion.label
+        this.form.name = this.promotion.name
+
 
       } catch (error) {
         console.log(error) }
     }
   },
   watch: {
-    menu(){
+    promotion(){
       this.setForm()
     }
   },
