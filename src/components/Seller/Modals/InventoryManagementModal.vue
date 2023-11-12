@@ -165,10 +165,24 @@ export default {
                     'مقدار مورد نظر ویرایش شد.',
                     "success"
                 );
+                this.updateList('true');
             } else {
                 this.loadingIncrease = false;
                 this.loadingDecrease = false;
+                openToast(
+                    this.$store,
+                    'ویرایش با مشکل مواجه شد',
+                    "error"
+                );
             }
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+         updateList(status) {
+            this.$emit('updateList', status);
         },
     },
 

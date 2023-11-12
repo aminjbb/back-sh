@@ -117,10 +117,25 @@ export default {
                     'مقدار مورد نظر ویرایش شد.',
                     "success"
                 );
+                this.updateList('true');
             } else {
-                this.loading = false
+                this.loading = false;
+                openToast(
+                    this.$store,
+                    'ویرایش با مشکل مواجه شد',
+                    "error"
+                );
             }
-        }
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+         updateList(status) {
+            console.log('1',status)
+            this.$emit('updateList', status);
+        },
     }
 }
 </script>

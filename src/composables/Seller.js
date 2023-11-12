@@ -157,6 +157,7 @@ export default function setup(posts) {
         }
     };
     async function getSkuSeller(query) {
+        loading.value = true
         let paramsQuery = null
         if (query){
             paramsQuery = skuFilter.params_generator(query.query)
@@ -169,8 +170,10 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get()
         if (data) {
             sellerSku.value = data.data
+            loading.value = false
         }
     };
+    
     async function getWarehouseInventoryHistory(){
         loading.value = true
         let paramsQuery = null
