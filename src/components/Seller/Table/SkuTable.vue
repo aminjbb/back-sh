@@ -294,7 +294,11 @@
     </div>
 
     <ModalMassUpdate :updateUrl="updateUrl" />
-
+    <OrderLimitModal />
+    <InventoryManagementModal />
+    <ConsumerPriceModal />
+    <BasicDiscountModal />
+    <MarketingDiscountModal />
   </div>
 </template>
 
@@ -307,10 +311,21 @@ import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {PanelFilter} from "@/assets/js/filter"
 import {SkuPanelFilter} from "@/assets/js/filter_sku"
 import {openToast } from "@/assets/js/functions";
+import {openModal} from "@/assets/js/functions_seller";
+import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
+import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
+import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
+import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
+import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
 export default {
   components: {
     ModalMassUpdate,
-    AddAttributeValueModal
+    AddAttributeValueModal,
+    OrderLimitModal,
+    InventoryManagementModal,
+    ConsumerPriceModal,
+    BasicDiscountModal,
+    MarketingDiscountModal,
   },
 
   props: {

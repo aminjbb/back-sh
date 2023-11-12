@@ -31,7 +31,7 @@
             class="d-flex justify-between c-table__contents__row">
             <div
                 v-if="header[0].show"
-                class="c-table__contents__item"
+                class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
@@ -42,41 +42,51 @@
           <template v-if="model === 'siteInventory'">
             <div
                 v-if="header[1].show"
-                class="c-table__contents__item"
+                class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
-                          <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.previous_site_stock}}
+                          <span v-if="item.previous_site_stock" class="t14300 text-gray500 py-5 number-font">
+                             {{splitChar(item.previous_site_stock)}}
+                          </span>
+                <span v-else>
+                    -
+                </span>
+              </div>
+            </div>
+            <div
+                v-if="header[2].show"
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div class="d-flex align-center">
+                          <span class="t14300  py-5 number-font" :class="item.change_type === 'increase' ? 'text-success' : 'text-error'">
+
+                            {{splitChar(item.change_amount)}}
+                          </span>
+                          <span v-if="item.change_type === 'increase'" class="text-success">
+                              +
+                          </span>
+                          <span v-else class="text-error">
+                            +
                           </span>
               </div>
             </div>
             <div
                 v-if="header[3].show"
-                class="c-table__contents__item"
+                class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.change_amount}}
+                             {{ splitChar(item.site_stock)}}
                           </span>
               </div>
             </div>
             <div
                 v-if="header[4].show"
-                class="c-table__contents__item"
+                class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.site_stock}}
-                          </span>
-              </div>
-            </div>
-            <div
-                v-if="header[5].show"
-                class="c-table__contents__item"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <div class="d-flex align-center">
-                          <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.created_at}}
+                             {{convertDateToJalai(item.created_at ,'-' , true) }}
                           </span>
               </div>
             </div>
@@ -160,7 +170,7 @@ import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
   openToast,
   openConfirm,
-  isOdd
+  isOdd, convertDateToJalai , splitChar
 } from "@/assets/js/functions";
 export default {
   components: {
@@ -313,6 +323,8 @@ export default {
   },
 
   methods: {
+    splitChar,
+    convertDateToJalai,
     editRoute(id, type) {
       if (type == 'legal') {
         return '/seller/edit/legal-seller/' + id;

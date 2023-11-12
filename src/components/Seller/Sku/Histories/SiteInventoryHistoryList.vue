@@ -23,7 +23,7 @@
       <Table
           class="flex-grow-1"
           :header="headerWarehouseInventoryHistory"
-          :items="[]"
+          :items="siteInventoryHistory.data"
           :page="page"
           :perPage="dataTableLength"
           editUrl="/seller/edit/"
@@ -89,7 +89,6 @@ export default {
   setup(props) {
     const {
       pageLength,
-      sellerList,
       filterInventorySite,
       dataTableLength,
       page,
@@ -97,11 +96,11 @@ export default {
       addPagination,
       addPerPage,
       loading,
-      getSiteInventoryHistory
+      getSiteInventoryHistory,
+      siteInventoryHistory
     } = Seller();
     return {
       pageLength,
-      sellerList,
       filterInventorySite,
       dataTableLength,
       page,
@@ -109,7 +108,8 @@ export default {
       addPagination,
       addPerPage,
       loading,
-      getSiteInventoryHistory
+      getSiteInventoryHistory,
+      siteInventoryHistory
     };
   },
 
