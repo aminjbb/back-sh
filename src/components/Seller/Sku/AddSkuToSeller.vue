@@ -1,130 +1,125 @@
 <template>
-  <div class="h-100 d-flex flex-column align-stretch sku-seller">
+<div class="h-100 d-flex flex-column align-stretch sku-seller">
     <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
-      <v-row
-          justify="center"
-          align="center"
-          class="px-10 py-5">
-        <v-col cols="6">
-          <v-row justify="start">
-            <v-autocomplete
-                placeholder="نام کالا یا شماره SKU را جستجو نمایید"
-                variant="outlined"
-                prepend-inner-icon-cb="mdi-map-marker"
-                rounded="lg"
-                :items="skuList"
-                item-title="name"
-                item-value="id"
-                v-debounce:1s.unlock="searchSku"
-            >
+        <v-row
+            justify="center"
+            align="center"
+            class="px-10 py-5">
+            <v-col cols="6">
+                <v-row justify="start">
+                    <v-autocomplete
+                        placeholder="نام کالا یا شماره SKU را جستجو نمایید"
+                        variant="outlined"
+                        prepend-inner-icon-cb="mdi-map-marker"
+                        rounded="lg"
+                        :items="skuList"
+                        item-title="name"
+                        item-value="id"
+                        v-debounce:1s.unlock="searchSku">
 
+                        <template v-slot:item="item">
+                            <v-list-item>
+                                <v-row justify="center">
 
-              <template v-slot:item="{ props, item }">
-                <v-list-item
-                >
-                  <v-row justify="center">
+                                    <v-col cols="4">
 
-                    <v-col cols="4">
+                                        <div @click="assignSkuToSeller(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </div>
 
-                    <div @click="assignSkuToSeller(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
-                      <v-icon>mdi-plus</v-icon>
-                    </div>
+                                    </v-col>
+                                    <v-col cols="8">
+                                        <text-clamp
+                                            :text='item?.props?.title'
+                                            :max-lines='1'
+                                            autoResize
+                                            location="start"
+                                            class="text-gray500 t14300 text-right" />
+                                    </v-col>
+                                </v-row>
+                            </v-list-item>
+                        </template>
+                    </v-autocomplete>
 
-                    </v-col>
-                    <v-col cols="8">
-                      <text-clamp
-                          :text='item?.props?.title'
-                          :max-lines='1'
-                          autoResize
-                          location="start"
-                          class="text-gray500 t14300 text-right" />
-                    </v-col>
-                  </v-row>
-                </v-list-item>
-              </template>
-            </v-autocomplete>
+                    <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="seller/sku/csv/bulk" />
 
-            <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="seller/sku/csv/bulk" />
+                </v-row>
+            </v-col>
 
-          </v-row>
-        </v-col>
+            <v-col cols="6">
+                <v-row justify="end">
+                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
 
-        <v-col cols="6">
-          <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
-
-            <SkuModalTableFilter
-                :path="`seller/add/sku/${$route.params.sellerId}`"
-                :filterField="filterFieldSku"
-                :brandsList="brandsList"
-                :colorsList="colorsList"
-                :categoriesList="categoriesList"
-                :skuGroupList="skuGroupList"
-                show-category
-                model="sellerSku"
-            />
-          </v-row>
-        </v-col>
-      </v-row>
+                    <SkuModalTableFilter
+                        :path="`seller/add/sku/${$route.params.sellerId}`"
+                        :filterField="filterFieldSku"
+                        :brandsList="brandsList"
+                        :colorsList="colorsList"
+                        :categoriesList="categoriesList"
+                        :skuGroupList="skuGroupList"
+                        show-category
+                        model="sellerSku" />
+                </v-row>
+            </v-col>
+        </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-            height="580">
-      <Table
-          class="flex-grow-1"
-          :header="headerSku"
-          :items="sellerSku.data"
-          editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
-          changeStatusUrl="seller/crud/update/contract/"
-          :loading="loading"
-          @updateList = "updateList"
-          updateUrl="seller/csv/mass-update"
-          model="sku"  />
+    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+        <Table
+            class="flex-grow-1"
+            :header="headerSku"
+            :items="sellerSku.data"
+            editUrl="/seller/edit/"
+            activePath="seller/crud/update/activation/"
+            deletePath="seller/crud/update/activation/"
+            changeStatusUrl="seller/crud/update/contract/"
+            :loading="loading"
+            @updateList="updateList"
+            updateUrl="seller/csv/mass-update"
+            model="sku" />
 
-      <v-divider />
+        <v-divider />
 
-      <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload :getEndPoint="`seller/${$route.params.sellerId}/sku/csv/get/export`" />
-          </v-col>
+        <v-card-actions class="pb-3">
+            <v-row class="px-8">
+                <v-col cols="3" class="d-flex justify-start">
+                    <ModalExcelDownload :getEndPoint="`seller/${$route.params.sellerId}/sku/csv/get/export`" />
+                </v-col>
 
-          <v-col cols="6" class="d-flex justify-center">
-            <div class="text-center">
-              <v-pagination
-                  v-model="skuPage"
-                  :length="pageLength"
-                  rounded="circle"
-                  size="40"
-                  :total-visible="4"
-                  prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
-            </div>
-          </v-col>
+                <v-col cols="6" class="d-flex justify-center">
+                    <div class="text-center">
+                        <v-pagination
+                            v-model="skuPage"
+                            :length="pageLength"
+                            rounded="circle"
+                            size="40"
+                            :total-visible="4"
+                            prev-icon="mdi-chevron-right"
+                            next-icon="mdi-chevron-left" />
+                    </div>
+                </v-col>
 
-          <v-col cols="3" class="d-flex justify-end">
-            <div
-                align="center"
-                id="rowSection"
-                class="d-flex align-center">
+                <v-col cols="3" class="d-flex justify-end">
+                    <div
+                        align="center"
+                        id="rowSection"
+                        class="d-flex align-center">
                         <span class="ml-5">
                             تعداد سطر در هر صفحه
                         </span>
-              <span class="mt-2" id="row-selector">
+                        <span class="mt-2" id="row-selector">
                             <v-select
                                 v-model="dataSkuTableLength"
                                 class="t1330"
                                 variant="outlined"
                                 :items="[25,50,100]" />
                         </span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card-actions>
     </v-card>
-  </div>
+</div>
 </template>
 
 <script>
@@ -134,211 +129,245 @@ import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
+import {
+    openToast
+} from "@/assets/js/functions";
+import {
+    AxiosCall
+} from "@/assets/js/axios_call";
 import Brands from "@/composables/Brands";
 import Colors from "@/composables/Colors";
 import Categories from "@/composables/Categories";
 import Sku from "@/composables/Sku";
 export default {
-  setup(props) {
-    const { allBrands, getAllBrands } = Brands();
-    const { allColors, getAllColor } = Colors();
-    const { allCategories, getAllCategories } = Categories();
-    const { getAllSkuGroups, allSkuGroups } = Sku();
-    const {
-      getSkuSeller , sellerSku,headerSku,
-      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuPerPage,pageLength
-    } = Seller();
-    return {
-      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuPerPage , pageLength,
-      allCategories, getAllCategories,
-      allColors, getAllColor,
-      allBrands, getAllBrands,
-      getAllSkuGroups, allSkuGroups,
-      skuPage ,dataSkuTableLength
-    };
-  },
-
-  data(){
-    return{
-      skuSearchList:[]
-    }
-  },
-
-  components: {
-    Table,
-    ModalGroupAdd,
-    SkuModalTableFilter,
-    ModalColumnFilter,
-    ModalExcelDownload,
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    },
-    skuGroupList(){
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value : skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      }
-      catch (e) {
-        return  []
-      }
-    },
-    skuList(){
-      try {
-        let sku = []
-        this.skuSearchList.forEach(permission => {
-          const form = {
-            name: permission.label + '(' +permission.id+')',
-            id : permission.id
-          }
-          sku.push(form)
-        })
-        return sku
-      }
-      catch (e) {
-        return  []
-      }
-    },
-    categoriesList() {
-      try {
-        const categories = []
-        this.allCategories.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id
-          }
-          categories.push(form)
-        });
-        return categories
-      } catch (error) {
-        return []
-      }
+    setup(props) {
+        const {
+            allBrands,
+            getAllBrands
+        } = Brands();
+        const {
+            allColors,
+            getAllColor
+        } = Colors();
+        const {
+            allCategories,
+            getAllCategories
+        } = Categories();
+        const {
+            getAllSkuGroups,
+            allSkuGroups
+        } = Sku();
+        const {
+            getSkuSeller,
+            sellerSku,
+            headerSku,
+            filterFieldSku,
+            skuPage,
+            dataSkuTableLength,
+            addSkuPerPage,
+            pageLength,
+            loading
+        } = Seller();
+        return {
+            getSkuSeller,
+            sellerSku,
+            headerSku,
+            filterFieldSku,
+            addSkuPerPage,
+            pageLength,
+            allCategories,
+            getAllCategories,
+            allColors,
+            getAllColor,
+            allBrands,
+            getAllBrands,
+            getAllSkuGroups,
+            allSkuGroups,
+            skuPage,
+            dataSkuTableLength,
+            loading
+        };
     },
 
-    brandsList() {
-      try {
-        const brands = []
-        this.allBrands.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id
-          }
-          brands.push(form)
-        });
-        return brands
-      } catch (error) {
-        return []
-      }
-    },
-
-    colorsList() {
-      try {
-        const colors = []
-        this.allColors.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id,
-          }
-          colors.push(form)
-        });
-        return colors
-      } catch (error) {
-        return []
-      }
-    },
-  },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
-    },
-
-    updateList(status){
-      if(status === 'true'){
-        this.getSkuSeller();
-      }
-    },
-    async searchSku(e){
-      const filter = {
-        per_page : 10,
-        q : e
-      }
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.form = filter
-      AxiosMethod.end_point = `product/sku/crud/index/`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.skuSearchList = data.data.data
-      }
-    },
-
-    async assignSkuToSeller(id){
-      const formData = new FormData()
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store =  this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
-      formData.append('sku_id' , id)
-      formData.append('is_active' , 1)
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.getSkuSeller();
-        openToast(
-            this.$store,
-            'کد کالا با موفقیت افزوده شد.',
-            "success"
-        );
-      }
-    }
-  },
-
-  mounted() {
-    const filter = {
-      per_page : 100000
-    }
-    this.getSkuSeller();
-    this.getAllBrands();
-    this.getAllColor();
-    this.getAllCategories();
-    this.getAllSkuGroups(filter);
-  },
-
-  watch: {
-    dataSkuTableLength(val) {
-      this.addSkuPerPage(val)
-    },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getSellerList();
-          openToast(
-              this.$store,
-              'انبار با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
+    data() {
+        return {
+            skuSearchList: []
         }
-      }
     },
-    $route(to, from){
-      this.getSkuSeller()
-    }
 
-  }
+    components: {
+        Table,
+        ModalGroupAdd,
+        SkuModalTableFilter,
+        ModalColumnFilter,
+        ModalExcelDownload,
+    },
+
+    computed: {
+        confirmModal() {
+            return this.$store.getters['get_confirmForm'].confirmModal
+        },
+        skuGroupList() {
+            try {
+                let group = []
+                this.allSkuGroups.data.forEach(skuGroup => {
+                    const form = {
+                        label: skuGroup.label,
+                        value: skuGroup.id
+                    }
+                    group.push(form)
+                })
+                return group
+            } catch (e) {
+                return []
+            }
+        },
+        skuList() {
+            try {
+                let sku = []
+                this.skuSearchList.forEach(permission => {
+                    const form = {
+                        name: permission.label + '(' + permission.id + ')',
+                        id: permission.id
+                    }
+                    sku.push(form)
+                })
+                return sku
+            } catch (e) {
+                return []
+            }
+        },
+        categoriesList() {
+            try {
+                const categories = []
+                this.allCategories.data.forEach(element => {
+                    const form = {
+                        label: element.label,
+                        value: element.id
+                    }
+                    categories.push(form)
+                });
+                return categories
+            } catch (error) {
+                return []
+            }
+        },
+
+        brandsList() {
+            try {
+                const brands = []
+                this.allBrands.data.forEach(element => {
+                    const form = {
+                        label: element.label,
+                        value: element.id
+                    }
+                    brands.push(form)
+                });
+                return brands
+            } catch (error) {
+                return []
+            }
+        },
+
+        colorsList() {
+            try {
+                const colors = []
+                this.allColors.data.forEach(element => {
+                    const form = {
+                        label: element.label,
+                        value: element.id,
+                    }
+                    colors.push(form)
+                });
+                return colors
+            } catch (error) {
+                return []
+            }
+        },
+    },
+
+    methods: {
+        changeHeaderShow(index, value) {
+            this.headerSku[index].show = value
+        },
+
+        updateList(status) {
+            console.log('3.skuList', status)
+            if (status === 'true') {
+                this.getSkuSeller();
+            }
+        },
+
+        async searchSku(e) {
+            const filter = {
+                per_page: 10,
+                q: e
+            }
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.form = filter
+            AxiosMethod.end_point = `product/sku/crud/index/`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.skuSearchList = data.data.data
+            }
+        },
+
+        async assignSkuToSeller(id) {
+            const formData = new FormData()
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.store = this.$store
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
+            formData.append('sku_id', id)
+            formData.append('is_active', 1)
+            AxiosMethod.form = formData
+            let data = await AxiosMethod.axios_post()
+            if (data) {
+                this.getSkuSeller();
+                openToast(
+                    this.$store,
+                    'کد کالا با موفقیت افزوده شد.',
+                    "success"
+                );
+            }
+        }
+    },
+
+    mounted() {
+        const filter = {
+            per_page: 100000
+        }
+        this.getSkuSeller();
+        this.getAllBrands();
+        this.getAllColor();
+        this.getAllCategories();
+        this.getAllSkuGroups(filter);
+    },
+
+    watch: {
+        dataSkuTableLength(val) {
+            this.addSkuPerPage(val)
+        },
+        confirmModal(val) {
+            if (this.$cookies.get('deleteItem')) {
+                if (!val) {
+                    this.getSellerList();
+                    openToast(
+                        this.$store,
+                        'انبار با موفقیت حذف شد',
+                        "success"
+                    );
+                    this.$cookies.remove('deleteItem')
+                }
+            }
+        },
+        $route(to, from) {
+            this.getSkuSeller()
+        }
+
+    }
 }
 </script>

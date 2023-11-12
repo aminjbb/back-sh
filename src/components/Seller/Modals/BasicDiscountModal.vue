@@ -25,64 +25,88 @@
                 <div v-if="calculatedData !== null" class="modal__content modal__content--cols d--rtl py-3 px-4 d-flex justify-star align-center">
                     <div class="d-flex justify-star align-center pa-2 mb-2">
                         <span class="modal__content__title">قیمت مصرف کننده: </span>
-                        <span v-if="calculatedData.customer_price !== null" class="modal__content__txt number-font">{{calculatedData.customer_price}}</span>
+                        <span v-if="calculatedData.customer_price !== null" class="modal__content__txt number-font">
+                            {{calculatedData.customer_price}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2 mb-2">
                         <span class="modal__content__title">تخفیف پایه: </span>
-                        <span v-if="calculatedData.base_discount !== null" class="modal__content__txt number-font">{{calculatedData.base_discount}}</span>
+                        <span v-if="calculatedData.base_discount !== null" class="modal__content__txt number-font">
+                            {{calculatedData.base_discount}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">تخفیف مارکتینگ: </span>
-                        <span v-if="calculatedData.marketing_discount !== null" class="modal__content__txt number-font">{{calculatedData.marketing_discount}}</span>
+                        <span v-if="calculatedData.marketing_discount !== null" class="modal__content__txt number-font">
+                            {{calculatedData.marketing_discount}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">قیمت فروش: </span>
-                        <span v-if="calculatedData.site_price !== null" class="modal__content__txt number-font">{{calculatedData.site_price}}</span>
+                        <span v-if="calculatedData.site_price !== null" class="modal__content__txt number-font">
+                            {{calculatedData.site_price}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان شروع تخفیف مارکتینگ: </span>
-                        <span v-if="calculatedData.base_discount_start_time !== null" class="modal__content__txt number-font">{{calculatedData.base_discount_start_time}}</span>
+                        <span v-if="calculatedData.base_discount_start_time !== null" class="modal__content__txt number-font">
+                            {{convertDate(calculatedData.base_discount_start_time)}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان پایان تخفیف مارکتینگ : </span>
-                        <span v-if="calculatedData.base_discount_end_time !== null" class="modal__content__txt number-font">{{calculatedData.base_discount_end_time}}</span>
+                        <span v-if="calculatedData.base_discount_end_time !== null" class="modal__content__txt number-font">
+                            {{convertDate(calculatedData.base_discount_end_time)}}
+                        </span>
                     </div>
                 </div>
 
                 <div v-else class="modal__content modal__content--cols d--rtl py-3 px-4 d-flex justify-star align-center">
                     <div class="d-flex justify-star align-center pa-2 mb-2">
                         <span class="modal__content__title">قیمت مصرف کننده: </span>
-                        <span v-if="data && data.customer_price !== null" class="modal__content__txt number-font">{{data.customer_price}}</span>
+                        <span v-if="data && data.customer_price !== null" class="modal__content__txt number-font">
+                            {{data.customer_price}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2 mb-2">
                         <span class="modal__content__title">تخفیف پایه: </span>
-                        <span v-if="data && data.base_discount !== null" class="modal__content__txt number-font">{{data.base_discount}}</span>
+                        <span v-if="data && data.base_discount !== null" class="modal__content__txt number-font">
+                            {{data.base_discount}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">تخفیف مارکتینگ: </span>
-                        <span v-if="data && data.marketing_discount !== null" class="modal__content__txt number-font">{{data.marketing_discount}}</span>
+                        <span v-if="data && data.marketing_discount !== null" class="modal__content__txt number-font">
+                            {{data.marketing_discount}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">قیمت فروش: </span>
-                        <span v-if="data && data.site_price !== null" class="modal__content__txt number-font">{{data.site_price}}</span>
+                        <span v-if="data && data.site_price !== null" class="modal__content__txt number-font">
+                            {{data.site_price}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان شروع تخفیف مارکتینگ: </span>
-                        <span v-if="data && data.base_discount_start_time !== null" class="modal__content__txt number-font">{{data.base_discount_start_time}}</span>
+                        <span v-if="data && data.base_discount_start_time !== null" class="modal__content__txt number-font">
+                            {{convertDate(data.base_discount_start_time)}}
+                        </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان پایان تخفیف مارکتینگ : </span>
-                        <span v-if="data && data.base_discount_end_time !== null" class="modal__content__txt number-font">{{data.base_discount_end_time}}</span>
+                        <span v-if="data && data.base_discount_end_time !== null" class="modal__content__txt number-font">
+                            {{convertDate(data.base_discount_end_time)}}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -199,7 +223,8 @@ import {
 } from '@/assets/js/axios_call.js'
 import {
     openToast,
-    jalaliToGregorian
+    jalaliToGregorian,
+    gregorian_to_jalali
 } from "@/assets/js/functions";
 export default {
     data() {
@@ -246,7 +271,7 @@ export default {
                 const splitDateTime = splitDate[2].split(' ')
                 const date = jalaliToGregorian(splitDate[0], splitDate[1], splitDateTime[0])
 
-                this.gregorianCreateDate = date + ' ' +splitDateTime[1]+':00';
+                this.gregorianCreateDate = date + ' ' + splitDateTime[1] + ':00';
             }
             return this.gregorianCreateDate;
         },
@@ -257,7 +282,7 @@ export default {
                 const splitDateTime = splitDate[2].split(' ')
                 const date = jalaliToGregorian(splitDate[0], splitDate[1], splitDateTime[0])
 
-                this.gregorianEndDate = date + ' ' +splitDateTime[1]+':00';
+                this.gregorianEndDate = date + ' ' + splitDateTime[1] + ':00';
             }
             return this.gregorianEndDate;
         },
@@ -267,6 +292,11 @@ export default {
         close() {
             closeModal(this.$store, 'set_basicDiscountModal');
             this.calculatedData = null;
+
+            this.createdAtModel = null;
+            this.endedAtModel = null;
+            this.discountModel = null;
+            this.discountTypeModel = null;
         },
 
         async getShps() {
@@ -305,8 +335,14 @@ export default {
                     'کالای فروشنده با موفقیت ویرایش گردید',
                     "success"
                 );
+                this.updateList('true');
             } else {
-                this.loading = false
+                this.loading = false;
+                openToast(
+                    this.$store,
+                    'ویرایش با مشکل مواجه شد',
+                    "error"
+                );
             }
         },
 
@@ -330,7 +366,32 @@ export default {
             if (data) {
                 this.calculatedData = data.data;
             }
-        }
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+        updateList(status) {
+            this.$emit('updateList', status);
+        },
+
+        /**
+         * Convert date
+         * @param {*} dateTime 
+         */
+        convertDate(dateTime) {
+            try {
+                const splitDate = dateTime.split('-')
+                const splitDateTime = splitDate[2].split(' ')
+                const date = gregorian_to_jalali(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDateTime[0]))
+
+                const finalDate = date + ' ' + splitDateTime[1];
+                return finalDate;
+            } catch (e) {
+                return e
+            }
+        },
     },
 
     created() {

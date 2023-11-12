@@ -1,8 +1,8 @@
 <template>
-  <div
-      :class="variant == 'outlined' ? 'table-outlined': ''"
-      :style="{height: height}"
-      class="c-table pl-1">
+<div
+    :class="variant == 'outlined' ? 'table-outlined': ''"
+    :style="{height: height}"
+    class="c-table pl-1">
     <v-progress-linear
         color="primary500"
         indeterminate
@@ -10,163 +10,161 @@
         v-if="loading" />
 
     <header class="c-table__header d-flex justify-start">
-      <template v-for="(head, index) in header">
-        <template v-if="head.value">
-          <div
-              v-if="head.show"
-              @click="createOrdering(head.value, head.order)"
-              class="text-right c-table__header__item t12500 px-0"
-              :class="head.order == true ? 'pointer' : ''"
-              :key="index"
-              :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
-            {{head.name}}
-          </div>
+        <template v-for="(head, index) in header">
+            <template v-if="head.value">
+                <div
+                    v-if="head.show"
+                    @click="createOrdering(head.value, head.order)"
+                    class="text-right c-table__header__item t12500 px-0"
+                    :class="head.order == true ? 'pointer' : ''"
+                    :key="index"
+                    :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
+                    {{head.name}}
+                </div>
+            </template>
+            <template v-else>
+                <div
+                    v-if="head.show"
+                    class="text-right pointer c-table__header__item t12500"
+                    :key="index"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    {{head.name}}
+                </div>
+            </template>
         </template>
-        <template v-else>
-          <div
-              v-if="head.show"
-              class="text-right pointer c-table__header__item t12500"
-              :key="index"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            {{head.name}}
-          </div>
-        </template>
-      </template>
-      <div
-          class="c-table__header__item"
-          :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t12500 ">
-              عملیات
+                عملیات
             </span>
-      </div>
+        </div>
     </header>
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
-        <div
-            v-for="(item , index) in items"
-            :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
-            class="d-flex justify-start">
-          <div
-              v-if="header[0].show"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <div class="d-flex align-center">
+        <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+            <div
+                v-for="(item , index) in items"
+                :key="index"
+                :class="oddIndex(index) ? 'bg-gray90' : ''"
+                class="d-flex justify-start">
+                <div
+                    v-if="header[0].show"
+                    class="c-table__contents__item"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <div class="d-flex align-center">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
                         </span>
-              <template v-if="checkbox">
-                <v-checkbox class="mr-1" v-model=item.value />
-              </template>
-            </div>
-          </div>
+                        <template v-if="checkbox">
+                            <v-checkbox class="mr-1" v-model=item.value />
+                        </template>
+                    </div>
+                </div>
 
-          <div
-              v-if="item.sku && header[1].show"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div
+                    v-if="item.sku && header[1].show"
+                    class="c-table__contents__item"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.sku?.id }}
                     </span>
-          </div>
-          <div
-              v-if="header[2].show"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <template v-if="item.unique_code">
+                </div>
+                <div
+                    v-if="header[2].show"
+                    class="c-table__contents__item"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <template v-if="item.unique_code">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.unique_code }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[3].show"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[3].show"
+                    class="c-table__contents__item"
+                    :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.sku?.label }}
                         </span>
-            </template>
-          </div>
-          <div
-              v-if="header[4].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template  v-if="item.warehouse_stock" >
-              <span class="t14300 text-gray500 py-5 number-font">
-                {{ item.warehouse_stock }}
-              </span>
+                    </template>
+                </div>
+                <div
+                    v-if="header[4].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.warehouse_stock">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            {{ item.warehouse_stock }}
+                        </span>
 
-            </template>
-            <template  v-else >
-              <span class="t14300 text-gray500 py-5 number-font">
-                -
-              </span>
+                    </template>
+                    <template v-else>
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            -
+                        </span>
 
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[5].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[5].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.site_stock }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[6].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[6].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.customer_price }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[7].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[7].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.base_discount }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[8].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[8].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.marketing_discount }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="header[8].show"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.sku">
+                </div>
+                <div
+                    v-if="header[8].show"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    class="c-table__contents__item">
+                    <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.site_price }}
                         </span>
-            </template>
+                    </template>
 
-          </div>
-          <div
-              v-if="(item.is_active  != undefined )"
-              :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
-              class="c-table__contents__item">
+                </div>
+                <div
+                    v-if="(item.is_active  != undefined )"
+                    :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
+                    class="c-table__contents__item">
                     <span class="t14300 ">
                         <v-switch
                             v-model="active[index]"
@@ -174,368 +172,382 @@
                             color="success"
                             @change="changeActive(index,item)" />
                     </span>
-          </div>
-          <div
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
+                </div>
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
+                    <v-menu :location="location">
+                        <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props">
+                                mdi-dots-vertical
+                            </v-icon>
+                        </template>
 
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             محدودیت سفارش
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
 
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" >
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        تاریخچه‌ی موجودی انبار
-                      </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.sku?.id}`)">
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        تاریخچه‌ی موجودی سایت
-                      </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openInventoryManagementModal(item.sku_id)">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            تاریخچه‌ی موجودی انبار
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.sku?.id}`)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            تاریخچه‌ی موجودی سایت
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openInventoryManagementModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت موجودی سایت
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
 
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openConsumerPriceModal(item.sku_id)">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openConsumerPriceModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت مصرف کننده
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
 
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openBasicDiscountModal(item.sku_id)">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openBasicDiscountModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف پایه
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
 
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.sku_id)">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف مارکتینگ
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             محدودیت سفارش
                                         </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item> <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.id)">
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        حذف
-                      </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        تاریخچه ی قیمت
-                      </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            حذف
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            تاریخچه ی قیمت
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                </div>
+            </div>
         </div>
-      </div>
-      <div v-else class="null-data-table d-flex justify-center align-center flex-column">
-        <img src="@/assets/img/NullTable.png" alt="shavaz image">
-        <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+        <div v-else class="null-data-table d-flex justify-center align-center flex-column">
+            <img src="@/assets/img/NullTable.png" alt="shavaz image">
+            <div class="d-flex justify-center align-center flex-column">
+                <span class="title4 text-black mb-5">لیست خالی!</span>
+                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+            </div>
         </div>
-      </div>
     </div>
 
     <ModalMassUpdate :updateUrl="updateUrl" />
-    <OrderLimitModal />
-    <InventoryManagementModal />
-    <ConsumerPriceModal />
-    <BasicDiscountModal />
-    <MarketingDiscountModal />
-  </div>
+    <OrderLimitModal @updateList="updateList" />
+    <InventoryManagementModal @updateList="updateList" />
+    <ConsumerPriceModal @updateList="updateList" />
+    <BasicDiscountModal @updateList="updateList" />
+    <MarketingDiscountModal @updateList="updateList" />
+</div>
 </template>
 
 <script>
-import {isOdd} from '@/assets/js/functions'
+import {
+    isOdd
+} from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
-import {openConfirm} from '@/assets/js/functions'
-import {AxiosCall} from '@/assets/js/axios_call.js'
+import {
+    openConfirm
+} from '@/assets/js/functions'
+import {
+    AxiosCall
+} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {PanelFilter} from "@/assets/js/filter"
-import {SkuPanelFilter} from "@/assets/js/filter_sku"
-import {openToast } from "@/assets/js/functions";
-import {openModal} from "@/assets/js/functions_seller";
+import {
+    PanelFilter
+} from "@/assets/js/filter"
+import {
+    SkuPanelFilter
+} from "@/assets/js/filter_sku"
+import {
+    openToast
+} from "@/assets/js/functions";
+import {
+    openModal
+} from "@/assets/js/functions_seller";
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
 export default {
-  components: {
-    ModalMassUpdate,
-    AddAttributeValueModal,
-    OrderLimitModal,
-    InventoryManagementModal,
-    ConsumerPriceModal,
-    BasicDiscountModal,
-    MarketingDiscountModal,
-  },
-
-  props: {
-    /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
-
-    /**
-     * List Items for header
-     */
-    header: [],
-
-    /**
-     * List of items
-     */
-    items: [],
-
-    /**
-     * Delete Path
-     */
-    deletePath: '',
-
-    /**
-     * Model
-     */
-    model: '',
-
-    /**
-     * Active checkbox
-     */
-    checkbox: {
-      type: Boolean,
-      default: false,
+    components: {
+        ModalMassUpdate,
+        AddAttributeValueModal,
+        OrderLimitModal,
+        InventoryManagementModal,
+        ConsumerPriceModal,
+        BasicDiscountModal,
+        MarketingDiscountModal,
     },
 
-    /**
-     * Variant
-     * Variant values: outlined
-     */
-    variant: {
-      type: String,
-      default: 'default',
-    },
+    props: {
+        /**
+         * Update button url
+         */
+        updateUrl: {
+            type: String,
+            default: '',
+        },
+        /**
+         * Edit button url
+         */
+        editUrl: '',
 
-    /**
-     * Height
-     */
-    height: {
-      type: String,
-      default: '500',
-    },
+        /**
+         * List Items for header
+         */
+        header: [],
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
+        /**
+         * List of items
+         */
+        items: [],
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
+        /**
+         * Delete Path
+         */
+        deletePath: '',
 
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
+        /**
+         * Model
+         */
+        model: '',
 
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
+        /**
+         * Active checkbox
+         */
+        checkbox: {
+            type: Boolean,
+            default: false,
+        },
 
-    /**
-     * Page on table
-     */
-    page: {
-      type: Number,
-      default: 1
-    },
+        /**
+         * Variant
+         * Variant values: outlined
+         */
+        variant: {
+            type: String,
+            default: 'default',
+        },
 
-    /**
-     * PerPage of data
-     */
-    perPage: {
-      type: Number,
-      default: 1
-    },
+        /**
+         * Height
+         */
+        height: {
+            type: String,
+            default: '500',
+        },
 
-    /**
-     * Active loading
-     */
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
-  },
+        /**
+         * Edit endpoint for change filter
+         */
+        editPath: {
+            type: String,
+            default: ''
+        },
 
-  data() {
-    return {
-      order_type: "desc",
-      skuStatus: [],
-      ordering: {},
-      per_page: '25',
-      active: [],
-      sellable: [],
-      filter: [],
-      panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuPanelFilter(),
-      activeColumn: false,
-    }
-  },
+        /**
+         * Edit endpoint for change active
+         */
+        activePath: {
+            type: String,
+            default: ''
+        },
 
-  computed: {
-    /**
-     * Get each items table based of header length
-     */
-    itemsWidth() {
-      let headerLength = 0;
-      if (this.header && this.header.length > 0) {
-        this.header.forEach(element => {
-          if (element.show == true) {
-            headerLength++;
-          }
-        });
-        const width = 80 / (headerLength + 1);
-        return `${width}%`;
-      }
-      return 'auto';
-    },
+        /**
+         * Edit endpoint for change Sellable
+         */
+        sellablePath: {
+            type: String,
+            default: ''
+        },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
+        /**
+         * Get attributes
+         */
+        getAttributes: {
+            type: Function
+        },
+
+        /**
+         * Page on table
+         */
+        page: {
+            type: Number,
+            default: 1
+        },
+
+        /**
+         * PerPage of data
+         */
+        perPage: {
+            type: Number,
+            default: 1
+        },
+
+        /**
+         * Active loading
+         */
+        loading: {
+            type: Boolean,
+            default: false
+        },
+        
+        uploadImageUrl: {
+            type: String,
+            default: ''
         }
-      });
-      return this.activeColumn;
     },
-  },
 
-  watch: {
-    items(val) {
-      this.active = []
-      val.forEach(element => {
-        var active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-      });
-    }
-  },
+    data() {
+        return {
+            order_type: "desc",
+            skuStatus: [],
+            ordering: {},
+            per_page: '25',
+            active: [],
+            sellable: [],
+            filter: [],
+            panelFilter: new PanelFilter(),
+            skuPanelFilter: new SkuPanelFilter(),
+            activeColumn: false,
+        }
+    },
 
-  methods: {
+    computed: {
         /**
-        * Open order limit modal
-          * @param {*} id
-        */
+         * Get each items table based of header length
+         */
+        itemsWidth() {
+            let headerLength = 0;
+            if (this.header && this.header.length > 0) {
+                this.header.forEach(element => {
+                    if (element.show == true) {
+                        headerLength++;
+                    }
+                });
+                const width = 80 / (headerLength + 1);
+                return `${width}%`;
+            }
+            return 'auto';
+        },
+
+        /**
+         * Check is_active is true or false for show in table
+         */
+        checkActive() {
+            this.header.forEach(element => {
+                if (element.value === 'is_active' && element.show == true) {
+                    this.activeColumn = true;
+                } else if (element.value === 'is_active' && element.show == false) {
+                    this.activeColumn = false;
+                }
+            });
+            return this.activeColumn;
+        },
+    },
+
+    watch: {
+        items(val) {
+            this.active = []
+            val.forEach(element => {
+                var active = false
+                if (element.is_active == 1) active = true
+                this.active.push(active)
+            });
+        }
+    },
+
+    methods: {
+        /**
+         * Open order limit modal
+         * @param {*} id
+         */
         openOrderLimitModal(id) {
-          openModal(this.$store, 'set_orderLimitModal', id, true)
+            openModal(this.$store, 'set_orderLimitModal', id, true)
         },
 
         /**
-        * Open inventory management modal
-        * @param {*} id
-        */
+         * Open inventory management modal
+         * @param {*} id
+         */
         openInventoryManagementModal(id) {
-          openModal(this.$store, 'set_inventoryManagementModal', id, true)
+            openModal(this.$store, 'set_inventoryManagementModal', id, true)
         },
 
         /**
-        * Open consumer price modal
-        * @param {*} id
-        */
+         * Open consumer price modal
+         * @param {*} id
+         */
         openConsumerPriceModal(id) {
-          openModal(this.$store, 'set_consumerPriceModal', id, true)
+            openModal(this.$store, 'set_consumerPriceModal', id, true)
         },
 
         /**
-        * Open Basic Discount modal
-        * @param {*} id
-        */
+         * Open Basic Discount modal
+         * @param {*} id
+         */
         openBasicDiscountModal(id) {
-          openModal(this.$store, 'set_basicDiscountModal', id, true)
+            openModal(this.$store, 'set_basicDiscountModal', id, true)
         },
 
         /**
@@ -543,146 +555,145 @@ export default {
          * @param {*} id
          */
         openMarketingDiscountModal(id) {
-          openModal(this.$store, 'set_marketingDiscountModal', id, true)
+            openModal(this.$store, 'set_marketingDiscountModal', id, true)
         },
-    /**
-     * Mass update modal
-     */
-    massUpdateModal() {
-      this.$store.commit('set_massUpdateModal', true)
-    },
+        /**
+         * Mass update modal
+         */
+        massUpdateModal() {
+            this.$store.commit('set_massUpdateModal', true)
+        },
 
-    /**
-     * Get row index in table
-     * @param {*} index
-     */
-    rowIndexTable(index) {
-      let rowIndex = 0
-      if (this.page === 1) {
-        rowIndex = (1 + index)
-        return rowIndex
-      } else {
-        rowIndex = ((this.page - 1) * this.perPage) + index + 1
-        return rowIndex
-      }
-    },
-
-    /**
-     * Create ordering
-     * @param {*} index
-     * @param { boolean } order
-     */
-    createOrdering(index, order) {
-      if (order === true) {
-        if (index) {
-          if (this.order_type === 'desc') {
-            this.order_type = 'asc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'asc'
+        /**
+         * Get row index in table
+         * @param {*} index
+         */
+        rowIndexTable(index) {
+            let rowIndex = 0
+            if (this.page === 1) {
+                rowIndex = (1 + index)
+                return rowIndex
             } else {
-              this.panelFilter.order_type = 'asc'
+                rowIndex = ((this.page - 1) * this.perPage) + index + 1
+                return rowIndex
             }
-          } else {
-            this.order_type = 'desc'
+        },
 
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'desc'
-            } else {
-              this.panelFilter.order_type = 'desc'
+        /**
+         * Create ordering
+         * @param {*} index
+         * @param { boolean } order
+         */
+        createOrdering(index, order) {
+            if (order === true) {
+                if (index) {
+                    if (this.order_type === 'desc') {
+                        this.order_type = 'asc'
+
+                        if (this.model === 'sku') {
+                            this.skuPanelFilter.order_type = 'asc'
+                        } else {
+                            this.panelFilter.order_type = 'asc'
+                        }
+                    } else {
+                        this.order_type = 'desc'
+
+                        if (this.model === 'sku') {
+                            this.skuPanelFilter.order_type = 'desc'
+                        } else {
+                            this.panelFilter.order_type = 'desc'
+                        }
+                    }
+
+                    if (this.model === 'sku') {
+                        this.skuPanelFilter.order = index
+                        this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
+                    } else {
+                        this.panelFilter.order = index
+                        this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+                    }
+
+                    this.ordering = {};
+                    this.ordering[index] = !this.ordering[index];
+                }
             }
-          }
 
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order = index
-            this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-          } else {
-            this.panelFilter.order = index
-            this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-          }
+        },
 
-          this.ordering = {};
-          this.ordering[index] = !this.ordering[index];
-        }
-      }
+        /**
+         * Get icon
+         * @param {*} column
+         */
+        getIcon(column) {
+            return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
+        },
 
+        returnTrueOrFalse(data) {
+            if (data === 1) return true
+            else return false
+        },
+
+        /**
+         * Change Active
+         * @param {*} index
+         * @param {*} item
+         */
+        async changeActive(index, item) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = this.activePath + item.id
+            if (this.active[index]) formdata.append('is_active', 1)
+            else formdata.append('is_active', 0)
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+        },
+
+        /**
+         * Return odd index
+         * @param {*} index
+         */
+        oddIndex(index) {
+            return isOdd(index)
+        },
+
+        /**
+         * Remove Item
+         * @param {*} id
+         */
+        removeItem(id) {
+            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+        },
+
+        /**
+         * Clipboard success msg
+         */
+        onCopy() {
+            openToast(
+                this.$store,
+                'متن  با موفقیت کپی شد.',
+                "success"
+            );
+        },
+
+        /**
+         * Clipboard error msg
+         */
+        onError() {
+            openToast(
+                this.$store,
+                'کپی متن با مشکل مواجه شد.',
+                "error"
+            );
+        },
+
+        updateList(status) {
+          console.log('2.skuTable',status)
+          this.$emit('updateList', status);
+        },
     },
-
-    /**
-     * Get icon
-     * @param {*} column
-     */
-    getIcon(column) {
-      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
-
-
-
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
-
-
-
-
-
-    /**
-     * Return odd index
-     * @param {*} index
-     */
-    oddIndex(index) {
-      return isOdd(index)
-    },
-
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
-
-    /**
-     * Clipboard success msg
-     */
-    onCopy() {
-      openToast(
-          this.$store,
-          'متن  با موفقیت کپی شد.',
-          "success"
-      );
-    },
-
-    /**
-     * Clipboard error msg
-     */
-    onError() {
-      openToast(
-          this.$store,
-          'کپی متن با مشکل مواجه شد.',
-          "error"
-      );
-    },
-  },
 }
 </script>

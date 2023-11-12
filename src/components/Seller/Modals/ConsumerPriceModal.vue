@@ -155,8 +155,14 @@ export default {
                     'کالای فروشنده با موفقیت ویرایش گردید',
                     "success"
                 );
+                this.updateList('true');
             } else {
-                this.loading = false
+                this.loading = false;
+                openToast(
+                    this.$store,
+                    'ویرایش با مشکل مواجه شد',
+                    "error"
+                );
             }
         },
 
@@ -176,7 +182,15 @@ export default {
             if (data) {
                 this.priceInfo = data.data;
             }
-        }
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+         updateList(status) {
+            this.$emit('updateList', status);
+        },
     },
 
     created() {
