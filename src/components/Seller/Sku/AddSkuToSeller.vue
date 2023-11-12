@@ -54,12 +54,8 @@
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
 
             <SkuModalTableFilter
-                :path="`seller/add/sku/${$route.params.sellerId}`"
+                :path="`seller/${$route.params.sellerId}/add/sku`"
                 :filterField="filterFieldSku"
-                :brandsList="brandsList"
-                :colorsList="colorsList"
-                :categoriesList="categoriesList"
-                :skuGroupList="skuGroupList"
                 show-category
                 model="sellerSku"
             />
@@ -130,7 +126,7 @@
 <script>
 import Table from '@/components/Seller/Table/SkuTable.vue'
 import Seller from "@/composables/Seller";
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
+import SkuModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -142,20 +138,12 @@ import Categories from "@/composables/Categories";
 import Sku from "@/composables/Sku";
 export default {
   setup(props) {
-    const { allBrands, getAllBrands } = Brands();
-    const { allColors, getAllColor } = Colors();
-    const { allCategories, getAllCategories } = Categories();
-    const { getAllSkuGroups, allSkuGroups } = Sku();
     const {
       getSkuSeller , sellerSku,headerSku,
       filterFieldSku ,skuPage ,dataSkuTableLength,addSkuPerPage,pageLength
     } = Seller();
     return {
       getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuPerPage , pageLength,
-      allCategories, getAllCategories,
-      allColors, getAllColor,
-      allBrands, getAllBrands,
-      getAllSkuGroups, allSkuGroups,
       skuPage ,dataSkuTableLength
     };
   },
@@ -308,14 +296,8 @@ export default {
   },
 
   mounted() {
-    const filter = {
-      per_page : 100000
-    }
+
     this.getSkuSeller();
-    this.getAllBrands();
-    this.getAllColor();
-    this.getAllCategories();
-    this.getAllSkuGroups(filter);
   },
 
   watch: {

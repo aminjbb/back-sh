@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterInventorySite" />
+            <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/site-inventory/${$route.params.skuId}`" :filterField="filterInventorySite" />
           </v-row>
         </v-col>
       </v-row>
@@ -81,7 +81,7 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";

@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerPriceHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterPriceHistory" />
+            <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/price/${$route.params.skuId}`" :filterField="filterPriceHistory" />
           </v-row>
         </v-col>
       </v-row>
@@ -23,7 +23,7 @@
       <Table
           class="flex-grow-1"
           :header="headerPriceHistory"
-          :items="[]"
+          :items="priceHistory.data"
           :page="page"
           :perPage="dataTableLength"
           editUrl="/seller/edit/"
@@ -81,7 +81,7 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
+import ModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
@@ -89,7 +89,7 @@ export default {
   setup(props) {
     const {
       pageLength,
-      sellerList,
+      priceHistory,
       filterPriceHistory,
       dataTableLength,
       page,
@@ -101,7 +101,7 @@ export default {
     } = Seller();
     return {
       pageLength,
-      sellerList,
+      priceHistory,
       filterPriceHistory,
       dataTableLength,
       page,
