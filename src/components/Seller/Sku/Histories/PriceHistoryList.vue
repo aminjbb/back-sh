@@ -6,7 +6,26 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="6">
+          <div class="d-flex justify-start align-center">
+            <div>
+              <span>
+                شناسه کالا :
+              </span>
 
+              <span>
+                {{sku.id}}
+              </span>
+            </div>
+            <div class="mr-5">
+              <span>
+               نام کالا :
+              </span>
+
+              <span>
+                {{sku.label}}
+              </span>
+            </div>
+          </div>
         </v-col>
 
         <v-col cols="6">
@@ -81,12 +100,14 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
+import Sku from "@/composables/Sku";
 import ModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
   setup(props) {
+    const {getSkue , sku } = new Sku()
     const {
       pageLength,
       priceHistory,
@@ -109,7 +130,8 @@ export default {
       addPagination,
       addPerPage,
       loading,
-      getPriceHistory
+      getPriceHistory,
+      getSkue , sku
     };
   },
 
@@ -140,6 +162,7 @@ export default {
 
   mounted() {
     this.getPriceHistory()
+    this.getSkue()
   },
 
   watch: {

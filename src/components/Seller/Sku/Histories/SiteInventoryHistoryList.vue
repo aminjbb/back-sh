@@ -6,7 +6,26 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="6">
+          <div class="d-flex justify-start align-center">
+            <div>
+              <span>
+                شناسه کالا :
+              </span>
 
+              <span>
+                {{sku.id}}
+              </span>
+            </div>
+            <div class="mr-5">
+              <span>
+               نام کالا :
+              </span>
+
+              <span>
+                {{sku.label}}
+              </span>
+            </div>
+          </div>
         </v-col>
 
         <v-col cols="6">
@@ -85,8 +104,10 @@ import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vu
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import Sku from "@/composables/Sku";
 export default {
   setup(props) {
+    const {getSkue , sku } = new Sku()
     const {
       pageLength,
       filterInventorySite,
@@ -109,7 +130,8 @@ export default {
       addPerPage,
       loading,
       getSiteInventoryHistory,
-      siteInventoryHistory
+      siteInventoryHistory,
+      getSkue , sku
     };
   },
 
@@ -140,6 +162,7 @@ export default {
 
   mounted() {
     this.getSiteInventoryHistory()
+    this.getSkue()
   },
 
   watch: {

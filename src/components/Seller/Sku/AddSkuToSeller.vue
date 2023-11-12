@@ -46,9 +46,6 @@
                 </v-row>
             </v-col>
 
-            <v-col cols="6">
-                <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
 
         <v-col cols="6">
           <v-row justify="end">
@@ -170,36 +167,34 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-    skuGroupList(){
+    skuGroupList() {
       try {
         let group = []
         this.allSkuGroups.data.forEach(skuGroup => {
           const form = {
             label: skuGroup.label,
-            value : skuGroup.id
+            value: skuGroup.id
           }
           group.push(form)
         })
         return group
-      }
-      catch (e) {
-        return  []
+      } catch (e) {
+        return []
       }
     },
-    skuList(){
+    skuList() {
       try {
         let sku = []
         this.skuSearchList.forEach(permission => {
           const form = {
-            name: permission.label + '(' +permission.id+')',
-            id : permission.id
+            name: permission.label + '(' + permission.id + ')',
+            id: permission.id
           }
           sku.push(form)
         })
         return sku
-      }
-      catch (e) {
-        return  []
+      } catch (e) {
+        return []
       }
     },
     categoriesList() {
@@ -256,15 +251,17 @@ export default {
       this.headerSku[index].show = value
     },
 
-    updateList(status){
-      if(status === 'true'){
+    updateList(status) {
+      console.log('3.skuList', status)
+      if (status === 'true') {
         this.getSkuSeller();
       }
     },
-    async searchSku(e){
+
+    async searchSku(e) {
       const filter = {
-        per_page : 10,
-        q : e
+        per_page: 10,
+        q: e
       }
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
@@ -277,15 +274,15 @@ export default {
       }
     },
 
-    async assignSkuToSeller(id){
+    async assignSkuToSeller(id) {
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
-      AxiosMethod.store =  this.$store
+      AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
-      formData.append('sku_id' , id)
-      formData.append('is_active' , 1)
+      formData.append('sku_id', id)
+      formData.append('is_active', 1)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
@@ -300,8 +297,11 @@ export default {
   },
 
   mounted() {
-
+    const filter = {
+      per_page: 100000
+    }
     this.getSkuSeller();
+
   },
 
   watch: {
@@ -319,181 +319,13 @@ export default {
           );
           this.$cookies.remove('deleteItem')
         }
+      }
     },
-
-    components: {
-        Table,
-        ModalGroupAdd,
-        SkuModalTableFilter,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        },
-        skuGroupList() {
-            try {
-                let group = []
-                this.allSkuGroups.data.forEach(skuGroup => {
-                    const form = {
-                        label: skuGroup.label,
-                        value: skuGroup.id
-                    }
-                    group.push(form)
-                })
-                return group
-            } catch (e) {
-                return []
-            }
-        },
-        skuList() {
-            try {
-                let sku = []
-                this.skuSearchList.forEach(permission => {
-                    const form = {
-                        name: permission.label + '(' + permission.id + ')',
-                        id: permission.id
-                    }
-                    sku.push(form)
-                })
-                return sku
-            } catch (e) {
-                return []
-            }
-        },
-        categoriesList() {
-            try {
-                const categories = []
-                this.allCategories.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    categories.push(form)
-                });
-                return categories
-            } catch (error) {
-                return []
-            }
-        },
-
-        brandsList() {
-            try {
-                const brands = []
-                this.allBrands.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    brands.push(form)
-                });
-                return brands
-            } catch (error) {
-                return []
-            }
-        },
-
-        colorsList() {
-            try {
-                const colors = []
-                this.allColors.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id,
-                    }
-                    colors.push(form)
-                });
-                return colors
-            } catch (error) {
-                return []
-            }
-        },
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.headerSku[index].show = value
-        },
-
-        updateList(status) {
-            console.log('3.skuList', status)
-            if (status === 'true') {
-                this.getSkuSeller();
-            }
-        },
-
-        async searchSku(e) {
-            const filter = {
-                per_page: 10,
-                q: e
-            }
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.form = filter
-            AxiosMethod.end_point = `product/sku/crud/index/`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                this.skuSearchList = data.data.data
-            }
-        },
-
-        async assignSkuToSeller(id) {
-            const formData = new FormData()
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.store = this.$store
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
-            formData.append('sku_id', id)
-            formData.append('is_active', 1)
-            AxiosMethod.form = formData
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.getSkuSeller();
-                openToast(
-                    this.$store,
-                    'کد کالا با موفقیت افزوده شد.',
-                    "success"
-                );
-            }
-        }
-    },
-
-    mounted() {
-        const filter = {
-            per_page: 100000
-        }
-        this.getSkuSeller();
-        this.getAllBrands();
-        this.getAllColor();
-        this.getAllCategories();
-        this.getAllSkuGroups(filter);
-    },
-
-    watch: {
-        dataSkuTableLength(val) {
-            this.addSkuPerPage(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSellerList();
-                    openToast(
-                        this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
-        $route(to, from) {
-            this.getSkuSeller()
-        }
-
+    $route(to, from) {
+      this.getSkuSeller()
     }
+  }
+
+
 }
 </script>
