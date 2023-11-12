@@ -10,6 +10,9 @@ export default function setup(posts) {
     const sellerList = ref([]);
     const seller = ref({});
     const sellerSku = ref([])
+    const siteInventoryHistory = ref([])
+    const warehouseInventoryHistory = ref([])
+    const priceHistory = ref([])
     const dataTableLength = ref(25)
     const dataSkuTableLength = ref(25)
     const page = ref(1)
@@ -28,17 +31,44 @@ export default function setup(posts) {
     ]);
     const headerSku =ref([
         { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه', show: true, value: 'id', order:false },
-        { name: 'SHPS', show: true, value: 'unique_code', order:false },
-        { name:'نام انگلیسی' , show:true , value:'name', order:true},
-        { name:'نام فارسی' , show:true ,  value:'label', order:true},
-        { name: 'گروه', show: true, value: 'sku_group', order:false },
-        { name: 'دسته‌بندی', show: true, value: 'category', order:true },
-        { name: ' برند', show: true, value: 'brand', order:true },
-        { name: ' اندازه', show: true, value: 'volume', order:false },
-        { name: 'فعال سازی', show: true , value:'is_active', order:false},
+        { name: 'شناسه کالا', show: true, value: 'id', order:false },
+        { name: 'شناسه shps', show: true, value: 'unique_code', order:false },
+        { name:'نام کالا' , show:true ,  value:'label', order:true},
+        { name: 'موجودی انبار', show: true, value: 'sku_quntity', order:false },
+        { name: 'موجودی سایت', show: true, value: 'category', order:true },
+        { name: ' قیمت مصرف کننده', show: true, value: 'brand', order:true },
+        { name: ' تخفیف پایه', show: true, value: 'volume', order:false },
+        { name: 'تخفیف مارکتینگ', show: true , value:'is_active', order:false},
+        { name: 'قیمت فروش', show: true , value:'is_active', order:false},
+        { name: 'وضعیت', show: true , value:'is_active', order:false},
     ]
     );
+    const headerWarehouseInventoryHistory =ref([
+        { name: 'ردیف', show: true, value: null, order:false },
+        { name: 'موجودی قبل', show: true, value: 'old_inventory', order:false },
+        { name: 'تغییر موجودی', show: true, value: 'change_inventory', order:false },
+        { name: 'موجودی جدید', show: true, value: 'new_inventory', order:false },
+        { name: 'تاریخ', show: true, value: 'created_at', order:true },
+    ]
+    );
+    const headerSiteInventoryHistory =ref([
+        { name: 'ردیف', show: true, value: null, order:false },
+        { name: 'موجودی قبل', show: true, value: 'old_inventory', order:false },
+        { name: 'تغییر موجودی', show: true, value: 'change_inventory', order:false },
+        { name: 'موجودی جدید', show: true, value: 'new_inventory', order:false },
+        { name: 'تاریخ', show: true, value: 'created_at', order:true },
+    ]
+    );
+    const headerPriceHistory =ref([
+        { name: 'ردیف', show: true, value: null, order:false },
+        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order:false },
+        { name: 'تخفیف پایه', show: true, value: 'basic_discount', order:false },
+        { name: 'تخفیف مارکتینگ', show: true, value: 'marketing_discount', order:false },
+        { name: 'قیمت فروش', show: true, value: 'sale_price', order:false },
+        { name: 'تاریخ ویرایش', show: true, value: 'updated_at', order:true },
+    ]
+    );
+
     const filterField = [
         { name: 'نام و نام خانوادگی', type:'text', value:'full_name'},
         { name: 'نام فروشگاه', type:'text', value:'shopping_name'},
@@ -65,7 +95,26 @@ export default function setup(posts) {
         { name: 'قابل فروش', type: 'select', value: 'sellable' },
         { name: 'محصول', type: 'auto-complete', value: 'product' },
     ];
-    
+    const filterPriceHistory = [
+
+        { name: 'کمترین قیمت مصرف‌کننده', type: 'text', value: 'min_price' },
+        { name: 'بیشترین قیمت مصرف‌کننده', type: 'text', value: 'max_price' },
+        { name: 'کمترین قیمت فروش', type: 'text', value: 'created_at' },
+        { name: 'بیشترین قیمت فروش', type: 'text', value: 'created_at' },
+        { name: 'کمترین تخفیف پایه', type: 'text', value: 'created_at' },
+        { name: 'بیشترین تخفیف پایه', type: 'text', value: 'created_at' },
+        { name: 'کمترین تخفیف مارکتینگ', type: 'text', value: 'created_at' },
+        { name: 'بیشترین تخفیف مارکتینگ', type: 'text', value: 'created_at' },
+
+    ];
+    const filterInventorySite = [
+
+        { name: 'کمترین موجودی', type: 'text', value: 'min_price' },
+        { name: 'بیشترین موجودی', type: 'text', value: 'max_price' },
+        { name: 'تاریخ', type: 'text', value: 'created_at' },
+
+
+    ];
     const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
@@ -87,7 +136,7 @@ export default function setup(posts) {
         AxiosMethod.end_point = `seller/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            pageLength.value = data.data.last_page
             sellerList.value = data.data
             loading.value = false
            setTimeout(()=>{
@@ -122,6 +171,74 @@ export default function setup(posts) {
             sellerSku.value = data.data
         }
     };
+    async function getWarehouseInventoryHistory(){
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `seller/crud/index${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            warehouseInventoryHistory.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+    }
+    async function getSiteInventoryHistory(){
+        loading.value = true
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = filter.params_generator(query.query)
+        // }
+        // else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/site/stock/index`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            siteInventoryHistory.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+    }
+    async function getPriceHistory(){
+        loading.value = true
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = filter.params_generator(query.query)
+        // }
+        // else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            priceHistory.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    }
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
@@ -168,5 +285,5 @@ export default function setup(posts) {
         }
     })
 
-    return {addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
+    return {siteInventoryHistory,filterInventorySite,filterPriceHistory,getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
 }

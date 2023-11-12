@@ -45,6 +45,7 @@ const vuetify = createVuetify({
                     Slate: '#110833',
                     DarkJungle: '#212121',
                     CharcoalGrey: '#424242',
+                    success:'#4CAF50'
 
                 }
             },

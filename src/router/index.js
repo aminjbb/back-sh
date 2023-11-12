@@ -88,6 +88,9 @@ import CreateLegalSellerView from '../views/Seller/CreateLegalSellerView.vue'
 import EditNaturalSellerView from '../views/Seller/EditNaturalSellerView.vue'
 import EditLegalSellerView from '../views/Seller/EditLegalSellerView.vue'
 import AddSkuSellerView from '../views/Seller/AddSkuSellerView.vue'
+import PriceHistoryView from '../views/Seller/Histories/PriceHistoryView.vue'
+import SiteInventoryHistoryView from '../views/Seller/Histories/SiteInventoryHistoryView.vue'
+import WarehouseInventoryHistoryView from '../views/Seller/Histories/WarehouseInventoryHistoryView.vue'
 
 /* Page */
 import UpdateTemplateView from '@/views/Page/Update/UpdateTemplateView.vue'
@@ -734,6 +737,31 @@ const router = createRouter({
           path: ':sellerId/add/sku',
           name: 'AddSkuSellerView',
           component: AddSkuSellerView,
+          meta:{
+            name:'اضافه کردن کالا به فروشنده'
+          }
+        },
+
+        {
+          path: 'sku/:sellerId/history/warehouse-inventory',
+          name: 'WarehouseInventoryHistoryView',
+          component: WarehouseInventoryHistoryView,
+          meta:{
+            name:'اضافه کردن کالا به فروشنده'
+          }
+        },
+        {
+          path: 'sku/:sellerId/history/site-inventory/:skuId',
+          name: 'SiteInventoryHistoryView',
+          component: SiteInventoryHistoryView,
+          meta:{
+            name:'اضافه کردن کالا به فروشنده'
+          }
+        },
+        {
+          path: 'sku/:sellerId/history/price/:skuId',
+          name: 'PriceHistoryView',
+          component: PriceHistoryView,
           meta:{
             name:'اضافه کردن کالا به فروشنده'
           }
