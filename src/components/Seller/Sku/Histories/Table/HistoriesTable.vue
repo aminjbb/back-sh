@@ -99,7 +99,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.customer_price}}
+                             {{splitChar(item.customer_price)}}
                           </span>
               </div>
             </div>
@@ -129,7 +129,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.site_price}}
+                             {{splitChar(item.site_price)}}
                           </span>
               </div>
             </div>
@@ -139,7 +139,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="d-flex align-center">
                           <span class="t14300 text-gray500 py-5 number-font">
-                             {{item.created_at}}
+                             {{convertDateToJalai(item.created_at,'-' , true)}}
                           </span>
               </div>
             </div>

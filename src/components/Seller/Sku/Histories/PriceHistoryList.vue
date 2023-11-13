@@ -6,14 +6,33 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="6">
+          <div class="d-flex justify-start align-center">
+            <div>
+              <span>
+                شناسه کالا :
+              </span>
 
+              <span>
+                {{sku?.id}}
+              </span>
+            </div>
+            <div class="mr-5">
+              <span>
+               نام کالا :
+              </span>
+
+              <span>
+                {{sku?.label}}
+              </span>
+            </div>
+          </div>
         </v-col>
 
         <v-col cols="6">
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerPriceHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterPriceHistory" />
+            <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/price/${$route.params.skuId}`" :filterField="filterPriceHistory" />
           </v-row>
         </v-col>
       </v-row>
@@ -23,7 +42,7 @@
       <Table
           class="flex-grow-1"
           :header="headerPriceHistory"
-          :items="[]"
+          :items="priceHistory.data"
           :page="page"
           :perPage="dataTableLength"
           editUrl="/seller/edit/"
@@ -39,13 +58,13 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="seller/csv/get/export" />
+            <ModalExcelDownload :getEndPoint="`seller/${$route.params.sellerId}/sku/${$route.params.skuId}/history/price/csv/get/export`" />
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
               <v-pagination
-                  v-model="page"
+                  v-model="priceHistoryPage"
                   :length="pageLength"
                   rounded="circle"
                   size="40"
@@ -81,18 +100,20 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
+import Sku from "@/composables/Sku";
+import ModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
   setup(props) {
+    const {getSkue , sku } = new Sku()
     const {
       pageLength,
-      sellerList,
+      priceHistory,
       filterPriceHistory,
       dataTableLength,
-      page,
+      priceHistoryPage,
       headerPriceHistory,
       addPagination,
       addPerPage,
@@ -101,15 +122,16 @@ export default {
     } = Seller();
     return {
       pageLength,
-      sellerList,
+      priceHistory,
       filterPriceHistory,
       dataTableLength,
-      page,
+      priceHistoryPage,
       headerPriceHistory,
       addPagination,
       addPerPage,
       loading,
-      getPriceHistory
+      getPriceHistory,
+      getSkue , sku
     };
   },
 
@@ -140,6 +162,7 @@ export default {
 
   mounted() {
     this.getPriceHistory()
+    this.getSkue()
   },
 
   watch: {

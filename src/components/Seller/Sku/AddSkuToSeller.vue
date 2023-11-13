@@ -46,22 +46,20 @@
                 </v-row>
             </v-col>
 
-            <v-col cols="6">
-                <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
 
-                    <SkuModalTableFilter
-                        :path="`seller/add/sku/${$route.params.sellerId}`"
-                        :filterField="filterFieldSku"
-                        :brandsList="brandsList"
-                        :colorsList="colorsList"
-                        :categoriesList="categoriesList"
-                        :skuGroupList="skuGroupList"
-                        show-category
-                        model="sellerSku" />
-                </v-row>
-            </v-col>
-        </v-row>
+        <v-col cols="6">
+          <v-row justify="end">
+            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
+
+            <SkuModalTableFilter
+                :path="`seller/${$route.params.sellerId}/add/sku`"
+                :filterField="filterFieldSku"
+                show-category
+                model="sellerSku"
+            />
+          </v-row>
+        </v-col>
+      </v-row>
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
@@ -125,7 +123,7 @@
 <script>
 import Table from '@/components/Seller/Table/SkuTable.vue'
 import Seller from "@/composables/Seller";
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
+import SkuModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -140,234 +138,194 @@ import Colors from "@/composables/Colors";
 import Categories from "@/composables/Categories";
 import Sku from "@/composables/Sku";
 export default {
-    setup(props) {
-        const {
-            allBrands,
-            getAllBrands
-        } = Brands();
-        const {
-            allColors,
-            getAllColor
-        } = Colors();
-        const {
-            allCategories,
-            getAllCategories
-        } = Categories();
-        const {
-            getAllSkuGroups,
-            allSkuGroups
-        } = Sku();
-        const {
-            getSkuSeller,
-            sellerSku,
-            headerSku,
-            filterFieldSku,
-            skuPage,
-            dataSkuTableLength,
-            addSkuPerPage,
-            pageLength,
-            loading
-        } = Seller();
-        return {
-            getSkuSeller,
-            sellerSku,
-            headerSku,
-            filterFieldSku,
-            addSkuPerPage,
-            pageLength,
-            allCategories,
-            getAllCategories,
-            allColors,
-            getAllColor,
-            allBrands,
-            getAllBrands,
-            getAllSkuGroups,
-            allSkuGroups,
-            skuPage,
-            dataSkuTableLength,
-            loading
-        };
-    },
+  setup(props) {
+    const {
+      getSkuSeller , sellerSku,headerSku,
+      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuPerPage,pageLength
+    } = Seller();
+    return {
+      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuPerPage , pageLength,
+      skuPage ,dataSkuTableLength
+    };
+  },
 
-    data() {
-        return {
-            skuSearchList: []
-        }
-    },
-
-    components: {
-        Table,
-        ModalGroupAdd,
-        SkuModalTableFilter,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        },
-        skuGroupList() {
-            try {
-                let group = []
-                this.allSkuGroups.data.forEach(skuGroup => {
-                    const form = {
-                        label: skuGroup.label,
-                        value: skuGroup.id
-                    }
-                    group.push(form)
-                })
-                return group
-            } catch (e) {
-                return []
-            }
-        },
-        skuList() {
-            try {
-                let sku = []
-                this.skuSearchList.forEach(permission => {
-                    const form = {
-                        name: permission.label + '(' + permission.id + ')',
-                        id: permission.id
-                    }
-                    sku.push(form)
-                })
-                return sku
-            } catch (e) {
-                return []
-            }
-        },
-        categoriesList() {
-            try {
-                const categories = []
-                this.allCategories.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    categories.push(form)
-                });
-                return categories
-            } catch (error) {
-                return []
-            }
-        },
-
-        brandsList() {
-            try {
-                const brands = []
-                this.allBrands.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    brands.push(form)
-                });
-                return brands
-            } catch (error) {
-                return []
-            }
-        },
-
-        colorsList() {
-            try {
-                const colors = []
-                this.allColors.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id,
-                    }
-                    colors.push(form)
-                });
-                return colors
-            } catch (error) {
-                return []
-            }
-        },
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.headerSku[index].show = value
-        },
-
-        updateList(status) {
-            console.log('3.skuList', status)
-            if (status === 'true') {
-                this.getSkuSeller();
-            }
-        },
-
-        async searchSku(e) {
-            const filter = {
-                per_page: 10,
-                q: e
-            }
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.form = filter
-            AxiosMethod.end_point = `product/sku/crud/index/`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                this.skuSearchList = data.data.data
-            }
-        },
-
-        async assignSkuToSeller(id) {
-            const formData = new FormData()
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.store = this.$store
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
-            formData.append('sku_id', id)
-            formData.append('is_active', 1)
-            AxiosMethod.form = formData
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.getSkuSeller();
-                openToast(
-                    this.$store,
-                    'کد کالا با موفقیت افزوده شد.',
-                    "success"
-                );
-            }
-        }
-    },
-
-    mounted() {
-        const filter = {
-            per_page: 100000
-        }
-        this.getSkuSeller();
-        this.getAllBrands();
-        this.getAllColor();
-        this.getAllCategories();
-        this.getAllSkuGroups(filter);
-    },
-
-    watch: {
-        dataSkuTableLength(val) {
-            this.addSkuPerPage(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSellerList();
-                    openToast(
-                        this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
-        $route(to, from) {
-            this.getSkuSeller()
-        }
-
+  data(){
+    return{
+      skuSearchList:[]
     }
+  },
+
+  components: {
+    Table,
+    ModalGroupAdd,
+    SkuModalTableFilter,
+    ModalColumnFilter,
+    ModalExcelDownload,
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    },
+    skuGroupList() {
+      try {
+        let group = []
+        this.allSkuGroups.data.forEach(skuGroup => {
+          const form = {
+            label: skuGroup.label,
+            value: skuGroup.id
+          }
+          group.push(form)
+        })
+        return group
+      } catch (e) {
+        return []
+      }
+    },
+    skuList() {
+      try {
+        let sku = []
+        this.skuSearchList.forEach(permission => {
+          const form = {
+            name: permission.label + '(' + permission.id + ')',
+            id: permission.id
+          }
+          sku.push(form)
+        })
+        return sku
+      } catch (e) {
+        return []
+      }
+    },
+    categoriesList() {
+      try {
+        const categories = []
+        this.allCategories.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id
+          }
+          categories.push(form)
+        });
+        return categories
+      } catch (error) {
+        return []
+      }
+    },
+
+    brandsList() {
+      try {
+        const brands = []
+        this.allBrands.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id
+          }
+          brands.push(form)
+        });
+        return brands
+      } catch (error) {
+        return []
+      }
+    },
+
+    colorsList() {
+      try {
+        const colors = []
+        this.allColors.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id,
+          }
+          colors.push(form)
+        });
+        return colors
+      } catch (error) {
+        return []
+      }
+    },
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.headerSku[index].show = value
+    },
+
+    updateList(status) {
+      console.log('3.skuList', status)
+      if (status === 'true') {
+        this.getSkuSeller();
+      }
+    },
+
+    async searchSku(e) {
+      const filter = {
+        per_page: 10,
+        q: e
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.form = filter
+      AxiosMethod.end_point = `product/sku/crud/index/`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.skuSearchList = data.data.data
+      }
+    },
+
+    async assignSkuToSeller(id) {
+      const formData = new FormData()
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.store = this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/create`
+      formData.append('sku_id', id)
+      formData.append('is_active', 1)
+      AxiosMethod.form = formData
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.getSkuSeller();
+        openToast(
+            this.$store,
+            'کد کالا با موفقیت افزوده شد.',
+            "success"
+        );
+      }
+    }
+  },
+
+  mounted() {
+    const filter = {
+      per_page: 100000
+    }
+    this.getSkuSeller();
+
+  },
+
+  watch: {
+    dataSkuTableLength(val) {
+      this.addSkuPerPage(val)
+    },
+    confirmModal(val) {
+      if (this.$cookies.get('deleteItem')) {
+        if (!val) {
+          this.getSellerList();
+          openToast(
+              this.$store,
+              'انبار با موفقیت حذف شد',
+              "success"
+          );
+          this.$cookies.remove('deleteItem')
+        }
+      }
+    },
+    $route(to, from) {
+      this.getSkuSeller()
+    }
+  }
+
+
 }
 </script>

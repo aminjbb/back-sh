@@ -6,14 +6,33 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="6">
+          <div class="d-flex justify-start align-center">
+            <div>
+              <span>
+                شناسه کالا :
+              </span>
 
+              <span>
+                {{sku?.id}}
+              </span>
+            </div>
+            <div class="mr-5">
+              <span>
+               نام کالا :
+              </span>
+
+              <span>
+                {{sku?.label}}
+              </span>
+            </div>
+          </div>
         </v-col>
 
         <v-col cols="6">
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterInventorySite" />
+            <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/site-inventory/${$route.params.skuId}`" :filterField="filterInventorySite" />
           </v-row>
         </v-col>
       </v-row>
@@ -39,13 +58,13 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="seller/csv/get/export" />
+            <ModalExcelDownload :getEndPoint="`seller/${$route.params.sellerId}/sku/${$route.params.skuId}/history/stock/site/csv/get/export`" />
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
               <v-pagination
-                  v-model="page"
+                  v-model="siteHistoryPage"
                   :length="pageLength"
                   rounded="circle"
                   size="40"
@@ -81,17 +100,19 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import Sku from "@/composables/Sku";
 export default {
   setup(props) {
+    const {getSkue , sku } = new Sku()
     const {
       pageLength,
       filterInventorySite,
       dataTableLength,
-      page,
+      siteHistoryPage,
       headerWarehouseInventoryHistory,
       addPagination,
       addPerPage,
@@ -103,13 +124,14 @@ export default {
       pageLength,
       filterInventorySite,
       dataTableLength,
-      page,
+      siteHistoryPage,
       headerWarehouseInventoryHistory,
       addPagination,
       addPerPage,
       loading,
       getSiteInventoryHistory,
-      siteInventoryHistory
+      siteInventoryHistory,
+      getSkue , sku
     };
   },
 
@@ -140,6 +162,7 @@ export default {
 
   mounted() {
     this.getSiteInventoryHistory()
+    this.getSkue()
   },
 
   watch: {
