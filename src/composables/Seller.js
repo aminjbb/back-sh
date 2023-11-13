@@ -18,6 +18,8 @@ export default function setup(posts) {
     const dataSkuTableLength = ref(25)
     const page = ref(1)
     const skuPage = ref(1)
+    const priceHistoryPage = ref(1)
+    const siteHistoryPage = ref(1)
     const pageLength =ref(1)
     const cookies = useCookies()
     const header =ref([
@@ -230,17 +232,17 @@ export default function setup(posts) {
         }
 
     }
-    async function getPriceHistory(){
+    async function getPriceHistory(query){
         loading.value = true
-        // let paramsQuery = null
-        // if (query){
-        //     paramsQuery = filter.params_generator(query.query)
-        // }
-        // else  paramsQuery = filter.params_generator(route.query)
+        let paramsQuery = null
+        if (query){
+            paramsQuery = skuSellerFilter.params_generator(query.query)
+        }
+        else  paramsQuery = skuSellerFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -276,6 +278,16 @@ export default function setup(posts) {
         skuFilter.per_page = dataTableLength.value
         router.push(route.path + skuFilter.params_generator(route.query))
     }
+    function priceHistoryPagination(page){
+        skuSellerFilter.page = page
+        skuSellerFilter.per_page = dataTableLength.value
+        router.push(route.path + skuFilter.params_generator(route.query))
+    }
+    function siteHistoryPagination(page){
+        skuSellerFilter.page = page
+        skuSellerFilter.per_page = dataTableLength.value
+        router.push(route.path + skuFilter.params_generator(route.query))
+    }
     onBeforeRouteUpdate(async (to, from) => {
         if (!isFilterPage.value) {
             isFilter.value =true
@@ -297,6 +309,22 @@ export default function setup(posts) {
             addSkuPagination(val)
         }
     })
+    watch(priceHistoryPage, function(val) {
+        if (!isFilter.value){
+            isFilterPage.value = true
+            priceHistoryPagination(val)
+        }
+    })
+    watch(siteHistoryPage, function(val) {
+        if (!isFilter.value){
+            isFilterPage.value = true
+            siteHistoryPagination(val)
+        }
+    })
 
-    return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
+    return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
+        getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
+        headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
+        getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
+        dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage}
 }

@@ -64,7 +64,7 @@
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
               <v-pagination
-                  v-model="page"
+                  v-model="priceHistoryPage"
                   :length="pageLength"
                   rounded="circle"
                   size="40"
@@ -113,7 +113,7 @@ export default {
       priceHistory,
       filterPriceHistory,
       dataTableLength,
-      page,
+      priceHistoryPage,
       headerPriceHistory,
       addPagination,
       addPerPage,
@@ -125,7 +125,7 @@ export default {
       priceHistory,
       filterPriceHistory,
       dataTableLength,
-      page,
+      priceHistoryPage,
       headerPriceHistory,
       addPagination,
       addPerPage,
