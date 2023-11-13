@@ -13,7 +13,7 @@
               </span>
 
               <span>
-                {{sku.id}}
+                {{sku?.id}}
               </span>
             </div>
             <div class="mr-5">
@@ -22,7 +22,7 @@
               </span>
 
               <span>
-                {{sku.label}}
+                {{sku?.label}}
               </span>
             </div>
           </div>
@@ -58,7 +58,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="seller/csv/get/export" />
+            <ModalExcelDownload :getEndPoint="`seller/${$route.params.sellerId}/sku/${$route.params.skuId}/history/price/csv/get/export`" />
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
