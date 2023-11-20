@@ -4,6 +4,7 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
+import {HomePageFilter} from "@/assets/js/homePage_filter";
 
 export default function setup(posts) {
     const homeSections = ref([]);
@@ -93,7 +94,7 @@ export default function setup(posts) {
         {name:'دستگاه' , type:'select', value:'device_type'},
         {name:'زمان شروع' , type:'date', value:'start_date'},
         {name:'زمان پایان ' , type:'date', value:'end_date'},
-        { name:'سازنده' , type: 'select', value:'admin'},
+        { name:'سازنده' , type: 'text', value:'admin'},
         { name:'ترتیب نمایش' , type: 'text', value:'priority'},
         { name:'وضعیت' , type: 'select', value:'active'},
     ];
@@ -101,7 +102,7 @@ export default function setup(posts) {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
+    const filter = new HomePageFilter()
 
     async function getHomeSections() {
         loading.value = true
@@ -140,22 +141,27 @@ export default function setup(posts) {
         else {
         }
     };
-    async function getHomePageBanner() {
-        const filter = {
-            homepage_section_id: route.params.sectionId
+    async function getHomePageBanner(query) {
+        let paramsQuery = null
+        loading.value = true
+        filter.homepage_section_id =  route.params.sectionId
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
         }
+        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.form = filter
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/home/section/banner/index`
+        AxiosMethod.end_point = `page/home/section/banner/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
+            loading.value = false
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homePageBanner.value = data.data
         }
 
         else {
+            loading.value = false
         }
     };
     async function getHomeSlider() {
