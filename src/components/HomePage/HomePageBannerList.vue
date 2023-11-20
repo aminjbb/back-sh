@@ -25,8 +25,8 @@
           :header="bannerHeader"
           :items="homePageBanner.data"
           editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
+          activePath="page/home/section/banner/update/activation/"
+          deletePath="page/home/section/banner/delete/"
           changeStatusUrl="seller/crud/update/contract/"
           :loading="loading"
 
@@ -118,15 +118,15 @@ export default {
       this.addPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject')) {
         if (!val) {
-          this.getMenus();
+          this.getHomePageBanner()
           openToast(
               this.$store,
               'منو مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

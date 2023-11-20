@@ -36,7 +36,7 @@
           :items="homeSection?.sliders"
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
+          deletePath="page/home/section/slider/delete/"
           changeStatusUrl="seller/crud/update/contract/"
           :loading="loading"
 
@@ -137,15 +137,15 @@ export default {
       this.addPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject')) {
         if (!val) {
-          this.getMenus();
+          this.getHomeSection()
           openToast(
               this.$store,
-              'منو مورد نظر با موفقیت حذف شد',
+              'آیتم مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

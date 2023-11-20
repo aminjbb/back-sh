@@ -13,15 +13,15 @@
             </span>
           </div>
           <div class="mb-4">
-            <v-text-field  variant="outlined" placeholder="عنوان نمایشی را وارد نمایید"/>
+            <v-text-field v-model="title"  variant="outlined" placeholder="عنوان نمایشی را وارد نمایید"/>
           </div>
         </v-col>
 
         <v-col cols="1">
           <v-row justify="end" >
             <v-btn
-                :loading="loading"
-                @click="validate()"
+                :loading="editLoading"
+                @click="editSection()"
                 color="primary500"
                 height="40"
                 rounded
@@ -53,15 +53,16 @@
       <Table
           class="flex-grow-1"
           :header="bannerHeader"
-          :items="[]"
+          :items="homePageBanner.data"
           editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
+          activePath="page/home/section/banner/update/activation/"
+          deletePath="page/home/section/banner/delete/"
           changeStatusUrl="seller/crud/update/contract/"
           :loading="loading"
 
           updateUrl="seller/csv/mass-update"
-          model="sku" />
+          model="blog" />
+
 
       <v-divider />
 
@@ -116,13 +117,14 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import ModalAddBlog from "@/components/HomePage/Modals/ModalAddBlog.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup(props) {
     const {
-      bannerHeader , getHomeSections , homeSections ,  dataTableLength, page , filterBannerField , loading ,
+      bannerHeader ,  getHomeSection , homeSection ,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner  ,
     } = new Home();
     return {
-      bannerHeader , getHomeSections , homeSections ,  dataTableLength, page , filterBannerField , loading
+      bannerHeader ,  getHomeSection , homeSection,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner
     };
   },
 
@@ -134,7 +136,12 @@ export default {
     ModalColumnFilter,
     ModalExcelDownload,
   },
-
+  data(){
+    return{
+      title :'',
+      editLoading:false
+    }
+  },
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -145,11 +152,32 @@ export default {
     changeHeaderShow(index, value) {
       this.bannerHeader[index].show = value
     },
+    async editSection() {
+      this.editLoading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `page/home/section/crud/update/${this.$route.params.sectionId}`
+
+      formData.append('label', this.title)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.editLoading = false
+        this.dialog = false
+      } else {
+        this.editLoading = false
+      }
+
+    },
 
   },
 
   mounted() {
-    this.getHomeSections()
+    this.getHomeSection()
+    this.getHomePageBanner()
   },
 
   watch: {
@@ -168,6 +196,9 @@ export default {
           this.$cookies.remove('deleteItem')
         }
       }
+    },
+    homeSection(val){
+      this.title = val.label
     },
   }
 }

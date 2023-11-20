@@ -49,9 +49,49 @@ export default createStore({
       dialog: false,
       id: ''
     },
+    homePageBannerModal:{
+      dialog:false,
+      object: ''
+    },
+    homePageCategoryModal:{
+      dialog:false,
+      object: ''
+    },
+    homePageSectionForSliderModal:{
+      dialog:false,
+      object: ''
+    } ,
+    homePageBrandModal:{
+      dialog:false,
+      object: ''
+    },
+    homeBlogModal:{
+      dialog:false,
+      object: ''
+    }
   },
 
   mutations: {
+    set_homeBlogModal(state   , form ){
+      state.homeBlogModal.dialog = form.dialog
+      state.homeBlogModal.object = form.object
+    },
+    set_homePageBrandModal(state , form){
+      state.homePageBrandModal.dialog = form.dialog
+      state.homePageBrandModal.object = form.object
+    },
+    set_homePageSectionForSliderModal(state , form){
+      state.homePageSectionForSliderModal.dialog = form.dialog
+      state.homePageSectionForSliderModal.object = form.object
+    },
+    set_homePageCategoryModal(state , form){
+      state.homePageCategoryModal.dialog = form.dialog
+      state.homePageCategoryModal.object = form.object
+    },
+    set_homePageBannerModal(state , form){
+      state.homePageBannerModal.dialog = form.dialog
+      state.homePageBannerModal.object = form.object
+    },
     set_legalSellerStep4(state, obj) {
       state.legalSellerStep4 = obj
     },
@@ -128,6 +168,36 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_homeBlogModal(state){
+      return  state.homeBlogModal.dialog
+    },
+    get_homeBlogObject(state){
+      return  state.homeBlogModal.object
+    },
+    get_homePageBrandModal(state){
+      return  state.homePageBrandModal.dialog
+    },
+    get_homePageBrandObject(state){
+      return  state.homePageBrandModal.object
+    },
+    get_homePageSectionForSliderModal(state){
+      return  state.homePageSectionForSliderModal.dialog
+    },
+    get_homePageSectionForSliderObject(state){
+      return  state.homePageSectionForSliderModal.object
+    },
+    get_homePageCategoryModal(state){
+      return  state.homePageCategoryModal.dialog
+    },
+    get_homePageCategoryObject(state){
+     return  state.homePageCategoryModal.object
+    },
+    get_homePageBannerModal(state){
+      return  state.homePageBannerModal.dialog
+    },
+    get_homePageBannerObject(state){
+     return  state.homePageBannerModal.object
+    },
     get_legalSellerStep4(state) {
       return state.legalSellerStep4
     },

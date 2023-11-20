@@ -82,7 +82,7 @@ export default {
     }
   },
   props: {
-    supplier: null
+    status: null
   },
   components: {
     UploadFileSection,
@@ -119,22 +119,21 @@ export default {
     setForm() {
       try {
 
-        this.form.fullName = this.supplier.full_name
-        this.form.shopName = this.supplier.shopping_name
-        this.form.type = this.supplier.type
-        this.form.province = this.supplier.state_id
-        this.form.email = this.supplier.email
-        this.getCities()
-        this.form.city = this.supplier.city_id
-        this.form.phoneNumber = this.supplier.phone
-        this.form.mobileNumber = this.supplier.phone_number
-        this.form.accountNumber = this.supplier.account_number
-        this.form.shebaNumber = this.supplier.sheba_number
-        this.form.paymentPeriod = this.supplier.payment_period
-        this.form.paymentType = this.supplier.payment_type
+        this.form.title = this.bannerObject.label
+        this.form.priority = this.bannerObject.priority
+        this.form.link = this.bannerObject.link
+        this.form.image = this.bannerObject.image_id
+
       } catch (error) {}
     },
   },
-
+  mounted() {
+      if (this.status == 'edit') this.setForm()
+  },
+  computed:{
+    bannerObject(){
+      return this.$store.getters['get_homePageBrandObject']
+    }
+  }
 }
 </script>

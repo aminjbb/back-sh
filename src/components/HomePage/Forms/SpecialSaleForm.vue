@@ -126,7 +126,7 @@ export default {
     }
   },
   props: {
-    supplier: null
+    specialSale: null
   },
   components: {
     UploadFileSection,
@@ -163,27 +163,25 @@ export default {
      */
     setForm() {
       try {
+        const startDate =  convertDateToJalai(this.specialSale.start_time , '-' , true)
+        const endDate =  convertDateToJalai(this.specialSale.end_time , '-' , true)
+        const startDateSplit = this.specialSale.start_time.split(' ')
+        const endDateSplit = this.specialSale.end_time.split(' ')
+        this.form.colorCode = this.specialSale.background_hex_code
+        this.form.title = this.specialSale.label
+        this.form.link = this.specialSale.link
+        this.form.startDate =`${startDate} ${startDateSplit[1].slice(0,5)}`
+        this.form.endDate =`${endDate} ${endDateSplit[1].slice(0,5)}`
+        this.form.image = this.specialSale.image_id
 
-        this.form.fullName = this.supplier.full_name
-        this.form.shopName = this.supplier.shopping_name
-        this.form.type = this.supplier.type
-        this.form.province = this.supplier.state_id
-        this.form.email = this.supplier.email
-        this.getCities()
-        this.form.city = this.supplier.city_id
-        this.form.phoneNumber = this.supplier.phone
-        this.form.mobileNumber = this.supplier.phone_number
-        this.form.accountNumber = this.supplier.account_number
-        this.form.shebaNumber = this.supplier.sheba_number
-        this.form.paymentPeriod = this.supplier.payment_period
-        this.form.paymentType = this.supplier.payment_type
+
       } catch (error) {}
     },
   },
   watch: {
-    // supplier(val) {
-    //   this.setForm()
-    // }
+    specialSale(val) {
+      this.setForm()
+    }
   },
 }
 </script>

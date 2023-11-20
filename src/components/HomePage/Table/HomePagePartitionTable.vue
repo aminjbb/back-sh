@@ -123,15 +123,26 @@
               </template>
 
               <v-list class="c-table__more-options">
+                <v-list-item>
+                  <v-list-item-title>
+                    <div class="ma-5 pointer" @click="openEditModal(item)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                         ویرایش
+                                        </span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="removeItem(item.id)">
 
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class=" text-grey-darken-1 t14300">
                                             حذف
                   </span>
-                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+
                   </div>
                 </v-list-item-title>
+                </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="$router.push(`/home-page/${$route.params.sectionId}/partition-slider/${item.id}/add/sku`)">
@@ -156,6 +167,7 @@
     </div>
 
     <ModalMassUpdate :updateUrl="updateUrl" />
+    <ModalEditSectionForSlider/>
   </div>
 </template>
 
@@ -188,8 +200,10 @@ import InventoryManagementModal from "@/components/Seller/Modals/InventoryManage
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+import ModalEditSectionForSlider from "@/components/HomePage/Modals/ModalEditSectionForSlider.vue";
 export default {
   components: {
+    ModalEditSectionForSlider,
     ModalMassUpdate,
   },
 
@@ -374,6 +388,13 @@ export default {
   },
 
   methods: {
+    openEditModal(object){
+      const form = {
+        dialog :true,
+        object : object
+      }
+      this.$store.commit('set_homePageSectionForSliderModal' , form)
+    },
     sliderStatus(status){
       switch (status) {
         case 'in_progress':

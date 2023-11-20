@@ -90,7 +90,7 @@
           <div  v-if="header[5].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
 
             <span>
-              {{ item.creator_id }}
+              {{ item.creator?.first_name }} {{ item.creator?.last_name }}
             </span>
           </div>
           <div v-if="header[6].show" class="c-table__contents__item " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -151,7 +151,24 @@
               </template>
 
               <v-list class="c-table__more-options">
-
+                <v-list-item>
+                  <v-list-item-title>
+                    <div class="ma-5 pointer" @click="openEditModal(item)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                         ویرایش
+                                        </span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <div class="ma-5 pointer"  @click="removeItem(item.id)">
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                           حذف
+                                        </span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
 
               </v-list>
             </v-menu>
@@ -168,6 +185,9 @@
     </div>
 
     <ModalMassUpdate :updateUrl="updateUrl" />
+    <ModalEditBanner/>
+    <ModalEditCategory/>
+    <ModalEditBlog/>
   </div>
 </template>
 
@@ -201,8 +221,14 @@ import InventoryManagementModal from "@/components/Seller/Modals/InventoryManage
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+import ModalEditBanner from "@/components/HomePage/Modals/ModalEditBanner.vue";
+import ModalEditCategory from "@/components/HomePage/Modals/ModalEditCategory.vue";
+import ModalEditBlog from "@/components/HomePage/Modals/ModalEditBlog.vue";
 export default {
   components: {
+    ModalEditBlog,
+    ModalEditCategory,
+    ModalEditBanner,
     ModalMassUpdate,
   },
 
@@ -399,6 +425,15 @@ export default {
   },
 
   methods: {
+    openEditModal(object){
+      const form = {
+        dialog :true,
+        object : object
+      }
+      if (this.model == 'category') this.$store.commit('set_homePageCategoryModal' , form)
+      else if (this.model == 'blog') this.$store.commit('set_homeBlogModal' , form)
+      else this.$store.commit('set_homePageBannerModal' , form)
+    },
     convertDateToJalai,
     async submitImage(index, file) {
       var formData = new FormData();
@@ -423,11 +458,12 @@ export default {
       formData.append('image_id', this.form[index].image)
       formData.append('priority', this.form[index].priority)
       formData.append('device', this.form[index].device)
-      formData.append('end_time', this.form[index].end_time)
+      if ( this.form[index].end_time != null) formData.append('end_time', this.form[index].end_time)
+      if ( this.form[index].start_time != null) formData.append('start_time', this.form[index].start_time)
       formData.append('image_alt', this.form[index].image_alt)
       formData.append('is_active', this.form[index].is_active)
       formData.append('link', this.form[index].link)
-      formData.append('start_time', this.form[index].start_time)
+
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.form = formData

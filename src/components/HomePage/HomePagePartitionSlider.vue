@@ -154,15 +154,15 @@ export default {
       this.addPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') == 'done') {
         if (!val) {
-          this.getMenus();
+          this.getHomeSection()
           openToast(
               this.$store,
               'منو مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

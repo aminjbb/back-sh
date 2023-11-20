@@ -1,16 +1,6 @@
 <template>
   <div class="text-right">
-    <v-btn
-        @click="dialog = true"
-        color="primary500"
-        height="40"
-        rounded
-        class="px-8 mt-1">
-      <template v-slot:prepend>
-        <v-icon>mdi-plus</v-icon>
-      </template>
-      افزودن مقاله
-    </v-btn>
+
     <v-dialog
         v-model="dialog"
         width="908"
@@ -18,7 +8,7 @@
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
           <v-col cols="2">
-            <v-btn @click="dialog = false" variant="icon">
+            <v-btn @click="close()" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -26,7 +16,7 @@
           <v-col cols="7">
             <div class="text-left pl-5">
               <span class="t14500">
-                           افزودن مقاله
+                           ویرایش مقاله
               </span>
             </div>
           </v-col>
@@ -36,7 +26,7 @@
         </div>
 
         <div class="text-center px-5" >
-          <BlogForm ref="BlogForm"/>
+          <BlogForm status="edit" ref="BlogForm"/>
         </div>
 
         <div class="mt-3 mb-8 px-5">
@@ -54,7 +44,7 @@
             تایید
           </v-btn>
           <v-btn
-
+              @click="close()"
               variant="text"
               height="40"
               rounded
@@ -78,11 +68,17 @@ export  default {
   },
   data(){
     return{
-      dialog:false
     }
   },
 
   methods:{
+    close(){
+      const form = {
+        dialog :false,
+        object : ''
+      }
+      this.$store.commit('set_homeBlogModal' , form)
+    },
     validate(){
       this.$refs.BlogForm.$refs.addForm.validate()
       setTimeout(()=>{
@@ -94,7 +90,7 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/home/section/banner/create'
+      AxiosMethod.end_point = `page/home/section/banner/update/${this.blogObject.id}`
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.BlogForm.form.link)
       formData.append('label', this.$refs.BlogForm.form.title)
@@ -110,11 +106,20 @@ export  default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
-        this.dialog = false
+        this.close()
       }
       else{
         this.loading=false
       }
+    }
+  },
+
+  computed:{
+    dialog(){
+      return this.$store.getters['get_homeBlogModal']
+    },
+    blogObject(){
+      return this.$store.getters['get_homeBlogObject']
     }
   }
 }

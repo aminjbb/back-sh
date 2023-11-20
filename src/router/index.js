@@ -130,6 +130,7 @@ import HomePageAddSkuSectionView from "@/views/HomePage/HomePageAddSkuSectionVie
 import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vue";
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
+import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -977,11 +978,19 @@ const router = createRouter({
             name:'مدیریت تخفیف ویژه'
           }
         },
-        // Todo add edit page
+
         {
           path: ':sectionId/special-sales/add',
           name: 'HomePageSpecialSaleAdd',
           component: HomePageSpecialAddView,
+          meta:{
+            name:'اضافه کردن تخفیف ویژه'
+          }
+        },
+        {
+          path: ':sectionId/special-sales/:specialId/edit/',
+          name: 'HomePageSpecialSaleEdit',
+          component: HomePageSpecialEditView,
           meta:{
             name:'اضافه کردن تخفیف ویژه'
           }

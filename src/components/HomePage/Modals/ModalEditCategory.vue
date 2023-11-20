@@ -1,16 +1,6 @@
 <template>
   <div class="text-right">
-    <v-btn
-        @click="dialog = true"
-        color="primary500"
-        height="40"
-        rounded
-        class="px-8 mt-1">
-      <template v-slot:prepend>
-        <v-icon>mdi-plus</v-icon>
-      </template>
-      افزودن مقاله
-    </v-btn>
+
     <v-dialog
         v-model="dialog"
         width="908"
@@ -18,7 +8,7 @@
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
           <v-col cols="2">
-            <v-btn @click="dialog = false" variant="icon">
+            <v-btn @click="close()" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -26,7 +16,7 @@
           <v-col cols="7">
             <div class="text-left pl-5">
               <span class="t14500">
-                           افزودن مقاله
+                           ویرایش دسته بندی
               </span>
             </div>
           </v-col>
@@ -36,7 +26,7 @@
         </div>
 
         <div class="text-center px-5" >
-          <BlogForm ref="BlogForm"/>
+          <CategoryForm status="edit" ref="CategoryForm"/>
         </div>
 
         <div class="mt-3 mb-8 px-5">
@@ -54,7 +44,7 @@
             تایید
           </v-btn>
           <v-btn
-
+              @click="close()"
               variant="text"
               height="40"
               rounded
@@ -70,37 +60,37 @@
   </div>
 </template>
 <script>
-import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
+import CategoryForm from '@/components/HomePage/Forms/CategoryForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
+import {convertDateToGregorian} from "@/assets/js/functions";
 export  default {
   components:{
-    BlogForm
+    CategoryForm
   },
   data(){
     return{
-      dialog:false
+
     }
   },
-
   methods:{
     validate(){
-      this.$refs.BlogForm.$refs.addForm.validate()
+      this.$refs.CategoryForm.$refs.addForm.validate()
       setTimeout(()=>{
-        if (this.$refs.BlogForm.valid) this.createBlog()
+        if (this.$refs.CategoryForm.valid) this.createCategory()
       } , 200)
     },
 
-    async createBlog(){
+    async createCategory(){
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'page/home/section/banner/create'
       formData.append('homepage_section_id' , this.$route.params.sectionId)
-      formData.append('link', this.$refs.BlogForm.form.link)
-      formData.append('label', this.$refs.BlogForm.form.title)
-      formData.append(`image_alt`, this.$refs.BlogForm.form.imageAlt)
-      formData.append('image_id', this.$refs.BlogForm.form.image)
-      formData.append('priority', this.$refs.BlogForm.form.priority)
+      formData.append('link', this.$refs.CategoryForm.form.link)
+      formData.append(`image_alt`, this.$refs.CategoryForm.form.imageAlt)
+      formData.append('image_id', this.$refs.CategoryForm.form.image)
+      formData.append('priority', this.$refs.CategoryForm.form.priority)
+      formData.append('image_id', this.$refs.CategoryForm.form.image)
       formData.append('device', 'desktop')
       formData.append('is_active', 0)
       AxiosMethod.form = formData
@@ -115,6 +105,22 @@ export  default {
       else{
         this.loading=false
       }
+    },
+    close(){
+      const form = {
+        dialog :false,
+        object : ''
+      }
+      this.$store.commit('set_homePageCategoryModal' , form)
+    }
+  },
+
+  computed:{
+    dialog(){
+      return this.$store.getters['get_homePageCategoryModal']
+    },
+    bannerObject(){
+      return this.$store.getters['get_homePageCategoryObject']
     }
   }
 }

@@ -119,7 +119,7 @@
 
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
+                    <div class="ma-5 pointer" @click="openEditModal(item)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                          ویرایش
                                         </span>
@@ -150,6 +150,7 @@
     </div>
 
     <ModalMassUpdate :updateUrl="updateUrl" />
+    <ModalEditBrand />
   </div>
 </template>
 
@@ -183,8 +184,10 @@ import InventoryManagementModal from "@/components/Seller/Modals/InventoryManage
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+import ModalEditBrand from "@/components/HomePage/Modals/ModalEditBrand.vue";
 export default {
   components: {
+    ModalEditBrand,
     ModalMassUpdate,
   },
 
@@ -359,8 +362,8 @@ export default {
       this.active = []
       this.form = []
       val.forEach(element => {
-        console.log(element)
         const form = {
+          banner :element.id,
           image: element.id,
           imageId: element.id,
           imageUrl: element.image?.image_url,
@@ -376,6 +379,62 @@ export default {
   },
 
   methods: {
+    async submitImage(index, file) {
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      formData.append('file', file)
+      formData.append('module', 'page')
+      AxiosMethod.using_auth = true
+      AxiosMethod.store = this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'file-manager/direct/store'
+      AxiosMethod.form = formData
+      let data = await AxiosMethod.axios_image_upload()
+      if (data) {
+        this.form[index].imageUrl = data.data.data.url
+        this.form[index].image = data.data.data.image_id
+      }
+    },
+    async updateImage(index) {
+      this.form[index].loading = true
+      const formData = new FormData()
+      formData.append('homepage_section_id', this.$route.params.sectionId)
+      formData.append('image_id', this.form[index].image)
+      formData.append('priority', this.form[index].priority)
+      formData.append('device', this.form[index].device)
+      formData.append('image_alt', this.form[index].image_alt)
+      formData.append('is_active', this.form[index].is_active)
+      formData.append('link', this.form[index].link)
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = formData
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `page/home/section/brand/update/${this.form[index].banner}`
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.form[index].loading = false
+        openToast(this.$store, 'اطلاعات با موفقیت ویرایش شد', 'success')
+        if (this.form[index].image !== this.form[index].imageId) {
+          this.deleteImage(this.form[index].imageId)
+        }
+      }
+    },
+    selectFile(index) {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.onchange = e => {
+        let file = e.target.files[0];
+        this.submitImage(index, file)
+      }
+      input.click();
+    },
+    openEditModal(obejct){
+      const form = {
+        dialog :true,
+        object :obejct
+      }
+      this.$store.commit('set_homePageBrandModal' , form)
+    },
     convertDateToJalai,
 
     /**
