@@ -372,3 +372,18 @@ a,
 .text-clamp span {
   font-family: IRANSansNum !important;
 }
+
+.slider_status{
+  padding: 7px 12px 7px 8px;
+  border-radius: 8px;
+  height: 30px;
+  &__waiting{
+    background: #FFF3E0;
+  }
+  &__progress{
+    background: #E8F5E9;
+  }
+  &__expire{
+    background: #FFEBEE;
+  }
+}

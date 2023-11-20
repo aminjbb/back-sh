@@ -114,6 +114,22 @@ import AddSkuGroupView from "@/views/PromotionPages/AddSkuGroupView.vue";
 import PageSliderListView from '../views/PageSlider/SliderListView.vue'
 import AddPageSliderView from '../views/PageSlider/AddSliderView.vue'
 import SliderSkuList from '../views/PageSlider/SliderSkuListView.vue'
+/* homePage management */
+import HomePageSectionListView from "@/views/HomePage/HomePageSectionListView.vue";
+import HomePageBannerListView from "@/views/HomePage/HomePageBannerListView.vue";
+import HomePageSpecialSaleListView from "@/views/HomePage/HomePageSpecialSaleListView.vue";
+import HomePageSpecialAddView from "@/views/HomePage/HomePageSpecialAddView.vue";
+import HomePageSpecilaShpsAddView from "@/views/HomePage/HomePageSpecilaShpsAddView.vue";
+import HomePageCategoryListView from "@/views/HomePage/HomePageCategoryListView.vue";
+import HomePagePartitionSliderView from "@/views/HomePage/HomePagePartitionSliderView.vue";
+import HomePagePartitionSliderAddSkuView from "@/views/HomePage/HomePagePartitionSliderAddSkuView.vue";
+import HomePageSkuWithSectionView from "@/views/HomePage/HomePageSkuWithSectionView.vue";
+import HomePageAddSkuToSectionView from "@/views/HomePage/HomePageAddSkuToSectionView.vue";
+import HomePageBrandSectionView from "@/views/HomePage/HomePageBrandSectionView.vue";
+import HomePageAddSkuSectionView from "@/views/HomePage/HomePageAddSkuSectionView.vue";
+import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vue";
+import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
+import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -842,7 +858,7 @@ const router = createRouter({
         },
       ],
     },
-      {
+    {
           path: '/menu',// Pages routes
           meta:{
               name:'منو ها'
@@ -919,6 +935,139 @@ const router = createRouter({
           component: AddSkuGroupView,
           meta:{
             name:'افزودن محصول'
+          }
+        },
+      ],
+    },
+    {
+      path: '/home-page',// Pages routes
+      meta:{
+        name:'تنظیمات'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'HomePageSections',
+          component: HomePageSectionListView,
+          meta:{
+            name:'صفحه اصلی'
+          }
+        },
+        {
+          path: ':sectionId/add/banner',
+          name: 'HomePageBannerSection',
+          component: HomePageBannerListView,
+          meta:{
+            name:'مدیریت بنر ها'
+          }
+        },
+        {
+          path: ':sectionId/banner/ads',
+          name: 'HomePageAdsBannerSection',
+          component: HomePageAdsBannerView,
+          meta:{
+            name:'مدیریت بنر ها'
+          }
+        },
+        {
+          path: ':sectionId/special-sales/index',
+          name: 'HomePageSpecialSaleList',
+          component: HomePageSpecialSaleListView,
+          meta:{
+            name:'مدیریت تخفیف ویژه'
+          }
+        },
+        // Todo add edit page
+        {
+          path: ':sectionId/special-sales/add',
+          name: 'HomePageSpecialSaleAdd',
+          component: HomePageSpecialAddView,
+          meta:{
+            name:'اضافه کردن تخفیف ویژه'
+          }
+        },
+
+        {
+          path: ':sectionId/special-sales/:specialId/add/shps',
+          name: 'HomePageSpecialSaleShpsAdd',
+          component: HomePageSpecilaShpsAddView,
+          meta:{
+            name:'اضافه کردن محصول'
+          }
+        },
+        {
+          path: ':sectionId/category/index',
+          name: 'HomePageCategoryList',
+          component: HomePageCategoryListView,
+          meta:{
+            name:'لیست دسته بندی'
+          }
+        },
+        {
+          path: ':sectionId/partition-slider/index',
+          name: 'HomePagePartitionSlider',
+          component: HomePagePartitionSliderView,
+          meta:{
+            name:'لیست دسته بندی'
+          }
+        },
+        {
+          path: ':sectionId/partition-slider/:partitionId/add/sku',
+          name: 'HomePagePartitionSliderAddSku',
+          component: HomePagePartitionSliderAddSkuView,
+          meta:{
+            name:'اضافه کردن محصول'
+          }
+        },
+
+        {
+          path: ':sectionId/section-sku/index',
+          name: 'HomePageSectionListForSku',
+          component: HomePageSkuWithSectionView,
+          meta:{
+            name:'اضافه کردن محصول'
+          }
+        },
+        {
+          path: ':sectionId/section-sku/:categoryId/add/sku',
+          name: 'HomePageAddSkuToSection',
+          component: HomePageAddSkuToSectionView,
+          meta:{
+            name:'اضافه کردن محصول'
+          }
+        },
+
+
+        {
+          path: ':sectionId/brand/index',
+          name: 'HomePageBrandList',
+          component: HomePageBrandSectionView,
+          meta:{
+            name:'لیست یرند ها'
+          }
+        },
+        {
+          path: ':sectionId/add/sku',
+          name: 'HomePageAddSkuSection',
+          component: HomePageAddSkuSectionView,
+          meta:{
+            name:'لیست یرند ها'
+          }
+        },
+        {
+          path: ':sectionId/gift/add',
+          name: 'HomePageGiftAddSkuSection',
+          component: HomePageGiftSectionView,
+          meta:{
+            name:'لیست یرند ها'
+          }
+        },
+        {
+          path: ':sectionId/blog/index',
+          name: 'HomePageBlogList',
+          component: HomePageBlogSectionView,
+          meta:{
+            name:'لیست یرند ها'
           }
         },
       ],
