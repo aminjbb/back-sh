@@ -77,7 +77,8 @@ export  default {
     AddSectionForm
   },
   props:{
-    slider:null
+    slider:null,
+    getHomeSection:{type:Function}
   },
   data(){
     return{
@@ -111,6 +112,7 @@ export  default {
       if (data) {
         this.loading=false
         this.dialog = false
+        this.getHomeSection()
       }
       else{
         this.loading=false

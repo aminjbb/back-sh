@@ -73,6 +73,10 @@
       </v-col>
       <v-col cols="12">
         <UploadFileSection @getImage="getImage"/>
+        <div class="d-flex align-center mt-5" v-if="form.image">
+          <span>IMG-{{ form.image }}</span>
+          <span class="mr-15"><v-icon color="error">mdi-delete</v-icon></span>
+        </div>
       </v-col>
     </v-row>
   </v-form>

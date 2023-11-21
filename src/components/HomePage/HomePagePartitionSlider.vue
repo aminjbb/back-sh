@@ -31,7 +31,7 @@
           align="center"
           class="px-10 py-4">
         <v-col cols="6" >
-         <ModalAddSectionForSlider :slider="slider"/>
+         <ModalAddSectionForSlider  :getHomeSection="getHomeSection"  :slider="slider"/>
         </v-col>
 
         <v-col cols="6">
