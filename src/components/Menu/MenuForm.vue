@@ -231,7 +231,8 @@ export default {
         this.form.icon = this.menu.icon
         this.form.url = this.menu.url
         this.form.deviceType = this.menu.type
-        this.form.flashIcon = this.menu.has_chevron
+        if (this.menu.has_chevron == 0)this.form.flashIcon = 'none'
+        else this.form.flashIcon = this.menu.has_chevron
         this.form.position = this.menu.position
 
       } catch (error) {
