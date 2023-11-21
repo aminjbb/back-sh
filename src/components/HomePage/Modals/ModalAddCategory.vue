@@ -74,6 +74,9 @@ import CategoryForm from '@/components/HomePage/Forms/CategoryForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToGregorian} from "@/assets/js/functions";
 export  default {
+  props:{
+    getHomePageBanner:{type:Function}
+  },
   components:{
     CategoryForm
   },
@@ -112,6 +115,7 @@ export  default {
       if (data) {
         this.loading=false
         this.dialog = false
+        this.getHomePageBanner()
       }
       else{
         this.loading=false

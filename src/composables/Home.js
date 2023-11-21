@@ -44,6 +44,19 @@ export default function setup(posts) {
         { name: 'زمان شروع', show: false, value:'started_at', order: false },
         { name: 'زمان پایان', show: false, value:'end_at', order: false },
     ]);
+    const blogHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'تصویر', show: true , value:'image', order: false},
+        { name: 'دستگاه', show: true, value:'device_type' , order: false},
+        { name: 'لینک', show: true , value:'link', order: false},
+        { name: 'ترتیب نمایش', show: true, value:'priority', order: false },
+        { name: 'سازنده', show: true, value:'admin', order: false },
+        { name: 'ذخیره', show: true, value:'save', order: false },
+        { name: 'وضعیت', show: false, value:'is_active', order: false },
+        { name: 'زمان ویرایش', show: false, value:'updated_at', order: false },
+        { name: 'زمان شروع', show: false, value:'started_at', order: false },
+        { name: 'زمان پایان', show: false, value:'end_at', order: false },
+    ]);
     const brandHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'تصویر', show: true , value:'image', order: false},
@@ -300,6 +313,6 @@ export default function setup(posts) {
         ,specialSalesShpsHeader,getHomeBrand , homeBrand , getHomeSlider, homeSlider , brandHeader ,
         getHomePartitionSlider , homePartitionSlider , getHomePageCategory , homePageCategory , categoryHeader ,
         getHomePageSingleCategory , homePageSingleCategory , homePageSkuHeader , getHomePageBanner ,homePageBanner ,
-        homePageSingleSlider ,getHomePageSingleSlider , getHomeSinglePartitionSlider , homeSinglePartitionSlider}
+        homePageSingleSlider ,getHomePageSingleSlider , getHomeSinglePartitionSlider , homeSinglePartitionSlider , blogHeader}
 }
 

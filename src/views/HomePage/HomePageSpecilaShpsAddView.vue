@@ -1,7 +1,7 @@
 <script setup>
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import AddSphsToSpecialSale from '@/components/HomePage/Add/AddSphsToSpecialSale.vue'
+import AddSphsToSpecialSale from '@/components/HomePage/Add/AddShpsToSpecialSale.vue'
 </script>
 
 <template>

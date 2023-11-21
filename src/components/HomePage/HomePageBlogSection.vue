@@ -52,7 +52,7 @@
     <v-card class="mx-5 my-2 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
-          :header="bannerHeader"
+          :header="blogHeader"
           :items="homePageBanner.data"
           editUrl="/seller/edit/"
           activePath="page/home/section/banner/update/activation/"
@@ -73,16 +73,7 @@
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
-            <div class="text-center">
-              <v-pagination
-                  v-model="skuPage"
-                  :length="pageLength"
-                  rounded="circle"
-                  size="40"
-                  :total-visible="4"
-                  prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
-            </div>
+
           </v-col>
 
           <v-col cols="3" class="d-flex justify-end">
@@ -121,10 +112,10 @@ import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup(props) {
     const {
-      bannerHeader ,  getHomeSection , homeSection ,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner  ,
+      blogHeader ,  getHomeSection , homeSection ,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner  ,
     } = new Home();
     return {
-      bannerHeader ,  getHomeSection , homeSection,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner
+      blogHeader ,  getHomeSection , homeSection,  dataTableLength, page , filterBannerField , loading ,getHomePageBanner , homePageBanner
     };
   },
 

@@ -7,7 +7,7 @@
           align="center"
           class="px-10 py-4">
         <v-col cols="6" >
-          <ModalAddBrand/>
+          <ModalAddBrand :getHomeBrand="getHomeBrand"/>
         </v-col>
 
         <v-col cols="6">

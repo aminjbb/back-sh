@@ -40,7 +40,7 @@
           align="center"
           class="px-10 py-4">
         <v-col cols="6" >
-          <ModalAddCategory/>
+          <ModalAddCategory :getHomePageBanner="getHomePageBanner"/>
         </v-col>
 
         <v-col cols="6">
