@@ -54,11 +54,12 @@
       <Table
           class="flex-grow-1"
           :header="homePageSkuHeader"
-          :items="[]"
+          :items="homePageSingleSlider.skus"
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
           deletePath="seller/crud/update/activation/"
           changeStatusUrl="seller/crud/update/contract/"
+          :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
@@ -213,7 +214,7 @@ export default {
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `page/home/section/category/${this.$route.params.categoryId}/sku/attach`
+      AxiosMethod.end_point = `page/home/section/slider/${this.$route.params.specialId}/sku/attach`
       formData.append('shps', id)
       formData.append('sku_id', skuId)
       formData.append('priority', 1)
@@ -221,7 +222,7 @@ export default {
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.getHomePageSingleCategory()
+        this.getHomePageSingleSlider()
         openToast(
             this.$store,
             'کد کالا با موفقیت افزوده شد.',

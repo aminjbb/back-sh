@@ -93,8 +93,11 @@ export  default {
 
       this.loading=true
       let formData = new FormData();
+      let endPoint = null
+      if (this.banner) endPoint = `page/home/section/banner/update/${this.benner.id}`
+       else endPoint = `page/home/section/banner/create/`
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/home/section/banner/create'
+      AxiosMethod.end_point = endPoint
 
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.AddAdsForm.form.link)
