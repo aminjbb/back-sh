@@ -3,7 +3,7 @@
 
     <v-card height="70" class="mx-5 my-2 br-12 pt-2 stretch-card-header-70">
         <div class="d-flex justify-start align-center pr-15">
-          <ModalPartitionSlider :slider="slider"/>
+          <ModalPartitionSlider :getHomeSection="getHomeSection" :slider="slider"/>
            <div class="d-flex px-15">
               <div class="d-flex mx-5">
                   <span>
@@ -63,16 +63,7 @@
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
-            <div class="text-center">
-              <v-pagination
-                  v-model="skuPage"
-                  :length="pageLength"
-                  rounded="circle"
-                  size="40"
-                  :total-visible="4"
-                  prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
-            </div>
+
           </v-col>
 
           <v-col cols="3" class="d-flex justify-end">

@@ -18,7 +18,7 @@
             density="compact"
             variant="outlined"
             single-line
-            placeholder="لینک تصویر را وارد نمایید"
+            placeholder="عنوان را وارد نمایید"
             :rules="rule"
             v-model="form.title" />
       </v-col>
@@ -67,6 +67,7 @@
             density="compact"
             variant="outlined"
             single-line
+            placeholder=" ترتیب نمایش را وارد نمایید"
             v-model="form.priority" />
 
       </v-col>

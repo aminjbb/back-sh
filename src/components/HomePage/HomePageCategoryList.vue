@@ -47,7 +47,6 @@
           <v-row justify="end" >
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="bannerHeader" />
 
-            <ModalTableFilter path="supplier/index" :filterField="filterBannerField" />
           </v-row>
         </v-col>
       </v-row>
