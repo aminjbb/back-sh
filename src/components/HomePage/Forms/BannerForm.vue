@@ -106,6 +106,7 @@
         <v-text-field
             density="compact"
             variant="outlined"
+            placeholder=" ترتیب نمایش را وارد کنید"
             single-line
             :rules="rule"
             v-model="form.priority" />

@@ -14,7 +14,7 @@
             density="compact"
             variant="outlined"
             single-line
-            placeholder="لینک تصویر را وارد نمایید"
+
             :rules="rule"
             v-model="form.device"
             :disabled="true"
@@ -44,6 +44,7 @@
                 </span>
         </div>
         <v-text-field
+            placeholder="لینک تصویر را وارد نمایید"
             density="compact"
             variant="outlined"
             single-line

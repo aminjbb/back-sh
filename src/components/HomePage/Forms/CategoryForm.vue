@@ -15,7 +15,7 @@
             density="compact"
             variant="outlined"
             single-line
-            placeholder="لینک تصویر را وارد نمایید"
+            placeholder="عنوان تصویر را وارد نمایید"
             :rules="rule"
             v-model="form.title" />
       </v-col>
@@ -27,7 +27,8 @@
                 </span>
         </div>
         <v-text-field
-            placeholder="Alt text را وارد نمایید"
+
+            placeholder="لینک را وارد نمایید"
             density="compact"
             variant="outlined"
             single-line
@@ -42,7 +43,7 @@
                 </span>
         </div>
         <v-text-field
-
+            placeholder="Alt text را وارد نمایید"
             density="compact"
             variant="outlined"
             single-line

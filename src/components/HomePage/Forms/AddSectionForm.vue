@@ -25,7 +25,7 @@
                 </span>
         </div>
         <v-text-field
-            placeholder="لینک را وارد نمایید"
+            placeholder="ترتیب نمایش را وارد نمایید"
             density="compact"
             variant="outlined"
             single-line

@@ -74,7 +74,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{item.start_time}}
+                            {{convertDateToJalai(item.start_time , '-' , true) }} {{getTime(item.start_time)}}
                         </span>
             </div>
           </div>
@@ -84,7 +84,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{item.end_time}}
+                            {{convertDateToJalai(item.end_time, '-' , true)}} {{getTime(item.end_time)}}
                         </span>
             </div>
           </div>
@@ -94,7 +94,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{item.creator_id}}
+                            {{item.creator?.first_name}}  {{item.creator?.last_name}}
                         </span>
             </div>
           </div>
@@ -164,6 +164,7 @@
 
 <script>
 import {
+  convertDateToJalai,
   isOdd
 } from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
@@ -375,6 +376,11 @@ export default {
   },
 
   methods: {
+    getTime(date){
+      const splitDate= date.split(' ')
+      return splitDate[1]
+    },
+    convertDateToJalai,
     sliderStatus(status){
       switch (status) {
         case 'in_progress':

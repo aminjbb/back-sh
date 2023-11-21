@@ -75,7 +75,8 @@ import {convertDateToGregorian} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export  default {
   props:{
-    slider:null
+    slider:null,
+    getHomeSection:{type :Function}
   },
   components:{
     PartitionSliderFrom
@@ -91,8 +92,8 @@ export  default {
       this.$refs.PartitionSliderFrom.$refs.addForm.validate()
       setTimeout(()=>{
         if (this.$refs.PartitionSliderFrom.valid){
-          if (this.slider === null)  this.createSlider()
-          else this.editSlider()
+          if (this.slider)  this.editSlider()
+          else this.createSlider()
         }
       }, 200)
     },
@@ -114,6 +115,7 @@ export  default {
       if (data) {
         this.loading=false
         this.dialog = false
+        this.getHomeSection()
       }
       else{
         this.loading=false
@@ -136,6 +138,7 @@ export  default {
       if (data) {
         this.loading=false
         this.dialog = false
+        this.getHomeSection()
       }
       else{
         this.loading=false
