@@ -54,7 +54,7 @@
         <UploadFileSection @getImage="getImage"/>
         <div class="d-flex align-center mt-5" v-if="form.image">
           <span>IMG-{{ form.image }}</span>
-          <span class="mr-15"><v-icon color="error">mdi-delete</v-icon></span>
+          <span class="mr-15"><v-icon  @click="removeItem(form.image)" color="error">mdi-delete</v-icon></span>
         </div>
       </v-col>
     </v-row>
@@ -67,7 +67,7 @@ import {
 } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {
-  convertDateToJalai
+  convertDateToJalai, openConfirm
 } from "@/assets/js/functions";
 import RolePermission from '@/composables/RolePermission'
 import {
@@ -109,6 +109,9 @@ export default {
     }
   },
   methods: {
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
+    },
     /**
      * Get image id
      * @param {*} image
@@ -138,6 +141,17 @@ export default {
     bannerObject(){
       return this.$store.getters['get_homePageBrandObject']
     }
+  },
+
+  watch:{
+    confirmModal(val){
+      if (!val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          this.form.imag= null
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
   }
 }
 </script>
