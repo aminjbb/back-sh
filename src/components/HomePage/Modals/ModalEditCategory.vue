@@ -84,9 +84,10 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/home/section/banner/create'
+      AxiosMethod.end_point = `page/home/section/banner/update/${this.bannerObject.id}`
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.CategoryForm.form.link)
+      formData.append('label', this.$refs.CategoryForm.form.title)
       formData.append(`image_alt`, this.$refs.CategoryForm.form.imageAlt)
       formData.append('image_id', this.$refs.CategoryForm.form.image)
       formData.append('priority', this.$refs.CategoryForm.form.priority)
