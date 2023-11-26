@@ -1,0 +1,14 @@
+/*-----------------------------------------------
+ Roll permission View
+------------------------------------------------*/
+
+.role-permission-input {
+    .v-input__control {
+        height: auto !important;
+    }
+
+    .v-field__input {
+        height: auto !important;
+        min-height: auto !important;
+    }
+}
