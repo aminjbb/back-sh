@@ -16,6 +16,7 @@
                     :rules="englishRule"
                     v-model="form.name" />
             </v-col>
+
             <v-col cols="12" md="5">
                 <div class="text-right my-5">
                     <span class="t14500">
@@ -29,8 +30,8 @@
                     label="نام فارسی"
                     :rules="persianRule"
                     v-model="form.lable" />
-
             </v-col>
+
             <v-col cols="12" md="6">
                 <div class="text-right my-5">
                     <span class="t14500">
@@ -39,6 +40,7 @@
                 </div>
 
                 <v-autocomplete
+                    class="role-permission-input"
                     v-model="form.permissions"
                     :items="permissionList"
                     chips
