@@ -100,6 +100,7 @@
                     placeholder="پیام خود را وارد کنید"
                     v-model="messageModal"
                     rows="1"
+                    @keyup.enter="sendMessage"
                 />
             </v-col>
 
@@ -189,6 +190,7 @@ export default {
        * send message
        */
       async  sendMessage(){
+       
         let formData = new FormData();
         const toUserType = this.$route.query.user_type
         const toUserId = this.$route.query.user_id
@@ -218,6 +220,7 @@ export default {
         else{
           this.loading=false
         }
+        
         }
     },
 
