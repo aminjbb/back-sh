@@ -93,9 +93,26 @@
                         {{ item.phone_number }}
                     </span>
                 </div>
+              <div
+                    v-if=" header[4].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.role?.label }}
+                    </span>
+                    <span v-else>----</span>
+                </div>
+              <div
+                    v-if=" header[5].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.created_at , '-' , true) }}
+                    </span>
+                </div>
 
                 <div
-                    v-if="item.email && header[4].show"
+                    v-if="item.email && header[6].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
@@ -103,7 +120,7 @@
                     </span>
                 </div>
                 <div
-                    v-if=" header[5].show"
+                    v-if=" header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                   <v-switch
@@ -160,7 +177,8 @@
 
 <script>
 import {
-    isOdd
+  convertDateToJalai,
+  isOdd
 } from '@/assets/js/functions'
 import {
     AxiosCall
@@ -295,6 +313,7 @@ export default {
     },
 
     methods: {
+      convertDateToJalai,
         /**
          * Mass update modal
          */
