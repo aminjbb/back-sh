@@ -20,9 +20,9 @@ export default function setup(posts) {
         {name: 'شناسه', show: true},
         {name: 'عنوان', show: true},
         {name: 'مشاهده', show: true},
-
-
+        {name: 'تاریخ ایجاد', show: true},
     ]);
+    
     const item = []
     const loading = ref(false)
 
