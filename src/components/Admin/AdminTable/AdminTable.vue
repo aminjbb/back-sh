@@ -154,6 +154,7 @@
             </div>
         </div>
     </div>
+  <ModalMassUpdate :updateUrl="updateUrl" />
 </div>
 </template>
 
@@ -171,7 +172,9 @@ import {
     openToast,
     openConfirm
 } from "@/assets/js/functions";
+import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 export default {
+  components: {ModalMassUpdate},
 
     props: {
         /**
@@ -226,6 +229,13 @@ export default {
             type: String,
             default: ''
         },
+        /**
+         * url for edit user
+         */
+        updateUrl: {
+            type: String,
+            default: ''
+        },
 
         /**
          * Page on table
@@ -250,6 +260,7 @@ export default {
             type: Boolean,
             default: false
         },
+
 
     },
 
@@ -284,6 +295,12 @@ export default {
     },
 
     methods: {
+        /**
+         * Mass update modal
+         */
+        massUpdateModal() {
+          this.$store.commit('set_massUpdateModal', true)
+        },
         getStatusColor(status) {
             const color = '';
 
