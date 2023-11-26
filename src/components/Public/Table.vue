@@ -41,12 +41,15 @@
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-menu :location="location">
                 <template v-slot:activator="{ props }">
-                    <v-icon v-bind="props">
+                    <!-- <v-icon v-bind="props">
                         mdi-dots-vertical
-                    </v-icon>
+                    </v-icon> -->
+                    <span v-bind="props">
+                        عملیات
+                    </span>
                 </template>
 
-                <v-list v-if="model !== 'sku'">
+                <!-- <v-list v-if="model !== 'sku'">
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
@@ -63,7 +66,7 @@
                         </v-list-item-title>
 
                     </v-list-item>
-                </v-list>
+                </v-list> -->
             </v-menu>
         </div>
     </header>
