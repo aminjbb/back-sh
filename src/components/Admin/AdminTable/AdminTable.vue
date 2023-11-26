@@ -110,9 +110,20 @@
                         {{ convertDateToJalai(item.created_at , '-' , true) }}
                     </span>
                 </div>
+              <div
+                    v-if=" header[6].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.last_logged_in , '-' , true) }}
+                    </span>
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        ---
+                    </span>
+                </div>
 
                 <div
-                    v-if="item.email && header[6].show"
+                    v-if="item.email && header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">

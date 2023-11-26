@@ -36,7 +36,7 @@
             </template>
         </template>
         <div
-            v-if="model !== 'permission'"
+            v-if="model !== 'permission' && model !== 'export' "
             class="c-table__header__item"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-menu :location="location">
@@ -376,7 +376,7 @@
                 </div>
 
                 <div
-                    v-if="model !== 'permission'"
+                    v-if="model !== 'permission' && model !== 'export' "
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <v-menu :location="location">
