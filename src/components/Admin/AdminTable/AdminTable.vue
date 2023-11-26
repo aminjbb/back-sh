@@ -123,11 +123,14 @@
                 </div>
 
                 <div
-                    v-if="item.email && header[7].show"
+                    v-if=" header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span v-if="item.email" class="t14300 text-gray500 py-5">
                         {{ item.email }}
+                    </span>
+                  <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
                 </div>
                 <div

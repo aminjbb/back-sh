@@ -68,7 +68,6 @@
               density="compact"
               variant="outlined"
               v-model="form.email"
-              :rules="emailRule"
           />
         </v-col>
         <v-col cols="12" md="5">
@@ -80,6 +79,7 @@
           <v-text-field
               label="تاریخ تولد"
               single-line
+              name="create-user-date"
               clearable
               density="compact"
               variant="outlined"
@@ -88,6 +88,7 @@
               v-model="form.birthDate"
           />
           <date-picker
+              name="create-user-date"
               class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
               format="jYYYY-jMM-jDD"
               display-format="jYYYY-jMM-jDD"
@@ -106,6 +107,7 @@
           </div>
           <v-text-field
               label="گذر واژه"
+              name="create-user-password"
               single-line
               clearable
               density="compact"
@@ -178,7 +180,6 @@ export default {
             ) || "شماره موبایل معتبر نیست",
       ],
       emailRule: [
-        (v) => !!v || "این فیلد الزامی است",
         (v) =>
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
                 v

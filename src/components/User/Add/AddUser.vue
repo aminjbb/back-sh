@@ -59,7 +59,15 @@ export default {
     validate(){
       this.$refs.AdminForm.$refs.addForm.validate()
       setTimeout(()=>{
-        if (this.$refs.AdminForm.valid) this.createUser()
+        if (this.$refs.AdminForm.form.email){
+          if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.$refs.AdminForm.form.email)){
+            if (this.$refs.AdminForm.valid) this.createUser()
+          }
+          else {
+            openToast(this.$store, 'فیلد ایمیل معتبر نیست' , 'error')
+          }
+        }
+
       } , 200)
     },
 
