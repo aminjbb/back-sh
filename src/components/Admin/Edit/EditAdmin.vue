@@ -82,7 +82,7 @@ export default {
       formData.append('birth_date', birthDate)
       if (this.avatar) formData.append('avatar', this.avatar)
       formData.append('role_id', this.$refs.AdminForm.form.rolePermission)
-      formData.append('is_ban', 0)
+      formData.append('is_ban', this.adminForEdit.is_ban)
       if (this.$refs.AdminForm.form.password) formData.append('password', this.$refs.AdminForm.form.password)
       if (this.$refs.AdminForm.form.repeatPassword)formData.append('password_confirmation', this.$refs.AdminForm.form.repeatPassword)
       AxiosMethod.form = formData

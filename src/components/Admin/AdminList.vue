@@ -41,6 +41,7 @@
             :perPage="dataTableLength"
             :loading="loading"
             editUrl="/admin/edit/"
+            updateUrl="admin/csv/mass-update/"
             deletePath="admin/crud/delete/"
             banPath="admin/crud/update/ban/"/>
 

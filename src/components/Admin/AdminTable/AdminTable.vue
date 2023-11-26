@@ -93,9 +93,37 @@
                         {{ item.phone_number }}
                     </span>
                 </div>
+              <div
+                    v-if=" header[4].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.role?.label }}
+                    </span>
+                    <span v-else>----</span>
+                </div>
+              <div
+                    v-if=" header[5].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.created_at , '-' , true) }}
+                    </span>
+                </div>
+              <div
+                    v-if=" header[6].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.last_logged_in , '-' , true) }}
+                    </span>
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        ---
+                    </span>
+                </div>
 
                 <div
-                    v-if="item.email && header[4].show"
+                    v-if="item.email && header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
@@ -103,7 +131,7 @@
                     </span>
                 </div>
                 <div
-                    v-if=" header[5].show"
+                    v-if=" header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                   <v-switch
@@ -154,12 +182,14 @@
             </div>
         </div>
     </div>
+  <ModalMassUpdate :updateUrl="updateUrl" />
 </div>
 </template>
 
 <script>
 import {
-    isOdd
+  convertDateToJalai,
+  isOdd
 } from '@/assets/js/functions'
 import {
     AxiosCall
@@ -171,7 +201,9 @@ import {
     openToast,
     openConfirm
 } from "@/assets/js/functions";
+import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 export default {
+  components: {ModalMassUpdate},
 
     props: {
         /**
@@ -226,6 +258,13 @@ export default {
             type: String,
             default: ''
         },
+        /**
+         * url for edit user
+         */
+        updateUrl: {
+            type: String,
+            default: ''
+        },
 
         /**
          * Page on table
@@ -250,6 +289,7 @@ export default {
             type: Boolean,
             default: false
         },
+
 
     },
 
@@ -284,6 +324,13 @@ export default {
     },
 
     methods: {
+      convertDateToJalai,
+        /**
+         * Mass update modal
+         */
+        massUpdateModal() {
+          this.$store.commit('set_massUpdateModal', true)
+        },
         getStatusColor(status) {
             const color = '';
 
