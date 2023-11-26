@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center c-modal-table-filter">
     <v-btn
         @click="openModal()"
@@ -259,7 +259,11 @@ export default {
                 {
                     label: 'برند',
                     value: 'brand',
-                }
+                },
+                {
+                  label: 'کالاها',
+                  value: 'sku',
+                },
             ],
         }
     },

@@ -36,7 +36,7 @@
             :perPage="dataTableLength"
             :loading="loading"
             updateUrl="page/csv/mass-update"
-            model="page" />
+            model="sliderPage" />
 
         <v-divider />
 
@@ -105,7 +105,8 @@ export default {
             SliderHeader,
             addPagination,
             addPerPage,
-            loading
+            loading,
+          addPerPageSlider
         } = Page();
         return {
             pageLength,
@@ -117,7 +118,8 @@ export default {
             SliderHeader,
             addPagination,
             addPerPage,
-            loading
+            loading,
+          addPerPageSlider
         };
     },
 
@@ -152,7 +154,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.addPerPage(val)
+            this.addPerPageSlider(val)
         },
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
