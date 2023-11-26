@@ -50,7 +50,7 @@
                 </template>
 
 
-                <v-list v-if="model !== 'sku' && model !== 'export' ">
+                <v-list v-if="model !== 'sku' && model !== 'export' && model !== 'notification'">
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
@@ -130,7 +130,7 @@
                 </div>
 
                 <div
-                    v-if="header[2].show"
+                    v-if="model !== 'notification' && header[2].show"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-if="item.name">
@@ -400,7 +400,7 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-                                <v-list-item-title v-if=" model !== 'export'">
+                                <v-list-item-title v-if="model !== 'export' && editUrl">
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
