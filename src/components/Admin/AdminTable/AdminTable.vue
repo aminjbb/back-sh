@@ -102,6 +102,16 @@
                         {{ item.email }}
                     </span>
                 </div>
+                <div
+                    v-if=" header[5].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                  <v-switch
+                      v-model="isBan[index]"
+                      inset
+                      color="success"
+                      @change="changeBan(index,item)" />
+                </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
                     <v-menu :location="location">
@@ -194,6 +204,13 @@ export default {
             type: String,
             default: ''
         },
+      /**
+       * Edit endpoint for change ban
+       */
+        banPath: {
+            type: String,
+            default: ''
+        },
         /**
          * Delete endpoint for change filter
          */
@@ -242,6 +259,7 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
+            isBan:[],
             panelFilter: new PanelFilter(),
         }
     },
@@ -384,12 +402,12 @@ export default {
          * @param {*} index
          * @param {*} item
          */
-        async changeFilter(index, item) {
+        async changeBan(index, item) {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.editPath + item.id
-            if (this.filter[index]) formdata.append('is_filterable', 1)
-            else formdata.append('is_filterable', 0)
+            AxiosMethod.end_point = this.banPath + item.id
+            if (this.isBan[index]) formdata.append('is_ban', 1)
+            else formdata.append('is_ban', 0)
             AxiosMethod.store = this.$store
             AxiosMethod.form = formdata
 
@@ -414,5 +432,13 @@ export default {
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
+    watch:{
+      items(val){
+        val.forEach(admin => {
+          if (admin.is_ban === 1)  this.isBan.push(true)
+          else this.isBan.push(false)
+        })
+      }
+    }
 }
 </script>

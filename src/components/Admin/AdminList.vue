@@ -41,7 +41,8 @@
             :perPage="dataTableLength"
             :loading="loading"
             editUrl="/admin/edit/"
-            deletePath="admin/crud/delete/" />
+            deletePath="admin/crud/delete/"
+            banPath="admin/crud/update/ban/"/>
 
         <v-divider />
 
