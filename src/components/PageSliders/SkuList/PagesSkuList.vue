@@ -38,7 +38,12 @@
                         </v-list-item>
                     </template>
                 </v-autocomplete>
+
             </v-col>
+          <v-col cols="2">
+            <ModalGroupAdd getEndPoint="page/slider/csv/get/template" uploadEndpoint="page/slider/csv/bulk/sku" />
+          </v-col>
+
         </v-row>
     </v-card>
 
@@ -61,8 +66,8 @@
         <v-card-actions class="pb-3">
             <v-row class="px-8">
                 <v-col cols="3" class="d-flex justify-start">
-                    <ModalExcelDownload getEndPoint="page/csv/get/export" />
-                    
+                    <ModalExcelDownload :getEndPoint="`page/slider/csv/${$route.params.sliderId}/get/sku/export`" />
+
 
                 </v-col>
 
