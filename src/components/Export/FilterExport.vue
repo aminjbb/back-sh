@@ -16,7 +16,7 @@
                         <v-select 
                             :items="modelItems" 
                             v-model="model" 
-                            variant="outlined"
+                            variant="solo"
                         />
                     </v-col>
 
@@ -26,7 +26,7 @@
                                 class="custom-input"
                                 v-model="date"
                                 placeholder="تاریخ ساخت"
-                                variant="outlined"
+                                variant="solo"
                             />
                             
                             <date-picker  
