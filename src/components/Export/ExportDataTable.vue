@@ -14,10 +14,10 @@
             <Table 
                 class="flex-grow-1"
                 model="export"
-                deletePath="category/crud/delete/"
+                deletePath="export/crud/delete/"
                 :header="header"
                 :items="exports.data"
-                  :page="page"
+                :page="page"
                 :perPage="dataTableLength"
                 :loading="loading"
             />
@@ -77,6 +77,7 @@ import Export from '@/composables/Export';
 
 //Package
 import DatePicker from 'vue3-persian-datetime-picker'
+import {openToast} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -108,7 +109,25 @@ export default {
     watch: {
         $route(val) {
             this.getExports(this.$route.query, this.$cookies.get('adminToken'))
+        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            const filter = {
+              order: 'created_at',
+              order_type: 'desc',
+              per_page: 25
+            }
+            this.getExports(filter)
+            openToast(
+                this.$store,
+                'آیتم با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
         }
+      },
     }
 }
 </script>

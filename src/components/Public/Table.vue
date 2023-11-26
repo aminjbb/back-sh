@@ -36,7 +36,7 @@
             </template>
         </template>
         <div
-            v-if="model !== 'permission' && model !== 'export' "
+            v-if="model !== 'permission' "
             class="c-table__header__item"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-menu :location="location">
@@ -46,7 +46,7 @@
                     </v-icon>
                 </template>
 
-                <v-list v-if="model !== 'sku'">
+                <v-list v-if="model !== 'sku' && model !== 'export' ">
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
@@ -376,7 +376,7 @@
                 </div>
 
                 <div
-                    v-if="model !== 'permission' && model !== 'export' "
+                    v-if="model !== 'permission'  "
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <v-menu :location="location">
@@ -388,7 +388,7 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-                                <v-list-item-title>
+                                <v-list-item-title v-if=" model !== 'export'">
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
