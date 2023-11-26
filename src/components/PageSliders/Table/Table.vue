@@ -21,32 +21,9 @@
         </template>
 
         <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-menu :location="location">
-                <template v-slot:activator="{ props }">
-                    <v-icon v-bind="props">
-                        mdi-dots-vertical
-                    </v-icon>
-                </template>
-
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title>
-                            <v-btn
-                                @click="massUpdateModal()"
-                                variant="text"
-                                height="40"
-                                rounded
-                                class="px-5 mt-1 text-grey-darken-1 t14300">
-                                <template v-slot:append>
-                                    <v-icon>mdi-pen-minus</v-icon>
-                                </template>
-                                ویرایش گروهی تنظیمات سئو
-                            </v-btn>
-                        </v-list-item-title>
-
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+          <v-icon v-bind="props">
+            mdi-dots-vertical
+          </v-icon>
         </div>
     </header>
 

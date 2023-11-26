@@ -36,14 +36,14 @@
             :perPage="dataTableLength"
             :loading="loading"
             updateUrl="page/csv/mass-update"
-            model="page" />
+            model="sliderPage" />
 
         <v-divider />
 
         <v-card-actions class="pb-3">
             <v-row class="px-8">
                 <v-col cols="3" class="d-flex justify-start">
-                    <ModalExcelDownload getEndPoint="page/csv/get/export" />
+                    <ModalExcelDownload getEndPoint="page/slider/csv/get/export" />
                 </v-col>
 
                 <v-col cols="6" class="d-flex justify-center">
@@ -105,7 +105,8 @@ export default {
             SliderHeader,
             addPagination,
             addPerPage,
-            loading
+            loading,
+          addPerPageSlider
         } = Page();
         return {
             pageLength,
@@ -117,7 +118,8 @@ export default {
             SliderHeader,
             addPagination,
             addPerPage,
-            loading
+            loading,
+          addPerPageSlider
         };
     },
 
@@ -152,7 +154,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.addPerPage(val)
+            this.addPerPageSlider(val)
         },
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
