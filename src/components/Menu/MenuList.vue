@@ -15,7 +15,7 @@
             <template v-slot:prepend>
               <v-icon>mdi-plus</v-icon>
             </template>
-            افزودن تکی
+            افزودن منو
           </v-btn>
         </v-col>
 
