@@ -40,7 +40,7 @@
           deletePath="system/menu/crud/delete/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-          model="page" />
+          model="menu" />
 
       <v-divider />
 
