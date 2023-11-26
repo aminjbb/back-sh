@@ -84,10 +84,11 @@
                       </span>
         </div>
         <v-text-field
+            placeholder="about-us"
             density="compact"
             variant="outlined"
             single-line
-            :rules="urlRule"
+            :rules="rule"
             v-model="form.url"
         />
       </v-col>
@@ -177,10 +178,7 @@ export default {
         (v) => !!v || "این فیلد الزامی است",
         (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",
       ],
-      urlRule: [
-        (v) => !!v || "این فیلد الزامی است",
-        (v) => /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(v) || "لینک معتبر نیست",
-      ],
+
       valid: false,
       deviceType:[
         {title:'موبایل' , value:'mobile'},
