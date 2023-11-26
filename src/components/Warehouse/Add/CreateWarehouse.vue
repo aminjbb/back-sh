@@ -43,10 +43,19 @@ export default {
     },
     methods: {
         validate() {
-            this.$refs.WarehouseForm.$refs.addWarehouse.validate()
-            setTimeout(() => {
-                if (this.$refs.WarehouseForm.valid) this.createWarehouse()
-            }, 200)
+
+            const activeDay = this.$refs.WarehouseForm.days.filter(el => el.active)
+            const timeCondination = activeDay.find(el => el.endTime < el.startTime)
+            if (timeCondination){
+              openToast(this.$store , 'ساعت پایان نباید قبل ساعت شروع باشد' , 'error')
+            }
+            else{
+              this.$refs.WarehouseForm.$refs.addWarehouse.validate()
+              setTimeout(() => {
+                if (this.$refs.WarehouseForm.valid)this.createWarehouse()
+              }, 200)
+            }
+
         },
 
         async createWarehouse() {

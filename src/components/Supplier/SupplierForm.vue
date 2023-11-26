@@ -175,7 +175,7 @@
         <v-col cols="12" md="6">
             <div class="text-right my-5">
                 <span class="t14500">
-                    بازه پرداخت
+                    بازه پرداخت (روز)
                 </span>
             </div>
             <v-text-field

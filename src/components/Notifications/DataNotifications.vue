@@ -23,14 +23,9 @@
                             </template>
                               افزودن
                         </v-btn>
-                       <!-- <ModalGroupAdd/> -->
                     </v-row>
                 </v-col>
                 <v-col cols="6">
-                    <v-row justify="end">
-                        <!-- <ModalColumnFilter :header="header"/> -->
-                        <!--<ModalTableFilter path="categories" :filterField="filterField"/>-->
-                    </v-row>
                 </v-col>
             </v-row>
         </v-card>  
@@ -41,7 +36,7 @@
         >
             <Table
                 class="flex-grow-1"
-                deletePath="category/crud/delete/"
+                deletePath="notification/admin/crud/delete/"
                 model="notification"
                 :header="header"
                 :items="notifications.data"
@@ -54,9 +49,7 @@
 
             <v-card-actions class="pb-3">
                 <v-row class="pr-5">
-                    <v-col cols="3"> 
-                       <!-- <ModalExcelDownload/> -->
-                    </v-col>
+                    <v-col cols="3" /> 
                     <v-col cols="6"> 
                         <div class="text-center" >
                             <v-pagination

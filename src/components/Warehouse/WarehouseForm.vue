@@ -156,7 +156,7 @@
                     <div>
                         <div
                             class="mt-2"
-                            v-for="day in days "
+                            v-for="(day , index) in days "
                             :key="`day${day.label}`">
                             <v-text-field
                                 :disabled="!day.active"
@@ -188,6 +188,7 @@
                                 placeholder="ساعت پایان کار"
                                 :class="`end-input${day.label}`"></v-text-field>
                             <date-picker
+                                :min="day.startTime"
                                 clearable
                                 :custom-input="`.end-input${day.label}`"
                                 type="time"
