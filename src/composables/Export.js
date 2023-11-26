@@ -18,6 +18,7 @@ export default function setup(posts) {
     const header = [
         {name:'ردیف' , show:true, value:null, order:false},
         {name:'شناسه' , show:true, value:'created_at', order:false},
+        {name:'عنوان' , show:true, value:'model', order:false},
         {name:' تاریخ ساخت' , show:true, value:'created_at', order:false},
         {name:'دریافت خروجی' , show:true, value:'download', order:false},
     ];
