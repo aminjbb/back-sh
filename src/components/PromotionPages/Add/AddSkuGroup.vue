@@ -199,6 +199,8 @@ export default {
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
+        this.getPromotionSkuGroups(1 , this.dataTableLength);
+
         // this.getSkuSeller();
         openToast(
             this.$store,
