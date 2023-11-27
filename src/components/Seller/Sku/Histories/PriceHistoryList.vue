@@ -12,7 +12,7 @@
                             شناسه کالا :
                         </span>
 
-                        <span class="t12500 text-grey">
+                        <span class="t12500 text-grey number-font">
                             {{sku?.id}}
                         </span>
                     </div>

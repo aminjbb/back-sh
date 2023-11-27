@@ -67,7 +67,7 @@
           :page="page"
           :perPage="dataTableLength"
           activePath="system/menu/crud/update/activation/"
-          deletePath="system/menu/crud/delete/"
+          :deletePath="`page/promotion/${$route.params.promotionId}/sku_group/detach/`"
           :loading="loading"
           updateUrl="page/csv/mass-update"
           model="skuPromotionPage" />
@@ -221,15 +221,15 @@ export default {
       this.getPromotionSkuGroups(val , this.dataTableLength);
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getPromotions();
+          this.getPromotionSkuGroups(1 , this.dataTableLength);
           openToast(
               this.$store,
-              'منو مورد نظر با موفقیت حذف شد',
+              'محصول با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },
