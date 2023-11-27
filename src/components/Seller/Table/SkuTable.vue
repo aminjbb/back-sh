@@ -73,7 +73,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-if="item.unique_code">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item.unique_code }}
+                            {{ item.id }}
                         </span>
                     </template>
 
@@ -123,7 +123,7 @@
                     class="c-table__contents__item">
                     <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item.customer_price }}
+                            {{ splitChar(item.customer_price) }}
                         </span>
                     </template>
 
@@ -156,7 +156,7 @@
                     class="c-table__contents__item">
                     <template v-if="item.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item.site_price }}
+                            {{ splitChar(item.site_price) }}
                         </span>
                     </template>
 
@@ -269,7 +269,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                    <div class="ma-5 pointer" @click="removeItem(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -302,7 +302,7 @@
 
 <script>
 import {
-    isOdd
+  isOdd, splitChar
 } from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
@@ -519,6 +519,7 @@ export default {
     },
 
     methods: {
+      splitChar,
         /**
          * Open order limit modal
          * @param {*} id
