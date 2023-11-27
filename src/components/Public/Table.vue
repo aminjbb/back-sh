@@ -49,8 +49,7 @@
                     </span>
                 </template>
 
-
-                <v-list v-if="model !== 'sku' && model !== 'export' && model !== 'notification'">
+                <v-list v-if="model !== 'sku' && model !== 'export'">
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
@@ -67,7 +66,7 @@
                         </v-list-item-title>
 
                     </v-list-item>
-                </v-list> 
+                </v-list>
             </v-menu>
         </div>
     </header>
@@ -100,37 +99,17 @@
                         {{ item.id }}
                     </span>
                 </div>
-              <div
-                  v-if="model === 'export' && item.model"
-                  class="c-table__contents__item"
-                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div
+                    v-if="model === 'export' && item.model"
+                    class="c-table__contents__item"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.model }}
                     </span>
-              </div>
-
-                <div
-                    v-if="model === 'notification'"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.title }}
-                    </span>
                 </div>
 
                 <div
-                    v-if="model === 'notification'"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        <v-btn :href="item.section ==='system' ? item.url :'/notifications/get/' + item.id" variant="icon">
-                            <v-icon color="success">mdi-eye</v-icon>
-                        </v-btn>
-                    </span>
-                </div>
-
-                <div
-                    v-if="model !== 'notification' && header[2].show"
+                    v-if="header[2].show"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-if="item.name">

@@ -18,9 +18,33 @@
 
 
       <footer class="create-product__actions ">
-        <v-row justify=end class="px-8 pt-8">
+        <v-row justify='space-between' class="px-8 pt-8">
 
 
+          <div>
+            <v-btn
+                v-if="step > 1"
+                rounded
+                variant="outlined"
+                width="115"
+                @click="decreaseStep()"
+            >
+              <span class="t14300">
+                  مرحله قبلی
+              </span>
+            </v-btn>
+            <v-btn
+                v-else
+                rounded
+                variant="outlined"
+                width="115"
+                @click="$router.go(-1)"
+            >
+              <span class="t14300">
+                 بازگشت
+              </span>
+            </v-btn>
+          </div>
           <div>
 
             <v-btn

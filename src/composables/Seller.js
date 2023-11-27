@@ -29,6 +29,7 @@ export default function setup(posts) {
         {name:'نام فروشگاه' , show:true, value:'shopping_name', order: false},
         {name:'نوع فروشنده' , show:true, value:'type', order: false},
         { name: 'ایمیل', show:true, value:'email', order: false},
+        { name: 'یازه پرداخت', show:true, value:'payment_period', order: false},
         {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
         {name:'وضعیت' , show:true, value:'is_active', order: false},
     ]);

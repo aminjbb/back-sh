@@ -1,9 +1,9 @@
-import {ref, onMounted, watch} from 'vue';
+import {ref,onMounted,watch} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
-import {useRouter, useRoute} from 'vue-router'
-import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter.js'
+import {useRouter,useRoute} from 'vue-router'
+import {onBeforeRouteLeave,onBeforeRouteUpdate} from 'vue-router'
+import {PanelFilter} from '@/assets/js/filter_notification.js'
 
 export default function setup(posts) {
     const notifications = ref([]);
@@ -15,28 +15,61 @@ export default function setup(posts) {
     const route = useRoute()
     const pageLength = ref(1)
 
-    const header = ref([
-        {name: 'ردیف', show: true},
-        {name: 'شناسه', show: true},
-        {name: 'عنوان', show: true},
-        {name: 'مشاهده', show: true},
-        {name: 'تاریخ ایجاد', show: true},
+    const header = ref([{
+            name: 'ردیف',
+            show: true
+        },
+        {
+            name: 'شناسه',
+            show: true,
+            value: 'id'
+        },
+        {
+            name: 'عنوان',
+            show: true,
+            value: 'title'
+        },
+        {
+            name: 'مشاهده',
+            show: true,
+            value: 'url'
+        },
+        {
+            name: 'تاریخ ایجاد',
+            show: true,
+            value: 'created_at'
+        },
     ]);
-    
+
+    const filterField = [{
+            name: 'عنوان',
+            type: 'text',
+            value: 'title'
+        },
+        {
+            name: 'تاریخ ایجاد',
+            type: 'date',
+            value: 'created_at'
+        },
+    ];
+
     const item = []
     const loading = ref(false)
+    const isFilter = ref(false)
+    const isFilterPage = ref(false)
+    const filter = new PanelFilter()
 
     async function getNotifications(query, store) {
         loading.value = true
-        var formdata = {}
-        if (query) {
-            var formdata = query
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
         }
+        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = 'notification/admin/crud/index'
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.form = formdata
+        AxiosMethod.end_point = `notification/admin/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             if (store) {
@@ -45,7 +78,13 @@ export default function setup(posts) {
             pageLength.value = data.data.data.last_page
             notifications.value = data.data.data
             loading.value = false
-        } else {
+            setTimeout(() => {
+                isFilter.value = false
+                isFilterPage.value = false
+            }, 2000)
+        }
+
+        else {
             loading.value = false
         }
     };
@@ -63,43 +102,32 @@ export default function setup(posts) {
     };
 
     function addPerPage(number) {
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name = route.query.name
-        }
-        if (route.query.label) {
-            filter.label = route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id = route.query.id
-        }
-        filter.page = 1;
-        page.value = 1;
+        filter.page = 1
         filter.per_page = number
-        router.push('/notifications/index/' + filter.query_maker())
+        router.push('/notifications/index' + filter.params_generator(route.query))
     }
 
     function addPagination(page) {
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name = route.query.name
-        }
-        if (route.query.label) {
-            filter.label = route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id = route.query.id
-        }
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/notifications/index/' + filter.query_maker())
-
+        router.push('/notifications/index' + filter.params_generator(route.query))
     }
 
+    onBeforeRouteUpdate(async (to, from) => {
+
+        if (!isFilterPage.value) {
+            isFilter.value = true
+            page.value = 1
+            filter.page = 1
+        }
+        await getNotifications(to)
+    })
+
     watch(page, function (val) {
-        addPagination(val)
+        if (!isFilter.value) {
+            isFilterPage.value = true
+            addPagination(val)
+        }
     })
 
     return {
@@ -113,7 +141,7 @@ export default function setup(posts) {
         page,
         header,
         item,
-        loading
+        loading,
+        filterField
     }
 }
-

@@ -152,7 +152,7 @@ export default {
 
         notificationsData() {
             try {
-                return this.notifications.data.data
+                return this.notifications.data.data.slice(0,5)
             } catch (error) {
                 return []
             }
