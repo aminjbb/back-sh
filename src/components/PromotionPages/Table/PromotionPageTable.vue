@@ -99,7 +99,9 @@
                   <v-icon v-bind="props">
                     mdi-dots-vertical
                   </v-icon>
+                  
                 </template>
+                
 
                 <v-list class="c-table__more-options">
                   <v-list-item>
@@ -134,7 +136,9 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+              
             </div>
+            
           </template>
           <template v-if="model === 'skuPromotionPage'">
 
@@ -160,12 +164,19 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
 <!--                        {{ item.pivot?.priority }}-->
-                      <v-text-field variant="outlined"  v-model="priorities[index]" type="number" @change="skuGroupPriorityChange(item.id , index)" />
+                      <v-text-field variant="outlined"  v-model="priorities[index]" type="number"  />
 
 
                     </span>
             </div>
-            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+            
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`  }" @click="saveSkuToPromotion(item)" class="d-flex justify-center align-center ">
+                        <span class="seller__add-sku-btn d-flex justify-center align-center">
+                          <v-icon>mdi-plus</v-icon>
+                    </span>
+            </div>
+            
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class=" c-table__contents__item justify-center">
               <v-menu :location="location">
                 <template v-slot:activator="{ props }">
                   <v-icon v-bind="props">
@@ -186,6 +197,7 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+              
             </div>
           </template>
 
@@ -355,19 +367,45 @@ export default {
   },
 
   methods: {
-    skuGroupPriorityChange : debounce(async function (id , index) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
-      formdata.append('sku_group_id', id)
-      formdata.append('priority', this.priorities[index])
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
+    // skuGroupPriorityChange : debounce(async function (id , index) {
+    //   var formdata = new FormData();
+    //   const AxiosMethod = new AxiosCall()
+    //   AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
+    //   formdata.append('sku_group_id', id)
+    //   formdata.append('priority', this.priorities[index])
+    //   AxiosMethod.store = this.$store
+    //   AxiosMethod.form = formdata
 
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    }, 1000),
+    //   AxiosMethod.using_auth = true
+    //   AxiosMethod.token = this.$cookies.get('adminToken')
+    //   let data = await AxiosMethod.axios_post()
+    // }, 1000),
+
+    async saveSkuToPromotion(item) {
+  const formData = new FormData();
+  const AxiosMethod = new AxiosCall();
+  AxiosMethod.using_auth = true;
+  AxiosMethod.store =  this.$store;
+  AxiosMethod.token = this.$cookies.get('adminToken');
+  AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/sku_group/attach`;
+  formData.append('sku_group_id', item.id);  
+  formData.append('is_active', 1);
+
+
+
+  AxiosMethod.form = formData;
+
+  let data = await AxiosMethod.axios_post();
+  if (data) {
+    // this.getSkuSeller();
+    openToast(
+        this.$store,
+        'کد کالا با موفقیت افزوده شد.',  // 'The SKU was successfully added.'
+        "success"
+    );
+  }
+},
+
 
     changeValue(index , value){
       this.active[index] = value
