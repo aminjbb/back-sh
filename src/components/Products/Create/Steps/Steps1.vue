@@ -316,7 +316,7 @@
                         :items="volumeList"
                         return-object
                         item-title="label"
-                        @update:modelValue="(label) => { addBadge('ظرفیت', 'volume'); getNumberOfProducts(label); }"
+                        @update:modelValue="(label) => { addBadge('تعداد', 'volume'); getNumberOfProducts(label); }"
 
                     />
                 </v-col>
@@ -758,7 +758,6 @@ export default {
       if (isnul) this.createFromModel.attributesValue[index] = null;
 
       this.activeAddButton = false;
-      console.log(event , 'event')
       const newItem = {
         title: event.title,
         attr_id: event.id,
@@ -943,12 +942,14 @@ export default {
             const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
 
           this.createFromModel = jsonForm
-          jsonForm.attributes.forEach((element, i) => {
-            const attrobj = this.attributeList.find(el => el.id == element.id)
-            this.attrNumbers.forEach((element, i) => {
-              this.getAttributeValues(attrobj, i);
+          setTimeout(()=>{
+            jsonForm.attributes.forEach((element, i) => {
+              const attrobj = this.attributeList.find(el => el.id == element.id)
+              this.attrNumbers.forEach((element, i) => {
+                this.getAttributeValues(attrobj, i);
+              });
             });
-          });
+          } , 2000)
 
           for (let i = 0; i < jsonForm.attributes.length; i++) {
 
@@ -988,7 +989,7 @@ export default {
     setBadge() {
       if (this.createFromModel.brands) this.addBadge(this.labels.brand, 'brand')
       if (this.createFromModel.colors.length) this.addBadge(this.labels.color, 'color')
-      if (this.createFromModel.unit.length) this.addBadge('ظرفیت', 'volume')
+      if (this.createFromModel.unit.length) this.addBadge('تعداد', 'volume')
 
     }
   },
