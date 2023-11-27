@@ -205,6 +205,21 @@ export default {
         this.cities = data.data.cities
       }
     },
+    async getCitiesForSetForm(){
+      this.cities =[]
+      const form = {
+        per_page:10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `system/state/crud/get/${this.form.province}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.cities = data.data.cities
+      }
+    },
     setForm(){
 
       this.form = {
@@ -215,7 +230,7 @@ export default {
         phoneNumber :this.seller.phone,
         latLong:{ latitude: 35.745669792668494, longitude: 51.35438114404677 },
       }
-      this.getCities()
+      this.getCitiesForSetForm()
     }
   },
 
