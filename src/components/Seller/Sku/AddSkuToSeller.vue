@@ -252,7 +252,6 @@ export default {
     },
 
     updateList(status) {
-      console.log('3.skuList', status)
       if (status === 'true') {
         this.getSkuSeller();
       }

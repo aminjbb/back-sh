@@ -184,9 +184,10 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
+                                        <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
-                                            محدودیت سفارش
+                                            تاریخچه‌ی موجودی انبار
                                         </span>
                                     </div>
                                 </v-list-item-title>
@@ -194,25 +195,19 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer">
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            تاریخچه‌ی موجودی انبار
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
-                            <v-list-item>
-                                <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.sku?.id}`)">
+                                        <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تاریخچه‌ی موجودی سایت
                                         </span>
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
+
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openInventoryManagementModal(item.sku_id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت موجودی سایت
                                         </span>
@@ -223,6 +218,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openConsumerPriceModal(item.sku_id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-currency-usd" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت مصرف کننده
                                         </span>
@@ -233,6 +229,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openBasicDiscountModal(item.sku_id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف پایه
                                         </span>
@@ -243,6 +240,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.sku_id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف مارکتینگ
                                         </span>
@@ -252,6 +250,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             محدودیت سفارش
                                         </span>
@@ -260,18 +259,20 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
+                                        <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
-                                            حذف
+                                            تاریخچه ی قیمت
                                         </span>
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
+                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                        <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
-                                            تاریخچه ی قیمت
+                                            حذف
                                         </span>
                                     </div>
                                 </v-list-item-title>
@@ -451,7 +452,7 @@ export default {
             type: Boolean,
             default: false
         },
-        
+
         uploadImageUrl: {
             type: String,
             default: ''
@@ -691,8 +692,7 @@ export default {
         },
 
         updateList(status) {
-          console.log('2.skuTable',status)
-          this.$emit('updateList', status);
+            this.$emit('updateList', status);
         },
     },
 }
