@@ -89,7 +89,6 @@ export default function setup(posts) {
         { name: 'بازده پرداخت', type:'text', value:'payment_period'},
     ];
     const filterFieldSku = [
-
         { name: 'نام کالا', type: 'text', value: 'label' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },
         { name: 'موجودی انبار(تا)', type: 'text', value: 'warehouse_stock_to' },
@@ -110,15 +109,14 @@ export default function setup(posts) {
         { name: 'پایان تخفیف پایه', type: 'date', value: 'base_discount_end_time' },
     ];
     const filterPriceHistory = [
-
-        { name: 'کمترین قیمت مصرف‌کننده', type: 'text', value: 'customer_price_from' },
-        { name: 'بیشترین قیمت مصرف‌کننده', type: 'text', value: 'customer_price_to' },
-        { name: 'کمترین قیمت فروش', type: 'text', value: 'site_price_from' },
-        { name: 'بیشترین قیمت فروش', type: 'text', value: 'site_price_to' },
-        { name: 'کمترین تخفیف پایه', type: 'text', value: 'base_discount_from' },
-        { name: 'بیشترین تخفیف پایه', type: 'text', value: 'base_discount_to' },
-        { name: 'کمترین تخفیف مارکتینگ', type: 'text', value: 'marketing_discount_from' },
-        { name: 'بیشترین تخفیف مارکتینگ', type: 'text', value: 'marketing_discount_to' },
+        { name: 'کمترین قیمت مصرف‌کننده', type: 'text', value: 'customer_price_from', placeHolder:'از' },
+        { name: 'بیشترین قیمت مصرف‌کننده', type: 'text', value: 'customer_price_to', placeHolder:'تا' },
+        { name: 'کمترین قیمت فروش', type: 'text', value: 'site_price_from', placeHolder:'از' },
+        { name: 'بیشترین قیمت فروش', type: 'text', value: 'site_price_to', placeHolder:'تا' },
+        { name: 'کمترین تخفیف پایه', type: 'text', value: 'base_discount_from', placeHolder:'از' },
+        { name: 'بیشترین تخفیف پایه', type: 'text', value: 'base_discount_to', placeHolder:'تا' },
+        { name: 'کمترین تخفیف مارکتینگ', type: 'text', value: 'marketing_discount_from', placeHolder:'از' },
+        { name: 'بیشترین تخفیف مارکتینگ', type: 'text', value: 'marketing_discount_to', placeHolder:'تا' },
 
     ];
     const filterInventorySite = [
@@ -295,7 +293,8 @@ export default function setup(posts) {
             page.value = 1
             filter.page = 1
         }
-        await getSellerList(to)
+        if (route.name === 'PriceHistoryView') await getPriceHistory(to)
+        else await getSellerList(to)
     })
 
     watch(page, function(val) {
