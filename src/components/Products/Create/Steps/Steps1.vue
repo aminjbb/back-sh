@@ -913,6 +913,7 @@ export default {
      * @param {*} text
      */
     addOtamaticOperator(text) {
+      if (this.createFromModel.newOperator === null) this.createFromModel.newOperator= ''
       this.createFromModel.newOperator = this.createFromModel.newOperator + ' ' + `{{${text}}}`;
       this.saveCreateFromModel()
     },
