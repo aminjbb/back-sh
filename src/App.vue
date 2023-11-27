@@ -27,12 +27,7 @@ export default {
   methods:{
     setEcho(){
       if (this.$cookies.get('adminToken')){
-        const filter = {
-          per_page: 5,
-          order:'created_at',
-          order_type:'desc'
-        }
-        this.getNotifications(filter, this.$store)
+        this.getNotifications('', this.$store)
         window.Echo = new Echo({
           broadcaster: 'pusher',
           key: import.meta.env.VITE_APP_WEBSOCKETS_KEY,
@@ -74,7 +69,7 @@ export default {
         setTimeout(()=>{
           window.Echo.private(`export.notification.${localStorage.getItem('userId')}`).listen('ExportNotification', (event) => {
             console.log('ExportNotification call' , event); // the data from the server
-            this.getNotifications( filter, this.$store)
+            this.getNotifications('', this.$store)
           })}, 300)
       }
 
