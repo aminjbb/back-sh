@@ -560,26 +560,34 @@ export default {
         return  false
       }
     },
+    
     groupedColors() {
-      const groupedColors = [];
-      const srcs = [{}];
-      const groups = Array.from(new Set(this.colorList.map(color => color.group)));
+        const groupedColors = [];
+        const uniqueValues = new Set();
 
-      for (const group of groups) {
-        groupedColors.push({header: group});
+        const srcs = [{}];
+        const groups = Array.from(new Set(this.colorList.map(color => color.group)));
 
-        const colorsInGroup = this.colorList.filter(color => color.group === group);
+        for (const group of groups) {
+            groupedColors.push({
+                header: group
+            });
 
-        for (const color of colorsInGroup) {
-          groupedColors.push({
-            name: color.name,
-            group: color.group,
-            label: color.label,
-            value: color.value
-          });
+            const colorsInGroup = this.colorList.filter(color => color.group === group);
+
+            for (const color of colorsInGroup) {
+                if (!uniqueValues.has(color.value)) {
+                    groupedColors.push({
+                        name: color.name,
+                        group: color.group,
+                        label: color.label,
+                        value: color.value
+                    });
+                    uniqueValues.add(color.value);
+                }
+            }
         }
-      }
-      return groupedColors;
+        return groupedColors;
     },
 
     productList() {
