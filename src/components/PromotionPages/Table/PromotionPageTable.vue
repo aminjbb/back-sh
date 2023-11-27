@@ -170,7 +170,7 @@
                     </span>
             </div>
             
-            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`  }" @click="saveSkuToPromotion(item)" class="d-flex justify-center align-center ">
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`  }" @click="saveSkuToPromotion(item, index)" class="d-flex justify-center align-center ">
                         <span class="seller__add-sku-btn d-flex justify-center align-center">
                           <v-icon>mdi-plus</v-icon>
                     </span>
@@ -367,21 +367,21 @@ export default {
   },
 
   methods: {
-    // skuGroupPriorityChange : debounce(async function (id , index) {
-    //   var formdata = new FormData();
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
-    //   formdata.append('sku_group_id', id)
-    //   formdata.append('priority', this.priorities[index])
-    //   AxiosMethod.store = this.$store
-    //   AxiosMethod.form = formdata
+    skuGroupPriorityChange : debounce(async function (id , index) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
+      formdata.append('sku_group_id', id)
+      formdata.append('priority', this.priorities[index])
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
 
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   let data = await AxiosMethod.axios_post()
-    // }, 1000),
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+    }, 1000),
 
-    async saveSkuToPromotion(item) {
+    async saveSkuToPromotion(item, index ) {
   const formData = new FormData();
   const AxiosMethod = new AxiosCall();
   AxiosMethod.using_auth = true;
@@ -390,6 +390,7 @@ export default {
   AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/sku_group/attach`;
   formData.append('sku_group_id', item.id);  
   formData.append('is_active', 1);
+  formData.append('priority', this.priorities[index]);
 
 
 
@@ -397,10 +398,10 @@ export default {
 
   let data = await AxiosMethod.axios_post();
   if (data) {
-    // this.getSkuSeller();
+     
     openToast(
         this.$store,
-        'کد کالا با موفقیت افزوده شد.',  // 'The SKU was successfully added.'
+        'کد کالا با موفقیت افزوده شد.', 
         "success"
     );
   }
