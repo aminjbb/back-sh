@@ -143,12 +143,12 @@
           <template v-if="model === 'skuPromotionPage'">
 
             <div
-                v-if="item.label && header[1].show"
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.label }}
-                    </span>
+            v-if="header[1].show"
+  class="c-table__contents__item justify-center"
+  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+    <span class="t14300 text-gray500 py-5" v-show="item.label">
+      {{ item.label }}
+    </span>
             </div>
             <div
                 v-if="item.id && header[2].show"
@@ -190,8 +190,9 @@
                       <div class="ma-5 pointer" @click="removeItem(item.id)">
                         <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
                         <span class="mr-2 text-grey-darken-1 t14300">
-                          حذف
-                        </span>
+                      حذف
+                    </span>
+
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -505,8 +506,12 @@ export default {
      * @param {*} id
      */
     removeItem(id) {
+      console.log("Removing item with ID:", id);
+  console.log("Delete path:", this.deletePath + id);
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
     },
+
+
   },
 }
 </script>
