@@ -3,6 +3,9 @@
 
     <v-avatar  @click="dialog = true" :color="!avatar ? 'info' :''" size="x-large">
       <img width="64" height="64" v-if="avatar" :src="avatar" alt="">
+      <v-icon size="62" v-else>
+        mdi-account-circle
+      </v-icon>
     </v-avatar>
     <v-dialog v-model="dialog" width="1024">
       <v-card>

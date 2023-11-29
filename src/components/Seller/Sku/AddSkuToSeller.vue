@@ -69,7 +69,7 @@
             :items="sellerSku.data"
             editUrl="/seller/edit/"
             activePath="seller/crud/update/activation/"
-            deletePath="seller/crud/update/activation/"
+            :deletePath="`seller/${$route.params.sellerId}/sku/delete/`"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
             @updateList="updateList"
@@ -252,7 +252,6 @@ export default {
     },
 
     updateList(status) {
-      console.log('3.skuList', status)
       if (status === 'true') {
         this.getSkuSeller();
       }
@@ -297,9 +296,6 @@ export default {
   },
 
   mounted() {
-    const filter = {
-      per_page: 100000
-    }
     this.getSkuSeller();
 
   },
@@ -309,15 +305,15 @@ export default {
       this.addSkuPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getSellerList();
+          this.getSkuSeller();
           openToast(
               this.$store,
-              'انبار با موفقیت حذف شد',
+              'محصول با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

@@ -83,7 +83,7 @@
             <v-row justify="center" align="center">
                 <div class="mr-3">
                     <span class="t14300 number-font">
-                        {{ data }}
+                        {{ date }}
                     </span>
                 </div>
                 <img src="@/assets/img/calendar-2.svg" alt="shavaz image">
@@ -152,7 +152,7 @@ export default {
 
         notificationsData() {
             try {
-                return this.notifications.data.data
+                return this.notifications.data.data.slice(0,5)
             } catch (error) {
                 return []
             }
@@ -172,7 +172,7 @@ export default {
         let dateSplit = date.toISOString()
         dateSplit = dateSplit.split('T')
         const dateObject = dateSplit[0].split('-')
-        this.data = gregorian_to_jalali(parseInt(dateObject[0]), parseInt(dateObject[1]), parseInt(dateObject[2]))
+        this.date = gregorian_to_jalali(parseInt(dateObject[0]), parseInt(dateObject[1]), parseInt(dateObject[2]))
     }
 }
 </script>

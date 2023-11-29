@@ -44,7 +44,7 @@
                                 <td style="width: 100px;">
                                     <v-row align="center">
                                         <span>
-                                            <v-checkbox v-model="skuStatus[tableIndex]"  @change="selectSku(item.id)" />
+                                            <v-checkbox v-model="tables[index].skuStatus[tableIndex]"  @change="selectSku(index , tableIndex ,item.id)" />
                                         </span>
                                         <span class="t14300">{{ item.id }}</span>
                                     </v-row>
@@ -74,9 +74,7 @@ export default {
         skuGroupsLabels : [],
         tables: [
         ],
-      skuStatus:[
-
-      ]
+      skuStatus:[[]]
     }),
 
     components: {
@@ -103,8 +101,13 @@ export default {
     },
 
     methods:{
-        selectSku(id){
-            this.skuesSelected.push(id)
+        selectSku(index , tableIndex,  id){
+            if (this.tables[index].skuStatus[tableIndex]) this.skuesSelected.push(id)
+            else {
+             const skuSelectedIndex = this.skuesSelected.findIndex(el => el == id )
+              this.skuesSelected.splice(skuSelectedIndex, 1)
+            }
+            console.log( this.skuesSelected)
         },
 
     },
@@ -119,19 +122,20 @@ export default {
               else  label = skuGroup.name
                 const table ={
                   title: 'نام محصولات یکتا',
-                  values:skuGroup.s_k_us
+                  values:skuGroup.s_k_us,
+                  skuStatus :[]
                 }
-
+                table.values.forEach(sku=>{
+                  if (sku.status === 'draft') table.skuStatus.push(false)
+                  else if (sku.status === 'approved') table.skuStatus.push(true)
+                })
                 const skuGroupLabels = {
                   id: skuGroup.id,
                   value :label
                 }
                 this.skuGroupsLabels.push(skuGroupLabels)
                 this.tables.push(table)
-                skuGroup.s_k_us.forEach(sku=>{
-                  if (sku.status === 'draft') this.skuStatus.push(false)
-                  else if (sku.status === 'approved') this.skuStatus.push(true)
-                })
+
               })
         }
     }

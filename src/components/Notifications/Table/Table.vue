@@ -21,9 +21,13 @@
         </template>
 
         <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-bind="props">
-            mdi-dots-vertical
-          </v-icon>
+            <v-menu :location="location">
+                <template v-slot:activator="{ props }">
+                    <v-icon v-bind="props">
+                        mdi-dots-vertical
+                    </v-icon>
+                </template>
+            </v-menu>
         </div>
     </header>
 
@@ -44,25 +48,20 @@
                 </div>
 
                 <div
-                    v-if="item.name && header[1].show"
+                    v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.name }}
+                        {{ item.id }}
                     </span>
                 </div>
 
                 <div
-                    v-if="header[2].show"
+                    v-if="item.title && header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        <template v-if="item.label">
-                            {{ item.label }}
-                        </template>
-                        <template v-else>
-                            نامعلوم
-                        </template>
+                    <span class="t14300 text-gray500 py-5 text-center">
+                        {{ item.title }}
                     </span>
                 </div>
 
@@ -71,12 +70,9 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        <template v-if="item.position">
-                            {{ item.position }}
-                        </template>
-                        <template v-else>
-                            نامعلوم
-                        </template>
+                        <v-btn :href="item.section ==='system' ? item.url :'/notifications/get/' + item.id" variant="icon">
+                            <v-icon color="success">mdi-eye</v-icon>
+                        </v-btn>
                     </span>
                 </div>
 
@@ -85,27 +81,14 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.icon">
-                            {{ item.icon }}
+                        <template v-if="item.created_at_fa">
+                            {{ item.created_at_fa }}
                         </template>
                         <template v-else>
                             نامعلوم
                         </template>
                     </span>
                 </div>
-
-                <!-- <div
-                    v-if="(item.is_active  != undefined && checkActive )"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-                    class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
-                        <v-switch
-                            v-model="active[index]"
-                            inset
-                            color="success"
-                            @change="changeActive(index,item)" />
-                    </span>
-                </div> -->
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -116,32 +99,20 @@
                         </template>
 
                         <v-list class="c-table__more-options">
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
-                                        <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            حذف
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
-
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/skus`)">
-                                        <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            افزودن کالا
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
+                            <v-list-item-title>
+                                <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                        حذف
+                                    </span>
+                                </div>
+                            </v-list-item-title>
                         </v-list>
                     </v-menu>
                 </div>
             </div>
         </div>
+
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
@@ -159,14 +130,14 @@ import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 import {
-   PanelFilter
-} from "@/assets/js/filter_page"
+    SupplierPanelFilter
+} from "@/assets/js/filter_supplier"
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
+    openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
-
 export default {
     components: {
         ModalMassUpdate,
@@ -245,7 +216,9 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
+            isIndex: [],
+            isFollow: [],
+            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
@@ -273,9 +246,9 @@ export default {
          */
         checkActive() {
             this.header.forEach(element => {
-                if (element.value === 'is_active' && element.show == true) {
+                if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
                     this.activeColumn = true;
-                } else if (element.value === 'is_active'  && element.show == false) {
+                } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
                     this.activeColumn = false;
                 }
             });
@@ -286,10 +259,18 @@ export default {
     watch: {
         items(val) {
             this.active = []
+            this.isIndex = []
+            this.isFollow = []
             val.forEach(element => {
                 var active = false
+                var is_index = false
+                var is_follow = false
                 if (element.is_active == 1) active = true
+                if (element.is_index == 1) is_index = true
+                if (element.is_follow == 1) is_follow = true
                 this.active.push(active)
+                this.isIndex.push(is_index)
+                this.isFollow.push(is_follow)
             });
         }
     },
@@ -367,6 +348,44 @@ export default {
             AxiosMethod.end_point = this.activePath + item.id
             if (this.active[index]) formdata.append('is_active', 1)
             else formdata.append('is_active', 0)
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+        },
+
+        /**
+         * Change be index
+         * @param {*} index 
+         * @param {*} item 
+         */
+        async changeIsIndex(index, item) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = 'page/crud/update/index/' + item.id
+            if (this.isIndex[index]) formdata.append('is_index', 1)
+            else formdata.append('is_index', 0)
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+        },
+
+        /**
+         * Change be follow
+         * @param {*} index 
+         * @param {*} item 
+         */
+        async changeIsFollow(index, item) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = 'page/crud/update/follow/' + item.id
+            if (this.isFollow[index]) formdata.append('is_follow', 1)
+            else formdata.append('is_follow', 0)
             AxiosMethod.store = this.$store
             AxiosMethod.form = formdata
 

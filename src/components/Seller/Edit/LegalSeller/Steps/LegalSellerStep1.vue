@@ -285,7 +285,6 @@ export default {
 
   watch:{
     seller(val){
-      console.log(val)
       this.setForm()
     }
   }

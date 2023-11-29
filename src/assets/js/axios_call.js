@@ -55,7 +55,7 @@ export class AxiosCall {
                     }
                     openToast(
                         this.store,
-                        'تو فرایند آئلود به مشکلی خوردیم',
+                        'تو فرایند آپلود به مشکلی خوردیم',
                         "error"
                     );
                 });
@@ -75,7 +75,7 @@ export class AxiosCall {
                     }
                     openToast(
                         this.store,
-                        'تو فرایند آئلود به مشکلی خوردیم',
+                        'تو فرایند آپلود به مشکلی خوردیم',
                         "error"
                     );
                 });

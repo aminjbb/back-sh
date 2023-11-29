@@ -1,4 +1,4 @@
-<template>
+<template lang="">
 <div class="text-center c-modal-table-filter">
     <v-btn
         @click="openModal()"
@@ -53,54 +53,10 @@
                                 v-model="values[index].value" />
                         </v-col>
 
-                        <v-col v-else-if="filter.type === 'select'" cols="4">
-                            <div class="t13300 text-right mb-1">{{filter.name}}</div>
-
-                            <v-select
-                                v-if="filter.value === 'page_type'"
-                                density="compact"
-                                variant="outlined"
-                                single-line
-                                item-title="label"
-                                item-value="value"
-                                :items="pageTypeFilter"
-                                v-model="pageTypeModel" />
-
-                            <v-select
-                                v-if="filter.value === 'is_active'"
-                                density="compact"
-                                variant="outlined"
-                                single-line
-                                item-title="label"
-                                item-value="value"
-                                :items="activeFilter"
-                                v-model="activeModel" />
-
-                            <v-select
-                                v-if="filter.value === 'is_follow'"
-                                density="compact"
-                                variant="outlined"
-                                single-line
-                                item-title="label"
-                                item-value="value"
-                                :items="followFilter"
-                                v-model="followModel" />
-
-                            <v-select
-                                v-if="filter.value === 'is_index'"
-                                density="compact"
-                                variant="outlined"
-                                single-line
-                                item-title="label"
-                                item-value="value"
-                                :items="indexFilter"
-                                v-model="indexModel" />
-                        </v-col>
-
                         <v-col
                             cols="4"
                             v-else-if=" filter.value === 'created_at'"
-                            class="mt-3">
+                            class="mt-6">
                             <div class="t13300 text-right mb-1">{{filter.name}}</div>
                             <div align="center" class="d-flex pb-5 align-center">
                                 <date-picker
@@ -159,10 +115,9 @@
 <script>
 import {
     PanelFilter
-} from '@/assets/js/filter_page.js'
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
+} from '@/assets/js/filter_notification.js'
+
+import { jalaliToGregorian } from '@/assets/js/functions'
 
 export default {
     props: {
@@ -173,76 +128,17 @@ export default {
     data() {
         return {
             dialog: false,
-            active: false,
             values: [],
-            originalData: [],
-            filteredData: [],
             createdAtModel: null,
-            activeModel: '',
-            followModel: '',
-            indexModel: '',
-            pageTypeModel: '',
-
-            activeFilter: [{
-                    label: 'همه',
-                    value: '',
-                },
-                {
-                    label: 'فعال',
-                    value: '1',
-                },
-                {
-                    label: 'غیرفعال',
-                    value: '0',
-                }
-            ],
-            indexFilter: [{
-                    label: 'همه',
-                    value: '',
-                },
-                {
-                    label: 'فعال',
-                    value: '1',
-                },
-                {
-                    label: 'غیرفعال',
-                    value: '0',
-                }
-            ],
-            followFilter: [{
-                    label: 'همه',
-                    value: '',
-                },
-                {
-                    label: 'فعال',
-                    value: '1',
-                },
-                {
-                    label: 'غیرفعال',
-                    value: '0',
-                }
-            ],
-            pageTypeFilter: [{
-                    label: 'همه',
-                    value: '',
-                },
-                {
-                    label: 'دسته بندی',
-                    value: 'category',
-                },
-                {
-                    label: 'برند',
-                    value: 'brand',
-                }
-            ],
+            gregorianCreateDate: [],
         }
     },
 
     computed: {
-        label() {
+        title() {
             try {
-                const labelObject = this.values.find(element => element.name === 'label');
-                return labelObject.value
+                const titleObject = this.values.find(element => element.name === 'title');
+                return titleObject.value
             } catch (error) {
                 return ''
             }
@@ -267,56 +163,25 @@ export default {
 
     methods: {
         setFilter() {
+
             const filter = new PanelFilter()
 
-            if (this.label) {
-                filter.label = this.label
-            } else if (this.$route.query.label) {
-                filter.label = null
+            if (this.title) {
+                filter.title = this.title
+            } else if (this.$route.query.title) {
+                filter.title = null
             }
 
-            if (this.createdAt[0]) {
+            if (this.createdAt && this.createdAt[0]) {
                 filter.created_at_from_date = this.createdAt[0]
             } else {
                 filter.created_at_from_date = null
             }
 
-            if (this.createdAt[1]) {
+            if (this.createdAt && this.createdAt[1]) {
                 filter.created_at_to_date = this.createdAt[1]
             } else {
                 filter.created_at_to_date = null
-            }
-
-            if (this.activeModel === '') {
-                filter.active = null
-            } else if (this.activeModel !== '') {
-                filter.active = this.activeModel
-            } else if (this.$route.query.is_active) {
-                filter.active = this.$route.query.is_active
-            }
-
-            if (this.followModel === '') {
-                filter.follow = null
-            } else if (this.followModel !== '') {
-                filter.follow = this.followModel
-            } else if (this.$route.query.is_follow) {
-                filter.follow = this.$route.query.is_follow
-            }
-
-            if (this.indexModel === '') {
-                filter.index = null
-            } else if (this.indexModel !== '') {
-                filter.index = this.indexModel
-            } else if (this.$route.query.is_index) {
-                filter.index = this.$route.query.is_index
-            }
-
-            if (this.pageTypeModel === '') {
-                filter.type = null
-            } else if (this.pageType !== '') {
-                filter.type = this.pageType
-            } else if (this.$route.query.type) {
-                filter.type = this.$route.query.type
             }
 
             filter.page = 1;
@@ -332,9 +197,7 @@ export default {
         removeAllFilters() {
             this.$router.push('/' + this.path);
             this.values = [];
-            this.activeModel= '';
-            this.followModel= '';
-            this.indexModel= '';
+
             this.filterField.forEach(el => {
                 const form = {
                     name: el.value,
@@ -353,38 +216,6 @@ export default {
         closeModal() {
             this.dialog = false;
         },
-
-        async getProvince() {
-            const form = {
-                per_page: 10000
-            }
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.form = form
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `system/state/crud/index`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                this.provinces = data.data.data
-            }
-        },
-
-        async getCities() {
-            this.cities = []
-            this.cityModel = null
-            const form = {
-                per_page: 10000
-            }
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.form = form
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `system/state/crud/get/${this.provinceModel}`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                this.cities = data.data.cities
-            }
-        },
     },
 
     mounted() {
@@ -395,8 +226,6 @@ export default {
             }
             this.values.push(form)
         });
-
-        this.getProvince();
     }
 }
 </script>

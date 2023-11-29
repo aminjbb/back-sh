@@ -11,13 +11,16 @@ export default function setup(posts) {
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
-    const header = [
-        {name:'ردیف' , show:true, order:false},
-        {name:'نام' , show:true, order:false},
-        {name:'نام خانوادگی' , show:true, order:false},
-        {name:'شماره موبایل' , show:true, order:false},
-        {name:'ایمیل' , show:true, order:false},
-    ];
+    const header = ref([
+        {name:'ردیف' , show:true, value:null, order:false},
+        {name:'نام' , show:true, value:'first_name', order:false},
+        {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
+        {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
+        {name:'تاریخ ساخت' , show:true, value:'email', order:false},
+        {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
+        {name:'ایمیل' , show:true, value:'email', order:false},
+        {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
+    ])
 
     const filterField = [
         { name: 'نام', type:'text', value:'first_name'},

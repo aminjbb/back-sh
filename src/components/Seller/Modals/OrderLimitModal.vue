@@ -133,7 +133,6 @@ export default {
          * @param {*} status 
          */
          updateList(status) {
-            console.log('1',status)
             this.$emit('updateList', status);
         },
     }

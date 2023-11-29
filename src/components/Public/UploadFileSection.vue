@@ -139,7 +139,7 @@ async function submitImage(index) {
             uploadLoading.value = false
             openToast(
             store,
-                'تو فرایند آئلود به مشکلی خوردیم',
+                'تو فرایند آپلود به مشکلی خوردیم',
                 "error"
             );
         }

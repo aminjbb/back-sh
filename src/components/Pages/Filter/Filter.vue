@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center c-modal-table-filter">
     <v-btn
         @click="openModal()"
@@ -259,7 +259,11 @@ export default {
                 {
                     label: 'برند',
                     value: 'brand',
-                }
+                },
+                {
+                  label: 'کالاها',
+                  value: 'sku',
+                },
             ],
         }
     },
@@ -358,7 +362,9 @@ export default {
         removeAllFilters() {
             this.$router.push('/' + this.path);
             this.values = [];
-
+            this.activeModel= '';
+            this.followModel= '';
+            this.indexModel= '';
             this.filterField.forEach(el => {
                 const form = {
                     name: el.value,

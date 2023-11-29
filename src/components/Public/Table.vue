@@ -36,17 +36,20 @@
             </template>
         </template>
         <div
-            v-if="model !== 'permission'"
+            v-if="model !== 'permission' "
             class="c-table__header__item"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-menu :location="location">
                 <template v-slot:activator="{ props }">
-                    <v-icon v-bind="props">
+                    <!-- <v-icon v-bind="props">
                         mdi-dots-vertical
-                    </v-icon>
+                    </v-icon> -->
+                    <span v-bind="props">
+                        عملیات
+                    </span>
                 </template>
 
-                <v-list v-if="model !== 'sku'">
+                <v-list v-if="model !== 'sku' && model !== 'export'">
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
@@ -96,24 +99,12 @@
                         {{ item.id }}
                     </span>
                 </div>
-
                 <div
-                    v-if="model === 'notification'"
+                    v-if="model === 'export' && item.model"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.title }}
-                    </span>
-                </div>
-
-                <div
-                    v-if="model === 'notification'"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        <v-btn :href="item.section ==='system' ? item.url :'/notifications/get/' + item.id" variant="icon">
-                            <v-icon color="success">mdi-eye</v-icon>
-                        </v-btn>
+                        {{ item.model }}
                     </span>
                 </div>
 
@@ -376,7 +367,7 @@
                 </div>
 
                 <div
-                    v-if="model !== 'permission'"
+                    v-if="model !== 'permission'  "
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <v-menu :location="location">
@@ -388,7 +379,7 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-                                <v-list-item-title>
+                                <v-list-item-title v-if="model !== 'export' && editUrl">
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">

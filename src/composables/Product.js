@@ -22,6 +22,7 @@ export default function setup(posts) {
         {name: ' ساخت کالا', show: true, order: false},
         {name: ' کالا ها', show: true, order: false},
         {name: 'فعال سازی ', show: true, value: 'is_active', order: true},
+       
     ]);
 
     const filterField = [

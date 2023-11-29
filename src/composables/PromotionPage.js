@@ -31,6 +31,10 @@ export default function setup(posts) {
         { name: 'نام کالا', show: true , value:'name', order: false},
         { name: 'شناسه کالا', show: true , value:'label', order: false},
         { name: 'ترتیب نمایش', show: true, value:'id' , order: false},
+        { name: 'ذخیره ', show: true, value:'id' , order: false},
+        
+
+        
     ]);
 
 

@@ -102,27 +102,28 @@ export class PanelFilter {
 
     params_generator(routeQuery){
         let query = "?";
-        if  (this.name ) {
+        if  (this.name) {
             query += "name=" + this.name + "&";
         }
-        else if  (routeQuery.name ){
+        else if (routeQuery.name ){
             query += "name=" + routeQuery.name + "&";
         }
-        if  (this.model ) {
+        
+        if (this.model ) {
             query += "model=" + this.model + "&";
         }
-        else if  (routeQuery.model ){
+        else if (routeQuery.model ){
             query += "model=" + routeQuery.model + "&";
         }
 
-        if  (this.label) {
+        if (this.label) {
             query += "label=" + this.label + "&";
         }
         else if (routeQuery.label) {
             query += "label=" + routeQuery.label + "&";
         }
 
-        if  (this.id){
+        if (this.id){
             query += "id=" + this.id + "&";
         }
         else if (routeQuery.id) {

@@ -271,6 +271,7 @@ export default {
   },
   mounted() {
       this.getAllRolePermission()
+
   }
 }
 </script>

@@ -172,16 +172,22 @@ export default function setup(posts) {
      */
     async function getSliderList(query) {
         loading.value = true
+        let endPoint = ''
         let paramsQuery = null
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)
+        if (paramsQuery){
+            endPoint= `page/slider/crud/index/${paramsQuery}&page_id=${route.params.pageId}`
+        }
+        else {
+            endPoint= `page/slider/crud/index/?page_id=${route.params.pageId}`
+        }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-
-        AxiosMethod.end_point = `page/slider/crud/index/?page_id=${route.params.pageId}`
+        AxiosMethod.end_point = endPoint
         let data = await AxiosMethod.axios_get()
 
         if (data) {
@@ -234,6 +240,11 @@ export default function setup(posts) {
         filter.per_page =number
         router.push('/page/index'+ filter.params_generator(route.query))
     }
+    function addPerPageSlider(number){
+        filter.page = 1
+        filter.per_page =number
+        router.push('/page/' +route.params.pageId+ '/sliders/index'+ filter.params_generator(route.query))
+    }
 
     function addPagination(page){
         filter.page = page
@@ -242,13 +253,13 @@ export default function setup(posts) {
     }
 
     onBeforeRouteUpdate(async (to, from) => {
-
         if (!isFilterPage.value) {
             isFilter.value =true
             page.value = 1
             filter.page = 1
         }
-        await getPageList(to)
+        if (route.name === 'pageSliders') await getSliderList(to)
+        else await getPageList(to)
     })
 
     watch(page, function(val) {
@@ -258,6 +269,9 @@ export default function setup(posts) {
         }
     })
 
-    return {templates, getTemplates,pageSingle , getPageImages, getPage ,imageHeader , pageLength, filterField, pageList ,addPerPage, getPageList, dataTableLength, page, header, loading, SliderHeader,getSliderList, sliderList, SliderSkuHeader, getSliderSkuList, skuList }
+    return {templates, getTemplates,pageSingle , getPageImages, getPage ,
+        imageHeader , pageLength, filterField, pageList ,addPerPage, getPageList,
+        dataTableLength, page, header, loading, SliderHeader,getSliderList, sliderList,
+        SliderSkuHeader, getSliderSkuList, skuList, addPerPageSlider }
 }
 

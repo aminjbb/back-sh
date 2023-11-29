@@ -115,39 +115,6 @@
                 <v-col cols="6">
                     <div class="text-right px-5">
                         <span class="t12300 modal__label">
-                            نوع تخفیف
-                        </span>
-                        <v-select
-                            :items="discountTypeData"
-                            density="compact"
-                            variant="outlined"
-                            single-line
-                            item-title="label"
-                            item-value="value"
-                            v-model="discountTypeModel" />
-                    </div>
-                </v-col>
-
-                <v-col cols="6">
-                    <div class="text-right px-5">
-                        <span class="t12300 modal__label">
-                            مقدار تخفیف
-                        </span>
-                        <v-text-field
-                            class="w-100"
-                            type="number"
-                            density="compact"
-                            variant="outlined"
-                            single-line
-                            v-model="discountModel"
-                            v-debounce:1s.unlock="calculateBaseDiscount"
-                            :rules="rule" />
-                    </div>
-                </v-col>
-
-                <v-col cols="6">
-                    <div class="text-right px-5">
-                        <span class="t12300 modal__label">
                             تاریخ شروع
                         </span>
                         <div align="center" class="d--ltr d-flex pb-5 align-center">
@@ -181,6 +148,41 @@
                         </div>
                     </div>
                 </v-col>
+
+                <v-col cols="6">
+                    <div class="text-right px-5">
+                        <span class="t12300 modal__label">
+                            نوع تخفیف
+                        </span>
+                        <v-select
+                            :items="discountTypeData"
+                            density="compact"
+                            variant="outlined"
+                            single-line
+                            item-title="label"
+                            item-value="value"
+                            v-model="discountTypeModel" />
+                    </div>
+                </v-col>
+
+                <v-col cols="6">
+                    <div class="text-right px-5">
+                        <span class="t12300 modal__label">
+                            مقدار تخفیف
+                        </span>
+                        <v-text-field
+                            class="w-100"
+                            type="number"
+                            density="compact"
+                            variant="outlined"
+                            single-line
+                            :disabled="discountTypeModel == null ?  true : false"
+                            v-model="discountModel"
+                            v-debounce:1s.unlock="calculateBaseDiscount"
+                            :rules="rule" />
+                    </div>
+                </v-col>
+                
             </v-row>
 
             <div class="mt-5 px-5">
