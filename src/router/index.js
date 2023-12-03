@@ -80,6 +80,8 @@ import SupplierListView from '../views/Supplier/SupplierListView.vue'
 import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
 import EditSupplierView from '../views/Supplier/EditSupplierView.vue'
 
+
+
 /* Seller */
 import CreateSellerView from '@/views/Seller/CreateSellerView.vue'
 import SellerListView from '../views/Seller/SellerListView.vue'
@@ -131,6 +133,9 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
+/* Shipment Requests */
+import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1081,6 +1086,15 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/shipment-requests',// shipment request routes
+      name: 'shipmentRequest',
+      component: ShipmentRequestsView,
+      meta:{
+        name:' محموله های درخواستی'
+      }
+    },
+  
   ]
 })
 const privateRoutes = [
