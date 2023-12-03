@@ -18,7 +18,7 @@
                         </template>
                         ساخت ادمین
                     </v-btn>
-                    <ModalGroupAdd getEndPoint="admin/csv/get/template" uploadEndpoint="admin/csv/bulk" />
+<!--                    <ModalGroupAdd getEndPoint="admin/csv/get/template" uploadEndpoint="admin/csv/bulk" />-->
                 </v-row>
             </v-col>
 

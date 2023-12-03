@@ -68,10 +68,26 @@ export default createStore({
     homeBlogModal:{
       dialog:false,
       object: ''
+    },
+    modalRequestShipment:{
+      dialog:false,
+      object :''
+    },
+    modalRetailShipmentDetail:{
+      dialog:false,
+      object :''
     }
   },
 
   mutations: {
+    set_modalRetailShipmentDetail(state , form){
+      state.modalRetailShipmentDetail.dialog = form.dialog
+      state.modalRetailShipmentDetail.object = form.object
+    },
+    set_modalRequestShipment(state , form){
+      state.modalRequestShipment.dialog = form.dialog
+      state.modalRequestShipment.object = form.object
+    },
     set_homeBlogModal(state   , form ){
       state.homeBlogModal.dialog = form.dialog
       state.homeBlogModal.object = form.object
@@ -168,6 +184,19 @@ export default createStore({
   actions: {},
 
   getters: {
+
+    get_modalRetailShipmentDetail(state){
+      return  state.modalRetailShipmentDetail.dialog
+    },
+    get_modalRetailShipmentDetailObject(state){
+      return  state.modalRetailShipmentDetail.object
+    },
+    get_modalRequestShipment(state){
+      return  state.modalRequestShipment.dialog
+    },
+    get_modalRequestShipmentObject(state){
+      return  state.modalRequestShipment.object
+    },
     get_homeBlogModal(state){
       return  state.homeBlogModal.dialog
     },

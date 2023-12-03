@@ -131,6 +131,8 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
+import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
+import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1077,6 +1079,30 @@ const router = createRouter({
           component: HomePageBlogSectionView,
           meta:{
             name:'لیست یرند ها'
+          }
+        },
+      ],
+    },
+    {
+      path: '/retail-shipment',// Pages routes
+      meta:{
+        name:'بازرگانی'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'RetailShipmentListView',
+          component: RetailShipmentListView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+        {
+          path: 'add/shps',
+          name: 'AddShpsToRetailShipmentView',
+          component: AddShpsToRetailShipmentView,
+          meta:{
+            name:'محموله های بازرگانی'
           }
         },
       ],

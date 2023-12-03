@@ -23,10 +23,10 @@
               </template>
               ساخت کاربر
             </v-btn>
-            <ModalGroupAdd
-                getEndPoint="user/csv/get/template"
-                uploadEndpoint="user/csv/bulk"
-            />
+<!--            <ModalGroupAdd-->
+<!--                getEndPoint="user/csv/get/template"-->
+<!--                uploadEndpoint="user/csv/bulk"-->
+<!--            />-->
           </v-row>
         </v-col>
 
