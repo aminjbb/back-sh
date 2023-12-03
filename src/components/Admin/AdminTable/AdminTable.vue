@@ -93,14 +93,55 @@
                         {{ item.phone_number }}
                     </span>
                 </div>
-
-                <div
-                    v-if="item.email && header[4].show"
+              <div
+                    v-if=" header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.role?.label }}
+                    </span>
+                    <span v-else>----</span>
+                </div>
+              <div
+                    v-if=" header[5].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.created_at , '-' , true) }}
+                    </span>
+                </div>
+              <div
+                    v-if=" header[6].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
+                        {{ convertDateToJalai(item.last_logged_in , '-' , true) }}
+                    </span>
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        ---
+                    </span>
+                </div>
+
+                <div
+                    v-if=" header[7].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.email" class="t14300 text-gray500 py-5">
                         {{ item.email }}
                     </span>
+                  <span v-else class="t14300 text-gray500 py-5">
+                        ----
+                    </span>
+                </div>
+                <div
+                    v-if=" header[7].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                  <v-switch
+                      v-model="isBan[index]"
+                      inset
+                      color="success"
+                      @change="changeBan(index,item)" />
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
@@ -144,12 +185,14 @@
             </div>
         </div>
     </div>
+  <ModalMassUpdate :updateUrl="updateUrl" />
 </div>
 </template>
 
 <script>
 import {
-    isOdd
+  convertDateToJalai,
+  isOdd
 } from '@/assets/js/functions'
 import {
     AxiosCall
@@ -161,7 +204,9 @@ import {
     openToast,
     openConfirm
 } from "@/assets/js/functions";
+import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 export default {
+  components: {ModalMassUpdate},
 
     props: {
         /**
@@ -194,6 +239,13 @@ export default {
             type: String,
             default: ''
         },
+      /**
+       * Edit endpoint for change ban
+       */
+        banPath: {
+            type: String,
+            default: ''
+        },
         /**
          * Delete endpoint for change filter
          */
@@ -206,6 +258,13 @@ export default {
          * url for edit user
          */
         editUrl: {
+            type: String,
+            default: ''
+        },
+        /**
+         * url for edit user
+         */
+        updateUrl: {
             type: String,
             default: ''
         },
@@ -234,6 +293,7 @@ export default {
             default: false
         },
 
+
     },
 
     data() {
@@ -242,6 +302,7 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
+            isBan:[],
             panelFilter: new PanelFilter(),
         }
     },
@@ -266,6 +327,13 @@ export default {
     },
 
     methods: {
+      convertDateToJalai,
+        /**
+         * Mass update modal
+         */
+        massUpdateModal() {
+          this.$store.commit('set_massUpdateModal', true)
+        },
         getStatusColor(status) {
             const color = '';
 
@@ -384,12 +452,12 @@ export default {
          * @param {*} index
          * @param {*} item
          */
-        async changeFilter(index, item) {
+        async changeBan(index, item) {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.editPath + item.id
-            if (this.filter[index]) formdata.append('is_filterable', 1)
-            else formdata.append('is_filterable', 0)
+            AxiosMethod.end_point = this.banPath + item.id
+            if (this.isBan[index]) formdata.append('is_ban', 1)
+            else formdata.append('is_ban', 0)
             AxiosMethod.store = this.$store
             AxiosMethod.form = formdata
 
@@ -414,5 +482,13 @@ export default {
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
+    watch:{
+      items(val){
+        val.forEach(admin => {
+          if (admin.is_ban === 1)  this.isBan.push(true)
+          else this.isBan.push(false)
+        })
+      }
+    }
 }
 </script>

@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import Table from '@/components/Admin/AdminTable/AdminTable.vue'
+import Table from '@/components/User/Table/UserTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import User from "@/composables/User";

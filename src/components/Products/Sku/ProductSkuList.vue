@@ -130,6 +130,7 @@ import Sku from '@/composables/Sku';
 import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
 import Categories from '@/composables/Categories';
+import {openToast} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -216,11 +217,19 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
-            if (!val) {
-                this.getProduct()
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getSkues();
+            openToast(
+                this.$store,
+                'محصول با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
 
         dataTableLength(val) {
             this.addPerPage(val)

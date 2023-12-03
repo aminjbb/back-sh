@@ -210,7 +210,7 @@ export default {
       filteredData: [],
       activeFilter: [
         {
-          label: 'همه',
+          label: 'وضعیت',
           value: '',
         },
         {

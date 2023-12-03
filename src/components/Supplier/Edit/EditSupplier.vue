@@ -14,6 +14,17 @@
             justify="end"
             class="pl-10 pt-5"
         >
+
+          <v-btn
+              @click="$router.go(-1)"
+              variant="outlined"
+              height="40"
+              rounded
+              class="px-8 mt-1 ml-5"
+          >
+
+            انصراف
+          </v-btn>
           <v-btn
               :loading="loading"
               @click="validate()"
@@ -23,7 +34,7 @@
               class="px-8 mt-1"
           >
 
-            تایید انبار
+            تایید
           </v-btn>
 
 

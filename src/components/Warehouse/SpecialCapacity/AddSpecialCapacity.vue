@@ -23,6 +23,7 @@
             v-model="form.date"
         />
         <date-picker
+            :min="minDate"
             clearable
             custom-input=".custom-input"
             format="jYYYY-jMM-jDD"
@@ -87,7 +88,7 @@
 import { watch } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
-import {convertDateToGregorian, convertDateToJalai} from "@/assets/js/functions";
+import {convertDateToGregorian, convertDateToJalai, gregorian_to_jalali} from "@/assets/js/functions";
 import {da} from "vuetify/locale";
 import Warehouse from "@/composables/Warehouse";
 import SpecialCapacityTable from '@/components/Warehouse/SpecialCapacity/SpecialCapacityTable.vue'
@@ -117,6 +118,7 @@ export default {
 
   data() {
     return {
+      minDate:'',
       form: {
         date: '',
         market: '',
@@ -193,6 +195,11 @@ export default {
   },
   mounted() {
     this.getSpecialCapacity()
+    const date = new Date();
+    let dateSplit = date.toISOString()
+    dateSplit = dateSplit.split('T')
+    const dateObject = dateSplit[0].split('-')
+    this.minDate = gregorian_to_jalali(parseInt(dateObject[0]), parseInt(dateObject[1]), parseInt(dateObject[2]))
   }
 }
 </script>

@@ -39,8 +39,7 @@
                 <div class="mt-3 mb-8 px-5">
                     <v-divider />
                 </div>
-
-                <v-row justify="end">
+                <v-row justify="end" v-if="hasFilter">
                     <v-col cols="6" >
                         <v-checkbox
                             v-model="filter"
@@ -85,6 +84,10 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 export default {
     props: {
         getEndPoint: '',
+        hasFilter: { 
+            
+            default: true
+        }
     },
     data() {
         return {

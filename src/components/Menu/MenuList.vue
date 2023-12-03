@@ -15,7 +15,7 @@
             <template v-slot:prepend>
               <v-icon>mdi-plus</v-icon>
             </template>
-            افزودن تکی
+            افزودن منو
           </v-btn>
         </v-col>
 
@@ -40,7 +40,7 @@
           deletePath="system/menu/crud/delete/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-          model="page" />
+          model="menu" />
 
       <v-divider />
 
