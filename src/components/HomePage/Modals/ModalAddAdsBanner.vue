@@ -98,7 +98,6 @@ export  default {
        else endPoint = `page/home/section/banner/create/`
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = endPoint
-
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.AddAdsForm.form.link)
       formData.append(`image_alt`, this.$refs.AddAdsForm.form.imageAlt)
