@@ -90,15 +90,14 @@ export  default {
       }, 200)
     },
     async createBanner(){
-
+      console.log(this.banner)
       this.loading=true
       let formData = new FormData();
       let endPoint = null
-      if (this.banner) endPoint = `page/home/section/banner/update/${this.benner.id}`
+      if (this.banner) endPoint = `page/home/section/banner/update/${this.banner.id}`
        else endPoint = `page/home/section/banner/create/`
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = endPoint
-
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.AddAdsForm.form.link)
       formData.append(`image_alt`, this.$refs.AddAdsForm.form.imageAlt)
