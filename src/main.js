@@ -40,6 +40,7 @@ const vuetify = createVuetify({
                     primary400: '#FCE4EC',
                     secondary: colors.red.lighten4, // #FFCDD2
                     gray: '#F7F8FA',
+                    gray2: '#E0E0E0',
                     gray90: '#FBFBFC',
                     gray500: '#9E9E9E',
                     Slate: '#110833',

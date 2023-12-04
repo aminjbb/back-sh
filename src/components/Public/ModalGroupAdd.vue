@@ -78,7 +78,9 @@ import { openToast } from "@/assets/js/functions";
 export default {
     props: {
         getEndPoint: '',
-        uploadEndpoint: ''
+        uploadEndpoint: '',
+        updateShps:{type:Function},
+        isRetail:false
     },
 
     data() {
@@ -135,11 +137,9 @@ export default {
             if (data) {
                 this.uploadFileLoading = false
                 this.setFileUrl(data.data.data.url)
-                // openToast(
-                //     this.$store,
-                //    data.message,
-                //     "success"
-                // );
+                if (this.isRetail){
+                  this.updateShps(data.data.data)
+                }
             }
             else {
                 this.uploadFileLoading = false

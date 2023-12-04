@@ -39,21 +39,32 @@
               <v-autocomplete
                   variant="outlined"
                   single-line
+                  v-model="warehouse"
                   :items="warehouseData"
                   item-title="name"
                   item-value="id"
                   v-debounce:1s.unlock="searchWarehouse"
+
               />
             </v-col>
             <v-col cols="12">
-             <div class="d-flex justify-center">
+             <div class="d-flex justify-center d--rtl">
                <div class=" navbar navbar__scroller"  @click="getnavbarItem()">
                 <div class=" d-flex justify-start" id="navbarItems">
-                  <v-card height="76" min-width="92" variant="outlined" elevation="0" class="mx-3"></v-card>
-                  <v-card height="76" min-width="92" variant="outlined" elevation="0" class="mx-3"></v-card>
-                  <v-card height="76" min-width="92" variant="outlined" elevation="0" class="mx-3"></v-card>
-                  <v-card height="76" min-width="92" variant="outlined" elevation="0" class="mx-3"></v-card>
-                  <v-card height="76" min-width="92" variant="outlined" elevation="0" class="mx-3"></v-card>
+                  <v-card @click="setWorkDay(day)" v-for="(day , index) in  workDays" height="76" min-width="92" elevation="0" class="mx-3 br--8"
+                  :class="workDaysClass(day)">
+                   <div class="text-center mt-2">
+                    <span >
+                       {{day.day}}
+                    </span>
+                   </div>
+                    <div class="text-center mt-2">
+                        <span >
+                            {{convertDateToJalai(day.date , '-' , false)}}
+                        </span>
+                    </div>
+                  </v-card>
+
                 </div>
                </div>
              </div>
@@ -96,6 +107,7 @@ import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import Warehouse from "@/composables/Warehouse"
+import {convertDateToJalai} from "@/assets/js/functions";
 export  default {
   setup(){
       const {getWarehouseList ,  warehouseList} = new Warehouse()
@@ -107,10 +119,28 @@ export  default {
   },
   data(){
     return{
+      warehouse:null,
+      workDays:[],
+      workDay:null
     }
   },
 
   methods:{
+    setWorkDay(workday){
+      if (workday.storage > 0) this.workDay = workday.date
+    },
+    workDaysClass(workday){
+      if (workday.date === this.workDay){
+        return 'retailShipment--work-days-card__active'
+      }
+      else if (workday.storage === 0){
+        return 'retailShipment--work-days-card__disable'
+      }
+      else {
+        return 'retailShipment--work-days-card__free'
+      }
+    },
+    convertDateToJalai,
     getnavbarItem(){
       console.log(document.getElementById('navbarItems').offsetWidth)
     },
@@ -158,6 +188,21 @@ export  default {
       else{
         this.loading=false
       }
+    },
+    async updateWorkDay(){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `warehouse/check/retail/storage/${this.warehouse}`
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth =true
+      AxiosMethod.token =this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.loading=false
+        this.workDays = data.data
+      }
+      else{
+        this.loading=false
+      }
     }
   },
 
@@ -175,6 +220,12 @@ export  default {
       catch (e) {
         return []
       }
+    }
+  },
+
+  watch:{
+    warehouse(val){
+      this.updateWorkDay()
     }
   }
 }

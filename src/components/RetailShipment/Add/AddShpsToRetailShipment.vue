@@ -45,8 +45,10 @@
         </v-col>
         <v-col cols="2">
           <ModalGroupAdd
-              getEndPoint="brand/csv/get/template"
-              uploadEndpoint="brand/csv/bulk"
+              getEndPoint="cargo/csv/get/template"
+              uploadEndpoint="cargo/csv/bulk"
+              :updateShps="updateShps"
+              :isRetail="true"
           />
         </v-col>
       </v-row>
@@ -176,6 +178,9 @@ export default {
   },
 
   methods: {
+    updateShps(shps){
+      console.log(shps)
+    },
     changeHeaderShow(index, value) {
       this.headerSku[index].show = value
     },
