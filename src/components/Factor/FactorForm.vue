@@ -12,14 +12,15 @@
                     </span>
                 </div>
 
-                <v-select
-                    :items="allSuppliers.data"
+                <v-autocomplete
+                    v-if="dataSupplier && dataSupplier.length"
                     density="compact"
                     variant="outlined"
-                    item-title="full_name"
-                    item-value="id"
                     single-line
-                    v-model="form.supplier_id" />
+                    :items="dataSupplier"
+                    v-model="form.supplier_id"
+                    item-title="label"
+                    item-value="value" />
             </v-col>
 
             <v-col cols="12" md="6">
@@ -36,9 +37,7 @@
                     v-model="form.factor_number" />
             </v-col>
         </v-row>
-        <v-row
-            align="center"
-            class="px-15">
+        <v-row align="center" class="px-15">
             <v-col cols="12" md="6">
                 <div class="text-right my-5">
                     <span class="t14500">
@@ -104,6 +103,24 @@ export default {
         }
     },
 
+    computed: {
+        dataSupplier(){
+            try {
+                const suppliers = []
+                this.allSuppliers.data.forEach(element => {
+                    const form = {
+                        label : element.full_name,
+                        value : element.id
+                    }
+                    suppliers.push(form)
+                });
+              return suppliers
+            } catch (error) {
+                return []
+            }
+        },
+    },
+
     methods: {
         /**
          * Set form
@@ -124,7 +141,7 @@ export default {
 
     watch: {
         factor() {
-            this.setForm()
+            this.setForm();
         }
     }
 }
