@@ -6,7 +6,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
-    const pageList = ref([]);
+    const ShipmentRequestsList = ref([]);
     const templates =ref([])
     const pageSingle = ref(null)
     const dataTableLength = ref(25)
@@ -24,55 +24,59 @@ export default function setup(posts) {
     // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'نوع صفحه ', show: true, value:'type' , order: false},
-        { name: 'شناسه صفحه', show: true , value:'id', order: false},
-        { name: 'تاریخ ساخت ', show: true, value:'created_at', order: true },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: true },
-        { name: 'ایندکس', show: true, value:'is_index', order: false },
-        { name: 'follow', show: true, value:'is_follow', order: false },
+        { name: 'شناسه محموله', show: true , value:'label', order: false},
+        { name: 'نوع محموله', show: true, value:'type' , order: false},
+        { name: ' تعداد آیتم', show: true , value:'id', order: false},
+        { name: 'تنوع آیتم', show: true, value:'created_at', order: true },
+        { name: 'نام فروشگاه ', show: true, value:'updated_at', order: true },
+        { name: 'نام سازنده', show: true, value:'is_index', order: false },
+        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
+        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: false },
         { name: 'وضعیت', show: true, value:'is_active', order: false },
     ]);
 
     const filterField = [
-        {name:'عنوان' , type:'text', value:'label'},
-        { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
-        { name: 'نوع صفحه', type:'select', value:'page_type'},
-        { name: 'ایندکس', type:'select', value:'is_index'},
-        { name: 'follow', type:'select', value:'is_follow'},
-        { name: 'وضعیت', type:'select', value:'is_active'},
+        { name:' شناسه محموله' , type: 'text', value:'id'},
+        { name:' تعداد آیتم' , type: 'number', value:'shps_count_from'},
+        { name:' تعداد آیتم' , type: 'number', value:'shps_count_to'},
+        { name: ' نام سازنده', type:'select', value:'creator'},
+        { name: 'تنوع آیتم', type:'number', value:'shps_variety_from'},
+        { name: 'تنوع آیتم', type:'number', value:'shps_variety_to'},
+        { name: 'نوع محموله', type:'select', value:'type'},
+        { name: ' تاریخ ارسال', type:'date', value:'sent_to_warehouse_at'},
+        { name: 'وضعیت', type:'select', value:'status'},
     ];
 
      // image table header
-    const imageHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر', show: true , value:'label', order: false},
-        { name: 'دستگاه', show: true, value:'type' , order: false},
-        { name: 'موقعیت', show: true , value:'id', order: false},
-        { name: 'ترتیب نمایش ', show: true, value:'created_at', order: true },
-        { name: 'ذخیره ', show: true, value:'updated_at', order: true },
+    // const imageHeader =ref([
+    //     { name: 'ردیف', show: true , value:null, order:false},
+    //     { name: 'تصویر', show: true , value:'label', order: false},
+    //     { name: 'دستگاه', show: true, value:'type' , order: false},
+    //     { name: 'موقعیت', show: true , value:'id', order: false},
+    //     { name: 'ترتیب نمایش ', show: true, value:'created_at', order: true },
+    //     { name: 'ذخیره ', show: true, value:'updated_at', order: true },
 
-    ]);
+    // ]);
 
     // slider table header
-    const SliderHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام انگلیسی', show: true , value:'name', order: false},
-        { name: 'نام فارسی', show: true, value:'label' , order: false},
-        { name: 'جایگاه', show: true , value:'position', order: false},
-        { name: 'آیکن', show: true, value:'icon', order: false },
-        //{ name: 'وضعیت', show: true, value:'is_active', order: false },
-    ]);
+    // const SliderHeader =ref([
+    //     { name: 'ردیف', show: true , value:null, order:false},
+    //     { name: 'نام انگلیسی', show: true , value:'name', order: false},
+    //     { name: 'نام فارسی', show: true, value:'label' , order: false},
+    //     { name: 'جایگاه', show: true , value:'position', order: false},
+    //     { name: 'آیکن', show: true, value:'icon', order: false },
+    //     //{ name: 'وضعیت', show: true, value:'is_active', order: false },
+    // ]);
 
      // slider skus table header
-     const SliderSkuHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: 'SHPS', show: true, value:'shps' , order: false},
-        { name: 'ترتیب نمایش', show: true , value:'sort', order: false},
-        { name: 'ذخیره', show: true, value:'save' , order: false},
+    //  const SliderSkuHeader =ref([
+    //     { name: 'ردیف', show: true , value:null, order:false},
+    //     { name: 'نام کالا', show: true , value:'label', order: false},
+    //     { name: 'SHPS', show: true, value:'shps' , order: false},
+    //     { name: 'ترتیب نمایش', show: true , value:'sort', order: false},
+    //     { name: 'ذخیره', show: true, value:'save' , order: false},
 
-    ]);
+    // ]);
     
     const loading = ref(false)
     const isFilter =ref(false)
@@ -85,19 +89,32 @@ export default function setup(posts) {
      */
     async function getPageList(query) {
         loading.value = true
+        const customQueryParams = {
+            status: 'in_review',
+            id: 1,
+            factor_id: 2,
+            creator_id: 4,
+            created_at_from_date: '2024-09-07',
+            // Add 'created_at_to_date' with a value if needed
+        };
+    
         let paramsQuery = null
         if (query){
-            paramsQuery = filter.params_generator(query.query)
+            paramsQuery = filter.params_generator(customQueryParams)
         }
         else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `cargo/crud/index?${paramsQuery}`
+
         let data = await AxiosMethod.axios_get()
+        // console.log("API Response:", data)
+        console.log("Requesting URL:", AxiosMethod.end_point); // Log the full URL
+
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            pageList.value = data.data
+            ShipmentRequestsList.value = data.data
             loading.value = false
            setTimeout(()=>{
                isFilter.value =false
@@ -116,11 +133,13 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        // Update the endpoint to fetch cargo details based on the ID from the route parameters
-        AxiosMethod.end_point = `cargo/crud/get/${route.params.pageId}`; 
+        AxiosMethod.end_point = `page/crud/get/${route.params.pageId}`
         let data = await AxiosMethod.axios_get()
-        if (data && data.status === "Success") {
-            pageSingle.value = data.data; // Assuming pageSingle will now hold the cargo data
+        AxiosMethod.end_point = `cargo/crud/get/${route.params.pageId}`; 
+        console.log("API Response:", data)
+
+        if (data) {
+            pageSingle.value = data.data
         }
 
         else {
@@ -155,7 +174,7 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            pageList.value = data.data
+            ShipmentRequestsList.value = data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -271,8 +290,8 @@ export default function setup(posts) {
     })
 
     return {templates, getTemplates,pageSingle , getPageImages, getPage ,
-        imageHeader , pageLength, filterField, pageList ,addPerPage, getPageList,
-        dataTableLength, page, header, loading, SliderHeader,getSliderList, sliderList,
-        SliderSkuHeader, getSliderSkuList, skuList, addPerPageSlider }
+         pageLength, filterField, ShipmentRequestsList ,addPerPage, getPageList,
+        dataTableLength, page, header, loading,getSliderList, sliderList,
+         getSliderSkuList, skuList, addPerPageSlider }
 }
 

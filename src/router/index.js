@@ -1088,15 +1088,25 @@ const router = createRouter({
     },
     {
       path: '/shipment-requests',// shipment request routes
-      name: 'shipmentRequest',
-      component: ShipmentRequestsView,
       meta:{
-        name:' محموله های درخواستی'
-      }
-    },
+        name:' بازرگانی'
+      },
+      children: [
+        {
+          path: 'index',  
+          name: 'ShipmentRequests',
+          component: ShipmentRequestsView,
+          meta:{
+            name:'محموله های درخواستی '
+          }
+        },
   
-  ]
-})
+        ]
+    },
+    
+    
+     
+  ]})
 const privateRoutes = [
   'home',
   'categories',
