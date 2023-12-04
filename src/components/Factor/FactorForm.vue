@@ -74,9 +74,7 @@ export default {
 
         return {
             allSuppliers,
-            getAllSuppliers,
-            admin,
-            getAdmins
+            getAllSuppliers
         };
     },
 

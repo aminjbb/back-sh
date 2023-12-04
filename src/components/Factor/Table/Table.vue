@@ -168,8 +168,8 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="showDetails(item.id)">
-                                        <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
+                                    <div class="ma-5 pointer" @click="openShowDetailsModal(item.id)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             نمایش جزئیات
                                         </span>
@@ -180,7 +180,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/seo`)">
-                                        <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت محموله‌های انبارش
                                         </span>
@@ -191,7 +191,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/image`)">
-                                        <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             ساخت محموله انبارش
                                         </span>
@@ -202,7 +202,7 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/content`)">
-                                        <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت گذاری
                                         </span>
@@ -212,8 +212,8 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/sliders/index`)">
-                                        <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
                                         </span>
@@ -252,6 +252,9 @@ import {
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
+import {
+    openModal
+} from "@/assets/js/functions_seller";
 export default {
     components: {
         ModalMassUpdate,
@@ -356,6 +359,14 @@ export default {
     },
 
     methods: {
+        /**
+         * Open Basic Discount modal
+         * @param {*} id
+         */
+         openShowDetailsModal(id) {
+            openModal(this.$store, 'set_showDetailsModal', id, true)
+        },
+
         factorSelectedTitle(status) {
             if (status === 'draft') {
                 return 'پیش نویس'
@@ -509,7 +520,7 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+            openConfirm(this.$store, "با حذف فاکتور دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف فاکتور", this.deletePath + id, true)
         },
     },
 }

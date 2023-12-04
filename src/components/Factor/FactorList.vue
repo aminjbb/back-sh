@@ -4,7 +4,7 @@
         <v-row
             justify="center"
             align="center"
-            class="px-10 py-5">
+            class="px-10 py-3">
             <v-col cols="6">
                 <v-btn
                     @click="$router.push('/factor/create')"
@@ -38,6 +38,7 @@
             :perPage="dataTableLength"
             @updateList="updateList"
             :loading="loading"
+            deletePath="factor/crud/delete"
             model="factor" />
 
         <v-divider />
