@@ -21,7 +21,7 @@
             <Table
                 class="flex-grow-1"
                 :header="header"
-                :items="[]"
+                :items="ShipmentRequestsList.data"
                 :page="page"
                 :perPage="dataTableLength"
                 activePath="page/crud/update/activation/"
@@ -85,7 +85,7 @@
         setup(props) {
             const {
                 pageLength,
-                getPageList,
+                getShipmentRequestsList,
                 ShipmentRequestsList,
                 filterField,
                 dataTableLength,
@@ -97,7 +97,7 @@
             } = ShipmentRequests();
             return {
                 pageLength,
-                getPageList,
+                getShipmentRequestsList,
                 ShipmentRequestsList,
                 filterField,
                 dataTableLength,
@@ -130,13 +130,13 @@
     
             updateList(status){
                 if(status === 'true'){
-                    this.getPageList();
+                    this.getShipmentRequestsList();
                 }
             },
         },
     
         mounted() {
-            this.getPageList();
+            this.getShipmentRequestsList();
         },
     
         watch: {

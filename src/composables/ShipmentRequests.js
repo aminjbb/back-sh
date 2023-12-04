@@ -87,20 +87,20 @@ export default function setup(posts) {
      * Get page list
      * @param {*} query 
      */
-    async function getPageList(query) {
+    async function getShipmentRequestsList(query) {
         loading.value = true
-        const customQueryParams = {
-            status: 'in_review',
-            id: 1,
-            factor_id: 2,
-            creator_id: 4,
-            created_at_from_date: '2024-09-07',
-            // Add 'created_at_to_date' with a value if needed
-        };
+        // const customQueryParams = {
+        //     status: 'in_review',
+        //     id: 1,
+        //     factor_id: 2,
+        //     creator_id: 4,
+        //     created_at_from_date: '2024-09-07',
+        //     // Add 'created_at_to_date' with a value if needed
+        // };
     
         let paramsQuery = null
         if (query){
-            paramsQuery = filter.params_generator(customQueryParams)
+            paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
@@ -109,7 +109,7 @@ export default function setup(posts) {
         AxiosMethod.end_point = `cargo/crud/index?${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
-        // console.log("API Response:", data)
+        console.log("API Response1:", data)
         console.log("Requesting URL:", AxiosMethod.end_point); // Log the full URL
 
         if (data) {
@@ -133,10 +133,10 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/crud/get/${route.params.pageId}`
+        AxiosMethod.end_point = `cargo/crud/get/${route.params.pageId}`
         let data = await AxiosMethod.axios_get()
         AxiosMethod.end_point = `cargo/crud/get/${route.params.pageId}`; 
-        console.log("API Response:", data)
+        console.log("API Response2:", data)
 
         if (data) {
             pageSingle.value = data.data
@@ -290,7 +290,7 @@ export default function setup(posts) {
     })
 
     return {templates, getTemplates,pageSingle , getPageImages, getPage ,
-         pageLength, filterField, ShipmentRequestsList ,addPerPage, getPageList,
+         pageLength, filterField, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
         dataTableLength, page, header, loading,getSliderList, sliderList,
          getSliderSkuList, skuList, addPerPageSlider }
 }

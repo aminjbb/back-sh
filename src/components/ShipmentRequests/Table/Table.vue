@@ -42,20 +42,19 @@
                     </div>
     
                     <div
-                        v-if="item.label && header[1].show"
+                        v-if="item.id && header[1].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
-                            {{ item.label }}
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            {{ item.id }}
                         </span>
                     </div>
-    
                     <div
                         v-if="header[2].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.type">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.id">
                                 {{ item.type }}
                             </template>
                             <template v-else>
@@ -63,23 +62,62 @@
                             </template>
                         </span>
                     </div>
-    
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.id">
-                                {{ item.id }}
+                            <template v-if="item.type">
+                                {{ item.shps_variety }}
                             </template>
                             <template v-else>
                                 نامعلوم
                             </template>
                         </span>
                     </div>
-    
+                    <div
+                        v-if="header[3].show"
+                        class="c-table__contents__item justify-center "
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.shps_count">
+                                {{ item.shps_count }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
                     <div
                         v-if="header[4].show"
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5">
+                            <template v-if="item.type">
+                                شاواز
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
+                    <div
+                        v-if="header[5].show"
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5">
+                            <template v-if="item.creator">
+                                {{ item.creator.first_name + ' ' + item.creator.last_name }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
+                    
+    
+                    <div
+                        v-if="header[6].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -91,9 +129,10 @@
                             </template>
                         </span>
                     </div>
+                    
     
                     <div
-                        v-if="header[5].show"
+                        v-if="header[7].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -118,7 +157,47 @@
                                 @change="changeIsIndex(index,item)" />
                         </span>
                     </div>
+                    <!-- <div
+                        v-if="header[6].show"
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.status">
+                                {{ item.status }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div> -->
+                    <div
+    v-if="header[6].show"
+    class="c-table__contents__item justify-center"
+    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
     
+    <div>
+    <v-menu >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn v-bind="attrs" v-on="on">
+          {{ selectedOption }}
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item @click="selectOption('Option 1')">
+          <v-list-item-title> 1</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="selectOption('Option 2')">
+          <v-list-item-title> 2</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="selectOption('Option 3')">
+          <v-list-item-title> 3</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </div>
+
+    
+</div>
                     <div
                         v-if="(item.is_follow  != undefined && checkActive )"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
@@ -156,58 +235,16 @@
                             <v-list class="c-table__more-options">
                                 <v-list-item>
                                     <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/template`)">
-                                            <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
+                                        <div class="ma-5 pointer" >
+                                            <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
-                                                قالب صفحه
+                                                نمایش جزئیات
                                             </span>
                                         </div>
                                     </v-list-item-title>
                                 </v-list-item>
     
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/seo`)">
-                                            <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                تنظیمات سئو
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
-    
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/image`)">
-                                            <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                تصاویر
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
-    
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/content`)">
-                                            <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                محتوا
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
-    
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="$router.push(`${item.id}/sliders/index`)">
-                                            <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                مدیریت محصولات
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
+                               
                             </v-list>
                         </v-menu>
                     </div>
@@ -320,6 +357,7 @@
                 isFollow: [],
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
+                selectedOption: 'Select an Option',
             }
         },
     
@@ -376,7 +414,13 @@
         },
     
         methods: {
-    
+
+            selectOption(option) {
+      this.selectedOption = option;
+    },
+            updateStatus(item) {
+               
+            },
             /**
              * Mass update modal
              */
