@@ -136,6 +136,11 @@ import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vu
 /* Shipment Requests */
 import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue'
 
+/* Factor Requests */
+import FactorListView from '../views/Factor/FactorListView.vue'
+import AddFactorView from '../views/Factor/AddFactorView.vue'
+import EditFactorView from '../views/Factor/EditFactorView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1093,6 +1098,38 @@ const router = createRouter({
       meta:{
         name:' محموله های درخواستی'
       }
+    },
+
+    {
+      path: '/factor', // Factor routes
+      meta: {
+        name: 'بازرگانی'
+      },
+      children: [{
+          path: 'index',
+          name: 'factorList',
+          component: FactorListView,
+          meta: {
+            name: 'فاکتور'
+          }
+        },
+        {
+          path: 'create',
+          name: 'createFactor',
+          component: AddFactorView,
+          meta: {
+            name: 'ایحاد فاکتور'
+          }
+        },
+        {
+          path: 'edit/:id',
+          name: 'editFactor',
+          component: EditFactorView,
+          meta: {
+            name: 'ویرایش فاکتور'
+          }
+        },
+      ],
     },
   
   ]
