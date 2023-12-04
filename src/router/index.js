@@ -1137,7 +1137,30 @@ const router = createRouter({
         },
       ],
     },
-
+    {
+      path: '/retail-shipment',
+      meta:{
+        name:'بازرگانی'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'RetailShipmentListView',
+          component: RetailShipmentListView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+        {
+          path: 'add/shps',
+          name: 'AddShpsToRetailShipmentView',
+          component: AddShpsToRetailShipmentView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+      ],
+    },
   ]
 })
 const privateRoutes = [
