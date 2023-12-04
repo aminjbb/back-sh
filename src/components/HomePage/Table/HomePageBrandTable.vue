@@ -368,6 +368,10 @@ export default {
           imageId: element.id,
           imageUrl: element.image?.image_url,
           priority: element.priority,
+          is_active:element.is_active,
+          link:element.link,
+          device:element.device,
+          label:element.label,
           loading: false
         }
         this.form.push(form)
@@ -397,6 +401,7 @@ export default {
     },
     async updateImage(index) {
       this.form[index].loading = true
+      console.log(this.form[index])
       const formData = new FormData()
       formData.append('homepage_section_id', this.$route.params.sectionId)
       formData.append('image_id', this.form[index].image)
@@ -405,6 +410,7 @@ export default {
       formData.append('image_alt', this.form[index].image_alt)
       formData.append('is_active', this.form[index].is_active)
       formData.append('link', this.form[index].link)
+      formData.append('label', this.form[index].label)
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.form = formData
