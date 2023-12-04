@@ -2,131 +2,150 @@
 <div class="text-center">
     <v-dialog
         v-model="showDetailsModal.dialog"
-        width="908"
+        width="1060"
         @input="dialogToggle">
         <v-card>
+            <header class="modal__header modal__header--factor">
+                <v-btn
+                    class="modal__header__btn"
+                    @click="close()"
+                    variant="icon">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </header>
             <div class="pa-4">
-                <div v-if="factorData !== null" class="modal__content modal__content--cols d--rtl py-3 px-4 d-flex justify-star align-center">
+                <div class="modal__content d--rtl py-3 px-4 mb-2">
                     <v-row>
-                        <v-col cols="6" sm="3">
+                        <v-col
+                            cols="6"
+                            sm="3"
+                            md="3"
+                            lg="3">
                             <span class="modal__content__title">شناسه فاکتور: </span>
-                            <span v-if="factorData.id" class="modal__content__txt number-font">
+                            <span v-if="factorData && factorData.id" class="modal__content__txt number-font">
                                 {{factorData.id}}
                             </span>
                         </v-col>
-                        <v-col cols="6" sm="3">
+                        <v-col
+                            cols="6"
+                            sm="3"
+                            md="3"
+                            lg="3">
                             <span class="modal__content__title">تامین کننده: </span>
-                            <span v-if="factorData.supplier && factorData.supplier.full_name" class="modal__content__txt number-font">
+                            <span v-if="factorData && factorData.supplier && factorData.supplier.full_name" class="modal__content__txt number-font">
                                 {{factorData.supplier.full_name}}
                             </span>
                         </v-col>
-                        <v-col cols="6" sm="3">
+                        <v-col
+                            cols="6"
+                            sm="3"
+                            md="3"
+                            lg="3">
                             <span class="modal__content__title">شماره فاکتور تامین کننده: </span>
-                            <span v-if="factorData.factor_number" class="modal__content__txt number-font">
+                            <span v-if="factorData && factorData.factor_number" class="modal__content__txt number-font">
                                 {{factorData.factor_number}}
                             </span>
                         </v-col>
-                        <v-col cols="6" sm="3">
+                        <v-col
+                            cols="6"
+                            sm="3"
+                            md="3"
+                            lg="3">
                             <span class="modal__content__title">تاریخ ساخت: </span>
-                            <span v-if="factorData.created_at_fa" class="modal__content__txt number-font">
+                            <span v-if="factorData && factorData.created_at_fa" class="modal__content__txt number-font">
                                 {{factorData.created_at_fa}}
                             </span>
                         </v-col>
                         <v-col cols="12">
                             <span class="modal__content__title">آدرس تامین کننده: </span>
-                            <span v-if="factorData.creator && factorData.creator.address" class="modal__content__txt number-font">
+                            <span v-if="factorData && factorData.creator && factorData.creator.address" class="modal__content__txt number-font">
                                 {{factorData.creator.address}}
                             </span>
                         </v-col>
                     </v-row>
+                </div>
+
+                <div class="modal__content d--rtl">
                     <y-row class="c-table">
                         <header class="c-table__header d-flex justify-between">
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:7.1111%;padding: 20px 5px;">
                                 ردیف
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-right c-table__header__item t12500 text-black" style="width:17.1111%;padding: 20px 5px;">
                                 نام کالا
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 شناسه shps
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 قیمت خرید
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 قیمت مصرف
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 تعداد کالا
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 قیمت خرید کل
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:12.1111%;padding: 20px 5px;">
                                 قیمت مصرف کل
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black">
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 درصد سود
                             </div>
                         </header>
 
                         <div class="stretch-table">
-                            <div v-if="factorData.skus && factorData.skus.length > 0" class="c-table__contents">
+                            <div v-if="factorSkuData && factorSkuData.data && factorSkuData.data.length" class="c-table__contents">
                                 <div
-                                    v-for="(sku , index) in factorData.skus"
+                                    v-for="(sku , index) in factorSkuData.data"
                                     :key="index"
                                     class="d-flex justify-between c-table__contents__row">
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:7.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{rowIndexTable(index)}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+
+                                    <div class="c-table__contents__item justify-start" style="width:17.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.label}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:12.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
-                                    <div
-                                        class="c-table__contents__item justify-center">
-                                        <span class="t14300 text-gray500 py-5 number-font">
+                                    <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
                                             {{sku.id}}
                                         </span>
                                     </div>
@@ -134,23 +153,46 @@
                             </div>
                         </div>
                     </y-row>
+
+                    <div class="calculate-all d-flex justify-between align-center">
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px">
+                            جمع:
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                            -
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                            -
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                            -
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                            -
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:12.1111%;padding:15px 10px">
+                            -
+                        </div>
+                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                            -
+                        </div>
+                    </div>
+
+                    <footer class="d--rtl d-flex justify-between align-center pa-3">
+                        <v-btn
+                            @click="print()"
+                            height="40"
+                            rounded
+                            variant="outlined"
+                            prepend-icon="mdi-printer-outline"
+                            class="px-5 mt-1">
+                            پرینت فاکتور
+                        </v-btn>
+                    </footer>
                 </div>
             </div>
-
-            <div class="mt-5 px-5">
-                <v-divider />
-            </div>
-
-            <footer class="d--rtl d-flex justify-between align-center pa-4 pt-3">
-                <v-btn
-                    @click="print()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1">
-                    پرینت فاکتور
-                </v-btn>
-            </footer>
         </v-card>
     </v-dialog>
 </div>
@@ -169,6 +211,7 @@ export default {
             loading: false,
             rule: [v => !!v || 'این فیلد الزامی است'],
             factorData: null,
+            factorSkuData: null
         }
     },
 
@@ -185,12 +228,6 @@ export default {
     methods: {
         close() {
             closeModal(this.$store, 'set_showDetailsModal');
-            this.calculatedData = null;
-
-            this.createdAtModel = null;
-            this.endedAtModel = null;
-            this.discountModel = null;
-            this.discountTypeModel = null;
         },
 
         async getFactorDetails() {
@@ -203,6 +240,27 @@ export default {
                 this.factorData = data.data;
             }
         },
+
+        async getFactorSkuDetails() {
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `factor/crud/detail/${this.showDetailsModal?.id}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.factorSkuData = data.data;
+            }
+        },
+
+        /**
+         * Get row index in table
+         * @param {*} index
+         */
+        rowIndexTable(index) {
+            let rowIndex = 0
+            rowIndex = (1 + index)
+            return rowIndex
+        },
     },
 
     created() {
@@ -211,6 +269,7 @@ export default {
             (dialogState) => {
                 if (dialogState) {
                     this.getFactorDetails();
+                    this.getFactorSkuDetails();
                 }
             }
         );
