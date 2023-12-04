@@ -81,19 +81,19 @@
               v-if=" header[3].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                   <v-text-field variant="outlined"/>
+                   <v-text-field @update:modelValue="(event) => setCount(event ,index , item.id)" variant="outlined"/>
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field variant="outlined"/>
+            <v-text-field @update:modelValue="(event) =>setMinTolerance(event ,index , item.id)" variant="outlined"/>
           </div>
           <div
               v-if=" header[5].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field variant="outlined"/>
+            <v-text-field @update:modelValue="(event) =>setMaxTolerance(event ,index , item.id)" variant="outlined"/>
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
@@ -280,7 +280,6 @@ export default {
       order_type: "desc",
       activeColumn: false,
       form:[
-        {priority:''}
       ]
     }
   },
@@ -320,21 +319,65 @@ export default {
 
   watch: {
     items(val) {
-      this.active = []
-      this.form = []
-      val.forEach(element => {
-        const form = {
-          priority : element.pivot?.priority
-        }
-        this.form.push(form)
-        var active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-      });
+      console.log(val)
+      // if (val.length >1){
+      //   val.forEach(element => {
+      //     const form = {
+      //       shps : element.id,
+      //       maxTolerance :'',
+      //       minTolerance :'',
+      //       count:''
+      //     }
+      //     this.form.push(form)
+      //
+      //   });
+      // }
     }
   },
 
   methods: {
+    setCount(event , index , shps){
+      if(typeof this.form[index] === 'undefined') {
+        const form = {
+                shps : shps,
+                maxTolerance :'',
+                minTolerance :'',
+                count:event
+              }
+        this.form.push(form)
+      }
+      else {
+        this.form[index].count = event
+      }
+    },
+    setMinTolerance(event , index , shps){
+      if(typeof this.form[index] === 'undefined') {
+        const form = {
+          shps : shps,
+          maxTolerance :'',
+          minTolerance :event,
+          count:''
+        }
+        this.form.push(form)
+      }
+      else {
+        this.form[index].minTolerance = event
+      }
+    },
+    setMaxTolerance(event , index , shps){
+      if(typeof this.form[index] === 'undefined') {
+        const form = {
+          shps : shps,
+          maxTolerance :event,
+          minTolerance :'',
+          count:''
+        }
+        this.form.push(form)
+      }
+      else {
+        this.form[index].maxTolerance = event
+      }
+    },
     /**
      * Mass update modal
      */

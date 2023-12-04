@@ -56,6 +56,7 @@
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          ref="retailShipmentShps"
           class="flex-grow-1"
           :header="headerShps"
           :items="shpsList"
@@ -99,6 +100,7 @@
                   color="primary500"
                   variant="elevated"
                   width="115"
+                  @click="sendShps()"
               >
 
                 <span class="t14300">
@@ -143,7 +145,8 @@ export default {
   data(){
     return{
       skuSearchList:[],
-      shpsList:[]
+      shpsList:[],
+      loading:false
     }
   },
 
@@ -204,31 +207,40 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
-
+    async sendShps(){
+      this.loading = true
+      const formData = new FormData()
+      this.$refs.retailShipmentShps.form.forEach((shps , index) => {
+        formData.append(`shps_list[${index}][shps]`, shps.shps)
+        formData.append(`shps_list[${index}][count]`, shps.count)
+        formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
+        formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
+      })
+      formData.append('factor_id' , this.$route.params.factorId)
+      formData.append('type' , 'consignment')
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.store = this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/create`
+      AxiosMethod.form = formData
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = true
+        openToast(
+            this.$store,
+            'محموله با موفقیت ایجاد گردید.',
+            "success"
+        );
+        this.$router.push(`/factor/${this.$route.params.factorId}/retail-shipmen/index`)
+      }
+      else {
+        this.loading = true
+      }
+    },
     async assignSku(shps) {
-      console.log(shps)
       this.shpsList.push(shps)
-      console.log(this.shpsList)
-      // const formData = new FormData()
-      // const AxiosMethod = new AxiosCall()
-      // AxiosMethod.using_auth = true
-      // AxiosMethod.store = this.$store
-      // AxiosMethod.token = this.$cookies.get('adminToken')
-      // AxiosMethod.end_point = `page/home/section/slider/${this.$route.params.specialId}/sku/attach`
-      // formData.append('shps', id)
-      // formData.append('sku_id', skuId)
-      // formData.append('priority', 1)
-      // formData.append('is_active', 0)
-      // AxiosMethod.form = formData
-      // let data = await AxiosMethod.axios_post()
-      // if (data) {
-      //   this.getHomePageSingleSlider()
-      //   openToast(
-      //       this.$store,
-      //       'کد کالا با موفقیت افزوده شد.',
-      //       "success"
-      //   );
-      // }
+
     }
   },
 

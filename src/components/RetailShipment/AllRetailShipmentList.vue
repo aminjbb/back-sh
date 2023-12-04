@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="retail-shipment/index" :filterField="filterFieldAllRetail" />
+            <ModalTableFilter path="seller/index" :filterField="filterFieldAllRetail" />
           </v-row>
         </v-col>
       </v-row>

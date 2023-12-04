@@ -80,6 +80,8 @@ import SupplierListView from '../views/Supplier/SupplierListView.vue'
 import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
 import EditSupplierView from '../views/Supplier/EditSupplierView.vue'
 
+
+
 /* Seller */
 import CreateSellerView from '@/views/Seller/CreateSellerView.vue'
 import SellerListView from '../views/Seller/SellerListView.vue'
@@ -131,8 +133,19 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
+
 import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
 import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
+
+/* Shipment Requests */
+import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue'
+
+/* Factor Requests */
+import FactorListView from '../views/Factor/FactorListView.vue'
+import AddFactorView from '../views/Factor/AddFactorView.vue'
+import EditFactorView from '../views/Factor/EditFactorView.vue'
+import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1079,6 +1092,47 @@ const router = createRouter({
           component: HomePageBlogSectionView,
           meta:{
             name:'لیست یرند ها'
+          }
+        },
+      ],
+    },
+
+    {
+      path: '/shipment-requests',// shipment request routes
+      name: 'shipmentRequest',
+      component: ShipmentRequestsView,
+      meta:{
+        name:' محموله های درخواستی'
+      }
+    },
+
+    {
+      path: '/factor', // Factor routes
+      meta: {
+        name: 'بازرگانی'
+      },
+      children: [{
+          path: 'index',
+          name: 'factorList',
+          component: FactorListView,
+          meta: {
+            name: 'فاکتور'
+          }
+        },
+        {
+          path: 'create',
+          name: 'createFactor',
+          component: AddFactorView,
+          meta: {
+            name: 'ایحاد فاکتور'
+          }
+        },
+        {
+          path: 'edit/:id',
+          name: 'editFactor',
+          component: EditFactorView,
+          meta: {
+            name: 'ویرایش فاکتور'
           }
         },
       ],

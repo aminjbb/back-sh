@@ -6,6 +6,7 @@ import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 
 export default function setup(posts) {
     const supplierList = ref([]);
+    const allSuppliers = ref([]);
     const supplier = ref({});
     const dataTableLength = ref(25)
     const page = ref(1)
@@ -72,6 +73,24 @@ export default function setup(posts) {
         }
     };
 
+    async function getAllSuppliers ( query) {
+        const filter = {
+            per_page : 100000,
+          }
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = 'supplier/crud/index'
+        AxiosMethod.form = filter
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =  true
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            allSuppliers.value = data.data
+        }
+        else {
+        }
+    };
+
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
@@ -99,5 +118,5 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength, getSupplierList, supplierList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading}
+    return {pageLength, getSupplierList, supplierList, filterField, dataTableLength, page, header, addPagination, addPerPage, loading,getAllSuppliers,allSuppliers}
 }
