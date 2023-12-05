@@ -32,11 +32,7 @@
           </div>
         </template>
       </template>
-      <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 ">
-                عملیات
-            </span>
-      </div>
+
     </header>
     <div class="stretch-table">
       <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
@@ -81,39 +77,28 @@
               v-if=" header[3].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field variant="outlined"/>
+           <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_attributes?.count }}
+                    </span>
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field variant="outlined"/>
+           <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_attributes?.min_tolerance }}
+                    </span>
           </div>
           <div
               v-if=" header[5].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field variant="outlined"/>
+          <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_attributes?.max_tolerance }}
+                    </span>
           </div>
 
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-              <v-list-item-title>
-                <div class="ma-5 pointer" @click="removeItem(item.id)">
-                  <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                  <span class="mr-2 text-grey-darken-1 t14300">
-                                            حذف
-                  </span>
-                </div>
-              </v-list-item-title>
 
-            </v-menu>
-          </div>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">

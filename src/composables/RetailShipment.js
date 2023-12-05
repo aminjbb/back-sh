@@ -37,6 +37,7 @@ export default function setup(posts) {
         { name: 'تلورانس پایین', show: true , value:'low_tolerance', order: false},
         { name: 'تلورانس بالا', show: true, value:'high_tolerance', order: false },
     ]);
+
     const filterFieldAllRetail = [
         {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
         { name:'تعداد آیتم' , type: 'text', value:'count_from' , place:'از'},

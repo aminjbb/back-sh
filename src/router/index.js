@@ -145,6 +145,7 @@ import FactorListView from '../views/Factor/FactorListView.vue'
 import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
+import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
 
 
 const router = createRouter({
@@ -1152,9 +1153,17 @@ const router = createRouter({
           }
         },
         {
-          path: 'add/shps',
+          path: ':factorId/add/shps',
           name: 'AddShpsToRetailShipmentView',
           component: AddShpsToRetailShipmentView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+        {
+          path: ':retailId/edit/shps',
+          name: 'EditShpsToRetailShipmentView',
+          component: EditShpsToRetailShipmentView,
           meta:{
             name:'محموله های بازرگانی'
           }
