@@ -204,9 +204,11 @@ a,
 }
 
 .br {
+  &__8 {
+    border-radius: 8px;
+  }
   &__4 {
     border-radius: 4px;
-
   }
 }
 
@@ -263,7 +265,28 @@ a,
     background-color: #F06292;
   }
 }
+.navbar{
+  width: 390px;
+  &__scroller {
+    overflow-y: auto !important;
+    overflow-x: auto !important;
 
+    &::-webkit-scrollbar {
+      width: 1px;
+      height: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 1px;
+      background-color: #F8BBD0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 1px;
+      background-color: #F06292;
+    }
+  }
+}
 .mh-100 {
   min-height: 100vh;
 }
@@ -289,7 +312,7 @@ a,
   &__seen-active {
     width: 200px;
     background-color: rgba(127, 126, 128, 0.133);
-    border-radius: 30 !important;
+    border-radius: 30px !important;
     cursor: pointer;
   }
 
@@ -386,4 +409,32 @@ a,
   &__expire{
     background: #FFEBEE;
   }
+}
+.retailShipment--work-days-card{
+  &__active{
+    background: #EEE !important;
+    border: unset;
+    span{
+      color: black;
+    }
+  }
+  &__disable{
+    background: #FAFAFA !important;
+    border: unset;
+    span{
+      color: #E0E0E0;
+    }
+  }
+  &__free{
+
+    background: #ffff !important;
+    border: 1px solid #E0E0E0 !important;
+    span{
+      color: black;
+    }
+  }
+  &__free:hover{
+        background: #ffff !important;
+       border: 1px solid #110833 !important;
+     }
 }

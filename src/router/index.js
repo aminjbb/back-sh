@@ -133,6 +133,10 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
+
+import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
+import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
+
 /* Shipment Requests */
 import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue'
 
@@ -140,6 +144,7 @@ import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView
 import FactorListView from '../views/Factor/FactorListView.vue'
 import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
+import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
 
 
 const router = createRouter({
@@ -1091,6 +1096,7 @@ const router = createRouter({
         },
       ],
     },
+
     {
       path: '/shipment-requests',// shipment request routes
       name: 'shipmentRequest',
@@ -1131,7 +1137,30 @@ const router = createRouter({
         },
       ],
     },
-  
+    {
+      path: '/retail-shipment',
+      meta:{
+        name:'بازرگانی'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'RetailShipmentListView',
+          component: RetailShipmentListView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+        {
+          path: 'add/shps',
+          name: 'AddShpsToRetailShipmentView',
+          component: AddShpsToRetailShipmentView,
+          meta:{
+            name:'محموله های بازرگانی'
+          }
+        },
+      ],
+    },
   ]
 })
 const privateRoutes = [

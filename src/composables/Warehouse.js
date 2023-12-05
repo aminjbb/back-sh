@@ -46,15 +46,14 @@ export default function setup(posts) {
     
     async function getWarehouseList(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+
         const AxiosMethod = new AxiosCall()
+        if (query){
+            AxiosMethod.form = query
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `warehouse/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `warehouse/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
