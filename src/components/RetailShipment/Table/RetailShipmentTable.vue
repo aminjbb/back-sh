@@ -153,25 +153,20 @@
 
                     </div>
                   </v-list-item-title>
+                </v-list-item>
+                <v-list-item  :disabled="checkPermission(item.status , deleteAndShippingPermission)">
+                    <v-list-item-title>
+                      <div   class="ma-5 pointer" @click="requestShipment(item)">
+                        <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                        درخواست ارسال
+                        </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
                   <v-list-item-title>
-                    <div v-if="checkPermission(item.status , deleteAndShippingPermission)" class="ma-5 pointer" @click="requestShipment(item)">
-                      <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                      درخواست ارسال
-                      </span>
-
-                    </div>
-                    <div v-else class="ma-5 pointer">
-                      <v-icon class="text-gray2">mdi-car-pickup</v-icon>
-                      <span class="mr-2 text-gray2 t14300">
-                       درخواست ارسال
-
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                  <v-list-item-title>
-                    <div v-if="checkPermission(item.status , PrintPermission)" class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
+                    <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
                       <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                        پرینت محموله
@@ -179,16 +174,9 @@
                       </span>
 
                     </div>
-
-                    <div v-else class="ma-5 pointer">
-                      <v-icon class="text-gray2">mdi-printer-outline</v-icon>
-                      <span class="mr-2 text-gray2 t14300">
-                       پرینت محموله
-
-                      </span>
-
-                    </div>
                   </v-list-item-title>
+                  </v-list-item>
+                <v-list-item>
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
                       <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
@@ -198,24 +186,17 @@
 
                     </div>
                   </v-list-item-title>
+                </v-list-item>
+                <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                   <v-list-item-title>
-                    <div  v-if="checkPermission(item.status , deleteAndShippingPermission)" class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
+                    <div  class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                         حذف
                       </span>
 
                     </div>
-                    <div v-else class="ma-5 pointer">
-                      <v-icon class="text-gray2">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-gray2 t14300">
-                      حذف
-
-                      </span>
-
-                    </div>
                   </v-list-item-title>
-
                 </v-list-item>
 
               </v-list>
@@ -435,8 +416,8 @@ export default {
   methods: {
     checkPermission(status , permissions){
       const index = permissions.findIndex(p => p === status)
-      if (index > -1) return false
-      return true
+      if (index > -1) return true
+      return false
     },
     getStatus(status){
       const persianStatus = this.statusItems.find(element => element.value === status )

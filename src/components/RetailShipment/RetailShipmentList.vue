@@ -29,6 +29,7 @@
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
           changeStatusUrl="seller/crud/update/contract/"
+          deletePath="cargo/crud/delete/"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="seller" />
@@ -126,7 +127,7 @@ export default {
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          // this.getHomeSection();
+          this.getRetailShipmentList();
           openToast(
               this.$store,
               'محصول با موفقیت حذف شد',
@@ -136,6 +137,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getRetailShipmentList();
+    }
   }
 }
 </script>

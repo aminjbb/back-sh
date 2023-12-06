@@ -270,7 +270,7 @@ export default {
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
-                ['محموله‌ها ', '/', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله‌ها ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله های درخواستی ', '/shipment-requests', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
