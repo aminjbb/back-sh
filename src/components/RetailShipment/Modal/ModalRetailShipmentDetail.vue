@@ -9,13 +9,16 @@
       <v-card class="">
 
         <div class="text-center px-5" >
-          <v-card class="d-flex justify-center align-center px-10 ma-5"  height="82">
+          <v-card class="d-flex justify-center align-center px-10 ma-5 "  height="82">
             <div class="mx-10" >
                 <span class="t14500">
                      تاریخ ارسال :
                 </span>
-                <span  class="t13400 text-gray500">
-                  ۱۴۰۲/۰۵/۱۵
+                <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500  d--ltr">
+                 {{convertDateToJalai(retailObject.sent_to_warehouse_at ,  '-' , false) }}
+                </span>
+                <span v-else class="t13400 text-gray500">
+                ----
                 </span>
               </div>
             <div class="mx-10" >
@@ -23,7 +26,7 @@
                      شناسه محموله :
                 </span>
                 <span  class="t13400 text-gray500">
-                  123456
+                  {{ retailObject.id }}
                 </span>
               </div>
             <div class="mx-10" >
@@ -39,7 +42,7 @@
                      شناسه فاکتور :
                 </span>
                 <span  class="t13400 text-gray500">
-                  123456
+                  {{ retailObject.factor?.id }}
                 </span>
             </div>
           </v-card>
@@ -47,7 +50,7 @@
             <Table
                 class="flex-grow-1"
                 :header="headerShps"
-                :items="[]"
+                :items="retailObject.shps_list"
                 editUrl="/seller/edit/"
                 activePath="seller/crud/update/activation/"
                 deletePath="seller/crud/update/activation/"
@@ -63,33 +66,6 @@
 
           </v-card>
         </div>
-
-<!--        <div class="mt-3 mb-8 px-5">-->
-<!--          <v-divider />-->
-<!--        </div>-->
-
-<!--        <div class="d-flex justify-space-between pb-5 px-10">-->
-<!--          <v-btn-->
-<!--              width="80"-->
-<!--              @click="validate()"-->
-<!--              color="primary500"-->
-<!--              height="40"-->
-<!--              rounded-->
-<!--              class="px-8 mt-1">-->
-<!--            تایید-->
-<!--          </v-btn>-->
-<!--          <v-btn-->
-<!--              @click="close()"-->
-<!--              variant="text"-->
-<!--              height="40"-->
-<!--              rounded-->
-<!--              class="px-5 mt-1"-->
-<!--          >-->
-
-<!--            انصراف-->
-<!--          </v-btn>-->
-
-<!--        </div>-->
       </v-card>
     </v-dialog>
   </div>
@@ -100,6 +76,7 @@ import {AxiosCall} from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import RetailShipment from "@/composables/RetailShipment";
 import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";
+import {convertDateToJalai} from "../../../assets/js/functions";
 export  default {
   setup(){
     const {
@@ -121,6 +98,7 @@ export  default {
   },
 
   methods:{
+    convertDateToJalai,
     getnavbarItem(){
       console.log(document.getElementById('navbarItems').offsetWidth)
     },
@@ -143,32 +121,7 @@ export  default {
       }
       this.getWarehouseList(filter)
     },
-    async createBlog(){
-      this.loading=true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `page/home/section/banner/update/${this.blogObject.id}`
-      formData.append('homepage_section_id' , this.$route.params.sectionId)
-      formData.append('link', this.$refs.BlogForm.form.link)
-      formData.append('label', this.$refs.BlogForm.form.title)
-      formData.append(`image_alt`, this.$refs.BlogForm.form.imageAlt)
-      formData.append('image_id', this.$refs.BlogForm.form.image)
-      formData.append('priority', this.$refs.BlogForm.form.priority)
-      formData.append('device', 'desktop')
-      formData.append('is_active', 0)
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth =true
-      AxiosMethod.token =this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading=false
-        this.close()
-      }
-      else{
-        this.loading=false
-      }
-    }
+
   },
 
   computed:{

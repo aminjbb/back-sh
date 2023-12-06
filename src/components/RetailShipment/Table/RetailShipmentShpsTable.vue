@@ -32,6 +32,11 @@
           </div>
         </template>
       </template>
+      <div v-if="model === 'editShpsRetail'" class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <span class="t12500 ">
+                عملیات
+            </span>
+      </div>
       <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t12500 ">
                 عملیات
@@ -81,19 +86,30 @@
               v-if=" header[3].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                   <v-text-field @update:modelValue="(event) => setCount(event ,index , item.id)" variant="outlined"/>
+                   <v-text-field v-model="form[index].count" variant="outlined"/>
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field @update:modelValue="(event) =>setMinTolerance(event ,index , item.id)" variant="outlined"/>
+            <v-text-field v-model="form[index].minTolerance" variant="outlined"/>
           </div>
           <div
               v-if=" header[5].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field @update:modelValue="(event) =>setMaxTolerance(event ,index , item.id)" variant="outlined"/>
+            <v-text-field v-model="form[index].maxTolerance" variant="outlined"/>
+          </div>
+          <div
+              v-if=" model === 'editShpsRetail'"
+              class="c-table__contents__item"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div
+                @click="updateRetailShipment(index)"
+                class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+              <v-icon size="15">mdi-plus</v-icon>
+            </div>
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
@@ -104,7 +120,7 @@
                 </v-icon>
               </template>
               <v-list-item-title>
-                <div class="ma-5 pointer" @click="removeItem(item.id)">
+                <div class="ma-5 pointer" @click="deleteFunction(item.id)">
                   <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
                   <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -153,6 +169,9 @@ export default {
 
 
   props: {
+    deleteFunction:{
+      type: Function,
+    },
     updateSkuUrl:{
       type: String,
       default: '',
@@ -318,66 +337,10 @@ export default {
   },
 
   watch: {
-    items(val) {
-      console.log(val)
-      // if (val.length >1){
-      //   val.forEach(element => {
-      //     const form = {
-      //       shps : element.id,
-      //       maxTolerance :'',
-      //       minTolerance :'',
-      //       count:''
-      //     }
-      //     this.form.push(form)
-      //
-      //   });
-      // }
-    }
+
   },
 
   methods: {
-    setCount(event , index , shps){
-      if(typeof this.form[index] === 'undefined') {
-        const form = {
-                shps : shps,
-                maxTolerance :'',
-                minTolerance :'',
-                count:event
-              }
-        this.form.push(form)
-      }
-      else {
-        this.form[index].count = event
-      }
-    },
-    setMinTolerance(event , index , shps){
-      if(typeof this.form[index] === 'undefined') {
-        const form = {
-          shps : shps,
-          maxTolerance :'',
-          minTolerance :event,
-          count:''
-        }
-        this.form.push(form)
-      }
-      else {
-        this.form[index].minTolerance = event
-      }
-    },
-    setMaxTolerance(event , index , shps){
-      if(typeof this.form[index] === 'undefined') {
-        const form = {
-          shps : shps,
-          maxTolerance :event,
-          minTolerance :'',
-          count:''
-        }
-        this.form.push(form)
-      }
-      else {
-        this.form[index].maxTolerance = event
-      }
-    },
     /**
      * Mass update modal
      */
@@ -459,23 +422,23 @@ export default {
      * @param {*} index
      * @param {*} item
      */
-    async updateSku(sku, shps , index) {
+    async updateRetailShipment( index) {
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = this.updateSkuUrl
-      formData.append('shps', shps)
-      formData.append('sku_id', sku)
-      formData.append('priority', this.form[index].priority)
-      if (this.model == 'partition')  formData.append('partition_id',this.$route.params.partitionId )
+      AxiosMethod.end_point = `cargo/${this.$route.params.retailId}/attach/shps`
+      formData.append('shps', this.form[index].shps)
+      formData.append('count', this.form[index].count)
+      formData.append('min_tolerance', this.form[index].minTolerance)
+      formData.append('max_tolerance', this.form[index].maxTolerance)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
         openToast(
             this.$store,
-            'کد کالا با موفقیت ویرایش شد.',
+            ' کالا با موفقیت ویرایش شد.',
             "success"
         );
       }

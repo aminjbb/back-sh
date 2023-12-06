@@ -81,6 +81,7 @@
               width="80"
               @click="validate()"
               color="primary500"
+              :loading="loading"
               height="40"
               rounded
               class="px-8 mt-1">
@@ -107,7 +108,7 @@ import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import Warehouse from "@/composables/Warehouse"
-import {convertDateToJalai} from "@/assets/js/functions";
+import {convertDateToJalai, openToast} from "@/assets/js/functions";
 export  default {
   setup(){
       const {getWarehouseList ,  warehouseList} = new Warehouse()
@@ -121,7 +122,8 @@ export  default {
     return{
       warehouse:null,
       workDays:[],
-      workDay:null
+      workDay:null,
+      loading:false
     }
   },
 
@@ -152,10 +154,18 @@ export  default {
       this.$store.commit('set_modalRequestShipment' , form)
     },
     validate(){
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(()=>{
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      } , 200)
+      if (this.warehouse){
+       if (this.workDay){
+         this.sendWarehouse()
+       }
+       else {
+          openToast(this.$store , 'حتما باید یک روز را انتخاب کنید' , 'error')
+       }
+      }
+      else{
+          openToast(this.$store , 'حتما باید انبار را انتخاب کنید' , 'error')
+      }
+
     },
     searchWarehouse(e){
       const filter = {
@@ -163,19 +173,13 @@ export  default {
       }
       this.getWarehouseList(filter)
     },
-    async createBlog(){
+    async sendWarehouse(){
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `page/home/section/banner/update/${this.blogObject.id}`
-      formData.append('homepage_section_id' , this.$route.params.sectionId)
-      formData.append('link', this.$refs.BlogForm.form.link)
-      formData.append('label', this.$refs.BlogForm.form.title)
-      formData.append(`image_alt`, this.$refs.BlogForm.form.imageAlt)
-      formData.append('image_id', this.$refs.BlogForm.form.image)
-      formData.append('priority', this.$refs.BlogForm.form.priority)
-      formData.append('device', 'desktop')
-      formData.append('is_active', 0)
+      AxiosMethod.end_point = `cargo/${this.retailObject.id}/send/warehouse`
+      formData.append('warehouse_id' , this.warehouse)
+      formData.append('sent_to_warehouse_at', this.workDay)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth =true

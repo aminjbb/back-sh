@@ -179,7 +179,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/seo`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/index?factor_id=${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت محموله‌های انبارش
@@ -192,7 +192,7 @@
                                 <v-list-item-title>
                                     <div
                                         class="ma-5 pointer"
-                                        @click="$router.push(`${item.id}/update/image`)">
+                                        @click="$router.push(`/retail-shipment/${item.id}/add/shps`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             ساخت محموله انبارش

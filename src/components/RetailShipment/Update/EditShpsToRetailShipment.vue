@@ -44,32 +44,26 @@
           </v-row>
         </v-col>
         <v-col cols="2">
-          <ModalGroupAdd
-              getEndPoint="cargo/csv/get/template"
-              uploadEndpoint="cargo/csv/bulk"
-              :updateShps="updateShps"
-              :isRetail="true"
-          />
+
         </v-col>
       </v-row>
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
-          :deleteFunction="deleteSku"
           ref="retailShipmentShps"
           class="flex-grow-1"
           :header="headerShps"
-          :items="shpsList"
+          :items="retailShipment?.shps_list"
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
+          :deletePath="`cargo/${$route.params.retailId}/detach/shps/`"
           changeStatusUrl="seller/crud/update/contract/"
           :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
-          model="sku" />
+          model="editShpsRetail" />
 
       <v-divider />
 
@@ -90,6 +84,7 @@
                   rounded
                   variant="text"
                   width="115"
+                  @click="$router.go(-1)"
               >
                 <span class="t14300">
                 انصراف
@@ -101,7 +96,7 @@
                   color="primary500"
                   variant="elevated"
                   width="115"
-                  @click="sendShps()"
+                  @click="$router.go(-1)"
               >
 
                 <span class="t14300">
@@ -147,7 +142,8 @@ export default {
     return{
       skuSearchList:[],
       shpsList:[],
-      loading:false
+      loading:false,
+      retailShipment:null
     }
   },
 
@@ -182,23 +178,12 @@ export default {
   },
 
   methods: {
-    updateShps(shps){
-      shps.forEach(element => {
-        const object = {
-          sku :{
-            label:element.sku
-          },
-          id:element.shps
-        }
-        this.assignSku(object)
-      })
-    },
+
     changeHeaderShow(index, value) {
       this.headerSku[index].show = value
     },
 
     updateList(status) {
-      console.log('3.skuList', status)
       if (status === 'true') {
         this.getSkuSeller();
       }
@@ -206,6 +191,7 @@ export default {
 
     async searchSku(search) {
       this.skuSearchList = []
+
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
@@ -215,70 +201,81 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
-    async sendShps(){
-      this.loading = true
-      const formData = new FormData()
-      this.$refs.retailShipmentShps.form.forEach((shps , index) => {
-        formData.append(`shps_list[${index}][shps]`, shps.shps)
-        formData.append(`shps_list[${index}][count]`, shps.count)
-        formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
-        formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
-      })
-      formData.append('factor_id' , this.$route.params.factorId)
-      formData.append('type' , 'consignment')
+    async getRetailShipmentDetail(item) {
+      this.retailShipment = []
+      this.$refs.retailShipmentShps.form = []
       const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/get/${this.$route.params.retailId}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        data.data.shps_list.forEach(shps=>{
+          const form = {
+            shps : shps.id,
+            maxTolerance :shps.shps_attributes?.max_tolerance,
+            minTolerance :shps.shps_attributes?.min_tolerance,
+            count:shps.shps_attributes?.count
+          }
+          this.$refs.retailShipmentShps.form.push(form)
+        })
+        this.retailShipment =data.data
+      }
+
+    },
+    async assignSku(shps) {
+      const AxiosMethod = new AxiosCall()
+      const formData = new FormData()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/create`
+      AxiosMethod.end_point = `cargo/${ this.$route.params.retailId }/attach/shps`
+      formData.append('shps' , shps.id)
+      formData.append('count' , 1)
+      formData.append('min_tolerance' , 1)
+      formData.append('max_tolerance' , 100)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = true
+        const form = {
+          shps : shps.id,
+          maxTolerance :100,
+          minTolerance :1,
+          count:1
+        }
+        this.$refs.retailShipmentShps.form.push(form)
+        this.getRetailShipmentDetail()
         openToast(
             this.$store,
             'محموله با موفقیت ایجاد گردید.',
             "success"
         );
-        this.$router.push(`/factor/${this.$route.params.factorId}/retail-shipmen/index`)
       }
       else {
         this.loading = true
       }
-    },
-    async assignSku(shps) {
-     const form = {
-        shps : shps,
-        maxTolerance :'100',
-        minTolerance :'1',
-        count:'0'
-      }
-      this.$refs.retailShipmentShps.form.push(form)
-      this.shpsList.push(shps)
 
-    },
-    deleteSku(shps){
-      const index = this.shpsList.findIndex(skuShps => skuShps.id === shps)
-      if (index > -1) this.shpsList.splice(index , 1)
     }
   },
 
   mounted() {
+    this.getRetailShipmentDetail()
   },
 
   watch: {
     dataSkuTableLength(val) {
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getSellerList();
+          this.getRetailShipmentDetail();
           openToast(
               this.$store,
-              'انبار با موفقیت حذف شد',
+              'محصول با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },

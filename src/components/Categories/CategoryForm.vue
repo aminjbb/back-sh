@@ -50,7 +50,7 @@
                         </span>
                     </div>
 
-                    <v-select
+                    <v-autocomplete
                         :items="parentCategory"
                         density="compact"
                         variant="outlined"
