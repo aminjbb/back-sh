@@ -48,6 +48,7 @@
                             <v-col v-if="filter.type === 'text'" cols="4">
                                 <div class="t13300 text-right mb-2">{{filter.name}}</div>
                                 <v-text-field
+                                v-if="filter.value == 'id'"
                                     variant="outlined"
                                     :name="filter.value"
                                     v-model="values[index].value" />
@@ -83,15 +84,7 @@
                                         
                             <v-col v-else-if="filter.type === 'select'" cols="4">
                                 <div class="t13300 text-right mb-1">{{filter.name}}</div>
-                                <!-- <v-select
-                                    v-if="filter.value === 'id'"
-                                    density="compact"
-                                    variant="outlined"
-                                    single-line
-                                    item-title="label"
-                                    item-value="value"
-                                    :items="pageTypeFilter"
-                                    v-model="pageTypeModel" /> -->
+                                
                                     
                                 <v-select
                                     v-if="filter.value === 'status'"
@@ -103,7 +96,7 @@
                                     :items="activeFilter"
                                     v-model="activeModel" />
                                 <v-select
-                                    v-if="filter.value === 'creator'"
+                                    v-if="filter.value === 'creator_id'"
                                     density="compact"
                                     variant="outlined"
                                     single-line
@@ -118,36 +111,11 @@
                                     single-line
                                     item-title="label"
                                     item-value="value"
-                                    :items="indexFilter"
+                                    :items="type"
                                     v-model="indexModel" />
                                 
-                                <v-select
-                                    v-if="filter.value === 'sent_to_warehouse_at'"
-                                    density="compact"
-                                    variant="outlined"
-                                    single-line
-                                    item-title="label"
-                                    item-value="value"
-                                    :items="hasOption"
-                                    v-model="indexModel" />
-                                <!-- <v-select
-                                    v-if="filter.value === 'has_icon'"
-                                    density="compact"
-                                    variant="outlined"
-                                    single-line
-                                    item-title="label"
-                                    item-value="value"
-                                    :items="hasOption"
-                                    v-model="indexModel" /> -->
-                                <!-- <v-select
-                                    v-if="filter.value === 'menu'"
-                                    density="compact"
-                                    variant="outlined"
-                                    single-line
-                                    item-title="label"
-                                    item-value="value"
-                                    :items="[]"
-                                    v-model="indexModel" /> -->
+                                
+                                
                             </v-col>
     
                             <v-col
@@ -214,7 +182,7 @@
     <script>
     import {
         PanelFilter
-    } from '@/assets/js/filter_page.js'
+    } from '@/assets/js/filter_request_shipment.js'
     import {
         AxiosCall
     } from "@/assets/js/axios_call";
@@ -258,7 +226,7 @@
                         value: 'approved',
                     }
                 ],
-                indexFilter: [{
+                type: [{
                         label: 'همه',
                         value: '',
                     },
@@ -281,23 +249,7 @@
                     },
                    
                 ],
-                pageTypeFilter: [{
-                        label: 'همه',
-                        value: '',
-                    },
-                    {
-                        label: 'دسته بندی',
-                        value: 'category',
-                    },
-                    {
-                        label: 'برند',
-                        value: 'brand',
-                    },
-                    {
-                      label: 'کالاها',
-                      value: 'sku',
-                    },
-                ],
+               
             }
         },
     
@@ -330,67 +282,98 @@
     
         methods: {
             setFilter() {
-                const filter = new PanelFilter()
-    
-                if (this.label) {
-                    filter.label = this.label
-                } else if (this.$route.query.label) {
-                    filter.label = null
-                }
-    
-                if (this.createdAt && this.createdAt[0]) {
-                    filter.created_at_from_date = this.createdAt[0]
-                } else {
-                    filter.created_at_from_date = null
-                }
-    
-                if (this.createdAt && this.createdAt[1]) {
-                    filter.created_at_to_date = this.createdAt[1]
-                } else {
-                    filter.created_at_to_date = null
-                }
-    
-                if (this.activeModel === '') {
-                    filter.active = null
-                } else if (this.activeModel !== '') {
-                    filter.active = this.activeModel
-                } else if (this.$route.query.is_active) {
-                    filter.active = this.$route.query.is_active
-                }
-    
-                if (this.followModel === '') {
-                    filter.follow = null
-                } else if (this.followModel !== '') {
-                    filter.follow = this.followModel
-                } else if (this.$route.query.is_follow) {
-                    filter.follow = this.$route.query.is_follow
-                }
-    
-                // if (this.indexModel === '') {
-                //     filter.index = null
-                // } else if (this.indexModel !== '') {
-                //     filter.index = this.indexModel
-                // } else if (this.$route.query.is_index) {
-                //     filter.index = this.$route.query.is_index
-                // }
-    
-                // if (this.pageTypeModel === '') {
-                //     filter.type = null
-                // } else if (this.pageTypeModel !== '') {
-                //     filter.type = this.pageTypeModel
-                // } else if (this.$route.query.type) {
-                //     filter.type = this.$route.query.type
-                // }
-    
-                filter.page = 1;
-    
-                if (this.$route.query.per_page) {
-                    filter.per_page = this.$route.query.per_page;
-                }
-    
-                this.$router.push('/' + this.path + '/' + filter.query_maker());
-                this.dialog = false;
-            },
+            const filter = new PanelFilter()
+
+            if (this.id) {
+                filter.id = this.id
+            } else if (this.$route.query.id) {
+                filter.id = null
+            }
+
+            if (this.sentToWarehouseAt && this.sentToWarehouseAt[0]) {
+                filter.sent_to_warehouse_at_from = this.sentToWarehouseAt[0]
+            } else {
+                filter.sent_to_warehouse_at_from = null
+            }
+            if (this.sentToWarehouseAt && this.sentToWarehouseAt[1]) {
+                filter.sent_to_warehouse_at_to = this.sentToWarehouseAt[1]
+            } else {
+                filter.sent_to_warehouse_at_to = null
+            }
+            
+            if (this.createdAt && this.createdAt[0]) {
+                filter.created_at_from_date = this.createdAt[0]
+            } else {
+                filter.created_at_from_date = null
+            }
+
+            if (this.createdAt && this.createdAt[1]) {
+                filter.created_at_to_date = this.createdAt[1]
+            } else {
+                filter.created_at_to_date = null
+            }
+
+            if (this.shpsVariety && this.shpsVariety[0]) {
+                filter.shps_variety_from = this.shpsVariety[0]
+            } else {
+                filter.shps_variety_from = null
+            }
+
+            if (this.shpsVariety && this.shpsVariety[1]) {
+                filter.shps_variety_to = this.shpsVariety[1]
+            } else {
+                filter.shps_variety_to = null
+            }
+
+            if (this.shpsCount && this.shpsCount[1]) {
+                filter.shps_count_from = this.shpsCount[1]
+            } else {
+                filter.shps_count_from = null
+            }
+
+            if (this.shpsCount && this.shpsCount[1]) {
+                filter.shps_count_to = this.shpsCount[1]
+            } else {
+                filter.shps_count_to = null
+            }
+
+            if (this.type === '') {
+                filter.type = null
+            } else if (this.type !== '') {
+                filter.type = this.type
+            } else if (this.$route.query.type) {
+                filter.type = this.$route.query.type
+            }
+            
+            console.log(this.type);
+
+            if (this.creatorModel === '') {
+                filter.creator_id = null
+            } else if (this.creatorModel !== '') {
+                filter.creator_id = this.creatorModel
+            } else if (this.$route.query.creator_id) {
+                filter.creator_id = this.$route.query.creator_id
+            }
+
+            console.log(this.creatorModel);
+
+            if (this.statusModel === '') {
+                filter.status = null
+            } else if (this.statusModel !== '') {
+                filter.status = this.statusModel
+            } else if (this.$route.query.status) {
+                filter.status = this.$route.query.status
+            }
+
+            filter.page = 1;
+
+            if (this.$route.query.per_page) {
+                filter.per_page = this.$route.query.per_page;
+            }
+
+            this.$router.push('/' + this.path + '/' + filter.query_maker());
+            this.dialog = false;
+        },
     
             removeAllFilters() {
                 this.$router.push('/' + this.path);
@@ -452,12 +435,12 @@
     
         mounted() {
             this.filterField.forEach(el => {
-                const form = {
-                    name: el.value,
-                    value: ''
-                }
-                this.values.push(form)
-            });
+            const form = {
+                name: el.value,
+                value: ''
+            }
+            this.values.push(form)
+        });
     
             this.getProvince();
         }

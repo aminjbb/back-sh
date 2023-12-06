@@ -68,7 +68,11 @@ export default createStore({
     homeBlogModal:{
       dialog:false,
       object: ''
-    }
+    },
+    showDetailsModal: {
+      dialog: false,
+      id: ''
+    },
   },
 
   mutations: {
@@ -162,6 +166,11 @@ export default createStore({
     set_basicDiscountModal(state, form) {
       state.basicDiscountModal.dialog = form.dialog
       state.basicDiscountModal.id = form.id
+    },
+
+    set_showDetailsModal(state, form) {
+      state.showDetailsModal.dialog = form.dialog
+      state.showDetailsModal.id = form.id
     },
   },
 
@@ -261,6 +270,10 @@ export default createStore({
     },
     get_basicDiscountModal(state) {
       return state.basicDiscountModal
+    },
+
+    get_showDetailsModal(state) {
+      return state.showDetailsModal
     },
   }
 });

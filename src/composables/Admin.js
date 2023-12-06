@@ -39,13 +39,12 @@ export default function setup(posts) {
     ];
 
     async function getAdmins ( query) {
-        var formdata = {}
-        if (query) {
-            var formdata = query
+        const filter = {
+            per_page : 100000,
         }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'admin/crud/index'
-        AxiosMethod.form = formdata
+        AxiosMethod.form = filter
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =  true
         let data = await AxiosMethod.axios_get()
@@ -56,6 +55,7 @@ export default function setup(posts) {
         else {
         }
     };
+    
     async function getAdmin ( query) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `admin/crud/get/${route.params.adminId}`

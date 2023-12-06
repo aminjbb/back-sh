@@ -39,7 +39,7 @@ export default function setup(posts) {
         { name:' شناسه محموله' , type: 'text', value:'id'},
         { name:' تعداد آیتم' , type: 'number', value:'shps_count_from'},
         { name:' تعداد آیتم' , type: 'number', value:'shps_count_to'},
-        { name: ' نام سازنده', type:'select', value:'creator'},
+        { name: ' نام سازنده', type:'select', value:'creator_id'},
         { name: 'تنوع آیتم', type:'number', value:'shps_variety_from'},
         { name: 'تنوع آیتم', type:'number', value:'shps_variety_to'},
         { name: 'نوع محموله', type:'select', value:'type'},
@@ -89,14 +89,7 @@ export default function setup(posts) {
      */
     async function getShipmentRequestsList(query) {
         loading.value = true
-        // const customQueryParams = {
-        //     status: 'in_review',
-        //     id: 1,
-        //     factor_id: 2,
-        //     creator_id: 4,
-        //     created_at_from_date: '2024-09-07',
-        //     // Add 'created_at_to_date' with a value if needed
-        // };
+       
     
         let paramsQuery = null
         if (query){
@@ -258,7 +251,7 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/page/index'+ filter.params_generator(route.query))
+        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
     }
     function addPerPageSlider(number){
         filter.page = 1
@@ -269,7 +262,7 @@ export default function setup(posts) {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/page/index'+ filter.params_generator(route.query))
+        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {

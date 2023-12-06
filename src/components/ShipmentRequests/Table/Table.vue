@@ -170,34 +170,39 @@
                             </template>
                         </span>
                     </div> -->
+                    
                     <div
-    v-if="header[6].show"
-    class="c-table__contents__item justify-center"
-    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-    
-    <div>
-    <v-menu >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on">
-          {{ selectedOption }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item @click="selectOption('Option 1')">
-          <v-list-item-title> 1</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="selectOption('Option 2')">
-          <v-list-item-title> 2</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="selectOption('Option 3')">
-          <v-list-item-title> 3</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </div>
+                    v-if="header[6].show"
+                    class="c-table__contents__item justify-center"
+                    :ref="`factor--${index}`"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <template v-if="item.status">
+                        <div class="factor-dropdown">
+                            <div
+                                class="factor-dropdown__selected"
+                                @click="showDropDown(index)"
+                                :style="{ backgroundColor: factorSelectedBg(item.status) }">
+                                <span>{{ factorSelectedTitle(item.status) }}</span>
+                                <v-icon icon="mdi-chevron-down"></v-icon>
+                            </div>
+                            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                                <div
+                                    class="factor-dropdown__item"
+                                    id="factor-dropdown__item--1"
+                                    :class="showStatus(item.status, '0')"
+                                    @click="updateStatus(index,'draft', item)">
+                                    پیش نویس
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else>
+                        نامعلوم
+                    </template>
+                </div>
 
-    
-</div>
+
                     <div
                         v-if="(item.is_follow  != undefined && checkActive )"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
@@ -225,29 +230,29 @@
                     </div>
     
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                        <v-menu :location="location">
-                            <template v-slot:activator="{ props }">
-                                <v-icon v-bind="props" class="text-gray500">
-                                    mdi-dots-vertical
-                                </v-icon>
-                            </template>
-    
-                            <v-list class="c-table__more-options">
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" >
-                                            <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                نمایش جزئیات
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
-    
-                               
-                            </v-list>
-                        </v-menu>
-                    </div>
+                    <v-menu :location="location">
+                        <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" class="text-gray500">
+                                mdi-dots-vertical
+                            </v-icon>
+                        </template>
+
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="openShowDetailsModal(item.id)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                            
+                        </v-list>
+                    </v-menu>
+                </div>
                 </div>
             </div>
             <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -259,6 +264,7 @@
             </div>
         </div>
         <ModalMassUpdate :updateUrl="updateUrl" />
+        <DetailsModal />
     </div>
     </template>
     
@@ -270,14 +276,20 @@
         SupplierPanelFilter
     } from "@/assets/js/filter_supplier"
     import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+    import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
+
+
     import {
         openToast,
         openConfirm,
         isOdd
     } from "@/assets/js/functions";
+    import {
+    openModal
+} from "@/assets/js/functions_seller";
     export default {
         components: {
-            ModalMassUpdate,
+            DetailsModal,
         },
     
         props: {
@@ -415,12 +427,53 @@
     
         methods: {
 
-            selectOption(option) {
-      this.selectedOption = option;
-    },
-            updateStatus(item) {
-               
-            },
+            showDropDown(index) {
+            const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
+            itemDropdown.classList.toggle('active');
+        },
+
+        showStatus(mainStatus, status) {
+            if (mainStatus == status) {
+                return 'active'
+            } else {
+                return 'de-active'
+            }
+        },
+
+
+        openShowDetailsModal(id) {
+            openModal(this.$store, 'set_showDetailsModal', id, true)
+        },
+
+        factorSelectedTitle(status) {
+            if (status === 'draft') {
+                return 'پیش نویس'
+            }
+            if (status === 'cargo_preparing') {
+                return 'آماده سازی محموله'
+            }
+            if (status === 'pricing') {
+                return 'در انتظار قیمت گذاری'
+            }
+            if (status === 'done') {
+                return 'تمام شده'
+            }
+        },
+
+        factorSelectedBg(status) {
+            if (status === 'draft') {
+                return ' var(--purple-95, #EDE7F6);'
+            }
+            if (status === 'cargo_preparing') {
+                return '#E8F5E9'
+            }
+            if (status === 'pricing') {
+                return '#FFF3E0'
+            }
+            if (status === 'done') {
+                return '#EDE7F6'
+            }
+        },
             /**
              * Mass update modal
              */
