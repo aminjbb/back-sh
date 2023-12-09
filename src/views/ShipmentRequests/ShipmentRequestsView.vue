@@ -1,6 +1,7 @@
 <script setup>
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
+import ShipmentRequestsList from '@/components/ShipmentRequests/ShipmentRequestsList.vue'
 </script>
 
 <template>
@@ -8,7 +9,7 @@ import Header from '@/components/Public/Header.vue'
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
-      
+      <ShipmentRequestsList/>
     </v-main>
   </v-layout>
   
