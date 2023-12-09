@@ -77,6 +77,10 @@ export default createStore({
       dialog:false,
       object :''
     },
+    modalRejectRequestShipment:{
+      dialog:false,
+      object :''
+    },
 
     showDetailsModal: {
       dialog: false,
@@ -86,6 +90,10 @@ export default createStore({
   },
 
   mutations: {
+    set_modalRejectRequestShipment(state , form){
+      state.modalRejectRequestShipment.dialog = form.dialog
+      state.modalRejectRequestShipment.object = form.object
+    },
     set_modalRetailShipmentDetail(state , form){
       state.modalRetailShipmentDetail.dialog = form.dialog
       state.modalRetailShipmentDetail.object = form.object
@@ -196,6 +204,12 @@ export default createStore({
 
   getters: {
 
+    get_modalRejectRequestShipment(state){
+      return  state.modalRejectRequestShipment.dialog
+    },
+    get_modalRejectRequestShipmentObject(state){
+      return  state.modalRejectRequestShipment.object
+    },
     get_modalRetailShipmentDetail(state){
       return  state.modalRetailShipmentDetail.dialog
     },
