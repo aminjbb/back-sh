@@ -156,6 +156,10 @@
                     }
                 }
             },
+            $route(){
+                this.getShipmentRequestsList();
+
+            }
         }
     }
     </script>

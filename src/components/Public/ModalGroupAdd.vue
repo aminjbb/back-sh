@@ -78,7 +78,9 @@ import { openToast } from "@/assets/js/functions";
 export default {
     props: {
         getEndPoint: '',
-        uploadEndpoint: ''
+        uploadEndpoint: '',
+        updateShps:{type:Function},
+        isRetail:false
     },
 
     data() {
@@ -133,13 +135,10 @@ export default {
             AxiosMethod.using_auth = true
             let data = await AxiosMethod.axios_image_upload()
             if (data) {
-                this.uploadFileLoading = false
-                this.setFileUrl(data.data.data.url)
-                // openToast(
-                //     this.$store,
-                //    data.message,
-                //     "success"
-                // );
+              this.uploadFileLoading = false
+              this.setFileUrl(data.data.data.url)
+
+
             }
             else {
                 this.uploadFileLoading = false
@@ -162,8 +161,11 @@ export default {
             AxiosMethod.using_auth = true
             let data = await AxiosMethod.axios_post()
             if (data) {
+              if (this.isRetail){
+                this.updateShps(data.data.shps_list)
+              }
                 this.templateLoading = false
-                
+
                 openToast(
                     this.$store,
                    data.message,

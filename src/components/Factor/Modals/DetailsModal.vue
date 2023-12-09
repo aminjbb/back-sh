@@ -56,12 +56,6 @@
                                 {{factorData.created_at_fa}}
                             </span>
                         </v-col>
-                        <v-col cols="12">
-                            <span class="modal__content__title">آدرس تامین کننده: </span>
-                            <span v-if="factorData && factorData.creator && factorData.creator.address" class="modal__content__txt number-font">
-                                {{factorData.creator.address}}
-                            </span>
-                        </v-col>
                     </v-row>
                 </div>
 
@@ -98,9 +92,9 @@
                         </header>
 
                         <div class="stretch-table">
-                            <div v-if="factorSkuData && factorSkuData.data && factorSkuData.data.length" class="c-table__contents">
+                            <div v-if="factorSkuData && factorSkuData.shps_list && factorSkuData.shps_list.length" class="c-table__contents">
                                 <div
-                                    v-for="(sku , index) in factorSkuData.data"
+                                    v-for="(shps , index) in factorSkuData.shps_list"
                                     :key="index"
                                     class="d-flex justify-between c-table__contents__row">
                                     <div class="c-table__contents__item justify-center" style="width:7.1111%;padding:3px 10px">
@@ -111,44 +105,98 @@
 
                                     <div class="c-table__contents__item justify-start" style="width:17.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.label}}
+                                            <template v-if="shps.sku">
+                                                {{shps.sku}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.shps !== null">
+                                                {{shps.shps}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.buying_price !== null">
+                                                {{shps.buying_price}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.customer_price !== null">
+                                                {{shps.customer_price}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.shps_count !== null">
+                                                {{shps.shps_count}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.sum_buying_price !== null">
+                                                {{shps.sum_buying_price}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:12.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.sum_customer_price !== null">
+                                                {{shps.sum_customer_price}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            {{sku.id}}
+                                            <template v-if="shps.profit !== null">
+                                                {{shps.profit}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                            <div v-else class="d-flex justify-center align-center flex-column" style="height:300px">
+                                <img src="@/assets/img/NullTable.png" alt="shavaz image">
+                                <div class="d-flex justify-center align-center flex-column">
+                                    <span class="title4 text-black mb-5">لیست خالی!</span>
+                                    <span class="t14300 text-grey-darken-3">تاکنون کالایی به این لیست، افزوده نشده است.</span>
                                 </div>
                             </div>
                         </div>
@@ -161,22 +209,52 @@
                         <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px"></div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px"></div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.buying_price >= 0">
+                                {{factorSkuData.buying_price}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.customer_price >= 0">
+                                {{factorSkuData.customer_price}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.total_shps_count >= 0">
+                                {{factorSkuData.total_shps_count}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.total_buying_price >= 0">
+                                {{factorSkuData.total_buying_price}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:12.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.total_customer_price >= 0">
+                                {{factorSkuData.total_customer_price}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
-                            -
+                            <template v-if="factorSkuData && factorSkuData.total_profit >= 0">
+                                {{factorSkuData.total_profit}}
+                            </template>
+                            <template v-else>
+                                -
+                            </template>
                         </div>
                     </div>
 

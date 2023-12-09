@@ -145,89 +145,58 @@
                         </span>
                     </div>
     
-                    <div
-                        v-if="(item.is_index  != undefined && checkActive )"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-                        class="c-table__contents__item justify-center">
-                        <span class="t14300 py-5">
-                            <v-switch
-                                v-model="isIndex[index]"
-                                inset
-                                color="success"
-                                @change="changeIsIndex(index,item)" />
-                        </span>
-                    </div>
-                    <!-- <div
-                        v-if="header[6].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.status">
-                                {{ item.status }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div> -->
+                   
+                   
                     
                     <div
-                    v-if="header[6].show"
-                    class="c-table__contents__item justify-center"
-                    :ref="`factor--${index}`"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <template v-if="item.status">
-                        <div class="factor-dropdown">
-                            <div
-                                class="factor-dropdown__selected"
-                                @click="showDropDown(index)"
-                                :style="{ backgroundColor: factorSelectedBg(item.status) }">
-                                <span>{{ factorSelectedTitle(item.status) }}</span>
-                                <v-icon icon="mdi-chevron-down"></v-icon>
-                            </div>
-                            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
-                                <div
-                                    class="factor-dropdown__item"
-                                    id="factor-dropdown__item--1"
-                                    :class="showStatus(item.status, '0')"
-                                    @click="updateStatus(index,'draft', item)">
-                                    پیش نویس
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else>
-                        نامعلوم
-                    </template>
+    v-if="header[8].show"
+    class="c-table__contents__item justify-center"
+    :ref="`factor--${index}`"
+    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+    <template v-if="item.status">
+        
+        <div v-if="item.status === 'in_review'" class="factor-dropdown">
+            <div
+                class="factor-dropdown__selected"
+                @click="showDropDown(index)"
+                :style="{ backgroundColor: BgSelected(item.status) }">
+                <span>{{ factorSelectedTitle(item.status) }}</span>
+                <v-icon icon="mdi-chevron-down"></v-icon>
+            </div>
+            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                <div
+                    class="factor-dropdown__item"
+                    id="factor-dropdown__item--1">
+                    {{ item.status }}
                 </div>
+                <div
+                    class="factor-dropdown__item"
+                    id="factor-dropdown__item--2"
+                    @click="updateStatus(index,'rejected',item)">
+                    رد شده
+                </div>
+                <div
+                    class="factor-dropdown__item"
+                    id="factor-dropdown__item--3"
+                    @click="updateStatus(index,'approved',item)">
+                    تایید شده
+                </div>
+            </div>
+        </div>
+        <!-- Display status text for other statuses -->
+        <div v-else>
+            {{ factorSelectedTitle(item.status) }}
+        </div>
+    </template>
+    <template v-else>
+        نامعلوم
+    </template>
+</div>
 
 
-                    <div
-                        v-if="(item.is_follow  != undefined && checkActive )"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-                        class="c-table__contents__item justify-center">
-                        <span class="t14300 py-5">
-                            <v-switch
-                                v-model="isFollow[index]"
-                                inset
-                                color="success"
-                                @change="changeIsFollow(index,item)" />
-                        </span>
-                    </div>
+                    
     
-                    <div
-                        v-if="(item.is_active  != undefined && checkActive )"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-                        class="c-table__contents__item justify-center">
-                        <span class="t14300 py-5">
-                            <v-switch
-                                v-model="active[index]"
-                                inset
-                                color="success"
-                                @change="changeActive(index,item)" />
-                        </span>
-                    </div>
+                    
     
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -240,7 +209,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openShowDetailsModal(item.id)">
+                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail(item)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             نمایش جزئیات
@@ -263,7 +232,7 @@
                 </div>
             </div>
         </div>
-        <ModalMassUpdate :updateUrl="updateUrl" />
+       
         <DetailsModal />
     </div>
     </template>
@@ -275,7 +244,7 @@
     import {
         SupplierPanelFilter
     } from "@/assets/js/filter_supplier"
-    import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+   
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
 
@@ -348,18 +317,13 @@
                 default: false
             },
     
-            /**
-             * Edit endpoint for change active
-             */
-            activePath: {
-                type: String,
-                default: ''
-            },
+          
     
         },
     
         data() {
             return {
+
                 order_type: "desc",
                 ordering: {},
                 per_page: '25',
@@ -391,19 +355,7 @@
                 return 'auto';
             },
     
-            /**
-             * Check is_active is true or false for show in table
-             */
-            checkActive() {
-                this.header.forEach(element => {
-                    if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-                        this.activeColumn = true;
-                    } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-                        this.activeColumn = false;
-                    }
-                });
-                return this.activeColumn;
-            },
+          
         },
     
         watch: {
@@ -413,14 +365,13 @@
                 this.isFollow = []
                 val.forEach(element => {
                     var active = false
-                    var is_index = false
-                    var is_follow = false
+                    element.dropdownDisabled = false;
                     if (element.is_active == 1) active = true
                     if (element.is_index == 1) is_index = true
                     if (element.is_follow == 1) is_follow = true
                     this.active.push(active)
-                    this.isIndex.push(is_index)
-                    this.isFollow.push(is_follow)
+                    
+                    
                 });
             }
         },
@@ -428,58 +379,96 @@
         methods: {
 
             showDropDown(index) {
-            const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
-            itemDropdown.classList.toggle('active');
-        },
+    const item = this.items[index];
+    if (item.status === 'in_review') {
+        const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
+        itemDropdown.classList.toggle('active');
+    }
+},
 
-        showStatus(mainStatus, status) {
-            if (mainStatus == status) {
-                return 'active'
-            } else {
-                return 'de-active'
-            }
-        },
-
-
-        openShowDetailsModal(id) {
-            openModal(this.$store, 'set_showDetailsModal', id, true)
-        },
+BgSelected(status) {
+    if (status === 'in_review') {
+        return '#EDE7F6';  // Light purple
+    }
+    if (status === 'approved') {
+        return '#E8F5E9';  // Light green
+    }
+    if (status === 'rejected') {
+        return '#FFEBEE';  // Light red
+    }
+    return 'transparent';  // Default background
+},
 
         factorSelectedTitle(status) {
-            if (status === 'draft') {
-                return 'پیش نویس'
+            if (status === 'in_review') {
+                return 'در حال بررسی '
             }
-            if (status === 'cargo_preparing') {
-                return 'آماده سازی محموله'
+            if (status === 'approved') {
+                return '  تایید شده'
             }
-            if (status === 'pricing') {
-                return 'در انتظار قیمت گذاری'
+            if (status === 'rejected') {
+                return '  رد شده '
             }
-            if (status === 'done') {
-                return 'تمام شده'
+           
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+        updateList(status) {
+            this.$emit('updateList', status);
+        },
+        
+
+        async updateStatus(index, status, item) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            formdata.append('status', status)
+            AxiosMethod.end_point = 'cargo/crud/update/status/' + item.id
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+            if (data.status === 'Success') {
+                this.updateList('true');
+
+                openToast(
+                    this.$store,
+                    'وضعیت با موفقیت ویرایش شد.',
+                    "success"
+                );
             }
         },
 
-        factorSelectedBg(status) {
-            if (status === 'draft') {
-                return ' var(--purple-95, #EDE7F6);'
-            }
-            if (status === 'cargo_preparing') {
-                return '#E8F5E9'
-            }
-            if (status === 'pricing') {
-                return '#FFF3E0'
-            }
-            if (status === 'done') {
-                return '#EDE7F6'
-            }
-        },
-            /**
-             * Mass update modal
-             */
-            massUpdateModal() {
-                this.$store.commit('set_massUpdateModal', true)
-            },
+requestShipment(item) {
+      const form = {
+        dialog :true,
+        object : item
+      }
+      this.$store.commit('set_modalRequestShipment' , form)
+    },
+    /**
+     * retailShipment detail modal
+     */
+    async requestShipmentDetailShipmentDetail(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalRetailShipmentDetail' , form)
+
+      }
+
+    },
     
             /**
              * Get row index in table
@@ -528,69 +517,7 @@
             getIcon(column) {
                 return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
             },
-    
-            returnTrueOrFalse(data) {
-                if (data === 1) return true
-                else return false
-            },
-    
-            /**
-             * Change Active
-             * @param {*} index 
-             * @param {*} item 
-             */
-            async changeActive(index, item) {
-                var formdata = new FormData();
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.end_point = this.activePath + item.id
-                if (this.active[index]) formdata.append('is_active', 1)
-                else formdata.append('is_active', 0)
-                AxiosMethod.store = this.$store
-                AxiosMethod.form = formdata
-    
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                let data = await AxiosMethod.axios_post()
-            },
-    
-            /**
-             * Change be index
-             * @param {*} index 
-             * @param {*} item 
-             */
-            async changeIsIndex(index, item) {
-                var formdata = new FormData();
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.end_point = 'page/crud/update/index/' + item.id
-                if (this.isIndex[index]) formdata.append('is_index', 1)
-                else formdata.append('is_index', 0)
-                AxiosMethod.store = this.$store
-                AxiosMethod.form = formdata
-    
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                let data = await AxiosMethod.axios_post()
-            },
-    
-            /**
-             * Change be follow
-             * @param {*} index 
-             * @param {*} item 
-             */
-            async changeIsFollow(index, item) {
-                var formdata = new FormData();
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.end_point = 'page/crud/update/follow/' + item.id
-                if (this.isFollow[index]) formdata.append('is_follow', 1)
-                else formdata.append('is_follow', 0)
-                AxiosMethod.store = this.$store
-                AxiosMethod.form = formdata
-    
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                let data = await AxiosMethod.axios_post()
-            },
-    
+
             /**
              * Return odd index
              * @param {*} index
@@ -599,13 +526,7 @@
                 return isOdd(index)
             },
     
-            /**
-             * Remove Item
-             * @param {*} id
-             */
-            removeItem(id) {
-                openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-            },
+           
         },
     }
     </script>

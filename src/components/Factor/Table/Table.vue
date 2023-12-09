@@ -179,7 +179,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/seo`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/index?factor_id=${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت محموله‌های انبارش
@@ -188,9 +188,11 @@
                                 </v-list-item-title>
                             </v-list-item>
 
-                            <v-list-item>
+                            <v-list-item :disabled="item.status == 'pricing' || item.status == 'done' ? true : false">
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/image`)">
+                                    <div
+                                        class="ma-5 pointer"
+                                        @click="$router.push(`/retail-shipment/${item.id}/add/shps`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             ساخت محموله انبارش
@@ -199,9 +201,11 @@
                                 </v-list-item-title>
                             </v-list-item>
 
-                            <v-list-item>
+                            <v-list-item :disabled="item.status == 'cargo_preparing' || item.status == 'done' || item.status == 'draft' ? true : false">
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/content`)">
+                                    <div
+                                        class="ma-5 pointer"
+                                        @click="$router.push(`${item.id}/update/content`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت گذاری
@@ -363,7 +367,7 @@ export default {
          * Open Basic Discount modal
          * @param {*} id
          */
-         openShowDetailsModal(id) {
+        openShowDetailsModal(id) {
             openModal(this.$store, 'set_showDetailsModal', id, true)
         },
 

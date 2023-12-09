@@ -7,7 +7,7 @@
             <CategoryForm 
                 ref="CategoryForm"
                 type="create"
-                :parent-category="categoreis.data"
+                :parent-category="allCategories.data"
             />
             <v-row 
                 justify="end"
@@ -64,12 +64,12 @@ export default {
     },
 
     setup(props) {
-        const { categoreis, getCategories } = Categories();
-        return { categoreis, getCategories };
+        const { allCategories, getAllCategories } = Categories();
+        return { allCategories, getAllCategories };
     },
 
     mounted() {
-        this.getCategories();
+        this.getAllCategories();
     },
 
     methods: {
