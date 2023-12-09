@@ -7,7 +7,16 @@
 
     >
       <v-card class="">
+        <v-row justify="space-between" align="center" class="pa-1">
+          <v-col cols="2">
+            <v-btn @click="close()" variant="icon">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-col>
 
+          <v-col cols="7">
+          </v-col>
+        </v-row>
         <div class="text-center px-5" >
           <v-card class="d-flex justify-center align-center px-10 ma-5 "  height="82">
             <div class="mx-10" >
@@ -107,7 +116,7 @@ export  default {
         dialog :false,
         object : ''
       }
-      this.$store.commit('set_modalRequestShipment' , form)
+      this.$store.commit('set_modalRetailShipmentDetail' , form)
     },
     validate(){
       this.$refs.BlogForm.$refs.addForm.validate()

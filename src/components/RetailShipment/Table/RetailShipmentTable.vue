@@ -213,7 +213,7 @@
       </div>
     </div>
         <ModalRequestShipment  />
-        <ModalRetailShipmentDetail/>
+
   </div>
 </template>
 
@@ -225,7 +225,7 @@ import {
   SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
-import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
+
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
   openToast,
@@ -236,7 +236,6 @@ export default {
   components: {
     ModalRequestShipment,
     ActivationModal,
-    ModalRetailShipmentDetail
   },
 
   props: {

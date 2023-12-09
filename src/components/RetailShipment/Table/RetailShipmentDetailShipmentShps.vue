@@ -307,15 +307,18 @@ export default {
     items(val) {
       this.active = []
       this.form = []
-      val.forEach(element => {
-        const form = {
-          priority : element.pivot?.priority
-        }
-        this.form.push(form)
-        var active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-      });
+      if (val){
+        val.forEach(element => {
+          const form = {
+            priority : element.pivot?.priority
+          }
+          this.form.push(form)
+          var active = false
+          if (element.is_active == 1) active = true
+          this.active.push(active)
+        });
+      }
+
     }
   },
 
