@@ -6,11 +6,19 @@
           width="1060"
   
       >
-        <v-card class="">
-  
+        <v-card >
+          <v-btn
+                    class="justify-start"
+                    @click="close()"
+                    variant="icon">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
           <div class="text-center px-5" >
+            
             <v-card class="d-flex justify-center align-center px-10 ma-5 "  height="82">
+             
               <div class="mx-10" >
+                
                   <span class="t14500">
                        تاریخ ارسال :
                   </span>
@@ -63,6 +71,9 @@
   import ShipmentRequests from "@/composables/ShipmentRequests";
   import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
   import {convertDateToJalai} from "../../../assets/js/functions";
+  import {
+    closeModal
+} from "@/assets/js/functions_seller";
   export  default {
     setup(){
       const {
@@ -86,19 +97,17 @@
     methods:{
       convertDateToJalai,
     
-      close(){
-        const form = {
-          dialog :false,
-          object : ''
-        }
-        this.$store.commit('set_modalRequestShipment' , form)
-      },
+      close() {
+            closeModal(this.$store, 'set_showDetailsModal');
+        },
    
    
   
     },
   
     computed:{
+
+    
       dialog(){
         return this.$store.getters['get_modalRetailShipmentDetail']
       },
