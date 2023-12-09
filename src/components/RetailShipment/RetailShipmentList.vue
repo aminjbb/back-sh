@@ -33,7 +33,7 @@
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="seller" />
-
+      <ModalRetailShipmentDetail/>
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -85,6 +85,7 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 export default {
   setup(props) {
     const {
@@ -96,6 +97,7 @@ export default {
   },
 
   components: {
+    ModalRetailShipmentDetail,
     Table,
     ModalGroupAdd,
     ModalTableFilter,
