@@ -176,7 +176,7 @@
                     رد شده
                 </div>
                 <div
-                    class="factor-dropdown__item"
+                    class="retail-status-box"
                     id="factor-dropdown__item--3"
                     @click="updateStatus(index,'approved',item)">
                     تایید شده
@@ -184,7 +184,7 @@
             </div>
         </div>
         <!-- Display status text for other statuses -->
-        <div v-else>
+        <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
             {{ factorSelectedTitle(item.status) }}
         </div>
     </template>
@@ -432,7 +432,9 @@ BgSelected(status) {
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
+
             if (data.status === 'Success') {
+
                 this.updateList('true');
 
                 openToast(
