@@ -172,7 +172,7 @@
                 <div
                     class="factor-dropdown__item"
                     id="factor-dropdown__item--2"
-                    @click="updateStatus(index,'rejected',item)">
+                    @click="openRejectModal(item)">
                     رد شده
                 </div>
                 <div
@@ -233,6 +233,7 @@
         </div>
        
         <DetailsModal />
+        <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
     </template>
     
@@ -245,6 +246,7 @@
     } from "@/assets/js/filter_supplier"
    
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
+    import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
 
 
     import {
@@ -258,9 +260,11 @@
     export default {
         components: {
             DetailsModal,
+            ModalRejectRequestShipment
         },
     
         props: {
+          getShipmentRequestsList:{type:Function},
             /**
              * List Items for header
              */
@@ -359,23 +363,25 @@
     
         watch: {
             items(val) {
-                this.active = []
-                this.isIndex = []
-                this.isFollow = []
-                val.forEach(element => {
-                    var active = false
-                    element.dropdownDisabled = false;
-                    if (element.is_active == 1) active = true
-                    if (element.is_index == 1) is_index = true
-                    if (element.is_follow == 1) is_follow = true
-                    this.active.push(active)
-                    
-                    
-                });
+
             }
         },
     
         methods: {
+          openRejectModal(item){
+            const form = {
+              dialog :true,
+              object : item
+            }
+            this.$store.commit('set_modalRejectRequestShipment' , form)
+          },
+          showDropDown(index) {
+            const item = this.items[index];
+            if (item.status === 'in_review') {
+                const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
+                itemDropdown.classList.toggle('active');
+          }
+        },
 
             showDropDown(index) {
     const item = this.items[index];
