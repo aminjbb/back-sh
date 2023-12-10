@@ -15,7 +15,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-right c-table__header__item t12500 px-0"
+                class="text-right c-table__header__item t10400 px-0"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -68,24 +68,8 @@
                 v-if=" header[2].show"
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
+                      <span class="t12500 text-gray500 py-5 number-font">
                           {{ item.sku?.label }}
-                      </span>
-            </div>
-            <div
-                v-if=" header[4].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-             <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.sku.customer_price}}
-                      </span>
-            </div>
-            <div
-                v-if=" header[5].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-             <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.shps_attributes?.count }}
                       </span>
             </div>
             <div
@@ -93,10 +77,49 @@
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
              <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.buying_price}}
+                      </span>
+            </div>
+            <div
+                v-if=" header[4].show"
+                class="c-table__contents__item text-right"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+             <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.customer_price }}
+                      </span>
+            </div>
+            <div
+                v-if=" header[5].show"
+                class="c-table__contents__item text-right"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+             <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.shps_attributes.shps }}
+                      </span>
+            </div>
+            <div
+                v-if=" header[6].show"
+                class="c-table__contents__item text-right"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+             <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.sum_buying_price }}
+                      </span>
+            </div>
+            <div
+                v-if=" header[7].show"
+                class="c-table__contents__item text-right"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+             <span class="t14300 text-gray500 py-5 number-font">
                           {{ item.sum_customer_price }}
                       </span>
             </div>
-            
+            <div
+                v-if=" header[8].show"
+                class="c-table__contents__item text-right"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+             <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.profit }}
+                      </span>
+            </div>
             
            
   
@@ -126,6 +149,10 @@
   
   
     props: {
+  header: {
+    type: Array,
+    default: () => []
+  },
       
      
      
@@ -216,8 +243,9 @@
        * Get each items table based of header length
        */
       itemsWidth() {
+        console.log('Header:', this.header);
         let headerLength = 0;
-        if (this.header && this.header.length > 0) {
+        if (this.header !== undefined && this.header.length > 0) {
           this.header.forEach(element => {
             if (element.show == true) {
               headerLength++;
@@ -233,9 +261,10 @@
     },
   
     watch: {
-      items(val) {
-        this.active = []
-        this.form = []
+    items(val) {
+      this.active = []
+      this.form = []
+      if (val){
         val.forEach(element => {
           const form = {
             priority : element.pivot?.priority
@@ -246,8 +275,9 @@
           this.active.push(active)
         });
       }
-    },
-  
+
+    }
+  },
     methods: {
      
   

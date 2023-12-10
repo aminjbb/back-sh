@@ -47,9 +47,12 @@ export default function setup(posts) {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه shps', show: true , value:'shps', order: false},
         { name: 'نام کالا', show: true , value:'label', order: false},
+        { name: ' قیمت خرید', show: true , value:'number', order: false},
         { name: ' قیمت مصرف', show: true, value:'number' , order: false},
         { name: 'تعداد کالا', show: true, value:'number' , order: false},
+        { name: ' قیمت خرید کل  ', show: true, value:'number' , order: false},
         { name: ' قیمت مصرف کل  ', show: true, value:'number' , order: false},
+        { name: ' درصد سود ', show: true, value:'number' , order: false},
         
        
     ]);
