@@ -50,18 +50,18 @@
                         </span>
                     </div>
                     <div
-                        v-if="header[2].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.id">
-                                {{ item.type }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
+    v-if="header[2].show"
+    class="c-table__contents__item justify-center"
+    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+    <span class="t14300 text-gray500 py-5 number-font">
+        <template v-if="item.id">
+            {{ translateType(item.type) }} 
+        </template>
+        <template v-else>
+            نامعلوم
+        </template>
+    </span>
+</div>
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center"
@@ -183,7 +183,6 @@
                 </div>
             </div>
         </div>
-        <!-- Display status text for other statuses -->
         <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
             {{ factorSelectedTitle(item.status) }}
         </div>
@@ -385,7 +384,12 @@
         itemDropdown.classList.toggle('active');
     }
 },
-
+translateType(type) {
+        const translations = {
+            'consignment': 'انبارش',     
+        };
+        return translations[type] || type; 
+    },
 BgSelected(status) {
     if (status === 'in_review') {
         return '#EDE7F6';  // Light purple
