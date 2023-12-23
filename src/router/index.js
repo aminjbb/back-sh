@@ -801,6 +801,22 @@ const router = createRouter({
             name:'اضافه کردن کالا به فروشنده'
           }
         },
+        {
+          path: ':sellerId/cross-dock/index/',
+          name: 'CrossDockListView',
+          component: CrossDockListView,
+          meta:{
+            name:'فروشندگان'
+          }
+        },
+        {
+          path: ':sellerId/cross-dock/add/',
+          name: 'AddCrossDockView',
+          component: AddCrossDockView,
+          meta:{
+            name:'فروشندگان'
+          }
+        },
 
 
       ],
