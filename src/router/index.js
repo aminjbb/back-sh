@@ -817,8 +817,6 @@ const router = createRouter({
             name:'فروشندگان'
           }
         },
-
-
       ],
     },
     {
