@@ -148,6 +148,10 @@ import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentL
 import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
 
 
+/* Vehicle Requests */
+import VehicleListView from '../views/Vehicle/VehicleListView.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -1176,6 +1180,22 @@ const router = createRouter({
             name:'محموله های بازرگانی'
           }
         },
+      ],
+    },
+
+    {
+      path: '/vehicle', // Vehicle routes
+      meta: {
+        name: 'خودرو'
+      },
+      children: [{
+          path: 'index',
+          name: 'VehicleList',
+          component: VehicleListView,
+          meta: {
+            name: 'مدیریت خودروها'
+          }
+        }
       ],
     },
   ]
