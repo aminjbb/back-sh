@@ -50,18 +50,18 @@
                         </span>
                     </div>
                     <div
-                        v-if="header[2].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.factor_id">
-                                {{ item.factor_id }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
+    v-if="header[2].show"
+    class="c-table__contents__item justify-center"
+    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+    <span class="t14300 text-gray500 py-5 number-font">
+        <template v-if="item.id">
+            {{ translateType(item.type) }} 
+        </template>
+        <template v-else>
+            نامعلوم
+        </template>
+    </span>
+</div>
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center"
@@ -143,43 +143,42 @@
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <template v-if="item.status">
         
-                          <div v-if="item.status === 'in_review'" class="factor-dropdown">
-                              <div
-                                  class="factor-dropdown__selected"
-                                  @click="showDropDown(index)"
-                                  :style="{ backgroundColor: BgSelected(item.status) }">
-                                  <span>{{ factorSelectedTitle(item.status) }}</span>
-                                  <v-icon icon="mdi-chevron-down"></v-icon>
-                              </div>
-                              <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
-                                  <div
-                                      class="factor-dropdown__item"
-                                      id="factor-dropdown__item--1">
-                                      {{ item.status }}
-                                  </div>
-                                  <div
-                                      class="factor-dropdown__item"
-                                      id="factor-dropdown__item--2"
-                                      @click="openRejectModal(item)">
-                                      رد شده
-                                  </div>
-                                  <div
-                                      class="retail-status-box"
-                                      id="factor-dropdown__item--3"
-                                      @click="updateStatus(index,'approved',item)">
-                                      تایید شده
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- Display status text for other statuses -->
-                          <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
-                              {{ factorSelectedTitle(item.status) }}
-                          </div>
-                      </template>
-                      <template v-else>
-                          نامعلوم
-                      </template>
-                  </div>
+        <div v-if="item.status === 'in_review'" class="factor-dropdown">
+            <div
+                class="factor-dropdown__selected"
+                @click="showDropDown(index)"
+                :style="{ backgroundColor: BgSelected(item.status) }">
+                <span>{{ factorSelectedTitle(item.status) }}</span>
+                <v-icon icon="mdi-chevron-down"></v-icon>
+            </div>
+            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                <div
+                    class="factor-dropdown__item"
+                    id="factor-dropdown__item--1">
+                    {{ item.status }}
+                </div>
+                <div
+                    class="factor-dropdown__item"
+                    id="factor-dropdown__item--2"
+                    @click="openRejectModal(item)">
+                    رد شده
+                </div>
+                <div
+                    class="retail-status-box"
+                    id="factor-dropdown__item--3"
+                    @click="updateStatus(index,'approved',item)">
+                    تایید شده
+                </div>
+            </div>
+        </div>
+        <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
+            {{ factorSelectedTitle(item.status) }}
+        </div>
+    </template>
+    <template v-else>
+        نامعلوم
+    </template>
+</div>
 
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -365,7 +364,20 @@
           }
         },
 
-        BgSelected(status) {
+            showDropDown(index) {
+    const item = this.items[index];
+    if (item.status === 'in_review') {
+        const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
+        itemDropdown.classList.toggle('active');
+    }
+},
+translateType(type) {
+        const translations = {
+            'consignment': 'انبارش',     
+        };
+        return translations[type] || type; 
+    },
+BgSelected(status) {
     if (status === 'in_review') {
         return '#EDE7F6';  // Light purple
     }

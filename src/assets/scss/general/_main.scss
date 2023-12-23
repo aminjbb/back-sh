@@ -446,6 +446,12 @@ a,
   background: #F5F5F5;
 }
 .expanded-background {
-  padding: 7px 15px  !important; 
-  border-radius: 10px
+  display: flex;
+  justify-content: space-between;
+  align-items: center!important;
+  border-radius: 8px;
+  height: 32px;
+  padding: 8px;
+  width: 100%;
+  align-content: center;
 }
