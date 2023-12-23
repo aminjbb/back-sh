@@ -54,8 +54,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.id">
-                                {{ item.type }}
+                            <template v-if="item.factor_id">
+                                {{ item.factor_id }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -65,19 +65,6 @@
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.type">
-                                {{ item.shps_variety }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
-                    <div
-                        v-if="header[3].show"
-                        class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
                             <template v-if="item.shps_count">
@@ -89,20 +76,21 @@
                         </span>
                     </div>
                     <div
-                        v-if="header[4].show"
-                        class="c-table__contents__item justify-center"
+                        v-if="header[3].show"
+                        class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.type">
-                                شاواز
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.shps_variety">
+                                {{ item.shps_variety }}
                             </template>
                             <template v-else>
                                 نامعلوم
                             </template>
                         </span>
                     </div>
+
                     <div
-                        v-if="header[5].show"
+                        v-if="header[4].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
@@ -117,7 +105,7 @@
                     
     
                     <div
-                        v-if="header[6].show"
+                        v-if="header[5].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -132,7 +120,7 @@
                     
     
                     <div
-                        v-if="header[7].show"
+                        v-if="header[6].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -149,55 +137,50 @@
                    
                     
                     <div
-    v-if="header[8].show"
-    class="c-table__contents__item justify-center"
-    :ref="`factor--${index}`"
-    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-    <template v-if="item.status">
+                      v-if="header[7].show"
+                      class="c-table__contents__item justify-center"
+                      :ref="`factor--${index}`"
+                      :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                      <template v-if="item.status">
         
-        <div v-if="item.status === 'in_review'" class="factor-dropdown">
-            <div
-                class="factor-dropdown__selected"
-                @click="showDropDown(index)"
-                :style="{ backgroundColor: BgSelected(item.status) }">
-                <span>{{ factorSelectedTitle(item.status) }}</span>
-                <v-icon icon="mdi-chevron-down"></v-icon>
-            </div>
-            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
-                <div
-                    class="factor-dropdown__item"
-                    id="factor-dropdown__item--1">
-                    {{ item.status }}
-                </div>
-                <div
-                    class="factor-dropdown__item"
-                    id="factor-dropdown__item--2"
-                    @click="openRejectModal(item)">
-                    رد شده
-                </div>
-                <div
-                    class="retail-status-box"
-                    id="factor-dropdown__item--3"
-                    @click="updateStatus(index,'approved',item)">
-                    تایید شده
-                </div>
-            </div>
-        </div>
-        <!-- Display status text for other statuses -->
-        <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
-            {{ factorSelectedTitle(item.status) }}
-        </div>
-    </template>
-    <template v-else>
-        نامعلوم
-    </template>
-</div>
+                          <div v-if="item.status === 'in_review'" class="factor-dropdown">
+                              <div
+                                  class="factor-dropdown__selected"
+                                  @click="showDropDown(index)"
+                                  :style="{ backgroundColor: BgSelected(item.status) }">
+                                  <span>{{ factorSelectedTitle(item.status) }}</span>
+                                  <v-icon icon="mdi-chevron-down"></v-icon>
+                              </div>
+                              <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                                  <div
+                                      class="factor-dropdown__item"
+                                      id="factor-dropdown__item--1">
+                                      {{ item.status }}
+                                  </div>
+                                  <div
+                                      class="factor-dropdown__item"
+                                      id="factor-dropdown__item--2"
+                                      @click="openRejectModal(item)">
+                                      رد شده
+                                  </div>
+                                  <div
+                                      class="retail-status-box"
+                                      id="factor-dropdown__item--3"
+                                      @click="updateStatus(index,'approved',item)">
+                                      تایید شده
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- Display status text for other statuses -->
+                          <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
+                              {{ factorSelectedTitle(item.status) }}
+                          </div>
+                      </template>
+                      <template v-else>
+                          نامعلوم
+                      </template>
+                  </div>
 
-
-                    
-    
-                    
-    
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
@@ -233,8 +216,6 @@
             </div>
         </div>
        
-        <DetailsModal />
-        <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
     </template>
     
@@ -247,7 +228,7 @@
     } from "@/assets/js/filter_supplier"
    
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
-    import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
+    import ModalNotProvidable from "@/components/seller/CrossDock/CrossDockModal/ModalNotProvidable.vue";
 
 
     import {
@@ -261,7 +242,7 @@
     export default {
         components: {
             DetailsModal,
-            ModalRejectRequestShipment
+          ModalNotProvidable
         },
     
         props: {

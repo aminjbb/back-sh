@@ -188,6 +188,14 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
+                              <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="$router.push(`/seller/${item.id}/cross-dock/index/`)">
+                                        <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            مدیریت محموله انبارش
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>

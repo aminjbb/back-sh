@@ -146,6 +146,8 @@ import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
 import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
+import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
+import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
 
 const router = createRouter({

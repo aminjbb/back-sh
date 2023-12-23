@@ -86,10 +86,26 @@ export default createStore({
       dialog: false,
       id: ''
     },
+    notProvidableModal: {
+      dialog: false,
+      id: ''
+    },
+    crossDockSelectedShps:'',
+    draftCrossDockSelectedShps:''
 
   },
 
   mutations: {
+    set_notProvidableModal(state , form){
+      state.notProvidableModal.dialog = form.dialog
+      state.notProvidableModal.id = form.id
+    },
+    set_draftCrossDockSelectedShps(state , obj){
+        state.draftCrossDockSelectedShps = obj
+    },
+    set_crossDockSelectedShps(state , obj){
+      state.crossDockSelectedShps =  obj
+    },
     set_modalRejectRequestShipment(state , form){
       state.modalRejectRequestShipment.dialog = form.dialog
       state.modalRejectRequestShipment.object = form.object
@@ -198,12 +214,26 @@ export default createStore({
       state.showDetailsModal.dialog = form.dialog
       state.showDetailsModal.id = form.id
     },
+
   },
 
   actions: {},
 
   getters: {
+    get_notProvidableModal(state ){
+     return  state.notProvidableModal.dialog
 
+    },
+    get_notProvidableModalId(state ){
+     return  state.notProvidableModal.id
+
+    },
+    get_draftCrossDockSelectedShps(state ){
+      return  state.draftCrossDockSelectedShps
+    },
+    get_crossDockSelectedShps(state){
+      return  state.crossDockSelectedShps
+    },
     get_modalRejectRequestShipment(state){
       return  state.modalRejectRequestShipment.dialog
     },

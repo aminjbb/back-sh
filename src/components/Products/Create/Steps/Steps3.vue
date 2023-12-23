@@ -107,7 +107,6 @@ export default {
              const skuSelectedIndex = this.skuesSelected.findIndex(el => el == id )
               this.skuesSelected.splice(skuSelectedIndex, 1)
             }
-            console.log( this.skuesSelected)
         },
 
     },
