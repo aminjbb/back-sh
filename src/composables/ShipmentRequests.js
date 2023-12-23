@@ -54,8 +54,20 @@ export default function setup(posts) {
         { name: ' قیمت مصرف کل  ', show: true, value:'number' , order: false},
         { name: ' درصد سود ', show: true, value:'number' , order: false},
         
-       
+
     ]);
+    const headerQrcode =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه shps', show: true , value:'shps', order: false},
+        { name: 'نام کالا', show: true , value:'label', order: false},
+        { name: ' تعداد کلا ', show: true , value:'number', order: false},
+
+      
+        
+
+    ]);
+    
+
 
   
     
@@ -79,7 +91,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `cargo/crud/requested/shipment/index/${paramsQuery}`
+        AxiosMethod.end_point = `shipment/consignment/crud/index/${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -112,7 +124,7 @@ export default function setup(posts) {
     })
 
     return {   
-         pageLength, filterField, headerShps, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
+         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
         dataTableLength, page, header, loading, 
          }
 }

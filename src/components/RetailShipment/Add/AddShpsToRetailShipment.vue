@@ -230,7 +230,7 @@ export default {
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/create`
+      AxiosMethod.end_point = `shipment/consignment/crud/create`
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {

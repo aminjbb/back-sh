@@ -82,14 +82,46 @@ export default createStore({
       object :''
     },
 
+    detailModalTest:{
+      dialog:false,
+      object :''
+    },
+    detailModalTestQrCode:{
+      dialog:false,
+      object :''
+    },
+    detailModalTestQrCodeFull:{
+      dialog:false,
+      object :''
+    },
     showDetailsModal: {
       dialog: false,
       id: ''
     },
-
+    marketPlaceDetailModal:{
+      dialog: false,
+      id: ''
+    },
   },
 
   mutations: {
+    set_marketPlaceDetailModal(state , form){
+      state.marketPlaceDetailModal.dialog = form.dialog
+      state.marketPlaceDetailModal.object = form.object
+    },
+
+    set_detailModalTestQrCodeFull(state , form){
+      state.detailModalTestQrCodeFull.dialog = form.dialog
+      state.detailModalTestQrCodeFull.object = form.object
+    },
+    set_detailModalTestQrCode(state , form){
+      state.detailModalTestQrCode.dialog = form.dialog
+      state.detailModalTestQrCode.object = form.object
+    },
+    set_detailModalTest(state , form){
+      state.detailModalTest.dialog = form.dialog
+      state.detailModalTest.object = form.object
+    },
     set_modalRejectRequestShipment(state , form){
       state.modalRejectRequestShipment.dialog = form.dialog
       state.modalRejectRequestShipment.object = form.object
@@ -203,7 +235,31 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_marketPlaceDetailModal(state){
+      return  state.marketPlaceDetailModal.dialog
+    },
+    get_marketPlaceDetailModalObject(state){
+      return  state.marketPlaceDetailModal.object
+    },
 
+    get_detailModalTestQrCodeFull(state){
+      return  state.detailModalTestQrCodeFull.dialog
+    },
+    get_detailModalTestQrCodeFullObject(state){
+      return  state.detailModalTestQrCodeFull.object
+    },
+    get_detailModalTestQrCode(state){
+      return  state.detailModalTestQrCode.dialog
+    },
+    get_detailModalTestQrCodeObject(state){
+      return  state.detailModalTestQrCode.object
+    },
+    get_detailModalTest(state){
+      return  state.detailModalTest.dialog
+    },
+    get_detailModalTestObject(state){
+      return  state.detailModalTest.object
+    },
     get_modalRejectRequestShipment(state){
       return  state.modalRejectRequestShipment.dialog
     },

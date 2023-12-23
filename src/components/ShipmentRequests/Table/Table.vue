@@ -219,6 +219,62 @@
 
                             
                         </v-list>
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                          1  نمایش جزئیات
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                            
+                        </v-list>
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                          2  نمایش جزئیات
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                            
+                        </v-list>
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                          3  نمایش جزئیات
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                            
+                        </v-list>
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail4(item)">
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                          4  نمایش جزئیات
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                            
+                        </v-list>
                     </v-menu>
                 </div>
                 </div>
@@ -231,7 +287,10 @@
                 </div>
             </div>
         </div>
-       
+        <MarketPlaceDetailModal/>
+        <DetailModalTestQrCodeFull/>
+        <DetailModalTestQrCode/>
+        <DetailModalTest />
         <DetailsModal />
         <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
@@ -246,6 +305,13 @@
     } from "@/assets/js/filter_supplier"
    
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
+    import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
+    import DetailModalTestQrCode from "@/components/ShipmentRequests/Modal/DetailModalTestQrCode.vue";
+    import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
+    import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
+
+
+
     import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
 
 
@@ -260,6 +326,10 @@
     export default {
         components: {
             DetailsModal,
+            DetailModalTest,
+            DetailModalTestQrCode,
+            DetailModalTestQrCodeFull,
+            MarketPlaceDetailModal,
             ModalRejectRequestShipment
         },
     
@@ -435,7 +505,7 @@ BgSelected(status) {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
             formdata.append('status', status)
-            AxiosMethod.end_point = 'cargo/crud/update/status/' + item.id
+            AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
             AxiosMethod.store = this.$store
             AxiosMethod.form = formdata
 
@@ -462,6 +532,34 @@ requestShipment(item) {
       }
       this.$store.commit('set_modalRequestShipment' , form)
     },
+    requestShipmentTest(item) {
+      const form = {
+        dialog :true,
+        object : item
+      }
+      this.$store.commit('set_detailModalTest' , form)
+    },
+    requestShipmentMarketPlace(item) {
+      const form = {
+        dialog :true,
+        object : item
+      }
+      this.$store.commit('set_MarketPlaceDetailModal' , form)
+    },
+    requestShipmentTestQrCode(item) {
+      const form = {
+        dialog :true,
+        object : item
+      }
+      this.$store.commit('set_detailModalTestQrCode' , form)
+    },
+    requestShipmentTestQrCodeFull(item) {
+      const form = {
+        dialog :true,
+        object : item
+      }
+      this.$store.commit('set_detailModalTestQrCodeFull' , form)
+    },
     /**
      * retailShipment detail modal
      */
@@ -469,7 +567,7 @@ requestShipment(item) {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      AxiosMethod.end_point = `shipment/consignment/crud/detail/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
@@ -482,6 +580,80 @@ requestShipment(item) {
 
     },
     
+
+    async requestShipmentDetailShipmentDetail1(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shipment/consignment/crud/get/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_detailModalTest' , form)
+
+      }
+
+    },
+
+    async requestShipmentDetailShipmentDetail2(item) {
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
+            let data = await AxiosMethod.axios_get()
+            if (data && data.data) {
+                
+                const baseUrl = "https://api.shvz.ir/";
+
+                if (data.data.barcode_image) {
+                data.data.barcode_image = baseUrl + data.data.barcode_image;
+            }
+
+                const form = {
+                    dialog: true,
+                    object: data.data
+                }
+                this.$store.commit('set_detailModalTestQrCode', form)
+            } else {
+            console.error("Data not found");
+        }
+        },
+    async requestShipmentDetailShipmentDetail4(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_marketPlaceDetailModal' , form)
+
+      }
+
+    },
+    async requestShipmentDetailShipmentDetail3(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_detailModalTestQrCodeFull' , form)
+
+      }
+
+    },
+
             /**
              * Get row index in table
              * @param {*} index
