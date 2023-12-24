@@ -67,8 +67,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.type">
-                                {{ item.shps_variety }}
+                            <template v-if="item.shps_count">
+                                {{ item.shps_count }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -80,29 +80,17 @@
                         class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.shps_count">
-                                {{ item.shps_count }}
+                            <template v-if="item.shps_variety">
+                                {{ item.shps_variety }}
                             </template>
                             <template v-else>
                                 نامعلوم
                             </template>
                         </span>
                     </div>
+
                     <div
                         v-if="header[4].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.type">
-                                شاواز
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
-                    <div
-                        v-if="header[5].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
@@ -117,7 +105,7 @@
                     
     
                     <div
-                        v-if="header[6].show"
+                        v-if="header[5].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -132,7 +120,7 @@
                     
     
                     <div
-                        v-if="header[7].show"
+                        v-if="header[6].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -149,11 +137,11 @@
                    
                     
                     <div
-    v-if="header[8].show"
-    class="c-table__contents__item justify-center"
-    :ref="`factor--${index}`"
-    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-    <template v-if="item.status">
+                      v-if="header[7].show"
+                      class="c-table__contents__item justify-center"
+                      :ref="`factor--${index}`"
+                      :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                      <template v-if="item.status">
         
         <div v-if="item.status === 'in_review'" class="factor-dropdown">
             <div
@@ -192,11 +180,6 @@
     </template>
 </div>
 
-
-                    
-    
-                    
-    
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
@@ -232,8 +215,6 @@
             </div>
         </div>
        
-        <DetailsModal />
-        <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
     </template>
     
@@ -246,7 +227,7 @@
     } from "@/assets/js/filter_supplier"
    
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
-    import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
+    import ModalNotProvidable from "@/components/seller/CrossDock/CrossDockModal/ModalNotProvidable.vue";
 
 
     import {
@@ -260,7 +241,7 @@
     export default {
         components: {
             DetailsModal,
-            ModalRejectRequestShipment
+          ModalNotProvidable
         },
     
         props: {

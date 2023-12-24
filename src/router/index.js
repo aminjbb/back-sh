@@ -146,6 +146,8 @@ import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
 import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
+import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
+import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
 
 const router = createRouter({
@@ -799,8 +801,22 @@ const router = createRouter({
             name:'اضافه کردن کالا به فروشنده'
           }
         },
-
-
+        {
+          path: ':sellerId/cross-dock/index/',
+          name: 'CrossDockListView',
+          component: CrossDockListView,
+          meta:{
+            name:'فروشندگان'
+          }
+        },
+        {
+          path: ':sellerId/cross-dock/add/',
+          name: 'AddCrossDockView',
+          component: AddCrossDockView,
+          meta:{
+            name:'فروشندگان'
+          }
+        },
       ],
     },
     {
