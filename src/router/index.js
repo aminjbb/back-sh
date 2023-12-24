@@ -1214,6 +1214,21 @@ const router = createRouter({
         }
       ],
     },
+    {
+      path: '/processing-shipment', // Vehicle routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+          path: 'index',
+          name: 'VehicleList',
+          component: VehicleListView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        }
+      ],
+    },
   ]
 })
 const privateRoutes = [
