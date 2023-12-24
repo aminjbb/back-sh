@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import ModalNotProvidable from "@/components/seller/CrossDock/CrossDockModal/ModalNotProvidable.vue";
+import ModalNotProvidable from "@/components/Seller/CrossDock/CrossDockModal/ModalNotProvidable.vue";
 
 import {
   convertDateToJalai,
