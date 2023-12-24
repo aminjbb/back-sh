@@ -36,7 +36,9 @@ export class PanelFilter {
         this.status = null;
         this.code = null;
         this.title = null;
-        this.model =null
+        this.model =null;
+        this.vehicle_type = null;
+        this.license = null;
     }
 
     query_maker() {
@@ -95,6 +97,12 @@ export class PanelFilter {
         }
         if (this.model !== null) {
             query += "model=" +  this.model  + "&";
+        }
+        if (this.vehicle_type !== null) {
+            query += "vehicle_type=" +  this.vehicle_type  + "&";
+        }
+        if (this.license !== null) {
+            query += "license=" +  this.license  + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -235,6 +243,20 @@ export class PanelFilter {
             query += "title=" + this.title + "&";
         }
 
+        if (routeQuery.vehicle_type) {
+            query += "vehicle_type=" + routeQuery.vehicle_type + "&";
+        }
+        else if (this.vehicle_type) {
+            query += "vehicle_type=" + this.vehicle_type + "&";
+        }
+
+        if (routeQuery.license) {
+            query += "license=" + routeQuery.license + "&";
+        }
+        else if (this.license) {
+            query += "license=" + this.license + "&";
+        }
+
         return query.substring(0, query.length - 1);
     }
     sort_query(routeQuery){
@@ -324,6 +346,21 @@ export class PanelFilter {
         else if (this.type) {
             query += "type=" + this.type + "&";
         }
+
+        if (routeQuery.vehicle_type) {
+            query += "vehicle_type=" + routeQuery.vehicle_type + "&";
+        }
+        else if (this.vehicle_type) {
+            query += "vehicle_type=" + this.vehicle_type + "&";
+        }
+
+        if (routeQuery.license) {
+            query += "license=" + routeQuery.license + "&";
+        }
+        else if (this.license) {
+            query += "license=" + this.license + "&";
+        }
+
         return query.substring(0, query.length - 1);
     }
 }
