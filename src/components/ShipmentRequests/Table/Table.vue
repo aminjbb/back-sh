@@ -227,7 +227,6 @@
     } from "@/assets/js/filter_supplier"
    
     import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
-    import ModalNotProvidable from "@/components/seller/CrossDock/CrossDockModal/ModalNotProvidable.vue";
 
 
     import {
@@ -241,7 +240,6 @@
     export default {
         components: {
             DetailsModal,
-          ModalNotProvidable
         },
     
         props: {
