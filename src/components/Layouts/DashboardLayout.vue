@@ -266,8 +266,10 @@ export default {
                 ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
-                ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت رانندگان', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],

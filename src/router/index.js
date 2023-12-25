@@ -163,6 +163,9 @@ import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/Processin
 /* Package Requests */
 import PackageListView from '../views/Package/PackageListView.vue'
 
+/* Active Package Requests */
+import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1265,6 +1268,21 @@ const router = createRouter({
         component: PackageListView,
         meta: {
           name: 'مدیریت بسته‌ها'
+        }
+      }],
+    },
+
+    {
+      path: '/active-package', // Active package routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'ActivePackageList',
+        component: ActivePackageListView,
+        meta: {
+          name: 'بسته های فعال'
         }
       }],
     },
