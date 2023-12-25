@@ -68,7 +68,7 @@
                                     single-line
                                     placeholder="۱۱"
                                     prefix="ایران-"
-                                    v-model="license[0]" />
+                                    v-model="license1" />
                             </v-col>
 
                             <v-col cols="3">
@@ -77,7 +77,7 @@
                                     variant="outlined"
                                     single-line
                                     placeholder="۸۸۸"
-                                    v-model="license[1]" />
+                                    v-model="license[0]" />
                             </v-col>
 
                             <v-col cols="2">
@@ -86,7 +86,7 @@
                                     variant="outlined"
                                     single-line
                                     placeholder="ب"
-                                    v-model="license[2]" />
+                                    v-model="license[1]" />
                             </v-col>
 
                             <v-col cols="3">
@@ -95,7 +95,7 @@
                                     variant="outlined"
                                     single-line
                                     placeholder="۲۶"
-                                    v-model="license[3]" />
+                                    v-model="license[2]" />
                             </v-col>
                         </v-row>
                     </v-col>
@@ -156,6 +156,7 @@ export default {
                 vehicle_type: '',
                 license: '',
             },
+            license1: null,
             license: [],
         }
     },
@@ -178,7 +179,8 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.end_point = 'vehicle/crud/create'
             AxiosMethod.form = formdata;
-            const finalLicense = this.license.join('');
+            const licensePart2 = this.license.join('');
+            const finalLicense = `${this.license1}-${licensePart2}`
 
             formdata.append('vehicle_type', this.form.vehicle_type)
             formdata.append('license', finalLicense);
@@ -190,15 +192,28 @@ export default {
             if (data) {
                 this.loading = false
                 this.$router.push('/vehicle/index');
+                this.updateList('true');
                 openToast(this.$store,
                     'خودرو با موفقیت ایجاد شد.',
                     "success");
                 this.closeModal();
+               this.form.vehicle_type = '';
+               this.form.license = ''
+               this.license1= null;
+               this.license= [];
 
             } else {
                 this.loading = false
             }
-        }
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+        updateList(status) {
+            this.$emit('updateList', status);
+        },
     }
 }
 </script>

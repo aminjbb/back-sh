@@ -51,7 +51,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -76,7 +76,8 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.license">
-                            {{ item.license }}
+                            ایران
+                            <span class="t14300 text-gray500 number-font" style="letter-spacing: 1.5px !important;">{{ item.license }}</span>
                         </template>
                         <template v-else>
                             نامعلوم
@@ -307,7 +308,15 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+            openConfirm(this.$store, "آیا از حذف خودرو مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true);
+        },
+
+        /**
+         * Update list
+         * @param {*} status 
+         */
+        updateList(status) {
+            this.$emit('updateList', status);
         },
     },
 }
