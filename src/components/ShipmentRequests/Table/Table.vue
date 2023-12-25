@@ -49,19 +49,21 @@
                             {{ item.id }}
                         </span>
                     </div>
+
                     <div
-    v-if="header[2].show"
-    class="c-table__contents__item justify-center"
-    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-    <span class="t14300 text-gray500 py-5 number-font">
-        <template v-if="item.id">
-            {{ translateType(item.type) }} 
-        </template>
-        <template v-else>
-            نامعلوم
-        </template>
-    </span>
-</div>
+                        v-if="header[2].show"
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.id">
+                                {{ translateType(item.type) }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
+
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center"
@@ -75,6 +77,7 @@
                             </template>
                         </span>
                     </div>
+
                     <div
                         v-if="header[3].show"
                         class="c-table__contents__item justify-center "
@@ -102,8 +105,7 @@
                             </template>
                         </span>
                     </div>
-                    
-    
+
                     <div
                         v-if="header[5].show"
                         class="c-table__contents__item justify-center"
@@ -117,8 +119,7 @@
                             </template>
                         </span>
                     </div>
-                    
-    
+
                     <div
                         v-if="header[6].show"
                         class="c-table__contents__item justify-center"
@@ -132,10 +133,7 @@
                             </template>
                         </span>
                     </div>
-    
-                   
-                   
-                    
+
                     <div
                       v-if="header[7].show"
                       class="c-table__contents__item justify-center"
@@ -143,42 +141,42 @@
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <template v-if="item.status">
         
-        <div v-if="item.status === 'in_review'" class="factor-dropdown">
-            <div
-                class="factor-dropdown__selected"
-                @click="showDropDown(index)"
-                :style="{ backgroundColor: BgSelected(item.status) }">
-                <span>{{ factorSelectedTitle(item.status) }}</span>
-                <v-icon icon="mdi-chevron-down"></v-icon>
-            </div>
-            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
-                <div
-                    class="factor-dropdown__item"
-                    id="factor-dropdown__item--1">
-                    {{ item.status }}
+                        <div v-if="item.status === 'in_review'" class="factor-dropdown">
+                            <div
+                                class="factor-dropdown__selected"
+                                @click="showDropDown(index)"
+                                :style="{ backgroundColor: BgSelected(item.status) }">
+                                <span>{{ factorSelectedTitle(item.status) }}</span>
+                                <v-icon icon="mdi-chevron-down"></v-icon>
+                            </div>
+                            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                                <div
+                                    class="factor-dropdown__item"
+                                    id="factor-dropdown__item--1">
+                                    {{ item.status }}
+                                </div>
+                                <div
+                                    class="factor-dropdown__item"
+                                    id="factor-dropdown__item--2"
+                                    @click="openRejectModal(item)">
+                                    رد شده
+                                </div>
+                                <div
+                                    class="retail-status-box"
+                                    id="factor-dropdown__item--3"
+                                    @click="updateStatus(index,'approved',item)">
+                                    تایید شده
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
+                            {{ factorSelectedTitle(item.status) }}
+                        </div>
+                    </template>
+                    <template v-else>
+                        نامعلوم
+                    </template>
                 </div>
-                <div
-                    class="factor-dropdown__item"
-                    id="factor-dropdown__item--2"
-                    @click="openRejectModal(item)">
-                    رد شده
-                </div>
-                <div
-                    class="retail-status-box"
-                    id="factor-dropdown__item--3"
-                    @click="updateStatus(index,'approved',item)">
-                    تایید شده
-                </div>
-            </div>
-        </div>
-        <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
-            {{ factorSelectedTitle(item.status) }}
-        </div>
-    </template>
-    <template v-else>
-        نامعلوم
-    </template>
-</div>
 
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -363,32 +361,24 @@
                 itemDropdown.classList.toggle('active');
           }
         },
-
-            showDropDown(index) {
-    const item = this.items[index];
-    if (item.status === 'in_review') {
-        const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
-        itemDropdown.classList.toggle('active');
-    }
-},
-translateType(type) {
-        const translations = {
-            'consignment': 'انبارش',     
-        };
-        return translations[type] || type; 
-    },
-BgSelected(status) {
-    if (status === 'in_review') {
-        return '#EDE7F6';  // Light purple
-    }
-    if (status === 'approved') {
-        return '#E8F5E9';  // Light green
-    }
-    if (status === 'rejected') {
-        return '#FFEBEE';  // Light red
-    }
-    return 'transparent';  // Default background
-},
+        translateType(type) {
+                const translations = {
+                    'consignment': 'انبارش',
+                };
+                return translations[type] || type;
+            },
+        BgSelected(status) {
+            if (status === 'in_review') {
+                return '#EDE7F6';  // Light purple
+            }
+            if (status === 'approved') {
+                return '#E8F5E9';  // Light green
+            }
+            if (status === 'rejected') {
+                return '#FFEBEE';  // Light red
+            }
+            return 'transparent';  // Default background
+        },
 
         factorSelectedTitle(status) {
             if (status === 'in_review') {
@@ -436,33 +426,33 @@ BgSelected(status) {
             }
         },
 
-requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
-    /**
-     * retailShipment detail modal
-     */
-    async requestShipmentDetailShipmentDetail(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
-        }
-        this.$store.commit('set_modalRetailShipmentDetail' , form)
+        requestShipment(item) {
+              const form = {
+                dialog :true,
+                object : item
+              }
+              this.$store.commit('set_modalRequestShipment' , form)
+            },
+        /**
+         * retailShipment detail modal
+         */
+        async requestShipmentDetailShipmentDetail(item) {
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+          let data = await AxiosMethod.axios_get()
+          if (data) {
+            const form = {
+              dialog :true,
+              object : data.data
+            }
+            this.$store.commit('set_modalRetailShipmentDetail' , form)
 
-      }
+          }
 
-    },
-    
+        },
+
             /**
              * Get row index in table
              * @param {*} index

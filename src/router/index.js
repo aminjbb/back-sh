@@ -152,6 +152,8 @@ import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue"
 
 /* Vehicle Requests */
 import VehicleListView from '../views/Vehicle/VehicleListView.vue'
+import ProcessingShipmentIndexView from "@/views/ProcessingShipment/ProcessingShipmentIndexView.vue";
+import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/ProcessingShipmentShpsListView.vue";
 
 
 const router = createRouter({
@@ -1219,10 +1221,19 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [{
+      children: [
+          {
           path: 'index',
-          name: 'VehicleList',
-          component: VehicleListView,
+          name: 'ProcessingShipmentIndexView',
+          component: ProcessingShipmentIndexView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+        {
+          path: ':shipmentId/shps-list',
+          name: 'ProcessingShipmentShpsListView',
+          component: ProcessingShipmentShpsListView,
           meta: {
             name: 'پردازش محموله'
           }
