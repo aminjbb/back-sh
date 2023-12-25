@@ -6,7 +6,7 @@
             align="center"
             class="px-10 pt-3">
             <v-col cols="6">
-                <ModalCreateVehicle  />
+                <ModalCreateVehicle  @updateList="updateList"/>
             </v-col>
 
             <v-col cols="6">
@@ -27,6 +27,7 @@
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
+            @updateList="updateList"
             deletePath="vehicle/crud/delete/"
             model="vehicle" />
 
@@ -145,6 +146,7 @@ export default {
         dataTableLength(val) {
             this.getVehicleList(val)
         },
+
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
                 if (!val) {

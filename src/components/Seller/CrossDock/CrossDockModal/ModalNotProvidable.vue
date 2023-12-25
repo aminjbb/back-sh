@@ -79,9 +79,7 @@
   </div>
 </template>
 <script>
-import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
-import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import Warehouse from "@/composables/Warehouse"
 import {convertDateToJalai, openToast} from "@/assets/js/functions";
 export  default {
@@ -93,7 +91,6 @@ export  default {
     getOrders:{type:Function},
   },
   components:{
-    UploadFileSection
 
   },
   data(){
@@ -105,24 +102,7 @@ export  default {
   },
 
   methods:{
-    setWorkDay(workday){
-      if (workday.storage > 0) this.workDay = workday.date
-    },
-    workDaysClass(workday){
-      if (workday.date === this.workDay){
-        return 'retailShipment--work-days-card__active'
-      }
-      else if (workday.storage === 0){
-        return 'retailShipment--work-days-card__disable'
-      }
-      else {
-        return 'retailShipment--work-days-card__free'
-      }
-    },
     convertDateToJalai,
-    getnavbarItem(){
-      console.log(document.getElementById('navbarItems').offsetWidth)
-    },
     close(){
       const form = {
         dialog :false,
@@ -173,11 +153,6 @@ export  default {
     }
   },
 
-  watch:{
-    warehouse(val){
-      this.updateWorkDay()
-    }
-  }
 }
 </script>
 
