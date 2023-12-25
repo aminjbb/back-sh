@@ -266,6 +266,8 @@ export default {
                 ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته بندی ', '/', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
+
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
