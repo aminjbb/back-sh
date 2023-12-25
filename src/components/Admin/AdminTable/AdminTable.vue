@@ -479,7 +479,7 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+            (this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
     watch:{

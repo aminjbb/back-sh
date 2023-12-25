@@ -75,6 +75,15 @@ import CreateWarehouseView from '../views/Warehouse/CreateWarehouseView.vue'
 import EditWarehouseView from '../views/Warehouse/EditWarehouseView.vue'
 import SpecialCapacityView from '../views/Warehouse/SpecialCapacityView.vue'
 
+/* Driver Management*/
+import DriverManagementView from '../views/DriverManagement/DriverManagementView.vue'
+import AddDriverManagementView from '../views/DriverManagement/AddDriverManagementView.vue'
+import EditDriverManagementView from '../views/DriverManagement/EditDriverManagementView.vue'
+
+
+
+
+
 /* Supplier */
 import SupplierListView from '../views/Supplier/SupplierListView.vue'
 import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
@@ -676,9 +685,13 @@ const router = createRouter({
             name:'ظرقیت ویژه'
           }
         },
+        
+
 
       ],
     },
+    
+    
     {
       path: '/Supplier',// Supplier routes
       meta:{
