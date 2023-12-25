@@ -155,13 +155,6 @@
   },
       
      
-     
-  
-      /**
-       * List Items for header
-       */
-      header: [],
-  
       /**
        * List of items
        */
