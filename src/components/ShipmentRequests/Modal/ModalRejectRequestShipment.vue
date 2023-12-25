@@ -139,7 +139,7 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `cargo/crud/update/status/${this.requestShipmentObject.id}`
+      AxiosMethod.end_point = `shipment/consignment/crud/update/status/${this.requestShipmentObject.id}`
       formData.append('status' , 'rejected')
       formData.append('rejection_reason', this.subject)
       AxiosMethod.form = formData

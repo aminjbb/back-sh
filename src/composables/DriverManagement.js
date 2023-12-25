@@ -1,14 +1,14 @@
 import { ref, onMounted, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_page.js'
+
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
+import {PanelFilter} from "@/assets/js/filter_driver";
 
 
 export default function setup(posts) {
-    const ShipmentRequestsList = ref([]);
+    const DriverManagementList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -18,30 +18,22 @@ export default function setup(posts) {
 
    
 
-    // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'label', order: false},
-        { name: 'نوع محموله', show: true, value:'type' , order: false},
-        { name: ' تعداد آیتم', show: true , value:'id', order: false},
-        { name: 'تنوع آیتم', show: true, value:'created_at', order: false },
-        { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
-        { name: 'نام سازنده', show: true, value:'is_index', order: false },
-        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: false },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        { name: ' شناسه راننده ', show: true , value:'label', order: false},
+        { name: ' نام راننده', show: true, value:'type' , order: false},
+        { name: '  کد ملی', show: true , value:'id', order: false},
+        { name: ' شماره موبایل', show: true, value:'created_at', order: false },
+        { name: ' تاریخ ایجاد ', show: true, value:'updated_at', order: false },
+        { name: ' تاریخ ویرایش', show: true, value:'is_index', order: false },
+       
     ]);
 
     const filterField = [
-        {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
-        { name:'تعداد آیتم' , type: 'text', value:'count_from' , place:'از'},
-        { name: 'تعداد آیتم', type:'text', value:'count_to' , place:'تا'},
-        { name: 'شناسه فاکتور', type:'text', value:'factor_id' , place:'شناسه فاکتور'},
-        { name: 'تنوع آیتم', type:'text', value:'number_from', place:'از'},
-        { name: 'تنوع آیتم', type:'text', value:'number_to', place:'تا'},
-        { name: 'نام سازنده', type:'auto-complete', value:'admin', place:'نام سازنده'},
-        { name: 'تاریخ ساخت', type:'date', value:'created_at', place:'تاریخ ساخت'},
-        { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
+        {name:' نام راننده' , type:'text', value:'retail_id'},
+        { name:' کد ملی' , type: 'text', value:'count_from' },
+        { name: ' شماره موبایل', type:'text', value:'count_to' },
+        
     ];
     const headerShps =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -74,15 +66,14 @@ export default function setup(posts) {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
+    const filter = new PanelFilter()
 
     /**
      * Get page list
      * @param {*} query 
      */
-    async function getShipmentRequestsList(query) {
+    async function getDriverList(query) {
         let paramsQuery = null
-        filter.factor = route.params.factorId
         loading.value = true
         if (query){
             paramsQuery = filter.params_generator(query.query)
@@ -91,11 +82,11 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `shipment/consignment/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `driver/crud/index/${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            ShipmentRequestsList.value = data.data
+            DriverManagementList.value = data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -124,7 +115,7 @@ export default function setup(posts) {
     })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
+         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList,
         dataTableLength, page, header, loading, 
          }
 }

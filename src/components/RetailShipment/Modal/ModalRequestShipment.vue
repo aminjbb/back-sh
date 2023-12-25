@@ -177,7 +177,7 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `cargo/${this.retailObject.id}/send/warehouse`
+      AxiosMethod.end_point = `shipment/consignment/${this.retailObject.id}/send/warehouse`
       formData.append('warehouse_id' , this.warehouse)
       formData.append('sent_to_warehouse_at', this.workDay)
       AxiosMethod.form = formData

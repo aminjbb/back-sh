@@ -186,7 +186,7 @@
         dialog :false,
         object : ''
       }
-      this.$store.commit('set_modalRetailShipmentDetail' , form)
+      this.$store.commit('set_marketPlaceDetailModal' , form)
     },
    
   
@@ -196,10 +196,10 @@
 
     
       dialog(){
-        return this.$store.getters['get_modalRetailShipmentDetail']
+        return this.$store.getters['get_marketPlaceDetailModal']
       },
       retailObject(){
-        return this.$store.getters['get_modalRetailShipmentDetailObject']
+        return this.$store.getters['get_marketPlaceDetailModalObject']
       },
 
     }

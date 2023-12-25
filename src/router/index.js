@@ -75,6 +75,15 @@ import CreateWarehouseView from '../views/Warehouse/CreateWarehouseView.vue'
 import EditWarehouseView from '../views/Warehouse/EditWarehouseView.vue'
 import SpecialCapacityView from '../views/Warehouse/SpecialCapacityView.vue'
 
+/* Driver Management*/
+import DriverManagementView from '../views/DriverManagement/DriverManagementView.vue'
+import AddDriverManagementView from '../views/DriverManagement/AddDriverManagementView.vue'
+import EditDriverManagementView from '../views/DriverManagement/EditDriverManagementView.vue'
+
+
+
+
+
 /* Supplier */
 import SupplierListView from '../views/Supplier/SupplierListView.vue'
 import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
@@ -684,9 +693,44 @@ const router = createRouter({
             name:'ظرقیت ویژه'
           }
         },
+        {
+          path: '/driver-management',
+          meta:{
+            name:' انبار'
+          },
+          children: [
+            {
+              path: 'index',  
+              name: 'DriverManagementView',
+              component: DriverManagementView,
+              meta:{
+                name:'مدیریت رانندگان'
+              }
+            },
+            {
+              path: 'create',
+              name: 'createDriver',
+              component: AddDriverManagementView,
+              meta: {
+                name: 'افزودن راننده '
+              }
+            },
+            {
+              path: 'update',
+              name: 'editDriver',
+              component: EditDriverManagementView,
+              meta: {
+                name: ' ویرایش اطلاعات راننده '
+              }
+            },
+        ]
+        },
+
 
       ],
     },
+    
+    
     {
       path: '/Supplier',// Supplier routes
       meta:{
