@@ -1,4 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 /* Auth */
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Login/LoginView.vue'
@@ -80,16 +83,10 @@ import DriverManagementView from '../views/DriverManagement/DriverManagementView
 import AddDriverManagementView from '../views/DriverManagement/AddDriverManagementView.vue'
 import EditDriverManagementView from '../views/DriverManagement/EditDriverManagementView.vue'
 
-
-
-
-
 /* Supplier */
 import SupplierListView from '../views/Supplier/SupplierListView.vue'
 import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
 import EditSupplierView from '../views/Supplier/EditSupplierView.vue'
-
-
 
 /* Seller */
 import CreateSellerView from '@/views/Seller/CreateSellerView.vue'
@@ -115,6 +112,7 @@ import MenuListView from '@/views/Menu/MenuListView.vue'
 import AddMenuView from '@/views/Menu/AddMenuView.vue'
 import AddImageMenuView from '@/views/Menu/AddImageMenuView.vue'
 import EditMenuView from '@/views/Menu/EditMenuView.vue'
+
 /* PromotionPages */
 import PromotionPagesListView from '@/views/PromotionPages/PromotionPagesListView.vue'
 import CreatePromotionPageView from "@/views/PromotionPages/CreatePromotionPageView.vue";
@@ -142,7 +140,6 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
-
 import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
 import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
 
@@ -158,22 +155,26 @@ import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetai
 import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
 import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
-
 /* Vehicle Requests */
 import VehicleListView from '../views/Vehicle/VehicleListView.vue'
 import ProcessingShipmentIndexView from "@/views/ProcessingShipment/ProcessingShipmentIndexView.vue";
 import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/ProcessingShipmentShpsListView.vue";
 
+/* Package Requests */
+import PackageListView from '../views/Package/PackageListView.vue'
+
+/* Active Package Requests */
+import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: HomeView,
-      meta:{
-        name:'خانه'
+      meta: {
+        name: 'خانه'
       }
     },
     {
@@ -183,240 +184,233 @@ const router = createRouter({
     },
     {
       path: '/categories', // Category routes
-      meta:{
-        name:'دسته‌بندی'
+      meta: {
+        name: 'دسته‌بندی'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'categories',
           component: CategoryView,
-          meta:{
-            name:'لیست دسته‌یندی‌ها'
+          meta: {
+            name: 'لیست دسته‌یندی‌ها'
           }
         },
         {
           path: 'create',
           name: 'addCategories',
           component: AddCategoryView,
-          meta:{
-            name:'ساخت دسته‌یندی‌'
+          meta: {
+            name: 'ساخت دسته‌یندی‌'
           }
         },
         {
           path: 'edit/:id',
           name: 'editCategory',
           component: EditCategoryView,
-          meta:{
-            name:'ویرایش دسته‌بند'
+          meta: {
+            name: 'ویرایش دسته‌بند'
           }
         }
       ],
     },
     {
-      path: '/brand',// Brand routes
-      meta:{
-        name:' برند‌ها'
+      path: '/brand', // Brand routes
+      meta: {
+        name: ' برند‌ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'brands',
           component: BrandsView,
-          meta:{
-            name:'لیست برندها'
+          meta: {
+            name: 'لیست برندها'
           }
         },
         {
           path: 'create',
           name: 'addBrand',
           component: AddBrandView,
-          meta:{
-            name:'ساخت برند'
+          meta: {
+            name: 'ساخت برند'
           }
         },
         {
           path: 'edit/:id',
           name: 'editBrand',
           component: EditBrandView,
-          meta:{
-            name:'ویرایش برند'
+          meta: {
+            name: 'ویرایش برند'
           }
         }
       ],
     },
     {
-      path: '/color',// Color routes
-      meta:{
-        name:'رنگ‌ها'
+      path: '/color', // Color routes
+      meta: {
+        name: 'رنگ‌ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'colors',
           component: ColorsView,
-          meta:{
-            name:'لیست رنگ ها'
+          meta: {
+            name: 'لیست رنگ ها'
           }
         },
         {
           path: 'create',
           name: 'addColor',
           component: AddColorView,
-          meta:{
-            name:'ساخت رنگ'
+          meta: {
+            name: 'ساخت رنگ'
           }
         },
         {
           path: 'edit/:id',
           name: 'editColor',
           component: EditColorView,
-          meta:{
-            name:'ویرایش رنگ'
+          meta: {
+            name: 'ویرایش رنگ'
           }
         }
       ],
     },
     {
-      path: '/attributes',// Attributes routes
-      meta:{
-        name:'ویژگی ها'
+      path: '/attributes', // Attributes routes
+      meta: {
+        name: 'ویژگی ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'attribute',
           component: AttributesView,
-          meta:{
-            name:'لیست ویژگی ها'
+          meta: {
+            name: 'لیست ویژگی ها'
           }
         },
         {
           path: 'create',
           name: 'addAttribute',
           component: AddAttributesView,
-          meta:{
-            name:'ساخت ویژگی'
+          meta: {
+            name: 'ساخت ویژگی'
           }
         },
         {
           path: 'edit/:id',
           name: 'editAttribute',
           component: EditAttributeView,
-          meta:{
-            name:'ویرایش ویژگی'
+          meta: {
+            name: 'ویرایش ویژگی'
           }
         }
       ],
     },
     {
-      path: '/exports',// Export routes
-      meta:{
-        name:'گزارش‌ها'
+      path: '/exports', // Export routes
+      meta: {
+        name: 'گزارش‌ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'exportPage',
           component: ExportView,
-          meta:{
-            name:'لیست گزارش ها'
+          meta: {
+            name: 'لیست گزارش ها'
           }
         },
         {
           path: 'get/:id',
           name: 'getExport',
           component: GetExportView,
-          meta:{
-            name:'گزارش'
+          meta: {
+            name: 'گزارش'
           }
         }
       ],
     },
     {
-      path: '/notifications',// Notification routes
-      meta:{
-        name:'پیام ها'
+      path: '/notifications', // Notification routes
+      meta: {
+        name: 'پیام ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'notifications',
           component: NotificationsView,
-          meta:{
-            name:'لیست پیام ها'
+          meta: {
+            name: 'لیست پیام ها'
           }
         },
         {
           path: 'create',
           name: 'createNotifications',
           component: CreateNotificationsView,
-          meta:{
-            name:'ساخت پیام'
+          meta: {
+            name: 'ساخت پیام'
           }
         },
         {
           path: 'get/:id',
           name: 'getNotifications',
           component: GetNotificationsView,
-          meta:{
-            name:'پیام'
+          meta: {
+            name: 'پیام'
           }
         }
       ],
     },
     {
-      path: '/product',// Product and SKU routes
-      meta:{
-        name:'محصولات'
+      path: '/product', // Product and SKU routes
+      meta: {
+        name: 'محصولات'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
-          name:'ProductView',
+          name: 'ProductView',
           component: ProductView,
-          meta:{
-            name:'لیست محصولات'
+          meta: {
+            name: 'لیست محصولات'
           }
         },
         {
           path: 'create',
-          name:'AddProductView',
+          name: 'AddProductView',
           component: AddProductView,
-          meta:{
-            name:'ساخت محصول'
+          meta: {
+            name: 'ساخت محصول'
           }
         },
         {
           path: 'get/image/:objectId',
           name: 'uploadImageProduct',
           component: ProductUploadImageView,
-          meta:{
-            name:'لیست تصاویر'
+          meta: {
+            name: 'لیست تصاویر'
           }
         },
         {
-          path: 'get/skugroups/index',//sku groups
+          path: 'get/skugroups/index', //sku groups
           name: 'skuGroupList',
           component: SkuView,
-          meta:{
-            name:'لیست گروه کالاها'
+          meta: {
+            name: 'لیست گروه کالاها'
           }
         },
         {
           path: 'get/skugroups/update/:skuGroupId',
           name: 'productSkuGroupUpdate',
           component: SkuGroupEditView,
-          meta:{
-            name:'ویرایش گروه کالا'
+          meta: {
+            name: 'ویرایش گروه کالا'
           }
         },
         {
           path: 'get/:productId/skugroups/index',
           name: 'productSkuGroupList',
           component: SkuView,
-          meta:{
-            name:'لیست گروه کاهای محصول'
+          meta: {
+            name: 'لیست گروه کاهای محصول'
           }
         },
 
@@ -425,32 +419,32 @@ const router = createRouter({
           path: 'get/skugroups/image/:objectId',
           name: 'skuGroupUploadImage',
           component: SkuGroupUploadImageView,
-          meta:{
-            name:'تصاویر'
+          meta: {
+            name: 'تصاویر'
           }
         },
         {
-          path: 'get/skus/index',//skus
+          path: 'get/skus/index', //skus
           name: 'skuList',
           component: SkuView,
-          meta:{
-            name:'لیست کالاها'
+          meta: {
+            name: 'لیست کالاها'
           }
         },
         {
           path: 'get/sku/create',
           name: 'createSku',
           component: CreateSku,
-          meta:{
-            name:'ایحاد کالا'
+          meta: {
+            name: 'ایحاد کالا'
           }
         },
         {
           path: 'get/sku/image/:objectId',
           name: 'uploadImageSku',
           component: SkuUploadImageView,
-          meta:{
-            name:'تصاویر'
+          meta: {
+            name: 'تصاویر'
           }
         },
 
@@ -458,253 +452,245 @@ const router = createRouter({
           path: 'get/skugroups/:skuGroupId/sku/index',
           name: 'groupSkuList',
           component: SkuView,
-          meta:{
-            name:'لیست کالاهای گروه'
+          meta: {
+            name: 'لیست کالاهای گروه'
           }
         },
         {
           path: 'get/:productId/sku/index',
           name: 'productSkuList',
           component: SkuView,
-          meta:{
-            name:'لیست کالاهای محصول'
+          meta: {
+            name: 'لیست کالاهای محصول'
           }
         },
         {
           path: 'sku/update/:skuId',
-          name:'SkuEditView',
+          name: 'SkuEditView',
           component: SkuEditView,
-          meta:{
-            name:'ویرایش کالا'
+          meta: {
+            name: 'ویرایش کالا'
           }
         },
         {
           path: 'create/sku/:productId',
           name: 'createProduct',
           component: CreateProductView,
-          meta:{
-            name:'ساخت کالا'
+          meta: {
+            name: 'ساخت کالا'
           }
         },
         {
           path: 'get/:productId/skugroup/:skuGroupId/create/sku',
           name: 'createProductSkuGroup',
           component: CreateProductSkuGroup,
-          meta:{
-            name:'ساخت گروه کالا'
+          meta: {
+            name: 'ساخت گروه کالا'
           }
         },
 
         {
-          path: 'edit/:id',//product
+          path: 'edit/:id', //product
           name: 'EditProductView',
           component: EditProductView,
-          meta:{
-            name:'ویرایش محصول'
+          meta: {
+            name: 'ویرایش محصول'
           }
         },
       ],
     },
     {
-      path: '/ticket',// Notification routes
-      meta:{
-        name:'تیکت ها'
+      path: '/ticket', // Notification routes
+      meta: {
+        name: 'تیکت ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'TicketList',
           component: TicketList,
-          meta:{
-            name:'لیست تیکت ها'
+          meta: {
+            name: 'لیست تیکت ها'
           }
         },
         {
           path: 'create',
           name: 'createTicket',
           component: CreateNewTickets,
-          meta:{
-            name:'ساخت تیکت'
+          meta: {
+            name: 'ساخت تیکت'
           }
-        },{
+        }, {
           path: 'get/:ticketId',
           name: 'getTicket',
           component: GetTicketView,
-          meta:{
-            name:'تیکت'
+          meta: {
+            name: 'تیکت'
           }
         },
       ],
     },
     {
-      path: '/chat',// chat routes
+      path: '/chat', // chat routes
       name: 'chatPage',
       component: ChatView,
-      meta:{
-        name:'پیام رسان'
+      meta: {
+        name: 'پیام رسان'
       }
     },
     {
-      path: '/admin',// admin routes
-      meta:{
-        name:'ادمین'
+      path: '/admin', // admin routes
+      meta: {
+        name: 'ادمین'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'AdminListView',
           component: AdminListView,
-          meta:{
-            name:'لیست ادمین ها'
+          meta: {
+            name: 'لیست ادمین ها'
           }
         },
         {
           path: 'create',
           name: 'createAdmin',
           component: CreateAdminView,
-          meta:{
-            name:'ساخت ادمین'
+          meta: {
+            name: 'ساخت ادمین'
           }
         },
         {
           path: 'edit/:adminId',
           name: 'editAdmin',
           component: EditAdminView,
-          meta:{
-            name:'ویرایش ادمین'
+          meta: {
+            name: 'ویرایش ادمین'
           }
         },
       ],
     },
     {
-      path: '/user',// user routes
-      meta:{
-        name:'کاربران'
+      path: '/user', // user routes
+      meta: {
+        name: 'کاربران'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'UserListView',
           component: UserListView,
-          meta:{
-            name:'لیست کاربران'
+          meta: {
+            name: 'لیست کاربران'
           }
         },
         {
           path: 'create',
           name: 'createUser',
           component: CreateUserView,
-          meta:{
-            name:'ایحاد کاربر'
+          meta: {
+            name: 'ایحاد کاربر'
           }
         },
         {
           path: 'edit/:userId',
           name: 'editUser',
           component: EditUserView,
-          meta:{
-            name:'ویرایش کاربر'
+          meta: {
+            name: 'ویرایش کاربر'
           }
         },
       ],
     },
     {
-      path: '/permission',// permission routes
-      meta:{
-        name:'دسترسی ها'
+      path: '/permission', // permission routes
+      meta: {
+        name: 'دسترسی ها'
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PermissionListView',
-          component: PermissionListView,
-          meta:{
-            name:'لیست دسترسی ها'
-          }
-        },
-      ],
+      children: [{
+        path: 'index',
+        name: 'PermissionListView',
+        component: PermissionListView,
+        meta: {
+          name: 'لیست دسترسی ها'
+        }
+      }, ],
     },
     {
-      path: '/role-permission',// role-permission routes
-      meta:{
-        name:'نقش ها'
+      path: '/role-permission', // role-permission routes
+      meta: {
+        name: 'نقش ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'RolePermissionListView',
           component: RolePermissionListView,
-          meta:{
-            name:'لیست نقش ها'
+          meta: {
+            name: 'لیست نقش ها'
           }
         },
         {
           path: 'create',
           name: 'CreateRolePermissionView',
           component: CreateRolePermissionView,
-          meta:{
-            name:'ساخت نقش'
+          meta: {
+            name: 'ساخت نقش'
           }
         },
         {
           path: 'edit/:roleId',
           name: 'EditRolePermissionView',
           component: EditRolePermissionView,
-          meta:{
-            name:'ویرایش نقش'
+          meta: {
+            name: 'ویرایش نقش'
           }
         },
       ],
     },
     {
-      path: '/warehouse',// Warehouse routes
-      meta:{
-        name:'انبار ها'
+      path: '/warehouse', // Warehouse routes
+      meta: {
+        name: 'انبار ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'WarehouseListView',
           component: WarehouseListView,
-          meta:{
-            name:'لیست انبار ها'
+          meta: {
+            name: 'لیست انبار ها'
           }
         },
         {
           path: 'create',
           name: 'CreateWarehouseView',
           component: CreateWarehouseView,
-          meta:{
-            name:'ساخت انیار'
+          meta: {
+            name: 'ساخت انیار'
           }
         },
         {
           path: 'edit/:warehouseId',
           name: 'EditWarehouseView',
           component: EditWarehouseView,
-          meta:{
-            name:'ویرایش انبار'
+          meta: {
+            name: 'ویرایش انبار'
           }
-        },{
+        }, {
           path: 'special-capacity/:warehouseId',
           name: 'SpecialCapacityView',
           component: SpecialCapacityView,
-          meta:{
-            name:'ظرقیت ویژه'
+          meta: {
+            name: 'ظرقیت ویژه'
           }
         },
         {
-          path: '/driver-management',
-          meta:{
-            name:' انبار'
+          path: '/driver-management', //Driver
+          meta: {
+            name: ' انبار'
           },
-          children: [
-            {
-              path: 'index',  
+          children: [{
+              path: 'index',
               name: 'DriverManagementView',
               component: DriverManagementView,
-              meta:{
-                name:'مدیریت رانندگان'
+              meta: {
+                name: 'مدیریت رانندگان'
               }
             },
             {
@@ -723,107 +709,102 @@ const router = createRouter({
                 name: ' ویرایش اطلاعات راننده '
               }
             },
-        ]
+          ]
         },
-
-
       ],
     },
-    
-    
+
     {
-      path: '/Supplier',// Supplier routes
-      meta:{
-        name:'تامین کننده ها'
+      path: '/Supplier', // Supplier routes
+      meta: {
+        name: 'تامین کننده ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'SupplierListView',
           component: SupplierListView,
-          meta:{
-            name:'لیست تامین کننده ها'
+          meta: {
+            name: 'لیست تامین کننده ها'
           }
         },
         {
           path: 'create',
           name: 'CreateSupplierView',
           component: CreateSupplierView,
-          meta:{
-            name:'ساخت تامین کننده'
+          meta: {
+            name: 'ساخت تامین کننده'
           }
         },
         {
           path: 'edit/:supplierId',
           name: 'EditSupplierView',
           component: EditSupplierView,
-          meta:{
-            name:'ویرایش تامین کننده'
+          meta: {
+            name: 'ویرایش تامین کننده'
           }
         }
 
       ],
     },
     {
-      path: '/seller',// Seller routes
-      meta:{
-        name:'فروشندگان'
+      path: '/seller', // Seller routes
+      meta: {
+        name: 'فروشندگان'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'SellerListView',
           component: SellerListView,
-          meta:{
-            name:'لیست فروشندگان'
+          meta: {
+            name: 'لیست فروشندگان'
           }
         },
         {
           path: 'create',
           name: 'CreateSellerView',
           component: CreateSellerView,
-          meta:{
-            name:'ساخت فروشندگان'
+          meta: {
+            name: 'ساخت فروشندگان'
           }
         },
         {
           path: 'create/natural-seller',
           name: 'CreateNaturalSellerView',
           component: CreateNaturalSellerView,
-          meta:{
-            name:'ساخت فروشنده حقیقی'
+          meta: {
+            name: 'ساخت فروشنده حقیقی'
           }
         },
         {
           path: 'create/legal-seller',
           name: 'CreateLegalSellerView',
           component: CreateLegalSellerView,
-          meta:{
-            name:'ساخت فروشنده حقوقی'
+          meta: {
+            name: 'ساخت فروشنده حقوقی'
           }
         },
         {
           path: 'edit/natural-seller/:sellerId',
           name: 'EditNaturalSellerView',
           component: EditNaturalSellerView,
-          meta:{
-            name:'ویرایش فروشنده حقیقی'
+          meta: {
+            name: 'ویرایش فروشنده حقیقی'
           }
         },
         {
           path: 'edit/legal-seller/:sellerId',
           name: 'EditLegalSellerView',
           component: EditLegalSellerView,
-          meta:{
-            name:'ویرایش فروشنده حقوقی'
+          meta: {
+            name: 'ویرایش فروشنده حقوقی'
           }
         },
         {
           path: ':sellerId/add/sku',
           name: 'AddSkuSellerView',
           component: AddSkuSellerView,
-          meta:{
-            name:'اضافه کردن کالا به فروشنده'
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
           }
         },
 
@@ -831,233 +812,229 @@ const router = createRouter({
           path: 'sku/:sellerId/history/warehouse-inventory',
           name: 'WarehouseInventoryHistoryView',
           component: WarehouseInventoryHistoryView,
-          meta:{
-            name:'اضافه کردن کالا به فروشنده'
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
           }
         },
         {
           path: 'sku/:sellerId/history/site-inventory/:skuId',
           name: 'SiteInventoryHistoryView',
           component: SiteInventoryHistoryView,
-          meta:{
-            name:'اضافه کردن کالا به فروشنده'
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
           }
         },
         {
           path: 'sku/:sellerId/history/price/:skuId',
           name: 'PriceHistoryView',
           component: PriceHistoryView,
-          meta:{
-            name:'اضافه کردن کالا به فروشنده'
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
           }
         },
         {
           path: ':sellerId/cross-dock/index/',
           name: 'CrossDockListView',
           component: CrossDockListView,
-          meta:{
-            name:'فروشندگان'
+          meta: {
+            name: 'فروشندگان'
           }
         },
         {
           path: ':sellerId/cross-dock/add/',
           name: 'AddCrossDockView',
           component: AddCrossDockView,
-          meta:{
-            name:'فروشندگان'
+          meta: {
+            name: 'فروشندگان'
           }
         },
       ],
     },
     {
-      path: '/page',// Pages routes
-      meta:{
-        name:'صفحه ها'
+      path: '/page', // Pages routes
+      meta: {
+        name: 'صفحه ها'
       },
-      children: [
-        {
-          path: 'index',  
+      children: [{
+          path: 'index',
           name: 'PageListing',
           component: PageListView,
-          meta:{
-            name:'لیست صفحهات'
+          meta: {
+            name: 'لیست صفحهات'
           }
         },
         {
           path: ':pageId/update/template',
           name: 'PageUpdateTemplate',
           component: UpdateTemplateView,
-          meta:{
-            name:'ویرایش قالب'
+          meta: {
+            name: 'ویرایش قالب'
           }
         },
         {
           path: ':pageId/update/seo',
           name: 'PageUpdateSeo',
           component: UpdateSeoView,
-          meta:{
-            name:'ویرایش سئو'
+          meta: {
+            name: 'ویرایش سئو'
           }
         },
         {
           path: ':pageId/update/content',
           name: 'PageUpdateContent',
           component: UpdateContentView,
-          meta:{
-            name:'ویرایش محتوا'
+          meta: {
+            name: 'ویرایش محتوا'
           }
         },
         {
           path: ':pageId/update/image',
           name: 'PageUpdateImage',
           component: UpdateImagesView,
-          meta:{
-            name:'ویرایش تصاویر'
+          meta: {
+            name: 'ویرایش تصاویر'
           }
         },
         {
-          path: ':pageId/sliders/index',  
+          path: ':pageId/sliders/index',
           name: 'pageSliders',
           component: PageSliderListView,
-          meta:{
-            name:'لیست اسلایدر ها'
+          meta: {
+            name: 'لیست اسلایدر ها'
           }
         },
         {
-          path: ':pageId/sliders/add',  
+          path: ':pageId/sliders/add',
           name: 'addPageSliders',
           component: AddPageSliderView,
-          meta:{
-            name:'افزودن اسلایدر'
+          meta: {
+            name: 'افزودن اسلایدر'
           }
         },
         {
-          path: ':pageId/sliders/:sliderId/skus',  
+          path: ':pageId/sliders/:sliderId/skus',
           name: 'SliderSkuList',
           component: SliderSkuList,
-          meta:{
-            name:'لیست کالاها'
+          meta: {
+            name: 'لیست کالاها'
           }
         },
       ],
     },
     {
-          path: '/menu',// Pages routes
-          meta:{
-              name:'منو ها'
-          },
-          children: [
-              {
-                  path: 'index',
-                  name: 'MenuList',
-                  component: MenuListView,
-                  meta:{
-                      name:' لیست منو ها'
-                  }
-              },
-              {
-                  path: 'create',
-                  name: 'CreateMenu',
-                  component: AddMenuView,
-                  meta:{
-                      name:'ساخت منو'
-                  }
-              },
-              {
-                  path: 'update/:menuId',
-                  name: 'UpdateMenu',
-                  component: EditMenuView,
-                  meta:{
-                      name:'ویرایش منو'
-                  }
-              },
-              {
-                  path: ':menuId/add/image',
-                  name: 'AddImage',
-                  component: AddImageMenuView,
-                  meta:{
-                      name:'منو ها'
-                  }
-              },
-
-          ],
+      path: '/menu', // Pages routes
+      meta: {
+        name: 'منو ها'
       },
-    {
-      path: '/promotion-page',// Pages routes
-      meta:{
-        name:'مارکتینگ'
-      },
-      children: [
+      children: [{
+          path: 'index',
+          name: 'MenuList',
+          component: MenuListView,
+          meta: {
+            name: ' لیست منو ها'
+          }
+        },
         {
+          path: 'create',
+          name: 'CreateMenu',
+          component: AddMenuView,
+          meta: {
+            name: 'ساخت منو'
+          }
+        },
+        {
+          path: 'update/:menuId',
+          name: 'UpdateMenu',
+          component: EditMenuView,
+          meta: {
+            name: 'ویرایش منو'
+          }
+        },
+        {
+          path: ':menuId/add/image',
+          name: 'AddImage',
+          component: AddImageMenuView,
+          meta: {
+            name: 'منو ها'
+          }
+        },
+
+      ],
+    },
+    {
+      path: '/promotion-page', // Pages routes
+      meta: {
+        name: 'مارکتینگ'
+      },
+      children: [{
           path: 'index',
           name: 'PromotionPages',
           component: PromotionPagesListView,
-          meta:{
-            name:'صفحات پروموشن '
+          meta: {
+            name: 'صفحات پروموشن '
           }
         },
         {
           path: 'create',
           name: 'CreatePromotionPageView',
           component: CreatePromotionPageView,
-          meta:{
-            name:'ساخت پروموشن'
+          meta: {
+            name: 'ساخت پروموشن'
           }
         },
         {
           path: 'update/:promotionId',
           name: 'EditPromotionPage',
           component: EditPromotionPageView,
-          meta:{
-            name:'ویرایش پروموشن'
+          meta: {
+            name: 'ویرایش پروموشن'
           }
         },
         {
           path: ':promotionId/sku-group/add',
           name: 'PromotionPageAddSkuGroup',
           component: AddSkuGroupView,
-          meta:{
-            name:'افزودن محصول'
+          meta: {
+            name: 'افزودن محصول'
           }
         },
       ],
     },
     {
-      path: '/home-page',// Pages routes
-      meta:{
-        name:'تنظیمات'
+      path: '/home-page', // Pages routes
+      meta: {
+        name: 'تنظیمات'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'HomePageSections',
           component: HomePageSectionListView,
-          meta:{
-            name:'صفحه اصلی'
+          meta: {
+            name: 'صفحه اصلی'
           }
         },
         {
           path: ':sectionId/add/banner',
           name: 'HomePageBannerSection',
           component: HomePageBannerListView,
-          meta:{
-            name:'مدیریت بنر ها'
+          meta: {
+            name: 'مدیریت بنر ها'
           }
         },
         {
           path: ':sectionId/banner/ads',
           name: 'HomePageAdsBannerSection',
           component: HomePageAdsBannerView,
-          meta:{
-            name:'مدیریت بنر ها'
+          meta: {
+            name: 'مدیریت بنر ها'
           }
         },
         {
           path: ':sectionId/special-sales/index',
           name: 'HomePageSpecialSaleList',
           component: HomePageSpecialSaleListView,
-          meta:{
-            name:'مدیریت تخفیف ویژه'
+          meta: {
+            name: 'مدیریت تخفیف ویژه'
           }
         },
 
@@ -1065,16 +1042,16 @@ const router = createRouter({
           path: ':sectionId/special-sales/add',
           name: 'HomePageSpecialSaleAdd',
           component: HomePageSpecialAddView,
-          meta:{
-            name:'اضافه کردن تخفیف ویژه'
+          meta: {
+            name: 'اضافه کردن تخفیف ویژه'
           }
         },
         {
           path: ':sectionId/special-sales/:specialId/edit/',
           name: 'HomePageSpecialSaleEdit',
           component: HomePageSpecialEditView,
-          meta:{
-            name:'اضافه کردن تخفیف ویژه'
+          meta: {
+            name: 'اضافه کردن تخفیف ویژه'
           }
         },
 
@@ -1082,32 +1059,32 @@ const router = createRouter({
           path: ':sectionId/special-sales/:specialId/add/shps',
           name: 'HomePageSpecialSaleShpsAdd',
           component: HomePageSpecilaShpsAddView,
-          meta:{
-            name:'اضافه کردن محصول'
+          meta: {
+            name: 'اضافه کردن محصول'
           }
         },
         {
           path: ':sectionId/category/index',
           name: 'HomePageCategoryList',
           component: HomePageCategoryListView,
-          meta:{
-            name:'لیست دسته بندی'
+          meta: {
+            name: 'لیست دسته بندی'
           }
         },
         {
           path: ':sectionId/partition-slider/index',
           name: 'HomePagePartitionSlider',
           component: HomePagePartitionSliderView,
-          meta:{
-            name:'لیست دسته بندی'
+          meta: {
+            name: 'لیست دسته بندی'
           }
         },
         {
           path: ':sectionId/partition-slider/:partitionId/add/sku',
           name: 'HomePagePartitionSliderAddSku',
           component: HomePagePartitionSliderAddSkuView,
-          meta:{
-            name:'اضافه کردن محصول'
+          meta: {
+            name: 'اضافه کردن محصول'
           }
         },
 
@@ -1115,16 +1092,16 @@ const router = createRouter({
           path: ':sectionId/section-sku/index',
           name: 'HomePageSectionListForSku',
           component: HomePageSkuWithSectionView,
-          meta:{
-            name:'اضافه کردن محصول'
+          meta: {
+            name: 'اضافه کردن محصول'
           }
         },
         {
           path: ':sectionId/section-sku/:categoryId/add/sku',
           name: 'HomePageAddSkuToSection',
           component: HomePageAddSkuToSectionView,
-          meta:{
-            name:'اضافه کردن محصول'
+          meta: {
+            name: 'اضافه کردن محصول'
           }
         },
 
@@ -1133,52 +1110,50 @@ const router = createRouter({
           path: ':sectionId/brand/index',
           name: 'HomePageBrandList',
           component: HomePageBrandSectionView,
-          meta:{
-            name:'لیست یرند ها'
+          meta: {
+            name: 'لیست یرند ها'
           }
         },
         {
           path: ':sectionId/add/sku',
           name: 'HomePageAddSkuSection',
           component: HomePageAddSkuSectionView,
-          meta:{
-            name:'لیست یرند ها'
+          meta: {
+            name: 'لیست یرند ها'
           }
         },
         {
           path: ':sectionId/gift/add',
           name: 'HomePageGiftAddSkuSection',
           component: HomePageGiftSectionView,
-          meta:{
-            name:'لیست یرند ها'
+          meta: {
+            name: 'لیست یرند ها'
           }
         },
         {
           path: ':sectionId/blog/index',
           name: 'HomePageBlogList',
           component: HomePageBlogSectionView,
-          meta:{
-            name:'لیست یرند ها'
+          meta: {
+            name: 'لیست یرند ها'
           }
         },
       ],
     },
 
     {
-      path: '/shipment-requests',// shipment request routes
-      meta:{
-        name:' بازرگانی'
+      path: '/shipment-requests', // shipment request routes
+      meta: {
+        name: ' بازرگانی'
       },
-      children: [
-        {
-          path: 'index',  
-          name: 'ShipmentRequests',
-          component: ShipmentRequestsView,
-          meta:{
-            name:'محموله های درخواستی '
-          }
-        },
-    ]
+      children: [{
+        path: 'index',
+        name: 'ShipmentRequests',
+        component: ShipmentRequestsView,
+        meta: {
+          name: 'محموله های درخواستی '
+        }
+      }, ]
     },
     {
       path: '/factor', // Factor routes
@@ -1214,32 +1189,31 @@ const router = createRouter({
 
     {
       path: '/retail-shipment',
-      meta:{
-        name:'بازرگانی'
+      meta: {
+        name: 'بازرگانی'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'RetailShipmentListView',
           component: RetailShipmentListView,
-          meta:{
-            name:'محموله های بازرگانی'
+          meta: {
+            name: 'محموله های بازرگانی'
           }
         },
         {
           path: ':factorId/add/shps',
           name: 'AddShpsToRetailShipmentView',
           component: AddShpsToRetailShipmentView,
-          meta:{
-            name:'محموله های بازرگانی'
+          meta: {
+            name: 'محموله های بازرگانی'
           }
         },
         {
           path: ':retailId/edit/shps',
           name: 'EditShpsToRetailShipmentView',
           component: EditShpsToRetailShipmentView,
-          meta:{
-            name:'محموله های بازرگانی'
+          meta: {
+            name: 'محموله های بازرگانی'
           }
         },
       ],
@@ -1251,22 +1225,20 @@ const router = createRouter({
         name: 'خودرو'
       },
       children: [{
-          path: 'index',
-          name: 'VehicleList',
-          component: VehicleListView,
-          meta: {
-            name: 'مدیریت خودروها'
-          }
+        path: 'index',
+        name: 'VehicleList',
+        component: VehicleListView,
+        meta: {
+          name: 'مدیریت خودروها'
         }
-      ],
+      }],
     },
     {
-      path: '/processing-shipment', // Vehicle routes
+      path: '/processing-shipment', // processing shipment routes
       meta: {
         name: 'انبار'
       },
-      children: [
-          {
+      children: [{
           path: 'index',
           name: 'ProcessingShipmentIndexView',
           component: ProcessingShipmentIndexView,
@@ -1283,6 +1255,36 @@ const router = createRouter({
           }
         }
       ],
+    },
+
+    {
+      path: '/package', // package routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'PackageList',
+        component: PackageListView,
+        meta: {
+          name: 'مدیریت بسته‌ها'
+        }
+      }],
+    },
+
+    {
+      path: '/active-package', // Active package routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'ActivePackageList',
+        component: ActivePackageListView,
+        meta: {
+          name: 'بسته های فعال'
+        }
+      }],
     },
   ]
 })
