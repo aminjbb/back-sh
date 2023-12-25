@@ -7,7 +7,7 @@
         color="primary500"
         indeterminate
         reverse
-        v-if="loading" />
+        v-if="loading"/>
 
     <header class="c-table__header d-flex justify-start">
       <template v-for="(head, index) in header">
@@ -19,7 +19,7 @@
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
-            {{head.name}}
+            {{ head.name }}
           </div>
         </template>
         <template v-else>
@@ -28,7 +28,7 @@
               class="text-right pointer c-table__header__item t12500"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            {{head.name}}
+            {{ head.name }}
           </div>
         </template>
       </template>
@@ -46,10 +46,10 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{rowIndexTable(index)}}
+                            {{ rowIndexTable(index) }}
                         </span>
               <template v-if="checkbox">
-                <v-checkbox class="mr-1" v-model=item.value />
+                <v-checkbox class="mr-1" v-model="item.value"/>
               </template>
             </div>
           </div>
@@ -57,68 +57,62 @@
           <div
               v-if=" header[1].show"
               class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                       {{ item.sku_label }}
                     </span>
           </div>
+
 
           <div
               v-if=" header[2].show"
               class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sku?.label }}
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <span class="t14300 text-gray500 py-5 number-font">
+                       {{ item.shps_count }}
                     </span>
           </div>
-
           <div
               v-if=" header[3].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field v-model="form[index].count" variant="outlined"/>
+              <span class="t14300 text-gray500 py-5 number-font">
+                {{ item.min_tolerance }}
+              </span>
+
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field v-model="form[index].minTolerance" variant="outlined"/>
+              <span class="t14300 text-gray500 py-5 number-font">
+                {{ item.max_tolerance }}
+              </span>
           </div>
+
           <div
-              v-if=" header[5].show"
+              v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field v-model="form[index].maxTolerance" variant="outlined"/>
+              <span class="t14300 text-gray500 py-5 number-font">
+             <v-text-field type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
+              </span>
           </div>
           <div
-              v-if=" model === 'editShpsRetail'"
+              v-if=" header[4].show && form[index]"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
             <div
-                @click="updateRetailShipment(index)"
+                v-else
+                @click="updateShps(index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
               <v-icon size="15">mdi-plus</v-icon>
             </div>
-          </div>
-
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-              <v-list-item-title>
-                <div class="ma-5 pointer" @click="deleteFunction(item.id)">
-                  <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                  <span class="mr-2 text-grey-darken-1 t14300">
-                                            حذف
-                  </span>
-                </div>
-              </v-list-item-title>
-
-            </v-menu>
           </div>
         </div>
       </div>
@@ -155,14 +149,15 @@ import {
 import {
   openToast
 } from "@/assets/js/functions";
+
 export default {
 
 
   props: {
-    deleteFunction:{
+    deleteFunction: {
       type: Function,
     },
-    updateSkuUrl:{
+    updateSkuUrl: {
       type: String,
       default: '',
     },
@@ -288,8 +283,7 @@ export default {
     return {
       order_type: "desc",
       activeColumn: false,
-      form:[
-      ]
+      form: []
     }
   },
 
@@ -326,9 +320,7 @@ export default {
     },
   },
 
-  watch: {
-
-  },
+  watch: {},
 
   methods: {
     /**
@@ -412,17 +404,17 @@ export default {
      * @param {*} index
      * @param {*} item
      */
-    async updateRetailShipment( index) {
+    async updateShps(index) {
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/${this.$route.params.retailId}/attach/shps`
-      formData.append('shps', this.form[index].shps)
-      formData.append('count', this.form[index].count)
-      formData.append('min_tolerance', this.form[index].minTolerance)
-      formData.append('max_tolerance', this.form[index].maxTolerance)
+      AxiosMethod.end_point = `shipment/shps/pack`
+      formData.append('shipment_id', this.$route.params.shipmentId)
+      formData.append('shps', this.items[index].id)
+      formData.append('package_id', localStorage.getItem(''))
+      formData.append('packed_count', this.form[index].count)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
@@ -474,9 +466,20 @@ export default {
     },
 
     updateList(status) {
-      console.log('2.skuTable',status)
+      console.log('2.skuTable', status)
       this.$emit('updateList', status);
     },
   },
+
+  mounted() {
+    this.items.forEach(element => {
+      console.log(element)
+      const form = {
+        loading: false,
+        count: element.packed_count
+      }
+      this.form.push(form)
+    })
+  }
 }
 </script>

@@ -7,7 +7,7 @@ import ProcessingShipmentIndex from '@/components/ProcessingShipment/ProcessingS
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="h-100vh">
       <Header/>
       <ProcessingShipmentIndex/>
     </v-main>
