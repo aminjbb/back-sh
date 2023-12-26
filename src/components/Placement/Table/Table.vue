@@ -19,10 +19,14 @@
                 {{head.name}}
             </div>
         </template>
+
+        <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            عملیات
+        </div>
     </header>
 
     <div class="stretch-table">
-        <div v-if="items && items.length > 0 /* && !loading */" class="c-table__contents">
+        <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div
                 v-for="(item , index) in items"
                 :key="index"
@@ -38,19 +42,11 @@
                 </div>
 
                 <div
-                    v-if="header[1].show"
+                    v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.id" class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
-                    </span>
-
-                    <span v-else-if="item.updated_at_fa" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.updated_at_fa }}
-                    </span>
-
-                    <span v-else class="t14300 text-gray500 py-5 number-font">
-                        -
                     </span>
                 </div>
 
@@ -58,9 +54,9 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        <template v-if="item.type">
-                            {{ item.type }}
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.row_number">
+                            {{ item.row_number }}
                         </template>
                         <template v-else>
                             -
@@ -73,8 +69,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_count">
-                            {{item.shps_count}}
+                        <template v-if="item.shelf_number">
+                            {{item.shelf_number}}
                         </template>
                         <template v-else>
                             -
@@ -86,14 +82,74 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13500 text-black py-5 expanded-background" style="background-color: #F5F5F5;">
-                        <template v-if="item.status">
-                            {{ renameStatus(item.status) }}
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.floor_number">
+                            {{ item.floor_number }}
                         </template>
                         <template v-else>
                             -
                         </template>
                     </span>
+                </div>
+
+                <div
+                    v-if="header[5].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.shelf_number">
+                            {{ item.shelf_number }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div
+                    v-if="header[6].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.created_at_fa">
+                            {{ item.created_at_fa }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+                    <v-menu :location="location">
+                        <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" class="text-gray500">
+                                mdi-dots-vertical
+                            </v-icon>
+                        </template>
+
+                        <v-list class="c-table__more-options">
+                            <v-list-item-title>
+                                <div class="ma-5 pointer"  @click="$router.push(`/placement/${item.id}/shpss`)">
+                                    <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                        مدیریت کالاها
+                                    </span>
+                                </div>
+                            </v-list-item-title>
+                        </v-list>
+
+                        <v-list class="c-table__more-options">
+                            <v-list-item-title>
+                                <div class="ma-5 pointer" @click="print(item.id)">
+                                    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                        پرینت برچسب
+                                    </span>
+                                </div>
+                            </v-list-item-title>
+                        </v-list>
+                    </v-menu>
                 </div>
             </div>
         </div>
@@ -115,11 +171,8 @@ import {
 } from "@/assets/js/filter"
 
 import {
-    openConfirm,
     isOdd
 } from "@/assets/js/functions";
-import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
-
 export default {
 
     props: {
@@ -199,10 +252,6 @@ export default {
         }
     },
 
-    components:{
-        ModalPrint
-    },
-
     computed: {
         /**
          * Get each items table based of header length
@@ -215,7 +264,7 @@ export default {
                         headerLength++;
                     }
                 });
-                const width = 100 / (headerLength);
+                const width = 100 / (headerLength + 1);
                 return `${width}%`;
             }
             return 'auto';
@@ -237,25 +286,6 @@ export default {
                 rowIndex = ((this.page - 1) * this.perPage) + index + 1
                 return rowIndex
             }
-        },
-
-        /**
-         * Get row index in table
-         * @param {*} index
-         */
-        renameStatus(status) {
-            if (status === 'loading') {
-                return 'لودینگ'
-            } else if (status === 'luggage') {
-                return 'در حال بارگیری'
-            } else if (status === 'sent_to_warehouse') {
-                return 'انتقال به انبار اصلی'
-            } else if (status === 'received_by_warehouse') {
-                return 'رسیده به انبار اصلی'
-            } else {
-                return 'خالی';
-            }
-
         },
 
         /**

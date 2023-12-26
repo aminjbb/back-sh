@@ -34,12 +34,16 @@
 <script>
 import Table from '@/components/Package/Table/HistoryTable.vue'
 import Package from "@/composables/Package";
-import { AxiosCall } from '@/assets/js/axios_call.js'
+import {
+    AxiosCall
+} from '@/assets/js/axios_call.js'
 
 export default {
     data() {
         return {
-            items: [],
+            package: null,
+            packageHistory: [],
+            
             mocketData: [{
                     "id": 5,
                     "barcode": "4-5-1703495242",
@@ -79,6 +83,11 @@ export default {
             ],
         }
     },
+
+    components: {
+        Table,
+    },
+    
     setup(props) {
         const {
             historyHeader,
@@ -86,10 +95,6 @@ export default {
         return {
             historyHeader
         };
-    },
-
-    components: {
-        Table,
     },
 
     computed: {
@@ -104,20 +109,34 @@ export default {
         },
 
         /**
-         * Get brans
+         * Get package
          */
-         async getPackageHistory() {
+        async getPackage() {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.end_point = 'package/crud/get/' + this.$route.params.packageId
             AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
             if (data) {
-                this.items = data.data
+                this.package = data.data
+            }
+        },
+
+        /**
+         * Get package history
+         */
+        async getPackageHistory() {
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = 'package/crud/history/' + this.$route.params.packageId
+            AxiosMethod.toast_error = true
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.packageHistory = data.data
             }
         }
     },
 
     mounted() {
+        this.getPackage();
         this.getPackageHistory();
     },
 }

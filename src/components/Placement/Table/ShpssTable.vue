@@ -58,9 +58,9 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        <template v-if="item.type">
-                            {{ item.type }}
+                    <span class="t13300 text-gray500 py-5">
+                        <template v-if="item.shpss_label">
+                            {{ item.shpss_label }}
                         </template>
                         <template v-else>
                             -
@@ -73,22 +73,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_count">
-                            {{item.shps_count}}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-                </div>
-
-                <div
-                    v-if="header[4].show"
-                    class="c-table__contents__item justify-center"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13500 text-black py-5 expanded-background" style="background-color: #F5F5F5;">
-                        <template v-if="item.status">
-                            {{ renameStatus(item.status) }}
+                        <template v-if="item.shpss_count">
+                            {{item.shpss_count}}
                         </template>
                         <template v-else>
                             -
@@ -185,7 +171,6 @@ export default {
             type: String,
             default: ''
         },
-
     },
 
     data() {
@@ -237,25 +222,6 @@ export default {
                 rowIndex = ((this.page - 1) * this.perPage) + index + 1
                 return rowIndex
             }
-        },
-
-        /**
-         * Get row index in table
-         * @param {*} index
-         */
-        renameStatus(status) {
-            if (status === 'loading') {
-                return 'لودینگ'
-            } else if (status === 'luggage') {
-                return 'در حال بارگیری'
-            } else if (status === 'sent_to_warehouse') {
-                return 'انتقال به انبار اصلی'
-            } else if (status === 'received_by_warehouse') {
-                return 'رسیده به انبار اصلی'
-            } else {
-                return 'خالی';
-            }
-
         },
 
         /**
