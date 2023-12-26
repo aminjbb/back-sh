@@ -81,6 +81,21 @@ export default function setup(posts) {
             loading.value = false
         }
     };
+    async function getProductAttributes (id) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `product/attribute/crud/product-index/${id}?per_page=100000`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            attributes.value = data.data
+        }
+        else {
+            loading.value = false
+        }
+    };
 
     function addPerPage(number){
 
@@ -114,6 +129,6 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength, attributes,addPerPage, getAttributes ,getAllAttributes, dataTableLength , page  , header , item , filterField , loading}
+    return {pageLength, attributes,addPerPage, getAttributes ,getAllAttributes, getProductAttributes , dataTableLength , page  , header , item , filterField , loading}
 }
 

@@ -446,6 +446,7 @@
 import {ref} from 'vue'
 import Product from '@/composables/Product'
 import Sku from '@/composables/Sku'
+import Attributes from '@/composables/Attributes'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 export default {
   components:{
@@ -453,10 +454,12 @@ export default {
   },
   setup() {
     const {product, loading, searchProduct ,oneProduct, getOneProduct} = Product()
+    const {getProductAttributes, attributes} = Attributes()
     const {skuGroups, skuGroupLoading, getSkuGroups, getSkuGroupDetail, skuGroupDetail , skuGroup, getSkuGroup} = Sku()
     return {
       product, loading, searchProduct,oneProduct, getOneProduct,
-      skuGroups, skuGroupLoading, getSkuGroups, getSkuGroupDetail, skuGroupDetail,skuGroup, getSkuGroup
+      skuGroups, skuGroupLoading, getSkuGroups, getSkuGroupDetail, skuGroupDetail,skuGroup, getSkuGroup,
+      getProductAttributes, attributes
     }
   },
 
@@ -543,6 +546,33 @@ export default {
   }),
 
   computed: {
+    /**
+     * create attribute list for select
+     */
+    attributeList() {
+      try {
+        const attributes = []
+        this.attributes.data.forEach(element => {
+          const values = []
+          element.values.forEach(value => {
+            const form = {
+              title: value.value,
+              id: value.id
+            }
+            values.push(form)
+          });
+          const form = {
+            title: element.label,
+            id: element.id,
+            values: values
+          }
+          attributes.push(form)
+        });
+        return attributes
+      } catch (error) {
+        return []
+      }
+    },
     productDisabled(){
       try {
         if (this.state === 'createProduct' || this.state === 'createProductSkuGroup') return true
@@ -698,6 +728,7 @@ export default {
       }
     },
     searchSkuGroups(){
+      this.getProductAttributes(this.productSelected.value)
       this.skuGroupSelected = {
         title :'هیچ کدام',
         value : 'none'
@@ -1017,8 +1048,6 @@ export default {
     // array of color
     colorList: [],
 
-    // array of attribute
-    attributeList: [],
 
     // array of operator
     operatorList: [],
