@@ -40,7 +40,7 @@
             activePath="category/crud/update/activation/"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="[]"
+            :items="searchResults"
             updateUrl="category/csv/mass-update"
             :page="page"
             :perPage="dataTableLength"
@@ -89,22 +89,12 @@
       return{
         cargo:null ,
         rule:[v=> !!v || 'این فیلد الزامی است'],
-       basketShpsMocket: [{
-                    "id": 12123456,
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "shpss_count": 8
-                },
-                {
-                    "id": 12123456,
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "shpss_count": 10
-                },
-                {
-                    "id": 12123456,
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "shpss_count": 12
-                }
-            ],
+        mockDatabase: [
+      { id: '001', name: 'Item 1', description: 'Description 1' },
+      { id: '002', name: 'Item 2', description: 'Description 2' },
+    
+    ],
+
       }
     },
   
@@ -119,11 +109,20 @@
   
     computed: {
       confirmModal() {
-        return this.$store.getters['get_confirmForm'].confirmModal
+        return this.$store.getters['get_confirmForm'].confirmModal;
+     
+
+
       }
     },
   
     watch: {
+        cargo(newVal) {
+    console.log("Cargo changed: ", newVal);
+    this.searchCargo();
+  }
+,
+
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
           if (!val) {
@@ -141,6 +140,19 @@
     },
   
     methods: {
+
+        
+        searchCargo() {
+    console.log("Searching for: ", this.cargo);
+    this.searchResults = this.mockDatabase.filter(item => item.id === this.cargo);
+    console.log("Search results: ", this.searchResults);
+  }
+
+,
+
+
+
+
       /**
        * Change Header Status
        * @param {*} index

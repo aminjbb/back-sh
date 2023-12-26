@@ -46,7 +46,7 @@
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.id }}
+                          {{ item.name }}
                       </span>
             </div>
             <div
@@ -81,33 +81,7 @@
                           {{ item.creator?.first_name }} {{ item.creator?.last_name }}
                       </span>
             </div>
-            <div
-                v-if=" header[6].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.created_at_fa }}
-                      </span>
-            </div>
-            <div
-                v-if=" header[7].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.updated_at_fa }}
-                      </span>
-            </div>
-            <div
-                v-if=" header[8].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <div class="retail-status-box d-flex align-center pr-2">
-                   <span class="t14300 text-gray500 py-5 ">
-                     {{ getStatus(item.status)  }}
-                   </span>
-              </div>
-  
-            </div>
+            
   
   
             <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
@@ -282,47 +256,7 @@
   
     data() {
       return {
-        statusItems: [
-          {
-            label: 'در انتظار',
-            value: 'waiting',
-          },
-          {
-            label: 'در حال بررسی',
-            value: 'in_review',
-          },
-          {
-            label: 'رد شده',
-            value: 'rejected',
-          },{
-            label: 'تایید شده',
-            value: 'approved',
-          },{
-            label: 'در حال ارسال به انبار',
-            value: 'sending_warehouse',
-          },{
-            label: 'رسیده به انبار',
-            value: 'received_by_warehouse',
-          },{
-            label: 'در حال شمارش',
-            value: 'counting',
-          },{
-            label: 'تایید شده انبار',
-            value: 'approved_by_warehouse',
-          },{
-            label: 'به سمت انبار اصلی',
-            value: 'sending_base_warehouse',
-          },{
-            label: 'رسیده به انبار اصلی',
-            value: 'received_base_warehouse',
-          },{
-            label: 'در حال جایگذاری',
-            value: 'locating',
-          },{
-            label: 'موجود شده در انبار',
-            value: 'located',
-          },
-        ],
+       
         order_type: "desc",
         ordering: {},
         per_page: '25',
@@ -394,10 +328,7 @@
         if (index > -1) return true
         return false
       },
-      getStatus(status){
-        const persianStatus = this.statusItems.find(element => element.value === status )
-        return persianStatus.label
-      },
+     
       convertDateToJalai,
       changeValue(index, value) {
         this.active[index] = value
