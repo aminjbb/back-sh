@@ -251,14 +251,14 @@ export default {
 
         this.product.attributes.forEach((attribute, index) => {
           this.getAttributeValues(attribute.attribute_id, index,'edit')
-          this.form.selectedAttributes.push([])
+          // this.form.selectedAttributes.push([])
           this.form.selectedAttributes[index] = {
             attribute_id: attribute.attribute_id,
             attribute_value_ids: []
           }
           this.product.attribute_values.forEach((attributeValue, index2) => {
             if (this.form.selectedAttributes[index].attribute_id === attributeValue.attribute_id) {
-              this.form.selectedAttributes[index].attribute_value_ids.push([])
+              // this.form.selectedAttributes[index].attribute_value_ids.push([])
               this.form.selectedAttributes[index].attribute_value_ids[index2] = attributeValue.attribute_value_id
             }
           })

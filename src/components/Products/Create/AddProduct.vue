@@ -86,7 +86,6 @@ export default {
 
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'product/crud/create/'
-      console.log(this.$refs.ProductForm.form.selectedAttributes,'final')
       AxiosMethod.form = formdata
       for (var i = 0; i < this.$refs.ProductForm.form.selectedAttributes.length; i++) {
         formdata.append('attributes['+i+'][attribute_id]',this.$refs.ProductForm.form.selectedAttributes[i].attribute_id );
