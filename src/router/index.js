@@ -176,6 +176,11 @@ import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
+/**Package Placement */
+import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
+import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
+import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
+
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
 
@@ -1380,7 +1385,49 @@ const router = createRouter({
     },
 
     {
-      path: '/warehouse-inventory', // Warehouse routes
+      path: '/package-placement', // Package placement routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'PackagePlacementListView',
+          component: PackagePlacementListView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+      ],
+    },
+
+    {
+      path: '/locating', // Locating routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'PackagePlacementScanView',
+          component: PackagePlacementScanView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+        {
+          path: 'shps-list',
+          name: 'ShpsLocationView',
+          component: ShpsLocationView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+      ],
+    },
+
+    {
+      path: '/warehouse-inventory', // Warehouse inventory routes
       meta: {
         name: 'انبار'
       },
