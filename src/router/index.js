@@ -176,6 +176,9 @@ import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
+/* Warehouse inventory */
+import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1373,6 +1376,23 @@ const router = createRouter({
             name: 'مدیریت جایگذاری'
           }
         }
+      ],
+    },
+
+    {
+      path: '/warehouse-inventory', // Warehouse routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'WarehouseInventoryListView',
+          component: WarehouseInventoryListView,
+          meta: {
+            name: 'موجودی انبار'
+          }
+        },
       ],
     },
   ]
