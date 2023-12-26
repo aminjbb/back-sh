@@ -684,16 +684,17 @@ const router = createRouter({
           }
         },
         {
-          path: '/driver-management', //Driver
-          meta: {
-            name: ' انبار'
+          path: '/driver-management',
+          meta:{
+            name:' انبار'
           },
-          children: [{
-              path: 'index',
+          children: [
+            {
+              path: 'index',  
               name: 'DriverManagementView',
               component: DriverManagementView,
-              meta: {
-                name: 'مدیریت رانندگان'
+              meta:{
+                name:'مدیریت رانندگان'
               }
             },
             {
@@ -712,8 +713,10 @@ const router = createRouter({
                 name: ' ویرایش اطلاعات راننده '
               }
             },
-          ]
+        ]
         },
+
+
       ],
     },
 

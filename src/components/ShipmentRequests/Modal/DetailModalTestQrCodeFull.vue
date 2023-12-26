@@ -22,23 +22,23 @@
             
              <v-cart class="content">
       <div class="qr-code-container px-10 ma-5">
-              <div v-for="(consignment, index) in dataObject" :key="index" class="qr-code-item mx-10 ">
+              <div v-if="retailObject"  class="qr-code-item mx-10 ">
                   <span class="d-flex justify-between">
-                      <p>{{ consignment.id }}</p>
-                      <p>{{ consignment.seller }}</p>
+                      <p>22222</p>
+                      <p>{{ item.shps.shopping_name }}</p>
                   </span>
                   <span>
-                      <img :src="consignment.imageUrl" alt="Data Image" />
+                      <img :src="item.barcode_image" alt="Data Image" />
                   </span>
                   
                   <span >
-                      <p>{{ consignment.label }}</p>
+                      <p>{{ item.barcode }}</p>
                   </span>
                   <span>
-                      <img :src="consignment.secondImageUrl" alt="Data Image" />
+                      <img :src="item.secondImageUrl" alt="Data Image" />
                   </span>
                   <span >
-                      <p>{{ consignment.text }}</p>
+                      <p>{{ item.text }}</p>
                   </span>
               </div>
             </div>
@@ -96,55 +96,55 @@
     data(){
       return{
 
-        dataObject: [{  
-          id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-      {  
-          id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-                {  
-           id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-      {   
-          id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-                {   
-          id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-                {   
-          id: "123112",
-          seller: "پخش رخسار",
-          label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-          text: '۶۷۶۷۶۷۶۷۶۷',
-          imageUrl: "../src/assets/img/qrcode.png",
-          secondImageUrl: "../src/assets/img/qrcode2.png"
-                },
-    ]
+    //     dataObject: [{  
+    //       id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    //   {  
+    //       id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    //             {  
+    //        id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    //   {   
+    //       id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    //             {   
+    //       id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    //             {   
+    //       id: "123112",
+    //       seller: "پخش رخسار",
+    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+    //       text: '۶۷۶۷۶۷۶۷۶۷',
+    //       imageUrl: "../src/assets/img/qrcode.png",
+    //       secondImageUrl: "../src/assets/img/qrcode2.png"
+    //             },
+    // ]
       }
     },
   
