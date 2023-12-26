@@ -180,6 +180,7 @@ import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
+import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/ShpsListLocatingToShelfView.vue";
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
@@ -1419,6 +1420,14 @@ const router = createRouter({
           path: 'shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+        {
+          path: 'shps-list/locating-shelf',
+          name: 'ShpsListLocatingToShelfView',
+          component: ShpsListLocatingToShelfView,
           meta: {
             name: 'جایگذاری بسته'
           }

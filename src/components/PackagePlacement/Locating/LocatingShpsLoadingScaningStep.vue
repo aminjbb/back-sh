@@ -10,6 +10,11 @@
         <span class="text-black t20400">
       برای ادامه فرآیند بارکد را اسکن کنید.
         </span>
+
+
+      </div>
+      <div class="v--hidden">
+        <v-text-field :autofocus="true" v-model="qrCode"></v-text-field>
       </div>
     </div>
   </v-card>
@@ -18,8 +23,19 @@
 export default {
   data(){
     return{
+      qrCode:''
+    }
+  },
 
+  watch:{
+    qrCode(val){
+      alert(val)
     }
   }
 }
 </script>
+<style>
+.v--hidden{
+  visibility: hidden;
+}
+</style>
