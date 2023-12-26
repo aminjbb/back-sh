@@ -9,7 +9,7 @@
           :volumeList="volumeList"
           :brandList="brandList"
           :colorList="colorList"
-          :attributeList="attributeList"
+
           :operatorList="operatorList"
           ref="skuForm1"
           :state="createSkuState"
@@ -618,33 +618,7 @@ export default {
       }
     },
 
-    /**
-     * create attribute list for select
-     */
-    attributeList() {
-      try {
-        const attributes = []
-        this.attributes.data.forEach(element => {
-          const values = []
-          element.values.forEach(value => {
-            const form = {
-              title: value.value,
-              id: value.id
-            }
-            values.push(form)
-          });
-          const form = {
-            title: element.label,
-            id: element.id,
-            values: values
-          }
-          attributes.push(form)
-        });
-        return attributes
-      } catch (error) {
-        return []
-      }
-    },
+
 
     /**
      * create operator list for select
