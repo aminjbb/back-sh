@@ -169,6 +169,8 @@ import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
 import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
+import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
+import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 
 
 const router = createRouter({
@@ -1356,15 +1358,28 @@ const router = createRouter({
       children: [
         {
           path: 'index',
-          name: 'CargoReceivingListView',
-          component: CargoReceivingListView,
+          name: 'PackagePlacementListView',
+          component: PackagePlacementListView,
           meta: {
             name: 'جایگذاری بسته'
           }
         },
-
-
-
+      ],
+    },
+    {
+      path: '/locating', // Vehicle routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'PackagePlacementScanView',
+          component: PackagePlacementScanView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
       ],
     },
   ]

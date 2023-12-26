@@ -1,7 +1,7 @@
 <script setup>
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import PackageList from '@/components/Package/PackageList.vue'
+import PackagePlacementList from '@/components/PackagePlacement/PackagePlacementList.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import PackageList from '@/components/Package/PackageList.vue'
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-      <PackageList />
+      <PackagePlacementList />
     </v-main>
   </v-layout>
 </template>
