@@ -36,6 +36,18 @@ export default function setup(posts) {
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
 
+    const cargoReceivingHeader = ref([
+        {name:'ردیف' , show:true , value:null, order: false},
+        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
+        {name:'نام فروشگاه' , show:true , value:'name', order: false},
+        {name:'نوع بسته' , show:true ,  value:'label', order: false},
+        {name:'تعداد آیتم ' , show:true, value:'is_active', order: false},
+        {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
+        {name:'وضعیت ' , show:true, value:'is_active', order: false},
+    ]);
+
+
+
     const filterField = [
         {name:'شناسه کارگو' , type:'text', value:'name'},
         {name:'نوع خودرو' , type:'text', value:'label'},
@@ -107,6 +119,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,loading , packageHeader}
+    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,
+        loading , packageHeader , cargoReceivingHeader}
 }
 
