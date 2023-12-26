@@ -1,51 +1,49 @@
 <template>
-    <div class="text-right ">
-      <v-dialog
-          v-model="dialog"
-          width="1060"
-      >
+<div class="text-right ">
+    <v-dialog v-model="dialog" width="1060">
         <v-card class="">
-          <v-row justify="space-between" align="center" class="pa-1 my-2">
-            <v-col class="mx-10" cols="2">
-              <v-btn @click="close()" variant="icon">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-col>
-  
-            <v-col cols="7" class="t16400 ">
-              پرینت برچسب
-            </v-col>
-          </v-row>
-          <v-divider></v-divider>
-          <div class="text-center px-5" >
-           
-            
-             <v-cart class="content">
-      <div class="qr-code-container px-10 ma-5">
-              <div v-if="retailObject"  class="qr-code-item mx-10 ">
-                  <span class="d-flex justify-between">
-                      <p>22222</p>
-                      <p>{{ item.shps.shopping_name }}</p>
-                  </span>
-                  <span>
-                      <img :src="item.barcode_image" alt="Data Image" />
-                  </span>
-                  
-                  <span >
-                      <p>{{ item.barcode }}</p>
-                  </span>
-                  <span>
-                      <img :src="item.secondImageUrl" alt="Data Image" />
-                  </span>
-                  <span >
-                      <p>{{ item.text }}</p>
-                  </span>
-              </div>
-            </div>
-            </v-cart>
-            <v-row class="justify-between my-2 mx-2"> 
-                      
-                      <v-col cols="3" class="d-flex mx-10 ">
+            <v-row
+                justify="space-between"
+                align="center"
+                class="pa-1 my-2">
+                <v-col class="mx-10" cols="2">
+                    <v-btn @click="close()" variant="icon">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-col>
+
+                <v-col cols="7" class="t16400 ">
+                    پرینت برچسب
+                </v-col>
+            </v-row>
+            <v-divider />
+            <div class="text-center px-5">
+                <v-cart class="content">
+                    <div class="qr-code-container px-10 ma-5">
+                        <div v-if="retailObject" class="qr-code-item mx-10 ">
+                            <span class="d-flex justify-between">
+                                <p>22222</p>
+                                <p>{{ item.shps.shopping_name }}</p>
+                            </span>
+                            <span>
+                                <img :src="item.barcode_image" alt="Data Image" />
+                            </span>
+
+                            <span>
+                                <p>{{ item.barcode }}</p>
+                            </span>
+                            <span>
+                                <img :src="item.secondImageUrl" alt="Data Image" />
+                            </span>
+                            <span>
+                                <p>{{ item.text }}</p>
+                            </span>
+                        </div>
+                    </div>
+                </v-cart>
+                <v-row class="justify-between my-2 mx-2">
+
+                    <v-col cols="3" class="d-flex mx-10 ">
                         <v-btn
                             @click="print()"
                             height="40"
@@ -55,147 +53,87 @@
                             class="px-5 mt-1">
                             پرینت محموله
                         </v-btn>
-                      </v-col>
-                      <v-col cols="3" class="d-flex justify-end mx-10">
-                        <btn class="mt-3 mr-2" @click="close()" style="cursor: pointer;">
-                                  انصراف
+                    </v-col>
+                    <v-col cols="3" class="d-flex justify-end mx-10">
+                        <btn
+                            class="mt-3 mr-2"
+                            @click="close()"
+                            style="cursor: pointer;">
+                            انصراف
                         </btn>
-                      </v-col>
-                      
-         </v-row>
-          </div>    
-          
-                  
+                    </v-col>
+                </v-row>
+            </div>
         </v-card>
-        
-      </v-dialog>
-    </div>
-  </template>
-  <script>
-  import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
-  import {AxiosCall} from "@/assets/js/axios_call";
-  import UploadFileSection from "@/components/Public/UploadFileSection.vue";
-  import RetailShipment from "@/composables/RetailShipment";
-  import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";
-  import {convertDateToJalai} from "../../../assets/js/functions";
-  export  default {
-    setup(){
-      const {
-        retailShipments, dataTableLength, page, header, loading ,headerShps
-      } = RetailShipment();
-  
-      return {
-        retailShipments, dataTableLength, page, header, loading ,headerShps
-      };
-    },
-    components:{
-      Table,
-      UploadFileSection
-  
-    },
-    data(){
-      return{
+    </v-dialog>
+</div>
+</template>
 
-    //     dataObject: [{  
-    //       id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    //   {  
-    //       id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    //             {  
-    //        id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    //   {   
-    //       id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    //             {   
-    //       id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    //             {   
-    //       id: "123112",
-    //       seller: "پخش رخسار",
-    //       label: "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-    //       text: '۶۷۶۷۶۷۶۷۶۷',
-    //       imageUrl: "../src/assets/img/qrcode.png",
-    //       secondImageUrl: "../src/assets/img/qrcode2.png"
-    //             },
-    // ]
-      }
+<script>
+import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+import RetailShipment from "@/composables/RetailShipment";
+import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";
+import {
+    convertDateToJalai
+} from "@/assets/js/functions";
+export default {
+    setup() {
+        const {
+            retailShipments,
+            dataTableLength,
+            page,
+            header,
+            loading,
+            headerShps
+        } = RetailShipment();
+
+        return {
+            retailShipments,
+            dataTableLength,
+            page,
+            header,
+            loading,
+            headerShps
+        };
     },
-  
-    methods:{
-      convertDateToJalai,
-      getnavbarItem(){
-        console.log(document.getElementById('navbarItems').offsetWidth)
-      },
-      close(){
-        const form = {
-          dialog :false,
-          object : ''
-        }
-        this.$store.commit('set_detailModalTestQrCodeFull' , form)
-      },
-      validate(){
-        this.$refs.BlogForm.$refs.addForm.validate()
-        setTimeout(()=>{
-          if (this.$refs.BlogForm.valid) this.createBlog()
-        } , 200)
-      },
-      searchWarehouse(e){
-        const filter = {
-          name: e
-        }
-        this.getWarehouseList(filter)
-      },
-  
+    components: {
+        Table,
+        UploadFileSection
+
     },
-  
-    computed:{
-      dialog(){
-        return this.$store.getters['get_detailModalTestQrCodeFull']
-      },
-      retailObject(){
-        return this.$store.getters['get_detailModalTestQrCodeFullObject']
-      },
-      warehouseData(){
-        try {
-          return this.warehouseList.data
-        }
-        catch (e) {
-          return []
-        }
-      }
+
+    methods: {
+        convertDateToJalai,
+
+        close() {
+            const form = {
+                dialog: false,
+                object: ''
+            }
+            this.$store.commit('set_detailModalTestQrCodeFull', form)
+        },
+        validate() {
+            this.$refs.BlogForm.$refs.addForm.validate()
+            setTimeout(() => {
+                if (this.$refs.BlogForm.valid) this.createBlog()
+            }, 200)
+        },
+        searchWarehouse(e) {
+            const filter = {
+                name: e
+            }
+            this.getWarehouseList(filter)
+        },
+
+    },
+
+    computed: {
+        dialog() {
+            return this.$store.getters['get_detailModalTestQrCodeFull']
+        },
+        retailObject() {
+            return this.$store.getters['get_detailModalTestQrCodeFullObject']
+        },
     }
-  }
-  </script>
-  
-  <style>
-  
-  
-  
-  </style>
+}
+</script>
