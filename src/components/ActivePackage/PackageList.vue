@@ -5,8 +5,7 @@
             justify="center"
             align="center"
             class="px-10 pt-3">
-            <v-col cols="6">
-            </v-col>
+            <v-col cols="6" />
 
             <v-col cols="6" class="d-flex justify-end ">
                 <ModalTableFilter path="package/index" :filterField="filterField" />
@@ -74,7 +73,6 @@
 import Table from '@/components/Package/Table/Table.vue'
 import Package from "@/composables/Package";
 import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
-import ModalCreatePackage from '@/components/Package/CreateModal/CreateModal.vue'
 
 export default {
     setup(props) {
@@ -107,7 +105,6 @@ export default {
     components: {
         Table,
         ModalTableFilter,
-        ModalCreatePackage,
     },
 
     computed: {

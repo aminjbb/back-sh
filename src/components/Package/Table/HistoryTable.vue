@@ -19,10 +19,6 @@
                 {{head.name}}
             </div>
         </template>
-
-        <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            عملیات
-        </div>
     </header>
 
     <div class="stretch-table">
@@ -42,11 +38,19 @@
                 </div>
 
                 <div
-                    v-if="item.id && header[1].show"
+                    v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.id" class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
+                    </span>
+
+                    <span v-else-if="item.updated_at_fa" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.updated_at_fa }}
+                    </span>
+
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        -
                     </span>
                 </div>
 
@@ -90,38 +94,6 @@
                             -
                         </template>
                     </span>
-                </div>
-
-                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
-                        <template v-slot:activator="{ props }">
-                            <v-icon v-bind="props" class="text-gray500">
-                                mdi-dots-vertical
-                            </v-icon>
-                        </template>
-
-                        <v-list class="c-table__more-options">
-                            <ModalPrint :id="item.id"/>
-
-                            <v-list-item-title>
-                                <div class="ma-3 pointer d--rtl" @click="$router.push(`/package/history/${item.id}`)">
-                                    <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        مشاهده تاریخچه
-                                    </span>
-                                </div>
-                            </v-list-item-title>
-
-                            <v-list-item-title>
-                                <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        حذف
-                                    </span>
-                                </div>
-                            </v-list-item-title>
-                        </v-list>
-                    </v-menu>
                 </div>
             </div>
         </div>
@@ -243,7 +215,7 @@ export default {
                         headerLength++;
                     }
                 });
-                const width = 100 / (headerLength + 1);
+                const width = 100 / (headerLength);
                 return `${width}%`;
             }
             return 'auto';
@@ -337,7 +309,7 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
+            openConfirm(this.$store, "آیا از حذف خودرو مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true);
         },
 
         /**

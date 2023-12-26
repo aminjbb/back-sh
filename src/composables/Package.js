@@ -30,10 +30,45 @@ export default function setup(posts) {
         {name:'تعداد کالا' , type: 'text', value:'shps_count_to'},
     ];
 
+    const historyHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'تاریخ آخرین وضعیت', show: true, value:'updated_at', order: false },
+        { name: 'نوع بسته', show: true, value:'type' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'وضعیت', show: true, value:'status', order: false },
+    ]);
+
+
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
+
+    async function getPackageList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `package/crud/index${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            packageList.value = data.data
+            loading.value = false
+           setTimeout(()=>{
+               isFilter.value =false
+               isFilterPage.value = false
+           } , 2000)
+        }
+
+        else {
+        }
+    };
 
     async function getPackageList(query) {
         loading.value = true
@@ -90,6 +125,6 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading  }
+    return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading, historyHeader}
 }
 
