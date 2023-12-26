@@ -693,38 +693,7 @@ const router = createRouter({
             name:'ظرقیت ویژه'
           }
         },
-        {
-          path: '/driver-management',
-          meta:{
-            name:' انبار'
-          },
-          children: [
-            {
-              path: 'index',  
-              name: 'DriverManagementView',
-              component: DriverManagementView,
-              meta:{
-                name:'مدیریت رانندگان'
-              }
-            },
-            {
-              path: 'create',
-              name: 'createDriver',
-              component: AddDriverManagementView,
-              meta: {
-                name: 'افزودن راننده '
-              }
-            },
-            {
-              path: 'update',
-              name: 'editDriver',
-              component: EditDriverManagementView,
-              meta: {
-                name: ' ویرایش اطلاعات راننده '
-              }
-            },
-        ]
-        },
+      
 
 
       ],
@@ -1283,6 +1252,38 @@ const router = createRouter({
           }
         }
       ],
+    },
+    {
+      path: '/driver-management',
+      meta:{
+        name:' انبار'
+      },
+      children: [
+        {
+          path: 'index',  
+          name: 'DriverManagementView',
+          component: DriverManagementView,
+          meta:{
+            name:'مدیریت رانندگان'
+          }
+        },
+        {
+          path: 'create',
+          name: 'createDriver',
+          component: AddDriverManagementView,
+          meta: {
+            name: 'افزودن راننده '
+          }
+        },
+        {
+          path: 'update',
+          name: 'editDriver',
+          component: EditDriverManagementView,
+          meta: {
+            name: ' ویرایش اطلاعات راننده '
+          }
+        },
+    ]
     },
   ]
 })
