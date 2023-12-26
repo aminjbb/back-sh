@@ -269,12 +269,10 @@ export default {
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
-                ['مدیریت رانندگان', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline']
-               
-                
 
-                
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
