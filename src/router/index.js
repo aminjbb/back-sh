@@ -1348,6 +1348,25 @@ const router = createRouter({
 
       ],
     },
+    {
+      path: '/package-placement', // Vehicle routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'CargoReceivingListView',
+          component: CargoReceivingListView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+
+
+
+      ],
+    },
   ]
 })
 const privateRoutes = [
