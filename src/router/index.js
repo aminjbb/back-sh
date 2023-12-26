@@ -171,6 +171,11 @@ import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
 
+
+/* Bulk Label Print */
+import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [{
@@ -1347,6 +1352,20 @@ const router = createRouter({
 
 
       ],
+    },
+    {
+      path: '/print/label/bulk', //  print label bulk
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'print-label-bulk',
+        component: BulkLabelPrintListView,
+        meta: {
+          name: ' پرینت گروهی برچسب '
+        }
+      }],
     },
   ]
 })
