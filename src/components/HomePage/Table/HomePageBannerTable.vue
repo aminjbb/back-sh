@@ -231,11 +231,6 @@ import {
 import {
     openToast
 } from "@/assets/js/functions";
-import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
-import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
-import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
-import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
-import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
 import ModalEditBanner from "@/components/HomePage/Modals/ModalEditBanner.vue";
 import ModalEditCategory from "@/components/HomePage/Modals/ModalEditCategory.vue";
 import ModalEditBlog from "@/components/HomePage/Modals/ModalEditBlog.vue";
