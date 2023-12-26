@@ -88,7 +88,23 @@
     data(){
       return{
         cargo:null ,
-        rule:[v=> !!v || 'این فیلد الزامی است']
+        rule:[v=> !!v || 'این فیلد الزامی است'],
+       basketShpsMocket: [{
+                    "id": 12123456,
+                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+                    "shpss_count": 8
+                },
+                {
+                    "id": 12123456,
+                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+                    "shpss_count": 10
+                },
+                {
+                    "id": 12123456,
+                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
+                    "shpss_count": 12
+                }
+            ],
       }
     },
   
