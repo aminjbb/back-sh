@@ -165,6 +165,9 @@ import PackageListView from '../views/Package/PackageListView.vue'
 
 /* Active Package Requests */
 import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
+import CargoListingView from "@/views/Cargo/CargoListingView.vue";
+import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
+import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
 
 const router = createRouter({
@@ -1285,6 +1288,52 @@ const router = createRouter({
           name: 'بسته های فعال'
         }
       }],
+    },
+
+    {
+      path: '/cargo-management', // Vehicle routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'CargoListingView',
+          component: CargoListingView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+
+        {
+          path: ':cargoId/package',
+          name: 'CargoPackageView',
+          component: CargoPackageView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+
+      ],
+    },
+    {
+      path: '/cargo-receiving', // Vehicle routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'CargoReceivingListView',
+          component: CargoReceivingListView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+
+
+
+      ],
     },
   ]
 })
