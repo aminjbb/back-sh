@@ -8,7 +8,40 @@ import {tr} from "vuetify/locale";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
 export default function setup(posts) {
-    const retailShipments =ref([
+    const processingShipment =ref([
+        {
+            id: 21,
+            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
+            shps_count: 50,
+            min_tolerance: 0,
+            max_tolerance: 50,
+            packed_count: 0,
+            is_packed: 0
+        },{
+            id: 21,
+            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
+            shps_count: 50,
+            min_tolerance: 0,
+            max_tolerance: 50,
+            packed_count: 0,
+            is_packed: 0
+        },{
+            id: 21,
+            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
+            shps_count: 50,
+            min_tolerance: 0,
+            max_tolerance: 50,
+            packed_count: 0,
+            is_packed: 0
+        },{
+            id: 21,
+            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
+            shps_count: 50,
+            min_tolerance: 0,
+            max_tolerance: 50,
+            packed_count: 0,
+            is_packed: 0
+        },
 
     ],)
     const dataTableLength = ref(25)
@@ -97,6 +130,6 @@ export default function setup(posts) {
         }
     })
 
-    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading ,headerShps}
+    return {filterFieldAllRetail, getRetailShipmentList,processingShipment, pageLength ,addPerPage, dataTableLength, page, header, loading ,headerShps}
 }
 

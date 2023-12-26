@@ -39,6 +39,8 @@ export class PanelFilter {
         this.model =null;
         this.vehicle_type = null;
         this.license = null;
+        this.shps_count_from = null;
+        this.shps_count_to = null;
     }
 
     query_maker() {
@@ -103,6 +105,12 @@ export class PanelFilter {
         }
         if (this.license !== null) {
             query += "license=" +  this.license  + "&";
+        }
+        if (this.shps_count_to !== null) {
+            query += "shps_count_to=" +  this.shps_count_to  + "&";
+        }
+        if (this.shps_count_to !== null) {
+            query += "shps_count_to=" +  this.shps_count_to  + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -257,6 +265,20 @@ export class PanelFilter {
             query += "license=" + this.license + "&";
         }
 
+        if (routeQuery.shps_count_from) {
+            query += "shps_count_from=" + routeQuery.shps_count_from + "&";
+        }
+        else if (this.shps_count_from) {
+            query += "shps_count_from=" + this.shps_count_from + "&";
+        }
+
+        if (routeQuery.shps_count_to) {
+            query += "shps_count_to=" + routeQuery.shps_count_to + "&";
+        }
+        else if (this.shps_count_to) {
+            query += "shps_count_to=" + this.shps_count_to + "&";
+        }
+
         return query.substring(0, query.length - 1);
     }
     sort_query(routeQuery){
@@ -354,11 +376,18 @@ export class PanelFilter {
             query += "vehicle_type=" + this.vehicle_type + "&";
         }
 
-        if (routeQuery.license) {
-            query += "license=" + routeQuery.license + "&";
+        if (routeQuery.shps_count_from) {
+            query += "shps_count_from=" + routeQuery.shps_count_from + "&";
         }
-        else if (this.license) {
-            query += "license=" + this.license + "&";
+        else if (this.shps_count_from) {
+            query += "shps_count_from=" + this.shps_count_from + "&";
+        }
+
+        if (routeQuery.shps_count_to) {
+            query += "shps_count_to=" + routeQuery.shps_count_to + "&";
+        }
+        else if (this.shps_count_to) {
+            query += "shps_count_to=" + this.shps_count_to + "&";
         }
 
         return query.substring(0, query.length - 1);
