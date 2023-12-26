@@ -210,6 +210,9 @@ a,
   &__4 {
     border-radius: 4px;
   }
+  &__12 {
+    border-radius: 12px !important;
+  }
 }
 
 .v-field {
@@ -478,4 +481,21 @@ a,
 .table-scroll-container {
   max-height: 500px; 
   overflow-y: auto; 
+}
+
+.scan-success{
+  background: #43A047 !important;
+}
+
+.bottom-box{
+  position: fixed;
+  bottom: 11px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.scan-error{
+  background: #EF5350 !important;
 }
