@@ -162,6 +162,7 @@ import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/Processin
 
 /* Package Requests */
 import PackageListView from '../views/Package/PackageListView.vue'
+import PackageHistoryView from '../views/Package/PackageHistoryView.vue'
 
 /* Active Package Requests */
 import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
@@ -1258,18 +1259,27 @@ const router = createRouter({
     },
 
     {
-      path: '/package', // package routes
+      path: '/package', // Packages Managment routes
       meta: {
         name: 'انبار'
       },
       children: [{
-        path: 'index',
-        name: 'PackageList',
-        component: PackageListView,
-        meta: {
-          name: 'مدیریت بسته‌ها'
+          path: 'index',
+          name: 'PackageList',
+          component: PackageListView,
+          meta: {
+            name: 'مدیریت بسته‌ها'
+          }
+        },
+        {
+          path: 'history/:packageId',
+          name: 'PackageHistory',
+          component: PackageHistoryView,
+          meta: {
+            name: 'مدیریت بسته‌ها'
+          }
         }
-      }],
+      ],
     },
 
     {
