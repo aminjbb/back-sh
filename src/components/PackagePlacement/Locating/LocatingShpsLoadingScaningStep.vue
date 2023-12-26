@@ -13,7 +13,7 @@
 
 
       </div>
-      <div >
+      <div v-show="false">
         <v-text-field :autofocus="true" v-model="qrCode"></v-text-field>
       </div>
     </div>
