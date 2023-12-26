@@ -102,7 +102,10 @@ export default createStore({
       dialog: false,
       id: ''
     },
-
+    inventoryReductionModal: {
+      dialog: false,
+      id: ''
+    },
   },
 
   mutations: {
@@ -230,7 +233,10 @@ export default createStore({
       state.showDetailsModal.dialog = form.dialog
       state.showDetailsModal.id = form.id
     },
-
+    set_inventoryReductionModal(state, form) {
+      state.inventoryReductionModal.dialog = form.dialog
+      state.inventoryReductionModal.id = form.id
+    },
   },
 
   actions: {},
@@ -373,9 +379,11 @@ export default createStore({
     get_basicDiscountModal(state) {
       return state.basicDiscountModal
     },
-
     get_showDetailsModal(state) {
       return state.showDetailsModal
+    },
+    get_inventoryReductionModal(state) {
+      return state.inventoryReductionModal
     },
   }
 });

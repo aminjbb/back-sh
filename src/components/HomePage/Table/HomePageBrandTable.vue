@@ -176,14 +176,7 @@ import {
 import {
   openToast
 } from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
-import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
-import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
-import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
-import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
-import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+
 import ModalEditBrand from "@/components/HomePage/Modals/ModalEditBrand.vue";
 export default {
   components: {
