@@ -10,11 +10,6 @@
         <span class="text-black t20400">
       برای ادامه فرآیند بارکد را اسکن کنید.
         </span>
-
-
-      </div>
-      <div v-show="false">
-        <v-text-field :autofocus="true" v-model="qrCode"></v-text-field>
       </div>
     </div>
   </v-card>
@@ -26,11 +21,19 @@ export default {
       qrCode:''
     }
   },
-
-  watch:{
-    qrCode(val){
-      alert(val)
+  methods:{
+    logValue(){
+      alert(this.qrCode)
     }
+  },
+
+
+  mounted() {
+    var element = document.body // You must specify element here.
+    element.addEventListener('keydown', e => {
+      if (e.key== 'Enter' ) this.logValue()
+      else this.qrCode += e.key
+    });
   }
 }
 </script>
