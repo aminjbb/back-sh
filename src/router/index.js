@@ -177,6 +177,7 @@ import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
+import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
 
 
 const router = createRouter({
@@ -1403,6 +1404,14 @@ const router = createRouter({
           path: 'index',
           name: 'PackagePlacementScanView',
           component: PackagePlacementScanView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+        {
+          path: 'shps-list',
+          name: 'ShpsLocationView',
+          component: ShpsLocationView,
           meta: {
             name: 'جایگذاری بسته'
           }
