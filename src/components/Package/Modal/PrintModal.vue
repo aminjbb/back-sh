@@ -1,16 +1,9 @@
 <template>
 <div class="text-right">
-    <div class="ma-3 pointer d--rtl" @click="openModal()">
-        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-        <span class="mr-2 text-grey-darken-1 t14300">
-            پرینت برچسب
-        </span>
-    </div>
-
     <v-dialog
-        v-if="dialog"
-        v-model="dialog"
-        width="468">
+        v-model="printModal.dialog"
+        width="468"
+        @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
@@ -19,7 +12,7 @@
 
                 <v-btn
                     class="modal__header__btn"
-                    @click="closeModal()"
+                    @click="close()"
                     variant="icon">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -30,12 +23,16 @@
             </div>
 
             <div
-                v-if="data"
+                :id="`printableArea-${printModal.id}`"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
-                <div>
-                    <img v-if="data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
-                    <span v-if="data.barcode" class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
+                <div class="d-flex flex-column">
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
+                    <br />
+                    <div
+                        v-if="data && data.barcode"
+                        class="number-font text-black t12500 mt-2"
+                        style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -62,7 +59,7 @@
 
                 <v-col cols="6" class="text-right">
                     <v-btn
-                    @click="closeModal()"
+                        @click="close()"
                         variant="text"
                         height="40"
                         rounded
@@ -78,6 +75,9 @@
 
 <script>
 import {
+    closeModal
+} from "@/assets/js/functions_seller";
+import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 
@@ -87,18 +87,26 @@ export default {
         return {
             dialog: false,
             data: null,
+            stockModel: null,
+            url : import.meta.env.VITE_API_BASEURL2,
         }
     },
 
-    props: {
-        id: String
+    computed: {
+        printModal() {
+            try {
+                return this.$store.getters['get_printModal']
+            } catch (error) {
+                return ''
+            }
+        }
     },
 
     methods: {
-        openModal() {
-            this.getPackage();
-        },
 
+        close() {
+            closeModal(this.$store, 'set_printModal')
+        },
 
         /**
          * Get package by id
@@ -106,13 +114,13 @@ export default {
         async getPackage() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `package/crud/get/${this.id}`
+            AxiosMethod.end_point = `package/crud/get/${this.printModal.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
+            let data = await AxiosMethod.axios_get()
             if (data) {
                 this.data = data.data
             } else {}
@@ -121,9 +129,36 @@ export default {
         /**
          * Print barcode
          */
-        print(){
-            //Add print modal
-        }
-    }
+        print() {
+            const printWindow = window.open('about:blank', '_blank');
+
+            this.$nextTick(() => {
+                const printContent = document.createElement('div');
+                printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
+                printWindow.document.title = "Print barcode";
+
+                printWindow.document.body.appendChild(printContent);
+
+                setTimeout(() => {
+                    printWindow.print();
+
+                    printWindow.onafterprint = function () {
+                        printWindow.close();
+                    };
+                }, 1000);
+            });
+        },
+    },
+
+    created() {
+        this.$watch(
+            () => this.printModal.dialog,
+            (dialogState) => {
+                if (dialogState) {
+                    this.getPackage();
+                }
+            }
+        );
+    },
 }
 </script>

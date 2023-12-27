@@ -19,10 +19,6 @@
                 {{head.name}}
             </div>
         </template>
-
-        <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            عملیات
-        </div>
     </header>
 
     <div class="stretch-table">
@@ -82,57 +78,14 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 expanded-background" style="background-color: #EDE7F6;">
+                    <span class="t13500 text-black py-5 expanded-background" style="background-color: #F5F5F5;">
                         <template v-if="item.status">
-                            {{ item.status }}
+                            {{ renameStatus(item.status) }}
                         </template>
                         <template v-else>
                             -
                         </template>
                     </span>
-                </div>
-
-                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
-                        <template v-slot:activator="{ props }">
-                            <v-icon v-bind="props" class="text-gray500">
-                                mdi-dots-vertical
-                            </v-icon>
-                        </template>
-
-                        <v-list class="c-table__more-options">
-                            <v-list-item-title>
-                                <div class="ma-5 pointer" @click="print(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        پرینت برچسب
-                                    </span>
-                                </div>
-                            </v-list-item-title>
-                        </v-list>
-
-                        <v-list class="c-table__more-options">
-                            <v-list-item-title>
-                                <div class="ma-5 pointer" @click="print(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        مشاهده تاریخچه
-                                    </span>
-                                </div>
-                            </v-list-item-title>
-                        </v-list>
-
-                        <v-list class="c-table__more-options">
-                            <v-list-item-title>
-                                <div class="ma-5 pointer" @click="print(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        حذف
-                                    </span>
-                                </div>
-                            </v-list-item-title>
-                        </v-list>
-                    </v-menu>
                 </div>
             </div>
         </div>
@@ -144,7 +97,6 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
 </div>
 </template>
 
@@ -157,6 +109,7 @@ import {
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
+
 export default {
 
     props: {
@@ -248,7 +201,7 @@ export default {
                         headerLength++;
                     }
                 });
-                const width = 100 / (headerLength + 1);
+                const width = 100 / (headerLength);
                 return `${width}%`;
             }
             return 'auto';
@@ -256,7 +209,6 @@ export default {
     },
 
     methods: {
-
         /**
          * Get row index in table
          * @param {*} index
@@ -270,6 +222,25 @@ export default {
                 rowIndex = ((this.page - 1) * this.perPage) + index + 1
                 return rowIndex
             }
+        },
+
+         /**
+         * Get row index in table
+         * @param {*} index
+         */
+         renameStatus(status) {
+            if (status === 'loading') {
+                return 'لودینگ'
+            } else if (status === 'luggage') {
+                return 'در حال بارگیری'
+            } else if (status === 'sent_to_warehouse') {
+                return 'انتقال به انبار اصلی'
+            } else if (status === 'received_by_warehouse') {
+                return 'رسیده به انبار اصلی'
+            } else {
+                return 'خالی';
+            }
+
         },
 
         /**
@@ -316,22 +287,6 @@ export default {
          */
         oddIndex(index) {
             return isOdd(index)
-        },
-
-        /**
-         * Remove Item
-         * @param {*} id
-         */
-        removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف خودرو مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true);
-        },
-
-        /**
-         * Update list
-         * @param {*} status 
-         */
-        updateList(status) {
-            this.$emit('updateList', status);
         },
     },
 }

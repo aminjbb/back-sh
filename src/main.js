@@ -35,6 +35,7 @@ const vuetify = createVuetify({
                 dark: false,
                 colors: {
                     primary: colors.red.darken1, // #E53935
+                    primary600: '#EC407A', // #E53935
                     primary500: '#E91E63', // #E53935
                     primary300: '#9c5788', // #E53935
                     primary400: '#FCE4EC',

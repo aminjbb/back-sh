@@ -15,7 +15,7 @@
         <div class="d-flex justify-center align-center">
             <div class="mt-8">
                 <span class="t12500 text-black ml-1">شناسه بسته :</span>
-                <span class="t14300 text-gray500 number-font">123456789</span>
+                <span v-if="packageContent && packageContent.id" class="t14300 text-gray500 number-font">{{packageContent.id}}</span>
             </div>
         </div>
     </v-card>
@@ -24,7 +24,7 @@
         <Table
             class="flex-grow-1"
             :header="historyHeader"
-            :items="mocketData"
+            :items="packageHistory"
             @updateList="updateList"
             model="package" />
     </v-card>
@@ -41,46 +41,8 @@ import {
 export default {
     data() {
         return {
-            package: null,
+            packageContent: null,
             packageHistory: [],
-            
-            mocketData: [{
-                    "id": 5,
-                    "barcode": "4-5-1703495242",
-                    "barcode_image": "storage/shavaz/barcode/4-5-1703495242.png",
-                    "type": null,
-                    "status": "received_by_warehouse",
-                    "created_at": "2023-12-25T09:07:22.000000Z",
-                    "updated_at": "2023-12-25T09:07:22.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                },
-                {
-                    "id": 6,
-                    "barcode": "4-6-1703495341",
-                    "barcode_image": "storage/shavaz/barcode/4-6-1703495341.png",
-                    "type": null,
-                    "status": "empty",
-                    "created_at": "2023-12-25T09:09:01.000000Z",
-                    "updated_at": "2023-12-25T09:09:01.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                },
-                {
-                    "id": 7,
-                    "barcode": "4-7-1703496448",
-                    "barcode_image": "storage/shavaz/barcode/4-7-1703496448.png",
-                    "type": null,
-                    "status": "luggage",
-                    "created_at": "2023-12-25T09:27:28.000000Z",
-                    "updated_at": "2023-12-25T09:27:28.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                }
-            ],
         }
     },
 
@@ -113,11 +75,13 @@ export default {
          */
         async getPackage() {
             const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.end_point = 'package/crud/get/' + this.$route.params.packageId
-            AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
             if (data) {
-                this.package = data.data
+                this.packageContent = data.data;
+                console.log(this.packageContent);
             }
         },
 
@@ -126,11 +90,12 @@ export default {
          */
         async getPackageHistory() {
             const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.end_point = 'package/crud/history/' + this.$route.params.packageId
-            AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
             if (data) {
-                this.packageHistory = data.data
+                this.packageHistory = data.data.data
             }
         }
     },

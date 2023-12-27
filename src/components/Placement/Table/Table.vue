@@ -130,18 +130,16 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
-                                <div class="ma-5 pointer"  @click="$router.push(`/placement/${item.id}/shpss`)">
+                                <div class="ma-5 pointer" @click="$router.push(`/placement/${item.id}/shpss`)">
                                     <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         مدیریت کالاها
                                     </span>
                                 </div>
                             </v-list-item-title>
-                        </v-list>
 
-                        <v-list class="c-table__more-options">
                             <v-list-item-title>
-                                <div class="ma-5 pointer" @click="print(item.id)">
+                                <div class="ma-3 pointer d--rtl" @click="printBarcode(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         پرینت برچسب
@@ -161,14 +159,15 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
+
+    <ModalPrint />
 </div>
 </template>
 
 <script>
 import {
     PanelFilter
-} from "@/assets/js/filter"
+} from "@/assets/js/filter_placement"
 
 import {
     isOdd
@@ -253,6 +252,14 @@ export default {
     },
 
     computed: {
+        /**
+         * Open print barcode modal
+         * @param {*} id
+         */
+         printBarcode(id) {
+            openModal(this.$store, 'set_printModal', id, true)
+        },
+        
         /**
          * Get each items table based of header length
          */

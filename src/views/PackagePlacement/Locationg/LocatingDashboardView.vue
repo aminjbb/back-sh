@@ -1,12 +1,12 @@
 <script setup>
-import ShpsListLocatingToShelf from '@/components/PackagePlacement/Locating/ShpsListLocatingToShelf.vue'
+import LocatingDashboard from '@/components/PackagePlacement/Locating/LocatingDashboard.vue'
 </script>
 
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100vh d-flex justify-center">
       <div class="scan-container">
-        <ShpsListLocatingToShelf />
+        <LocatingDashboard />
       </div>
     </v-main>
   </v-layout>
@@ -14,5 +14,6 @@ import ShpsListLocatingToShelf from '@/components/PackagePlacement/Locating/Shps
 <style>
 .scan-container{
   max-width: 420px;
+  min-width: 420px;
 }
 </style>
