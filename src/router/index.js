@@ -184,6 +184,7 @@ import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/Shps
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
+import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDashboardView.vue";
 
 
 const router = createRouter({
@@ -1428,6 +1429,14 @@ const router = createRouter({
           path: 'shps-list/locating-shelf',
           name: 'ShpsListLocatingToShelfView',
           component: ShpsListLocatingToShelfView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+        {
+          path: 'dashboard',
+          name: 'LocatingDashboardView',
+          component: LocatingDashboardView,
           meta: {
             name: 'جایگذاری بسته'
           }
