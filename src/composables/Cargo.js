@@ -7,6 +7,8 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const cargoList = ref([]);
+    const cargo = ref(null);
+    const packageCargo = ref(null);
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -24,14 +26,13 @@ export default function setup(posts) {
         {name:'تعداد بسته' , show:true, value:'is_active', order: false},
         {name:'تاریخ ساخت' , show:true, value:'is_active', order: false},
         {name:'تاریخ ویرایش' , show:true, value:'is_active', order: true},
-        {name:'تاریخ ویرایش' , show:true, value:'is_active', order: true},
         {name:'وضعیت' , show:true, value:'is_active', order: false},
     ]);
 
     const packageHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        {name:'نوع بسته' , show:true , value:'name', order: false},
+        // {name:'نوع بسته' , show:true , value:'name', order: false},
         {name:'تعداد کالا' , show:true ,  value:'label', order: false},
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
@@ -76,11 +77,12 @@ export default function setup(posts) {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `category/crud/index${paramsQuery}`
+        AxiosMethod.using_auth =true
+        AxiosMethod.end_point = `cargo/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            categoreis.value = data.data
+            cargoList.value = data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -88,6 +90,28 @@ export default function setup(posts) {
             } , 2000)
         }
     };
+    async function getCargo(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =true
+        AxiosMethod.end_point = `cargo/crud/get/${route.params.cargoId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            cargo.value = data.data
+            loading.value = false
+        }
+    };
+    async function getPackageCargo(){
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =true
+        AxiosMethod.end_point = `cargo/crud/packages/${route.params.cargoId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            packageCargo.value = data.data
+        }
+    }
 
 
     function addPerPage(number){
@@ -120,6 +144,6 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,
-        loading , packageHeader , cargoReceivingHeader}
+        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo}
 }
 

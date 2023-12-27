@@ -55,7 +55,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.factor_id }}
+                        {{ item.vehicle?.vehicle_type }}
                     </span>
           </div>
           <div
@@ -63,7 +63,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_count }}
+                        {{ item.vehicle?.license }}
                     </span>
           </div>
           <div
@@ -71,7 +71,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_variety }}
+                        {{ item.driver?.full_name }}
                     </span>
           </div>
           <div
@@ -79,7 +79,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.creator?.first_name }} {{ item.creator?.last_name }}
+                       {{ item.driver?.phone_number }}
                     </span>
           </div>
           <div
@@ -87,7 +87,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.created_at_fa }}
+                        {{ item.package_count }}
                     </span>
           </div>
           <div
@@ -95,16 +95,24 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.updated_at_fa }}
+                        {{ item.created_at_fa }}
                     </span>
           </div>
           <div
               v-if=" header[8].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.updated_at_fa }}
+                    </span>
+          </div>
+          <div
+              v-if=" header[9].show"
+              class="c-table__contents__item text-right"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="retail-status-box d-flex align-center pr-2">
                  <span class="t14300 text-gray500 py-5 ">
-                   {{ getStatus(item.status)  }}
+                    {{getStatus( item.status )}}
                  </span>
             </div>
 
@@ -122,48 +130,26 @@
               <v-list class="c-table__more-options">
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
-                      <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                    <div class="ma-5 pointer" @click="$router.push(`/cargo-management/${item.id}/package`)">
+                      <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
-                     مدیریت کالاها
+                        بسته های کارگو
                       </span>
 
                     </div>
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item  :disabled="checkPermission(item.status , deleteAndShippingPermission)">
+                <v-list-item >
                   <v-list-item-title>
-                    <div   class="ma-5 pointer" @click="requestShipment(item)">
-                      <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        درخواست ارسال
-                        </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
+                    <div class="ma-5 pointer" @click="requestShipment(item)">
                       <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
-                       پرینت محموله
-
+                        پرینت بسته های کارگو
                       </span>
-
                     </div>
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                      <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        نمایش جزئیات
-                      </span>
 
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
                 <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                   <v-list-item-title>
                     <div  class="ma-5 pointer" @click="removeItem(item.id)">
@@ -285,44 +271,20 @@ export default {
     return {
       statusItems: [
         {
-          label: 'در انتظار',
-          value: 'waiting',
+          label: 'خالی',
+          value: 'empty',
         },
         {
-          label: 'در حال بررسی',
-          value: 'in_review',
+          label: 'در حال بارگیری',
+          value: 'luggage',
         },
         {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
+          label: 'انتقال به انبار اصلی',
+          value: 'sent_to_warehouse',
         },{
           label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
+          value: 'received_by_warehouse',
+        }
       ],
       order_type: "desc",
       ordering: {},
