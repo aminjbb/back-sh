@@ -46,7 +46,7 @@
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.name }}
+                          {{ item.id }}
                       </span>
             </div>
             <div
@@ -54,7 +54,7 @@
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.factor_id }}
+                          {{ item.description }}
                       </span>
             </div>
             <div
@@ -73,14 +73,7 @@
                           {{ item.shps_variety }}
                       </span>
             </div>
-            <div
-                v-if=" header[5].show"
-                class="c-table__contents__item text-right"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.creator?.first_name }} {{ item.creator?.last_name }}
-                      </span>
-            </div>
+           
             
   
   
@@ -92,64 +85,7 @@
                   </v-icon>
                 </template>
   
-                <v-list class="c-table__more-options">
-                  <v-list-item>
-                    <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
-                        <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
-                       مدیریت کالاها
-                        </span>
-  
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item  :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                    <v-list-item-title>
-                      <div   class="ma-5 pointer" @click="requestShipment(item)">
-                        <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
-                          درخواست ارسال
-                          </span>
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
-                    <v-list-item-title>
-                      <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
-                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
-                         پرینت محموله
-  
-                        </span>
-  
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>
-                      <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                        <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
-                          نمایش جزئیات
-                        </span>
-  
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                    <v-list-item-title>
-                      <div  class="ma-5 pointer" @click="removeItem(item.id)">
-                        <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
-                          حذف
-                        </span>
-  
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-  
-                </v-list>
+                
               </v-menu>
             </div>
           </div>
@@ -188,6 +124,10 @@
       ActivationModal,
     },
   
+
+    created() {
+  this.searchResults = this.mockDatabase;
+},
     props: {
       /**
        * List Items for header
@@ -270,14 +210,8 @@
     },
   
     computed: {
-      PrintPermission(){
-        return ['waiting' , 'in_review']
-      },
-      deleteAndShippingPermission(){
-        return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
-          'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
-          'received_base_warehouse' , 'locating' ,  'located']
-      },
+     
+     
       /**
        * Get each items table based of header length
        */
@@ -311,6 +245,9 @@
     },
   
     watch: {
+      items(newVal, oldVal) {
+      console.log("Items prop updated. New value:", newVal, "Old value:", oldVal);
+    },
       items(val) {
         this.active = []
         val.forEach(element => {
@@ -323,45 +260,18 @@
     },
   
     methods: {
-      checkPermission(status , permissions){
-        const index = permissions.findIndex(p => p === status)
-        if (index > -1) return true
-        return false
-      },
+
+      loadData() {
+    this.searchResults = this.mockDatabase;
+  },
+
+    
      
       convertDateToJalai,
       changeValue(index, value) {
         this.active[index] = value
       },
-      /**
-       * requestShipment modal
-       */
-      requestShipment(item) {
-        const form = {
-          dialog :true,
-          object : item
-        }
-        this.$store.commit('set_modalRequestShipment' , form)
-      },
-      /**
-       * retailShipment detail modal
-       */
-      async retailShipmentDetail(item) {
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `cargo/crud/get/${item.id}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          const form = {
-            dialog :true,
-            object : data.data
-          }
-          this.$store.commit('set_modalRetailShipmentDetail' , form)
-  
-        }
-  
-      },
+   
       /**
        * Get row index in table
        * @param {*} index
@@ -410,10 +320,7 @@
         return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
       },
   
-      returnTrueOrFalse(data) {
-        if (data === 1) return true
-        else return false
-      },
+    
   
       /**
        * Change Active

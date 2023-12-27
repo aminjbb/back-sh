@@ -18,8 +18,27 @@
 export default {
   data(){
     return{
-
+      qrCode:''
     }
+  },
+  methods:{
+    logValue(){
+      alert(this.qrCode)
+    }
+  },
+
+
+  mounted() {
+    var element = document.body // You must specify element here.
+    element.addEventListener('keydown', e => {
+      if (e.key== 'Enter' ) this.logValue()
+      else this.qrCode += e.key
+    });
   }
 }
 </script>
+<style>
+.v--hidden{
+  visibility: hidden;
+}
+</style>

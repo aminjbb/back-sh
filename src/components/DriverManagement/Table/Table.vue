@@ -274,11 +274,7 @@
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
 
-                itemsList: [
-            { id: 1, supplierName: 'Supplier A', creator: 'Creator A', factorNumber: 101, createdAt: '2023-01-01' },
-            { id: 2, supplierName: 'Supplier B', creator: 'Creator B', factorNumber: 102, createdAt: '2023-01-02' },
-            
-        ],
+             
             }
         },
     
@@ -312,46 +308,7 @@
     
          
           
-    
-         
-    
-         
-    
-            async updateStatus(index, status, item) {
-                var formdata = new FormData();
-                const AxiosMethod = new AxiosCall()
-                formdata.append('status', status)
-                AxiosMethod.end_point = 'factor/crud/update/status/' + item.id
-                AxiosMethod.store = this.$store
-                AxiosMethod.form = formdata
-    
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                let data = await AxiosMethod.axios_post()
-                if (data.status === 'Success') {
-                    this.updateList('true');
-                    openToast(
-                        this.$store,
-                        'وضعیت با موفقیت ویرایش شد.',
-                        "success"
-                    );
-                }
-            },
-    
-            /**
-             * Update list
-             * @param {*} status 
-             */
-            updateList(status) {
-                this.$emit('updateList', status);
-            },
-    
-            /**
-             * Mass update modal
-             */
-            massUpdateModal() {
-                this.$store.commit('set_massUpdateModal', true)
-            },
+
     
             /**
              * Get row index in table
@@ -399,11 +356,6 @@
              */
             getIcon(column) {
                 return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-            },
-    
-            returnTrueOrFalse(data) {
-                if (data === 1) return true
-                else return false
             },
     
             /**

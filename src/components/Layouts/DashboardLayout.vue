@@ -272,7 +272,9 @@ export default {
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ضایعات و مفقودی', '/waste-and-lost/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline']
+
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],

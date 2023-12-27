@@ -24,7 +24,7 @@ export default function setup(posts) {
 
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه کالا' , show:true , value:'created_at', order: false},
+        {name:'شناسه کالا' , show:true , value:'id', order: false},
         {name:'نام کالا' , show:true , value:'name', order: false},
         {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
         {name:'ذخیره ' , show:true, value:'is_active', order: false},
@@ -40,26 +40,23 @@ export default function setup(posts) {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getCargoList(query) {
-        loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `category/crud/index${paramsQuery}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            categoreis.value = data.data
-            loading.value = false
-            setTimeout(()=>{
-                isFilter.value =false
-                isFilterPage.value = false
-            } , 2000)
+    async function getShpsList(packageId) {
+        loading.value = true;
+        let paramsQuery = filter.params_generator({ id: packageId });
+    
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken');
+        AxiosMethod.end_point = `package/shps/list`;
+        let data = await AxiosMethod.axios_get();
+        
+        loading.value = false;
+    
+        if (data && data.data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page);
+            return data.data.items; 
+        } else {
+            return [];
         }
     };
 
@@ -93,7 +90,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page   , item , 
+    return { pageLength, cargoList, addPerPage, getShpsList, dataTableLength , page   , item , 
         loading , packageHeader , cargoReceivingHeader}
 }
 

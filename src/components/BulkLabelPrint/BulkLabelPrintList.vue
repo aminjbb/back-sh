@@ -1,17 +1,17 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch">
-      <v-card height="180" class="ma-5 br-12 stretch-card-header-90">
+      <v-card height="200" class="ma-5 br-12 stretch-card-header-90">
         <v-row
             justify="start"
-            align="center"
+            align="start"
             class="px-10 py-5">
-            <div   >
+            <v-col cols="8" md="6" class="d-flex justify-center align-center"  >
                 اسکن شناسه بسته
-            </div>
+            </v-col>
             <v-divider ></v-divider>
-          <v-col cols="5">
+            <v-col cols="12" md="6">
             
-            <v-form v-model="valid" ref="shipmentId" class="">
+            <v-form @submit.prevent="onFormSubmit" v-model="valid" class="">
                 
               <div class="text-right  ">
                 
@@ -40,7 +40,7 @@
             activePath="category/crud/update/activation/"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="searchResults"
+            :items="getShpsList"
             updateUrl="category/csv/mass-update"
             :page="page"
             :perPage="dataTableLength"
@@ -94,16 +94,17 @@
       { id: '002', name: 'Item 2', description: 'Description 2' },
     
     ],
+    searchResults:[]
 
       }
     },
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
       } = BulkLabelPrintList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
       };
     },
   
@@ -115,13 +116,16 @@
 
       }
     },
+    mounted() {
+            this.getShpsList();
+        },
   
     watch: {
-        cargo(newVal) {
-    console.log("Cargo changed: ", newVal);
-    this.searchCargo();
-  }
-,
+  //       cargo(newVal) {
+  //   console.log("Cargo changed: ", newVal);
+  //   this.searchCargo();
+  // }
+
 
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
@@ -142,15 +146,21 @@
     methods: {
 
         
-        searchCargo() {
-    console.log("Searching for: ", this.cargo);
-    this.searchResults = this.mockDatabase.filter(item => item.id === this.cargo);
-    console.log("Search results: ", this.searchResults);
-  }
+    //   async searchCargo() {
+    //     console.log("Searching for: ", this.cargo);
+    //     try {
+    //         this.searchResults = await fetchCargoDataById(this.cargo);
+    //         console.log("Search results: ", this.searchResults);
+    //     } catch (error) {
+    //         console.error("Error fetching cargo data:", error);
+    //         // Handle the error appropriately
+    //     }
+    // },
 
-,
 
-
+  onFormSubmit() {
+     
+    },
 
 
       /**
@@ -160,7 +170,11 @@
        */
       changeHeaderShow(index, value) {
         this.header[index].show = value
-      }
+      },
+      $route(){
+                this.getShpsList();
+
+            }
     }
   }
   </script>
