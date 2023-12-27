@@ -265,6 +265,7 @@ export default {
                 ['لیست انبارها', '/warehouse/index', 'mdi-checkbox-blank-circle-outline'],
                 ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
@@ -273,6 +274,8 @@ export default {
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات و مفقودی', '/report/index', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline']
+
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
