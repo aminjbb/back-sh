@@ -35,11 +35,11 @@
 
             <div>
                 <v-row
-                    justify="center"
+                    justify="start"
                     align="center"
                     class="px-10 d--rtl">
                     <template v-for="(filter, index) in filterField" :key="index">
-                        <v-col v-if="filter.type === 'text'" cols="6">
+                        <v-col v-if="filter.type === 'text'" cols="4">
                             <div class="t13300 text-right mb-2">{{filter.name}}</div>
                             <v-text-field
                                 variant="outlined"
@@ -47,8 +47,21 @@
                                 v-model="values[index].value" />
                         </v-col>
 
+                        <v-col v-if="filter.type === 'select'" cols="4">
+                            <div class="t13300 text-right mb-2">{{filter.name}}</div>
+                            <v-select
+                                :rules="rule"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                item-title="label"
+                                item-value="value"
+                                :items="reportTypeItems"
+                                v-model="selectModal" />
+                        </v-col>
+
                         <v-col
-                            cols="6"
+                            cols="4"
                             v-else-if=" filter.value === 'created_at'"
                             class="mt-3">
                             <div class="t13300 text-right mb-3">{{filter.name}}</div>
@@ -129,6 +142,7 @@ export default {
             filteredData: [],
             createdAtModel: null,
             gregorianCreateDate: [],
+            selectModal:null,
         }
     },
 

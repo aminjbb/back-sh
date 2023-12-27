@@ -7,7 +7,7 @@
             class="px-10 pt-3">
             <v-col cols="6">
                 <v-btn
-                    @click="$router.push('/waste-and-lost/create')"
+                    @click="$router.push('/report/create')"
                     color="primary500"
                     height="40"
                     rounded
@@ -23,7 +23,7 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="waste-and-lost/index" :filterField="filterField" />
+                    <ModalTableFilter path="report/index" :filterField="filterField" />
                 </v-row>
             </v-col>
         </v-row>
@@ -33,13 +33,13 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="mocketData"
+            :items="itemList.data"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
             @updateList="updateList"
-            deletePath="waste-and-lost/crud/delete/"
-            model="waste-and-lost" />
+            deletePath="report/crud/delete/"
+            model="report" />
 
         <v-divider />
 
@@ -91,72 +91,6 @@ import ModalTableFilter from '@/components/WasteAndLost/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 
 export default {
-    data() {
-        return {
-            mocketData: [{
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "user_name": "امید امیری",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "user_name": "امید امیری",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "user_name": "امید امیری",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "user_name": "امید امیری",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "user_name": "امید امیری",
-                    "created_at_fa": "1402/06/12"
-                }
-            ],
-        }
-    },
-
     components: {
         Table,
         ModalTableFilter,
