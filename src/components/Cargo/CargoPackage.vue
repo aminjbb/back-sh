@@ -12,7 +12,7 @@
         <v-col cols="3">
           <div class="d-flex">
             <span>
-              شناسه کارگو : ۱۲۳۴۵۶۷۸
+              شناسه کارگو : {{ cargo?.id }}
             </span>
           </div>
         </v-col>
@@ -20,14 +20,14 @@
         <v-col cols="3">
           <div class="d-flex">
             <span>
-              شناسه کارگو : ۱۲۳۴۵۶۷۸
+              نام راننده  : {{ cargo?.driver?.full_name }}
             </span>
           </div>
         </v-col>
         <v-col cols="3">
           <div class="d-flex">
             <span>
-             خودرو : وانت آبی/ ایران ۱۱ ـ ۱۳۲ ب ۳۵
+             خودرو : {{ cargo?.vehicle?.vehicle_type}} / {{cargo?.vehicle?.license}}
             </span>
           </div>
         </v-col>
@@ -44,17 +44,18 @@
                 </span>
                 </div>
                 <div>
-                  <v-text-field variant="outlined"/>
+                  <v-text-field v-model="packageId" variant="outlined"/>
                 </div>
               </div>
             </v-col>
             <v-col cols="3">
               <v-btn
+                  :loading="loading"
                   color="primary500"
+                  :disabled="!packageId"
                   height="40"
                   rounded
                   class="px-8 mt-2">
-
                 تایید
               </v-btn>
             </v-col>
@@ -84,6 +85,7 @@
       <v-card-actions class="pb-3" >
         <v-row class="px-5 py-2"  justify="end">
           <v-btn
+              @click="luggageCargo()"
               color="primary500"
               height="40"
               rounded
@@ -101,13 +103,14 @@
 <script>
 import {ref} from 'vue'
 //Components
-import Table from '@/components/Cargo/Table/Table.vue'
+import Table from '@/components/Cargo/Table/PackageTable.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {
@@ -119,13 +122,31 @@ export default {
     CreateCargo
   },
 
+  data(){
+    return {
+      packageId:null,
+      scanPackage:'',
+      loading:false
+    }
+  },
+
   setup(props) {
     const {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , packageHeader , item , filterField ,loading
+      getCargo , cargo ,packageHeader ,  getPackageCargo , packageCargo
     } = Cargo();
     return {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , packageHeader , item , filterField ,loading
+      getCargo , cargo ,packageHeader ,  getPackageCargo , packageCargo
     };
+  },
+
+  mounted() {
+    this.getCargo();
+    this.getPackageCargo();
+    var element = document.body // You must specify element here.
+    element.addEventListener('keydown', e => {
+      if (e.key== 'Enter' ) this.scanPackageId()
+      else this.scanPackage += e.key
+    });
   },
 
   computed: {
@@ -152,6 +173,49 @@ export default {
   },
 
   methods: {
+    async luggageCargo(){
+      this.loading = true
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `cargo/crud/update/status/${this.$route.params.cargoId}`
+      formData.append('status', 'luggage')
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.go(-1)
+      }
+      else {
+        this.loading = false
+      }
+    },
+    async assignPackage(){
+      this.loading = true
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `cargo/crud/attach/package/${this.$route.params.cargoId}`
+      formData.append('package_id', this.packageId)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.getPackageCargo()
+      }
+      else {
+        this.loading = false
+      }
+    },
+    scanPackageId(){
+        this.packageId = this.scanPackage
+        this.scanPackage = ''
+        this.assignPackage()
+    },
     /**
      * Change Header Status
      * @param {*} index

@@ -1470,7 +1470,7 @@ const router = createRouter({
     },
 
     {
-      path: '/waste-and-lost', // Waste and lost routes
+      path: '/report', // Waste and lost routes
       meta: {
         name: 'انبار'
       },

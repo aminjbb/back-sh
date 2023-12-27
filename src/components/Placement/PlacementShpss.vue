@@ -15,28 +15,28 @@
             <v-col col="4" class="d-flex justify-center align-center">
                 <div class="mt-8">
                     <span class="t12500 text-black ml-1">شماره ردیف :</span>
-                    <span class="t14300 text-gray500 number-font">{{placementMocket.row_number}}</span>
+                    <span v-if="placement && placement.row_number" class="t14300 text-gray500 number-font">{{placement.row_number}}</span>
                 </div>
             </v-col>
             
             <v-col col="4" class="d-flex justify-center align-center">
                 <div class="mt-8">
                     <span class="t12500 text-black ml-1">شماره قفسه :</span>
-                    <span class="t14300 text-gray500 number-font">{{placementMocket.shelf_number}}</span>
+                    <span v-if="placement && placement.placement_number" class="t14300 text-gray500 number-font">{{placement.placement_number}}</span>
                 </div>
             </v-col>
 
             <v-col col="4" class="d-flex justify-center align-center">
                 <div class="mt-8">
                     <span class="t12500 text-black ml-1">شماره طبقه  :</span>
-                    <span class="t14300 text-gray500 number-font">{{placementMocket.floor_number}}</span>
+                    <span v-if="placement && placement.step_number" class="t14300 text-gray500 number-font">{{placement.step_number}}</span>
                 </div>
             </v-col>
 
             <v-col col="4" class="d-flex justify-center align-center">
                 <div class="mt-8">
                     <span class="t12500 text-black ml-1">شماره شلف :</span>
-                    <span class="t14300 text-gray500 number-font">{{placementMocket.mian_shelf_number}}</span>
+                    <span v-if="placement && placement.shelf_number" class="t14300 text-gray500 number-font">{{placement.shelf_number}}</span>
                 </div>
             </v-col>
         </v-row>
@@ -46,7 +46,7 @@
         <Table
             class="flex-grow-1"
             :header="shpssHeader"
-            :items="placementShpssListMocket"
+            :items="placementShpssList"
             @updateList="updateList"
             model="package" />
     </v-card>
@@ -65,34 +65,6 @@ export default {
         return {
             placement: null,
             placementShpssList: [],
-            placementShpssListMocket: [{
-                    "id": 12123456,
-                    "barcode": "4-5-1703495242",
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "barcode_image": "storage/shavaz/barcode/4-5-1703495242.png",
-                    "shpss_count": 8
-                },
-                {
-                    "id": 12123456,
-                    "barcode": "4-6-1703495341",
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "barcode_image": "storage/shavaz/barcode/4-6-1703495341.png",
-                    "shpss_count": 10
-                },
-                {
-                    "id": 12123456,
-                    "barcode": "4-7-1703496448",
-                    "shpss_label": "کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر",
-                    "barcode_image": "storage/shavaz/barcode/4-7-1703496448.png",
-                    "shpss_count": 12
-                }
-            ],
-            placementMocket:{
-                'row_number':4,
-                'floor_number':5,
-                'shelf_number':8,
-                'mian_shelf_number':7
-            }
         }
     },
 
@@ -125,6 +97,8 @@ export default {
          */
         async getPlacement() {
             const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.end_point = 'placement/crud/get/' + this.$route.params.placementId
             AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
@@ -138,7 +112,9 @@ export default {
          */
         async getPlacementShpssList() {
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'placement/crud/shpss/' + this.$route.params.placementId
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = 'placement/shps/items/' + this.$route.params.placementId
             AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
             if (data) {

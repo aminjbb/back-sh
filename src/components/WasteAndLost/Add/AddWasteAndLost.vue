@@ -29,7 +29,8 @@
                         density="compact"
                         variant="outlined"
                         single-line
-                        v-model="form.id" />
+                        v-model="form.package_id"
+                        v-debounce:1s.unlock="getPackage" />
                 </v-col>
 
                 <v-col cols="12" md="6">
@@ -70,16 +71,15 @@
                         </span>
                     </div>
 
-                    <v-select
-                        :rules="rule"
+                    <v-autocomplete
+                        :items="sphssList"
                         density="compact"
                         variant="outlined"
-                        single-line
                         item-title="label"
-                        item-value="value"
-                        :items="skuList"
-                        v-model="form.label" />
-
+                        item-value="id"
+                        single-line
+                        v-debounce:1s.unlock="searchSku"
+                        v-model="form.shps_s" />
                 </v-col>
             </v-row>
         </v-form>
@@ -110,11 +110,11 @@
         <Table
             class="flex-grow-1"
             :header="createHeader"
-            :items="mocketData"
+            :items="packageShpss.data"
             :loading="loading"
             @updateList="updateList"
-            deletePath="waste-and-lost/crud/delete/"
-            model="waste-and-lost" />
+            deletePath="report/crud/delete/"
+            model="report" />
 
         <v-divider />
     </v-card>
@@ -133,7 +133,7 @@ export default {
     data() {
         return {
             loading: false,
-            loadingSubmit:false,
+            loadingSubmit: false,
             reportTypeItems: [{
                     label: 'ضایعات',
                     value: 'wastage'
@@ -144,69 +144,34 @@ export default {
                 }
             ],
             form: {
-                id: null,
+                package_id: null,
                 package_type: null,
                 report_type: null,
-                label: null,
+                shps_s: null,
             },
-            skuList:[],
-            mocketData: [{
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "created_at_fa": "1402/06/12"
-                },
-                {
-                    "id": 9999,
-                    "type": "پالت",
-                    "shipment_type": "انبارش مارکت",
-                    "seller_name": 'پخش رخسار',
-                    "supplier": null,
-                    "license": "123456",
-                    "shps_label": "کانسیلر میبلین مدل Instant AgeRewind کد 120 ظرفیت 6 میلی لیت",
-                    "report_type": "ضایعات",
-                    "created_at_fa": "1402/06/12"
-                }
-            ],
+            shpssSearchList: [],
+            packageType:null,
+            packageShpss:[],
+            packageId:null,
         }
+    },
+
+    computed: {
+        sphssList() {
+            try {
+                let sku = []
+                this.shpssSearchList.forEach(shpss => {
+                    const form = {
+                        name: shpss?.shps?.sku?.label ,
+                        id: shpss.id
+                    }
+                    sku.push(form)
+                })
+                return sku
+            } catch (e) {
+                return []
+            }
+        },
     },
 
     components: {
@@ -232,27 +197,66 @@ export default {
         /**
          * Submit form
          */
-        async submitForm() {
+        async addShps() {
             this.loading = true
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'brand/crud/create'
+            AxiosMethod.end_point = 'report/crud/create'
             AxiosMethod.form = formdata
-            formdata.append('name', this.form.name)
-            formdata.append('label', this.form.label)
-            formdata.append(`image_id`, this.form.image_id)
-            formdata.append('priority', this.form.priority)
+            formdata.append('package_id', this.form.package_id)
+            formdata.append('report_type', this.form.report_type)
+            formdata.append(`shps_s`, this.form.shps_s)
 
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                this.loading = false
-                this.$router.push('/waste-and-lost/index')
+                this.loading = false;
 
             } else {
                 this.loading = false
+            }
+        },
+
+        async searchSku(e) {
+            const filter = {
+                q: e
+            }
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.form = filter
+            AxiosMethod.end_point = `package/shps/items/${this.packageId}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.shpssSearchList = data.data
+            }
+        },
+
+        async getPackage(e){
+            const array = e.split('-');
+            this.packageId = array[1]
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `package/crud/get/${this.packageId}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.form.package_type = data.data.type
+
+            }
+        },
+
+        async getWasteShps(){
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `report/crud/index/?id=${array[1]}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.packageShpss = data.data
+
             }
         }
     },

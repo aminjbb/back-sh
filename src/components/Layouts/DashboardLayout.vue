@@ -268,11 +268,12 @@ export default {
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
-                ['ضایعات و مفقودی', '/waste-and-lost/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ضایعات و مفقودی', '/report/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline']
 
             ],
