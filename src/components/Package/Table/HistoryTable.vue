@@ -41,11 +41,7 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.id" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
-                    </span>
-
-                    <span v-else-if="item.updated_at_fa" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.updated_at_fa" class="t14300 text-gray500 py-5 number-font">
                         {{ item.updated_at_fa }}
                     </span>
 

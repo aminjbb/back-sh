@@ -26,9 +26,13 @@
                 :id="`printableArea-${printModal.id}`"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
-                <div class="text-red">
-                    <img v-if="data && data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
-                    <span v-if="data && data.barcode" class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
+                <div class="d-flex flex-column">
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
+                    <br />
+                    <div
+                        v-if="data && data.barcode"
+                        class="number-font text-black t12500 mt-2"
+                        style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -84,6 +88,7 @@ export default {
             dialog: false,
             data: null,
             stockModel: null,
+            url : import.meta.env.VITE_API_BASEURL2,
         }
     },
 
@@ -95,10 +100,6 @@ export default {
                 return ''
             }
         }
-    },
-
-    props: {
-        id: String
     },
 
     methods: {
@@ -113,13 +114,13 @@ export default {
         async getPackage() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `package/crud/get/${this.id}`
+            AxiosMethod.end_point = `package/crud/get/${this.printModal.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
+            let data = await AxiosMethod.axios_get()
             if (data) {
                 this.data = data.data
             } else {}

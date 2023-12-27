@@ -17,7 +17,7 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="filteredPackages"
+            :items="packageList.data"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -71,7 +71,7 @@
 
 <script>
 import Table from '@/components/ActivePackage/Table/Table.vue'
-import Package from "@/composables/Package";
+import ActivePackage from "@/composables/ActivePackage";
 import ModalTableFilter from '@/components/ActivePackage/Filter/Filter.vue'
 
 export default {
@@ -87,7 +87,7 @@ export default {
             addPagination,
             addPerPage,
             loading
-        } = Package();
+        } = ActivePackage();
         return {
             pageLength,
             getPackageList,
@@ -110,15 +110,6 @@ export default {
     computed: {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal
-        },
-
-        filteredPackages() {
-            if(this.packageList && this.packageList.data){
-                return this.packageList.data.filter(item => item.status.trim().toLowerCase() !== 'empty');
-            }else{
-                return ''
-            }
-            
         },
     },
 
