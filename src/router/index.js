@@ -186,6 +186,9 @@ import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/Shps
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
 import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDashboardView.vue";
 
+/* Wast and lost */
+import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue";
+import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -1456,6 +1459,31 @@ const router = createRouter({
           component: WarehouseInventoryListView,
           meta: {
             name: 'موجودی انبار'
+          }
+        },
+      ],
+    },
+
+    {
+      path: '/waste-and-lost', // Waste and lost routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'WasteAndLostListView',
+          component: WasteAndLostListView,
+          meta: {
+            name: 'مفقودی و ضایعات'
+          }
+        },
+        {
+          path: 'create',
+          name: 'AddWasteAndLostView',
+          component: AddWasteAndLostView,
+          meta: {
+            name: 'مفقودی و ضایعات'
           }
         },
       ],

@@ -91,7 +91,6 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
 </div>
 </template>
 
