@@ -60,6 +60,27 @@ export default function setup(posts) {
         }
     };
 
+    async function getAllVehicleList(query) {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `vehicle/crud/index?per_page=100000`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            vehicleList.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+        else {
+        }
+    };
+
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -89,6 +110,6 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, vehicleList ,addPerPage, getVehicleList, dataTableLength, page, header,loading  }
+    return {pageLength,filterField, vehicleList ,addPerPage, getVehicleList ,getAllVehicleList, dataTableLength, page, header,loading  }
 }
 

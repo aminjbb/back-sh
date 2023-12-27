@@ -267,6 +267,7 @@ export default {
                 ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],

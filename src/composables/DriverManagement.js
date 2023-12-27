@@ -53,15 +53,7 @@ export default function setup(posts) {
         { name: 'شناسه shps', show: true , value:'shps', order: false},
         { name: 'نام کالا', show: true , value:'label', order: false},
         { name: ' تعداد کلا ', show: true , value:'number', order: false},
-
-      
-        
-
     ]);
-    
-
-
-  
     
     const loading = ref(false)
     const isFilter =ref(false)
@@ -95,6 +87,24 @@ export default function setup(posts) {
         }
     };
 
+    async function getAllDriverList(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `driver/crud/index?per_page=100000`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            DriverManagementList.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 1000)
+        }
+    };
+
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -116,7 +126,7 @@ export default function setup(posts) {
 
     return {   
          pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList,
-        dataTableLength, page, header, loading, 
+        dataTableLength, page, header, loading, getAllDriverList
          }
 }
 

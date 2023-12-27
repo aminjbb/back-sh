@@ -36,44 +36,55 @@
         </div>
 
         <div>
-          <v-row
-              justify="center"
-              align="center"
-              class="px-5">
-            <v-col cols="12">
-              <div class="text-right mt-4 mb-2">
+          <v-form ref="addCargo" v-model="valid" >
+            <v-row
+                justify="center"
+                align="center"
+                class="px-5">
+              <v-col cols="12">
+                <div class="text-right mt-4 mb-2">
                             <span class="t12300">
                                راننده
                             </span>
-                            <span class="text-error">
+                  <span class="text-error">
                               *
                             </span>
-              </div>
-              <v-autocomplete
-                  density="compact"
-                  variant="outlined"
-                  single-line
-                  placeholder="برای مثال : وانت سواری"
-                  v-model="form.vehicle_type" />
-            </v-col>
+                </div>
+                <v-autocomplete
+                    density="compact"
+                    variant="outlined"
+                    single-line
+                    placeholder="برای مثال : وانت سواری"
+                    item-title="name"
+                    item-value="id"
+                    :items="drivers"
+                    :rules="rule"
+                    v-model="form.driver" >
+                </v-autocomplete>
+              </v-col>
 
-            <v-col cols="12">
-              <div class="text-right mt-4 mb-2">
+              <v-col cols="12">
+                <div class="text-right mt-4 mb-2">
                             <span class="t12300">
                               خودرو
                             </span>
-                <span class="text-error">
+                  <span class="text-error">
                               *
                             </span>
-              </div>
-              <v-autocomplete
-                  density="compact"
-                  variant="outlined"
-                  single-line
-                  placeholder="برای مثال : وانت سواری"
-                  v-model="form.vehicle_type" />
-            </v-col>
-          </v-row>
+                </div>
+                <v-autocomplete
+                    density="compact"
+                    variant="outlined"
+                    single-line
+                    :items="vehicles"
+                    item-title="name"
+                    :rules="rule"
+                    item-value="id"
+                    v-model="form.vehicle" />
+              </v-col>
+            </v-row>
+          </v-form>
+
         </div>
 
         <div class="mt-3 mb-3 px-5">
@@ -87,7 +98,8 @@
           <v-col cols="6" class="">
             <div class="text-left">
               <v-btn
-                  @click="createVehicle()"
+                  :loading="loading"
+                  @click="validate()"
                   color="primary500"
                   height="40"
                   rounded
@@ -120,21 +132,36 @@ import {
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-
+import Vehicle from '@/composables/Vehicle'
+import DriverManagement from '@/composables/DriverManagement'
 export default {
-
+  setup(){
+      const {vehicleList, getAllVehicleList} = new Vehicle()
+      const {getAllDriverList , DriverManagementList} = new DriverManagement()
+      return {
+        vehicleList, getAllVehicleList,
+        getAllDriverList , DriverManagementList
+      }
+  },
+  props:{
+    getCargoList:{type:Function}
+  },
   data() {
     return {
       dialog: false,
       form: {
-        vehicle_type: '',
-        license: '',
+        vehicle: '',
+        driver: '',
       },
-      license1: null,
-      license: [],
+      loading:false,
+      valid:false,
+      rule:[v=> !!v || 'این فیلد الزامی است']
     }
   },
-
+  mounted() {
+    this.getAllVehicleList()
+    this.getAllDriverList()
+  },
   methods: {
     openModal() {
       this.dialog = true;
@@ -143,21 +170,28 @@ export default {
     closeModal() {
       this.dialog = false;
     },
+    /**
+     * validate form
+     */
+    validate(){
+      this.$refs.addCargo.validate()
+      setTimeout(()=>{
+        if (this.valid) this.createCargo()
+      })
+    },
 
     /**
      * Submit form
      */
-    async createVehicle() {
+    async createCargo() {
       this.loading = true
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'vehicle/crud/create'
+      AxiosMethod.end_point = 'cargo/crud/create'
       AxiosMethod.form = formdata;
-      const licensePart2 = this.license.join('');
-      const finalLicense = `${this.license1}-${licensePart2}`
 
-      formdata.append('vehicle_type', this.form.vehicle_type)
-      formdata.append('license', finalLicense);
+      formdata.append('driver_id', this.form.driver)
+      formdata.append('vehicle_id', this.form.vehicle);
 
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
@@ -165,16 +199,15 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
-        this.$router.push('/vehicle/index');
         this.updateList('true');
         openToast(this.$store,
-            'خودرو با موفقیت ایجاد شد.',
+            'کارگو با موفقیت ایجاد شد.',
             "success");
-        this.closeModal();
-        this.form.vehicle_type = '';
-        this.form.license = ''
-        this.license1= null;
-        this.license= [];
+        this.dialog = false;
+        this.getCargoList()
+        this.form.driver = '';
+        this.form.vehicle = ''
+
 
       } else {
         this.loading = false
@@ -188,6 +221,31 @@ export default {
     updateList(status) {
       this.$emit('updateList', status);
     },
+
+  },
+  computed:{
+    vehicles(){
+      let vehicles = []
+      this.vehicleList.data.forEach(vehicle=>{
+        const form = {
+          name : vehicle.vehicle_type + ' ('+vehicle.license+')',
+          id :vehicle.id
+        }
+        vehicles.push(form)
+      })
+      return vehicles
+    },
+    drivers(){
+      let drivers = []
+      this.DriverManagementList.data.forEach(driver=>{
+        const form = {
+          name : driver.full_name,
+          id :driver.id
+        }
+        drivers.push(form)
+      })
+      return drivers
+    }
   }
 }
 </script>

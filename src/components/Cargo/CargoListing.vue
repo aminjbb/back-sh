@@ -11,7 +11,7 @@
       >
         <v-col cols="6">
           <v-row justify="start pt-2">
-            <CreateCargo/>
+            <CreateCargo :getCargoList="getCargoList"/>
           </v-row>
         </v-col>
 
@@ -41,7 +41,7 @@
           activePath="category/crud/update/activation/"
           deletePath="category/crud/delete/"
           :header="header"
-          :items="[]"
+          :items="cargoList.data"
           updateUrl="category/csv/mass-update"
           :page="page"
           :perPage="dataTableLength"
@@ -121,7 +121,9 @@ export default {
       pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,loading
     };
   },
-
+  mounted() {
+    this.getCargoList()
+  },
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
