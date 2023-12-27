@@ -69,8 +69,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.shelf_number">
-                            {{item.shelf_number}}
+                        <template v-if="item.placement_number">
+                            {{item.placement_number}}
                         </template>
                         <template v-else>
                             -
@@ -83,8 +83,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.floor_number">
-                            {{ item.floor_number }}
+                        <template v-if="item.step_number">
+                            {{ item.step_number }}
                         </template>
                         <template v-else>
                             -
@@ -130,7 +130,7 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
-                                <div class="ma-5 pointer" @click="$router.push(`/placement/${item.id}/shpss`)">
+                                <div class="ma-5 pointer d--rtl" @click="$router.push(`/placement/${item.id}/shpss`)">
                                     <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         مدیریت کالاها
@@ -172,6 +172,12 @@ import {
 import {
     isOdd
 } from "@/assets/js/functions";
+
+import ModalPrint from '@/components/Placement/Modal/PrintModal.vue'
+
+import {
+    openModal
+} from "@/assets/js/functions_seller";
 export default {
 
     props: {
@@ -251,15 +257,12 @@ export default {
         }
     },
 
+    components: {
+        ModalPrint
+    },
+
+
     computed: {
-        /**
-         * Open print barcode modal
-         * @param {*} id
-         */
-         printBarcode(id) {
-            openModal(this.$store, 'set_printModal', id, true)
-        },
-        
         /**
          * Get each items table based of header length
          */
@@ -279,6 +282,13 @@ export default {
     },
 
     methods: {
+        /**
+         * Open print barcode modal
+         * @param {*} id
+         */
+        printBarcode(id) {
+            openModal(this.$store, 'set_printModal', id, true)
+        },
 
         /**
          * Get row index in table

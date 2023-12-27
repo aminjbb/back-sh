@@ -183,18 +183,18 @@ export default {
             }
         },
 
-        floorNumberFrom() {
+        stepNumberFrom() {
             try {
-                const floorNumberFromObject = this.values.find(element => element.name === 'floor_number_from');
+                const stepNumberFromObject = this.values.find(element => element.name === 'step_number_from');
                 return shpsCountFromObject.value
             } catch (error) {
                 return ''
             }
         },
 
-        floorNumberTo() {
+        stepNumberTo() {
             try {
-                const floorNumberToObject = this.values.find(element => element.name === 'floor_number_to');
+                const stepNumberToObject = this.values.find(element => element.name === 'step_number_to');
                 return shpsCountToObject.value
             } catch (error) {
                 return ''
@@ -220,11 +220,11 @@ export default {
 
     methods: {
         placeholder(value) {
-            if (value === 'row_number_from' || value === 'shelf_number_from' || value === 'floor_number_from') {
+            if (value === 'row_number_from' || value === 'shelf_number_from' || value === 'step_number_from') {
                 return 'از'
             }
 
-            else if(value === 'row_number_at' || value === 'shelf_number_to' || value === 'floor_number_to') {
+            else if(value === 'row_number_at' || value === 'shelf_number_to' || value === 'step_number_to') {
                 return 'تا'
             }
 
@@ -266,16 +266,16 @@ export default {
                 filter.shelf_number_to = null
             }
 
-            if (this.floorNumberFrom) {
-                filter.floor_number_from = this.floorNumberFrom
-            } else if (this.$route.query.floor_number_from) {
-                filter.floor_number_from = null
+            if (this.stepNumberFrom) {
+                filter.step_number_from = this.stepNumberFrom
+            } else if (this.$route.query.step_number_from) {
+                filter.step_number_from = null
             }
 
-            if (this.floorNumberTo) {
-                filter.floor_number_to = this.floorNumberTo
-            } else if (this.$route.query.floor_number_to) {
-                filter.floor_number_to = null
+            if (this.stepNumberTo) {
+                filter.step_number_to = this.stepNumberTo
+            } else if (this.$route.query.step_number_to) {
+                filter.step_number_to = null
             }
 
             if (this.createdAt && this.createdAt[1]) {
