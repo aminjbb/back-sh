@@ -21,7 +21,7 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="mocketData"
+            :items="packageList.data"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -80,47 +80,6 @@ import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
 import ModalCreatePackage from '@/components/Package/Modal/CreateModal.vue'
 
 export default {
-    data() {
-        return {
-            mocketData: [{
-                    "id": 5,
-                    "barcode": "4-5-1703495242",
-                    "barcode_image": "storage/shavaz/barcode/4-5-1703495242.png",
-                    "type": null,
-                    "status": "received_by_warehouse",
-                    "created_at": "2023-12-25T09:07:22.000000Z",
-                    "updated_at": "2023-12-25T09:07:22.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                },
-                {
-                    "id": 6,
-                    "barcode": "4-6-1703495341",
-                    "barcode_image": "storage/shavaz/barcode/4-6-1703495341.png",
-                    "type": null,
-                    "status": "empty",
-                    "created_at": "2023-12-25T09:09:01.000000Z",
-                    "updated_at": "2023-12-25T09:09:01.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                },
-                {
-                    "id": 7,
-                    "barcode": "4-7-1703496448",
-                    "barcode_image": "storage/shavaz/barcode/4-7-1703496448.png",
-                    "type": null,
-                    "status": "luggage",
-                    "created_at": "2023-12-25T09:27:28.000000Z",
-                    "updated_at": "2023-12-25T09:27:28.000000Z",
-                    "created_at_fa": "1402/10/04",
-                    "updated_at_fa": "1402/10/04",
-                    "shps_count": 0
-                }
-            ],
-        }
-    },
     
     setup(props) {
         const {

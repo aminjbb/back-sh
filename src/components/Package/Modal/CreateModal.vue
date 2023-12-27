@@ -34,10 +34,14 @@
                 <v-divider />
             </div>
 
-            <div class="d-flex justify-center align-center" style="height: 180px;">
-                <div>
-                    <img v-if="data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
-                    <span class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
+            <div :id="`printableArea-${data.id}`">
+                <div class="d-flex flex-column justify-center align-center" style="height: 180px;">
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="data.barcode_image" width="270" height="103" style="margin:0 auto;display: block;">
+                    <br />
+                    <div
+                        v-if="data && data.barcode"
+                        class="number-font text-black t12500 mt-2"
+                        style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -83,6 +87,10 @@ import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 
+import {
+    openToast
+} from '@/assets/js/functions.js'
+
 export default {
 
     data() {
@@ -116,10 +124,13 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                this.data = data.data
+                this.data = data.data;
+                openToast(this.$store,
+                    'بسته با موفقیت ساخته شد',
+                    "success")
                 this.updateList('true');
                 this.openModal();
-                this.loading = false
+                this.loading = false;
 
             } else {
                 this.loading = false
@@ -132,6 +143,29 @@ export default {
          */
         updateList(status) {
             this.$emit('updateList', status);
+        },
+
+        /**
+         * Print barcode
+         */
+        print() {
+            const printWindow = window.open('about:blank', '_blank');
+
+            this.$nextTick(() => {
+                const printContent = document.createElement('div');
+                printContent.innerHTML = document.getElementById(`printableArea-${this.data.id}`).innerHTML;
+                printWindow.document.title = "Print barcode";
+
+                printWindow.document.body.appendChild(printContent);
+
+                setTimeout(() => {
+                    printWindow.print();
+
+                    printWindow.onafterprint = function () {
+                        printWindow.close();
+                    };
+                }, 1000);
+            });
         },
     }
 }

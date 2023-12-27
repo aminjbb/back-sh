@@ -78,9 +78,9 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 expanded-background" style="background-color: #EDE7F6;">
+                    <span class="t13500 text-black py-5 expanded-background" style="background-color: #F5F5F5;">
                         <template v-if="item.status">
-                            {{ item.status }}
+                            {{ renameStatus(item.status) }}
                         </template>
                         <template v-else>
                             -
@@ -222,6 +222,25 @@ export default {
                 rowIndex = ((this.page - 1) * this.perPage) + index + 1
                 return rowIndex
             }
+        },
+
+         /**
+         * Get row index in table
+         * @param {*} index
+         */
+         renameStatus(status) {
+            if (status === 'loading') {
+                return 'لودینگ'
+            } else if (status === 'luggage') {
+                return 'در حال بارگیری'
+            } else if (status === 'sent_to_warehouse') {
+                return 'انتقال به انبار اصلی'
+            } else if (status === 'received_by_warehouse') {
+                return 'رسیده به انبار اصلی'
+            } else {
+                return 'خالی';
+            }
+
         },
 
         /**
