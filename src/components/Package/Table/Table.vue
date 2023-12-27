@@ -101,7 +101,14 @@
                         </template>
 
                         <v-list class="c-table__more-options">
-                            <ModalPrint :id="item.id"/>
+                            <v-list-item-title>
+                                <div class="ma-3 pointer d--rtl" @click="printBarcode(item.id)">
+                                    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                        پرینت برچسب
+                                    </span>
+                                </div>
+                            </v-list-item-title>
 
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="$router.push(`/package/history/${item.id}`)">
@@ -133,7 +140,8 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
+
+    <ModalPrint />
 </div>
 </template>
 
@@ -146,7 +154,12 @@ import {
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
+
 import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
+
+import {
+    openModal
+} from "@/assets/js/functions_seller";
 
 export default {
 
@@ -227,7 +240,7 @@ export default {
         }
     },
 
-    components:{
+    components: {
         ModalPrint
     },
 
@@ -251,6 +264,13 @@ export default {
     },
 
     methods: {
+        /**
+         * Open print barcode modal
+         * @param {*} id
+         */
+        printBarcode(id) {
+            openModal(this.$store, 'set_printModal', id, true)
+        },
 
         /**
          * Get row index in table
