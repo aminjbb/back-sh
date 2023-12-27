@@ -29,8 +29,8 @@ export class PanelFilter {
         this.row_number_at = null;
         this.shelf_number_from = null;
         this.shelf_number_to = null;
-        this.floor_number_from = null;
-        this.floor_number_to = null;
+        this.step_number_from = null;
+        this.step_number_to = null;
     }
 
     query_maker() {
@@ -72,12 +72,12 @@ export class PanelFilter {
             query += "shelf_number_to=" + this.shelf_number_to + "&";
         }
 
-        if (this.floor_number_from!== null) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        if (this.step_number_from!== null) {
+            query += "step_number_from=" + this.step_number_from + "&";
         }
 
-        if (this.floor_number_to!== null) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        if (this.step_number_to!== null) {
+            query += "step_number_to=" + this.step_number_to + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -156,18 +156,18 @@ export class PanelFilter {
             query += "shelf_number_to=" + this.shelf_number_to + "&";
         }
 
-        if (routeQuery.floor_number_from) {
-            query += "floor_number_from=" + routeQuery.floor_number_from + "&";
+        if (routeQuery.step_number_from) {
+            query += "step_number_from=" + routeQuery.step_number_from + "&";
         }
-        else if (this.floor_number_from) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        else if (this.step_number_from) {
+            query += "step_number_from=" + this.step_number_from + "&";
         }
 
-        if (routeQuery.floor_number_to) {
-            query += "floor_number_to=" + routeQuery.floor_number_to + "&";
+        if (routeQuery.step_number_to) {
+            query += "step_number_to=" + routeQuery.step_number_to + "&";
         }
-        else if (this.floor_number_to) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        else if (this.step_number_to) {
+            query += "step_number_to=" + this.step_number_to + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -245,18 +245,18 @@ export class PanelFilter {
             query += "shelf_number_to=" + this.shelf_number_to + "&";
         }
 
-        if (routeQuery.floor_number_from) {
-            query += "floor_number_from=" + routeQuery.floor_number_from + "&";
+        if (routeQuery.step_number_from) {
+            query += "step_number_from=" + routeQuery.step_number_from + "&";
         }
-        else if (this.floor_number_from) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        else if (this.step_number_from) {
+            query += "step_number_from=" + this.step_number_from + "&";
         }
 
-        if (routeQuery.floor_number_to) {
-            query += "floor_number_to=" + routeQuery.floor_number_to + "&";
+        if (routeQuery.step_number_to) {
+            query += "step_number_to=" + routeQuery.step_number_to + "&";
         }
-        else if (this.floor_number_to) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        else if (this.step_number_to) {
+            query += "step_number_to=" + this.step_number_to + "&";
         }
 
         return query.substring(0, query.length - 1);
