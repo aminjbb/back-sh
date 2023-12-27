@@ -23,12 +23,12 @@
             </div>
 
             <div
-                v-if="data"
+                :id="`printableArea-${printModal.id}`"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
-                <div>
-                    <img v-if="data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
-                    <span v-if="data.barcode" class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
+                <div class="text-red">
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
+                    <span v-if="data && data.barcode" class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
 
                 <v-col cols="6" class="text-right">
                     <v-btn
-                    @click="close()"
+                        @click="close()"
                         variant="text"
                         height="40"
                         rounded
@@ -128,9 +128,25 @@ export default {
         /**
          * Print barcode
          */
-        print(){
-            //Add print modal
-        }
+        print() {
+            const printWindow = window.open('about:blank', '_blank');
+
+            this.$nextTick(() => {
+                const printContent = document.createElement('div');
+                printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
+                printWindow.document.title = "Print barcode";
+
+                printWindow.document.body.appendChild(printContent);
+
+                setTimeout(() => {
+                    printWindow.print();
+
+                    printWindow.onafterprint = function () {
+                        printWindow.close();
+                    };
+                }, 1000);
+            });
+        },
     },
 
     created() {
