@@ -35,12 +35,13 @@
           height="580"
       >
         <Table
+            :getShpsList="getShpsList"
             class="flex-grow-1"
             editUrl="/categories/edit/"
             activePath="category/crud/update/activation/"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="getShpsList"
+            :items="getShpsList.data"
             updateUrl="category/csv/mass-update"
             :page="page"
             :perPage="dataTableLength"
@@ -89,12 +90,8 @@
       return{
         cargo:null ,
         rule:[v=> !!v || 'این فیلد الزامی است'],
-        mockDatabase: [
-      { id: '001', name: 'Item 1', description: 'Description 1' },
-      { id: '002', name: 'Item 2', description: 'Description 2' },
-    
-    ],
-    searchResults:[]
+       
+   
 
       }
     },

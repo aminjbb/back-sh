@@ -47,7 +47,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `package/shps/list`;
+        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
         let data = await AxiosMethod.axios_get();
         
         loading.value = false;
@@ -58,6 +58,8 @@ export default function setup(posts) {
         } else {
             return [];
         }
+        
+
     };
 
 

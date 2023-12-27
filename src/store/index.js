@@ -110,9 +110,17 @@ export default createStore({
       dialog: false,
       id: ''
     },
+    bulkPrintLabel: {
+      dialog: false,
+      id: ''
+    },
   },
 
   mutations: {
+    set_bulkPrintLabel(state , form){
+      state.bulkPrintLabel.dialog = form.dialog
+      state.bulkPrintLabel.object = form.object
+    },
     set_marketPlaceDetailModal(state , form){
       state.marketPlaceDetailModal.dialog = form.dialog
       state.marketPlaceDetailModal.object = form.object
@@ -250,6 +258,12 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_bulkPrintLabel(state){
+      return  state.bulkPrintLabel.dialog
+    },
+    get_bulkPrintLabelObject(state){
+      return  state.bulkPrintLabel.object
+    },
     get_marketPlaceDetailModal(state){
       return  state.marketPlaceDetailModal.dialog
     },

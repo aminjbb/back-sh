@@ -125,9 +125,7 @@
     },
   
 
-    created() {
-  this.searchResults = this.mockDatabase;
-},
+ 
     props: {
       /**
        * List Items for header
@@ -211,6 +209,9 @@
   
     computed: {
      
+      getshpsList() {
+            return this.$store.getters['get_bulkPrintLabelObject']
+        },
      
       /**
        * Get each items table based of header length
@@ -261,10 +262,7 @@
   
     methods: {
 
-      loadData() {
-    this.searchResults = this.mockDatabase;
-  },
-
+ 
     
      
       convertDateToJalai,
