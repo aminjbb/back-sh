@@ -36,7 +36,7 @@
 
             <div :id="`printableArea-${data.id}`">
                 <div class="d-flex flex-column justify-center align-center" style="height: 180px;">
-                    <img v-if="data && data.barcode_image" alt="Barcode" :src="data.barcode_image" width="270" height="103" style="margin:0 auto;display: block;">
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
                     <br />
                     <div
                         v-if="data && data.barcode"
@@ -96,7 +96,8 @@ export default {
     data() {
         return {
             dialog: false,
-            data: null
+            data: null,
+            url : import.meta.env.VITE_API_BASEURL2,
         }
     },
 
