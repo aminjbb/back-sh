@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import Table from '@/components/Package/Table/Table.vue'
+import Table from '@/components/ActivePackage/Table/Table.vue'
 import Package from "@/composables/Package";
-import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
+import ModalTableFilter from '@/components/ActivePackage/Filter/Filter.vue'
 
 export default {
     setup(props) {

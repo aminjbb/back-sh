@@ -1,16 +1,9 @@
 <template>
 <div class="text-right">
-    <div class="ma-3 pointer d--rtl" @click="openModal()">
-        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-        <span class="mr-2 text-grey-darken-1 t14300">
-            پرینت برچسب
-        </span>
-    </div>
-
     <v-dialog
-        v-if="dialog"
-        v-model="dialog"
-        width="468">
+        v-model="printModal.dialog"
+        width="468"
+        @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
@@ -19,7 +12,7 @@
 
                 <v-btn
                     class="modal__header__btn"
-                    @click="closeModal()"
+                    @click="close()"
                     variant="icon">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -31,7 +24,6 @@
 
             <div
                 v-if="data"
-                ref="printableArea"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
                 <div>
@@ -63,7 +55,7 @@
 
                 <v-col cols="6" class="text-right">
                     <v-btn
-                    @click="closeModal()"
+                        @click="close()"
                         variant="text"
                         height="40"
                         rounded
@@ -77,7 +69,12 @@
 </div>
 </template>
 
+    
+    
 <script>
+import {
+    closeModal
+} from "@/assets/js/functions_seller";
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -88,6 +85,17 @@ export default {
         return {
             dialog: false,
             data: null,
+            stockModel: null,
+        }
+    },
+
+    computed: {
+        printModal() {
+            try {
+                return this.$store.getters['get_printModal']
+            } catch (error) {
+                return ''
+            }
         }
     },
 
@@ -96,18 +104,18 @@ export default {
     },
 
     methods: {
-        openModal() {
-            this.getPlacement();
+
+        close() {
+            closeModal(this.$store, 'set_printModal')
         },
 
-
         /**
-         * Get Placement by id
+         * Get package by id
          */
-        async getPlacement() {
+        async getPackage() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `placement/crud/get/${this.id}`
+            AxiosMethod.end_point = `package/crud/get/${this.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
@@ -122,9 +130,20 @@ export default {
         /**
          * Print barcode
          */
-        print(){
+        print() {
             //Add print modal
         }
-    }
+    },
+
+    created() {
+        this.$watch(
+            () => this.printModal.dialog,
+            (dialogState) => {
+                if (dialogState) {
+                    this.getPackage();
+                }
+            }
+        );
+    },
 }
 </script>

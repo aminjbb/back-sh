@@ -1,16 +1,9 @@
 <template>
 <div class="text-right">
-    <div class="ma-3 pointer d--rtl" @click="openModal()">
-        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-        <span class="mr-2 text-grey-darken-1 t14300">
-            پرینت برچسب
-        </span>
-    </div>
-
     <v-dialog
-        v-if="dialog"
-        v-model="dialog"
-        width="468">
+        v-model="printModal.dialog"
+        width="468"
+        @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
@@ -19,7 +12,7 @@
 
                 <v-btn
                     class="modal__header__btn"
-                    @click="closeModal()"
+                    @click="close()"
                     variant="icon">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -62,7 +55,7 @@
 
                 <v-col cols="6" class="text-right">
                     <v-btn
-                    @click="closeModal()"
+                    @click="close()"
                         variant="text"
                         height="40"
                         rounded
@@ -78,6 +71,9 @@
 
 <script>
 import {
+    closeModal
+} from "@/assets/js/functions_seller";
+import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 
@@ -87,6 +83,17 @@ export default {
         return {
             dialog: false,
             data: null,
+            stockModel: null,
+        }
+    },
+
+    computed: {
+        printModal() {
+            try {
+                return this.$store.getters['get_printModal']
+            } catch (error) {
+                return ''
+            }
         }
     },
 
@@ -95,10 +102,10 @@ export default {
     },
 
     methods: {
-        openModal() {
-            this.getPackage();
-        },
 
+        close() {
+            closeModal(this.$store, 'set_printModal')
+        },
 
         /**
          * Get package by id
@@ -124,6 +131,17 @@ export default {
         print(){
             //Add print modal
         }
-    }
+    },
+
+    created() {
+        this.$watch(
+            () => this.printModal.dialog,
+            (dialogState) => {
+                if (dialogState) {
+                    this.getPackage();
+                }
+            }
+        );
+    },
 }
 </script>
