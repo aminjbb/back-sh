@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const cargoList = ref([]);
+    const cargoReceivingList = ref([]);
     const cargo = ref(null);
     const packageCargo = ref(null);
     const cookies = useCookies()
@@ -46,13 +47,11 @@ export default function setup(posts) {
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        {name:'نام فروشگاه' , show:true , value:'name', order: false},
-        {name:'نوع بسته' , show:true ,  value:'label', order: false},
+        // {name:'نوع بسته' , show:true ,  value:'label', order: false},
         {name:'تعداد آیتم ' , show:true, value:'is_active', order: false},
         {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
-
 
 
     const filterField = [
@@ -94,6 +93,20 @@ export default function setup(posts) {
                 isFilter.value =false
                 isFilterPage.value = false
             } , 2000)
+        }
+    };
+    async function  getCargoReceivingList(id) {
+        loading.value = true
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =true
+        AxiosMethod.end_point = `cargo/crud/packages/${id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            cargoReceivingList.value = data.data
+
         }
     };
     async function getCargo(query) {
@@ -150,6 +163,7 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,
-        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,  detailCargoHeader}
+        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,
+        detailCargoHeader ,  getCargoReceivingList , cargoReceivingList}
 }
 

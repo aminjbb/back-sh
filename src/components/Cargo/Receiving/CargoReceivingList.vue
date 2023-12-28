@@ -45,13 +45,15 @@
       <v-card-actions class="pb-3" >
         <v-row class="px-5 py-2"  justify="end">
           <v-btn
+              @click="updateCargo()"
+              :disabled="!cargo"
+              :loading="loading"
               color="primary500"
               height="40"
               rounded
               variant="flat"
               class="px-8 mt-2">
-
-            بستن کارگو
+              بستن کارگو
           </v-btn>
         </v-row>
       </v-card-actions>
@@ -69,8 +71,10 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
+
   components: {
     Table,
     ModalTableFilter,
@@ -83,16 +87,26 @@ export default {
   data(){
     return{
       cargo:null ,
-      rule:[v=> !!v || 'این فیلد الزامی است']
+      qrCode:'',
+      rule:[v=> !!v || 'این فیلد الزامی است'],
+      loading:false,
     }
+  },
+
+  mounted() {
+    var element = document.body // You must specify element here.
+    element.addEventListener('keydown', e => {
+      if (e.key == 'Enter' ) this.addQrCode()
+      else this.qrCode += e.key
+    });
   },
 
   setup(props) {
     const {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading
+      pageLength,  addPerPage, getCargoReceivingList , cargoReceivingList, dataTableLength , page  , cargoReceivingHeader
     } = Cargo();
     return {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading
+      pageLength,  addPerPage, getCargoReceivingList , cargoReceivingList, dataTableLength , page  , cargoReceivingHeader
     };
   },
 
@@ -120,6 +134,11 @@ export default {
   },
 
   methods: {
+    addQrCode(){
+      this.cargo = this.qrCode
+      this.qrCode = ''
+      this.getCargoReceivingList(this.cargo)
+    },
     /**
      * Change Header Status
      * @param {*} index
@@ -127,7 +146,23 @@ export default {
      */
     changeHeaderShow(index, value) {
       this.header[index].show = value
+    },
+
+    async updateCargo(){
+      this.loading = true
+      const AxiosMethod = new AxiosCall()
+      const formData =  new FormData()
+      formData.append('status' , 'received_by_warehouse')
+      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.using_auth =true
+      AxiosMethod.end_point = `cargo/crud/packages/${route.params.cargoId}`
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+      }
     }
-  }
+  },
+
+
 }
 </script>

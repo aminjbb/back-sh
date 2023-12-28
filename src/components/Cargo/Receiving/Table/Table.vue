@@ -44,12 +44,13 @@
                         {{ item.id }}
                     </span>
           </div>
+
           <div
               v-if=" header[2].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.factor_id }}
+                        {{ item.shps_variety }}
                     </span>
           </div>
           <div
@@ -60,50 +61,14 @@
                         {{ item.shps_count }}
                     </span>
           </div>
-          <div
-              v-if=" header[4].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_variety }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[5].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.creator?.first_name }} {{ item.creator?.last_name }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[6].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.created_at_fa }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[7].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.updated_at_fa }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[8].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <div class="retail-status-box d-flex align-center pr-2">
-                 <span class="t14300 text-gray500 py-5 ">
-                   {{ getStatus(item.status)  }}
-                 </span>
+          <div v-if="header[4].show" class="c-table__contents__item " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div
+                @click="updatePackage(item)"
+                class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+              <v-icon size="15">mdi-plus</v-icon>
             </div>
-
           </div>
-
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
@@ -113,64 +78,6 @@
                 </v-icon>
               </template>
 
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
-                      <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                     مدیریت کالاها
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item  :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                  <v-list-item-title>
-                    <div   class="ma-5 pointer" @click="requestShipment(item)">
-                      <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        درخواست ارسال
-                        </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
-                      <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                       پرینت محموله
-
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                      <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        نمایش جزئیات
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        حذف
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-
-              </v-list>
             </v-menu>
           </div>
         </div>
@@ -277,47 +184,6 @@ export default {
 
   data() {
     return {
-      statusItems: [
-        {
-          label: 'در انتظار',
-          value: 'waiting',
-        },
-        {
-          label: 'در حال بررسی',
-          value: 'in_review',
-        },
-        {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
-        },{
-          label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
-      ],
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -331,14 +197,6 @@ export default {
   },
 
   computed: {
-    PrintPermission(){
-      return ['waiting' , 'in_review']
-    },
-    deleteAndShippingPermission(){
-      return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
-        'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
-        'received_base_warehouse' , 'locating' ,  'located']
-    },
     /**
      * Get each items table based of header length
      */
@@ -410,11 +268,13 @@ export default {
     /**
      * retailShipment detail modal
      */
-    async retailShipmentDetail(item) {
+    async updatePackage(item) {
       const AxiosMethod = new AxiosCall()
+      const formData =  new FormData()
+      formData.append('status' , 'sent_to_warehouse')
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      AxiosMethod.end_point = `package/crud/update/status/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
