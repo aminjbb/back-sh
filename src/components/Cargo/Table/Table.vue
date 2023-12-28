@@ -141,8 +141,8 @@
                 </v-list-item>
                 <v-list-item >
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="requestShipment(item)">
-                      <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                    <div class="ma-5 pointer" @click="getCargoDetail(item)">
+                      <v-icon  class="text-grey-darken-1">mdi-printer-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                         پرینت بسته های کارگو
                       </span>
@@ -175,7 +175,7 @@
         </div>
       </div>
     </div>
-    <ModalRequestShipment  />
+    <ModalCargoDetail  />
 
   </div>
 </template>
@@ -195,8 +195,10 @@ import {
   openConfirm,
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
+import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 export default {
   components: {
+    ModalCargoDetail,
     ModalRequestShipment,
     ActivationModal,
   },
@@ -378,7 +380,7 @@ export default {
     /**
      * retailShipment detail modal
      */
-    async retailShipmentDetail(item) {
+    async getCargoDetail(item) {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
@@ -389,10 +391,8 @@ export default {
           dialog :true,
           object : data.data
         }
-        this.$store.commit('set_modalRetailShipmentDetail' , form)
-
+        this.$store.commit('set_ModalCargoDetail' , form)
       }
-
     },
     /**
      * Get row index in table

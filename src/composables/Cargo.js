@@ -36,6 +36,12 @@ export default function setup(posts) {
         {name:'تعداد کالا' , show:true ,  value:'label', order: false},
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
+    const detailCargoHeader = ref([
+        {name:'ردیف' , show:true , value:null, order: false},
+        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
+        // {name:'نوع بسته' , show:true , value:'name', order: false},
+        {name:'تعداد کالا' , show:true ,  value:'label', order: false},
+    ]);
 
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
@@ -144,6 +150,6 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,
-        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo}
+        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,  detailCargoHeader}
 }
 

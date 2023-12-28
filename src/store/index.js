@@ -110,9 +110,17 @@ export default createStore({
       dialog: false,
       id: ''
     },
+    ModalCargoDetail: {
+      dialog: false,
+      object:''
+    },
   },
 
   mutations: {
+    set_ModalCargoDetail(state , form){
+      state.ModalCargoDetail.dialog = form.dialog
+      state.ModalCargoDetail.object = form.object
+    },
     set_marketPlaceDetailModal(state , form){
       state.marketPlaceDetailModal.dialog = form.dialog
       state.marketPlaceDetailModal.object = form.object
@@ -250,6 +258,14 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_ModalCargoDetail(state ){
+      return  state.ModalCargoDetail.dialog
+
+    },
+    get_ModalCargoDetailObject(state ){
+      return  state.ModalCargoDetail.object
+
+    },
     get_marketPlaceDetailModal(state){
       return  state.marketPlaceDetailModal.dialog
     },
