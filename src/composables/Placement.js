@@ -18,8 +18,8 @@ export default function setup(posts) {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه شلف', show: true , value:'id', order: false},
         { name: 'شماره ردیف', show: true, value:'row_number' , order: false},
-        { name: 'شماره قفسه', show: true , value:'shelf_number', order: false},
-        { name: 'شماره طبقه', show: true, value:'floor_number', order: false },
+        { name: 'شماره قفسه', show: true , value:'placement_number', order: false},
+        { name: 'شماره طبقه', show: true, value:'step_number', order: false },
         { name: 'شماره شلف', show: true, value:'shelf_number', order: false },
         { name: 'تاریخ ایجاد', show: true, value:'created_at', order: false },
     ]);
@@ -29,17 +29,17 @@ export default function setup(posts) {
         {name:'تاریخ ایجاد' , type:'date', value:'created_at'},
         {name:'شماره ردیف' , type:'text', value:'row_number_from'},
         {name:'شماره ردیف' , type:'text', value:'row_number_at'},
-        {name:'شماره قفسه' , type: 'text', value:'shelf_number_from'},
-        {name:'شماره قفسه' , type: 'text', value:'shelf_number_to'},
-        {name:'شماره طبقه' , type: 'text', value:'floor_number_from'},
-        {name:'شماره طبقه' , type: 'text', value:'floor_number_to'},
+        {name:'شماره قفسه' , type: 'text', value:'placement_number_from'},
+        {name:'شماره قفسه' , type: 'text', value:'placement_number_to'},
+        {name:'شماره طبقه' , type: 'text', value:'step_number_from'},
+        {name:'شماره طبقه' , type: 'text', value:'step_number_to'},
     ];
 
     const shpssHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'سریال shpss', show: true , value:'id', order: false},
-        { name: 'نام کالا', show: true, value:'shpss_label' , order: false},
-        { name: 'تعداد کالا', show: true , value:'shpss_count', order: false},
+        { name: 'سریال shpss', show: true , value:'shipment_id', order: false},
+        { name: 'نام کالا', show: true, value:'sku_label' , order: false},
+        { name: 'تعداد کالا', show: true , value:'count', order: false},
     ]);
 
     const loading = ref(false)
@@ -53,6 +53,7 @@ export default function setup(posts) {
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }
+
         else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -68,25 +69,21 @@ export default function setup(posts) {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
     };
 
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/Placement/index'+ filter.params_generator(route.query))
+        router.push('/placement/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/Placement/index'+ filter.params_generator(route.query))
+        router.push('/placement/index'+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {
-
         if (!isFilterPage.value) {
             isFilter.value =true
             page.value = 1

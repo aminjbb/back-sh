@@ -111,15 +111,26 @@ export default createStore({
       id: ''
     },
     ModalCargoDetail: {
+        dialog: false,
+        object: ''
+    },
+    bulkPrintLabel: {
       dialog: false,
-      object:''
+      id: ''
+
     },
   },
 
   mutations: {
-    set_ModalCargoDetail(state , form){
-      state.ModalCargoDetail.dialog = form.dialog
-      state.ModalCargoDetail.object = form.object
+
+    set_ModalCargoDetail(state , form) {
+        state.ModalCargoDetail.dialog = form.dialog
+        state.ModalCargoDetail.object = form.object
+    },
+    set_bulkPrintLabel(state , form){
+      state.bulkPrintLabel.dialog = form.dialog
+      state.bulkPrintLabel.object = form.object
+
     },
     set_marketPlaceDetailModal(state , form){
       state.marketPlaceDetailModal.dialog = form.dialog
@@ -258,12 +269,20 @@ export default createStore({
   actions: {},
 
   getters: {
+
     get_ModalCargoDetail(state ){
       return  state.ModalCargoDetail.dialog
 
     },
-    get_ModalCargoDetailObject(state ){
-      return  state.ModalCargoDetail.object
+    get_ModalCargoDetailObject(state ) {
+        return state.ModalCargoDetail.object
+
+    },
+    get_bulkPrintLabel(state){
+      return  state.bulkPrintLabel.dialog
+    },
+    get_bulkPrintLabelObject(state){
+      return  state.bulkPrintLabel.object
 
     },
     get_marketPlaceDetailModal(state){

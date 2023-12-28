@@ -23,12 +23,15 @@
             </div>
 
             <div
-                v-if="data"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
                 <div>
-                    <img v-if="data.barcode_image" alt="Barcode" :src="data.barcode_image" width="199" height="103">
-                    <span v-if="data.barcode" class="number-font text-black t12500 mt-2">{{ data.barcode }}</span>
+                    <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
+                    <br />
+                    <div
+                        v-if="data && data.barcode"
+                        class="number-font text-black t12500 mt-2"
+                        style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -69,8 +72,6 @@
 </div>
 </template>
 
-    
-    
 <script>
 import {
     closeModal
@@ -86,6 +87,7 @@ export default {
             dialog: false,
             data: null,
             stockModel: null,
+            url : import.meta.env.VITE_API_BASEURL2,
         }
     },
 
@@ -110,18 +112,18 @@ export default {
         },
 
         /**
-         * Get package by id
+         * Get placement by id
          */
-        async getPackage() {
+        async getPlacement() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `package/crud/get/${this.id}`
+            AxiosMethod.end_point = `placement/crud/get/${this.printModal.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
+            let data = await AxiosMethod.axios_get()
             if (data) {
                 this.data = data.data
             } else {}
@@ -140,7 +142,7 @@ export default {
             () => this.printModal.dialog,
             (dialogState) => {
                 if (dialogState) {
-                    this.getPackage();
+                    this.getPlacement();
                 }
             }
         );

@@ -41,14 +41,9 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.id" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                    <span v-if="item.shipment_id" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shipment_id }}
                     </span>
-
-                    <span v-else-if="item.updated_at_fa" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.updated_at_fa }}
-                    </span>
-
                     <span v-else class="t14300 text-gray500 py-5 number-font">
                         -
                     </span>
@@ -59,8 +54,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13300 text-gray500 py-5">
-                        <template v-if="item.shpss_label">
-                            {{ item.shpss_label }}
+                        <template v-if="item.sku_label">
+                            {{ item.sku_label }}
                         </template>
                         <template v-else>
                             -
@@ -73,8 +68,8 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.shpss_count">
-                            {{item.shpss_count}}
+                        <template v-if="item.count">
+                            {{item.count}}
                         </template>
                         <template v-else>
                             -

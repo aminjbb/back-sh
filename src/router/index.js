@@ -190,6 +190,11 @@ import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDa
 import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue";
 import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
+
+/* Bulk Label Print */
+import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [{
@@ -1465,7 +1470,7 @@ const router = createRouter({
     },
 
     {
-      path: '/waste-and-lost', // Waste and lost routes
+      path: '/report', // Waste and lost routes
       meta: {
         name: 'انبار'
       },
@@ -1488,6 +1493,20 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/print/label/bulk', //  print label bulk
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'print-label-bulk',
+        component: BulkLabelPrintListView,
+        meta: {
+          name: ' پرینت گروهی برچسب '
+        }
+      }],
+    }
   ]
 })
 const privateRoutes = [

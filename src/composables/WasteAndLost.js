@@ -38,7 +38,7 @@ export default function setup(posts) {
         {name:'نام کالا' , type:'text', value:'shps_label'},
         {name:'نوع گزارش' , type:'select', value:'report_type'},
         {name:'نام ایجاد کننده' , type:'select', value:'user_id'},
-        {name:'تاریخ افزودن به لیست' , type:'select', value:'created_at'},
+        {name:'تاریخ افزودن به لیست' , type:'date', value:'created_at'},
     ];
 
     const createHeader =ref([
@@ -69,7 +69,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `wast-and-lost/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `report/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -88,13 +88,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/wast-and-lost/index'+ filter.params_generator(route.query))
+        router.push('/report/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/wast-and-lost/index'+ filter.params_generator(route.query))
+        router.push('/report/index'+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {
