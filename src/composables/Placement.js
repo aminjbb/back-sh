@@ -53,6 +53,7 @@ export default function setup(posts) {
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }
+
         else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -67,9 +68,6 @@ export default function setup(posts) {
                isFilter.value =false
                isFilterPage.value = false
            } , 2000)
-        }
-
-        else {
         }
     };
 
@@ -86,7 +84,6 @@ export default function setup(posts) {
     }
 
     onBeforeRouteUpdate(async (to, from) => {
-
         if (!isFilterPage.value) {
             isFilter.value =true
             page.value = 1

@@ -24,7 +24,7 @@ export class PanelFilter {
         this.order_type = 'desc';
         this.created_at_to_date = null;
         this.created_at_from_date = null;
-        this.type = null;
+        this.id = null;
         this.row_number_from = null;
         this.row_number_at = null;
         this.shelf_number_from = null;
@@ -46,6 +46,10 @@ export class PanelFilter {
 
         if (this.per_page!== null) {
             query += "per_page=" + this.per_page + "&";
+        }
+
+        if (this.id) {
+            query += "id=" + this.id + "&";
         }
 
         if (this.created_at_to_date) {
@@ -100,18 +104,11 @@ export class PanelFilter {
             query += "page=" + routeQuery.page + "&";
         }
 
-        if (routeQuery.order) {
-            query += "order=" + routeQuery.order + "&";
+        if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
         }
-        else if (this.order)  {
-            query += "order=" + this.order + "&";
-        }
-
-        if (routeQuery.order_type) {
-            query += "order_type=" + routeQuery.order_type + "&";
-        }
-        else if  (this.order_type){
-            query += "order_type=" + this.order_type + "&";
+        else if  (this.id){
+            query += "id=" + this.id + "&";
         }
 
         if (routeQuery.created_at_to_date) {
@@ -189,18 +186,11 @@ export class PanelFilter {
             query += "page=" + routeQuery.page + "&";
         }
 
-        if (this.order) {
-            query += "order=" + this.order + "&";
+        if (this.id) {
+            query += "id=" + this.id + "&";
         }
-        else if  (routeQuery.order) {
-            query += "order=" + routeQuery.order + "&";
-        }
-
-        if (this.order_type) {
-            query += "order_type=" + this.order_type + "&";
-        }
-        else if   (routeQuery.order_type){
-            query += "order_type=" + routeQuery.order_type + "&";
+        else if  (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
         }
 
         if (routeQuery.created_at_to_date) {
