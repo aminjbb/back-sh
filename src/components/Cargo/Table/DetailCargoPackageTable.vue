@@ -6,7 +6,7 @@
         reverse
         v-if="loading" />
 
-    <header class="c-table__header d-flex justify-between">
+    <header class="c-table__header d-flex justify-between ">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
@@ -19,12 +19,6 @@
           {{head.name}}
         </div>
       </template>
-
-      <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-icon v-bind="props">
-          mdi-dots-vertical
-        </v-icon>
-      </div>
     </header>
 
     <div class="stretch-table">
@@ -58,17 +52,7 @@
                         {{ item.package_count }}
                     </span>
           </div>
-          <div
-              v-if=" header[3].show"
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <div class="retail-status-box d-flex align-center pr-2">
-                 <span class="t14300 text-gray500 py-5 ">
-                    در حال بارگیری
-                 </span>
-            </div>
 
-          </div>
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
               <template v-slot:activator="{ props }">
@@ -116,7 +100,6 @@ import {
 import {
   SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 
 import {
   openToast,
@@ -124,9 +107,7 @@ import {
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 export default {
-  components: {
-    ModalCargoDetail,
-  },
+
 
   props: {
     /**

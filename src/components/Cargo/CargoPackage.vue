@@ -178,7 +178,7 @@ export default {
       var formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `cargo/crud/update/status/${this.$route.params.cargoId}`
-      formData.append('status', 'luggage')
+      formData.append('status', 'sent_to_warehouse')
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
