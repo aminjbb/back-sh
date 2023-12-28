@@ -270,6 +270,8 @@ export default {
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
+                ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
+                ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
