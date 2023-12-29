@@ -77,19 +77,7 @@
                           </template>
                       </span>
                   </div>
-                  <div
-                      v-if="header[3].show"
-                      class="c-table__contents__item justify-center"
-                      :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          <template v-if="item.phone_number">
-                              {{ item.phone_number }}
-                          </template>
-                          <template v-else>
-                              نامعلوم
-                          </template>
-                      </span>
-                  </div>
+                 
   
                   <div
                       v-if="header[4].show"
@@ -131,7 +119,7 @@
                                           @click="$router.push(`/driver-management/update`)">
                                           <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
-                                              ویرایش                                           
+                                            پرینت گروهی برچسب                                           
                                               </span>
                                       </div>
                                   </v-list-item-title>
@@ -142,8 +130,17 @@
                                       <div class="ma-5 pointer" @click="removeItem(item.id)">
                                           <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
-                                              حذف
+                                            ثبت مفقودی
                                           </span>
+                                      </div>
+                                  </v-list-item-title>
+                              </v-list-item>
+                              <v-list-item>
+                                  <v-list-item-title>
+                                      <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                          <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                                          <span class="mr-2 text-grey-darken-1 t14300">
+                                            ثبت ضایعات                                          </span>
                                       </div>
                                   </v-list-item-title>
                               </v-list-item>

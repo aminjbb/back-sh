@@ -51,16 +51,16 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
+        AxiosMethod.end_point = `package/crud/index${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
-            console.log("API Response:", response); // Log the raw response
+            console.log("API Response:", response); 
     
             loading.value = false;
     
             if (response && response.data && response.data.data) {
                 pageLength.value = response.data.last_page;
-                return response.data.data; // Assuming this is the correct data structure
+                return response.data.data; 
             } else {
                 return [];
             }
