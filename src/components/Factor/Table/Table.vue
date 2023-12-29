@@ -205,7 +205,7 @@
                                 <v-list-item-title>
                                     <div
                                         class="ma-5 pointer"
-                                        @click="$router.push(`${item.id}/update/content`)">
+                                        @click="$router.push(`details/${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت گذاری

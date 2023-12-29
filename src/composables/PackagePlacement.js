@@ -29,24 +29,14 @@ export default function setup(posts) {
 
     async function getPackagePlacement(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `category/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `placement/packages`
+        AxiosMethod.using_auth = true
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             packagePlacement.value = data.data
             loading.value = false
-            setTimeout(()=>{
-                isFilter.value =false
-                isFilterPage.value = false
-            } , 2000)
         }
     };
 
