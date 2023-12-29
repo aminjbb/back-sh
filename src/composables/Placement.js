@@ -70,6 +70,17 @@ export default function setup(posts) {
            } , 2000)
         }
     };
+    async function getAllPlacementList(query) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `placement/crud/index?per_page=1000000`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+
+            placementList.value = data.data.data
+        }
+    };
 
     function addPerPage(number){
         filter.page = 1
@@ -99,6 +110,6 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading, shpssHeader}
+    return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading, shpssHeader , getAllPlacementList}
 }
 

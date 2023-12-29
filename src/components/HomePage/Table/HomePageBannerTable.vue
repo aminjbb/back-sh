@@ -202,7 +202,6 @@
         </div>
     </div>
 
-    <ModalMassUpdate :updateUrl="updateUrl" />
     <ModalEditBanner />
     <ModalEditCategory />
     <ModalEditBlog />
@@ -214,20 +213,12 @@ import {
     convertDateToJalai,
     isOdd
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
     openConfirm
 } from '@/assets/js/functions'
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    SkuPanelFilter
-} from "@/assets/js/filter_sku"
 import {
     openToast
 } from "@/assets/js/functions";
@@ -239,7 +230,6 @@ export default {
         ModalEditBlog,
         ModalEditCategory,
         ModalEditBanner,
-        ModalMassUpdate,
     },
 
     props: {
@@ -312,14 +302,6 @@ export default {
          * Edit endpoint for change active
          */
         activePath: {
-            type: String,
-            default: ''
-        },
-
-        /**
-         * Edit endpoint for change Sellable
-         */
-        sellablePath: {
             type: String,
             default: ''
         },
@@ -444,7 +426,9 @@ export default {
             else if (this.model == 'blog') this.$store.commit('set_homeBlogModal', form)
             else this.$store.commit('set_homePageBannerModal', form)
         },
+
         convertDateToJalai,
+
         async submitImage(index, file) {
             var formData = new FormData();
             const AxiosMethod = new AxiosCall()
@@ -461,6 +445,7 @@ export default {
                 this.form[index].image = data.data.data.image_id
             }
         },
+
         async updateImage(index) {
             this.form[index].loading = true
             const formData = new FormData()
@@ -488,6 +473,7 @@ export default {
                 }
             }
         },
+
         selectFile(index) {
             var input = document.createElement('input');
             input.type = 'file';
@@ -496,13 +482,6 @@ export default {
                 this.submitImage(index, file)
             }
             input.click();
-        },
-
-        /**
-         * Mass update modal
-         */
-        massUpdateModal() {
-            this.$store.commit('set_massUpdateModal', true)
         },
 
         /**
@@ -531,28 +510,15 @@ export default {
                     if (this.order_type === 'desc') {
                         this.order_type = 'asc'
 
-                        if (this.model === 'sku') {
-                            this.skuPanelFilter.order_type = 'asc'
-                        } else {
-                            this.panelFilter.order_type = 'asc'
-                        }
+                        this.panelFilter.order_type = 'asc'
                     } else {
                         this.order_type = 'desc'
 
-                        if (this.model === 'sku') {
-                            this.skuPanelFilter.order_type = 'desc'
-                        } else {
-                            this.panelFilter.order_type = 'desc'
-                        }
+                        this.panelFilter.order_type = 'desc'
                     }
 
-                    if (this.model === 'sku') {
-                        this.skuPanelFilter.order = index
-                        this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-                    } else {
-                        this.panelFilter.order = index
-                        this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-                    }
+                    this.panelFilter.order = index
+                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
 
                     this.ordering = {};
                     this.ordering[index] = !this.ordering[index];
@@ -607,33 +573,6 @@ export default {
          */
         removeItem(id) {
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-        },
-
-        /**
-         * Clipboard success msg
-         */
-        onCopy() {
-            openToast(
-                this.$store,
-                'متن  با موفقیت کپی شد.',
-                "success"
-            );
-        },
-
-        /**
-         * Clipboard error msg
-         */
-        onError() {
-            openToast(
-                this.$store,
-                'کپی متن با مشکل مواجه شد.',
-                "error"
-            );
-        },
-
-        updateList(status) {
-            console.log('2.skuTable', status)
-            this.$emit('updateList', status);
         },
     },
 }

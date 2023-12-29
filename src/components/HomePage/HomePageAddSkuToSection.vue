@@ -1,102 +1,92 @@
 <template>
-  <div class="h-100 d-flex flex-column align-stretch sku-seller">
+<div class="h-100 d-flex flex-column align-stretch sku-seller">
     <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
-      <v-row
-          justify="center"
-          align="center"
-          class="px-10 py-5">
-        <v-col cols="6">
-          <v-row justify="start">
-            <v-autocomplete
-                placeholder="نام کالا یا شماره SKU را جستجو نمایید"
-                variant="outlined"
-                prepend-inner-icon-cb="mdi-map-marker"
-                rounded="lg"
-                :items="skuSearchList"
-                item-title="id"
-                return-object
-                v-debounce:1s.unlock="searchSku">
+        <v-row
+            justify="center"
+            align="center"
+            class="px-10 py-5">
+            <v-col cols="6">
+                <v-row justify="start">
+                    <v-autocomplete
+                        placeholder="نام کالا یا شماره SKU را جستجو نمایید"
+                        variant="outlined"
+                        prepend-inner-icon-cb="mdi-map-marker"
+                        rounded="lg"
+                        :items="skuSearchList"
+                        item-title="id"
+                        return-object
+                        v-debounce:1s.unlock="searchSku">
 
-              <template v-slot:item="item">
-                <v-list-item>
-                  <v-row justify="center">
-
-                    <v-col cols="4">
-
-                      <div @click="assignSku(item.props.value.id,item.props.value.sku_id)" class="seller__add-sku-btn d-flex justify-center align-center">
-                        <v-icon>mdi-plus</v-icon>
-                      </div>
-
-                    </v-col>
-                    <v-col cols="8">
-                      <text-clamp
-                          :text='item?.props?.title'
-                          :max-lines='1'
-                          autoResize
-                          location="start"
-                          class="text-gray500 t14300 text-right" />
-                    </v-col>
-                  </v-row>
-                </v-list-item>
-              </template>
-            </v-autocomplete>
-
-          </v-row>
-        </v-col>
-
-
-        <v-col cols="6">
-        </v-col>
-      </v-row>
+                        <template v-slot:item="item">
+                            <v-list-item>
+                                <v-row justify="center">
+                                    <v-col cols="4">
+                                        <div @click="assignSku(item.props.value.id,item.props.value.sku_id)" class="seller__add-sku-btn d-flex justify-center align-center">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </div>
+                                    </v-col>
+                                    
+                                    <v-col cols="8">
+                                        <text-clamp
+                                            :text='item?.props?.title'
+                                            :max-lines='1'
+                                            autoResize
+                                            location="start"
+                                            class="text-gray500 t14300 text-right" />
+                                    </v-col>
+                                </v-row>
+                            </v-list-item>
+                        </template>
+                    </v-autocomplete>
+                </v-row>
+            </v-col>
+            <v-col cols="6" />
+        </v-row>
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
-          class="flex-grow-1"
-          :header="homePageSkuHeader"
-          :items="homePageSingleCategory.skus"
-          editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
-          changeStatusUrl="seller/crud/update/contract/"
-          :loading="loading"
-          @updateList="updateList"
-          updateUrl="seller/csv/mass-update"
-          model="sku" />
+        <Table
+            class="flex-grow-1"
+            :header="homePageSkuHeader"
+            :items="homePageSingleCategory.skus"
+            editUrl="/seller/edit/"
+            activePath="seller/crud/update/activation/"
+            deletePath="seller/crud/update/activation/"
+            changeStatusUrl="seller/crud/update/contract/"
+            :loading="loading"
+            @updateList="updateList"
+            updateUrl="seller/csv/mass-update"
+            model="sku" />
 
-      <v-divider />
+        <v-divider />
 
-      <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
+        <v-card-actions class="pb-3">
+            <v-row class="px-8">
+                <v-col cols="3" class="d-flex justify-start" />
 
-          </v-col>
+                <v-col cols="6" class="d-flex justify-center" />
 
-          <v-col cols="6" class="d-flex justify-center">
-
-          </v-col>
-
-          <v-col cols="3" class="d-flex justify-end">
-            <div
-                align="center"
-                id="rowSection"
-                class="d-flex align-center">
+                <v-col cols="3" class="d-flex justify-end">
+                    <div
+                        align="center"
+                        id="rowSection"
+                        class="d-flex align-center">
                         <span class="ml-5">
                             تعداد سطر در هر صفحه
                         </span>
-              <span class="mt-2" id="row-selector">
+                        <span class="mt-2" id="row-selector">
                             <v-select
                                 v-model="dataSkuTableLength"
                                 class="t1330"
                                 variant="outlined"
                                 :items="[25,50,100]" />
                         </span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card-actions>
     </v-card>
-  </div>
+</div>
 </template>
 
 <script>
@@ -108,155 +98,167 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
-  openToast
+    openToast
 } from "@/assets/js/functions";
 import {
-  AxiosCall
+    AxiosCall
 } from "@/assets/js/axios_call";
-import Brands from "@/composables/Brands";
-import Colors from "@/composables/Colors";
-import Categories from "@/composables/Categories";
-import Sku from "@/composables/Sku";
 export default {
-  setup(props) {
-    const {
-      getSkuSeller , sellerSku,headerSku,
-      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuPerPage,pageLength
-    } = Seller();
-    const {
-      getHomePageSingleCategory , homePageSingleCategory , homePageSkuHeader
-    } = new Home()
-    return {
-      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuPerPage , pageLength,
-      skuPage ,dataSkuTableLength ,  getHomePageSingleCategory , homePageSingleCategory , homePageSkuHeader
-    };
-  },
-
-  data(){
-    return{
-      skuSearchList:[]
-    }
-  },
-
-  components: {
-    Table,
-    ModalGroupAdd,
-    SkuModalTableFilter,
-    ModalColumnFilter,
-    ModalExcelDownload,
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    },
-    skuGroupList() {
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value: skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      } catch (e) {
-        return []
-      }
-    },
-    skuList() {
-      try {
-        let sku = []
-        this.skuSearchList.forEach(permission => {
-          const form = {
-            name: permission.label + '(' + permission.id + ')',
-            id: permission.id
-          }
-          sku.push(form)
-        })
-        return sku
-      } catch (e) {
-        return []
-      }
-    },
-  },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
+    setup(props) {
+        const {
+            getSkuSeller,
+            sellerSku,
+            headerSku,
+            filterFieldSku,
+            skuPage,
+            dataSkuTableLength,
+            addSkuPerPage,
+            pageLength
+        } = Seller();
+        const {
+            getHomePageSingleCategory,
+            homePageSingleCategory,
+            homePageSkuHeader
+        } = new Home()
+        return {
+            getSkuSeller,
+            sellerSku,
+            headerSku,
+            filterFieldSku,
+            addSkuPerPage,
+            pageLength,
+            skuPage,
+            dataSkuTableLength,
+            getHomePageSingleCategory,
+            homePageSingleCategory,
+            homePageSkuHeader
+        };
     },
 
-    updateList(status) {
-      console.log('3.skuList', status)
-      if (status === 'true') {
-        this.getSkuSeller();
-      }
-    },
-
-    async searchSku(search) {
-      this.skuSearchList = []
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `seller/sku/search?id=${search}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.skuSearchList = data.data.data
-      }
-    },
-
-    async assignSku(id, skuId) {
-      const formData = new FormData()
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `page/home/section/category/${this.$route.params.categoryId}/sku/attach`
-      formData.append('shps', id)
-      formData.append('sku_id', skuId)
-      formData.append('priority', 1)
-      formData.append('is_active', 0)
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.getHomePageSingleCategory()
-        openToast(
-            this.$store,
-            'کد کالا با موفقیت افزوده شد.',
-            "success"
-        );
-      }
-    }
-  },
-
-  mounted() {
-    this.getHomePageSingleCategory()
-  },
-
-  watch: {
-    dataSkuTableLength(val) {
-      this.addSkuPerPage(val)
-    },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getSellerList();
-          openToast(
-              this.$store,
-              'انبار با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
+    data() {
+        return {
+            skuSearchList: []
         }
-      }
     },
-    $route(to, from) {
-      this.getSkuSeller()
-    }
-  }
 
+    components: {
+        Table,
+        ModalGroupAdd,
+        SkuModalTableFilter,
+        ModalColumnFilter,
+        ModalExcelDownload,
+    },
+
+    computed: {
+        confirmModal() {
+            return this.$store.getters['get_confirmForm'].confirmModal
+        },
+        skuGroupList() {
+            try {
+                let group = []
+                this.allSkuGroups.data.forEach(skuGroup => {
+                    const form = {
+                        label: skuGroup.label,
+                        value: skuGroup.id
+                    }
+                    group.push(form)
+                })
+                return group
+            } catch (e) {
+                return []
+            }
+        },
+        skuList() {
+            try {
+                let sku = []
+                this.skuSearchList.forEach(permission => {
+                    const form = {
+                        name: permission.label + '(' + permission.id + ')',
+                        id: permission.id
+                    }
+                    sku.push(form)
+                })
+                return sku
+            } catch (e) {
+                return []
+            }
+        },
+    },
+
+    methods: {
+        changeHeaderShow(index, value) {
+            this.headerSku[index].show = value
+        },
+
+        updateList(status) {
+            console.log('3.skuList', status)
+            if (status === 'true') {
+                this.getSkuSeller();
+            }
+        },
+
+        async searchSku(search) {
+            this.skuSearchList = []
+
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `seller/sku/search?id=${search}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.skuSearchList = data.data.data
+            }
+        },
+
+        async assignSku(id, skuId) {
+            const formData = new FormData()
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.store = this.$store
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `page/home/section/category/${this.$route.params.categoryId}/sku/attach`
+            formData.append('shps', id)
+            formData.append('sku_id', skuId)
+            formData.append('priority', 1)
+            formData.append('is_active', 0)
+            AxiosMethod.form = formData
+            let data = await AxiosMethod.axios_post()
+            if (data) {
+                this.getHomePageSingleCategory()
+                openToast(
+                    this.$store,
+                    'کد کالا با موفقیت افزوده شد.',
+                    "success"
+                );
+            }
+        }
+    },
+
+    mounted() {
+        this.getHomePageSingleCategory()
+    },
+
+    watch: {
+        dataSkuTableLength(val) {
+            this.addSkuPerPage(val)
+        },
+        confirmModal(val) {
+            if (this.$cookies.get('deleteItem')) {
+                if (!val) {
+                    this.getSellerList();
+                    openToast(
+                        this.$store,
+                        'انبار با موفقیت حذف شد',
+                        "success"
+                    );
+                    this.$cookies.remove('deleteItem')
+                }
+            }
+        },
+        $route(to, from) {
+            this.getSkuSeller()
+        }
+    }
 
 }
 </script>

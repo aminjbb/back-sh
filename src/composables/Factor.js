@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const factorList = ref([]);
+    const priceList = ref([])
     const templates =ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -28,16 +29,15 @@ export default function setup(posts) {
 
     const pricingHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه shps', show: true , value:'id', order: false},
-        { name: 'نام کالا', show: true, value:'supplier' , order: false},
-        { name: 'تعداد کالا', show: true , value:'creator', order: false},
-        { name: 'قیمت خرید', show: true, value:'factor_number', order: true },
-        { name: 'قیمت مصرف کننده', show: true, value:'created_at_fa', order: true },
-        { name: 'مجموع قیمت خرید', show: true, value:'status', order: false },
-        { name: 'مجموع قیمت مصرف کننده', show: true, value:'status', order: false },
-        { name: 'درصد سود', show: true, value:'status', order: false },
+        { name: 'شناسه shps', show: true , value:'shps', order: false},
+        { name: 'نام کالا', show: true, value:'sku' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'قیمت خرید', show: true, value:'buying_price', order: false },
+        { name: 'قیمت مصرف کننده', show: true, value:'customer_price', order: false },
+        { name: 'مجموع قیمت خرید', show: true, value:'sum_buying_price', order: false },
+        { name: 'مجموع قیمت مصرف کننده', show: true, value:'sum_customer_price', order: false },
+        { name: 'درصد سود', show: true, value:'profit', order: false },
     ]);
-
 
     const filterField = [
         {name:'شناسه فاکتور' , type:'text', value:'id'},
@@ -48,7 +48,6 @@ export default function setup(posts) {
         { name: 'وضعیت', type:'select', value:'status'},
     ];
 
-    
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -73,6 +72,36 @@ export default function setup(posts) {
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             factorList.value = data.data
+            loading.value = false
+           setTimeout(()=>{
+               isFilter.value =false
+               isFilterPage.value = false
+           } , 2000)
+        }
+
+        else {
+        }
+    };
+
+    /**
+     * Get Price list of a factor
+     * @param {*} query 
+     */
+    async function getPricingList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `factor/crud/detail/${route.params.id}/${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            priceList.value = data.data
             loading.value = false
            setTimeout(()=>{
                isFilter.value =false
@@ -113,6 +142,6 @@ export default function setup(posts) {
         }
     })
 
-    return {templates, pageLength, filterField, factorList, addPerPage, getFactorList, dataTableLength, page, header, loading, pricingHeader }
+    return {templates, pageLength, filterField, factorList, addPerPage, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
 }
 
