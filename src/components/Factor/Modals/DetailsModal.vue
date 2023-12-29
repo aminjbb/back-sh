@@ -206,9 +206,9 @@
                         <div class="text-center c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px">
                             جمع:
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px"></div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px"></div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:17.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.buying_price >= 0">
                                 {{factorSkuData.buying_price}}
                             </template>
@@ -216,7 +216,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.customer_price >= 0">
                                 {{factorSkuData.customer_price}}
                             </template>
@@ -224,7 +224,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_shps_count >= 0">
                                 {{factorSkuData.total_shps_count}}
                             </template>
@@ -232,7 +232,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_buying_price >= 0">
                                 {{factorSkuData.total_buying_price}}
                             </template>
@@ -240,7 +240,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:12.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:12.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_customer_price >= 0">
                                 {{factorSkuData.total_customer_price}}
                             </template>
@@ -248,7 +248,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_profit >= 0">
                                 {{factorSkuData.total_profit}}
                             </template>
