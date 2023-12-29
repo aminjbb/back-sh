@@ -8,7 +8,7 @@
       </div>
       <div class=" mt-8 d-flex justify-center px-10 text-center">
         <span class="text-black t20400">
-      برای ادامه فرآیند بارکد را اسکن کنید.
+            {{scanTitle}}
         </span>
       </div>
     </div>
@@ -16,14 +16,23 @@
 </template>
 <script >
 export default {
+  props:{
+    scanTitle:'',
+    state:''
+  },
   data(){
     return{
-      qrCode:''
+      qrCode:'',
+      objectId:''
     }
   },
+
   methods:{
-    logValue(){
-      alert(this.qrCode)
+    qrCodeScan(){
+      this.objectId = this.qrCode
+      this.qrCode = ''
+      if (this.state === 'packageSphpsList') this.$router.push(`/locating/${this.objectId}/shps-list`)
+      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.objectId}/shps-list/locating-shelf/${this.objectId}`)
     }
   },
 
@@ -31,7 +40,7 @@ export default {
   mounted() {
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.logValue()
+      if (e.key== 'Enter' ) this.qrCodeScan()
       else this.qrCode += e.key
     });
   }

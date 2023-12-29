@@ -15,6 +15,5 @@ import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlace
 <style>
 .scan-container{
   max-width: 420px;
-  min-width: 420px;
 }
 </style>
