@@ -51,7 +51,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `package/crud/index${paramsQuery}`;
+        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
             console.log("API Response:", response); 

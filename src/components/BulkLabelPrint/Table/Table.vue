@@ -55,8 +55,8 @@
                       class="c-table__contents__item justify-center"
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5">
-                          <template v-if="item.full_name">
-                              {{ item.full_name }}
+                          <template v-if="item.status">
+                              {{ item.status }}
                           </template>
                           <template v-else>
                               نامعلوم
@@ -80,18 +80,18 @@
                  
   
                   <div
-                      v-if="header[4].show"
-                      class="c-table__contents__item justify-center"
-                      :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          <template v-if="item.updated_at_fa">
-                              {{ item.updated_at_fa }}
-                          </template>
-                          <template v-else>
-                              نامعلوم
-                          </template>
-                      </span>
-                  </div>
+              v-if=" header[4].show "
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            
+            <div
+              
+               
+                class="seller__add-sku-btn d-flex justify-center align-center pointer ">
+
+              <v-icon size="15">mdi-plus</v-icon>
+            </div>
+          </div>
   
                
   
@@ -127,7 +127,7 @@
   
                               <v-list-item>
                                   <v-list-item-title>
-                                      <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                      <div class="ma-5 pointer" @click="getShpssDetail(item)">
                                           <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
                                             ثبت مفقودی
@@ -159,10 +159,13 @@
       </div>
      
      
+     <ModalLostReport/>
   </div>
   </template>
   
   <script>
+  import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
+
   import {
       AxiosCall
   } from '@/assets/js/axios_call.js'
@@ -180,7 +183,7 @@
   } from "@/assets/js/functions_seller";
   export default {
       components: {
-        
+        ModalLostReport
       },
   
       props: {
@@ -289,7 +292,7 @@
            * @param {*} id
            */
          
-  
+        
        
         
 
@@ -298,6 +301,26 @@
            * Get row index in table
            * @param {*} index
            */
+
+          /**
+     * LostShpss modal
+     */
+    async getShpssDetail(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `package/shps/list/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalLostShpss' , form)
+      }
+    },
+
+
           rowIndexTable(index) {
               let rowIndex = 0
               if (this.page === 1) {
