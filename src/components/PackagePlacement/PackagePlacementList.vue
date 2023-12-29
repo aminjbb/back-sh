@@ -20,7 +20,7 @@
                 </span>
             </div>
             <div>
-              <v-text-field variant="outlined"/>
+              <v-text-field v-model="packageId" variant="outlined"/>
             </div>
           </div>
         </v-col>
@@ -35,14 +35,17 @@
                 </span>
             </div>
             <div>
-              <v-text-field variant="outlined"/>
+              <v-autocomplete item-title="id" item-value="id" :items="placementList" v-model="shelf" variant="outlined"/>
             </div>
           </div>
         </v-col>
       </v-row>
       <v-row justify="end" align="center">
         <v-btn
+            @click="addPackage()"
+            :loading="loadingBtn"
             color="primary500"
+            :disabled="!(shelf&&packageId)"
             height="40"
             rounded
             class="ml-15 px-8 mt-2">
@@ -77,13 +80,14 @@
 <script>
 import {ref} from 'vue'
 //Components
-import Table from '@/components/Cargo/Table/Table.vue'
+import Table from '@/components/PackagePlacement/Table/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import PackagePlacement from '@/composables/PackagePlacement';
-import {getPermissions} from "@/assets/js/helpers";
+import Placement from '@/composables/Placement';
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {
@@ -94,18 +98,29 @@ export default {
     ModalExcelDownload,
 
   },
-
+  data(){
+    return{
+      packageId:null,
+      shelf:null,
+      loadingBtn:false
+    }
+  },
   setup(props) {
+    const {getAllPlacementList , placementList} = new Placement()
     const {
       pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header , item ,
       loading
     } = PackagePlacement();
     return {
       pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header , item ,
-      loading
+      loading ,
+      getAllPlacementList , placementList
     };
   },
-
+  mounted() {
+    this.getPackagePlacement()
+    this.getAllPlacementList()
+  },
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -137,11 +152,29 @@ export default {
      */
     changeHeaderShow(index, value) {
       this.header[index].show = value
+    },
+
+    async addPackage(){
+      this.loadingBtn = true
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `placement/assign/package/`
+      formData.append('package_id', this.packageId)
+      formData.append('placement_id', this.shelf)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loadingBtn = false
+      }
+      else {
+        this.loadingBtn = false
+      }
     }
   },
 
-  mounted() {
-    // getPermissions(true, false)
-  }
+
 }
 </script>
