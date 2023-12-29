@@ -15,6 +15,8 @@
   </v-card>
 </template>
 <script >
+import {AxiosCall} from "@/assets/js/axios_call";
+
 export default {
   props:{
     scanTitle:'',
@@ -31,8 +33,21 @@ export default {
     qrCodeScan(){
       this.objectId = this.qrCode
       this.qrCode = ''
-      if (this.state === 'packageSphpsList') this.$router.push(`/locating/${this.objectId}/shps-list`)
+      if (this.state === 'packageSphpsList') {
+        this.packageScan()
+      }
       else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.objectId}/shps-list/locating-shelf/${this.objectId}`)
+    },
+
+    async packageScan(){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${this.objectId}`
+      AxiosMethod.using_auth = true
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.$router.push(`/locating/${this.objectId}/shps-list`)
+      }
     }
   },
 

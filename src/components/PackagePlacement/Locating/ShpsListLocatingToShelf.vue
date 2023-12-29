@@ -77,9 +77,9 @@
               <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
             </div>
             <div class="text-center px-10 my-3">
-          <span class="text-gray600">
-            سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر
-          </span>
+            <span class="text-gray600">
+              سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر
+            </span>
             </div>
           </v-card>
         </div>
