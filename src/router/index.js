@@ -123,7 +123,8 @@ import AddSkuGroupView from "@/views/PromotionPages/AddSkuGroupView.vue";
 import PageSliderListView from '../views/PageSlider/SliderListView.vue'
 import AddPageSliderView from '../views/PageSlider/AddSliderView.vue'
 import SliderSkuList from '../views/PageSlider/SliderSkuListView.vue'
-/* homePage management */
+
+/* Home page management */
 import HomePageSectionListView from "@/views/HomePage/HomePageSectionListView.vue";
 import HomePageBannerListView from "@/views/HomePage/HomePageBannerListView.vue";
 import HomePageSpecialSaleListView from "@/views/HomePage/HomePageSpecialSaleListView.vue";
@@ -150,8 +151,13 @@ import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView
 import FactorListView from '../views/Factor/FactorListView.vue'
 import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
+import PricingListView from '../views/Factor/PricingListView.vue'
+
+/* RetailShipment */
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
 import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
+
+/* Crossdock */
 import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
 import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
@@ -1215,11 +1221,19 @@ const router = createRouter({
             name: 'ویرایش فاکتور'
           }
         },
+        {
+          path: 'details/:id',
+          name: 'pricingList',
+          component: PricingListView,
+          meta: {
+            name: 'فاکتور'
+          }
+        },
       ],
     },
 
     {
-      path: '/retail-shipment',
+      path: '/retail-shipment', // Retail shipment
       meta: {
         name: 'بازرگانی'
       },
@@ -1341,7 +1355,6 @@ const router = createRouter({
             name: 'پردازش محموله'
           }
         },
-
         {
           path: ':cargoId/package',
           name: 'CargoPackageView',
@@ -1354,7 +1367,7 @@ const router = createRouter({
       ],
     },
     {
-      path: '/cargo-receiving', // Vehicle routes
+      path: '/cargo-receiving', // Cargo receiving
       meta: {
         name: 'انبار'
       },
@@ -1494,7 +1507,7 @@ const router = createRouter({
       ],
     },
     {
-      path: '/print/label/bulk', //  print label bulk
+      path: '/print/label/bulk', // print label bulk
       meta: {
         name: 'انبار'
       },
