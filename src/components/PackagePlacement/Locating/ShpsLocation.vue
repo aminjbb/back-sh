@@ -1,7 +1,8 @@
 <template>
   <v-card class="h-100 width-100 position__relative">
     <div class="d-flex justify-space-between align-center">
-      <div class="pa-3">
+      <div class="pa-3 d-flex">
+        <HandheldDrawer/>
         <span class="t20400">
         لیست محصولات
         </span>
@@ -20,6 +21,7 @@
 import LocatingShpsListStep from '@/components/PackagePlacement/Locating/LocatingShpsListStep.vue'
 import LocatingShpsLoadingScaningStep from '@/components/PackagePlacement/Locating/LocatingShpsLoadingScaningStep.vue'
 import Package from '@/composables/Package'
+import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export  default {
   setup(){
       const {packageShpsList , getPackageShpsList} = new Package()
@@ -45,6 +47,7 @@ export  default {
     this.getPackageShpsList(this.$route.params.packageId)
   },
   components:{
+    HandheldDrawer,
     LocatingShpsListStep,
     LocatingShpsLoadingScaningStep
   }

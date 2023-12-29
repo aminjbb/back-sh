@@ -2,7 +2,9 @@
   <v-card class="h-100 width-100 ">
     <div class="package_list" v-if="!scan">
      <div class="d-flex justify-space-between align-center">
-       <div class="pa-3">
+
+       <div class="pa-3 d-flex">
+         <HandheldDrawer/>
         <span class="t20400">
           جایگذاری بسته
         </span>
@@ -77,8 +79,9 @@
 <script>
 import PackagePlacement from '@/composables/PackagePlacement'
 import LocatingShpsLoadingScaningStep from "@/components/PackagePlacement/Locating/LocatingShpsLoadingScaningStep.vue";
+import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export default {
-  components: {LocatingShpsLoadingScaningStep},
+  components: {HandheldDrawer, LocatingShpsLoadingScaningStep},
   setup(){
       const {getSinglePackagePlacement ,singlePackagePlacement } = new PackagePlacement()
       return {

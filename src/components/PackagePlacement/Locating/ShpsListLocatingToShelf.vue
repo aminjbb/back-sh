@@ -1,7 +1,8 @@
 <template>
   <v-card class="h-100 width-100 position__relative">
     <div class="d-flex justify-space-between align-center">
-      <div class="pa-3">
+      <div class="pa-3 d-flex">
+        <HandheldDrawer/>
         <span class="t20400">
           جایگذاری بسته
         </span>
@@ -109,6 +110,7 @@ import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.
 import Placement from '@/composables/Placement'
 import Sku from '@/composables/Sku'
 import {AxiosCall} from "@/assets/js/axios_call";
+import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export default {
   setup(){
     const { getPlacement , placement} = new Placement()
@@ -163,6 +165,7 @@ export default {
   },
 
   components:{
+    HandheldDrawer,
     LocatingToShelfError,
     LocatingToast
   }
