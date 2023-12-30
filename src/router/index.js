@@ -1540,7 +1540,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'details',
+          path: 'user/:id/edit',
           name: 'orderEditUser',
           component: orderEditUser,
           meta: {
