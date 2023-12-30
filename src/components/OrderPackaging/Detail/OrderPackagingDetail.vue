@@ -1,269 +1,183 @@
-<template lang="">
-    <div class="h-100 d-flex flex-column align-stretch seller">
-        <v-card
-            class="ma-5 br-12"
-            height="360"
-            style="flex:0 0 360px">
-            <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
-                    ثبت کالای مفقودی یا ضایعات
-                </span>
-            </header>
-            <v-divider color="grey" />
-            <v-form
-                ref="addWaste"
-                v-model="valid"
-                class="mb-6"
-                style="padding:0 10%">
-                <v-row
-                    justify="center"
-                    align="center"
-                    class="px-15">
-                    <v-col cols="12" md="6">
-                        <div class="text-right my-3">
-                            <span class="t12400 color-grey">
-                                شناسه بسته <span class="text-red">*</span>
-                            </span>
-                        </div>
-                        <v-text-field
-                            density="compact"
-                            variant="outlined"
-                            single-line
-                            v-model="form.package_id"
-                            v-debounce:1s.unlock="getPackage" />
-                    </v-col>
-    
-                    <v-col cols="12" md="6">
-                        <div class="text-right my-3">
-                            <span class="t12400 color-grey">
-                                نوع بسته
-                            </span>
-                        </div>
-                        <v-text-field
-                            density="compact"
-                            variant="outlined"
-                            single-line
-                            disabled
-                            v-model="form.package_type" />
-                    </v-col>
-    
-                    <v-col cols="12" md="6">
-                        <div class="text-right mb-3">
-                            <span class="t12400 color-grey">
-                                نوع گزارش <span class="text-red">*</span>
-                            </span>
-                        </div>
-                        <v-select
-                            :rules="rule"
-                            density="compact"
-                            variant="outlined"
-                            single-line
-                            item-title="label"
-                            item-value="value"
-                            :items="reportTypeItems"
-                            v-model="form.report_type" />
-                    </v-col>
-    
-                    <v-col cols="12" md="6">
-                        <div class="text-right mb-3">
-                            <span class="t12400 color-grey">
-                                نام کالا <span class="text-red">*</span>
-                            </span>
-                        </div>
-    
-                        <v-autocomplete
-                            :items="sphssList"
-                            density="compact"
-                            variant="outlined"
-                            item-title="label"
-                            item-value="id"
-                            single-line
-                            v-debounce:1s.unlock="searchSku"
-                            v-model="form.shps_s" />
-                    </v-col>
-                </v-row>
+<template>
+    <div class="h-100 d-flex flex-column align-stretch">
+      <v-card height="100" class="ma-5 br-12 stretch-card-header-90">
+        <v-row
+            justify="start"
+            align="start"
+            class="px-10 py-5">
+          
+            
+            <v-col cols="12" md="6">
+            
+            <v-form @submit.prevent="onFormSubmit" v-model="valid" class="">
+                
+              <div class="text-right  ">
+                
+                  
+              </div>
+              <div>
+                <v-text-field 
+                variant="outlined" 
+                :rules="rule" 
+                v-model="cargo"
+                placeholder="شناسه سفارش را اسکن نمایید"/>
+              </div>
             </v-form>
-            <v-divider color="grey" />
-            <v-row justify="end" class="position__absolute bottom left">
-                <v-btn
-                    @click="$router.go(-1)"
-                    variant="outlined"
-                    height="40"
-                    rounded
-                    class="px-8 mt-1 ml-5">
-                    انصراف
-                </v-btn>
-    
-                <v-btn
-                    :loading="loadingSubmit"
-                    @click="addShps()"
-                    color="primary500"
-                    height="40"
-                    rounded
-                    class="px-8 mt-1">
-                    تایید
-                </v-btn>
-            </v-row>
-        </v-card>
-    
-        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="362">
-            <Table
-                class="flex-grow-1"
-                :header="createHeader"
-                :items="packageShpss.data"
-                :loading="loading"
-                @updateList="updateList"
-                deletePath="report/crud/delete/"
-                model="report" />
-    
-            <v-divider />
-        </v-card>
+          </v-col>
+  
+        </v-row>
+      </v-card>
+      <v-card
+          class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+          height="580"
+      >
+        <Table
+            :getShpsList="getShpsList"
+            class="flex-grow-1"
+            deletePath="category/crud/delete/"
+            :header="cargoReceivingHeader"
+            :items="filteredCargoData"
+            :page="page"
+            :perPage="dataTableLength"
+            :loading="loading"
+        />
+  
+        <v-divider/>
+  
+        <v-card-actions class="pb-3" >
+          <v-row class="px-5 py-2"  justify="end">
+            <v-btn
+                color="primary500"
+                height="40"
+                rounded
+                variant="flat"
+                class="px-8 mt-2">
+              بستن بسته
+            </v-btn>
+          </v-row>
+        </v-card-actions>
+      </v-card>
     </div>
-    </template>
-    
-    <script>
-    import Table from '@/components/WasteAndLost/Table/CreateTable.vue'
-    import WasteAndLost from "@/composables/WasteAndLost";
-    
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
-    
-    export default {
-        data() {
-            return {
-                loading: false,
-                loadingSubmit: false,
-                reportTypeItems: [{
-                        label: 'ضایعات',
-                        value: 'wastage'
-                    },
-                    {
-                        label: 'موفقودی',
-                        value: 'lost'
-                    }
-                ],
-                form: {
-                    package_id: null,
-                    package_type: null,
-                    report_type: null,
-                    shps_s: null,
-                },
-                shpssSearchList: [],
-                packageType:null,
-                packageShpss:[],
-                packageId:null,
+  </template>
+  
+  <script>
+  import {ref} from 'vue'
+  //Components
+  import Table from '@/components/OrderPackaging/Table/Table.vue'
+  import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
+  import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+  import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+  import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
+  import OrderPackagingList from '@/composables/OrderPackaging';
+  
+  export default {
+    components: {
+      Table,
+      ModalTableFilter,
+      ModalColumnFilter,
+      ModalGroupAdd,
+      ModalExcelDownload,
+     
+    },
+  
+    data(){
+      return{
+        cargo:null ,
+        rule:[v=> !!v || 'این فیلد الزامی است'],
+        allCargoData: [],
+      filteredCargoData: [],
+       
+   
+
+      }
+    },
+  
+    setup(props) {
+      const {
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+      } = OrderPackagingList();
+      return {
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+      };
+    },
+  
+    computed: {
+      confirmModal() {
+        return this.$store.getters['get_confirmForm'].confirmModal;
+     
+
+
+      }
+    },
+    async mounted() {
+  try {
+    const data = await this.getShpsList();
+    console.log("Fetched data:", data);
+    this.allCargoData = await this.getShpsList();
+    console.log("All Cargo Data:", this.allCargoData);
+    this.filteredCargoData = this.allCargoData;
+  } catch (error) {
+    console.error("Error fetching all cargo data:", error);
+    this.allCargoData = [];
+    this.filteredCargoData = [];
+  }
+},
+  
+    watch: {
+      cargo(newId) {
+        if (newId && Array.isArray(this.allCargoData)) {
+      this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
+    } else {
+      this.filteredCargoData = this.allCargoData;
+      }
+    },
+
+      confirmModal(val) {
+        if (this.$cookies.get('deleteItem')) {
+          if (!val) {
+            this.getCategories()
+            this.$cookies.remove('deleteItem')
+          }
+  
+        }
+      },
+  
+      dataTableLength(val) {
+        this.addPerPage(val)
+      },
+  
+    },
+  
+    methods: {
+
+      filterDataById(id) {
+      if (!id) {
+        this.filteredCargoData = this.allCargoData;
+        return;
+      }
+      this.filteredCargoData = this.allCargoData.filter(item => item.id === id);
+    },
+  
+
+
+  onFormSubmit() {
+     
+    },
+
+
+      /**
+       * Change Header Status
+       * @param {*} index
+       * @param {*} value
+       */
+      changeHeaderShow(index, value) {
+        this.header[index].show = value
+      },
+      $route(){
+                this.getShpsList();
+
             }
-        },
-    
-        computed: {
-            sphssList() {
-                try {
-                    let sku = []
-                    this.shpssSearchList.forEach(shpss => {
-                        const form = {
-                            name: shpss?.shps?.sku?.label ,
-                            id: shpss.id
-                        }
-                        sku.push(form)
-                    })
-                    return sku
-                } catch (e) {
-                    return []
-                }
-            },
-        },
-    
-        components: {
-            Table,
-        },
-    
-        setup(props) {
-            const {
-                getWasteAndLostList,
-                itemList,
-                createHeader,
-                loading
-            } = WasteAndLost();
-            return {
-                getWasteAndLostList,
-                itemList,
-                createHeader,
-                loading
-            };
-        },
-    
-        methods: {
-            /**
-             * Submit form
-             */
-            async addShps() {
-                this.loading = true
-                var formdata = new FormData();
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.end_point = 'report/crud/create'
-                AxiosMethod.form = formdata
-                formdata.append('package_id', this.form.package_id)
-                formdata.append('report_type', this.form.report_type)
-                formdata.append(`shps_s`, this.form.shps_s)
-    
-                AxiosMethod.store = this.$store
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                let data = await AxiosMethod.axios_post()
-                if (data) {
-                    this.loading = false;
-    
-                } else {
-                    this.loading = false
-                }
-            },
-    
-            async searchSku(e) {
-                const filter = {
-                    q: e
-                }
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                AxiosMethod.form = filter
-                AxiosMethod.end_point = `package/shps/items/${this.packageId}`
-                let data = await AxiosMethod.axios_get()
-                if (data) {
-                    this.shpssSearchList = data.data
-                }
-            },
-    
-            async getPackage(e){
-                const array = e.split('-');
-                this.packageId = array[1]
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                AxiosMethod.end_point = `package/crud/get/${this.packageId}`
-                let data = await AxiosMethod.axios_get()
-                if (data) {
-                    this.form.package_type = data.data.type
-    
-                }
-            },
-    
-            async getWasteShps(){
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.using_auth = true
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                AxiosMethod.end_point = `report/crud/index/?id=${array[1]}`
-                let data = await AxiosMethod.axios_get()
-                if (data) {
-                    this.packageShpss = data.data
-    
-                }
-            }
-        },
-    
-        mounted() {
-            this.getWasteAndLostList();
-        },
     }
-    </script>
-    
+  }
+  </script>
+  

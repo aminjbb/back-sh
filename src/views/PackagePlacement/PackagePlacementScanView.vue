@@ -1,5 +1,4 @@
-<script setup>import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
+<script setup>
 import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlacement.vue'
 </script>
 
@@ -7,6 +6,7 @@ import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlace
   <v-layout class="bg-gray">
     <v-main class="h-100vh d-flex justify-center">
       <div class="scan-container">
+
         <ScanPackagePlacement />
       </div>
     </v-main>
@@ -15,6 +15,5 @@ import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlace
 <style>
 .scan-container{
   max-width: 420px;
-  min-width: 420px;
 }
 </style>

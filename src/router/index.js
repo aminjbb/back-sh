@@ -182,7 +182,7 @@ import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
-/**Package Placement */
+/* Package Placement */
 import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
@@ -201,9 +201,11 @@ import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
 
 
-/* Order Packaging */
+/* Orders */
+import OrderListView from "@/views/Orders/OrderListView.vue";
+import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
-
+import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 
 
 const router = createRouter({
@@ -1444,7 +1446,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list',
+          path: ':packageId/shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
           meta: {
@@ -1452,7 +1454,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list/locating-shelf',
+          path: ':packageId/shps-list/locating-shelf/:placementId',
           name: 'ShpsListLocatingToShelfView',
           component: ShpsListLocatingToShelfView,
           meta: {
@@ -1542,13 +1544,36 @@ const router = createRouter({
       {
         path: 'detail-info',
         name: 'detail-info',
-        component: AddWasteAndLostView,
+        component: OrderDetailView,
         meta: {
           name: ' '
         }
       }],
     },
- 
+    {
+      path: '/orders', // Order route
+      meta: {
+        name: 'سفارش ها'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'OrderList',
+          component: OrderListView,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+        {
+          path: 'user/:id/edit',
+          name: 'orderEditUser',
+          component: orderEditUser,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+      ],
+    },
   ]
 })
 const privateRoutes = [

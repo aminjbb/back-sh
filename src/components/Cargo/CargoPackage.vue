@@ -71,10 +71,9 @@
       <Table
           class="flex-grow-1"
           editUrl="/categories/edit/"
-          activePath="category/crud/update/activation/"
-          deletePath="category/crud/delete/"
+          :deletePath="`cargo/${$route.params.cargoId}/detach/package/`"
           :header="packageHeader"
-          :items="[]"
+          :items="packageCargo"
           updateUrl="category/csv/mass-update"
           :page="page"
           :perPage="dataTableLength"
@@ -160,7 +159,7 @@ export default {
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
-          this.getCategories()
+          this.packageCargo()
           this.$cookies.remove('deleteItem')
         }
 

@@ -230,6 +230,38 @@
 
             </v-list-group>
 
+            <v-list-group value="orders">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-shopping-outline</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            سفارش ها
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in orders"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
         </v-list>
 
     </v-navigation-drawer>
@@ -301,6 +333,9 @@ export default {
             ],
             marketing: [
                 ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            orders: [
+                ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
             ],
         }
     },

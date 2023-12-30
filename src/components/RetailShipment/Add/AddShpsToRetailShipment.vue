@@ -218,8 +218,9 @@ export default {
     async sendShps(){
       this.loading = true
       const formData = new FormData()
+
       this.$refs.retailShipmentShps.form.forEach((shps , index) => {
-        formData.append(`shps_list[${index}][shps]`, shps.shps)
+        formData.append(`shps_list[${index}][shps]`, shps.shps.id)
         formData.append(`shps_list[${index}][count]`, shps.count)
         formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
         formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
@@ -240,7 +241,7 @@ export default {
             'محموله با موفقیت ایجاد گردید.',
             "success"
         );
-        this.$router.push(`/factor/${this.$route.params.factorId}/retail-shipmen/index`)
+        this.$router.push(`/retail-shipment/index?factor_id=${this.$route.params.factorId}`)
       }
       else {
         this.loading = true
