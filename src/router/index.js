@@ -201,6 +201,11 @@ import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
 
 
+/* Order Packaging */
+import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
+
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [{
@@ -1518,8 +1523,32 @@ const router = createRouter({
         meta: {
           name: ' پرینت گروهی برچسب '
         }
+      },
+    ],
+    },
+    {
+      path: '/order-packaging', // order packaging
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'order-packaging',
+        component: OrderPackagingListView,
+        meta: {
+          name: ' بسته بندی سفارش ها '
+        }
+      },
+      {
+        path: 'detail-info',
+        name: 'detail-info',
+        component: AddWasteAndLostView,
+        meta: {
+          name: ' '
+        }
       }],
-    }
+    },
+ 
   ]
 })
 const privateRoutes = [
