@@ -182,7 +182,7 @@ import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
-/**Package Placement */
+/* Package Placement */
 import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
@@ -199,6 +199,11 @@ import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
+
+
+/* Orders */
+import OrderListView from "@/views/Orders/OrderListView.vue";
+import orderEditUser from "@/views/Orders/orderEditUser.vue";
 
 
 const router = createRouter({
@@ -1519,7 +1524,31 @@ const router = createRouter({
           name: ' پرینت گروهی برچسب '
         }
       }],
-    }
+    },
+    {
+      path: '/orders', // Order route
+      meta: {
+        name: 'سفارش ها'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'OrderList',
+          component: OrderListView,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+        {
+          path: 'details',
+          name: 'orderEditUser',
+          component: orderEditUser,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+      ],
+    },
   ]
 })
 const privateRoutes = [
