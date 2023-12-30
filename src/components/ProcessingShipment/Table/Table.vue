@@ -320,7 +320,18 @@ export default {
     },
   },
 
-  watch: {},
+  watch: {
+    items(val){
+      console.log(val)
+      this.items.forEach(element => {
+        const form = {
+          loading: false,
+          count: element.packed_count
+        }
+        this.form.push(form)
+      })
+    }
+  },
 
   methods: {
     /**
@@ -413,7 +424,7 @@ export default {
       AxiosMethod.end_point = `shipment/shps/pack`
       formData.append('shipment_id', this.$route.params.shipmentId)
       formData.append('shps', this.items[index].id)
-      formData.append('package_id', localStorage.getItem(''))
+      formData.append('package_id', localStorage.getItem('packId'))
       formData.append('packed_count', this.form[index].count)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
@@ -472,14 +483,7 @@ export default {
   },
 
   mounted() {
-    this.items.forEach(element => {
-      console.log(element)
-      const form = {
-        loading: false,
-        count: element.packed_count
-      }
-      this.form.push(form)
-    })
+
   }
 }
 </script>

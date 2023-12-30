@@ -44,6 +44,7 @@ export default function setup(posts) {
         },
 
     ],)
+    const shipmentShpsList =ref(null)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -71,6 +72,14 @@ export default function setup(posts) {
         { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
         { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
     ]);
+    const headerShpsSeller =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'نام کالا', show: true , value:'label', order: false},
+        { name: 'تعداد درخواستی', show: true, value:'number' , order: false},
+        { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
+        { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
+    ]);
+
 
     const filterFieldAllRetail = [
         {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
@@ -111,6 +120,17 @@ export default function setup(posts) {
             } , 2000)
         }
     };
+    async function getShipmentShpslist() {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/packing/shps/list/${route.params.shipmentId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            shipmentShpsList.value = data.data
+
+        }
+    };
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -130,6 +150,7 @@ export default function setup(posts) {
         }
     })
 
-    return {filterFieldAllRetail, getRetailShipmentList,processingShipment, pageLength ,addPerPage, dataTableLength, page, header, loading ,headerShps}
+    return {filterFieldAllRetail, getRetailShipmentList,processingShipment, pageLength ,addPerPage,
+        dataTableLength, page, header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller}
 }
 
