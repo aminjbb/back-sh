@@ -119,9 +119,27 @@ export default createStore({
       id: ''
 
     },
+    modalLostShpss: {
+      dialog: false,
+      id: ''
+
+    },
+    modalDamageShpss: {
+      dialog: false,
+      id: ''
+
+    },
   },
 
   mutations: {
+    set_modalDamageShpss(state , form) {
+      state.modalDamageShpss.dialog = form.dialog
+      state.modalDamageShpss.object = form.object
+  },
+    set_modalLostShpss(state , form) {
+      state.modalLostShpss.dialog = form.dialog
+      state.modalLostShpss.object = form.object
+  },
 
     set_ModalCargoDetail(state , form) {
         state.ModalCargoDetail.dialog = form.dialog
@@ -269,6 +287,23 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_modalDamageShpss(state ){
+      return  state.modalDamageShpss.dialog
+
+    },
+    get_modalDamageShpssObject(state ) {
+        return state.modalDamageShpss.object
+
+    },
+
+    get_modalLostShpss(state ){
+      return  state.modalLostShpss.dialog
+
+    },
+    get_modalLostShpssObject(state ) {
+        return state.modalLostShpss.object
+
+    },
 
     get_ModalCargoDetail(state ){
       return  state.ModalCargoDetail.dialog
@@ -306,7 +341,7 @@ export default createStore({
     get_detailModalTestQrCodeFull(state){
       return  state.detailModalTestQrCodeFull.dialog
     },
-    get_set_detailModalTestQrCodeFullObject(state){
+    get_detailModalTestQrCodeFullObject(state){
       return  state.detailModalTestQrCodeFull.object
     },
 

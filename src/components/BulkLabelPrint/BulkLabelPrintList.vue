@@ -37,12 +37,9 @@
         <Table
             :getShpsList="getShpsList"
             class="flex-grow-1"
-            editUrl="/categories/edit/"
-            activePath="category/crud/update/activation/"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="getShpsList.data"
-            updateUrl="category/csv/mass-update"
+            :items="filteredCargoData"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -90,6 +87,8 @@
       return{
         cargo:null ,
         rule:[v=> !!v || 'این فیلد الزامی است'],
+        allCargoData: [],
+      filteredCargoData: [],
        
    
 
@@ -113,16 +112,28 @@
 
       }
     },
-    mounted() {
-            this.getShpsList();
-        },
+    async mounted() {
+  try {
+    const data = await this.getShpsList();
+    console.log("Fetched data:", data);
+    this.allCargoData = await this.getShpsList();
+    console.log("All Cargo Data:", this.allCargoData);
+    this.filteredCargoData = this.allCargoData;
+  } catch (error) {
+    console.error("Error fetching all cargo data:", error);
+    this.allCargoData = [];
+    this.filteredCargoData = [];
+  }
+},
   
     watch: {
-  //       cargo(newVal) {
-  //   console.log("Cargo changed: ", newVal);
-  //   this.searchCargo();
-  // }
-
+      cargo(newId) {
+        if (newId && Array.isArray(this.allCargoData)) {
+      this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
+    } else {
+      this.filteredCargoData = this.allCargoData;
+      }
+    },
 
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
@@ -142,17 +153,14 @@
   
     methods: {
 
-        
-    //   async searchCargo() {
-    //     console.log("Searching for: ", this.cargo);
-    //     try {
-    //         this.searchResults = await fetchCargoDataById(this.cargo);
-    //         console.log("Search results: ", this.searchResults);
-    //     } catch (error) {
-    //         console.error("Error fetching cargo data:", error);
-    //         // Handle the error appropriately
-    //     }
-    // },
+      filterDataById(id) {
+      if (!id) {
+        this.filteredCargoData = this.allCargoData;
+        return;
+      }
+      this.filteredCargoData = this.allCargoData.filter(item => item.id === id);
+    },
+  
 
 
   onFormSubmit() {

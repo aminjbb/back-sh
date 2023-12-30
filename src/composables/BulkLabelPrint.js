@@ -6,6 +6,8 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
+    const BulkLabelPrintList = ref([]);
+
     const cargoList = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -40,27 +42,34 @@ export default function setup(posts) {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getShpsList(packageId) {
+    async function getShpsList(packageId= null) {
         loading.value = true;
-        let paramsQuery = filter.params_generator({ id: packageId });
+        let params = packageId ? { id: packageId } : {};
+        let paramsQuery = filter.params_generator(params);
+        
     
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
         AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
-        let data = await AxiosMethod.axios_get();
-        
-        loading.value = false;
+        try {
+            let response = await AxiosMethod.axios_get();
+            console.log("API Response:", response); 
     
-        if (data && data.data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page);
-            return data.data.items; 
-        } else {
+            loading.value = false;
+    
+            if (response && response.data && response.data.data) {
+                pageLength.value = response.data.last_page;
+                return response.data.data; 
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error("Error in API call:", error);
+            loading.value = false;
             return [];
         }
-        
-
-    };
+    }
 
 
     function addPerPage(number){
@@ -92,7 +101,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getShpsList, dataTableLength , page   , item , 
+    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
         loading , packageHeader , cargoReceivingHeader}
 }
 
