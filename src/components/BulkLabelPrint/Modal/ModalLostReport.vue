@@ -1,6 +1,6 @@
 <template>
     <div class="text-right ">
-        <v-dialog v-model="dialog" width="1060">
+        <v-dialog v-model="dialog" width="600" >
             <v-card class="">
                 <v-row
                     justify="space-between"
@@ -13,34 +13,30 @@
                     </v-col>
     
                     <v-col cols="7" class="t16400 ">
-                        پرینت برچسب
+                        ثبت مفقودی
                     </v-col>
                 </v-row>
-                <v-divider />
-                <div class="text-center px-5">
-                    <v-cart class="content">
-                        <div class="qr-code-container px-10 ma-5">
-                            <div v-if="retailObject" class="qr-code-item mx-10 ">
-                                <span class="d-flex justify-between">
-                                    <p>22222</p>
-                                    <p>{{ item.id }}</p>
+                <v-divider class="center-divider"/>
+                <div class=" px-5">
+                <v-row justify="center">
+                    <v-col cols="12" md="6">
+                        <div justify="start" class="text-center mb-3">
+                            <span class="t12400 color-grey ">
+                                    سریال کالا 
+                                    <span class="text-red">*</span>
                                 </span>
-                                <span>
-                                    <img :src="item.barcode_image" alt="Data Image" />
-                                </span>
-    
-                                <span>
-                                    <p>{{ item.barcode }}</p>
-                                </span>
-                                <span>
-                                    <img :src="item.secondImageUrl" alt="Data Image" />
-                                </span>
-                                <span>
-                                    <p>{{ item.text }}</p>
-                                </span>
-                            </div>
                         </div>
-                    </v-cart>
+                            <v-autocomplete
+                                :items="sphssList"
+                                density="compact"
+                                variant="outlined"
+                                item-title="label"
+                                item-value="id"
+                                single-line
+                                v-debounce:1s.unlock="searchSku"
+                                class="mx-auto" />
+                        </v-col>
+                    </v-row>
                     <v-row class="justify-between my-2 mx-2">
     
                         <v-col cols="3" class="d-flex mx-10 ">
@@ -48,10 +44,10 @@
                                 @click="print()"
                                 height="40"
                                 rounded
-                                variant="outlined"
-                                prepend-icon="mdi-printer-outline"
+                                variant="flat"
+                                color="primary500"
                                 class="px-5 mt-1">
-                                پرینت محموله
+                                تایید
                             </v-btn>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-end mx-10">
@@ -78,6 +74,7 @@
     export default {
         setup() {
             const {
+                
                 retailShipments,
                 dataTableLength,
                 page,
@@ -109,7 +106,7 @@
                     dialog: false,
                     object: ''
                 }
-                this.$store.commit('set_detailModalTestQrCodeFull', form)
+                this.$store.commit('set_modalLostShpss', form)
             },
             validate() {
                 this.$refs.BlogForm.$refs.addForm.validate()

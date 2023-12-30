@@ -84,13 +84,11 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             
-            <div
-              
-               
-                class="seller__add-sku-btn d-flex justify-center align-center pointer ">
-
-              <v-icon size="15">mdi-plus</v-icon>
-            </div>
+              <div
+        class="seller__add-sku-btn d-flex justify-center align-center pointer"
+        @click="toggleIcon(index)">
+        <v-icon size="15" :class="{ 'icon-circle': !iconStates[index] }">{{ iconStates[index] ? 'mdi-plus' : 'mdi-check' }}</v-icon>
+    </div>
           </div>
   
                
@@ -137,10 +135,11 @@
                               </v-list-item>
                               <v-list-item>
                                   <v-list-item-title>
-                                      <div class="ma-5 pointer" @click="removeItem(item.id)">
+                                      <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
                                           <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
-                                            ثبت ضایعات                                          </span>
+                                            ثبت ضایعات 
+                                          </span>
                                       </div>
                                   </v-list-item-title>
                               </v-list-item>
@@ -158,13 +157,14 @@
           </div>
       </div>
      
-     
+      <ModalDamageReport/>
      <ModalLostReport/>
   </div>
   </template>
   
   <script>
   import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
+  import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
 
   import {
       AxiosCall
@@ -183,7 +183,9 @@
   } from "@/assets/js/functions_seller";
   export default {
       components: {
-        ModalLostReport
+        ModalLostReport,
+        ModalDamageReport
+
       },
   
       props: {
@@ -258,7 +260,7 @@
               active: [],
               panelFilter: new SupplierPanelFilter(),
               activeColumn: false,
-
+              iconStates: this.items.map(() => true), 
            
           }
       },
@@ -282,9 +284,9 @@
           },
       },
       watch: {
-  items(newVal) {
-    console.log("Table items:", newVal);
-  },
+        items(newItems) {
+        this.iconStates = newItems.map(() => true);
+    },
 },
       methods: {
           /**
@@ -293,7 +295,12 @@
            */
          
         
-       
+           toggleIcon(index) {
+     
+                let iconStatesCopy = [...this.iconStates];
+                iconStatesCopy[index] = !iconStatesCopy[index];
+                this.iconStates = iconStatesCopy;
+    },
         
 
   
@@ -317,6 +324,21 @@
           object : data.data
         }
         this.$store.commit('set_modalLostShpss' , form)
+      }
+    },
+
+    async getShpssDetailLost(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `package/shps/list/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalDamageShpss' , form)
       }
     },
 

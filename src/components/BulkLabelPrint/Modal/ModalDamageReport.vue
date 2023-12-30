@@ -1,252 +1,136 @@
 <template>
-    <div class="text-right">
-  
-      <v-btn
-          @click="openModal()"
-          color="primary500"
-          height="40"
-          rounded
-          class="px-8">
-        <template v-slot:prepend>
-          <v-icon>mdi-plus</v-icon>
-        </template>
-        افزودن
-      </v-btn>
-  
-      <v-dialog
-          v-if="dialog"
-          v-model="dialog"
-          width="468">
-        <v-card>
-          <header class="modal__header d-flex justify-center align-center">
-                  <span class="t16400 pa-6">
-                     ساخت کارگو
-                  </span>
-  
-            <v-btn
-                class="modal__header__btn"
-                @click="closeModal()"
-                variant="icon">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </header>
-  
-          <div class="mt-2 mb-2 px-5">
-            <v-divider />
-          </div>
-  
-          <div>
-            <v-form ref="addCargo" v-model="valid" >
+  <div class="text-right ">
+      <v-dialog v-model="dialog" width="600" >
+          <v-card class="">
               <v-row
-                  justify="center"
+                  justify="space-between"
                   align="center"
-                  class="px-5">
-                <v-col cols="12">
-                  <div class="text-right mt-4 mb-2">
-                              <span class="t12300">
-                                 راننده
-                              </span>
-                    <span class="text-error">
-                                *
-                              </span>
-                  </div>
-                  <v-autocomplete
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      placeholder="برای مثال : وانت سواری"
-                      item-title="name"
-                      item-value="id"
-                      :items="drivers"
-                      :rules="rule"
-                      v-model="form.driver" >
-                  </v-autocomplete>
-                </v-col>
+                  class="pa-1 my-2">
+                  <v-col class="mx-10" cols="2">
+                      <v-btn @click="close()" variant="icon">
+                          <v-icon>mdi-close</v-icon>
+                      </v-btn>
+                  </v-col>
   
-                <v-col cols="12">
-                  <div class="text-right mt-4 mb-2">
-                              <span class="t12300">
-                                خودرو
-                              </span>
-                    <span class="text-error">
-                                *
-                              </span>
-                  </div>
-                  <v-autocomplete
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      :items="vehicles"
-                      item-title="name"
-                      :rules="rule"
-                      item-value="id"
-                      v-model="form.vehicle" />
-                </v-col>
+                  <v-col cols="7" class="t16400 ">
+                      ثبت ضایعات
+                  </v-col>
               </v-row>
-            </v-form>
+              <v-divider class="center-divider"/>
+              <div class=" px-5">
+              <v-row justify="center">
+                  <v-col cols="12" md="6">
+                      <div justify="start" class="text-center mb-3">
+                          <span class="t12400 color-grey ">
+                                  سریال کالا 
+                                  <span class="text-red">*</span>
+                              </span>
+                      </div>
+                          <v-autocomplete
+                              :items="sphssList"
+                              density="compact"
+                              variant="outlined"
+                              item-title="label"
+                              item-value="id"
+                              single-line
+                              v-debounce:1s.unlock="searchSku"
+                              class="mx-auto" />
+                      </v-col>
+                  </v-row>
+                  <v-row class="justify-between my-2 mx-2">
   
-          </div>
-  
-          <div class="mt-3 mb-3 px-5">
-            <v-divider />
-          </div>
-  
-          <v-row
-              justify="space-between"
-              align="center"
-              class="pb-4 ma-0">
-            <v-col cols="6" class="">
-              <div class="text-left">
-                <v-btn
-                    :loading="loading"
-                    @click="validate()"
-                    color="primary500"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 mr-5">
-                  تایید
-                </v-btn>
+                      <v-col cols="3" class="d-flex mx-10 ">
+                          <v-btn
+                              @click="print()"
+                              height="40"
+                              rounded
+                              variant="flat"
+                              color="primary500"
+                              class="px-5 mt-1">
+                              تایید
+                          </v-btn>
+                      </v-col>
+                      <v-col cols="3" class="d-flex justify-end mx-10">
+                          <btn
+                              class="mt-3 mr-2"
+                              @click="close()"
+                              style="cursor: pointer;">
+                              انصراف
+                          </btn>
+                      </v-col>
+                  </v-row>
               </div>
-            </v-col>
-  
-            <v-col cols="6" class="text-right">
-              <v-btn
-                  @click="closeModal()"
-                  variant="text"
-                  height="40"
-                  rounded
-                  class="px-5 mt-1 mr-5">
-                انصراف
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card>
+          </v-card>
       </v-dialog>
-    </div>
+  </div>
   </template>
   
   <script>
+  import BulkLabelPrint from "@/composables/BulkLabelPrint";
+  import Table from "@/components/BulkLabelPrint/Table/Table.vue";
   import {
-    openToast
+      convertDateToJalai
   } from "@/assets/js/functions";
-  import {
-    AxiosCall
-  } from '@/assets/js/axios_call.js'
-  import Vehicle from '@/composables/Vehicle'
-  import DriverManagement from '@/composables/DriverManagement'
   export default {
-    setup(){
-        const {vehicleList, getAllVehicleList} = new Vehicle()
-        const {getAllDriverList , DriverManagementList} = new DriverManagement()
-        return {
-          vehicleList, getAllVehicleList,
-          getAllDriverList , DriverManagementList
-        }
-    },
-    props:{
-      getCargoList:{type:Function}
-    },
-    data() {
-      return {
-        dialog: false,
-        form: {
-          vehicle: '',
-          driver: '',
-        },
-        loading:false,
-        valid:false,
-        rule:[v=> !!v || 'این فیلد الزامی است']
+      setup() {
+          const {
+              
+              retailShipments,
+              dataTableLength,
+              page,
+              header,
+              loading,
+              headerShps
+          } = BulkLabelPrint();
+  
+          return {
+              retailShipments,
+              dataTableLength,
+              page,
+              header,
+              loading,
+              headerShps
+          };
+      },
+      components: {
+          
+        
+  
+      },
+  
+      methods: {
+          convertDateToJalai,
+  
+          close() {
+              const form = {
+                  dialog: false,
+                  object: ''
+              }
+              this.$store.commit('set_modalDamageShpss', form)
+          },
+          validate() {
+              this.$refs.BlogForm.$refs.addForm.validate()
+              setTimeout(() => {
+                  if (this.$refs.BlogForm.valid) this.createBlog()
+              }, 200)
+          },
+          searchWarehouse(e) {
+              const filter = {
+                  name: e
+              }
+              this.getWarehouseList(filter)
+          },
+  
+      },
+  
+      computed: {
+          dialog() {
+              return this.$store.getters['get_modalDamageShpss']
+          },
+          retailObject() {
+              return this.$store.getters['get_modalDamageShpssObject']
+          },
       }
-    },
-    mounted() {
-      this.getAllVehicleList()
-      this.getAllDriverList()
-    },
-    methods: {
-      openModal() {
-        this.dialog = true;
-      },
-  
-      closeModal() {
-        this.dialog = false;
-      },
-      /**
-       * validate form
-       */
-      validate(){
-        this.$refs.addCargo.validate()
-        setTimeout(()=>{
-          if (this.valid) this.createCargo()
-        })
-      },
-  
-      /**
-       * Submit form
-       */
-      async createCargo() {
-        this.loading = true
-        var formdata = new FormData();
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = 'cargo/crud/create'
-        AxiosMethod.form = formdata;
-  
-        formdata.append('driver_id', this.form.driver)
-        formdata.append('vehicle_id', this.form.vehicle);
-  
-        AxiosMethod.store = this.$store
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        let data = await AxiosMethod.axios_post()
-        if (data) {
-          this.loading = false
-          this.updateList('true');
-          openToast(this.$store,
-              'کارگو با موفقیت ایجاد شد.',
-              "success");
-          this.dialog = false;
-          this.getCargoList()
-          this.form.driver = '';
-          this.form.vehicle = ''
-  
-  
-        } else {
-          this.loading = false
-        }
-      },
-  
-      /**
-       * Update list
-       * @param {*} status
-       */
-      updateList(status) {
-        this.$emit('updateList', status);
-      },
-  
-    },
-    computed:{
-      vehicles(){
-        let vehicles = []
-        this.vehicleList.data.forEach(vehicle=>{
-          const form = {
-            name : vehicle.vehicle_type + ' ('+vehicle.license+')',
-            id :vehicle.id
-          }
-          vehicles.push(form)
-        })
-        return vehicles
-      },
-      drivers(){
-        let drivers = []
-        this.DriverManagementList.data.forEach(driver=>{
-          const form = {
-            name : driver.full_name,
-            id :driver.id
-          }
-          drivers.push(form)
-        })
-        return drivers
-      }
-    }
   }
   </script>
   

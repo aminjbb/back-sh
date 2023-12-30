@@ -124,9 +124,18 @@ export default createStore({
       id: ''
 
     },
+    modalDamageShpss: {
+      dialog: false,
+      id: ''
+
+    },
   },
 
   mutations: {
+    set_modalDamageShpss(state , form) {
+      state.modalDamageShpss.dialog = form.dialog
+      state.modalDamageShpss.object = form.object
+  },
     set_modalLostShpss(state , form) {
       state.modalLostShpss.dialog = form.dialog
       state.modalLostShpss.object = form.object
@@ -278,6 +287,14 @@ export default createStore({
   actions: {},
 
   getters: {
+    get_modalDamageShpss(state ){
+      return  state.modalDamageShpss.dialog
+
+    },
+    get_modalDamageShpssObject(state ) {
+        return state.modalDamageShpss.object
+
+    },
 
     get_modalLostShpss(state ){
       return  state.modalLostShpss.dialog
