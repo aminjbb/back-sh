@@ -1,63 +1,44 @@
 <template>
-    <div class="h-100 d-flex flex-column align-stretch">
-      <v-card height="100" class="ma-5 br-12 stretch-card-header-90">
-        <v-row
-            justify="start"
-            align="start"
-            class="px-10 py-5">
-          
-            
-            <v-col cols="12" md="6">
-            
-            <v-form @submit.prevent="onFormSubmit" v-model="valid" class="">
-                
-              <div class="text-right  ">
-                
-                  
-              </div>
-              <div>
-                <v-text-field 
-                variant="outlined" 
-                :rules="rule" 
-                v-model="cargo"
-                placeholder="شناسه سفارش را اسکن نمایید"/>
-              </div>
-            </v-form>
-          </v-col>
-  
-        </v-row>
-      </v-card>
-      <v-card
-          class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-          height="580"
-      >
+    <div class="h-100 d-flex flex-column align-stretch seller">
+    <v-card
+        class="ma-5 br-12"
+        height="360"
+        style="flex:0 0 200px">
+        <header class="modal__header d-flex justify-center align-center">
+            <span class="t16400 pa-6">
+                ثبت کالای مفقودی یا ضایعات
+            </span>
+        </header>
+        <v-divider color="grey" />
+       <div 
+       justify="between"
+       class="d-flex ">
+        <div class="text-right my-3 ">
+                    <span class="t12400 color-grey">
+                        شناسه بسته <span class="text-red">*</span>
+                    </span>
+                </div>
+                <div class="text-right my-3">
+                    <span class="t12400 color-grey">
+                        نوع بسته
+                    </span>
+                </div>
+       </div>
+    </v-card>
+
+    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
         <Table
-            :getShpsList="getShpsList"
             class="flex-grow-1"
-            deletePath="category/crud/delete/"
-            :header="cargoReceivingHeader"
-            :items="filteredCargoData"
-            :page="page"
-            :perPage="dataTableLength"
+            :header="detailInfo"
+            :items=[]
             :loading="loading"
-        />
-  
-        <v-divider/>
-  
-        <v-card-actions class="pb-3" >
-          <v-row class="px-5 py-2"  justify="end">
-            <v-btn
-                color="primary500"
-                height="40"
-                rounded
-                variant="flat"
-                class="px-8 mt-2">
-              بستن بسته
-            </v-btn>
-          </v-row>
-        </v-card-actions>
-      </v-card>
-    </div>
+            @updateList="updateList"
+            deletePath="report/crud/delete/"
+            model="report" />
+
+        <v-divider />
+    </v-card>
+</div>
   </template>
   
   <script>
@@ -94,10 +75,10 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, detailInfo
       } = OrderPackagingList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, detailInfo
       };
     },
   

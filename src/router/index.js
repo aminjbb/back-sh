@@ -1546,7 +1546,7 @@ const router = createRouter({
         name: 'detail-info',
         component: OrderDetailView,
         meta: {
-          name: ' '
+          name: ' بسته بندی سفارش ها'
         }
       }],
     },

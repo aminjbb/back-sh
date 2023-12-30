@@ -32,6 +32,14 @@ export default function setup(posts) {
         {name:'استان/شهر ' , show:true, value:'is_active', order: false},
     ]);
 
+    const detailInfo = ref([
+        {name:'ردیف' , show:true , value:null, order: false},
+        {name:' شناسه shps' , show:true , value:'id', order: false},
+        {name:' نام کالا ' , show:true , value:'id', order: false},
+        {name:'  شناسه کالا' , show:true , value:'name', order: false},
+        {name:'  تعداد در سفارش ' , show:true, value:'is_active', order: false},
+        {name:'تعداد اسکن شده ' , show:true, value:'is_active', order: false},
+    ]);
 
 
    
@@ -102,6 +110,6 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
-        loading , packageHeader , cargoReceivingHeader}
+        loading , packageHeader , cargoReceivingHeader, detailInfo}
 }
 

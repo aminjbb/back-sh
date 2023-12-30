@@ -26,7 +26,7 @@
             </template>
     
             <div class="c-table__header__item t12500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
-                عملیات
+                وضیعت
             </div>
         </header>
     
