@@ -7,6 +7,8 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const packageList = ref([]);
+    const singlePackage = ref(null);
+    const packageShpsList = ref(null);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -69,7 +71,32 @@ export default function setup(posts) {
         else {
         }
     };
+    async function getPackage(id) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `package/crud/get/${id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            singlePackage.value = data.data
+        }
 
+        else {
+        }
+    };
+    async function getPackageShpsList(id) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `package/shps/list/${id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            packageShpsList.value = data.data
+        }
+
+        else {
+        }
+    };
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -99,6 +126,7 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading, historyHeader}
+    return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading,
+        historyHeader , getPackage , singlePackage , packageShpsList , getPackageShpsList}
 }
 

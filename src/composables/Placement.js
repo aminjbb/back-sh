@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const placementList = ref([]);
+    const placement = ref(null);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -81,6 +82,17 @@ export default function setup(posts) {
             placementList.value = data.data.data
         }
     };
+    async function getPlacement(id) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `placement/crud/get/${id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+
+            placement.value = data.data.data
+        }
+    };
 
     function addPerPage(number){
         filter.page = 1
@@ -110,6 +122,7 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading, shpssHeader , getAllPlacementList}
+    return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading,
+        shpssHeader , getAllPlacementList , getPlacement , placement}
 }
 

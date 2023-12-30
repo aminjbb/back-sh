@@ -37,9 +37,7 @@
     >
       <Table
           class="flex-grow-1"
-          editUrl="/categories/edit/"
-          activePath="category/crud/update/activation/"
-          deletePath="category/crud/delete/"
+          deletePath="cargo/crud/delete/"
           :header="header"
           :items="cargoList.data"
           updateUrl="category/csv/mass-update"
@@ -134,7 +132,7 @@ export default {
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
-          this.getCategories()
+          this.getCargoList()
           this.$cookies.remove('deleteItem')
         }
 

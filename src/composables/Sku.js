@@ -8,6 +8,7 @@ export default function setup(posts) {
     const skues = ref([]);
     const skuGroups =ref([])
     const skuGroup =ref(null)
+    const shpssDetail =ref(null)
     const allSkus =ref([])
     const allSkuGroups =ref([])
     const skuGroupDetail =ref([])
@@ -105,6 +106,16 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get()
         if (data) {
             sku.value = data.data
+        }
+    };
+    async function getShpssDetail(id,) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = 'shps/item/detail?barcode=' + id
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            shpssDetail.value = data.data
         }
     };
     async function getSkuGroup(skuGroupId) {
@@ -214,6 +225,7 @@ export default function setup(posts) {
 
 
     return { pageLength, skues, sku, getSkue, addPerPage, getSkues, allSkus, skuGroupLoading, getSkuGroups, skuGroups ,getSkuGroup, skuGroup,
-        getSkuGroupDetail, skuGroupDetail, dataTableLength, page, header, item, filterField, loading, skuGroupsHeader, getAllSkuGroups, allSkuGroups  }
+        getSkuGroupDetail, skuGroupDetail, dataTableLength, page, header, item, filterField, loading, skuGroupsHeader, getAllSkuGroups, allSkuGroups ,
+        getShpssDetail ,shpssDetail}
 }
 

@@ -1439,7 +1439,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list',
+          path: ':packageId/shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
           meta: {
@@ -1447,7 +1447,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list/locating-shelf',
+          path: ':packageId/shps-list/locating-shelf/:placementId',
           name: 'ShpsListLocatingToShelfView',
           component: ShpsListLocatingToShelfView,
           meta: {
