@@ -39,7 +39,7 @@
                 <div
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
@@ -49,7 +49,7 @@
                 <div
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
@@ -59,7 +59,7 @@
                 <div
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.user && item.user.first_name && item.user.last_name">
@@ -74,7 +74,7 @@
                 <div
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_count">
@@ -89,7 +89,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.status">
@@ -104,7 +104,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.payment_status">
@@ -119,7 +119,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.payment_method">
@@ -134,7 +134,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
@@ -149,7 +149,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <v-icon :icon="setIcon(item.packed_status)" :color="item.packed_status === 1 ? 'green' : 'red'"/>
@@ -159,7 +159,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.submit_date_fa">
@@ -174,7 +174,7 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:20px 3px"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.receive_date_fa">
