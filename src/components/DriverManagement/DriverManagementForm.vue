@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <v-form ref="addFactor" v-model="valid">
+        <v-form ref="addDriver" v-model="valid">
             <v-row
                 justify="start"
                 align="center"
@@ -8,28 +8,30 @@
                 <v-col cols="12" md="6">
                     <div class="text-right my-5">
                         <span class="t14500">
-                            نام و نام خانوادگی *
+                            نام و نام خانوادگی 
                         </span>
+                        <span class="text-error">*</span>
                     </div>
                     <v-text-field
                         density="compact"
                         variant="outlined"
                         single-line
-                      
+                        :rules="persianRule"
                         v-model="form.full_name" />
                 </v-col>
     
                 <v-col cols="12" md="6">
                     <div class="text-right my-5">
                         <span class="t14500">
-                            کد ملی *
+                            کد ملی 
                        </span>
+                       <span class="text-error">*</span>
                     </div>
                     <v-text-field
                         density="compact"
                         variant="outlined"
                         single-line
-                      
+                        :rules="nationalCodeRule"
                         v-model="form.identification_code" />
                 </v-col>
             </v-row>
@@ -37,14 +39,15 @@
                 <v-col cols="12" md="6">
                     <div class="text-right my-5">
                         <span class="t14500">
-                            شماره موبایل *
+                            شماره موبایل 
                         </span>
+                        <span class="text-error">*</span>
                     </div>
                     <v-text-field
                         density="compact"
                         variant="outlined"
                         single-line
-                     
+                        :rules="mobileRule"
                         v-model="form.phone_number" />
                 </v-col>
             </v-row>
@@ -87,6 +90,17 @@
                     /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]+$/.test(v) ||
                     "فقط حروف فارسی ",
                 ],
+                mobileRule: [
+                        (v) => !!v || "این فیلد الزامی است",
+                        (v) =>
+                            /^(?:(\u0660\u0669[\u0660-\u0669][\u0660-\u0669]{8})|(\u06F0\u06F9[\u06F0-\u06F9][\u06F0-\u06F9]{8})|(09[0-9][0-9]{8}))$/.test(
+                                v
+                            ) || "شماره موبایل معتبر نیست",
+                        ],
+                        nationalCodeRule: [
+                        (v) => !!v || "این فیلد الزامی است",
+                        (v) => /^[0-9]{10}$/.test(v) || "کد ملی معتبر وارد کنید",
+                        ],
                 englishRule: [
                     (v) => !!v || "این فیلد الزامی است",
                     (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",

@@ -8,6 +8,7 @@ import {PanelFilter} from "@/assets/js/filter_driver";
 
 
 export default function setup(posts) {
+    const driver = ref(null)
     const DriverManagementList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -87,6 +88,20 @@ export default function setup(posts) {
         }
     };
 
+    async function getDriver(){
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `driver/crud/get/${route.params.driverId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            driver.value = data.data
+        }
+
+        else {
+        }
+    }
+
     async function getAllDriverList(query) {
 
         const AxiosMethod = new AxiosCall()
@@ -125,7 +140,7 @@ export default function setup(posts) {
     })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList,
+         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList, getDriver,
         dataTableLength, page, header, loading, getAllDriverList
          }
 }

@@ -117,11 +117,32 @@ export default createStore({
     bulkPrintLabel: {
       dialog: false,
       id: ''
+    },
+    orderDetailsModal: {
+      dialog: false,
+      id: ''
+    },
+    modalLostShpss: {
+      dialog: false,
+      id: ''
+
+    },
+    modalDamageShpss: {
+      dialog: false,
+      id: ''
 
     },
   },
 
   mutations: {
+    set_modalDamageShpss(state , form) {
+      state.modalDamageShpss.dialog = form.dialog
+      state.modalDamageShpss.object = form.object
+  },
+    set_modalLostShpss(state , form) {
+      state.modalLostShpss.dialog = form.dialog
+      state.modalLostShpss.object = form.object
+  },
 
     set_ModalCargoDetail(state , form) {
         state.ModalCargoDetail.dialog = form.dialog
@@ -130,7 +151,6 @@ export default createStore({
     set_bulkPrintLabel(state , form){
       state.bulkPrintLabel.dialog = form.dialog
       state.bulkPrintLabel.object = form.object
-
     },
     set_marketPlaceDetailModal(state , form){
       state.marketPlaceDetailModal.dialog = form.dialog
@@ -251,7 +271,6 @@ export default createStore({
       state.basicDiscountModal.dialog = form.dialog
       state.basicDiscountModal.id = form.id
     },
-
     set_showDetailsModal(state, form) {
       state.showDetailsModal.dialog = form.dialog
       state.showDetailsModal.id = form.id
@@ -264,19 +283,38 @@ export default createStore({
       state.inventoryReductionModal.dialog = form.dialog
       state.inventoryReductionModal.id = form.id
     },
+    set_orderDetailsModal(state, form) {
+      state.orderDetailsModal.dialog = form.dialog
+      state.orderDetailsModal.id = form.id
+    },
   },
 
   actions: {},
 
   getters: {
+    get_modalDamageShpss(state ){
+      return  state.modalDamageShpss.dialog
+
+    },
+    get_modalDamageShpssObject(state ) {
+        return state.modalDamageShpss.object
+
+    },
+
+    get_modalLostShpss(state ){
+      return  state.modalLostShpss.dialog
+
+    },
+    get_modalLostShpssObject(state ) {
+        return state.modalLostShpss.object
+
+    },
 
     get_ModalCargoDetail(state ){
       return  state.ModalCargoDetail.dialog
-
     },
     get_ModalCargoDetailObject(state ) {
         return state.ModalCargoDetail.object
-
     },
     get_bulkPrintLabel(state){
       return  state.bulkPrintLabel.dialog
@@ -306,10 +344,9 @@ export default createStore({
     get_detailModalTestQrCodeFull(state){
       return  state.detailModalTestQrCodeFull.dialog
     },
-    get_set_detailModalTestQrCodeFullObject(state){
+    get_detailModalTestQrCodeFullObject(state){
       return  state.detailModalTestQrCodeFull.object
     },
-
     get_modalRejectRequestShipment(state){
       return  state.modalRejectRequestShipment.dialog
     },
@@ -430,6 +467,9 @@ export default createStore({
     },
     get_printModal(state) {
       return state.inventoryReductionModal
+    },
+    get_orderDetailsModal(state) {
+      return state.orderDetailsModal
     },
   }
 });

@@ -230,6 +230,38 @@
 
             </v-list-group>
 
+            <v-list-group value="orders">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-shopping-outline</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            سفارش ها
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in orders"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
         </v-list>
 
     </v-navigation-drawer>
@@ -276,7 +308,10 @@ export default {
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات و مفقودی', '/report/index', 'mdi-checkbox-blank-circle-outline'],
-                [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline']
+                [' پرینت گروهی برچسب', '/print/label/bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline']
+
+                
 
             ],
             commerce: [
@@ -298,6 +333,9 @@ export default {
             ],
             marketing: [
                 ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            orders: [
+                ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
             ],
         }
     },

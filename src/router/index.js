@@ -182,7 +182,7 @@ import CargoListingView from "@/views/Cargo/CargoListingView.vue";
 import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
-/**Package Placement */
+/* Package Placement */
 import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementListView.vue";
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
@@ -203,6 +203,13 @@ import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListVi
 import CargoPrintView from "@/views/Cargo/CargoPrintView.vue";
 import ShipmetDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
 import ShipmentDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
+
+
+/* Orders */
+import OrderListView from "@/views/Orders/OrderListView.vue";
+import orderEditUser from "@/views/Orders/orderEditUser.vue";
+import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
+import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 
 
 const router = createRouter({
@@ -718,43 +725,43 @@ const router = createRouter({
             name: 'ظرقیت ویژه'
           }
         },
-        {
-          path: '/driver-management',
-          meta:{
-            name:' انبار'
-          },
-          children: [
-            {
-              path: 'index',  
-              name: 'DriverManagementView',
-              component: DriverManagementView,
-              meta:{
-                name:'مدیریت رانندگان'
-              }
-            },
-            {
-              path: 'create',
-              name: 'createDriver',
-              component: AddDriverManagementView,
-              meta: {
-                name: 'افزودن راننده '
-              }
-            },
-            {
-              path: 'update',
-              name: 'editDriver',
-              component: EditDriverManagementView,
-              meta: {
-                name: ' ویرایش اطلاعات راننده '
-              }
-            },
-        ]
-        },
+       
 
 
       ],
     },
-
+    {
+      path: '/driver-management',
+      meta:{
+        name:' انبار'
+      },
+      children: [
+        {
+          path: 'index',  
+          name: 'DriverManagementView',
+          component: DriverManagementView,
+          meta:{
+            name:'مدیریت رانندگان'
+          }
+        },
+        {
+          path: 'create',
+          name: 'createDriver',
+          component: AddDriverManagementView,
+          meta: {
+            name: 'افزودن راننده '
+          }
+        },
+        {
+          path: 'update/:driverId',
+          name: 'editDriver',
+          component: EditDriverManagementView,
+          meta: {
+            name: ' ویرایش اطلاعات راننده '
+          }
+        },
+    ]
+    },
     {
       path: '/Supplier', // Supplier routes
       meta: {
@@ -1538,9 +1545,33 @@ const router = createRouter({
         meta: {
           name: ' پرینت گروهی برچسب '
         }
+      },
+    ],
+    },
+    {
+      path: '/order-packaging', // order packaging
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'order-packaging',
+        component: OrderPackagingListView,
+        meta: {
+          name: ' بسته بندی سفارش ها '
+        }
+      },
+      {
+        path: 'detail-info',
+        name: 'detail-info',
+        component: OrderDetailView,
+        meta: {
+          name: ' بسته بندی سفارش ها'
+        }
       }],
     },
     {
+
       path: '/warehouse-orders', // print label bulk
       meta: {
         name: 'انبار'
@@ -1563,7 +1594,31 @@ const router = createRouter({
         //   }
         // }
       ],
-    }
+    },
+    {
+      path: '/orders', // Order route
+      meta: {
+        name: 'سفارش ها'
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'OrderList',
+          component: OrderListView,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+        {
+          path: 'user/:id/edit',
+          name: 'orderEditUser',
+          component: orderEditUser,
+          meta: {
+            name: 'لیست سفارش ها'
+          }
+        },
+      ],
+    },
   ]
 })
 const privateRoutes = [

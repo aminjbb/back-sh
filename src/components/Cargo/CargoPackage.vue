@@ -50,7 +50,7 @@
             </v-col>
             <v-col cols="3">
               <v-btn
-                  @click="assignPackage()"
+                @click="assignPackage()"
                   :loading="loading"
                   color="primary500"
                   :disabled="!packageId"

@@ -7,7 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const BulkLabelPrintList = ref([]);
-    const shpsList = ref([])
+
     const cargoList = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -26,12 +26,20 @@ export default function setup(posts) {
 
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه کالا' , show:true , value:'id', order: false},
-        {name:'نام کالا' , show:true , value:'name', order: false},
-        {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
-        {name:'ذخیره ' , show:true, value:'is_active', order: false},
+        {name:' شناسه سفارش' , show:true , value:'id', order: false},
+        {name:' نام خریدار' , show:true , value:'name', order: false},
+        {name:' روش ارسال ' , show:true, value:'is_active', order: false},
+        {name:'استان/شهر ' , show:true, value:'is_active', order: false},
     ]);
 
+    const detailInfo = ref([
+        {name:'ردیف' , show:true , value:null, order: false},
+        {name:' شناسه shps' , show:true , value:'id', order: false},
+        {name:' نام کالا ' , show:true , value:'id', order: false},
+        {name:'  شناسه کالا' , show:true , value:'name', order: false},
+        {name:'  تعداد در سفارش ' , show:true, value:'is_active', order: false},
+        {name:'تعداد اسکن شده ' , show:true, value:'is_active', order: false},
+    ]);
 
 
    
@@ -42,23 +50,27 @@ export default function setup(posts) {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getShpsList(packageId = null) {
+    async function getShpsList(packageId= null) {
         loading.value = true;
-        const AxiosMethod = new AxiosCall();
-        AxiosMethod.using_auth = true;
-        AxiosMethod.token = cookies.cookies.get('adminToken');
-         
-        AxiosMethod.end_point = packageId ? `package/shps/list/${packageId}` : `package/shps/list/`;
+        let params = packageId ? { id: packageId } : {};
+        let paramsQuery = filter.params_generator(params);
         
+    
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken');
+        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
+            console.log("API Response:", response); 
     
             loading.value = false;
     
-            if (response && response.data) {
-                shpsList.value = response.data; 
+            if (response && response.data && response.data.data) {
+                pageLength.value = response.data.last_page;
+                return response.data.data; 
             } else {
-                shpsList.value = [];
+                return [];
             }
         } catch (error) {
             console.error("Error in API call:", error);
@@ -66,6 +78,7 @@ export default function setup(posts) {
             return [];
         }
     }
+
 
     function addPerPage(number){
         filter.page = 1
@@ -97,6 +110,6 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
-        loading , packageHeader , cargoReceivingHeader , shpsList}
+        loading , packageHeader , cargoReceivingHeader, detailInfo}
 }
 

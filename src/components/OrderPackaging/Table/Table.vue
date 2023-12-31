@@ -55,8 +55,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.full_name">
-                                {{ item.full_name }}
+                            <template v-if="item.status">
+                                {{ item.status }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -77,47 +77,17 @@
                             </template>
                         </span>
                     </div>
-                    <div
-                        v-if="header[3].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.phone_number">
-                                {{ item.phone_number }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
+                   
     
                     <div
-                        v-if="header[4].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.updated_at_fa">
-                                {{ item.updated_at_fa }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
+                v-if=" header[4].show "
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              
+                تهران/تهران          
+              </div>
     
-                    <div
-                        v-if="header[5].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.created_at_fa">
-                                {{ item.created_at_fa }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-                    </div>
+                 
     
                    
     
@@ -140,25 +110,16 @@
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="$router.push(`/driver-management/update/${item.id}`)">
-                                            <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
+                                            @click="$router.push(`/driver-management/update`)">
+                                            <v-icon size="small" class="text-grey-darken-1">mdi-printer</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
-                                                ویرایش                                           
+                                              پرینت  برچسب                                           
                                                 </span>
                                         </div>
                                     </v-list-item-title>
                                 </v-list-item>
     
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="removeItem(item.id)">
-                                            <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                                حذف
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
+                              
                             </v-list>
                         </v-menu>
                     </div>
@@ -173,11 +134,15 @@
             </div>
         </div>
        
-       
+        <ModalDamageReport/>
+       <ModalLostReport/>
     </div>
     </template>
     
     <script>
+    import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
+    import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+  
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
@@ -195,7 +160,9 @@
     } from "@/assets/js/functions_seller";
     export default {
         components: {
-          
+          ModalLostReport,
+          ModalDamageReport
+  
         },
     
         props: {
@@ -207,7 +174,10 @@
             /**
              * List of items
              */
-            items: [],
+             items: {
+      type: Array,
+      default: () => []
+    },
     
             /**
              * Model
@@ -254,13 +224,7 @@
                 default: false
             },
     
-            /**
-             * Edit endpoint for change active
-             */
-            activePath: {
-                type: String,
-                default: ''
-            },
+          
     
         },
     
@@ -273,7 +237,7 @@
                 active: [],
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
-
+                iconStates: this.items.map(() => true), 
              
             }
         },
@@ -296,24 +260,66 @@
                 return 'auto';
             },
         },
-    
+        watch: {
+          items(newItems) {
+          this.iconStates = newItems.map(() => true);
+      },
+  },
         methods: {
             /**
              * Open Basic Discount modal
              * @param {*} id
              */
-            openShowDetailsModal(id) {
-                openModal(this.$store, 'set_showDetailsModal', id, true)
-            },
-    
-         
+           
           
-
+             toggleIcon(index) {
+       
+                  let iconStatesCopy = [...this.iconStates];
+                  iconStatesCopy[index] = !iconStatesCopy[index];
+                  this.iconStates = iconStatesCopy;
+      },
+          
+  
     
             /**
              * Get row index in table
              * @param {*} index
              */
+  
+            /**
+       * LostShpss modal
+       */
+      async getShpssDetail(item) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `package/shps/list/${item.id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          const form = {
+            dialog :true,
+            object : data.data
+          }
+          this.$store.commit('set_modalLostShpss' , form)
+        }
+      },
+  
+      async getShpssDetailLost(item) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `package/shps/list/${item.id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          const form = {
+            dialog :true,
+            object : data.data
+          }
+          this.$store.commit('set_modalDamageShpss' , form)
+        }
+      },
+  
+  
             rowIndexTable(index) {
                 let rowIndex = 0
                 if (this.page === 1) {
@@ -374,7 +380,7 @@
                 console.log("Removing item with ID:", id);
                     console.log("Delete path:", this.deletePath + id);
                     // openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
-
+  
                     openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
         },
