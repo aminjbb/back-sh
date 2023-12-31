@@ -72,6 +72,20 @@
       convertDateToJalai
   } from "@/assets/js/functions";
   export default {
+    data() {
+        return {
+
+            form: {
+                package_id: null,
+                package_type: null,
+                report_type: null,
+                shps_s: null,
+            },
+            shpssSearchList: [],
+            packageType:null,
+            packageShpss:[],
+            packageId:null,
+        }},
       setup() {
           const {
               
@@ -92,6 +106,8 @@
               headerShps
           };
       },
+
+
       components: {
           
         
@@ -124,6 +140,22 @@
       },
   
       computed: {
+
+        sphssList() {
+            try {
+                let sku = []
+                this.shpssSearchList.forEach(shpss => {
+                    const form = {
+                        name: shpss?.shps?.sku?.label ,
+                        id: shpss.id
+                    }
+                    sku.push(form)
+                })
+                return sku
+            } catch (e) {
+                return []
+            }
+        },
           dialog() {
               return this.$store.getters['get_modalDamageShpss']
           },

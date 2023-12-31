@@ -11,7 +11,7 @@
             <v-divider ></v-divider>
             <v-col cols="12" md="6">
             
-            <v-form @submit.prevent="onFormSubmit" v-model="valid" class="">
+            <v-form @submit.prevent="onFormSubmit"  class="">
                 
               <div class="text-right  ">
                 
@@ -34,12 +34,13 @@
           class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
           height="580"
       >
+       
         <Table
-            :getShpsList="getShpsList"
+          
             class="flex-grow-1"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="filteredCargoData"
+            :items="shpsList.shps_list "
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -97,10 +98,10 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList , shpsList
       } = BulkLabelPrintList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList , shpsList
       };
     },
   
@@ -112,28 +113,17 @@
 
       }
     },
-    async mounted() {
-  try {
-    const data = await this.getShpsList();
-    console.log("Fetched data:", data);
-    this.allCargoData = await this.getShpsList();
-    console.log("All Cargo Data:", this.allCargoData);
-    this.filteredCargoData = this.allCargoData;
-  } catch (error) {
-    console.error("Error fetching all cargo data:", error);
-    this.allCargoData = [];
-    this.filteredCargoData = [];
-  }
+     mounted() {
+      this.fetchCargoData();
+
 },
   
     watch: {
-      cargo(newId) {
-        if (newId && Array.isArray(this.allCargoData)) {
-      this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
-    } else {
-      this.filteredCargoData = this.allCargoData;
-      }
-    },
+      cargo(newCargoId) {
+    if (newCargoId) {
+      this.fetchCargoData(newCargoId);
+    }
+  },
 
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
@@ -152,6 +142,10 @@
     },
   
     methods: {
+
+      async fetchCargoData(newCargoId) {
+        this.getShpsList(newCargoId);
+      },
 
       filterDataById(id) {
       if (!id) {
@@ -177,7 +171,7 @@
         this.header[index].show = value
       },
       $route(){
-                this.getShpsList();
+                this.fetchCargoData();
 
             }
     }

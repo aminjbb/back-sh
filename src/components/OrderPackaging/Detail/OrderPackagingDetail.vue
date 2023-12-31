@@ -2,24 +2,22 @@
     <div class="h-100 d-flex flex-column align-stretch seller">
     <v-card
         class="ma-5 br-12"
-        height="360"
-        style="flex:0 0 200px">
+        height="160"
+        style="flex:0 0 150px">
         <header class="modal__header d-flex justify-center align-center">
             <span class="t16400 pa-6">
                 ثبت کالای مفقودی یا ضایعات
             </span>
         </header>
         <v-divider color="grey" />
-       <div 
-       justify="between"
-       class="d-flex ">
-        <div class="text-right my-3 ">
-                    <span class="t12400 color-grey">
-                        شناسه بسته <span class="text-red">*</span>
+       <div  class="d-flex justify-between mx-16  ">
+         <div class="text-right my-3 mx-15">
+                    <span class="t13400 color-grey">
+                        شناسه بسته :<span class="text-red">*</span>
                     </span>
                 </div>
-                <div class="text-right my-3">
-                    <span class="t12400 color-grey">
+                <div class="text-right my-3 mx-15">
+                    <span class="t13400 color-grey">
                         نوع بسته
                     </span>
                 </div>

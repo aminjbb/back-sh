@@ -7,7 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const BulkLabelPrintList = ref([]);
-
+    const shpsList = ref([])
     const cargoList = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -42,27 +42,23 @@ export default function setup(posts) {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getShpsList(packageId= null) {
+    async function getShpsList(packageId = null) {
         loading.value = true;
-        let params = packageId ? { id: packageId } : {};
-        let paramsQuery = filter.params_generator(params);
-        
-    
         const AxiosMethod = new AxiosCall();
-        AxiosMethod.using_auth = true
+        AxiosMethod.using_auth = true;
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
+         
+        AxiosMethod.end_point = packageId ? `package/shps/list/${packageId}` : `package/shps/list/`;
+        
         try {
             let response = await AxiosMethod.axios_get();
-            console.log("API Response:", response); 
     
             loading.value = false;
     
-            if (response && response.data && response.data.data) {
-                pageLength.value = response.data.last_page;
-                return response.data.data; 
+            if (response && response.data) {
+                shpsList.value = response.data; 
             } else {
-                return [];
+                shpsList.value = [];
             }
         } catch (error) {
             console.error("Error in API call:", error);
@@ -70,7 +66,6 @@ export default function setup(posts) {
             return [];
         }
     }
-
 
     function addPerPage(number){
         filter.page = 1
@@ -102,6 +97,6 @@ export default function setup(posts) {
     })
 
     return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
-        loading , packageHeader , cargoReceivingHeader}
+        loading , packageHeader , cargoReceivingHeader , shpsList}
 }
 
