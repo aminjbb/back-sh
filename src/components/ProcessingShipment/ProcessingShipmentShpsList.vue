@@ -24,6 +24,9 @@
           <div class="d-flex justify-start pt-5">
             <v-btn
                 color="primary500"
+                :loading="loadingPackage"
+                @click="packageUpdate()"
+                :disabled="!boxId"
                 height="40"
                 rounded
                 class="px-8 mt-1">
@@ -38,8 +41,8 @@
       <Table
           ref="processingShipmentShps"
           class="flex-grow-1"
-          :header="headerShps"
-          :items="processingShipment"
+          :header="headerTable"
+          :items="shipmentShpsList"
           editUrl=""
           activePath=""
           deletePath=""
@@ -62,11 +65,11 @@
           <v-col cols="3" class="d-flex justify-end">
             <div  class="d-flex align-center">
               <v-btn
-                  :loading="loading"
+                  :loading="finishLoading"
                   rounded
                   variant="text"
                   width="115"
-                  @click="$router.go(-1)"
+                  @click="finishedPack()"
               >
                 <span class="t14300">
                 اتمام محموله
@@ -84,27 +87,82 @@
 <script >
 import Table from "@/components/ProcessingShipment/Table/Table.vue";
 import ProcessingShipment from "@/composables/ProcessingShipment";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default  {
   setup(props) {
     const {
-      processingShipment, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps
+      processingShipment, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps,
+      getShipmentShpslist , shipmentShpsList , headerShpsSeller
     } = ProcessingShipment();
 
     return {
-      processingShipment, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps
+      processingShipment, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps,
+      getShipmentShpslist , shipmentShpsList ,headerShpsSeller
     };
   },
   components: {Table},
+  mounted() {
+    this.getShipmentShpslist()
+  },
   data(){
     return {
       boxId:null,
+      loadingPackage:false,
+      finishLoading:false,
       rule:[v=>!!v || 'این فیلد الزامی است']
     }
   },
   methods:{
     setpackId(){
       localStorage.setItem('packId' , this.boxId)
+    },
+    async packageUpdate(){
+      this.loadingPackage = true
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `package/crud/update/status/${this.boxId}`
+      formData.append('status', 'sent_to_warehouse')
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loadingPackage = false
+        this.$router.go(-1)
+      }
+      else {
+        this.loadingPackage = false
+      }
+    },
+    async finishedPack(){
+      this.finishLoading = true
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `shipment/pack/${this.boxId}`
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.finishLoading = false
+        this.$router.go(-1)
+      }
+      else {
+        this.finishLoading = false
+      }
+    },
+  },
+  computed:{
+    headerTable(){
+    try {
+        if (this.shipmentShpsList[0].max_tolerance) return this.headerShps
+         return   this.headerShpsSeller
+        }
+        catch (e) {
+           return this.headerShps
+        }
     }
   }
 }

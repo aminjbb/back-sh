@@ -1,29 +1,26 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch">
-      <v-card height="200" class="ma-5 br-12 stretch-card-header-90">
+      <v-card height="100" class="ma-5 br-12 stretch-card-header-90">
         <v-row
             justify="start"
             align="start"
             class="px-10 py-5">
-            <v-col cols="8" md="6" class="d-flex justify-center align-center"  >
-                اسکن شناسه بسته
-            </v-col>
-            <v-divider ></v-divider>
+          
+            
             <v-col cols="12" md="6">
             
-            <v-form @submit.prevent="onFormSubmit"  class="">
+            <v-form @submit.prevent="onFormSubmit" v-model="valid" class="">
                 
               <div class="text-right  ">
                 
-                   <span class="text-gray600 t14500">
-                   شناسه بسته
-                   </span>
-                <span class="text-error">
-                    *
-                  </span>
+                  
               </div>
               <div>
-                <v-text-field variant="outlined" :rules="rule" v-model="cargo" />
+                <v-text-field 
+                variant="outlined" 
+                :rules="rule" 
+                v-model="cargo"
+                placeholder="شناسه سفارش را اسکن نمایید"/>
               </div>
             </v-form>
           </v-col>
@@ -34,13 +31,12 @@
           class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
           height="580"
       >
-       
         <Table
-          
+            :getShpsList="getShpsList"
             class="flex-grow-1"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="shpsList.shps_list "
+            :items="filteredCargoData"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -67,12 +63,12 @@
   <script>
   import {ref} from 'vue'
   //Components
-  import Table from '@/components/BulkLabelPrint/Table/Table.vue'
+  import Table from '@/components/OrderPackaging/Table/Table.vue'
   import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
   import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
   import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
   import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
-  import BulkLabelPrintList from '@/composables/BulkLabelPrint';
+  import OrderPackagingList from '@/composables/OrderPackaging';
   
   export default {
     components: {
@@ -98,10 +94,10 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList , shpsList
-      } = BulkLabelPrintList();
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+      } = OrderPackagingList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList , shpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
       };
     },
   
@@ -113,17 +109,28 @@
 
       }
     },
-     mounted() {
-      this.fetchCargoData();
-
+    async mounted() {
+  try {
+    const data = await this.getShpsList();
+    console.log("Fetched data:", data);
+    this.allCargoData = await this.getShpsList();
+    console.log("All Cargo Data:", this.allCargoData);
+    this.filteredCargoData = this.allCargoData;
+  } catch (error) {
+    console.error("Error fetching all cargo data:", error);
+    this.allCargoData = [];
+    this.filteredCargoData = [];
+  }
 },
   
     watch: {
-      cargo(newCargoId) {
-    if (newCargoId) {
-      this.fetchCargoData(newCargoId);
-    }
-  },
+      cargo(newId) {
+        if (newId && Array.isArray(this.allCargoData)) {
+      this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
+    } else {
+      this.filteredCargoData = this.allCargoData;
+      }
+    },
 
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
@@ -142,10 +149,6 @@
     },
   
     methods: {
-
-      async fetchCargoData(newCargoId) {
-        this.getShpsList(newCargoId);
-      },
 
       filterDataById(id) {
       if (!id) {
@@ -171,7 +174,7 @@
         this.header[index].show = value
       },
       $route(){
-                this.fetchCargoData();
+                this.getShpsList();
 
             }
     }

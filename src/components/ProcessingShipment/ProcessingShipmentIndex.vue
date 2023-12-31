@@ -70,26 +70,6 @@ export default {
         if (this.valid) this.$router.push(`/processing-shipment/${this.shipmentId}/shps-list`)
       },200)
     },
-
-    async getShipmentDetail() {
-      this.loading = true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `shipment/shps/list/${this.shipmentId}`
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-
-      } else {
-        this.loading = false
-        openToast(this.$store,
-            'ایحاد انبار با مشکل مواجه شد',
-            "error")
-      }
-    },
   },
   computed: {
     avatar() {

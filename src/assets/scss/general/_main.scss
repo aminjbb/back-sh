@@ -488,9 +488,7 @@ a,
 }
 
 .bottom-box{
-  position: fixed;
-  bottom: 11px;
-  left: 0;
+
   width: 100%;
   display: flex;
   justify-content: center;
@@ -498,4 +496,10 @@ a,
 
 .scan-error{
   background: #EF5350 !important;
+}
+
+.center-divider {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }

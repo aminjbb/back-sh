@@ -1,7 +1,8 @@
  <template>
    <v-card class="h-100 width-100 position__relative">
        <div class="d-flex justify-space-between align-center pa-4">
-       <div class="pa-3">
+         <div class="pa-3 d-flex">
+           <HandheldDrawer/>
         <span class="t20400">
           داشبورد
         </span>
@@ -67,6 +68,12 @@
 
  <script>
 
+ import {defineComponent} from "vue";
+ import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
+
+ export default defineComponent({
+   components: {HandheldDrawer}
+ })
  </script>
  <style>
  .pick-up__counter{

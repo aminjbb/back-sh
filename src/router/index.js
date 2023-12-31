@@ -204,6 +204,8 @@ import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListVie
 /* Orders */
 import OrderListView from "@/views/Orders/OrderListView.vue";
 import orderEditUser from "@/views/Orders/orderEditUser.vue";
+import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
+import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 
 
 const router = createRouter({
@@ -1444,7 +1446,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list',
+          path: ':packageId/shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
           meta: {
@@ -1452,7 +1454,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'shps-list/locating-shelf',
+          path: ':packageId/shps-list/locating-shelf/:placementId',
           name: 'ShpsListLocatingToShelfView',
           component: ShpsListLocatingToShelfView,
           meta: {
@@ -1522,6 +1524,29 @@ const router = createRouter({
         component: BulkLabelPrintListView,
         meta: {
           name: ' پرینت گروهی برچسب '
+        }
+      },
+    ],
+    },
+    {
+      path: '/order-packaging', // order packaging
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'order-packaging',
+        component: OrderPackagingListView,
+        meta: {
+          name: ' بسته بندی سفارش ها '
+        }
+      },
+      {
+        path: 'detail-info',
+        name: 'detail-info',
+        component: OrderDetailView,
+        meta: {
+          name: ' بسته بندی سفارش ها'
         }
       }],
     },

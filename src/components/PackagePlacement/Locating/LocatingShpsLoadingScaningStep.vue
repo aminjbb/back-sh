@@ -8,22 +8,46 @@
       </div>
       <div class=" mt-8 d-flex justify-center px-10 text-center">
         <span class="text-black t20400">
-      برای ادامه فرآیند بارکد را اسکن کنید.
+            {{scanTitle}}
         </span>
       </div>
     </div>
   </v-card>
 </template>
 <script >
+import {AxiosCall} from "@/assets/js/axios_call";
+
 export default {
+  props:{
+    scanTitle:'',
+    state:''
+  },
   data(){
     return{
-      qrCode:''
+      qrCode:'',
+      objectId:''
     }
   },
+
   methods:{
-    logValue(){
-      alert(this.qrCode)
+    qrCodeScan(){
+      this.objectId = this.qrCode
+      this.qrCode = ''
+      if (this.state === 'packageSphpsList') {
+        this.packageScan()
+      }
+      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.objectId}/shps-list/locating-shelf/${this.objectId}`)
+    },
+
+    async packageScan(){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${this.objectId}`
+      AxiosMethod.using_auth = true
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.$router.push(`/locating/${this.objectId}/shps-list`)
+      }
     }
   },
 
@@ -31,7 +55,7 @@ export default {
   mounted() {
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.logValue()
+      if (e.key== 'Enter' ) this.qrCodeScan()
       else this.qrCode += e.key
     });
   }
