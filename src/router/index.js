@@ -744,7 +744,7 @@ const router = createRouter({
               }
             },
             {
-              path: 'update',
+              path: 'update/:driverId',
               name: 'editDriver',
               component: EditDriverManagementView,
               meta: {

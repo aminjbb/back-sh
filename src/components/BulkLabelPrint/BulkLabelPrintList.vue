@@ -36,7 +36,6 @@
       >
        
         <Table
-          
             class="flex-grow-1"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
