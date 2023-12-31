@@ -7,31 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const packagePlacement = ref([]);
-    const singlePackagePlacement = ref([
-        {
-            package_id:122,
-            placement_id:12
-        },
-        {
-            package_id:122,
-            placement_id:12
-        },
-        {
-            package_id:122,
-            placement_id:12
-        }, {
-            package_id:122,
-            placement_id:12
-        },
-        {
-            package_id:122,
-            placement_id:12
-        },
-        {
-            package_id:122,
-            placement_id:12
-        },
-    ]);
+    const singlePackagePlacement = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -67,11 +43,11 @@ export default function setup(posts) {
     async function getSinglePackagePlacement(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `package/crud/index?scanned_with_handheld=0`
+        AxiosMethod.end_point = `package/crud/index?scanned_with_handheld=0&placed=1`
         AxiosMethod.using_auth = true
         let data = await AxiosMethod.axios_get()
         if (data) {
-            singlePackagePlacement.value = data.data
+            singlePackagePlacement.value = data.data.data
         }
     };
 

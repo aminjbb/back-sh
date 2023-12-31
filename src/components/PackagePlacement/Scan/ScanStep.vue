@@ -28,7 +28,7 @@
           <span class="t16400">
            شناسه بسته :
             <span class="text-gray600">
-             {{assignedPackage?.package_id }}
+             {{assignedPackage?.id }}
             </span>
           </span>
            </div>
@@ -73,7 +73,7 @@
        </v-row>
      </v-card-actions>
    </div>
-    <LocatingShpsLoadingScaningStep  v-else :state="state" :scanTitle="scanTitle"/>
+    <LocatingShpsLoadingScaningStep  v-else :object="object" :state="state" :scanTitle="scanTitle"/>
   </v-card>
 </template>
 <script>
@@ -94,11 +94,13 @@ export default {
       packageId:'',
       scan:false,
       scanTitle:'',
-      state:''
+      state:'',
+      object:''
     }
   },
 
   mounted() {
+    this.getSinglePackagePlacement()
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key== 'Enter' ) this.scanQrCode()
@@ -114,6 +116,7 @@ export default {
     },
 
     selectPackagePlacement(packagePlacement){
+      this.object = packagePlacement
       this.scan = true
       this.scanTitle = 'شناسه بسته را اسکن کنید.'
       this.state = 'packageSphpsList'
