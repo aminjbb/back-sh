@@ -140,7 +140,7 @@
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="$router.push(`/driver-management/update`)">
+                                            @click="$router.push(`/driver-management/update/${item.id}`)">
                                             <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
                                                 ویرایش                                           
