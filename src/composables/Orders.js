@@ -45,6 +45,26 @@ export default function setup(posts) {
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'highest_payment'},
     ];
 
+    const shpsModalHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه کالا', show: true , value:'shps_id', order: false},
+        { name: 'نام کالا', show: true, value:'shps_label' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'فروشگاه', show: true, value:'shopping_name', order: false },
+        { name: 'قیمت کالا', show: true, value:'price', order: false },
+        { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },
+        { name: 'مقدار تخفیف مارکتینگ', show: true, value:'marketing_discount', order: false },
+    ]);
+
+    const discountModalHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'عنوان', show: true , value:'label', order: false},
+        { name: 'کد تخفیف', show: true, value:'discount_code' , order: false},
+        { name: 'مقدار تخفیف', show: true , value:'discount', order: false},
+        { name: 'تاریخ شروع', show: true, value:'start_time', order: false },
+        { name: 'تاریخ پایان', show: true, value:'end_time', order: false },
+    ]);
+
 
     const loading = ref(false)
     const isFilter =ref(false)
@@ -106,5 +126,5 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading}
+    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader}
 }

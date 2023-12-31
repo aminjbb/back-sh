@@ -102,7 +102,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[5].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -117,7 +117,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[6].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -132,7 +132,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[7].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -147,7 +147,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[8].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -157,7 +157,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[9].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -172,7 +172,7 @@
                 </div>
 
                 <div
-                    v-if="header[4].show"
+                    v-if="header[10].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -196,7 +196,7 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
-                                <div class="ma-3 pointer d--rtl" @click="printBarcode(item.id)">
+                                <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         نمایش جزئیات
@@ -226,7 +226,7 @@
         </div>
     </div>
 
-    <ModalPrint />
+    <DetailsModal />
 </div>
 </template>
 
@@ -240,7 +240,8 @@ import {
     isOdd
 } from "@/assets/js/functions";
 
-import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
+
+import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
 
 import {
     openModal
@@ -326,7 +327,7 @@ export default {
     },
 
     components: {
-        ModalPrint
+        DetailsModal
     },
 
     computed: {
@@ -349,6 +350,14 @@ export default {
     },
 
     methods: {
+
+        /**
+         * Open details modal
+         * @param {*} id
+         */
+         showDetails(id) {
+            openModal(this.$store, 'set_orderDetailsModal', id, true)
+        },
 
         /**
          * Get row index in table
