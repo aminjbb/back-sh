@@ -1,5 +1,18 @@
 <template>
   <div class="text-right ">
+    <v-btn
+        @click="getDetail()"
+        height="40"
+        rounded
+        variant="outlined"
+        class="px-8 mt-1">
+      <span>
+        <v-icon>
+          mdi-printer-outline
+        </v-icon>
+      </span>
+      پرینت محموله
+    </v-btn>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
         <v-row
@@ -17,15 +30,24 @@
           </v-col>
         </v-row>
         <v-divider/>
-        <div class="text-center px-5" :id="`printableArea-cargo`">
+        <div class="text-center px-5" >
           <v-card class="content">
-              <div class="d-flex justify-space-between pa-5">
-                <span><img :src="basUrl +object?.barcode_image"></span>
-                <span>شناسه کارگو : {{ object?.id }}</span>
-                <span>راننده : {{ object?.driver?.full_name }}</span>
-                <span>خودرو : {{ object?.vehicle?.license }}</span>
+            <div class="d-flex justify-space-between pa-5 d--rtl">
 
+              <span>شناسه محموله : {{ detail?.id }}</span>
+              <span v-if="detail.seller">نام فروشگاه : {{ detail?.seller?.shopping_name  }}</span>
+              <span >تاریخ تحویل : <span class="d--rtl">{{convertDateToJalai( detail?.sent_to_warehouse_at , '-' , false) }}</span></span>
+              <div class="text-center">
+                <div>
+                  <span><img :src="basUrl +detail.barcode_image"></span>
+                </div>
+                <div>
+                <span>
+                   <span>{{detail.barcode}}</span>
+                </span>
+                </div>
               </div>
+            </div>
           </v-card>
           <v-card min-height="500" class="d--rtl mt-2" >
             <Table
@@ -34,9 +56,9 @@
                 activePath="category/crud/update/activation/"
                 deletePath="category/crud/delete/"
                 :header="detailCargoHeader"
-                :items="object?.packages"
+                :items="detail?.shps_list"
                 updateUrl="category/csv/mass-update"
-
+                model="shipmentDetail"
             />
 
           </v-card>
@@ -56,7 +78,7 @@
             <v-col cols="3" class="d-flex justify-end mx-10">
               <btn
                   class="mt-3 mr-2"
-                  @click="close()"
+                  @click="dialog = false"
                   style="cursor: pointer;">
                 انصراف
               </btn>
@@ -71,21 +93,32 @@
 <script>
 import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
 import Cargo from '@/composables/Cargo'
+import {AxiosCall} from "@/assets/js/axios_call";
+import {convertDateToJalai} from "../../../assets/js/functions";
 
 export default {
   setup(){
     const {detailCargoHeader} = new Cargo()
     return { detailCargoHeader }
   },
+  props:{
+    shipmentId:null
+  },
+  data(){
+    return {
+      dialog:false,
+      detail:null,
+    }
+  },
   components: {
     Table,
   },
 
   methods: {
+    convertDateToJalai,
     print() {
       // this.close()
-      window.open(`http://localhost:5173/cargo-management/${this.object.id}/print`, '_blank');
-
+      window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/detail-print`, '_blank');
 
     },
     close() {
@@ -95,17 +128,17 @@ export default {
       }
       this.$store.commit('set_ModalCargoDetail', form)
     },
-    validate() {
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(() => {
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      }, 200)
-    },
-    searchWarehouse(e) {
-      const filter = {
-        name: e
+    async getDetail(){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shipment/detail/${this.shipmentId}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.detail = data.data
+        this.dialog = true
+        this.getShipmentShpslist()
       }
-      this.getWarehouseList(filter)
     },
 
   },
@@ -114,12 +147,7 @@ export default {
     basUrl(){
       return 'https://api.shvz.ir/'
     },
-    dialog() {
-      return this.$store.getters['get_ModalCargoDetail']
-    },
-    object() {
-      return this.$store.getters['get_ModalCargoDetailObject']
-    },
+
   }
 }
 </script>

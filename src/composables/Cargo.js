@@ -104,7 +104,6 @@ export default function setup(posts) {
         AxiosMethod.end_point = `cargo/crud/packages/${id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             cargoReceivingList.value = data.data
 
         }

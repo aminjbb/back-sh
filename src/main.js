@@ -43,13 +43,16 @@ const vuetify = createVuetify({
                     gray: '#F7F8FA',
                     gray2: '#E0E0E0',
                     gray90: '#FBFBFC',
+                    gray200: '#EEEEEE',
                     gray500: '#9E9E9E',
                     gray600: '#757575',
                     Slate: '#110833',
                     DarkJungle: '#212121',
                     CharcoalGrey: '#424242',
                     success:'#4CAF50',
-                    disableRow:'#FFEBEE'
+                    disableRow:'#FFEBEE',
+                    warningRow:'#FFF3E0',
+                    successRow:'#E8F5E9'
 
                 }
             },

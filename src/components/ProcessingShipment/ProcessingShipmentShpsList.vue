@@ -140,7 +140,6 @@ export default  {
       this.finishLoading = true
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `shipment/pack/${this.boxId}`
-      AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')

@@ -90,7 +90,7 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get()
         if (data) {
 
-            placement.value = data.data.data
+            placement.value = data.data
         }
     };
 

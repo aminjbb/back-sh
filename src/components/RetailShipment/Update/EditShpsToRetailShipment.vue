@@ -207,7 +207,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/crud/get/${this.$route.params.retailId}`
+      AxiosMethod.end_point = `shipment/consignment/crud/get/${this.$route.params.retailId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         data.data.shps_list.forEach(shps=>{
