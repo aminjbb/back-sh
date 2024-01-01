@@ -210,6 +210,7 @@ import OrderListView from "@/views/Orders/OrderListView.vue";
 import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
+import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
 
 
 const router = createRouter({
@@ -1306,6 +1307,14 @@ const router = createRouter({
           path: ':shipmentId/detail-print',
           name: 'ShipmentDetailPrintView',
           component: ShipmentDetailPrintView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+        {
+          path: ':shipmentId/barcode-print',
+          name: 'ShipmentBarCodePrintView',
+          component: ShipmentBarCodePrintView,
           meta: {
             name: 'پردازش محموله'
           }

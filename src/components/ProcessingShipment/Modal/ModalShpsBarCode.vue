@@ -20,7 +20,7 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -32,36 +32,22 @@
         <v-divider/>
         <div class="text-center px-5" >
           <v-card class="content">
-            <div class="d-flex justify-space-between pa-5 d--rtl">
-
-              <span>شناسه محموله : {{ detail?.id }}</span>
-              <span v-if="detail.seller">نام فروشگاه : {{ detail?.seller?.shopping_name  }}</span>
-              <span >تاریخ تحویل : <span class="d--rtl">{{convertDateToJalai( detail?.sent_to_warehouse_at , '-' , false) }}</span></span>
-              <div class="text-center">
-                <div>
-                  <span><img :src="basUrl +detail.barcode_image"></span>
-                </div>
-                <div>
-                <span>
-                   <span>{{detail.barcode}}</span>
-                </span>
-                </div>
-              </div>
-            </div>
+              <v-row justify="center">
+                <v-col cols="4" v-for="(barCode , index) in detail ">
+                  <div class="d-flex justify-space-between px-15">
+                    <span>{{barCode?.shps?.seller?.id}}</span>
+                    <span>{{barCode?.shps?.seller?.shopping_name}}</span>
+                  </div>
+                  <div class="text-center">
+                    <img width="190" height="80" :src="basUrl + barCode.barcode_image">
+                  </div>
+                  <div class="text-center">
+                    <img width="133" height="69" :src="basUrl + barCode.shps?.barcode_image">
+                  </div>
+                </v-col>
+              </v-row>
           </v-card>
-          <v-card min-height="500" class="d--rtl mt-2" >
-            <Table
-                class="flex-grow-1"
-                editUrl="/categories/edit/"
-                activePath="category/crud/update/activation/"
-                deletePath="category/crud/delete/"
-                :header="detailCargoHeader"
-                :items="detail?.shps_list"
-                updateUrl="category/csv/mass-update"
-                model="shipmentDetail"
-            />
 
-          </v-card>
           <v-row class="justify-between my-2 mx-2">
 
             <v-col cols="3" class="d-flex mx-10 ">
@@ -78,7 +64,7 @@
             <v-col cols="3" class="d-flex justify-end mx-10">
               <btn
                   class="mt-3 mr-2"
-                  @click="close()"
+                  @click="dialog = false"
                   style="cursor: pointer;">
                 انصراف
               </btn>
@@ -91,16 +77,9 @@
 </template>
 
 <script>
-import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
-import Cargo from '@/composables/Cargo'
 import {AxiosCall} from "@/assets/js/axios_call";
-import {convertDateToJalai} from "../../../assets/js/functions";
 
 export default {
-  setup(){
-    const {detailCargoHeader} = new Cargo()
-    return { detailCargoHeader }
-  },
   props:{
     shipmentId:null
   },
@@ -110,15 +89,12 @@ export default {
       detail:null,
     }
   },
-  components: {
-    Table,
-  },
+
 
   methods: {
-    convertDateToJalai,
     print() {
       // this.close()
-      window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/detail-print`, '_blank');
+      window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/barcode-print`, '_blank');
 
     },
     close() {
@@ -137,7 +113,6 @@ export default {
       if (data) {
         this.detail = data.data
         this.dialog = true
-        this.getShipmentShpslist()
       }
     },
 
