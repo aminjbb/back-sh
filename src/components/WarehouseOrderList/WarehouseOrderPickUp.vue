@@ -26,7 +26,7 @@
            <span class="t16400">
            شماره ردیف :
             <span class="text-gray600 number-font">
-              ۳۴
+              {{ pickUpShps?.placement?.row_numbe }}
             </span>
           </span>
         </div>
@@ -34,7 +34,7 @@
           <span class="t16400">
            شماره قفسه  :
             <span class="text-gray600 number-font">
-              ۳۴
+              {{ pickUpShps?.placement?.placement_number }}
             </span>
           </span>
         </div>
@@ -44,7 +44,7 @@
            <span class="t16400">
            شماره طبقه :
             <span class="text-gray600 number-font">
-               ۳۴
+               {{ pickUpShps?.placement?.step_number }}
             </span>
           </span>
         </div>
@@ -52,7 +52,7 @@
           <span class="t16400">
            شماره شلف   :
             <span class="text-gray600 number-font">
-             ۳۴
+             {{ pickUpShps?.placement?.shelf_number }}
             </span>
           </span>
         </div>
@@ -64,7 +64,7 @@
           <v-card min-height="92" class="d-flex justify-center align-center">
             <v-card class="ml-5 br br__12 d-flex justify-center align-center" height="52" width="52" color="primary500">
             <span class="text-white number-font">
-             4
+             {{ pickUpShps?.count }}
             </span>
             </v-card>
             <span class="t16400 text-black">عدد مانده</span>
@@ -72,10 +72,11 @@
           <v-card class="mt-2 py-5">
             <div class="d-flex justify-center">
               <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
+<!--              <img :src="pickUpShps?.shps?.sku?.image_url" width="150" height="150" alt="">-->
             </div>
             <div class="text-center px-10 my-3">
               <span class="text-gray600">
-                سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر
+                {{ pickUpShps?.shps?.sku?.label }}
               </span>
             </div>
           </v-card>
@@ -103,17 +104,14 @@
 </template>
 <script>
 import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.vue'
-import Placement from '@/composables/Placement'
-import Sku from '@/composables/Sku'
+import WarehouseOrder from '@/composables/WarehouseOrder'
 import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export default {
   setup(){
-    const { getPlacement , placement} = new Placement()
-    const { getShpssDetail ,shpssDetail} = new Sku()
+    const { getPickUpShps , pickUpShps} = new WarehouseOrder()
     return {
-      getPlacement , placement,
-      getShpssDetail ,shpssDetail
+      getPickUpShps , pickUpShps
     }
   },
   data(){
@@ -126,7 +124,7 @@ export default {
   },
 
   mounted() {
-    // this.getPlacement(this.$route.params.placementId)
+    // this.getPickUpShps()
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key== 'Enter' ) this.scanQrCode()
@@ -138,26 +136,21 @@ export default {
     scanQrCode(){
       this.shpssBarCode = this.qrCode
       this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
+      this.pickUpshpss(this.shpssBarCode)
     },
-    async locateShpssToPlace(){
+    async pickUpshpss(barcode){
       const AxiosMethod = new AxiosCall()
       const formData = new FormData()
-      formData.append('placement_id' , this.$route.params.placementId)
-      formData.append('package_id' , this.$route.params.packageId )
-      formData.append('barcode' , this.shpssBarCode )
+      formData.append('barcode' , barcode)
+      formData.append('placement_id' , this.pickUpShps?.placement?.id )
       AxiosMethod.using_auth = true
       AxiosMethod.token = cookies.cookies.get('adminToken')
-      AxiosMethod.end_point = 'shps/item/place/'
-      let data = await AxiosMethod.axios_get()
+      AxiosMethod.end_point = 'admin/order/pick'
+      let data = await AxiosMethod.axios_post()
       if (data) {
-        this.checkCount()
+        this.getPickUpShps()
       }
     },
-    checkCount(){
-      if (this.shpssDetail.shps_count < this.placeCount) ++this.placeCount
-      else this.placeCount = 0
-    }
   },
 
   components:{
