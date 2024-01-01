@@ -61,8 +61,8 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.type">
-                            {{ item.type }}
+                        <template v-if="item.package_type">
+                            {{ getPackageType(item.package_type) }}
                         </template>
                         <template v-else>
                             -
@@ -76,7 +76,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.shipment_type">
-                            {{item.shipment_type}}
+                            {{getShipmentType(item.shipment_type)}}
                         </template>
                         <template v-else>
                             -
@@ -89,8 +89,8 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.seller_name">
-                            {{ item.seller_name }}
+                        <template v-if="item.shps && item.shps.seller">
+                            {{ item.shps.seller.shopping_name }}
                         </template>
                         <template v-else>
                             -
@@ -103,8 +103,8 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.supplier">
-                            {{ item.supplier }}
+                        <template v-if="item.supplier && item.supplier.full_name">
+                            {{ item.supplier.full_name }}
                         </template>
                         <template v-else>
                             -
@@ -117,8 +117,8 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.license">
-                            {{ item.license }}
+                        <template v-if="item.shps_s">
+                            {{ item.shps_s }}
                         </template>
                         <template v-else>
                             -
@@ -131,8 +131,8 @@
                     class="c-table__contents__item"
                     style="width: 15.33333%; flex: 0 0 15.33333%">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_label">
-                            {{ item.shps_label }}
+                        <template v-if="item.shps && item.shps.label">
+                            {{ item.shps.label }}
                         </template>
                         <template v-else>
                             -
@@ -146,7 +146,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.report_type">
-                            {{ item.report_type }}
+                            {{ getReportType(item.report_type) }}
                         </template>
                         <template v-else>
                             -
@@ -309,6 +309,31 @@ export default {
     },
 
     methods: {
+        getReportType(type){
+            if(type === 'lost'){
+                return 'مفقودی'
+            }else{
+                return 'ضایعات'
+            }
+        },
+
+        getPackageType(type){
+            if(type === 'bulk'){
+                return 'بالک'
+            }else{
+                return 'پالت'
+            }
+        },
+
+        getShipmentType(type){
+            if(type === 'cross_dock_marketplace'){
+                return 'فروش مارکت'
+            }else if(type === 'consignment_shavaz'){
+                return 'انبارش شاوز'
+            }else if(type === 'consignment_marketplace'){
+                return 'انبارش مارکت'
+            }
+        },
 
         /**
          * Get row index in table

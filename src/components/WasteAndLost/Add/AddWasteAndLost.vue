@@ -70,12 +70,11 @@
                             نام کالا <span class="text-red">*</span>
                         </span>
                     </div>
-
                     <v-autocomplete
                         :items="sphssList"
                         density="compact"
                         variant="outlined"
-                        item-title="label"
+                        item-title="name"
                         item-value="id"
                         single-line
                         v-debounce:1s.unlock="searchSku"
@@ -110,7 +109,7 @@
         <Table
             class="flex-grow-1"
             :header="createHeader"
-            :items="packageShpss.data"
+            :items="packageShpss"
             :loading="loading"
             @updateList="updateList"
             deletePath="report/crud/delete/"
@@ -150,24 +149,24 @@ export default {
                 shps_s: null,
             },
             shpssSearchList: [],
-            packageType:null,
-            packageShpss:[],
-            packageId:null,
+            packageType: null,
+            packageShpss: [],
+            packageId: null,
         }
     },
 
     computed: {
         sphssList() {
             try {
-                let sku = []
-                this.shpssSearchList.forEach(shpss => {
+                let shps_s = []
+                this.shpssSearchList.forEach(item => {
                     const form = {
-                        name: shpss?.shps?.sku?.label ,
-                        id: shpss.id
+                        name: item?.shps?.sku?.sku?.label,
+                        id: item.id
                     }
-                    sku.push(form)
+                    shps_s.push(form)
                 })
-                return sku
+                return shps_s
             } catch (e) {
                 return []
             }
@@ -203,6 +202,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.end_point = 'report/crud/create'
             AxiosMethod.form = formdata
+
             formdata.append('package_id', this.form.package_id)
             formdata.append('report_type', this.form.report_type)
             formdata.append(`shps_s`, this.form.shps_s)
@@ -213,6 +213,7 @@ export default {
             let data = await AxiosMethod.axios_post()
             if (data) {
                 this.loading = false;
+                this.getWasteShps();
 
             } else {
                 this.loading = false
@@ -227,32 +228,37 @@ export default {
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.form = filter
-            AxiosMethod.end_point = `package/shps/items/${this.packageId}`
+            AxiosMethod.end_point = `package/shps/items/${this.form.package_id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 this.shpssSearchList = data.data
             }
         },
 
-        async getPackage(e){
+        async getPackage(e) {
             const array = e.split('-');
             this.packageId = array[1]
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `package/crud/get/${this.packageId}`
+            AxiosMethod.end_point = `package/crud/get/${this.form.package_id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
-                this.form.package_type = data.data.type
+                if (data.data.type === 'bulk') {
+                    this.form.package_type = 'بالک'
+                } else {
+                    this.form.package_type = 'پالت'
+                }
+                this.searchSku();
 
             }
         },
 
-        async getWasteShps(){
+        async getWasteShps() {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `report/crud/index/?id=${array[1]}`
+            AxiosMethod.end_point = `report/crud/index/?package_id=${this.form.package_id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 this.packageShpss = data.data
