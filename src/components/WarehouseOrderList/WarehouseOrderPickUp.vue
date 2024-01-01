@@ -4,7 +4,7 @@
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
         <span class="t20400">
-          جایگذاری بسته
+         جمع آوری کالا
         </span>
       </div>
       <div class="pa-3">
@@ -17,24 +17,24 @@
     <v-card class="ma-5 br-15" min-height="196">
       <div class="d-flex justify-center my-3">
           <span class="t20400">
-            اطلاعات جایگذاری
+            جایگاه کالا
           </span>
       </div>
       <v-divider/>
       <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
-         <div>
+        <div>
            <span class="t16400">
            شماره ردیف :
-            <span class="text-gray600">
-              {{ placement?.row_number }}
+            <span class="text-gray600 number-font">
+              ۳۴
             </span>
           </span>
-         </div>
+        </div>
         <div>
           <span class="t16400">
            شماره قفسه  :
-            <span class="text-gray600">
-              {{ placement?.placement_number }}
+            <span class="text-gray600 number-font">
+              ۳۴
             </span>
           </span>
         </div>
@@ -43,69 +43,65 @@
         <div>
            <span class="t16400">
            شماره طبقه :
-            <span class="text-gray600">
-               {{ placement?.step_number }}
+            <span class="text-gray600 number-font">
+               ۳۴
             </span>
           </span>
         </div>
         <div>
           <span class="t16400">
            شماره شلف   :
-            <span class="text-gray600">
-              {{ placement?.shelf_number }}
+            <span class="text-gray600 number-font">
+             ۳۴
             </span>
           </span>
         </div>
       </div>
     </v-card>
     <div class="scan_box">
-      <div  class="mb-15"  v-if="error">
-        <LocatingToShelfError/>
-      </div>
-      <div v-else>
+      <div>
         <div class="px-5">
           <v-card min-height="92" class="d-flex justify-center align-center">
             <v-card class="ml-5 br br__12 d-flex justify-center align-center" height="52" width="52" color="primary500">
-            <span class="text-white">
-              {{ placeCount }}
+            <span class="text-white number-font">
+             4
             </span>
             </v-card>
-            <span class="t16400 text-black">عدد از {{ shpssDetail?.shps_count }} عدد اسکن شده</span>
+            <span class="t16400 text-black">عدد مانده</span>
           </v-card>
-          <v-card class="mt-2">
+          <v-card class="mt-2 py-5">
             <div class="d-flex justify-center">
-              <img :src="shpssDetail?.sku?.image_url" width="150" height="150" alt="">
+              <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
             </div>
             <div class="text-center px-10 my-3">
-            <span class="text-gray600">
-              {{ shpssDetail?.sku?.lable }}
-            </span>
+              <span class="text-gray600">
+                سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر
+              </span>
             </div>
           </v-card>
         </div>
       </div>
     </div>
-    <v-card-actions>
-      <v-row justify="center">
-        <v-col cols="10">
-          <v-btn
-              color="primary500"
-              height="40"
-              width="348"
-              variant="flat"
-              rounded
-              class="px-8 mt-2">
-            بازگشت به لیست
-          </v-btn>
-        </v-col>
+<!--    <v-card-actions>-->
+<!--      <v-row justify="center">-->
+<!--        <v-col cols="10">-->
+<!--          <v-btn-->
+<!--              color="primary500"-->
+<!--              height="40"-->
+<!--              width="348"-->
+<!--              variant="flat"-->
+<!--              rounded-->
+<!--              class="px-8 mt-2">-->
+<!--            بازگشت به لیست-->
+<!--          </v-btn>-->
+<!--        </v-col>-->
 
-      </v-row>
-    </v-card-actions>
-    <LocatingToast/>
+<!--      </v-row>-->
+<!--    </v-card-actions>-->
+<!--    <LocatingToast/>-->
   </v-card>
 </template>
 <script>
-import LocatingToShelfError from '@/components/PackagePlacement/Locating/LocatingToShelfError.vue'
 import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.vue'
 import Placement from '@/composables/Placement'
 import Sku from '@/composables/Sku'
@@ -130,7 +126,7 @@ export default {
   },
 
   mounted() {
-    this.getPlacement(this.$route.params.placementId)
+    // this.getPlacement(this.$route.params.placementId)
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key== 'Enter' ) this.scanQrCode()
@@ -166,7 +162,6 @@ export default {
 
   components:{
     HandheldDrawer,
-    LocatingToShelfError,
     LocatingToast
   }
 }

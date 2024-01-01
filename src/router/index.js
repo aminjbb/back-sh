@@ -211,6 +211,8 @@ import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
+import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
+import WarehouseOrderSortingView from "@/views/WarehouseOrders/WarehouseOrderSortingView.vue";
 
 
 const router = createRouter({
@@ -1594,6 +1596,23 @@ const router = createRouter({
             name: 'سفارش ها'
           }
         },
+        {
+          path: 'pick-up',
+          name: 'WarehouseOrderPickUpView',
+          component: WarehouseOrderPickUpView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },
+        {
+          path: 'sorting',
+          name: 'WarehouseOrderSortingView',
+          component: WarehouseOrderSortingView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },
+
         // {
         //   path: 'print-factor',
         //   name: 'WarehouseOrderListView',
@@ -1628,6 +1647,8 @@ const router = createRouter({
         },
       ],
     },
+
+
   ]
 })
 const privateRoutes = [

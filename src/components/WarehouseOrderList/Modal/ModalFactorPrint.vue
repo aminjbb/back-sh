@@ -232,54 +232,76 @@
           </v-row>
           <v-row justify="end" class="px-6 mt-0">
             <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
+              <div class="border-header-box  d-flex justify-center align-center">
+                  <span class="t11500">
+                    ۱
+                  </span>
               </div>
             </v-col>
 
             <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
-              </div>
-            </v-col>
-            <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
-              </div>
-            </v-col>
-            <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
-              </div>
-            </v-col>
-            <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
-              </div>
-            </v-col>
-            <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
-              </div>
-            </v-col>
-            <v-col cols="1" class="px-0 pt-0">
-              <div class="border-header-box ">
-
+              <div class="border-header-box d-flex justify-center align-center">
+                <span class="t11500 px-1">
+                 ۱۲۳۴۵۶
+                </span>
               </div>
             </v-col>
             <v-col cols="3" class="px-0 pt-0">
-              <div class="border-header-box ">
-
+              <div class="border-header-box d-flex justify-center align-center px-2">
+                <span class="t11500 px-1">
+                  کانسیلر میبلین مدل Instant Age
+                   Rewind کد 120 ظرفیت 6 میلی لیتر
+                </span>
               </div>
             </v-col>
-             <v-col cols="1" class="px-0 pt-0">
-               <div class="border-header-box ">
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-box  d-flex justify-center align-center px-2 text-center">
+                  <span class="t11500">
+                      پارس حیان سیما
+                  </span>
+              </div>
+            </v-col>
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-box d-flex justify-center align-center px-2">
+                  <span class="t11500">
+                    ۱
+                  </span>
+              </div>
+            </v-col>
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-box d-flex justify-center align-center text-center">
+                  <span class="t11500 number-font">
+                    13,000,000
+                  </span>
+              </div>
+            </v-col>
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-box d-flex justify-center align-center text-center">
+                  <span class="t11500 number-font">
+                    13,000,000
+                  </span>
+              </div>
+            </v-col>
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-box d-flex justify-center align-center text-center">
+                  <span class="t11500 number-font">
+                    13,000
+                  </span>
+              </div>
+            </v-col>
 
+             <v-col cols="1" class="px-0 pt-0">
+               <div class="border-header-box d-flex justify-center align-center text-center">
+                  <span class="t11500 number-font">
+                    13,000,000
+                  </span>
                </div>
              </v-col>
               <v-col cols="1" class="px-0 pt-0">
-                <div class="border-header-box ">
-
+                <div class="border-header-box d-flex justify-center align-center text-center">
+                  <span class="t11500 number-font">
+                    13,000,000
+                  </span>
                 </div>
               </v-col>
 
@@ -287,19 +309,24 @@
           </v-row>
             <!--sum-->
           <v-row justify="end" class="px-6 mt-0" >
-            <v-col cols="1" class="px-0 pt-0">
+
+            <v-col cols="6" class="px-0 pt-0">
               <div class="border-header-sum bg-gray200">
 
               </div>
             </v-col>
             <v-col cols="5" class="px-0 pt-0">
-              <div class="border-header-sum bg-gray200">
-
+              <div class="border-header-sum bg-gray200 text-right">
+                <span class="t11500">
+                  جمع کل پس از کسر تخفیف با احتساب مالیات و عوارض (ریال) :
+                </span>
               </div>
             </v-col>
-            <v-col cols="6" class="px-0 pt-0">
-              <div class="border-header-sum bg-gray200">
-
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-sum bg-gray200 text-center">
+                  <span class="t11500 number-font">
+                    13,000,000
+                  </span>
               </div>
             </v-col>
 
@@ -309,23 +336,64 @@
           </v-row>
 
           <v-row justify="end" class="px-6 mt-0" >
-            <v-col cols="8" class="px-0 pt-0">
+            <v-col cols="5" class="px-0 pt-0">
+              <div class="border-header-sum bg-gray200 text-center">
+                  <span class="t11500">
+                    اعتبار مالیاتی قابل استفاده توسط خریدار
+                  </span>
+              </div>
+            </v-col>
+            <v-col cols="7" class="px-0 pt-0">
               <div class="border-header-sum bg-gray200">
 
               </div>
             </v-col>
-            <v-col cols="4" class="px-0 pt-0">
-              <div class="border-header-sum bg-gray200">
-
-              </div>
-            </v-col>
-
-
           </v-row>
 
           <div class="px-3">
             <div class="factor-footer">
+              <div class="d-flex justify-space-between px-5 pt-2">
+                 <div>
+                    <span class="t11500">
+                      مهر و امضای فروشنده :
+                     </span>
+                 </div>
+                <div>
+                  <div>
+                    <span class="t11500">
+                      تاریخ تحویل :
+                    </span>
+                  </div>
+                  <div>
+                    <span class="t11500 number-font">
+                       1402/09/23
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <span class="t11500">
+                       روش های پرداخت :
+                    </span>
+                  </div>
+                  <div>
+                    <span class="t11500 number-font">
+                      نقدی:13,000,000
+                    </span>
+                  </div>
 
+                </div>
+                <div>
+                    <span class="t11500">
+                      مهر و امضای خریدار :
+                    </span>
+                </div>
+                <div>
+                    <span class="t11500">
+                     بارکد
+                    </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -342,9 +410,6 @@ export default {
       dialog:true
     }
   },
-  components: {
-  },
-
   methods: {
 
     close() {
@@ -359,10 +424,10 @@ export default {
 
   computed: {
     // dialog() {
-    //   return this.$store.getters['get_detailModalTestQrCode']
+    //   return this.$store.getters['get_modalWarehouseOrdersFactor']
     // },
-    // retailObject() {
-    //   return this.$store.getters['get_detailModalTestQrCodeObject']
+    // orderId() {
+    //   return this.$store.getters['get_modalWarehouseOrdersFactorid']
     // }
   }
 }
