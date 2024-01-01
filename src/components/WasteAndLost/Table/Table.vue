@@ -31,7 +31,7 @@
     </header>
 
     <div class="stretch-table">
-        <div v-if="items && items.length > 0/*  && !loading */" class="c-table__contents">
+        <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div
                 v-for="(item , index) in items"
                 :key="index"
@@ -40,8 +40,8 @@
                 <div
                     v-if="header[0].show"
                     class="c-table__contents__item"
-                    style="width: 4.33333%; flex: 0 0 4.33333%">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    style="width: 4.33333%; flex: 0 0 4.33333%;padding: 3px 5px;">
+                    <span class="t12500text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                         
                     </span>
@@ -50,8 +50,9 @@
                 <div
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t12500text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -59,10 +60,11 @@
                 <div
                     v-if="header[2].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.type">
-                            {{ item.type }}
+                    <span class="t12500text-gray500 py-5">
+                        <template v-if="item.package_type">
+                            {{ getPackageType(item.package_type) }}
                         </template>
                         <template v-else>
                             -
@@ -73,10 +75,11 @@
                 <div
                     v-if="header[3].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t12500text-gray500 py-5 number-font">
                         <template v-if="item.shipment_type">
-                            {{item.shipment_type}}
+                            {{getShipmentType(item.shipment_type)}}
                         </template>
                         <template v-else>
                             -
@@ -87,10 +90,11 @@
                 <div
                     v-if="header[4].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.seller_name">
-                            {{ item.seller_name }}
+                    <span class="t12500text-gray500 py-5">
+                        <template v-if="item.shps && item.shps.seller">
+                            {{ item.shps.seller.shopping_name }}
                         </template>
                         <template v-else>
                             -
@@ -101,10 +105,11 @@
                 <div
                     v-if="header[5].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.supplier">
-                            {{ item.supplier }}
+                    <span class="t12500text-gray500 py-5">
+                        <template v-if="item.supplier && item.supplier.full_name">
+                            {{ item.supplier.full_name }}
                         </template>
                         <template v-else>
                             -
@@ -115,10 +120,11 @@
                 <div
                     v-if="header[6].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.license">
-                            {{ item.license }}
+                    <span class="t12500text-gray500 py-5 number-font">
+                        <template v-if="item.shps_s">
+                            {{ item.shps_s }}
                         </template>
                         <template v-else>
                             -
@@ -129,10 +135,10 @@
                 <div
                     v-if="header[7].show"
                     class="c-table__contents__item"
-                    style="width: 15.33333%; flex: 0 0 15.33333%">
-                    <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_label">
-                            {{ item.shps_label }}
+                    style="width: 15.33333%; flex: 0 0 15.33333%;padding: 3px 5px;">
+                    <span class="t12500text-gray500 py-5 number-font">
+                        <template v-if="item.shps && item.shps.label">
+                            {{ item.shps.label }}
                         </template>
                         <template v-else>
                             -
@@ -143,10 +149,11 @@
                 <div
                     v-if="header[8].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t12500text-gray500 py-5">
                         <template v-if="item.report_type">
-                            {{ item.report_type }}
+                            {{ getReportType(item.report_type) }}
                         </template>
                         <template v-else>
                             -
@@ -157,10 +164,11 @@
                 <div
                     v-if="header[9].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.user_name">
-                            {{ item.user_name }}
+                    <span class="t12500text-gray500 py-5">
+                        <template v-if="item.creator">
+                            {{ item.creator.first_name }} {{ item.creator.last_name }}
                         </template>
                         <template v-else>
                             -
@@ -171,8 +179,9 @@
                 <div
                     v-if="header[10].show"
                     class="c-table__contents__item"
+                    style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t12500text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -182,7 +191,7 @@
                     </span>
                 </div>
 
-                <div style="width: 5.33333%; flex: 0 0 5.33333%" class="c-table__contents__item">
+                <div style="width: 5.33333%; flex: 0 0 5.33333%;padding: 3px 5px;" class="c-table__contents__item">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
@@ -323,6 +332,31 @@ export default {
     },
 
     methods: {
+        getReportType(type){
+            if(type === 'lost'){
+                return 'مفقودی'
+            }else{
+                return 'ضایعات'
+            }
+        },
+
+        getPackageType(type){
+            if(type === 'bulk'){
+                return 'بالک'
+            }else{
+                return 'پالت'
+            }
+        },
+
+        getShipmentType(type){
+            if(type === 'cross_dock_marketplace'){
+                return 'فروش مارکت'
+            }else if(type === 'consignment_shavaz'){
+                return 'انبارش شاوز'
+            }else if(type === 'consignment_marketplace'){
+                return 'انبارش مارکت'
+            }
+        },
 
         /**
          * Get row index in table

@@ -17,27 +17,27 @@ export default function setup(posts) {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه بسته', show: true , value:'id', order: false},
-        { name: 'نوع بسته', show: true, value:'type' , order: false},
+        { name: 'نوع بسته', show: true, value:'package_type' , order: false},
         { name: 'نوع محموله', show: true , value:'shipment_type', order: false},
-        { name: 'نام فروشگاه', show: true , value:'seller_name', order: false},
-        { name: 'تامین کننده', show: true , value:'supplier', order: false},
-        { name: 'سریال کالا', show: true , value:'license', order: false},
+        { name: 'نام فروشگاه', show: true , value:'shopping_name', order: false},
+        { name: 'تامین کننده', show: true , value:'supplier_id', order: false},
+        { name: 'سریال کالا', show: true , value:'shps_s', order: false},
         { name: 'نام کالا', show: true , value:'shps_label', order: false},
         { name: 'نوع گزارش', show: true , value:'report_type', order: false},
-        { name: 'نام ایجاد کننده', show: true , value:'user_name', order: false},
+        { name: 'نام ایجاد کننده', show: true , value:'creator_id', order: false},
         { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
     ]);
 
     const filterField = [
-        {name:'شناسه بسته' , type:'text', value:'id'},
-        {name:'نوع بسته' , type:'select', value:'type'},
+        {name:'شناسه بسته' , type:'text', value:'package_id'},
+        {name:'نوع بسته' , type:'select', value:'package_type'},
         {name:'نوع محموله' , type:'select', value:'shipment_type'},
-        {name:'نام فروشگاه' , type:'text', value:'seller_name'},
+        {name:'نام فروشگاه' , type:'text', value:'shopping_name'},
         {name:'تامین کننده' , type:'select', value:'supplier_id'},
-        {name:'سریال کالا' , type:'text', value:'license'},
-        {name:'نام کالا' , type:'text', value:'shps_label'},
+        {name:'سریال کالا' , type:'text', value:'shps_s'},
+        {name:'نام کالا' , type:'text', value:'sku_label'},
         {name:'نوع گزارش' , type:'select', value:'report_type'},
-        {name:'نام ایجاد کننده' , type:'select', value:'user_id'},
+        {name:'نام ایجاد کننده' , type:'select', value:'creator_id'},
         {name:'تاریخ افزودن به لیست' , type:'date', value:'created_at'},
     ];
 
