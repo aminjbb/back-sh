@@ -199,6 +199,10 @@ import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
+import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
+import CargoPrintView from "@/views/Cargo/CargoPrintView.vue";
+import ShipmetDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
+import ShipmentDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
 
 
 /* Orders */
@@ -206,6 +210,7 @@ import OrderListView from "@/views/Orders/OrderListView.vue";
 import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
+import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
 
 
 const router = createRouter({
@@ -1299,6 +1304,22 @@ const router = createRouter({
           }
         },
         {
+          path: ':shipmentId/detail-print',
+          name: 'ShipmentDetailPrintView',
+          component: ShipmentDetailPrintView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+        {
+          path: ':shipmentId/barcode-print',
+          name: 'ShipmentBarCodePrintView',
+          component: ShipmentBarCodePrintView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+        {
           path: ':shipmentId/shps-list',
           name: 'ProcessingShipmentShpsListView',
           component: ProcessingShipmentShpsListView,
@@ -1366,6 +1387,14 @@ const router = createRouter({
           path: ':cargoId/package',
           name: 'CargoPackageView',
           component: CargoPackageView,
+          meta: {
+            name: 'پردازش محموله'
+          }
+        },
+        {
+          path: ':cargoId/print',
+          name: 'CargoPrintView',
+          component: CargoPrintView,
           meta: {
             name: 'پردازش محموله'
           }
@@ -1549,6 +1578,31 @@ const router = createRouter({
           name: ' بسته بندی سفارش ها'
         }
       }],
+    },
+    {
+
+      path: '/warehouse-orders', // print label bulk
+      meta: {
+        name: 'انبار'
+      },
+      children: [
+         {
+          path: 'index',
+          name: 'WarehouseOrderListView',
+          component: WarehouseOrderListView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },
+        // {
+        //   path: 'print-factor',
+        //   name: 'WarehouseOrderListView',
+        //   component: WarehouseOrderListView,
+        //   meta: {
+        //     name: 'سفارش ها'
+        //   }
+        // }
+      ],
     },
     {
       path: '/orders', // Order route

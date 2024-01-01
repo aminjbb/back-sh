@@ -44,7 +44,7 @@
           </div>
           <div
               v-if=" header[1].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
@@ -52,15 +52,15 @@
           </div>
           <div
               v-if=" header[2].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.package_count }}
+                    <span class="t14300 text-gray500 py-5 number-font ">
+                        {{ item.shps_count }}
                     </span>
           </div>
           <div
               v-if=" header[3].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="retail-status-box d-flex align-center pr-2">
                  <span class="t14300 text-gray500 py-5 ">

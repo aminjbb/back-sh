@@ -4,25 +4,30 @@
         color="primary500"
         indeterminate
         reverse
-        v-if="loading" />
+        v-if="loading"/>
 
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t10400 text-black"
+            class="text-center c-table__header__item t12500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
-          {{head.name}}
+          <v-icon v-if="head.order == true" :icon="getIcon(head.value)"/>
+          {{ head.name }}
         </div>
       </template>
+
+      <div class="text-center c-table__header__item t12500 text-black"
+           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        عملیات
+      </div>
     </header>
 
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+      <div v-if="items && items.length > 0 /* && !loading */" class="c-table__contents">
         <div
             v-for="(item , index) in items"
             :key="index"
@@ -33,45 +38,80 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{rowIndexTable(index)}}
-                    </span>
-          </div>
-          <div
-              v-if=" header[1].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                        {{ rowIndexTable(index) }}
                     </span>
           </div>
 
           <div
-              v-if=" header[2].show"
+              v-if="header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_variety }}
+                        {{ item.order_id }}
                     </span>
           </div>
           <div
-              v-if=" header[3].show"
+              v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_count }}
+                        {{ item.shelf_id }}
                     </span>
           </div>
-          <div v-if="header[4].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <div
-                @click="updatePackage(item , index)"
-                class="seller__add-sku-btn d-flex justify-center align-center pointer">
-
-              <v-icon size="15" v-if="!form[index].sent_to_warehouse">mdi-dots-horizontal</v-icon>
-              <v-icon size="15" v-else>mdi-check</v-icon>
-            </div>
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.row_number }}
+                    </span>
+          </div>
+          <div
+              v-if="header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.placement }}
+                    </span>
+          </div>
+          <div
+              v-if="header[5].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.step_number }}
+                    </span>
+          </div>
+          <div
+              v-if="header[6].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shelf_number }}
+                    </span>
           </div>
 
 
+          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+            <v-menu :location="location">
+              <template v-slot:activator="{ props }">
+                <v-icon v-bind="props" class="text-gray500">
+                  mdi-dots-vertical
+                </v-icon>
+              </template>
+
+              <v-list class="c-table__more-options">
+                <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl">
+                    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">
+                        پرینت فاکتور
+                    </span>
+                  </div>
+                </v-list-item-title>
+              </v-list>
+            </v-menu>
+          </div>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -82,47 +122,54 @@
         </div>
       </div>
     </div>
-    <ModalRequestShipment  />
-
+    <ModalFactorPrint/>
   </div>
 </template>
 
 <script>
+import ModalFactorPrint from '@/components/WarehouseOrderList/Modal/ModalFactorPrint.vue'
 import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
+  PanelFilter
+} from "@/assets/js/filter"
 
-import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-  openToast,
-  openConfirm,
-  isOdd, convertDateToJalai
+  isOdd
 } from "@/assets/js/functions";
+import {
+  openModal
+} from "@/assets/js/functions_seller";
+
 export default {
+  data() {
+    return {
+      order_type: "desc",
+      ordering: {},
+      per_page: '25',
+      filter: [],
+      panelFilter: new PanelFilter(),
+      activeColumn: false,
+    }
+  },
+
   components: {
-    ModalRequestShipment,
-    ActivationModal,
+    ModalFactorPrint
   },
 
   props: {
     /**
      * List Items for header
      */
-    header: [],
+    header: Array,
 
     /**
      * List of items
      */
-    items: [],
+    items: Array,
 
     /**
      * Model
      */
-    model: '',
+    model: String,
 
     /**
      * Height
@@ -174,18 +221,6 @@ export default {
 
   },
 
-  data() {
-    return {
-      form:[
-        {
-          sent_to_warehouse:false
-        }
-      ],
-      panelFilter: new SupplierPanelFilter(),
-      activeColumn: false,
-    }
-  },
-
   computed: {
     /**
      * Get each items table based of header length
@@ -203,56 +238,17 @@ export default {
       }
       return 'auto';
     },
-
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-          this.activeColumn = true;
-        } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
-  },
-
-  watch: {
-    items(val) {
-      this.form = []
-      val.forEach(element => {
-        const form = {
-          sent_to_warehouse:false
-        }
-        this.form.push(form)
-      });
-    }
   },
 
   methods: {
-
-    changeValue(index, value) {
-      this.active[index] = value
-    },
     /**
-     * retailShipment detail modal
+     * Open inventory management modal
+     * @param {*} id
      */
-    async updatePackage(item , index) {
-      const AxiosMethod = new AxiosCall()
-      const formData =  new FormData()
-      formData.append('status' , 'received_by_warehouse')
-      AxiosMethod.using_auth = true
-      AxiosMethod.form = formData
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/crud/update/status/${item.id}`
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.form[index].sent_to_warehouse = true
-      }
-
+    openInventoryReductionModal(id) {
+      openModal(this.$store, 'set_inventoryReductionModal', id, true)
     },
+
     /**
      * Get row index in table
      * @param {*} index
@@ -268,9 +264,42 @@ export default {
       }
     },
 
+    /**
+     * Create ordering
+     * @param {*} index
+     * @param { boolean } order
+     */
+    createOrdering(index, order) {
+      if (order === true) {
+        if (index) {
+          if (this.order_type === 'desc') {
+            this.order_type = 'asc'
+            this.panelFilter.order_type = 'asc'
+          } else {
+            this.order_type = 'desc'
+            this.panelFilter.order_type = 'desc'
+          }
 
+          this.panelFilter.order = index
+          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+
+          this.ordering = {};
+          this.ordering[index] = !this.ordering[index];
+        }
+      }
+    },
+
+    /**
+     * Get icon
+     * @param {*} column
+     */
     getIcon(column) {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
+    },
+
+    returnTrueOrFalse(data) {
+      if (data === 1) return true
+      else return false
     },
 
     /**
@@ -279,6 +308,10 @@ export default {
      */
     oddIndex(index) {
       return isOdd(index)
+    },
+
+    updateList(status) {
+      this.$emit('updateList', status);
     },
   },
 }

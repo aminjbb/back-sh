@@ -6,7 +6,7 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="5">
-          <v-form v-model="valid" ref="shipmentId" class="">
+          <v-form v-model="valid" @submit.prevent="getCargoReceivingList(cargo)" ref="shipmentId" class="">
             <div class="text-right ">
                  <span class="text-gray600 t14500">
                  شناسه کارگو
@@ -33,7 +33,7 @@
           activePath="category/crud/update/activation/"
           deletePath="category/crud/delete/"
           :header="cargoReceivingHeader"
-          :items="[]"
+          :items="cargoReceivingList"
           updateUrl="category/csv/mass-update"
           :page="page"
           :perPage="dataTableLength"
@@ -90,6 +90,7 @@ export default {
       qrCode:'',
       rule:[v=> !!v || 'این فیلد الزامی است'],
       loading:false,
+      valid:true
     }
   },
 
@@ -153,12 +154,14 @@ export default {
       const AxiosMethod = new AxiosCall()
       const formData =  new FormData()
       formData.append('status' , 'received_by_warehouse')
-      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.using_auth =true
-      AxiosMethod.end_point = `cargo/crud/packages/${route.params.cargoId}`
+      AxiosMethod.form =formData
+      AxiosMethod.end_point = `cargo/crud/update/status/${this.cargo}`
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
+        this.cargo = ''
       }
     }
   },

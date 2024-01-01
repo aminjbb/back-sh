@@ -64,7 +64,7 @@
           activePath="category/crud/update/activation/"
           deletePath="category/crud/delete/"
           :header="header"
-          :items="[]"
+          :items="packagePlacement.data"
           updateUrl="category/csv/mass-update"
           :page="page"
           :perPage="dataTableLength"
