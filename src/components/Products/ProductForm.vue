@@ -1,123 +1,122 @@
 <template>
-  <div>
-    <v-form ref="addProduct" v-model="valid">
-      <v-row justify="center" align="center" class="pa-5 px-15 mx-15">
-        <v-col cols="12" md="6">
-          <div class="text-right my-5">
+  <v-form ref="addProduct"     class="create-product__info-form scroller" v-model="valid">
+    <v-row justify="center" align="center" >
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                         <span class="t14500">
                             اسم انگلیسی
                         </span>
-          </div>
-          <v-text-field
-              density="compact"
-              variant="outlined"
-              single-line
-              label="اسم انگلیسی"
-              :rules="englishRule"
-              v-model="form.name"
-          />
-        </v-col>
+        </div>
+        <v-text-field
+            density="compact"
+            variant="outlined"
+            single-line
+            label="اسم انگلیسی"
+            :rules="englishRule"
+            v-model="form.name"
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                         <span class="t14500">
                             اسم فارسی
                         </span>
-          </div>
-          <v-text-field
-              density="compact"
-              variant="outlined"
-              single-line
-              label="اسم فارسی"
-              :rules="persianRule"
-              v-model="form.label"
-          />
-        </v-col>
+        </div>
+        <v-text-field
+            density="compact"
+            variant="outlined"
+            single-line
+            label="اسم فارسی"
+            :rules="persianRule"
+            v-model="form.label"
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <div class="text-right my-5">
+
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                         <span class="t14500">
                             دسته بندی مادر
                         </span>
-          </div>
-          <v-autocomplete
-              :items="dataCategoreis"
-              density="compact"
-              variant="outlined"
-              single-line
-              label="دسته بندی مادر"
-              v-model="form.category"
-          />
-        </v-col>
+        </div>
+        <v-autocomplete
+            :items="dataCategoreis"
+            density="compact"
+            variant="outlined"
+            single-line
+            label="دسته بندی مادر"
+            v-model="form.category"
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                         <span class="t14500">
                             اولویت
                         </span>
-          </div>
-          <v-text-field
-              type="number"
-              density="compact"
-              variant="outlined"
-              single-line
-              label="اولویت"
-              v-model="form.priority"
-              :rules="rule"
-          />
-        </v-col>
-        <v-col cols="12">
-          <UploadFileSection @getImage="getProductImage"/>
-          <div class="d-flex align-center mt-5" v-if="form.productImage">
-            <span>IMG-{{ form.productImage }}</span>
-            <span class="mr-15"><v-icon color="error" @click="removeItem(form.productImage)">mdi-delete</v-icon></span>
-          </div>
-        </v-col>
-        <v-divider></v-divider>
-        <v-col cols="12">
-          اضافه کردن ویژگی و مقادیر ویژگی
-          <v-btn @click="addAttribute" class="mx-4" color="success">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <v-btn @click="removeAttribute" class="mx-4" color="error">
-            <v-icon>mdi-minus</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col cols="12" v-for="counter in attributeCounts" :key="counter">
-          <v-row>
-            <v-col cols="6">
-              <v-autocomplete
-                  density="compact"
-                  variant="outlined"
-                  single-line
-                  v-model="form.selectedAttributes[counter-1].attribute_id"
-                  :items="attributes"
-                  item-title="label"
-                  item-value="id"
-                  @update:modelValue="getAttributeValues(form.selectedAttributes[counter-1].attribute_id,counter-1)"
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="6" v-if="form.selectedAttributes[counter-1].attribute_id">
-              <v-autocomplete
-                  density="compact"
-                  variant="outlined"
-                  single-line
-                  multiple
-                  v-model="form.selectedAttributes[counter-1].attribute_value_ids"
-                  :items="attributeValues[counter-1]"
-                  item-title="value"
-                  item-value="id"
-              >
-              </v-autocomplete>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col cols="12" class="my-16"></v-col>
+        </div>
+        <v-text-field
+            type="number"
+            density="compact"
+            variant="outlined"
+            single-line
+            label="اولویت"
+            v-model="form.priority"
+            :rules="rule"
+        />
+      </v-col>
+      <v-col cols="12">
+        <UploadFileSection @getImage="getProductImage"/>
+        <div class="d-flex align-center mt-5" v-if="form.productImage">
+          <span>IMG-{{ form.productImage }}</span>
+          <span class="mr-15"><v-icon color="error" @click="removeItem(form.productImage)">mdi-delete</v-icon></span>
+        </div>
+      </v-col>
+      <v-divider></v-divider>
+      <v-col cols="12">
+        اضافه کردن ویژگی و مقادیر ویژگی
+        <v-btn @click="addAttribute" class="mx-4" color="success">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+        <v-btn @click="removeAttribute" class="mx-4" color="error">
+          <v-icon>mdi-minus</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col cols="12" v-for="counter in attributeCounts" :key="counter">
+        <v-row>
+          <v-col cols="6">
+            <v-autocomplete
+                density="compact"
+                variant="outlined"
+                single-line
+                v-model="form.selectedAttributes[counter-1].attribute_id"
+                :items="attributes"
+                item-title="label"
+                item-value="id"
+                @update:modelValue="getAttributeValues(form.selectedAttributes[counter-1].attribute_id,counter-1)"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col cols="6" v-if="form.selectedAttributes[counter-1].attribute_id">
+            <v-autocomplete
+                density="compact"
+                variant="outlined"
+                single-line
+                multiple
+                v-model="form.selectedAttributes[counter-1].attribute_value_ids"
+                :items="attributeValues[counter-1]"
+                item-title="value"
+                item-value="id"
+            >
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12" class="my-16"></v-col>
 
-      </v-row>
-    </v-form>
-  </div>
+    </v-row>
+  </v-form>
 </template>
 
 <script>
