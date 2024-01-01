@@ -67,6 +67,27 @@ export default function setup(posts) {
         }
     }
 
+    async function getShpss(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalLostShpss' , form)
+      }
+    }
+
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -96,7 +117,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
+    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page, getShpss   , item , 
         loading , packageHeader , cargoReceivingHeader , shpsList}
 }
 

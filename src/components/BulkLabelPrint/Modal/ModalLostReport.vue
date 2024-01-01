@@ -1,6 +1,6 @@
 <template>
     <div class="text-right ">
-        <v-dialog v-model="dialog" width="600" >
+        <v-dialog v-model="dialog" width="600"  >
             <v-card class="">
                 <v-row
                     justify="space-between"
@@ -137,6 +137,17 @@
                 }
                 this.getWarehouseList(filter)
             },
+            searchSku(searchTerm) {
+        console.log("Search term:", searchTerm);
+                
+    },  
+
+    getWarehouseList(filter) {
+    // Fetching data logic
+    console.log("Fetching data with filter:", filter);
+    // After fetching data
+    console.log("Updated shpssSearchList:", this.shpssSearchList);
+}
     
         },
     
