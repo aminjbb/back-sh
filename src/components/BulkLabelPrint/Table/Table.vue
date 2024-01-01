@@ -46,7 +46,7 @@
                       class="c-table__contents__item justify-center"
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.id }}
+                          {{ item.shps }}
                       </span>
                   </div>
   
@@ -55,8 +55,8 @@
                       class="c-table__contents__item justify-center"
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5">
-                          <template v-if="item.sku_label">
-                              {{ item.sku_label }}
+                          <template v-if="item.sku.label">
+                              {{ item.sku.label }}
                           </template>
                           <template v-else>
                               نامعلوم
@@ -70,7 +70,7 @@
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font">
                           <template v-if="item.count">
-                              {{ item.count }}
+                              {{ item.id }}
                           </template>
                           <template v-else>
                               نامعلوم
@@ -103,13 +103,7 @@
                               </v-icon>
                           </template>
   
-                          <v-list class="c-table__more-options">
-                            
-  
-                             
-  
-                           
-  
+                          <v-list class="c-table__more-options"> 
                               <v-list-item >
                                   <v-list-item-title>
                                       <div
@@ -125,8 +119,8 @@
   
                               <v-list-item>
                                   <v-list-item-title>
-                                      <div class="ma-5 pointer" @click="getShpssDetail(item)">
-                                          <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                                      <div class="ma-5 pointer" @click="getShpssDetail(query)">
+                                          <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
                                             ثبت مفقودی
                                           </span>
@@ -135,8 +129,8 @@
                               </v-list-item>
                               <v-list-item>
                                   <v-list-item-title>
-                                      <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
-                                          <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                                      <div class="ma-5 pointer" @click="getShpssDetailLost(query)">
+                                          <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
                                             ثبت ضایعات 
                                           </span>
@@ -165,6 +159,8 @@
   <script>
   import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
   import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+  import { PanelFilter } from '@/assets/js/filter.js'
+
 
   import {
       AxiosCall
@@ -257,12 +253,13 @@
               order_type: "desc",
               ordering: {},
               per_page: '25',
-              filter: [],
               active: [],
               panelFilter: new SupplierPanelFilter(),
               activeColumn: false,
               fetchCargoData: [],
-
+              iconStates: [],
+              paramsQuery: [],
+              filter : [],
 
            
           }
@@ -292,6 +289,9 @@
     },
 },
       methods: {
+
+
+
           /**
            * Open Basic Discount modal
            * @param {*} id
@@ -299,11 +299,9 @@
          
         
            toggleIcon(index) {
-     
-                let iconStatesCopy = [...this.iconStates];
-                iconStatesCopy[index] = !iconStatesCopy[index];
-                this.iconStates = iconStatesCopy;
-    },
+            this.iconStates[index] = !this.iconStates[index];
+
+},
    
     
 
@@ -317,11 +315,18 @@
           /**
      * LostShpss modal
      */
-    async getShpssDetail(item) {
+    async getShpssDetail(query) {
+        let paramsQuery = null
+        filter.factor = route.params.factorId
+        loading.value = true
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)  
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/list/${item.id}`
+      AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
@@ -336,7 +341,7 @@
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/list/${item.id}`
+      AxiosMethod.end_point = `package/shps/items/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
