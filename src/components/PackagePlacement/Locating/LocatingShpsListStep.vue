@@ -7,7 +7,7 @@
     </div>
     <v-card class="br br__12 d-flex justify-center align-center" height="52" width="52" color="primary500">
             <span class="text-white">
-              10
+              {{ allConstForPlace }}
             </span>
     </v-card>
   </div>
@@ -44,6 +44,21 @@ export default {
   components:{
     ShpsCard
   },
+
+  computed:{
+    allConstForPlace(){
+      try {
+        let number = 0
+        this.shpsList?.shps_list.forEach(element=>{
+          number+= element.count_for_placing
+        })
+        return number
+      }
+      catch (e) {
+        return 0
+      }
+    }
+  }
 
 }
 </script>

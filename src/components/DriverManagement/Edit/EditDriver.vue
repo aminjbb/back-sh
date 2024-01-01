@@ -38,12 +38,12 @@
   <script>
   import DriverManagementForm from "@/components/DriverManagement/DriverManagementForm.vue";
   import {AxiosCall} from "@/assets/js/axios_call";
-  import PromotionPage from "@/composables/PromotionPage"
+  import DriverManagement from "@/composables/DriverManagement"
   
   export default {
     setup(){
-      const {promotion , getPromotion} = new PromotionPage()
-      return {promotion , getPromotion}
+      const {getDriver  } = new DriverManagement()
+      return {getDriver  }
     },
     data() {
       return {
@@ -53,9 +53,9 @@
     components: {DriverManagementForm},
     methods:{
       validate(){
-        this.$refs.DriverManagementForm.$refs.createPromotionPage.validate()
+        this.$refs.DriverManagementForm.$refs.addDriver.validate()
         setTimeout(()=>{
-          if (this.$refs.PromotionPageForm.valid) this.createMenu()
+          if (this.$refs.DriverManagementForm.valid) this.createMenu()
         } , 200)
       },
   
@@ -63,10 +63,10 @@
         this.loading=true
         let formData = new FormData();
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `page/promotion/crud/update/${this.$route.params.promotionId}`
-        formData.append('name' , this.$refs.PromotionPageForm.form.name)
-        formData.append('label' , this.$refs.PromotionPageForm.form.lable)
-        formData.append('is_active' , this.promotion.is_active)
+        AxiosMethod.end_point = `driver/crud/update/${this.$route.params.driverId}`
+        formData.append('full_name' , this.$refs.DriverManagementForm.form.full_name)
+        formData.append('phone_number' , this.$refs.DriverManagementForm.form.phone_number)
+        formData.append('identification_code' , this.$refs.DriverManagementForm.form.identification_code)
   
         AxiosMethod.form = formData
         AxiosMethod.store = this.$store
@@ -75,7 +75,7 @@
         let data = await AxiosMethod.axios_post()
         if (data) {
           this.loading=false
-          this.$router.push('/promotion-page/index')
+          this.$router.push('/driver-management/index')
   
         }
         else{
@@ -84,7 +84,7 @@
       }
     },
     mounted() {
-      this.getPromotion()
+      this.getDriver()
     }
   }
   </script>

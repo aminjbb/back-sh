@@ -24,6 +24,8 @@
       </v-form>
       <footer class="create-warehouse__actions">
         <v-row justify="end" class="pl-10 pt-5">
+          <ModalShpsBarCode :shipmentId="shipmentId"/>
+          <ModalDetaiShipment :shipmentId="shipmentId"/>
           <v-btn
               :loading="loading"
               @click="validate()"
@@ -42,14 +44,8 @@
 </template>
 
 <script>
-import WarehouseForm from "@/components/Warehouse/WarehouseForm.vue";
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import ModalDetaiShipment from '@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue'
+import ModalShpsBarCode from '@/components/ProcessingShipment/Modal/ModalShpsBarCode.vue'
 
 export default {
   data() {
@@ -61,7 +57,8 @@ export default {
     }
   },
   components: {
-    WarehouseForm
+    ModalDetaiShipment,
+    ModalShpsBarCode
   },
   methods: {
     validate() {

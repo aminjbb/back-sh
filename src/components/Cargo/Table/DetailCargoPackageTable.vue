@@ -38,7 +38,7 @@
           </div>
           <div
               v-if=" header[1].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
@@ -46,38 +46,17 @@
           </div>
           <div
               v-if=" header[2].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.package_count }}
+                    <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_count }}
+                    </span>
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_packed_count }}
                     </span>
           </div>
 
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props" class="text-gray500">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
 
-              <v-list class="c-table__more-options">
-
-                <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        حذف
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-
-              </v-list>
-            </v-menu>
-          </div>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -265,17 +244,6 @@ export default {
     },
   },
 
-  watch: {
-    items(val) {
-      this.active = []
-      val.forEach(element => {
-        var active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-
-      });
-    }
-  },
 
   methods: {
     checkPermission(status , permissions){

@@ -1,13 +1,13 @@
 import { ref, onMounted, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {PanelFilter} from "@/assets/js/filter_driver";
+import {DriverFilter} from "@/assets/js/filter_driver.js";
 
 
 export default function setup(posts) {
+    const driver = ref(null)
     const DriverManagementList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -30,9 +30,9 @@ export default function setup(posts) {
     ]);
 
     const filterField = [
-        {name:' نام راننده' , type:'text', value:'retail_id'},
-        { name:' کد ملی' , type: 'text', value:'count_from' },
-        { name: ' شماره موبایل', type:'text', value:'count_to' },
+        {name:' نام راننده' , type:'text', value:'full_name'},
+        { name:' کد ملی' , type: 'text', value:'identification_code' },
+        { name: ' شماره موبایل', type:'text', value:'phone_number' },
         
     ];
     const headerShps =ref([
@@ -58,7 +58,7 @@ export default function setup(posts) {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
+    const filter = new DriverFilter()
 
     /**
      * Get page list
@@ -86,6 +86,20 @@ export default function setup(posts) {
             } , 1000)
         }
     };
+
+    async function getDriver(){
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `driver/crud/get/${route.params.driverId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            driver.value = data.data
+        }
+
+        else {
+        }
+    }
 
     async function getAllDriverList(query) {
 
@@ -125,7 +139,7 @@ export default function setup(posts) {
     })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList,
+         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList, getDriver,
         dataTableLength, page, header, loading, getAllDriverList
          }
 }

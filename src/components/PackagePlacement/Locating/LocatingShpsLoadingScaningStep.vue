@@ -20,7 +20,8 @@ import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   props:{
     scanTitle:'',
-    state:''
+    state:'',
+    object:null
   },
   data(){
     return{
@@ -36,12 +37,12 @@ export default {
       if (this.state === 'packageSphpsList') {
         this.packageScan()
       }
-      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.objectId}/shps-list/locating-shelf/${this.objectId}`)
+      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.$route.params.packageId}/shps-list/locating-shelf/${this.objectId}`)
     },
 
     async packageScan(){
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${this.objectId}`
       AxiosMethod.using_auth = true
       let data = await AxiosMethod.axios_get()

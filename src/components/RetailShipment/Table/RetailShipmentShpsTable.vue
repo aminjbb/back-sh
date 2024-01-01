@@ -428,7 +428,7 @@ export default {
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `cargo/${this.$route.params.retailId}/attach/shps`
+      AxiosMethod.end_point = `shipment/consignment/${this.$route.params.retailId}/attach/shps`
       formData.append('shps', this.form[index].shps)
       formData.append('count', this.form[index].count)
       formData.append('min_tolerance', this.form[index].minTolerance)

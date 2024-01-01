@@ -32,7 +32,7 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
+            :class="changeBackGround(item)"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -44,7 +44,7 @@
           </div>
           <div
               v-if=" header[1].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
@@ -52,22 +52,19 @@
           </div>
           <div
               v-if=" header[2].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shipment_type }}
+                        {{ getStatus(item)}}
                     </span>
           </div>
           <div
-              v-if=" header[3].show"
-              class="c-table__contents__item text-right"
+              v-if=" header[2].show"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <div class="retail-status-box d-flex align-center pr-2">
-                 <span class="t14300 text-gray500 py-5 ">
-                  {{ item.placement_id }}
-                 </span>
-            </div>
-
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.placement_id }}
+                    </span>
           </div>
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
@@ -244,14 +241,7 @@ export default {
   },
 
   computed: {
-    PrintPermission(){
-      return ['waiting' , 'in_review']
-    },
-    deleteAndShippingPermission(){
-      return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
-        'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
-        'received_base_warehouse' , 'locating' ,  'located']
-    },
+
     /**
      * Get each items table based of header length
      */
@@ -297,14 +287,16 @@ export default {
   },
 
   methods: {
-    checkPermission(status , permissions){
-      const index = permissions.findIndex(p => p === status)
-      if (index > -1) return true
-      return false
+    changeBackGround(item){
+      if (item.shipment_type === 'consignment_shavaz') return 'bg-warningRow'
+      else if(item.shipment_type === 'cross_dock_marketplace' )  return 'bg-disableRow'
+      else  return 'bg-successRow'
     },
-    getStatus(status){
-      const persianStatus = this.statusItems.find(element => element.value === status )
-      return persianStatus.label
+
+    getStatus(item){
+      if (item.shipment_type === 'consignment_shavaz') return 'انبارش شاواز'
+      else if(item.shipment_type === 'cross_dock_marketplace' )  return 'فروش مارکت'
+      else  return 'getStatus'
     },
     convertDateToJalai,
     changeValue(index, value) {

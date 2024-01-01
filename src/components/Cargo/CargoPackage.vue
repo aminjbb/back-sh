@@ -50,7 +50,7 @@
             </v-col>
             <v-col cols="3">
               <v-btn
-              @click="assignPackage()"
+                @click="assignPackage()"
                   :loading="loading"
                   color="primary500"
                   :disabled="!packageId"
@@ -111,6 +111,7 @@ import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {AxiosCall} from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
   components: {
@@ -157,12 +158,16 @@ export default {
 
   watch: {
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
           this.packageCargo()
-          this.$cookies.remove('deleteItem')
+          openToast(
+              this.$store,
+              'بسته با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
         }
-
       }
     },
 
