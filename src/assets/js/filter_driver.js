@@ -15,7 +15,7 @@ function _query_items(items = [], name = "") {
     return query;
 }
 
-export class PanelFilter {
+export class DriverFilter {
     constructor() {
         this.sort = null;
         this.per_page = 25;
@@ -31,9 +31,7 @@ export class PanelFilter {
 
     query_maker() {
         let query = "?";
-        if (this.id !== null) {
-            query += "id=" + this.id + "&";
-        }
+       
 
         if (this.full_name !== null) {
             query += "full_name=" + this.full_name + "&";
@@ -64,12 +62,7 @@ export class PanelFilter {
     params_generator(routeQuery){
         let query = "?";
 
-        if  (this.id) {
-            query += "id=" + this.id + "&";
-        }
-        else if (routeQuery.id) {
-            query += "id=" + routeQuery.id + "&";
-        }
+        
 
         if (routeQuery.full_name)  {
             query += "full_name=" + routeQuery.full_name + "&";

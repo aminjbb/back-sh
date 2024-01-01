@@ -22,7 +22,7 @@
                <v-col cols="6">
                    <v-row justify="end">
    
-                       <ModalTableFilter path="shipment-requests/index" :filterField="filterField" />
+                       <ModalTableFilter path="driver-management/index" :filterField="filterField" />
                    </v-row>
                </v-col>
            </v-row>
@@ -91,7 +91,7 @@
    <script>
    import Table from '@/components/DriverManagement/Table/Table.vue'
    import DriverManagement from "@/composables/DriverManagement";
-   import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
+   import ModalTableFilter from '@/components/DriverManagement/Filter/Filter.vue'
    import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
    import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
