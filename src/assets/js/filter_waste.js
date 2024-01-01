@@ -24,13 +24,16 @@ export class PanelFilter {
         this.order_type = 'desc';
         this.created_at_to_date = null;
         this.created_at_from_date = null;
-        this.type = null;
-        this.row_number_from = null;
-        this.row_number_at = null;
-        this.shelf_number_from = null;
-        this.shelf_number_to = null;
-        this.floor_number_from = null;
-        this.floor_number_to = null;
+        this.package_id = null;
+        this.package_type = null;
+        this.shipment_type = null;
+        this.shopping_name = null;
+        this.supplier_id = null;
+        this.shps_s = null;
+        this.shps_label = null;
+        this.report_type = null;
+        this.creator_id = null;
+        this.created_at = null;
     }
 
     query_maker() {
@@ -56,28 +59,44 @@ export class PanelFilter {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
 
-        if (this.row_number_from!== null) {
-            query += "row_number_from=" + this.row_number_from + "&";
+        if (this.package_id!== null) {
+            query += "package_id=" + this.package_id + "&";
         }
 
-        if (this.row_number_at!== null) {
-            query += "row_number_at=" + this.row_number_at + "&";
+        if (this.package_type!== null) {
+            query += "package_type=" + this.package_type + "&";
         }
 
-        if (this.shelf_number_from!== null) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
+        if (this.shipment_type!== null) {
+            query += "shipment_type=" + this.shipment_type + "&";
         }
 
-        if (this.shelf_number_to!== null) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        if (this.shopping_name!== null) {
+            query += "shopping_name=" + this.shopping_name + "&";
         }
 
-        if (this.floor_number_from!== null) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        if (this.supplier_id!== null) {
+            query += "supplier_id=" + this.supplier_id + "&";
         }
 
-        if (this.floor_number_to!== null) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        if (this.shps_s!== null) {
+            query += "shps_s=" + this.shps_s + "&";
+        }
+
+        if (this.shps_label!== null) {
+            query += "shps_label=" + this.shps_label + "&";
+        }
+
+        if (this.report_type!== null) {
+            query += "report_type=" + this.report_type + "&";
+        }
+
+        if (this.creator_id!== null) {
+            query += "creator_id=" + this.creator_id + "&";
+        }
+
+        if (this.created_at!== null) {
+            query += "created_at=" + this.created_at + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -128,46 +147,74 @@ export class PanelFilter {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
 
-        if (routeQuery.row_number_from) {
-            query += "row_number_from=" + routeQuery.row_number_from + "&";
+        if (routeQuery.package_id) {
+            query += "package_id=" + routeQuery.package_id + "&";
         }
-        else if (this.row_number_from) {
-            query += "row_number_from=" + this.row_number_from + "&";
-        }
-
-        if (routeQuery.row_number_at) {
-            query += "row_number_at=" + routeQuery.row_number_at + "&";
-        }
-        else if (this.row_number_at) {
-            query += "row_number_at=" + this.row_number_at + "&";
+        else if (this.package_id) {
+            query += "package_id=" + this.package_id + "&";
         }
 
-        if (routeQuery.shelf_number_from) {
-            query += "shelf_number_from=" + routeQuery.shelf_number_from + "&";
+        if (routeQuery.package_type) {
+            query += "package_type=" + routeQuery.package_type + "&";
         }
-        else if (this.shelf_number_from) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
-        }
-
-        if (routeQuery.shelf_number_to) {
-            query += "shelf_number_to=" + routeQuery.shelf_number_to + "&";
-        }
-        else if (this.shelf_number_to) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        else if (this.package_type) {
+            query += "package_type=" + this.package_type + "&";
         }
 
-        if (routeQuery.floor_number_from) {
-            query += "floor_number_from=" + routeQuery.floor_number_from + "&";
+        if (routeQuery.shipment_type) {
+            query += "shipment_type=" + routeQuery.shipment_type + "&";
         }
-        else if (this.floor_number_from) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        else if (this.shipment_type) {
+            query += "shipment_type=" + this.shipment_type + "&";
         }
 
-        if (routeQuery.floor_number_to) {
-            query += "floor_number_to=" + routeQuery.floor_number_to + "&";
+        if (routeQuery.shopping_name) {
+            query += "shopping_name=" + routeQuery.shopping_name + "&";
         }
-        else if (this.floor_number_to) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        else if (this.shopping_name) {
+            query += "shopping_name=" + this.shopping_name + "&";
+        }
+
+        if (routeQuery.supplier_id) {
+            query += "supplier_id=" + routeQuery.supplier_id + "&";
+        }
+        else if (this.supplier_id) {
+            query += "supplier_id=" + this.supplier_id + "&";
+        }
+
+        if (routeQuery.shps_s) {
+            query += "shps_s=" + routeQuery.shps_s + "&";
+        }
+        else if (this.shps_s) {
+            query += "shps_s=" + this.shps_s + "&";
+        }
+
+        if (routeQuery.shps_label) {
+            query += "shps_label=" + routeQuery.shps_label + "&";
+        }
+        else if (this.shps_label) {
+            query += "shps_label=" + this.shps_label + "&";
+        }
+
+        if (routeQuery.report_type) {
+            query += "report_type=" + routeQuery.report_type + "&";
+        }
+        else if (this.report_type) {
+            query += "report_type=" + this.report_type + "&";
+        }
+
+        if (routeQuery.creator_id) {
+            query += "creator_id=" + routeQuery.creator_id + "&";
+        }
+        else if (this.creator_id) {
+            query += "creator_id=" + this.creator_id + "&";
+        }
+
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.shps_s) {
+            query += "created_at=" + this.created_at + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -217,11 +264,11 @@ export class PanelFilter {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
 
-        if (routeQuery.row_number_from) {
-            query += "row_number_from=" + routeQuery.row_number_from + "&";
+        if (routeQuery.package_id) {
+            query += "package_id=" + routeQuery.package_id + "&";
         }
-        else if (this.row_number_from) {
-            query += "row_number_from=" + this.row_number_from + "&";
+        else if (this.package_id) {
+            query += "package_id=" + this.package_id + "&";
         }
 
         if (routeQuery.row_number_to) {
@@ -231,32 +278,60 @@ export class PanelFilter {
             query += "row_number_to=" + this.row_number_to + "&";
         }
 
-        if (routeQuery.shelf_number_from) {
-            query += "shelf_number_from=" + routeQuery.shelf_number_from + "&";
+        if (routeQuery.shipment_type) {
+            query += "shipment_type=" + routeQuery.shipment_type + "&";
         }
-        else if (this.shelf_number_from) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
-        }
-
-        if (routeQuery.shelf_number_to) {
-            query += "shelf_number_to=" + routeQuery.shelf_number_to + "&";
-        }
-        else if (this.shelf_number_to) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        else if (this.shipment_type) {
+            query += "shipment_type=" + this.shipment_type + "&";
         }
 
-        if (routeQuery.floor_number_from) {
-            query += "floor_number_from=" + routeQuery.floor_number_from + "&";
+        if (routeQuery.shopping_name) {
+            query += "shopping_name=" + routeQuery.shopping_name + "&";
         }
-        else if (this.floor_number_from) {
-            query += "floor_number_from=" + this.floor_number_from + "&";
+        else if (this.shopping_name) {
+            query += "shopping_name=" + this.shopping_name + "&";
         }
 
-        if (routeQuery.floor_number_to) {
-            query += "floor_number_to=" + routeQuery.floor_number_to + "&";
+        if (routeQuery.supplier_id) {
+            query += "supplier_id=" + routeQuery.supplier_id + "&";
         }
-        else if (this.floor_number_to) {
-            query += "floor_number_to=" + this.floor_number_to + "&";
+        else if (this.supplier_id) {
+            query += "supplier_id=" + this.supplier_id + "&";
+        }
+
+        if (routeQuery.shps_s) {
+            query += "shps_s=" + routeQuery.shps_s + "&";
+        }
+        else if (this.shps_s) {
+            query += "shps_s=" + this.shps_s + "&";
+        }
+
+        if (routeQuery.shps_label) {
+            query += "shps_label=" + routeQuery.shps_label + "&";
+        }
+        else if (this.shps_label) {
+            query += "shps_label=" + this.shps_label + "&";
+        }
+
+        if (routeQuery.report_type) {
+            query += "report_type=" + routeQuery.report_type + "&";
+        }
+        else if (this.report_type) {
+            query += "report_type=" + this.report_type + "&";
+        }
+
+        if (routeQuery.creator_id) {
+            query += "creator_id=" + routeQuery.creator_id + "&";
+        }
+        else if (this.creator_id) {
+            query += "creator_id=" + this.creator_id + "&";
+        }
+
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
         }
 
         return query.substring(0, query.length - 1);

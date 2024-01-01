@@ -49,15 +49,58 @@
 
                         <v-col v-if="filter.type === 'select'" cols="4">
                             <div class="t13300 text-right mb-2">{{filter.name}}</div>
+                            <v-autocomplete
+                                v-if="filter.value === 'supplier_id'"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                :items="dataSupplier"
+                                v-model="supplierModel"
+                                item-title="label"
+                                item-value="value" />
+
+                            <v-autocomplete
+                                v-if="filter.value === 'creator_id'"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                :items="dataCreator"
+                                v-model="creatorModel"
+                                item-title="label"
+                                item-value="value" />
+
                             <v-select
+                                v-if="filter.value === 'package_type'"
                                 :rules="rule"
                                 density="compact"
                                 variant="outlined"
                                 single-line
                                 item-title="label"
                                 item-value="value"
-                                :items="reportTypeItems"
-                                v-model="selectModal" />
+                                :items="packageType"
+                                v-model="packageTypeModal" />
+
+                            <v-select
+                                v-if="filter.value === 'shipment_type'"
+                                :rules="rule"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                item-title="label"
+                                item-value="value"
+                                :items="shipmentType"
+                                v-model="shipmentTypeModal" />
+
+                            <v-select
+                                v-if="filter.value === 'report_type'"
+                                :rules="rule"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                item-title="label"
+                                item-value="value"
+                                :items="reportType"
+                                v-model="reportTypeModal" />
                         </v-col>
 
                         <v-col
@@ -122,11 +165,14 @@
 <script>
 import {
     PanelFilter
-} from '@/assets/js/filter.js'
+} from '@/assets/js/filter_waste.js'
 
 import {
     jalaliToGregorian
 } from '@/assets/js/functions'
+
+import Admin from "@/composables/Admin";
+import Supplier from "@/composables/Supplier";
 
 export default {
     props: {
@@ -140,35 +186,138 @@ export default {
             values: [],
             originalData: [],
             filteredData: [],
+
             createdAtModel: null,
             gregorianCreateDate: [],
-            selectModal:null,
+
+            supplierItems: [],
+            supplierModal: null,
+
+            creatorItems: [],
+            creatorModal: null,
+
+            packageType: [{
+                    label: 'بالک',
+                    value: 'bulk'
+                },
+                {
+                    label: 'پالت',
+                    value: 'pallet'
+                }
+            ],
+            packageTypeModal: null,
+
+            shipmentType: [{
+                    label: 'فروش مارکت',
+                    value: 'cross_dock_marketplace'
+                },
+                {
+                    label: 'انبارش شاوز',
+                    value: 'consignment_shavaz'
+                },
+                {
+                    label: 'انبارش مارکت',
+                    value: 'consignment_marketplace'
+                }
+            ],
+            shipmentTypeModal: null,
+
+            reportType: [{
+                    label: 'مفقودی',
+                    value: 'lost'
+                },
+                {
+                    label: 'ضایعات',
+                    value: 'wastage'
+                }
+            ],
+            reportTypeModal: null,
         }
     },
 
+    setup(props) {
+        const {
+            allSuppliers,
+            getAllSuppliers
+        } = Supplier();
+
+        const {
+            admin,
+            getAdmins
+        } = Admin();
+
+        return {
+            allSuppliers,
+            getAllSuppliers,
+            admin,
+            getAdmins
+        };
+    },
+
     computed: {
-        id() {
+        dataSupplier() {
             try {
-                const idObject = this.values.find(element => element.name === 'id');
-                return idObject.value
+                const suppliers = []
+                this.allSuppliers.data.forEach(element => {
+                    const form = {
+                        label: element.full_name,
+                        value: element.id
+                    }
+                    suppliers.push(form)
+                });
+                return suppliers
+            } catch (error) {
+                return []
+            }
+        },
+
+        dataCreator() {
+            try {
+                const creators = []
+                this.admin.data.forEach(element => {
+                    const form = {
+                        label: element.first_name + ' ' + element.last_name,
+                        value: element.id
+                    }
+                    creators.push(form)
+                });
+                return creators
+            } catch (error) {
+                return []
+            }
+        },
+
+        package_id() {
+            try {
+                const packageIdObject = this.values.find(element => element.name === 'package_id');
+                return packageIdObject.value
             } catch (error) {
                 return ''
             }
         },
 
-        vehicleType() {
+        shopping_name() {
             try {
-                const vehicleTypeObject = this.values.find(element => element.name === 'vehicle_type');
-                return vehicleTypeObject.value
+                const shoppingNameObject = this.values.find(element => element.name === 'shopping_name');
+                return shoppingNameObject.value
             } catch (error) {
                 return ''
             }
         },
 
-        license() {
+        shps_s() {
             try {
-                const licenseObject = this.values.find(element => element.name === 'license');
-                return licenseObject.value
+                const shps_sObject = this.values.find(element => element.name === 'shps_s');
+                return shps_sObject.value
+            } catch (error) {
+                return ''
+            }
+        },
+
+        sku_label() {
+            try {
+                const skuLabelObject = this.values.find(element => element.name === 'sku_label');
+                return skuLabelObject.value
             } catch (error) {
                 return ''
             }
@@ -195,22 +344,58 @@ export default {
         setFilter() {
             const filter = new PanelFilter()
 
-            if (this.id) {
-                filter.id = this.id
-            } else if (this.$route.query.id) {
-                filter.id = null
+            if (this.supplierModal) {
+                filter.supplier_id = this.supplierModal
+            } else if (this.$route.query.supplier_id) {
+                filter.supplier_id = null
             }
 
-            if (this.vehicleType) {
-                filter.vehicle_type = this.vehicleType
-            } else if (this.$route.query.vehicle_type) {
-                filter.vehicle_type = null
+            if (this.creatorModal) {
+                filter.creator_id = this.creatorModal
+            } else if (this.$route.query.creator_id) {
+                filter.creator_id = null
             }
 
-            if (this.license) {
-                filter.license = this.license
-            } else if (this.$route.query.license) {
-                filter.license = null
+            if (this.packageTypeModal) {
+                filter.package_type = this.packageTypeModal
+            } else if (this.$route.query.package_type) {
+                filter.package_type = null
+            }
+
+            if (this.shipmentTypeModal) {
+                filter.shipment_type = this.shipmentTypeModal
+            } else if (this.$route.query.shipment_type) {
+                filter.shipment_type = null
+            }
+
+            if (this.reportTypeModal) {
+                filter.report_type = this.reportTypeModal
+            } else if (this.$route.query.report_type) {
+                filter.report_type = null
+            }
+
+            if (this.package_id) {
+                filter.package_id = this.package_id
+            } else if (this.$route.query.package_id) {
+                filter.package_id = null
+            }
+
+            if (this.shopping_name) {
+                filter.shopping_name = this.shopping_name
+            } else if (this.$route.query.shopping_name) {
+                filter.shopping_name = null
+            }
+
+            if (this.shps_s) {
+                filter.shps_s = this.shps_s
+            } else if (this.$route.query.shps_s) {
+                filter.shps_s = null
+            }
+
+            if (this.sku_label) {
+                filter.sku_label = this.sku_label
+            } else if (this.$route.query.sku_label) {
+                filter.sku_label = null
             }
 
             if (this.createdAt && this.createdAt[0]) {
@@ -224,6 +409,8 @@ export default {
             } else {
                 filter.created_at_to_date = null
             }
+
+            console.log(filter);
 
             filter.page = 1;
 
@@ -266,6 +453,9 @@ export default {
             }
             this.values.push(form)
         });
+
+        this.getAllSuppliers();
+        this.getAdmins();
     }
 }
 </script>

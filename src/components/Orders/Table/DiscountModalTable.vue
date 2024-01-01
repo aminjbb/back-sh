@@ -1,5 +1,5 @@
 <template>
-<div class="c-table pl-1">
+<div class="c-table d--rtl">
     <header class="c-table__header d-flex justify-between">
         <template v-for="(head, index) in header">
             <div
@@ -9,7 +9,11 @@
                 style="padding:20px 3px"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                :style="[
+                    { width: itemsWidth, flex: `0 0 ${itemsWidth}` },
+                    index === 0  ? { width: '10.6667%', flex: '0 0 10.6667%' } : {},
+                    index === 1 ? { width: '22.6667%', flex: '0 0 22.6667%',textAlign:'right !important' } : {},
+                ]">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
             </div>
@@ -26,8 +30,7 @@
                 <div
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:3px"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    style="padding: 3px; width: 10.6667%; flex: 0 0 10.6667%;">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
@@ -36,8 +39,7 @@
                 <div
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
-                    style="padding:3px"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    style="padding: 3px; width: 22.6667%; flex: 0 0 22.6667%">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>

@@ -33,7 +33,7 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="itemList.data"
+            :items="itemList"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"

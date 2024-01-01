@@ -1,7 +1,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
+import { PanelFilter } from '@/assets/js/filter_order.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -30,17 +30,17 @@ export default function setup(posts) {
 
     const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
-        {name:'نام مشتری' , type:'text', value:'user-id'},
-        {name:'وضعیت سفارش' , type:'text', value:'status'},
-        {name:'وضعیت پرداخت' , type:'text', value:'payment_status'},
-        {name:'روش پرداخت' , type: 'text', value:'payment_method'},
-        {name:'وضعیت بارگیری' , type:'text', value:'packed_status'},
+        {name:'نام مشتری' , type:'text', value:'user_id'},
+        {name:'وضعیت سفارش' , type:'select', value:'status'},
+        {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
+        {name:'روش پرداخت' , type: 'select', value:'payment_method'},
+        {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
         {name:'کد معرف' , type:'text', value:'identification_code'},
         {name:'شناسه بانکی' , type:'text', value:'bank_id'},
-        {name:'تاریخ ثبت سفارش' , type:'text', value:'submit_date'},
-        {name:'تاریخ ارسال سفارش' , type:'text', value:'receive_date'},
-        {name:'استان' , type:'text', value:'state_id'},
-        {name:'شهر' , type:'text', value:'city_id'},
+        {name:'تاریخ ثبت سفارش' , type:'date', value:'submit_date'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'receive_date'},
+        {name:'استان' , type:'select', value:'state_id'},
+        {name:'شهر' , type:'select', value:'city_id'},
         {name:'کمترین مبلغ پرداختی ' , type:'text', value:'lower_payment'},
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'highest_payment'},
     ];
