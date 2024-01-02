@@ -3,9 +3,33 @@
     <v-dialog v-model="orderDetailsModal.dialog" width="1060">
         <v-card class="pa-5">
             <div class="accordion mb-5">
-                <header class="accordion__header" id="accordion-header-2" @click="openAccordion(2)">
+                <header class="accordion__header" id="accordion-header-1" @click="openAccordion(1)">
                     <span>
                         اطلاعات کلی
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-1">
+                    <div class="simple-table-parent">
+                        <div class="simple-table">
+                            <v-row
+                                v-for="(item,index) in generalDetails"
+                                :key="`general-${index}`"
+                                class="ma-0 d--rtl">
+                                <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                                <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                            </v-row>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-2" @click="openAccordion(2)">
+                    <span>
+                        مشخصات گیرنده
                     </span>
 
                     <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
@@ -23,6 +47,44 @@
                             </v-row>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-3" @click="openAccordion(3)">
+                    <span>
+                        اطلاعات پرداخت
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-3">
+                    <div class="simple-table-parent">
+                        <div class="simple-table">
+                            <v-row
+                                v-for="(item,index) in paymentDetails"
+                                :key="`user-${index}`"
+                                class="ma-0 d--rtl">
+                                <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                                <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                            </v-row>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-4" @click="openAccordion(4)">
+                    <span>
+                        اطلاعات پرداخت
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-4">
+                    <DiscountTable :items="discountDetails" :header="discountModalHeader" />
                 </div>
             </div>
 
@@ -53,6 +115,7 @@ import {
 } from '@/assets/js/axios_call.js'
 import Orders from "@/composables/Orders";
 import ShpsTable from '@/components/Orders/Table/ShpsModalTable.vue'
+import DiscountTable from '@/components/Orders/Table/DiscountModalTable.vue'
 
 export default {
 
@@ -96,7 +159,10 @@ export default {
                     "base_discount": 1000,
                     "marketing_discount": 9000
                 }
-            ]
+            ],
+            paymentDetails:[],
+            generalDetails:[],
+            discountDetails:[],
         }
     },
 
@@ -123,6 +189,7 @@ export default {
 
     components: {
         ShpsTable,
+        DiscountTable
     },
 
     methods: {
@@ -146,6 +213,83 @@ export default {
             }
         },
 
+         /**
+         * Get order 'General' details by order_id
+         */
+         async getGeneralDetails() {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall();
+            AxiosMethod.using_auth = true;
+            AxiosMethod.token = this.$cookies.get('adminToken');
+            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.orderDetailsModal.id}`;
+            AxiosMethod.form = formdata;
+            AxiosMethod.store = this.$store;
+            let data = await AxiosMethod.axios_get();
+            //TODO : After set api delete userMocketData and user data insted of userMocketData
+
+            if (data) {
+                if (data.data) {
+                    this.userDetails = [{
+                            label: 'شناسه سفارش',
+                            value: data.data.first_name && data.data.last_name ? `${data.data.first_name} ${data.data.last_name}` : '-'
+                        },
+                        {
+                            label: 'وضعیت سفارش',
+                            value: data.data.addresses && data.data.addresses ? data.data.addresses.label : '-'
+                        },
+                        {
+                            label: 'وضعیت بارگیری',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].city : '-'
+                        },
+                        {
+                            label: 'تاریخ ثبت سفارش',
+                            value: data.data.phone_number ? data.data.phone_number : '-'
+                        },
+                        {
+                            label: 'تاریخ ارسال سفارش',
+                            value: data.data.phone_number ? data.data.phone_number : '-'
+                        },
+                        {
+                            label: 'کد معرف',
+                            value: data.data.addresses && data.data.addresses[0].postal_code ? data.data.addresses[0].postal_code : '-'
+                        },
+                        {
+                            label: 'آدرس',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'شناسه بانکی',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'وضعیت پرداخت',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'کل مبلغ پرداختی',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'مبلغ پرداختی از کیف پول',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'مبلغ پرداختی از درگاه بانکی',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'مبلغ پرداختی با اعتبار اسنپ پی',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                        {
+                            label: 'هزینه ارسال',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                    ]
+                }
+            }
+        },
+
         /**
          * Get order 'Shps' details by order_id
          */
@@ -159,8 +303,58 @@ export default {
             AxiosMethod.store = this.$store
             let data = await AxiosMethod.axios_get();
             if (data) {
+                //TODO : After set api delete shpsDetails and user data insted of shpsDetails
                 /* this.shpsDetails = data.data; */
             } else {}
+        },
+
+         /**
+         * Get order 'Payment' details by order_id
+         */
+         async getPaymentDetails() {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall();
+            AxiosMethod.using_auth = true;
+            AxiosMethod.token = this.$cookies.get('adminToken');
+            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.orderDetailsModal.id}`;
+            AxiosMethod.form = formdata;
+            AxiosMethod.store = this.$store;
+            let data = await AxiosMethod.axios_get();
+            //TODO : After set api delete userMocketData and user data insted of userMocketData
+
+            if (data) {
+                if (data.data) {
+                    this.userDetails = [{
+                            label: 'وضعیت پرداخت',
+                            value: data.data.first_name && data.data.last_name ? `${data.data.first_name} ${data.data.last_name}` : '-'
+                        },
+                        {
+                            label: 'کد رهگیری',
+                            value: data.data.addresses && data.data.addresses ? data.data.addresses.label : '-'
+                        },
+                        {
+                            label: 'تاریخ پرداخت',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].city : '-'
+                        },
+                        {
+                            label: 'کل مبلغ پرداختی بدون تخفیف',
+                            value: data.data.phone_number ? data.data.phone_number : '-'
+                        },
+                        {
+                            label: 'کل مبلغ پرداختی با تخفیف',
+                            value: data.data.phone_number ? data.data.phone_number : '-'
+                        },
+                        {
+                            label: 'مبلغ تخفیف ',
+                            value: data.data.addresses && data.data.addresses[0].postal_code ? data.data.addresses[0].postal_code : '-'
+                        },
+                        {
+                            label: 'مالیات بر ارزش افزوده',
+                            value: data.data.addresses && data.data.addresses[0] ? data.data.addresses[0].address : '-'
+                        },
+                    ]
+                }
+            }
         },
 
         /**
@@ -175,6 +369,7 @@ export default {
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
+            //TODO : After set api delete userMocketData and user data insted of userMocketData
             const userMocketData = {
                 "data": {
                     "id": 3,
@@ -264,6 +459,25 @@ export default {
                 }
             }
         },
+
+        /**
+         * Get order 'Discount' details by order_id
+         */
+         async getDiscountDetails() {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.orderDetailsModal.id}`
+            AxiosMethod.form = formdata;
+            AxiosMethod.store = this.$store
+            let data = await AxiosMethod.axios_get();
+            if (data) {
+                //TODO : After set api delete shpsDetails and user data insted of shpsDetails
+                /* this.discountDetails = data.data; */
+            } else {}
+        },
+        
     },
 
     created() {

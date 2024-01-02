@@ -70,6 +70,26 @@
                                 :items="statusList"
                                 v-model="statusModel" />
                         </v-col>
+
+                        <v-col
+                            cols="4"
+                            v-else-if=" filter.value === 'submit_date'"
+                            class="mt-3">
+                            <div class="t13300 text-right mb-3">{{filter.name}}</div>
+                            <div align="center" class="d-flex pb-5 align-center">
+                                <date-picker
+                                    range
+                                    clearable
+                                    class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
+                                    format="jYYYY-jMM-jDD"
+                                    display-format="jYYYY-jMM-jDD"
+                                    v-model="submitAtModel"
+                                    variant="outlined" />
+
+                                <v-icon @click="submitAtModel= [] ;gregorianSubmitDate =[]">mdi-close</v-icon>
+                            </div>
+                        </v-col>
+                        
                     </template>
                 </v-row>
             </div>
@@ -114,7 +134,7 @@
 <script>
 import {
     PanelFilter
-} from '@/assets/js/filter.js'
+} from '@/assets/js/filter_order.js'
 
 export default {
     props: {
