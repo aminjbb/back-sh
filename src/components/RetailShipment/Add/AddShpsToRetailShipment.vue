@@ -251,7 +251,7 @@ export default {
      const form = {
         shps : shps,
         maxTolerance :'100',
-        minTolerance :'1',
+        minTolerance :'0',
         count:'0'
       }
       this.$refs.retailShipmentShps.form.push(form)
