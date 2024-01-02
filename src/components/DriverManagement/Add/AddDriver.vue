@@ -59,7 +59,7 @@
              * validate Form
              */
             validate() {
-                this.$refs.DriverManagementForm.$refs.addFactor.validate()
+                this.$refs.DriverManagementForm.$refs.addDriver.validate()
                 if (this.$refs.DriverManagementForm.valid) {
                     this.submitForm()
                 }
