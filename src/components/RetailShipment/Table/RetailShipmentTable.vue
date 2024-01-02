@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t10400 text-black"
+            class="text-center c-table__header__item t12500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -36,7 +36,7 @@
                     variant="text"
                     height="40"
                     rounded
-                    class="px-5 mt-1 text-grey-darken-1 t14300">
+                    class="px-5 mt-1 text-grey-darken-1 t13300">
                   <template v-slot:append>
                     <v-icon>mdi-pen-minus</v-icon>
                   </template>
@@ -61,72 +61,72 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
           <div
               v-if=" header[1].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
           </div>
           <div
               v-if=" header[2].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.factor_id }}
                     </span>
           </div>
           <div
               v-if=" header[3].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.shps_count }}
                     </span>
           </div>
           <div
               v-if=" header[4].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.shps_variety }}
                     </span>
           </div>
           <div
               v-if=" header[5].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.creator?.first_name }} {{ item.creator?.last_name }}
                     </span>
           </div>
           <div
               v-if=" header[6].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.created_at_fa }}
                     </span>
           </div>
           <div
               v-if=" header[7].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t13300 text-gray500 py-5 number-font">
                         {{ item.updated_at_fa }}
                     </span>
           </div>
           <div
               v-if=" header[8].show"
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <div class="retail-status-box d-flex align-center pr-2">
-                 <span class="t14300 text-gray500 py-5 ">
+                 <span class="t13300 text-gray500 py-5 ">
                    {{ getStatus(item.status)  }}
                  </span>
               </div>
@@ -147,7 +147,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
                       <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t13300">
                      مدیریت کالاها
                       </span>
 
@@ -158,7 +158,7 @@
                     <v-list-item-title>
                       <div   class="ma-5 pointer" @click="requestShipment(item)">
                         <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">
+                        <span class="mr-2 text-grey-darken-1 t13300">
                         درخواست ارسال
                         </span>
                       </div>
@@ -168,7 +168,7 @@
                   <v-list-item-title>
                     <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
                       <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t13300">
                        پرینت محموله
 
                       </span>
@@ -180,7 +180,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
                       <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t13300">
                         نمایش جزئیات
                       </span>
 
@@ -191,7 +191,7 @@
                   <v-list-item-title>
                     <div  class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t13300">
                         حذف
                       </span>
 
@@ -208,7 +208,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t13300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
