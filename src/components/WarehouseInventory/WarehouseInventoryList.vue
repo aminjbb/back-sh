@@ -19,7 +19,7 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="mocketData"
+            :items="itemList.data"
             :page="page"
             :perPage="dataTableLength"
             @updateList = "updateList"
@@ -76,7 +76,7 @@ import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
 export default {
     data() {
         return {
-            mocketData: [{
+            /* mocketData: [{
                     "id": 5,
                     "shps_id": "134768",
                     "shps_label": "سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر",
@@ -94,7 +94,7 @@ export default {
                     "shps_label": "سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر",
                     "shps_count": 222
                 }
-            ],
+            ], */
         }
     },
 

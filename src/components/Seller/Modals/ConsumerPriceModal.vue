@@ -120,7 +120,8 @@ export default {
 
     methods: {
         close() {
-            closeModal(this.$store, 'set_consumerPriceModal')
+            closeModal(this.$store, 'set_consumerPriceModal');
+            this.priceModel = null;
         },
 
         async getShps() {

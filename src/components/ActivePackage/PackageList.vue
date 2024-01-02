@@ -8,7 +8,7 @@
             <v-col cols="6" />
 
             <v-col cols="6" class="d-flex justify-end ">
-                <ModalTableFilter path="package/index" :filterField="filterField" />
+                <ModalTableFilter path="active-package/index" :filterField="filterField" />
             </v-col>
         </v-row>
     </v-card>
@@ -29,9 +29,7 @@
 
         <v-card-actions class="pb-3">
             <v-row class="px-8">
-                <v-col cols="3" class="d-flex justify-start">
-                    <ModalExcelDownload getEndPoint="package/csv/get/export" />
-                </v-col>
+                <v-col cols="3" class="d-flex justify-start" />
 
                 <v-col cols="6" class="d-flex justify-center">
                     <div class="text-center">

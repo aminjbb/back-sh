@@ -38,7 +38,7 @@
             :perPage="dataTableLength"
             @updateList="updateList"
             :loading="loading"
-            deletePath="factor/crud/delete"
+            deletePath="factor/crud/delete/"
             model="factor" />
 
         <v-divider />

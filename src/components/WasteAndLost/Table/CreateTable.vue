@@ -168,7 +168,7 @@
                     </span>
                 </div>
 
-                <div style="width: 5.33333%; flex: 0 0 5.33333%" class="c-table__contents__item">
+                <div style="width: 5.33333%; flex: 0 0 5.33333%" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">

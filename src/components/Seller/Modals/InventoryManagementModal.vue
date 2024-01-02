@@ -120,7 +120,8 @@ export default {
 
     methods: {
         close() {
-            closeModal(this.$store, 'set_inventoryManagementModal')
+            closeModal(this.$store, 'set_inventoryManagementModal');
+            this.stockModel = null;
         },
 
         async getShps() {
