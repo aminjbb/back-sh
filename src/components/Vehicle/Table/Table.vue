@@ -109,8 +109,8 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
-                                <div class="ma-5 pointer" @click="removeItem(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
+                                    <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         حذف
                                     </span>

@@ -29,7 +29,7 @@ export default function setup(posts) {
         {name:'شناسه شلف' , type:'text', value:'id'},
         {name:'تاریخ ایجاد' , type:'date', value:'created_at'},
         {name:'شماره ردیف' , type:'text', value:'row_number_from'},
-        {name:'شماره ردیف' , type:'text', value:'row_number_at'},
+        {name:'شماره ردیف' , type:'text', value:'row_number_to'},
         {name:'شماره قفسه' , type: 'text', value:'placement_number_from'},
         {name:'شماره قفسه' , type: 'text', value:'placement_number_to'},
         {name:'شماره طبقه' , type: 'text', value:'step_number_from'},

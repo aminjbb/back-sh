@@ -125,28 +125,28 @@
                                     class="factor-dropdown__item"
                                     id="factor-dropdown__item--1"
                                     :class="showStatus(item.status, '0')"
-                                    @click="updateStatus(index,'draft', item)">
+                                    @click="updateStatus(index,'draft', item,'0')">
                                     پیش نویس
                                 </div>
                                 <div
                                     class="factor-dropdown__item"
                                     id="factor-dropdown__item--2"
                                     :class="showStatus(item.status, 'draft')"
-                                    @click="updateStatus(index,'cargo_preparing',item)">
+                                    @click="updateStatus(index,'cargo_preparing',item,'draft')">
                                     آماده سازی محموله
                                 </div>
                                 <div
                                     class="factor-dropdown__item"
                                     id="factor-dropdown__item--3"
                                     :class="showStatus(item.status, 'cargo_preparing')"
-                                    @click="updateStatus(index,'pricing',item)">
+                                    @click="updateStatus(index,'pricing',item,'cargo_preparing')">
                                     در انتظار قیمت گذاری
                                 </div>
                                 <div
                                     class="factor-dropdown__item"
                                     id="factor-dropdown__item--4"
                                     :class="showStatus(item.status, 'pricing')"
-                                    @click="updateStatus(index,'done',item)">
+                                    @click="updateStatus(index,'done',item,'pricing')">
                                     تمام شده
                                 </div>
                             </div>
@@ -190,9 +190,7 @@
 
                             <v-list-item :disabled="item.status == 'pricing' || item.status == 'done' ? true : false">
                                 <v-list-item-title>
-                                    <div
-                                        class="ma-5 pointer"
-                                        @click="$router.push(`/retail-shipment/${item.id}/add/shps`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/add/shps`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             ساخت محموله انبارش
@@ -203,9 +201,7 @@
 
                             <v-list-item :disabled="item.status == 'cargo_preparing' || item.status == 'done' || item.status == 'draft' ? true : false">
                                 <v-list-item-title>
-                                    <div
-                                        class="ma-5 pointer"
-                                        @click="$router.push(`details/${item.id}`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`details/${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت گذاری
@@ -422,24 +418,28 @@ export default {
             }
         },
 
-        async updateStatus(index, status, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            formdata.append('status', status)
-            AxiosMethod.end_point = 'factor/crud/update/status/' + item.id
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
+        async updateStatus(index, status, item, currentStatus) {
+            if (item.status === currentStatus) {
+                var formdata = new FormData();
+                const AxiosMethod = new AxiosCall()
+                formdata.append('status', status)
+                AxiosMethod.end_point = 'factor/crud/update/status/' + item.id
+                AxiosMethod.store = this.$store
+                AxiosMethod.form = formdata
 
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data.status === 'Success') {
-                this.updateList('true');
-                openToast(
-                    this.$store,
-                    'وضعیت با موفقیت ویرایش شد.',
-                    "success"
-                );
+                AxiosMethod.using_auth = true
+                AxiosMethod.token = this.$cookies.get('adminToken')
+                let data = await AxiosMethod.axios_post()
+                if (data.status === 'Success') {
+                    this.updateList('true');
+                    openToast(
+                        this.$store,
+                        'وضعیت با موفقیت ویرایش شد.',
+                        "success"
+                    );
+                }
+            }else{
+                
             }
         },
 
@@ -523,8 +523,9 @@ export default {
          * Remove Item
          * @param {*} id
          */
+
         removeItem(id) {
-            openConfirm(this.$store, "با حذف فاکتور دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف فاکتور", this.deletePath + id, true)
+            openConfirm(this.$store, "با حذف فاکتور دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
 }

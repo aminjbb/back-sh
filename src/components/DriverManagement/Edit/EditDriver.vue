@@ -10,7 +10,9 @@
             </span>
         </div>
         <v-divider></v-divider>
-        <DriverManagementForm ref="DriverManagementForm" />
+        <DriverManagementForm 
+        :driver="driver"
+        ref="DriverManagementForm" />
         <footer class="create-warehouse__actions">
           <v-row
               justify="end"
@@ -42,8 +44,8 @@
   
   export default {
     setup(){
-      const {getDriver  } = new DriverManagement()
-      return {getDriver  }
+      const {getDriver, driver } = new DriverManagement()
+      return {getDriver, driver }
     },
     data() {
       return {

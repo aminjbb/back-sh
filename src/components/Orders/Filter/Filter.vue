@@ -39,11 +39,22 @@
                     align="center"
                     class="px-10 d--rtl">
                     <template v-for="(filter, index) in filterField" :key="index">
-                        <v-col v-if="filter.type === 'text'" cols="4">
+                        <v-col v-if="filter.type === 'text' && filter.value !== 'lower_payment' && filter.value !== 'highest_payment'" cols="4">
                             <div class="t13300 text-right mb-2">{{filter.name}}</div>
                             <v-text-field
                                 variant="outlined"
                                 :name="filter.value"
+                                hide-details
+                                :placeholder="filter.value === 'shps_count_from' ? 'از' : filter.value === 'shps_count_to' ? 'تا': ''"
+                                v-model="values[index].value" />
+                        </v-col>
+
+                        <v-col v-if="filter.type === 'text' && (filter.value === 'lower_payment' ||filter.value === 'highest_payment')" cols="6">
+                            <div class="t13300 text-right mb-2">{{filter.name}}</div>
+                            <v-text-field
+                                variant="outlined"
+                                :name="filter.value"
+                                hide-details
                                 :placeholder="filter.value === 'shps_count_from' ? 'از' : filter.value === 'shps_count_to' ? 'تا': ''"
                                 v-model="values[index].value" />
                         </v-col>
@@ -51,24 +62,69 @@
                         <v-col v-if="filter.type === 'select'" cols="4">
                             <div class="t13300 text-right mb-2">{{filter.name}}</div>
                             <v-select
-                                v-if="filter.value ==='type'"
-                                density="compact"
-                                variant="outlined"
-                                single-line
-                                item-title="label"
-                                item-value="value"
-                                :items="typeList"
-                                v-model="typeModel" />
-
-                            <v-select
                                 v-if="filter.value ==='status'"
                                 density="compact"
                                 variant="outlined"
                                 single-line
+                                hide-details
                                 item-title="label"
                                 item-value="value"
                                 :items="statusList"
                                 v-model="statusModel" />
+
+                            <v-select
+                                v-if="filter.value ==='packed_status'"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                hide-details
+                                item-title="label"
+                                item-value="value"
+                                :items="packedStatus"
+                                v-model="packedStatusModel" />
+
+                            <v-select
+                                v-if="filter.value ==='payment_status'"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                hide-details
+                                item-title="label"
+                                item-value="value"
+                                :items="paymentStatus"
+                                v-model="paymentStatusModel" />
+
+                            <v-select
+                                v-if="filter.value ==='payment_method'"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                hide-details
+                                item-title="label"
+                                item-value="value"
+                                :items="paymentMethod"
+                                v-model="paymentMethodModel" />
+
+                            <v-autocomplete
+                                v-if="filter.value == 'state_id'"
+                                :items="provinceList"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                hide-details
+                                :rules="rule"
+                                v-model="provinceModel"
+                                @update:modelValue="getCities()" />
+
+                            <v-autocomplete
+                                v-if="filter.value == 'city_id'"
+                                :items="cityList"
+                                density="compact"
+                                variant="outlined"
+                                single-line
+                                hide-details
+                                :rules="rule"
+                                v-model="cityModel" />
                         </v-col>
 
                         <v-col
@@ -89,7 +145,23 @@
                                 <v-icon @click="submitAtModel= [] ;gregorianSubmitDate =[]">mdi-close</v-icon>
                             </div>
                         </v-col>
-                        
+
+                        <v-col cols="4" v-else-if=" filter.value === 'receive_date'">
+                            <div class="t13300 text-right mb-3">{{filter.name}}</div>
+                            <div align="center" class="d-flex pb-5 align-center">
+                                <date-picker
+                                    range
+                                    clearable
+                                    class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
+                                    format="jYYYY-jMM-jDD"
+                                    display-format="jYYYY-jMM-jDD"
+                                    v-model="submitAtModel"
+                                    variant="outlined" />
+
+                                <v-icon @click="receiveAtModel= [] ;gregorianReceiveDate =[]">mdi-close</v-icon>
+                            </div>
+                        </v-col>
+
                     </template>
                 </v-row>
             </div>
@@ -135,6 +207,9 @@
 import {
     PanelFilter
 } from '@/assets/js/filter_order.js'
+import {
+    AxiosCall
+} from "@/assets/js/axios_call";
 
 export default {
     props: {
@@ -170,6 +245,18 @@ export default {
                 }
             ],
             statusModel: null,
+
+            packedStatus: [{
+                    label: 'بارگیری شده',
+                    value: '1'
+                },
+                {
+                    label: 'بارگیری نشده',
+                    value: '0'
+                }
+            ],
+            packedStatusModel: null,
+
             typeList: [{
                     label: 'پالت',
                     value: 'pallet'
@@ -184,6 +271,38 @@ export default {
     },
 
     computed: {
+        cityList() {
+            try {
+                let cityList = []
+                this.cities.forEach(city => {
+                    const form = {
+                        title: city.label,
+                        value: city.id
+                    }
+                    cityList.push(form)
+                })
+                return cityList
+            } catch (e) {
+                return []
+            }
+        },
+
+        provinceList() {
+            try {
+                let provinceList = []
+                this.provinces.forEach(province => {
+                    const form = {
+                        title: province.label,
+                        value: province.id
+                    }
+                    provinceList.push(form)
+                })
+                return provinceList
+            } catch (e) {
+                return []
+            }
+        },
+
         id() {
             try {
                 const idObject = this.values.find(element => element.name === 'id');
@@ -272,6 +391,38 @@ export default {
             })
         },
 
+        async getProvince() {
+            const form = {
+                per_page: 10000
+            }
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.form = form
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `system/state/crud/index`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.provinces = data.data.data
+            }
+        },
+
+        async getCities() {
+            this.cities = []
+            this.cityModel = null
+            const form = {
+                per_page: 10000
+            }
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.form = form
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `system/state/crud/get/${this.provinceModel}`
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+                this.cities = data.data.cities
+            }
+        },
+
         openModal() {
             this.dialog = true;
         },
@@ -289,6 +440,8 @@ export default {
             }
             this.values.push(form)
         });
+
+        this.getProvince();
     }
 }
 </script>

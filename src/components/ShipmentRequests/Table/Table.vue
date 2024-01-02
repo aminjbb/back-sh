@@ -91,7 +91,19 @@
                             </template>
                         </span>
                     </div>
-
+                    <div
+                        v-if="header[3].show"
+                        class="c-table__contents__item justify-center "
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.factor.supplier.shopping_name">
+                                {{ item.factor.supplier.shopping_name }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
                     <div
                         v-if="header[4].show"
                         class="c-table__contents__item justify-center"
@@ -190,13 +202,13 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-print-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             پرینت برچسب
                                         </span>
                                     </div>
                                 </v-list-item-title>
-                                <v-list-item-title>
+                               
                                     <v-list-item-title>
                                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
@@ -204,9 +216,12 @@
                                             نمایش جزئیات
                                         </span>
                                     </div>
+                                
                                 </v-list-item-title>
+                            <v-list-item-title>
+
                                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             پرینت محموله
                                         </span>

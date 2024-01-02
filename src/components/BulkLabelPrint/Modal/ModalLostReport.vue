@@ -1,6 +1,6 @@
 <template>
     <div class="text-right ">
-        <v-dialog v-model="dialog" width="600" >
+        <v-dialog v-model="dialog" width="600"  >
             <v-card class="">
                 <v-row
                     justify="space-between"
@@ -73,6 +73,8 @@
     } from "@/assets/js/functions";
     export default {
 
+   
+
         data() {
         return {
 
@@ -90,6 +92,8 @@
 
 
         setup() {
+
+           
             const {
                 
                 retailShipments,
@@ -97,10 +101,14 @@
                 page,
                 header,
                 loading,
-                headerShps
+                headerShps,
+                getShpssDetailLost,
+                ShpssDetailLost
             } = BulkLabelPrint();
     
             return {
+                getShpssDetailLost,
+                ShpssDetailLost,
                 retailShipments,
                 dataTableLength,
                 page,
@@ -131,12 +139,13 @@
                     if (this.$refs.BlogForm.valid) this.createBlog()
                 }, 200)
             },
-            searchWarehouse(e) {
-                const filter = {
-                    name: e
-                }
-                this.getWarehouseList(filter)
-            },
+           
+            searchSku(searchTerm) {
+        console.log("Search term:", searchTerm);
+                
+    },  
+
+    
     
         },
     
@@ -144,15 +153,15 @@
 
             sphssList() {
             try {
-                let sku = []
-                this.shpssSearchList.forEach(shpss => {
+                let shpss = []
+                this.ShpssDetailLost.forEach(element => {
                     const form = {
-                        name: shpss?.shps?.sku?.label ,
-                        id: shpss.id
+                        label: element?.shps?.sku?.sku?.label ,
+                        id: element?.shps?.id
                     }
-                    sku.push(form)
+                    shpss.push(form)
                 })
-                return sku
+                return shpss
             } catch (e) {
                 return []
             }

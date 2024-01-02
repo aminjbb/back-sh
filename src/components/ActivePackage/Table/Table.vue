@@ -52,7 +52,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         <template v-if="item.type">
-                            {{ item.type }}
+                            {{ getPackageType(item.type) }}
                         </template>
                         <template v-else>
                             -
@@ -209,6 +209,14 @@ export default {
     },
 
     methods: {
+        getPackageType(type){
+            if(type === 'bulk'){
+                return 'بالک'
+            }else{
+                return 'پالت'
+            }
+        },
+        
         /**
          * Get row index in table
          * @param {*} index
