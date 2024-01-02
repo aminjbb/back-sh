@@ -6,7 +6,8 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
-    const BulkLabelPrintList = ref([]);
+    const BulkLabelPrintList = ref([])
+    const shpssDetailLost = ref([]);
     const shpsList = ref([])
     const cargoList = ref([]);
     const cookies = useCookies()
@@ -15,6 +16,7 @@ export default function setup(posts) {
     const router = useRouter()
     const route = useRoute()
     const page = ref(1)
+    
 
     const packageHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
@@ -66,6 +68,43 @@ export default function setup(posts) {
             return [];
         }
     }
+    async function getShpssDetailLost(item) {
+        
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          const form = {
+            dialog :true,
+            object : data.data
+          }
+          shpssDetailLost.value = data.data
+          this.$store.commit('set_modalLostShpss' , form)
+        }
+      }
+
+    async function getShpss(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalLostShpss' , form)
+      }
+    }
 
     function addPerPage(number){
         filter.page = 1
@@ -96,7 +135,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
+    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page, getShpss , getShpssDetailLost,shpssDetailLost, item , 
         loading , packageHeader , cargoReceivingHeader , shpsList}
 }
 
