@@ -97,7 +97,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
                         <template v-if="item.price">
-                            {{ item.price }}
+                            {{ splitChar(item.price) }}
                         </template>
                         <template v-else>
                             -
@@ -112,7 +112,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
                         <template v-if="item.base_discount">
-                            {{ item.base_discount }} تومان
+                            {{ splitChar(item.base_discount) }} تومان
                         </template>
                         <template v-else>
                             -
@@ -127,7 +127,37 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
                         <template v-if="item.marketing_discount">
-                            {{ item.marketing_discount }} تومان
+                            {{ item.marketing_discount}}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div
+                    v-if="header[8].show"
+                    class="c-table__contents__item justify-center"
+                    style="padding:3px"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500 text-gray500 py-3 number-font">
+                        <template v-if="item.code">
+                            {{ item.code }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div
+                    v-if="header[9].show"
+                    class="c-table__contents__item justify-center"
+                    style="padding:3px"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500 text-gray500 py-3 number-font">
+                        <template v-if="item.total_price">
+                            {{ splitChar(item.total_price) }} تومان
                         </template>
                         <template v-else>
                             -
@@ -143,7 +173,8 @@
 
 <script>
 import {
-    isOdd
+    isOdd,
+    splitChar
 } from "@/assets/js/functions";
 
 export default {
@@ -200,6 +231,7 @@ export default {
     },
 
     methods: {
+        splitChar,
 
         returnTrueOrFalse(data) {
             if (data === 1) return true

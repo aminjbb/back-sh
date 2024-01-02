@@ -138,7 +138,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
-                            {{ item.paid_price }}
+                            {{splitChar(item.paid_price)}}
                         </template>
                         <template v-else>
                             -
@@ -247,7 +247,8 @@ import {
 
 import {
     openConfirm,
-    isOdd
+    isOdd,
+    splitChar
 } from "@/assets/js/functions";
 
 
@@ -363,6 +364,7 @@ export default {
     },
 
     methods: {
+        splitChar,
 
         /**
          * Open details modal
