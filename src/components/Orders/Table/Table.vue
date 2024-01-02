@@ -30,7 +30,7 @@
     </header>
 
     <div class="stretch-table">
-        <div v-if="items && items.length > 0 /* && !loading */" class="c-table__contents">
+        <div v-if="items && items.length > 0/*  && !loading */ " class="c-table__contents">
             <div
                 v-for="(item , index) in items"
                 :key="index"
@@ -138,7 +138,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
-                            {{ item.paid_price }}
+                            {{splitChar(item.paid_price)}}
                         </template>
                         <template v-else>
                             -
@@ -197,7 +197,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         نمایش جزئیات
                                     </span>
@@ -206,9 +206,18 @@
 
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="$router.push(`orders/user/:${item.user_id}/edit`)">
-                                    <v-icon class="text-grey-darken-1">mdi-pencil-box-outline</v-icon>
+                                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         ویرایش اطلاعات مشتری
+                                    </span>
+                                </div>
+                            </v-list-item-title>
+
+                            <v-list-item-title>
+                                <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
+                                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                        نمایش فاکتور مالی
                                     </span>
                                 </div>
                             </v-list-item-title>
@@ -227,6 +236,7 @@
     </div>
 
     <DetailsModal />
+    <FactorModal />
 </div>
 </template>
 
@@ -237,11 +247,14 @@ import {
 
 import {
     openConfirm,
-    isOdd
+    isOdd,
+    splitChar
 } from "@/assets/js/functions";
 
 
 import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
+import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
+
 
 import {
     openModal
@@ -327,7 +340,8 @@ export default {
     },
 
     components: {
-        DetailsModal
+        DetailsModal,
+        FactorModal
     },
 
     computed: {
@@ -350,6 +364,7 @@ export default {
     },
 
     methods: {
+        splitChar,
 
         /**
          * Open details modal
@@ -357,6 +372,14 @@ export default {
          */
          showDetails(id) {
             openModal(this.$store, 'set_orderDetailsModal', id, true)
+        },
+
+        /**
+         * Open factor modal
+         * @param {*} id
+         */
+         showFactor(id) {
+            openModal(this.$store, 'set_orderFactorModal', id, true)
         },
 
         /**

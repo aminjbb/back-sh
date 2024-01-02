@@ -1,45 +1,44 @@
 <template>
-  <div class="vh-100">
-    <v-card
-        class="ma-5 br-12 position__relative"
-        min-height="600"
-    >
+  <div class="create-product flex-column d-flex vh-100">
+    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <ProductForm
           ref="ProductForm"
           type="create"
       />
 
-      <v-row
-          justify="end"
-          class="position__absolute bottom left"
-      >
-        <v-btn
-            :loading="loading"
-            @click="validate()"
-            color="primary500"
-            height="40"
-            rounded
-            class="px-8 mt-1"
+      <footer class="create-warehouse__actions">
+        <v-row
+            justify="end"
+            class="pa-5"
         >
-          <template v-slot:prepend>
-            <v-icon>mdi-plus</v-icon>
-          </template>
-          افزودن محصول
-        </v-btn>
+          <v-btn
+              :loading="loading"
+              @click="validate()"
+              color="primary500"
+              height="40"
+              rounded
+              class="px-8 mt-1"
+          >
+            <template v-slot:prepend>
+              <v-icon>mdi-plus</v-icon>
+            </template>
+            افزودن محصول
+          </v-btn>
 
-        <v-btn
-            @click="$router.go(-1)"
-            variant="outlined"
-            height="40"
-            rounded
-            class="px-8 mt-1 mr-5"
-        >
-          <template v-slot:prepend>
-            <v-icon>mdi-cancel</v-icon>
-          </template>
-          انصراف
-        </v-btn>
-      </v-row>
+          <v-btn
+              @click="$router.go(-1)"
+              variant="outlined"
+              height="40"
+              rounded
+              class="px-8 mt-1 mr-5"
+          >
+            <template v-slot:prepend>
+              <v-icon>mdi-cancel</v-icon>
+            </template>
+            انصراف
+          </v-btn>
+        </v-row>
+      </footer>
     </v-card>
   </div>
 </template>

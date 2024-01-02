@@ -7,7 +7,7 @@ import EditProduct from '@/components/Products/Edit/EditProduct.vue'
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="h-100vh">
       <Header/>
         <EditProduct/>
     </v-main>
