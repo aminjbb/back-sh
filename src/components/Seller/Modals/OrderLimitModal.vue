@@ -94,7 +94,8 @@ export default {
 
     methods: {
         close() {
-            closeModal(this.$store, 'set_orderLimitModal')
+            closeModal(this.$store, 'set_orderLimitModal');
+            this.orderLimitModel= null;
         },
 
         async setLimit() {

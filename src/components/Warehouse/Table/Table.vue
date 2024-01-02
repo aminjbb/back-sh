@@ -14,6 +14,7 @@
                 class="text-center c-table__header__item t12500"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
+                style="padding:3px"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
@@ -21,7 +22,7 @@
 
         </template>
 
-        <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        <div class="text-center  c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-menu :location="location">
                 <template v-slot:activator="{ props }">
                     <v-icon v-bind="props">
@@ -42,6 +43,7 @@
                 <div
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
@@ -51,6 +53,7 @@
                 <div
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         <template v-if="item.name && (item.name !== null || item.name !== '')">
@@ -65,6 +68,7 @@
                 <div
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         <template v-if="item.address && (item.address !== null || item.address !== '')">
@@ -79,6 +83,7 @@
                 <div
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.phone_number && (item.phone_number !== null || item.phone_number !== '')">
@@ -93,6 +98,7 @@
                 <div
                     v-if="item.types && item.types.length && header[4].show"
                     class="c-table__contents__item justify-center algin-center flex-column"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-for="content in item.types" :key="content.id">
                         <div class="t14300 text-gray500 py-2">
@@ -103,6 +109,7 @@
                 <div
                     v-else
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="t14300 text-gray500 py-2">
                         نامشخص
@@ -112,6 +119,7 @@
                 <div
                     v-if="header[5].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.market_storage_count && (item.market_storage_count !== null || item.market_storage_count !== '')">
@@ -126,6 +134,7 @@
                 <div
                     v-if="header[6].show"
                     class="c-table__contents__item justify-center"
+                    style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.retail_storage_count && (item.retail_storage_count !== null || item.retail_storage_count !== '')">
@@ -140,6 +149,7 @@
                 <div
                     v-if="(item.is_active  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+                    style="padding:3px"
                     class="c-table__contents__item  justify-center">
                     <span class="t14300 py-5">
                         <v-switch
@@ -150,7 +160,7 @@
                     </span>
                 </div>
 
-                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
