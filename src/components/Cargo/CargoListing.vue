@@ -100,6 +100,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
+import {openToast} from "@/assets/js/functions";
 
 export default {
   components: {
@@ -130,12 +131,16 @@ export default {
 
   watch: {
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getCargoList()
-          this.$cookies.remove('deleteItem')
+          this.getCargoList();
+          openToast(
+              this.$store,
+              'محصول با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
         }
-
       }
     },
 

@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         <v-form ref="addDriver" v-model="valid">
             <v-row

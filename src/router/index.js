@@ -213,6 +213,7 @@ import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
 import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
 import WarehouseOrderSortingView from "@/views/WarehouseOrders/WarehouseOrderSortingView.vue";
+import WarehouseOrderFactorPrintView from "@/views/WarehouseOrders/WarehouseOrderFactorPrintView.vue";
 
 
 const router = createRouter({
@@ -1592,6 +1593,14 @@ const router = createRouter({
           path: 'index',
           name: 'WarehouseOrderListView',
           component: WarehouseOrderListView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },
+        {
+          path: ':orderId/print',
+          name: 'WarehouseOrderFactorPrintView',
+          component: WarehouseOrderFactorPrintView,
           meta: {
             name: 'سفارش ها'
           }

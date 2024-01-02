@@ -84,7 +84,7 @@ export default {
   methods: {
     print() {
       // this.close()
-      window.open(`http://localhost:5173/cargo-management/${this.object.id}/print`, '_blank');
+      window.open(`${ import.meta.env.VITE_API_SITEURL}cargo-management/${this.object.id}/print`, '_blank');
 
 
     },

@@ -48,6 +48,22 @@
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.sku_label }}
+                    </span>
+          </div>
+          <div
+              v-if=" header[2].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.sum_customer_price }}
+                    </span>
+          </div>
+          <div
+              v-if=" header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_count }}
                     </span>
@@ -55,15 +71,71 @@
                         {{ item.shps_packed_count }}
                     </span>
           </div>
+          <div
+              v-if=" header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.sum_buying_price }}
+                    </span>
+          </div>
 
 
         </div>
       </div>
-      <div v-else class="null-data-table d-flex justify-center align-center flex-column">
-        <img src="@/assets/img/NullTable.png" alt="shavaz image">
-        <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+
+      <v-divider></v-divider>
+      <div>
+        <div  class="c-table__contents">
+          <div
+              class="d-flex justify-between c-table__contents__row">
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                        جمع
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                       {{ detail.sum_shps_customer_price }}
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                         {{ detail.shps_count }}
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                        {{ detail.total_customer_price }}
+                    </span>
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
@@ -89,6 +161,7 @@ export default {
 
 
   props: {
+    detail:null,
     /**
      * List Items for header
      */

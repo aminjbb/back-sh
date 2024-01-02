@@ -1,4 +1,4 @@
-<template lang="">
+<template >
     <div class="mh-100">
         <v-card class="ma-5 br-12 pa-10 position__relative" min-height="600">
             <DriverManagementForm ref="DriverManagementForm" />
@@ -59,7 +59,7 @@
              * validate Form
              */
             validate() {
-                this.$refs.DriverManagementForm.$refs.addFactor.validate()
+                this.$refs.DriverManagementForm.$refs.addDriver.validate()
                 if (this.$refs.DriverManagementForm.valid) {
                     this.submitForm()
                 }

@@ -397,7 +397,30 @@
             </div>
           </div>
         </div>
+        <v-row class="justify-between my-2 mx-2">
+          <v-col cols="3" class="d-flex justify-end mx-10">
+            <btn
+                class="mt-3 mr-2"
+                @click="close()"
+                style="cursor: pointer;">
+              انصراف
+            </btn>
+          </v-col>
+          <v-col cols="3" class="d-flex mx-10 ">
+            <v-btn
+                @click="print()"
+                height="40"
+                rounded
+                variant="outlined"
+                prepend-icon="mdi-printer-outline"
+                class="px-5 mt-1">
+              پرینت فاکتور
+            </v-btn>
+          </v-col>
+
+        </v-row>
       </v-card>
+
     </v-dialog>
   </div>
 </template>
@@ -411,7 +434,12 @@ export default {
     }
   },
   methods: {
+    print() {
+      // this.close()
+      window.open(`${ import.meta.env.VITE_API_SITEURL}warehouse-orders/1/print`, '_blank');
 
+
+    },
     close() {
       const form = {
         dialog: false,

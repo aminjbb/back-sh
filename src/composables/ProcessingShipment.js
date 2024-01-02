@@ -80,6 +80,16 @@ export default function setup(posts) {
         { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
     ]);
 
+    const headerDetailShipment =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه SHPS', show: true , value:'label', order: false},
+        { name: 'نام کالا', show: true, value:'number' , order: false},
+        { name: 'قیمت مصرف', show: true, value:'high_tolerance', order: false },
+        { name: 'تعداد کالا', show: true, value:'high_tolerance', order: false },
+        { name: 'قیمت مصرف کل', show: true, value:'high_tolerance', order: false },
+    ]);
+
+
 
     const filterFieldAllRetail = [
         {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
@@ -151,6 +161,7 @@ export default function setup(posts) {
     })
 
     return {filterFieldAllRetail, getRetailShipmentList,processingShipment, pageLength ,addPerPage,
-        dataTableLength, page, header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller}
+        dataTableLength, page, header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller,
+        headerDetailShipment}
 }
 
