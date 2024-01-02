@@ -150,7 +150,7 @@ export default {
         rowNumberFrom() {
             try {
                 const rowNumberFromObject = this.values.find(element => element.name === 'row_number_from');
-                return shpsCountFromObject.value
+                return rowNumberFromObject.value
             } catch (error) {
                 return ''
             }
@@ -158,8 +158,8 @@ export default {
 
         rowNumberTo() {
             try {
-                const rowNumberToObject = this.values.find(element => element.name === 'row_number_at');
-                return shpsCountToObject.value
+                const rowNumberToObject = this.values.find(element => element.name === 'row_number_to');
+                return rowNumberToObject.value
             } catch (error) {
                 return ''
             }
@@ -168,7 +168,7 @@ export default {
         shelfNumberFrom() {
             try {
                 const shelfNumberFromObject = this.values.find(element => element.name === 'shelf_number_from');
-                return shpsCountFromObject.value
+                return shelfNumberFromObject.value
             } catch (error) {
                 return ''
             }
@@ -177,7 +177,7 @@ export default {
         shelfNumberTo() {
             try {
                 const shelfNumberToObject = this.values.find(element => element.name === 'shelf_number_to');
-                return shpsCountToObject.value
+                return shelfNumberToObject.value
             } catch (error) {
                 return ''
             }
@@ -186,7 +186,7 @@ export default {
         stepNumberFrom() {
             try {
                 const stepNumberFromObject = this.values.find(element => element.name === 'step_number_from');
-                return shpsCountFromObject.value
+                return stepNumberFromObject.value
             } catch (error) {
                 return ''
             }
@@ -195,7 +195,7 @@ export default {
         stepNumberTo() {
             try {
                 const stepNumberToObject = this.values.find(element => element.name === 'step_number_to');
-                return shpsCountToObject.value
+                return stepNumberToObject.value
             } catch (error) {
                 return ''
             }
@@ -224,7 +224,7 @@ export default {
                 return 'از'
             }
 
-            else if(value === 'row_number_at' || value === 'shelf_number_to' || value === 'step_number_to') {
+            else if(value === 'row_number_to' || value === 'shelf_number_to' || value === 'step_number_to') {
                 return 'تا'
             }
 
@@ -249,9 +249,9 @@ export default {
             }
 
             if (this.rowNumberTo) {
-                filter.row_number_at = this.rowNumberTo
-            } else if (this.$route.query.row_number_at) {
-                filter.row_number_at = null
+                filter.row_number_to = this.rowNumberTo
+            } else if (this.$route.query.row_number_to) {
+                filter.row_number_to = null
             }
 
             if (this.shelfNumberFrom) {
