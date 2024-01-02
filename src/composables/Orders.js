@@ -54,6 +54,8 @@ export default function setup(posts) {
         { name: 'قیمت کالا', show: true, value:'price', order: false },
         { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },
         { name: 'مقدار تخفیف مارکتینگ', show: true, value:'marketing_discount', order: false },
+        { name: 'کد تخفیف', show: true, value:'code', order: false },
+        { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
     ]);
 
     const discountModalHeader =ref([
