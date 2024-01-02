@@ -7,7 +7,7 @@ import AddProduct from '@/components/Products/Create/AddProduct.vue'
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="h-100vh">
       <Header/>
     <AddProduct/>
     </v-main>
