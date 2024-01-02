@@ -11,7 +11,7 @@
           mdi-printer-outline
         </v-icon>
       </span>
-      پرینت برچسب
+      پرینت
     </v-btn>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
@@ -41,8 +41,14 @@
                   <div class="text-center">
                     <img width="190" height="80" :src="basUrl + barCode.barcode_image">
                   </div>
+                  <div class="text-center px-10">
+                    {{barCode?.shps?.sku?.label }}
+                  </div>
                   <div class="text-center">
                     <img width="133" height="69" :src="basUrl + barCode.shps?.barcode_image">
+                  </div>
+                  <div class="text-center px-10">
+                    {{barCode?.shps?.barcode }}
                   </div>
                 </v-col>
               </v-row>
@@ -98,11 +104,8 @@ export default {
 
     },
     close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_ModalCargoDetail', form)
+      this.dialog = false
+
     },
     async getDetail(){
       const AxiosMethod = new AxiosCall()

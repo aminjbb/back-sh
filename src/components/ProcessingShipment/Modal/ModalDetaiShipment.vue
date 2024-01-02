@@ -20,7 +20,7 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog =false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -36,7 +36,7 @@
 
               <span>شناسه محموله : {{ detail?.id }}</span>
               <span v-if="detail.seller">نام فروشگاه : {{ detail?.seller?.shopping_name  }}</span>
-              <span >تاریخ تحویل : <span class="d--rtl">{{convertDateToJalai( detail?.sent_to_warehouse_at , '-' , false) }}</span></span>
+              <span >تاریخ تحویل : {{convertDate(detail?.sent_to_warehouse_at)}} </span>
               <div class="text-center">
                 <div>
                   <span><img :src="basUrl +detail.barcode_image"></span>
@@ -55,8 +55,9 @@
                 editUrl="/categories/edit/"
                 activePath="category/crud/update/activation/"
                 deletePath="category/crud/delete/"
-                :header="detailCargoHeader"
+                :header="headerDetailShipment"
                 :items="detail?.shps_list"
+                :detail="detail"
                 updateUrl="category/csv/mass-update"
                 model="shipmentDetail"
             />
@@ -92,14 +93,14 @@
 
 <script>
 import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
-import Cargo from '@/composables/Cargo'
+import ProcessingShipment from '@/composables/ProcessingShipment'
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToJalai} from "../../../assets/js/functions";
 
 export default {
   setup(){
-    const {detailCargoHeader} = new Cargo()
-    return { detailCargoHeader }
+    const {headerDetailShipment} = new ProcessingShipment()
+    return { headerDetailShipment }
   },
   props:{
     shipmentId:null
@@ -116,18 +117,17 @@ export default {
 
   methods: {
     convertDateToJalai,
+    convertDate(date){
+      const jalaliDate = convertDateToJalai( date , '-' , false)
+      const splitDate = jalaliDate.split('-')
+      return splitDate[0] + '/' +splitDate[1] +'/' + splitDate[2]
+    },
     print() {
       // this.close()
       window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/detail-print`, '_blank');
 
     },
-    close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_ModalCargoDetail', form)
-    },
+
     async getDetail(){
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true

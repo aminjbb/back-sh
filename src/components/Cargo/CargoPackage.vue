@@ -160,7 +160,7 @@ export default {
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.packageCargo()
+          this.getPackageCargo()
           openToast(
               this.$store,
               'بسته با موفقیت حذف شد',
