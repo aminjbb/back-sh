@@ -135,6 +135,10 @@ export default createStore({
         modalWarehouseOrdersFactor: {
             dialog: false,
             id: ''
+        },
+        orderFactorModal: {
+            dialog: false,
+            id: ''
         }
     },
 
@@ -295,6 +299,10 @@ export default createStore({
             state.orderDetailsModal.dialog = form.dialog
             state.orderDetailsModal.id = form.id
         },
+        set_orderFactorModal(state, form) {
+            state.orderFactorModal.dialog = form.dialog
+            state.orderFactorModal.id = form.id
+        },
     },
 
     actions: {},
@@ -302,30 +310,23 @@ export default createStore({
     getters: {
         get_modalWarehouseOrdersFactor(state) {
             return state.modalWarehouseOrdersFactor.dialog
-
         },
         get_modalWarehouseOrdersFactorId(state) {
             return state.modalWarehouseOrdersFactor.id
-
         },
         get_modalDamageShpss(state) {
             return state.modalDamageShpss.dialog
-
         },
         get_modalDamageShpssObject(state) {
             return state.modalDamageShpss.object
-
         },
 
         get_modalLostShpss(state) {
             return state.modalLostShpss.dialog
-
         },
         get_modalLostShpssObject(state) {
             return state.modalLostShpss.object
-
         },
-
         get_ModalCargoDetail(state) {
             return state.ModalCargoDetail.dialog
         },
@@ -337,7 +338,6 @@ export default createStore({
         },
         get_bulkPrintLabelObject(state) {
             return state.bulkPrintLabel.object
-
         },
         get_marketPlaceDetailModal(state) {
             return state.marketPlaceDetailModal.dialog
@@ -486,6 +486,9 @@ export default createStore({
         },
         get_orderDetailsModal(state) {
             return state.orderDetailsModal
+        },
+        get_orderFactorModal(state) {
+            return state.orderFactorModal
         },
     }
 });

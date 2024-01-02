@@ -59,10 +59,23 @@ export default function setup(posts) {
     const discountModalHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'کد تخفیف', show: true, value:'discount_code' , order: false},
-        { name: 'مقدار تخفیف', show: true , value:'discount', order: false},
+        { name: 'کد تخفیف', show: true, value:'code' , order: false},
+        { name: 'مقدار تخفیف', show: true , value:'discount_amount', order: false},
         { name: 'تاریخ شروع', show: true, value:'start_time', order: false },
         { name: 'تاریخ پایان', show: true, value:'end_time', order: false },
+    ]);
+
+    const factorModalHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه shps', show: true , value:'shps_id', order: false},
+        { name: 'نام کالا', show: true, value:'shps_label' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'مبلغ واحد(ریال)', show: true , value:'price', order: false},
+        { name: 'مبلغ کل(ریال)', show: true, value:'total_price', order: false },
+        { name: 'مبلغ کل تخفیف(ریال)', show: true, value:'price', order: false },
+        { name: 'مبلغ کل پس از تخفیف (ریال)', show: true, value:'base_discount', order: false },
+        { name: 'مبلغ جمع مالیات و عوارض (ریال)', show: true, value:'tax_amount', order: false },
+        { name: 'جمع مبلغ کل بعلاوه جمع  مالیات و عوارض (ریال)', show: true, value:'tax_amount_sum' , order: false},
     ]);
 
 
@@ -126,5 +139,5 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader}
+    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader}
 }
