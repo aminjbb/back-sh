@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
+import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
 import ProcessingShipment from '@/composables/ProcessingShipment'
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToJalai} from "../../../assets/js/functions";
