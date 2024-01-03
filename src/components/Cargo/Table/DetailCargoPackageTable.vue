@@ -49,93 +49,20 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sku_label }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[2].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sum_customer_price }}
+                        {{ getStatus(item.type ) }}
                     </span>
           </div>
           <div
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_count }}
-                    </span>
-                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_packed_count }}
                     </span>
           </div>
-          <div
-              v-if=" header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sum_buying_price }}
-                    </span>
-          </div>
 
 
-        </div>
-      </div>
 
-      <v-divider></v-divider>
-      <div>
-        <div  class="c-table__contents">
-          <div
-              class="d-flex justify-between c-table__contents__row">
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
-                        جمع
-                    </span>
-            </div>
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
-            </div>
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
-            </div>
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
-                       {{ detail.sum_shps_customer_price }}
-                    </span>
-            </div>
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
-                         {{ detail.shps_count }}
-                    </span>
-            </div>
-            <div
-
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
-                        {{ detail.total_customer_price }}
-                    </span>
-            </div>
-
-
-          </div>
         </div>
       </div>
     </div>
@@ -229,47 +156,15 @@ export default {
 
   data() {
     return {
-      statusItems: [
-        {
-          label: 'در انتظار',
-          value: 'waiting',
-        },
-        {
-          label: 'در حال بررسی',
-          value: 'in_review',
-        },
-        {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
-        },{
-          label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
-      ],
+      statusItems: [{
+      label: 'بالک',
+      value: 'bulk'
+    },
+      {
+        label: 'پالت',
+        value: 'pallet'
+      }
+    ],
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -319,11 +214,7 @@ export default {
 
 
   methods: {
-    checkPermission(status , permissions){
-      const index = permissions.findIndex(p => p === status)
-      if (index > -1) return true
-      return false
-    },
+
     getStatus(status){
       const persianStatus = this.statusItems.find(element => element.value === status )
       return persianStatus.label
