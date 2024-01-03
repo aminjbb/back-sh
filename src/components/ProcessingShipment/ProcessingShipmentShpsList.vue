@@ -82,11 +82,13 @@
             </v-row>
         </v-card-actions>
     </v-card>
+      <WarningTerolance/>
 </div>
 </template>
 
 <script>
 import Table from "@/components/ProcessingShipment/Table/Table.vue";
+import WarningTerolance from "@/components/ProcessingShipment/Modal/WarningTerolance.vue";
 import ProcessingShipment from "@/composables/ProcessingShipment";
 import {
     AxiosCall
@@ -125,7 +127,8 @@ export default {
         };
     },
     components: {
-        Table
+        Table,
+      WarningTerolance
     },
     mounted() {
         this.getShipmentShpslist()

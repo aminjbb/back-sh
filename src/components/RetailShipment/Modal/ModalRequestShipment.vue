@@ -110,6 +110,14 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import Warehouse from "@/composables/Warehouse"
 import {convertDateToJalai, openToast} from "@/assets/js/functions";
 export  default {
+  props:{
+    /**
+     * Get Retail Shipment Function
+     */
+    getRetailShipmentList:{
+      type:Function
+    },
+  },
   setup(){
       const {getWarehouseList ,  warehouseList} = new Warehouse()
       return {getWarehouseList ,  warehouseList}
@@ -187,6 +195,7 @@ export  default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
+        this.getRetailShipmentList()
         this.close()
       }
       else{
