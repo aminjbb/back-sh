@@ -186,7 +186,8 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                this.loadingBtn = false
+                this.loadingBtn = false;
+                this.getPackagePlacement();
             } else {
                 this.loadingBtn = false
             }
