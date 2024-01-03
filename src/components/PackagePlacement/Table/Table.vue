@@ -76,7 +76,7 @@
 
               <v-list class="c-table__more-options">
 
-                <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
+                <v-list-item >
                   <v-list-item-title>
                     <div  class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>

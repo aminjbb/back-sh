@@ -60,7 +60,7 @@
             class="flex-grow-1"
             editUrl="/categories/edit/"
             activePath="category/crud/update/activation/"
-            deletePath="category/crud/delete/"
+            deletePath="package/crud/delete/placement/"
             :header="header"
             :items="packagePlacement.data"
             updateUrl="category/csv/mass-update"
@@ -89,6 +89,7 @@ import Placement from '@/composables/Placement';
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -147,15 +148,19 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getCategories()
-                    this.$cookies.remove('deleteItem')
-                }
-
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getPackagePlacement();
+            openToast(
+                this.$store,
+                'حذف با موفقیت انجام شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
 
         dataTableLength(val) {
             this.addPerPage(val)
