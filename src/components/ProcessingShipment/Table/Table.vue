@@ -108,7 +108,7 @@
                 color="primary"></v-progress-circular>
             <div
                 v-else
-                @click="updateShps(index)"
+                @click="validate(item , index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
               <v-icon size="15">mdi-plus</v-icon>
@@ -409,7 +409,23 @@ export default {
       if (data === 1) return true
       else return false
     },
-
+    validate(item , index){
+      console.log(item.min_tolerance  , this.form[index].count)
+      if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
+        const formData = {
+          count :this.form[index].count,
+          shps:item.id
+        }
+        const form ={
+          dialog:true,
+          object:formData
+        }
+        this.$store.commit('set_warningTolerance' , form)
+      }
+      else{
+        this.updateShps
+      }
+    },
     /**
      * Change Active
      * @param {*} index

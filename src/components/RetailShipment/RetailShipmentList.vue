@@ -21,6 +21,7 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          :getRetailShipmentList="getRetailShipmentList"
           class="flex-grow-1"
           :header="header"
           :items="retailShipments"
@@ -29,11 +30,11 @@
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
           changeStatusUrl="seller/crud/update/contract/"
-          deletePath="cargo/crud/delete/"
+          deletePath="shipment/consignment/crud/delete/"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="seller" />
-      <ModalRetailShipmentDetail/>
+        <ModalRetailShipmentDetail/>
       <v-divider />
 
       <v-card-actions class="pb-3">

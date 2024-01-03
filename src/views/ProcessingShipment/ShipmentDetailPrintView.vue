@@ -5,7 +5,7 @@ import ProcessingShipmentDetailPrint from '@/components/ProcessingShipment/Proce
 
 <template>
   <v-layout class="bg-gray">
-    <v-main  class="h-100vh">
+    <v-main >
       <ProcessingShipmentDetailPrint/>
     </v-main>
   </v-layout>
