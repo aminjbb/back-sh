@@ -1383,7 +1383,7 @@ const router = createRouter({
           name: 'CargoListingView',
           component: CargoListingView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'مدیریت کارگو'
           }
         },
         {
@@ -1416,7 +1416,7 @@ const router = createRouter({
           name: 'CargoReceivingListView',
           component: CargoReceivingListView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'دریافت محموله'
           }
         },
       ],
@@ -1546,13 +1546,13 @@ const router = createRouter({
       ],
     },
     {
-      path: '/print/label/bulk', // print label bulk
+      path: '/print-label-bulk', // print label bulk
       meta: {
         name: 'انبار'
       },
       children: [{
         path: 'index',
-        name: 'print-label-bulk',
+        name: 'printLabelBulk',
         component: BulkLabelPrintListView,
         meta: {
           name: ' پرینت گروهی برچسب '
