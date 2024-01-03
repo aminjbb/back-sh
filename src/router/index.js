@@ -1546,13 +1546,13 @@ const router = createRouter({
       ],
     },
     {
-      path: '/print/label/bulk', // print label bulk
+      path: '/print-label-bulk', // print label bulk
       meta: {
         name: 'انبار'
       },
       children: [{
         path: 'index',
-        name: 'print-label-bulk',
+        name: 'printLabelBulk',
         component: BulkLabelPrintListView,
         meta: {
           name: ' پرینت گروهی برچسب '
