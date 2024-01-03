@@ -152,6 +152,7 @@ import FactorListView from '../views/Factor/FactorListView.vue'
 import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
 import PricingListView from '../views/Factor/PricingListView.vue'
+import PrintFactorView from '../views/Factor/PrintFactorView.vue'
 
 /* RetailShipment */
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
@@ -1240,6 +1241,14 @@ const router = createRouter({
           path: 'details/:id',
           name: 'pricingList',
           component: PricingListView,
+          meta: {
+            name: 'فاکتور'
+          }
+        },
+        {
+          path: 'print/:id',
+          name: 'PrintFactor',
+          component: PrintFactorView,
           meta: {
             name: 'فاکتور'
           }

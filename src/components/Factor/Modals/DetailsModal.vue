@@ -260,7 +260,7 @@
 
                     <footer class="d--rtl d-flex justify-between align-center pa-3">
                         <v-btn
-                            @click="print()"
+                            :href="`/factor/print/${showDetailsModal?.id}`"
                             height="40"
                             rounded
                             variant="outlined"
