@@ -96,8 +96,11 @@
                         class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.creator.email">
-                                {{ item.creator.email }}
+                            <template v-if="item.seller">
+                                {{ item.seller.shopping_name }}
+                            </template>
+                            <template v-else-if="item.seller === null">
+                                شاواز
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -165,7 +168,9 @@
                                 <div
                                     class="factor-dropdown__item"
                                     id="factor-dropdown__item--1">
-                                    {{ item.status }}
+                                    {{ translateType(item.status) }}
+
+                                    
                                 </div>
                                 <div
                                     class="factor-dropdown__item"
@@ -434,6 +439,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
         translateType(type) {
                 const translations = {
                     'consignment': 'انبارش',
+                    'in_review': 'در حال بررسی'
                 };
                 return translations[type] || type;
             },

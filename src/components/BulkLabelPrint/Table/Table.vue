@@ -119,7 +119,7 @@
   
                               <v-list-item>
                                   <v-list-item-title>
-                                      <div class="ma-5 pointer" @click="getShpssDetail(query)">
+                                      <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
                                           <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
                                           <span class="mr-2 text-grey-darken-1 t14300">
                                             ثبت مفقودی
@@ -332,20 +332,6 @@
       }
     },
 
-    // async getShpssDetailLost(item) {
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   AxiosMethod.end_point = `package/shps/items/${item.id}`
-    //   let data = await AxiosMethod.axios_get()
-    //   if (data) {
-    //     const form = {
-    //       dialog :true,
-    //       object : data.data
-    //     }
-    //     this.$store.commit('set_modalDamageShpss' , form)
-    //   }
-    // },
 
 
           rowIndexTable(index) {

@@ -96,7 +96,7 @@
            
             const {
                 
-                retailShipments,
+             
                 dataTableLength,
                 page,
                 header,
@@ -109,7 +109,7 @@
             return {
                 getShpssDetailLost,
                 ShpssDetailLost,
-                retailShipments,
+             
                 dataTableLength,
                 page,
                 header,
