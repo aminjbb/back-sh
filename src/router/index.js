@@ -1383,7 +1383,7 @@ const router = createRouter({
           name: 'CargoListingView',
           component: CargoListingView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'مدیریت کارگو'
           }
         },
         {
@@ -1416,7 +1416,7 @@ const router = createRouter({
           name: 'CargoReceivingListView',
           component: CargoReceivingListView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'دریافت محموله'
           }
         },
       ],
