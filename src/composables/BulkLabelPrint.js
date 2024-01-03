@@ -76,11 +76,12 @@ export default function setup(posts) {
         AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
         let data = await AxiosMethod.axios_get()
         if (data) {
+            console.log(data);
           const form = {
             dialog :true,
             object : data.data
           }
-          shpssDetailLost.value = data.data
+          shpssDetailLost.value = data
           this.$store.commit('set_modalLostShpss' , form)
         }
       }

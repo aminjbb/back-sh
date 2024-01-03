@@ -324,6 +324,7 @@
       AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
       let data = await AxiosMethod.axios_get()
       if (data) {
+
         const form = {
           dialog :true,
           object : data.data
