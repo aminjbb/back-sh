@@ -152,6 +152,7 @@ import FactorListView from '../views/Factor/FactorListView.vue'
 import AddFactorView from '../views/Factor/AddFactorView.vue'
 import EditFactorView from '../views/Factor/EditFactorView.vue'
 import PricingListView from '../views/Factor/PricingListView.vue'
+import PrintFactorView from '../views/Factor/PrintFactorView.vue'
 
 /* RetailShipment */
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
@@ -1244,6 +1245,14 @@ const router = createRouter({
             name: 'فاکتور'
           }
         },
+        {
+          path: 'print/:id',
+          name: 'PrintFactor',
+          component: PrintFactorView,
+          meta: {
+            name: 'فاکتور'
+          }
+        },
       ],
     },
 
@@ -1383,7 +1392,7 @@ const router = createRouter({
           name: 'CargoListingView',
           component: CargoListingView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'مدیریت کارگو'
           }
         },
         {
@@ -1416,7 +1425,7 @@ const router = createRouter({
           name: 'CargoReceivingListView',
           component: CargoReceivingListView,
           meta: {
-            name: 'پردازش محموله'
+            name: 'دریافت محموله'
           }
         },
       ],
@@ -1546,13 +1555,13 @@ const router = createRouter({
       ],
     },
     {
-      path: '/print/label/bulk', // print label bulk
+      path: '/print-label-bulk', // print label bulk
       meta: {
         name: 'انبار'
       },
       children: [{
         path: 'index',
-        name: 'print-label-bulk',
+        name: 'printLabelBulk',
         component: BulkLabelPrintListView,
         meta: {
           name: ' پرینت گروهی برچسب '

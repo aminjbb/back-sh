@@ -7,7 +7,6 @@
             <template
                 v-for="(table, index) in tables"
                 :key="table.id"
-                class="my-5"
             >
                 <div class="example">
                     <v-table

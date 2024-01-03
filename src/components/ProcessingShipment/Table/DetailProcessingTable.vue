@@ -6,12 +6,12 @@
         reverse
         v-if="loading" />
 
-    <header class="c-table__header d-flex justify-between">
+    <header class="c-table__header d-flex justify-between ">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t10400 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -19,12 +19,6 @@
           {{head.name}}
         </div>
       </template>
-
-      <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-icon v-bind="props">
-          mdi-dots-vertical
-        </v-icon>
-      </div>
     </header>
 
     <div class="stretch-table">
@@ -32,7 +26,7 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="changeBackGround(item)"
+            :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -55,7 +49,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ getStatus(item)}}
+                        {{ item.sku_label }}
                     </span>
           </div>
           <div
@@ -63,41 +57,85 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.placement_id }}
+                        {{ item.sum_customer_price }}
                     </span>
           </div>
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props" class="text-gray500">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-
-              <v-list class="c-table__more-options">
-
-                <v-list-item >
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        حذف
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-
-              </v-list>
-            </v-menu>
+          <div
+              v-if=" header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_count }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5 number-font">
+                        {{ item.shps_packed_count }}
+                    </span>
           </div>
+          <div
+              v-if=" header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.sum_buying_price }}
+                    </span>
+          </div>
+
+
         </div>
       </div>
-      <div v-else class="null-data-table d-flex justify-center align-center flex-column">
-        <img src="@/assets/img/NullTable.png" alt="shavaz image">
-        <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+
+      <v-divider></v-divider>
+      <div>
+        <div  class="c-table__contents">
+          <div
+              class="d-flex justify-between c-table__contents__row">
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                        جمع
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                       {{ detail.sum_shps_customer_price }}
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                         {{ detail.shps_count }}
+                    </span>
+            </div>
+            <div
+
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-black py-5 number-font">
+                        {{ detail.total_customer_price }}
+                    </span>
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
@@ -113,7 +151,6 @@ import {
 import {
   SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 
 import {
   openToast,
@@ -121,11 +158,10 @@ import {
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 export default {
-  components: {
-    ModalCargoDetail,
-  },
+
 
   props: {
+    detail:null,
     /**
      * List Items for header
      */
@@ -241,7 +277,14 @@ export default {
   },
 
   computed: {
-
+    PrintPermission(){
+      return ['waiting' , 'in_review']
+    },
+    deleteAndShippingPermission(){
+      return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
+        'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
+        'received_base_warehouse' , 'locating' ,  'located']
+    },
     /**
      * Get each items table based of header length
      */
@@ -274,29 +317,16 @@ export default {
     },
   },
 
-  watch: {
-    items(val) {
-      this.active = []
-      val.forEach(element => {
-        var active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-
-      });
-    }
-  },
 
   methods: {
-    changeBackGround(item){
-      if (item.shipment_type === 'consignment_shavaz') return 'bg-warningRow'
-      else if(item.shipment_type === 'cross_dock_marketplace' )  return 'bg-disableRow'
-      else  return 'bg-successRow'
+    checkPermission(status , permissions){
+      const index = permissions.findIndex(p => p === status)
+      if (index > -1) return true
+      return false
     },
-
-    getStatus(item){
-      if (item.shipment_type === 'consignment_shavaz') return 'انبارش شاواز'
-      else if(item.shipment_type === 'cross_dock_marketplace' )  return 'فروش مارکت'
-      else  return 'getStatus'
+    getStatus(status){
+      const persianStatus = this.statusItems.find(element => element.value === status )
+      return persianStatus.label
     },
     convertDateToJalai,
     changeValue(index, value) {

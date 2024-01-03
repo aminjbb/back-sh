@@ -209,7 +209,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `seller/sku/search?id=${search}`
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.skuSearchList = data.data.data
@@ -251,7 +251,7 @@ export default {
      const form = {
         shps : shps,
         maxTolerance :'100',
-        minTolerance :'1',
+        minTolerance :'0',
         count:'0'
       }
       this.$refs.retailShipmentShps.form.push(form)

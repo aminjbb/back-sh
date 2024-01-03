@@ -40,7 +40,7 @@ export default function setup(posts) {
     const detailCargoHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        // {name:'نوع بسته' , show:true , value:'name', order: false},
+        {name:'نوع بسته' , show:true , value:'name', order: false},
         {name:'تعداد کالا' , show:true ,  value:'label', order: false},
     ]);
 
