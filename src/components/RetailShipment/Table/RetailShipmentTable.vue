@@ -7,193 +7,131 @@
         v-if="loading" />
 
     <header class="c-table__header d-flex justify-between">
-      <template v-for="(head, index) in header">
-        <div
-            v-if="head.show"
-            @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
-            :class="head.order == true ? 'pointer' : ''"
-            :key="index"
-            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
-          {{head.name}}
+        <template v-for="(head, index) in header">
+            <div
+                v-if="head.show"
+                @click="createOrdering(head.value, head.order)"
+                class="text-center c-table__header__item t10400 text-black"
+                :class="head.order == true ? 'pointer' : ''"
+                :key="index"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
+                {{head.name}}
+            </div>
+        </template>
+
+        <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <v-menu :location="location">
+                <template v-slot:activator="{ props }">
+                    <v-icon v-bind="props">
+                        mdi-dots-vertical
+                    </v-icon>
+                </template>
+
+                <v-list>
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-btn
+                                @click="massUpdateModal()"
+                                variant="text"
+                                height="40"
+                                rounded
+                                class="px-5 mt-1 text-grey-darken-1 t14300">
+                                <template v-slot:append>
+                                    <v-icon>mdi-pen-minus</v-icon>
+                                </template>
+                                ویرایش گروهی تنظیمات سئو
+                            </v-btn>
+                        </v-list-item-title>
+
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </div>
-      </template>
-
-      <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-menu :location="location">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props">
-              mdi-dots-vertical
-            </v-icon>
-          </template>
-
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>
-                <v-btn
-                    @click="massUpdateModal()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 text-grey-darken-1 t13300">
-                  <template v-slot:append>
-                    <v-icon>mdi-pen-minus</v-icon>
-                  </template>
-                  ویرایش گروهی تنظیمات سئو
-                </v-btn>
-              </v-list-item-title>
-
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
     </header>
 
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
-        <div
-            v-for="(item , index) in items"
-            :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
-            class="d-flex justify-between c-table__contents__row">
-          <div
-              v-if="header[0].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+        <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+            <div
+                v-for="(item , index) in items"
+                :key="index"
+                :class="oddIndex(index) ? 'bg-gray90' : ''"
+                class="d-flex justify-between c-table__contents__row">
+                <div
+                    v-if="header[0].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
-          </div>
-          <div
-              v-if=" header[1].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[1].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
-          </div>
-          <div
-              v-if=" header[2].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[2].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.factor_id }}
                     </span>
-          </div>
-          <div
-              v-if=" header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[3].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_count }}
                     </span>
-          </div>
-          <div
-              v-if=" header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[4].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_variety }}
                     </span>
-          </div>
-          <div
-              v-if=" header[5].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[5].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.creator?.first_name }} {{ item.creator?.last_name }}
                     </span>
-          </div>
-          <div
-              v-if=" header[6].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[6].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.created_at_fa }}
                     </span>
-          </div>
-          <div
-              v-if=" header[7].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
+                </div>
+                <div
+                    v-if=" header[7].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.updated_at_fa }}
                     </span>
-          </div>
-          <div
-              v-if=" header[8].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <div class="retail-status-box d-flex align-center pr-2">
-                 <span class="t13300 text-gray500 py-5 ">
-                   {{ getStatus(item.status)  }}
-                 </span>
-              </div>
-
-          </div>
-
-
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props" class="text-gray500">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
-                      <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t13300">
-                     مدیریت کالاها
-                      </span>
-
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item  :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                    <v-list-item-title>
-                      <div   class="ma-5 pointer" @click="requestShipment(item)">
-                        <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t13300">
-                        درخواست ارسال
+                </div>
+                <div
+                    v-if=" header[8].show"
+                    class="c-table__contents__item text-right"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <div class="retail-status-box d-flex align-center pr-2">
+                        <span class="t14300 text-gray500 py-5 ">
+                            {{ getStatus(item.status)  }}
                         </span>
-                      </div>
-                    </v-list-item-title>
-                  </v-list-item>
-                <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
-                      <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t13300">
-                       پرینت محموله
-
-                      </span>
-
                     </div>
-                  </v-list-item-title>
-                  </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                      <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t13300">
-                        نمایش جزئیات
-                      </span>
 
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
-                  <v-list-item-title>
-                    <div  class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t13300">
-                        حذف
-                      </span>
+                </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
@@ -207,18 +145,19 @@
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/edit/shps`)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-text-box-multiple-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t13400">
+                                        <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت کالاها
                                         </span>
+
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="requestShipment(item)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-car-pickup</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t13400">
+                                        <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
                                             درخواست ارسال
                                         </span>
                                     </div>
@@ -227,34 +166,38 @@
                             <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t13400">
+                                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
                                             پرینت محموله
 
                                         </span>
+
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t13400">
+                                        <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
                                             نمایش جزئیات
                                         </span>
+
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t13400">
+                                        <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
                                         </span>
+
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
+
                         </v-list>
                     </v-menu>
                 </div>
@@ -264,7 +207,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t13300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -273,6 +216,10 @@
 </div>
 </template>
 
+    
+      
+      
+    
 <script>
 import {
     AxiosCall
