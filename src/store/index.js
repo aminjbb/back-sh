@@ -139,10 +139,18 @@ export default createStore({
         orderFactorModal: {
             dialog: false,
             id: ''
+        },
+        warningTolerance: {
+            dialog: false,
+            object: ''
         }
     },
 
     mutations: {
+        set_warningTolerance(state, form){
+            state.warningTolerance.dialog = form.dialog
+            state.warningTolerance.object = form.object
+        },
         set_modalWarehouseOrdersFactor(state, form) {
             state.modalWarehouseOrdersFactor.dialog = form.dialog
             state.modalWarehouseOrdersFactor.id = form.id
@@ -308,6 +316,14 @@ export default createStore({
     actions: {},
 
     getters: {
+        get_warningTolerance(state){
+           return  state.warningTolerance.dialog
+
+        },
+        get_warningToleranceObject(state, form){
+           return   state.warningTolerance.object
+
+        },
         get_modalWarehouseOrdersFactor(state) {
             return state.modalWarehouseOrdersFactor.dialog
         },

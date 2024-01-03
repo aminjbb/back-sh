@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center px-5" v-if="detail" id="printableArea-shipment">
-    <v-card class="content">
+  <div class="text-center px-5" v-if="detail" >
+    <v-card class="content" id="printableArea-shipment">
       <div class="d-flex justify-space-between pa-5 d--rtl">
 
         <span>شناسه محموله : {{ detail?.id }}</span>
@@ -35,7 +35,7 @@
   </div>
 </template>
 <script >
-import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
+import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
 import Cargo from '@/composables/Cargo'
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToJalai} from "@/assets/js/functions";
@@ -61,10 +61,10 @@ export default {
       if (data) {
         this.detail = data.data
         this.dialog = true
-        setTimeout(() => {
-          var myElement = document.getElementById('printableArea-shipment');
-          window.print(myElement);
-        }, 1000);
+        // setTimeout(() => {
+        //   var myElement = document.getElementById('printableArea-shipment');
+        //   window.print(myElement);
+        // }, 1000);
       }
     },
   },

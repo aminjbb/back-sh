@@ -211,7 +211,7 @@
             </div>
         </div>
     </div>
-    <ModalRequestShipment />
+    <ModalRequestShipment :getRetailShipmentList="getRetailShipmentList" />
 
 </div>
 </template>
@@ -238,6 +238,12 @@ export default {
     },
 
     props: {
+      /**
+       * Get Retail Shipment Function
+       */
+      getRetailShipmentList:{
+        type:Function
+      },
         /**
          * List Items for header
          */

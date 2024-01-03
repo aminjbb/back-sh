@@ -1674,8 +1674,6 @@ const router = createRouter({
         },
       ],
     },
-
-
   ]
 })
 const privateRoutes = [
