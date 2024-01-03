@@ -29,11 +29,11 @@
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
           changeStatusUrl="seller/crud/update/contract/"
-          deletePath="cargo/crud/delete/"
+          deletePath="shipment/consignment/crud/delete/"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="seller" />
-      <ModalRetailShipmentDetail/>
+        <ModalRetailShipmentDetail/>
       <v-divider />
 
       <v-card-actions class="pb-3">

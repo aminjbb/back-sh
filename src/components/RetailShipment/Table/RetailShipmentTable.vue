@@ -165,7 +165,7 @@
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
+                                    <div class="ma-5 pointer"  @click="retailShipmentDetail(item)">
                                         <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             پرینت محموله
@@ -215,11 +215,6 @@
 
 </div>
 </template>
-
-    
-      
-      
-    
 <script>
 import {
     AxiosCall
@@ -447,7 +442,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+            AxiosMethod.end_point = `shipment/consignment/crud/get/${item.id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 const form = {

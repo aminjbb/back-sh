@@ -214,6 +214,7 @@ import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCode
 import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
 import WarehouseOrderSortingView from "@/views/WarehouseOrders/WarehouseOrderSortingView.vue";
 import WarehouseOrderFactorPrintView from "@/views/WarehouseOrders/WarehouseOrderFactorPrintView.vue";
+import PrintShipmentView from "@/views/RetailShipment/PrintShipmentView.vue";
 
 
 const router = createRouter({
@@ -1272,6 +1273,14 @@ const router = createRouter({
           path: ':retailId/edit/shps',
           name: 'EditShpsToRetailShipmentView',
           component: EditShpsToRetailShipmentView,
+          meta: {
+            name: 'محموله های بازرگانی'
+          }
+        },
+        {
+          path: ':shipmentId/print',
+          name: 'PrintShipmentView',
+          component: PrintShipmentView,
           meta: {
             name: 'محموله های بازرگانی'
           }
