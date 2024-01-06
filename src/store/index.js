@@ -147,7 +147,15 @@ export default createStore({
         warningTolerance: {
             dialog: false,
             object: ''
-        }
+        },
+        returnedOrderFactorModal: {
+            dialog: false,
+            id: ''
+        },
+        returnedOrderDetailsModal: {
+            dialog: false,
+            id: ''
+        },
     },
 
     mutations: {
@@ -324,6 +332,14 @@ export default createStore({
         set_orderFactorModal(state, form) {
             state.orderFactorModal.dialog = form.dialog
             state.orderFactorModal.id = form.id
+        },
+        set_returnedOrderDetailsModal(state, form) {
+            state.returnedOrderDetailsModal.dialog = form.dialog
+            state.returnedOrderDetailsModal.id = form.id
+        },
+        set_returnedOrderFactorModal(state, form) {
+            state.returnedOrderFactorModal.dialog = form.dialog
+            state.returnedOrderFactorModal.id = form.id
         },
     },
 
@@ -532,5 +548,11 @@ export default createStore({
         get_orderFactorModal(state) {
             return state.orderFactorModal
         },
+        get_returnedOrderDetailsModal(state) {
+            return state.returnedOrderDetailsModal
+        },
+        get_returnedOrderFactorModal(state) {
+            return state.returnedOrderFactorModal
+        }
     }
 });
