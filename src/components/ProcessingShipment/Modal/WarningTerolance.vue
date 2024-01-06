@@ -11,7 +11,6 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
-
           <v-col cols="7" class="t16400 ">
             هشدار
           </v-col>
@@ -25,18 +24,8 @@
           </div>
           <div class="text-center mt-1">
             <span>
-              آیا از بستن آن اطمینان دارید؟
+              قادر به تایید نیستید
             </span>
-          </div>
-          <div class="text-center mt-3 ">
-            <v-btn :loading="loading" color="primary500" @click="sendShipment()" height="40" rounded class="px-5 mt-1 mr-15">
-                        <span>
-                            تایید
-                        </span>
-            </v-btn>
-            <v-btn @click="close()"  variant="text" height="40" rounded class="px-5 mt-1 ml-15">
-              انصراف
-            </v-btn>
           </div>
         </div>
       </v-card>
@@ -82,27 +71,6 @@ export default {
       const splitDate = jalaliDate.split('-')
       return splitDate[0] + '/' +splitDate[1] +'/' + splitDate[2]
     },
-
-    async sendShipment(){
-      this.loading = true
-      const formData = new FormData()
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/shps/pack`
-      formData.append('shipment_id', this.$route.params.shipmentId)
-      formData.append('shps', this.object.shps)
-      formData.append('package_id', localStorage.getItem('packId'))
-      formData.append('packed_count', this.object.count)
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-        this.close()
-      }
-    },
-
   },
 
   computed: {

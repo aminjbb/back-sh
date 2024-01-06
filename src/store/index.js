@@ -134,7 +134,7 @@ export default createStore({
         },
         modalWarehouseOrdersFactor: {
             dialog: false,
-            id: ''
+            object: ''
         },
         orderFactorModal: {
             dialog: false,
@@ -153,7 +153,7 @@ export default createStore({
         },
         set_modalWarehouseOrdersFactor(state, form) {
             state.modalWarehouseOrdersFactor.dialog = form.dialog
-            state.modalWarehouseOrdersFactor.id = form.id
+            state.modalWarehouseOrdersFactor.object = form.object
         },
         set_modalDamageShpss(state, form) {
             state.modalDamageShpss.dialog = form.dialog
@@ -327,8 +327,8 @@ export default createStore({
         get_modalWarehouseOrdersFactor(state) {
             return state.modalWarehouseOrdersFactor.dialog
         },
-        get_modalWarehouseOrdersFactorId(state) {
-            return state.modalWarehouseOrdersFactor.id
+        get_modalWarehouseOrdersFactorObject(state) {
+            return state.modalWarehouseOrdersFactor.object
         },
         get_modalDamageShpss(state) {
             return state.modalDamageShpss.dialog

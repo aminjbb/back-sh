@@ -430,7 +430,7 @@
 export default {
   data(){
     return{
-      dialog:true
+
     }
   },
   methods: {
@@ -445,18 +445,18 @@ export default {
         dialog: false,
         object: ''
       }
-      this.$store.commit('set_detailModalTestQrCode', form)
+      this.$store.commit('set_modalWarehouseOrdersFactor', form)
     },
 
   },
 
   computed: {
-    // dialog() {
-    //   return this.$store.getters['get_modalWarehouseOrdersFactor']
-    // },
-    // orderId() {
-    //   return this.$store.getters['get_modalWarehouseOrdersFactorid']
-    // }
+    dialog() {
+      return this.$store.getters['get_modalWarehouseOrdersFactor']
+    },
+    factorDetail() {
+      return this.$store.getters['get_modalWarehouseOrdersFactorObject']
+    }
   }
 }
 </script>
