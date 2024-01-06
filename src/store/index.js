@@ -143,11 +143,19 @@ export default createStore({
         warningTolerance: {
             dialog: false,
             object: ''
-        }
+        },
+        returnedOrderFactorModal: {
+            dialog: false,
+            id: ''
+        },
+        returnedOrderDetailsModal: {
+            dialog: false,
+            id: ''
+        },
     },
 
     mutations: {
-        set_warningTolerance(state, form){
+        set_warningTolerance(state, form) {
             state.warningTolerance.dialog = form.dialog
             state.warningTolerance.object = form.object
         },
@@ -311,17 +319,25 @@ export default createStore({
             state.orderFactorModal.dialog = form.dialog
             state.orderFactorModal.id = form.id
         },
+        set_returnedOrderDetailsModal(state, form) {
+            state.returnedOrderDetailsModal.dialog = form.dialog
+            state.returnedOrderDetailsModal.id = form.id
+        },
+        set_returnedOrderFactorModal(state, form) {
+            state.returnedOrderFactorModal.dialog = form.dialog
+            state.returnedOrderFactorModal.id = form.id
+        },
     },
 
     actions: {},
 
     getters: {
-        get_warningTolerance(state){
-           return  state.warningTolerance.dialog
+        get_warningTolerance(state) {
+            return state.warningTolerance.dialog
 
         },
-        get_warningToleranceObject(state, form){
-           return   state.warningTolerance.object
+        get_warningToleranceObject(state, form) {
+            return state.warningTolerance.object
 
         },
         get_modalWarehouseOrdersFactor(state) {
@@ -506,5 +522,11 @@ export default createStore({
         get_orderFactorModal(state) {
             return state.orderFactorModal
         },
+        get_returnedOrderDetailsModal(state) {
+            return state.returnedOrderDetailsModal
+        },
+        get_returnedOrderFactorModal(state) {
+            return state.returnedOrderFactorModal
+        }
     }
 });
