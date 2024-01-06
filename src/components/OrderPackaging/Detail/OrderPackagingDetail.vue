@@ -4,21 +4,22 @@
         class="ma-5 br-12"
         height="160"
         style="flex:0 0 150px">
-        <header class="modal__header d-flex justify-center align-center">
+        <header class="modal__header d-flex justify-center align-center ">
             <span class="t16400 pa-6">
-                ثبت کالای مفقودی یا ضایعات
+              اطلاعات سفارش
             </span>
         </header>
         <v-divider color="grey" />
-       <div  class="d-flex justify-between mx-16  ">
+       <div  class="d-flex justify-center mx-16 mt-4 ">
          <div class="text-right my-3 mx-15">
                     <span class="t13400 color-grey">
-                        شناسه بسته :<span class="text-red">*</span>
+                        شناسه سفارش :
+                        
                     </span>
                 </div>
                 <div class="text-right my-3 mx-15">
                     <span class="t13400 color-grey">
-                        نوع بسته
+                      روش ارسال :
                     </span>
                 </div>
        </div>

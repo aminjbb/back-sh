@@ -77,9 +77,9 @@
                 valid: true,
     
                 form: {
-                    full_name: '',
-                    identification_code: '',
-                    phone_number: '',
+                    full_name: this.driver?.full_name || '',
+                    phone_number: this.driver?.phone_number || '',
+                   
                     
                 },
     
@@ -132,9 +132,10 @@
         },
     
         watch: {
-            driver() {
-                this.setForm();
-            }
+            driver(newVal) {
+        console.log("Driver prop in child component:", newVal);
+    }
+
         }
     }
     </script>

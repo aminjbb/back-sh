@@ -26,15 +26,17 @@
                                     <span class="text-red">*</span>
                                 </span>
                         </div>
+                    
                             <v-autocomplete
                                 :items="sphssList"
                                 density="compact"
                                 variant="outlined"
-                                item-title="label"
+                                item-title="name"
                                 item-value="id"
                                 single-line
-                                v-debounce:1s.unlock="searchSku"
+                               v-model="form.label"
                                 class="mx-auto" />
+                  
                         </v-col>
                     </v-row>
                     <v-row class="justify-between my-2 mx-2">
@@ -79,15 +81,12 @@
         return {
 
             form: {
-                package_id: null,
-                package_type: null,
-                report_type: null,
-                shps_s: null,
+                id: '',
+                name: '',
+                
             },
-            shpssSearchList: [],
-            packageType:null,
-            packageShpss:[],
-            packageId:null,
+           
+           
         }},
 
 
@@ -96,20 +95,20 @@
            
             const {
                 
-                retailShipments,
+             
                 dataTableLength,
                 page,
                 header,
                 loading,
                 headerShps,
                 getShpssDetailLost,
-                ShpssDetailLost
+                shpssDetailLost
             } = BulkLabelPrint();
     
             return {
                 getShpssDetailLost,
-                ShpssDetailLost,
-                retailShipments,
+                shpssDetailLost,
+             
                 dataTableLength,
                 page,
                 header,
@@ -140,10 +139,8 @@
                 }, 200)
             },
            
-            searchSku(searchTerm) {
-        console.log("Search term:", searchTerm);
-                
-    },  
+           
+    
 
     
     
@@ -154,16 +151,17 @@
             sphssList() {
             try {
                 let shpss = []
-                this.ShpssDetailLost.forEach(element => {
+                this.shpssDetailLostObject.forEach(item => {
                     const form = {
-                        label: element?.shps?.sku?.sku?.label ,
-                        id: element?.shps?.id
+                        name: item?.shps?.sku?.sku?.label,
+                        id: item?.shps?.sku?.sku?.id
+                        
                     }
                     shpss.push(form)
                 })
                 return shpss
             } catch (e) {
-                return []
+                return  []
             }
         },
 
@@ -171,8 +169,9 @@
             dialog() {
                 return this.$store.getters['get_modalLostShpss']
             },
-            retailObject() {
-                return this.$store.getters['get_modalLostShpssObject']
+            shpssDetailLostObject() {
+                const data = this.$store.getters['get_modalLostShpssObject'];
+        return data;                
             },
         }
     }

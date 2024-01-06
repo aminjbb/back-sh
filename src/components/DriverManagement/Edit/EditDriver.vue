@@ -11,7 +11,9 @@
         </div>
         <v-divider></v-divider>
         <DriverManagementForm 
+       
         :driver="driver"
+       
         ref="DriverManagementForm" />
         <footer class="create-warehouse__actions">
           <v-row
@@ -50,6 +52,7 @@
     data() {
       return {
         loading: false,
+      
       }
     },
     components: {DriverManagementForm},
@@ -83,10 +86,13 @@
         else{
           this.loading=false
         }
-      }
+      },
     },
     mounted() {
-      this.getDriver()
+      this.getDriver().then(() => {
+        console.log("Driver data after getDriver call:", this.driver);
+    });
+
     }
   }
   </script>
