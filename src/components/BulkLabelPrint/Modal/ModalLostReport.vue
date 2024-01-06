@@ -34,7 +34,8 @@
                                 item-title="name"
                                 item-value="id"
                                 single-line
-                               v-model="form.label"
+                               
+                              
                                 class="mx-auto" />
                   
                         </v-col>
@@ -43,7 +44,7 @@
     
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
-                                @click="print()"
+                                @click="sendData()"
                                 height="40"
                                 rounded
                                 variant="flat"
@@ -69,6 +70,9 @@
     
     <script>
     import BulkLabelPrint from "@/composables/BulkLabelPrint";
+    import {
+        AxiosCall
+    } from '@/assets/js/axios_call.js'
     import Table from "@/components/BulkLabelPrint/Table/Table.vue";
     import {
         convertDateToJalai
@@ -81,6 +85,7 @@
         return {
 
             form: {
+              
                 id: '',
                 name: '',
                 
@@ -108,7 +113,6 @@
             return {
                 getShpssDetailLost,
                 shpssDetailLost,
-             
                 dataTableLength,
                 page,
                 header,
@@ -124,6 +128,31 @@
     
         methods: {
             convertDateToJalai,
+
+            async sendData() {
+            this.loading = true
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = 'report/crud/create'
+            AxiosMethod.form = formdata
+
+            formdata.append('package_id', this.packageId);
+            formdata.append('report_type', this.reportType);
+            formdata.append('shps_s', this.shpsS);
+
+            AxiosMethod.store = this.$store
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+            if (data) {
+                this.loading = false;
+                
+
+            } else {
+                this.loading = false
+            }
+        },
+
     
             close() {
                 const form = {
@@ -145,6 +174,12 @@
     
     
         },
+        watch: {
+            'form.selectedItems': function(newVal, oldVal) {
+        console.log('Selected Items Changed:', newVal)
+    }
+    },
+
     
         computed: {
 
@@ -164,8 +199,17 @@
                 return  []
             }
         },
-
-
+            packageId() {
+      
+                return this.$store.getters['get_packageId']
+            },
+            reportType() {
+                return this.$store.getters['get_reportType'];
+            },
+            shpsS(){
+                return this.$store.getters['get_shps_s']
+            },
+        
             dialog() {
                 return this.$store.getters['get_modalLostShpss']
             },

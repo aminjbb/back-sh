@@ -139,9 +139,10 @@ export default {
 
     watch: {
         cargo(newCargoId) {
-            if (newCargoId) {
-                this.fetchCargoData(newCargoId);
-            }
+        if (newCargoId) {
+            this.fetchCargoData(newCargoId);
+            this.updatePackageIdInStore();
+        }
         },
 
         confirmModal(val) {
@@ -164,6 +165,9 @@ export default {
         async fetchCargoData(newCargoId) {
             this.getShpsList(newCargoId);
         },
+        updatePackageIdInStore() {
+        this.$store.commit('set_packageId', this.cargo);
+    },
 
         filterDataById(id) {
             if (!id) {
