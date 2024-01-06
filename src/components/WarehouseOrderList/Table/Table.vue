@@ -31,7 +31,7 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
+            :class="item.sorted? 'bg-successRow' : ''"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -47,47 +47,18 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.order_id }}
+                        {{ item.id }}
                     </span>
           </div>
           <div
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shelf_id }}
+                    <span v-if="sorting_placement_id" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.sorting_placement_id }}
                     </span>
-          </div>
-          <div
-              v-if="header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.row_number }}
-                    </span>
-          </div>
-          <div
-              v-if="header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.placement }}
-                    </span>
-          </div>
-          <div
-              v-if="header[5].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.step_number }}
-                    </span>
-          </div>
-          <div
-              v-if="header[6].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shelf_number }}
+                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                        ----
                     </span>
           </div>
 
@@ -102,7 +73,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl">
+                  <div class="ma-3 pointer d--rtl" @click="getOrderFactorDetail(item.id)">
                     <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
                         پرینت فاکتور
@@ -138,6 +109,7 @@ import {
 import {
   openModal
 } from "@/assets/js/functions_seller";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   data() {
@@ -241,13 +213,6 @@ export default {
   },
 
   methods: {
-    /**
-     * Open inventory management modal
-     * @param {*} id
-     */
-    openInventoryReductionModal(id) {
-      openModal(this.$store, 'set_inventoryReductionModal', id, true)
-    },
 
     /**
      * Get row index in table
@@ -263,56 +228,20 @@ export default {
         return rowIndex
       }
     },
-
-    /**
-     * Create ordering
-     * @param {*} index
-     * @param { boolean } order
-     */
-    createOrdering(index, order) {
-      if (order === true) {
-        if (index) {
-          if (this.order_type === 'desc') {
-            this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
-          } else {
-            this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
-          }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-          this.ordering = {};
-          this.ordering[index] = !this.ordering[index];
+    async getOrderFactorDetail(id){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/print/factor/${id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog:true,
+          object:data.data
         }
+        this.$store.commit('set_modalWarehouseOrdersFactor' , form)
       }
-    },
-
-    /**
-     * Get icon
-     * @param {*} column
-     */
-    getIcon(column) {
-      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
-
-    /**
-     * Return odd index
-     * @param {*} index
-     */
-    oddIndex(index) {
-      return isOdd(index)
-    },
-
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
+    }
   },
 }
 </script>

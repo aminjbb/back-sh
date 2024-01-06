@@ -8,13 +8,78 @@ import { useCookies } from "vue3-cookies";
 export default function setup(posts) {
     const orders = ref([
         {
-            order_id:1,
-            shelf_id:12,
-            row_number:12,
-            placement:12,
-            step_number:12,
-            shelf_number:12,
-        }
+            id: 2,
+            user: {
+                first_name: "اویس",
+                last_name: "اویس"
+            },
+            shps_count: 20,
+            status: "paid",
+            payment_status: "successful",
+            payment_method: "saman",
+            packed_status: 0,
+            total_price: 1800000,
+            paid_price: 1400000,
+            submit_date: "2024-01-06 11:37:58",
+            submit_date_fa: "1402/10/16",
+            receive_date: "2024-01-11 11:37:58",
+            receive_date_fa: "1402/10/21",
+            total_discount: 400000,
+            invitation_code: "Hanie",
+            bank_number: 32339202,
+            paid_by_wallet: 320000,
+            paid_by_bank: 1280000,
+            paid_by_snapp: null,
+            sending_price: 350000,
+            sorting_placement_id: 5987,
+            sorted: true,
+            contradicted: 0,
+            state: {
+                id: 1,
+                labe: "فارس"
+            },
+            city: {
+                id: 1,
+                label: "شیراز"
+            }
+        },
+        {
+            id: 1,
+            user: {
+                first_name: "اویس",
+                last_name: "اویس"
+            },
+            shps_count: 20,
+            status: "paid",
+            payment_status: "successful",
+            payment_method: "saman",
+            packed_status: 0,
+            total_price: 1800000,
+            paid_price: 1400000,
+            submit_date: "2024-01-06 11:37:58",
+            submit_date_fa: "1402/10/16",
+            receive_date: "2024-01-11 11:37:58",
+            receive_date_fa: "1402/10/21",
+            total_discount: 400000,
+            invitation_code: "Hanie",
+            bank_number: 32339202,
+            paid_by_wallet: 320000,
+            paid_by_bank: 1280000,
+            paid_by_snapp: null,
+            sending_price: 350000,
+            sorting_placement_id: null,
+            sorted: null,
+            contradicted: 0,
+            state: {
+                id: 1,
+                labe: "فارس"
+            },
+            city: {
+            id: 1,
+                label: "شیراز"
+                }
+            },
+
     ]);
     const pickUpShps = ref({
         shps: {
@@ -65,10 +130,7 @@ export default function setup(posts) {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه سفارش', show: true , value:'order_id', order: false},
         { name: 'شناسه شلف', show: true, value:'shelf_id' , order: false},
-        { name: 'شماره ردیف', show: true , value:'row_number', order: false},
-        { name: 'شماره قفسه', show: true , value:'placement', order: false},
-        { name: 'شماره طبقه', show: true , value:'step_number', order: false},
-        { name: 'شماره شلف', show: true , value:'shelf_number', order: false},
+
     ]);
 
     const filterField = [
@@ -83,24 +145,14 @@ export default function setup(posts) {
 
     async function getWarehouseOrders(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `warehouse_inventory/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            orders.value = data.data
+            // orders.value = data.data
             loading.value = false
-            setTimeout(()=>{
-                isFilter.value =false
-                isFilterPage.value = false
-            } , 2000)
         }
 
         else {
