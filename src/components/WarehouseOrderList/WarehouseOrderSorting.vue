@@ -14,94 +14,130 @@
       </div>
     </div>
 
-    <v-card class="ma-5 br-15" min-height="196">
-      <div class="d-flex justify-center my-3">
+    <div class="h-100 d-flex align-center justify-center" v-if="!shpssDetail">
+      <div >
+        <div class="d-flex justify-center">
+          <v-icon color="black" size="30">
+            mdi-barcode-scan
+          </v-icon>
+        </div>
+        <div class=" mt-8 d-flex justify-center px-10 text-center">
+        <span class="text-black t20400">
+         شناسه کالا را اسکن کنید.
+        </span>
+        </div>
+        <div class="mt-2">
+          <v-text-field v-model="shpssBarCode" variant="solo" ></v-text-field>
+        </div>
+        <div class="mt-15 pt-15">
+          <v-row justify="center pt-15 mt-15">
+            <v-col cols="10">
+              <v-btn
+                  color="primary500"
+                  height="40"
+                  width="348"
+                  variant="flat"
+                  rounded
+                  class="px-8 mt-2">
+                  تایید
+              </v-btn>
+            </v-col>
+
+          </v-row>
+        </div>
+      </div>
+    </div>
+
+    <div v-else>
+      <v-card class="ma-5 br-15" min-height="196">
+        <div class="d-flex justify-center my-3">
           <span class="t20400">
             جایگاه کالا
           </span>
-      </div>
-      <v-divider/>
-      <div v-if="isPlacement">
-        <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
-          <div>
+        </div>
+        <v-divider/>
+        <div v-if="shpssDetail?.order_id">
+          <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
+            <div>
            <span class="t16400">
            شماره ردیف :
             <span class="text-gray600 number-font">
               ۳۴
             </span>
           </span>
-          </div>
-          <div>
+            </div>
+            <div>
           <span class="t16400">
            شماره قفسه  :
             <span class="text-gray600 number-font">
               ۳۴
             </span>
           </span>
+            </div>
           </div>
-        </div>
-        <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
-          <div>
+          <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
+            <div>
            <span class="t16400">
            شماره طبقه :
             <span class="text-gray600 number-font">
                ۳۴
             </span>
           </span>
-          </div>
-          <div>
+            </div>
+            <div>
           <span class="t16400">
            شماره شلف   :
             <span class="text-gray600 number-font">
              ۳۴
             </span>
           </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div v-else class=" pt-8 px-10 text-center">
+        <div v-else class=" pt-8 px-10 text-center">
         <span class="t16400">
           برای مشخص شدن اطلاعات جایگاه، شناسه شلف را اسکن کنید.
         </span>
-      </div>
-    </v-card>
-    <div class="scan_box">
-      <div>
-        <div class="px-5">
-          <v-card class="mt-2 py-5">
-            <div class="d-flex justify-center">
-              <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
-            </div>
-            <div class="text-center my-2">
+        </div>
+      </v-card>
+      <div class="scan_box">
+        <div>
+          <div class="px-5">
+            <v-card class="mt-2 py-5">
+              <div class="d-flex justify-center">
+                <img :src="skuDetail?.image_url" width="150" height="150" alt="">
+              </div>
+              <div class="text-center my-2">
               <span class="t16400">
-                پرایم
+                {{ skuDetail?.brand?.label }}
               </span>
-            </div>
-            <div class="text-center px-10 my-3">
+              </div>
+              <div class="text-center px-10 my-3">
               <span class="text-gray600">
-                سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر
+               {{skuDetail?.label }}
               </span>
-            </div>
-          </v-card>
+              </div>
+            </v-card>
+          </div>
         </div>
       </div>
-    </div>
-    <v-card-actions>
-      <v-row justify="center">
-        <v-col cols="10">
-          <v-btn
-              color="primary500"
-              height="40"
-              width="348"
-              variant="flat"
-              rounded
-              class="px-8 mt-2">
-            اسکن شناسه شلف
-          </v-btn>
-        </v-col>
+      <v-card-actions>
+        <v-row justify="center">
+          <v-col cols="10">
+            <v-btn
+                color="primary500"
+                height="40"
+                width="348"
+                variant="flat"
+                rounded
+                class="px-8 mt-2">
+              اسکن شناسه شلف
+            </v-btn>
+          </v-col>
 
-      </v-row>
-    </v-card-actions>
+        </v-row>
+      </v-card-actions>
+    </div>
     <!--    <LocatingToast/>-->
   </v-card>
 </template>
@@ -123,10 +159,11 @@ export default {
   },
   data() {
     return {
-      error: true,
+      scanShps: true,
       qrCode: '',
       shpssBarCode: '',
-      isPlacement: false
+      isPlacement: false,
+      shpssDetail:''
     }
   },
 
@@ -143,20 +180,32 @@ export default {
     scanQrCode() {
       this.shpssBarCode = this.qrCode
       this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
+      // this.getShpssDetail(this.shpssBarCode)
     },
-    async locateShpssToPlace() {
+
+    async getShpssDetail(qrCode) {
       const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      formData.append('placement_id', this.$route.params.placementId)
-      formData.append('package_id', this.$route.params.packageId)
-      formData.append('barcode', this.shpssBarCode)
       AxiosMethod.using_auth = true
-      AxiosMethod.token = cookies.cookies.get('adminToken')
-      AxiosMethod.end_point = 'shps/item/place/'
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shps/item/detail?barcode=${qrCode}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.checkCount()
+        this.shpssDetail = data.data
+        if (data.data.placement) this.sortingShps(data.data.barcode , data.data.placement)
+      }
+    },
+    async sortingShps(shpsBarcode , placement){
+      const AxiosMethod = new AxiosCall()
+      const formData = new  FormData()
+      formData.append('shps_s_barcode' , shpsBarcode)
+      formData.append('placement_barcode' , placement.barcode)
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/sort`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.shpssDetail = data.data
+        if (data.data.placement) this.sortingShps()
       }
     },
     checkCount() {
@@ -168,6 +217,16 @@ export default {
   components: {
     HandheldDrawer,
     LocatingToast
+  },
+  computed:{
+    skuDetail(){
+      try {
+        return this.shpssDetail.shps.sku
+      }
+      catch (e) {
+
+      }
+    }
   }
 }
 </script>
