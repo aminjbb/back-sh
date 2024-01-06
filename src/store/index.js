@@ -28,11 +28,15 @@ export default createStore({
         legalSellerStep2: null,
         legalSellerStep3: null,
         legalSellerStep4: null,
+        packageId: null,
+        reportType: null,
+        shps_s: null,
         //seller modals
         orderLimitModal: {
             dialog: false,
             id: ''
         },
+        
         marketingDiscountModal: {
             dialog: false,
             id: ''
@@ -147,6 +151,16 @@ export default createStore({
     },
 
     mutations: {
+        set_shps_s(state, shps_s) {
+            state.shps_s = shps_s;
+        },
+        set_reportType(state, reportType) {
+            state.reportType = reportType;
+        },
+
+        set_packageId(state, packageId) {
+            state.packageId = packageId;
+        },
         set_warningTolerance(state, form){
             state.warningTolerance.dialog = form.dialog
             state.warningTolerance.object = form.object
@@ -316,6 +330,18 @@ export default createStore({
     actions: {},
 
     getters: {
+        get_shps_s(state) {
+            return state.shps_s;
+        },
+
+        get_reportType(state) {
+            return state.reportType;
+        },
+
+        get_packageId(state) {
+            return state.packageId;
+        },
+
         get_warningTolerance(state){
            return  state.warningTolerance.dialog
 
