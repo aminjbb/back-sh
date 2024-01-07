@@ -83,7 +83,7 @@
           <v-icon>mdi-minus</v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="12" v-for="counter in attributeCounts" :key="counter">
+      <v-col cols="12" v-for="(counter , index) in attributeCounts" :key="counter">
         <v-row>
           <v-col cols="6">
             <v-autocomplete
