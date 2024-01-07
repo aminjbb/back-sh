@@ -56,41 +56,15 @@
           </span>
         </div>
         <v-divider/>
-        <div v-if="shpssDetail?.order_id">
-          <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
+        <div v-if="shpssDetail?.sorting_placement">
+          <div class="text-center my-5 px-5 d-flex justify-space-between px-10">
             <div>
-           <span class="t16400">
-           شماره ردیف :
-            <span class="text-gray600 number-font">
-              ۳۴
-            </span>
-          </span>
-            </div>
-            <div>
-          <span class="t16400">
-           شماره قفسه  :
-            <span class="text-gray600 number-font">
-              ۳۴
-            </span>
-          </span>
-            </div>
-          </div>
-          <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
-            <div>
-           <span class="t16400">
-           شماره طبقه :
-            <span class="text-gray600 number-font">
-               ۳۴
-            </span>
-          </span>
-            </div>
-            <div>
-          <span class="t16400">
-           شماره شلف   :
-            <span class="text-gray600 number-font">
-             ۳۴
-            </span>
-          </span>
+              <span class="t16400">
+               شماره شلف   :
+                <span class="text-gray600 number-font">
+                 {{ shpssDetail?.sorting_placement }}
+                </span>
+              </span>
             </div>
           </div>
         </div>
@@ -180,18 +154,18 @@ export default {
     scanQrCode() {
       this.shpssBarCode = this.qrCode
       this.qrCode = ''
-      // this.getShpssDetail(this.shpssBarCode)
+      this.getShpssDetail(this.shpssBarCode)
     },
 
     async getShpssDetail(qrCode) {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shps/item/detail?barcode=${qrCode}`
+      AxiosMethod.end_point = `admin/order/item?barcode=${qrCode}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.shpssDetail = data.data
-        if (data.data.placement) this.sortingShps(data.data.barcode , data.data.placement)
+        if (data.data.sorting_placement) this.sortingShps(data.data.barcode , data.data.sorting_placement)
       }
     },
     async sortingShps(shpsBarcode , placement){
@@ -221,7 +195,7 @@ export default {
   computed:{
     skuDetail(){
       try {
-        return this.shpssDetail.shps.sku
+        return this.shpssDetail.shps.sku?.sku
       }
       catch (e) {
 
