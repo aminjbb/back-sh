@@ -93,13 +93,13 @@
                     <v-text-field v-model="form[index].count" variant="outlined" />
                 </div>
                 <div
-                    v-if=" header[4].show"
+                    v-if=" header[4].show && model != 'sellerConsigment'"
                     class="c-table__contents__item number-font"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-text-field v-model="form[index].minTolerance" variant="outlined" />
                 </div>
                 <div
-                    v-if=" header[5].show"
+                    v-if=" header[5].show && model != 'sellerConsigment'"
                     class="c-table__contents__item number-font"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-text-field v-model="form[index].maxTolerance" variant="outlined" />

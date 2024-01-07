@@ -226,6 +226,8 @@ import WarehouseOrderFactorPrintView from "@/views/WarehouseOrders/WarehouseOrde
 import ReturnedOrderListView from "@/views/ReturnedOrders/ReturnedOrderListView.vue";
 import ReviewReturnedOrderRequestView from "@/views/ReturnedOrders/ReviewReturnedOrderRequestView.vue";
 import DeliveryReceiptView from "@/views/ReturnedOrders/DeliveryReceiptView.vue";
+import AddConsignmentView from "@/views/Seller/Consigment/AddConsignmentView.vue";
+import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.vue";
 
 
 const router = createRouter({
@@ -870,7 +872,22 @@ const router = createRouter({
             name: 'اضافه کردن کالا به فروشنده'
           }
         },
-
+        {
+          path: ':sellerId/consignment/add/sku',
+          name: 'AddConsignmentView',
+          component: AddConsignmentView,
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
+          }
+        },
+          {
+              path: 'consignment/index',
+              name: 'ConsignmentListView',
+              component: ConsignmentListView,
+              meta: {
+                  name: 'محموله های فروشنده'
+              }
+          },
         {
           path: 'sku/:sellerId/history/warehouse-inventory',
           name: 'WarehouseInventoryHistoryView',
