@@ -1,106 +1,119 @@
 <template>
 <div class="text-right">
-    <v-dialog v-model="orderFactorModal.dialog" width="1060">
-        <v-card class="py-5 px-3">
-            <div class="modal__content d--rtl py-3 d-flex justify-star align-center mb-3" style="padding-right:15%;padding-left:15%;">
-                <div class="d-flex justify-center align-center pa-2 mb-2 flex-grow-1">
-                    <span class="modal__content__title">شناسه سفارش : </span>
-                    <span class="modal__content__txt number-font">
+    <v-dialog v-model="returnedOrderDetailsModal.dialog" width="1060">
+        <v-card class="pa-5">
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-1" @click="openAccordion(1)">
+                    <span>
+                        اطلاعات کلی
                     </span>
-                </div>
 
-                <div class="d-flex justify-center align-center pa-2 mb-2 flex-grow-1">
-                    <span class="modal__content__title">هزینه پست : </span>
-                    <span class="modal__content__txt number-font">
-                    </span>
-                </div>
-
-                <div class="d-flex justify-center align-center pa-2 flex-grow-1">
-                    <span class="modal__content__title">تاریخ ثبت سفارش: </span>
-                    <span class="modal__content__txt number-font">
-                    </span>
-                </div>
-            </div>
-
-            <div class="modal__content d--rtl py-3 px-4 mb-3">
-                <header class="modal__header d-flex justify-center align-center">
-                    <span class="t16400 pa-6 pt-3">
-                        مشخصات خریدار
-                    </span>
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
                 </header>
 
-                <v-divider color="grey" class="mb-2" />
-
-                <v-row class="ma-0">
-                    <v-col cols="3" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">نام شخص حقیقی/حقوقی: </span>
-                            <span class="modal__content__txt">
-                            </span>
+                <div class="accordion__content" id="accordion-content-1">
+                    <div class="simple-table-parent">
+                        <div class="simple-table">
+                            <v-row
+                                v-for="(item,index) in generalDetails"
+                                :key="`general-${index}`"
+                                class="ma-0 d--rtl">
+                                <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                                <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                            </v-row>
                         </div>
-                    </v-col>
-
-                    <v-col cols="2" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">استان: </span>
-                            <span class="modal__content__txt">
-                            </span>
-                        </div>
-                    </v-col>
-
-                    <v-col cols="2" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">شهر: </span>
-                            <span class="modal__content__txt">
-                            </span>
-                        </div>
-                    </v-col>
-
-                    <v-col cols="5" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">آدرس: </span>
-                            <span class="modal__content__txt">
-                            </span>
-                        </div>
-                    </v-col>
-                </v-row>
-
-                <v-row class="ma-0">
-                    <v-col cols="3" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">شماره اقتصادی: </span>
-                            <span class="modal__content__txt number-font">
-                            </span>
-                        </div>
-                    </v-col>
-
-                    <v-col cols="2" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">شماره ثبت: </span>
-                            <span class="modal__content__txt number-font">
-                            </span>
-                        </div>
-                    </v-col>
-
-                    <v-col cols="2" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">کد پستی: </span>
-                            <span class="modal__content__txt number-font">
-                            </span>
-                        </div>
-                    </v-col>
-
-                    <v-col cols="5" class="pa-2">
-                        <div class="d-flex align-center">
-                            <span class="modal__content__title">شناسه ملی: </span>
-                            <span class="modal__content__txt number-font">
-                            </span>
-                        </div>
-                    </v-col>
-                </v-row>
+                    </div>
+                </div>
             </div>
-            <div class="modal__content d--rtl mb-3">
-                <FactorModalTable :header="factorModalHeader" :items="factorDetails" />
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-2" @click="openAccordion(2)">
+                    <span>
+                        مشخصات گیرنده
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-2">
+                    <div class="simple-table-parent">
+                        <div class="simple-table">
+                            <v-row
+                                v-for="(item,index) in userDetails"
+                                :key="`user-${index}`"
+                                class="ma-0 d--rtl">
+                                <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                                <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                            </v-row>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-3" @click="openAccordion(3)">
+                    <span>
+                        اطلاعات پرداخت
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-3">
+                    <div class="simple-table-parent">
+                        <div class="simple-table">
+                            <v-row
+                                v-for="(item,index) in paymentDetails"
+                                :key="`user-${index}`"
+                                class="ma-0 d--rtl">
+                                <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                                <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                            </v-row>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-4" @click="openAccordion(4)">
+                    <span>
+                        تخفیف ها
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-4">
+                    <DiscountTable :items="discountDetails" :header="discountModalHeader" />
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-5" @click="openAccordion(5)">
+                    <span>
+                        جزئیات سفارش
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-5">
+                    <ShpsTable :items="shpsDetails" :header="shpsModalHeader" />
+                </div>
+            </div>
+
+            <div class="accordion mb-5">
+                <header class="accordion__header" id="accordion-header-6" @click="openAccordion(6)">
+                    <span>
+                        جزئیات کالاهای مرجوعی
+                    </span>
+
+                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
+                </header>
+
+                <div class="accordion__content" id="accordion-content-6">
+                    <returnedShpsTable :items="returnedShpsDetails" :header="returnedShpsModalHeader" />
+                </div>
             </div>
         </v-card>
     </v-dialog>
@@ -114,8 +127,10 @@ import {
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import Orders from "@/composables/Orders";
-import FactorModalTable from '@/components/Orders/Table/FactorModalTable.vue'
+import ReturnedOrders from "@/composables/ReturnedOrders";
+import ShpsTable from '@/components/ReturnedOrders/Table/ShpsModalTable.vue'
+import DiscountTable from '@/components/ReturnedOrders/Table/DiscountModalTable.vue'
+import returnedShpsTable from '@/components/ReturnedOrders/Table/returnedShpsModalTable.vue'
 
 export default {
 
@@ -123,17 +138,19 @@ export default {
         return {
             dialog: false,
             stockModel: null,
-            generalDetails: [],
-            sellerDetails: [],
             userDetails: [],
-            factorDetails: [],
+            shpsDetails: [],
+            paymentDetails:[],
+            generalDetails:[],
+            discountDetails:[],
+            returnedShpsDetails: [],
         }
     },
 
     computed: {
-        orderFactorModal() {
+        returnedOrderDetailsModal() {
             try {
-                return this.$store.getters['get_orderFactorModal']
+                return this.$store.getters['get_returnedOrderDetailsModal']
             } catch (error) {
                 return ''
             }
@@ -142,20 +159,26 @@ export default {
 
     setup(props) {
         const {
-            factorModalHeader,
-        } = Orders();
+            shpsModalHeader,
+            discountModalHeader,
+            returnedShpsModalHeader
+        } = ReturnedOrders();
         return {
-            factorModalHeader,
+            shpsModalHeader,
+            discountModalHeader,
+            returnedShpsModalHeader
         };
     },
 
     components: {
-        FactorModalTable,
+        ShpsTable,
+        DiscountTable,
+        returnedShpsTable
     },
 
     methods: {
         close() {
-            closeModal(this.$store, 'set_orderFactorModal')
+            closeModal(this.$store, 'set_returnedOrderDetailsModal')
         },
 
         openAccordion(id) {
@@ -164,7 +187,7 @@ export default {
             accordionHeader.classList.toggle("is-open");
             accordionHeader.children[1].classList.toggle("mdi-chevron-down");
             accordionHeader.children[1].classList.toggle("mdi-chevron-up");
-
+            
             let content = accordionHeader.nextElementSibling;
 
             if (content.style.maxHeight) {
@@ -174,15 +197,15 @@ export default {
             }
         },
 
-        /**
+         /**
          * Get order 'General' details by order_id
          */
-        async getGeneralDetails() {
+         async getGeneralDetails() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/get/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/get/${this.returnedOrderDetailsModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -211,7 +234,7 @@ export default {
                         },
                         {
                             label: 'کد معرف',
-                            value: data.data.invitation_code ? data.data.invitation_code : '-'
+                            value: data.data.invitation_code  ? data.data.invitation_code : '-'
                         },
                         {
                             label: 'شناسه بانکی',
@@ -254,7 +277,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.orderFactorModal.id}`
+            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.returnedOrderDetailsModal.id}`
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store
             let data = await AxiosMethod.axios_get();
@@ -263,15 +286,15 @@ export default {
             } else {}
         },
 
-        /**
+         /**
          * Get order 'Payment' details by order_id
          */
-        async getPaymentDetails() {
+         async getPaymentDetails() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/payment/detail/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/payment/detail/${this.returnedOrderDetailsModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -319,7 +342,7 @@ export default {
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.returnedOrderDetailsModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -362,12 +385,12 @@ export default {
         /**
          * Get order 'Discount' details by order_id
          */
-        async getDiscountDetails() {
+         async getDiscountDetails() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.orderFactorModal.id}`
+            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.returnedOrderDetailsModal.id}`
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store
             let data = await AxiosMethod.axios_get();
@@ -376,11 +399,28 @@ export default {
             } else {}
         },
 
+        /**
+         * Get Returned order 'returned Shps' details by order_id
+         */
+         async getShpsDetails() {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.returnedOrderDetailsModal.id}`
+            AxiosMethod.form = formdata;
+            AxiosMethod.store = this.$store
+            let data = await AxiosMethod.axios_get();
+            if (data) {
+                this.shpsDetails = data.data;
+            } else {}
+        },
+        
     },
 
     created() {
         this.$watch(
-            () => this.orderFactorModal.dialog,
+            () => this.returnedOrderDetailsModal.dialog,
             (dialogState) => {
                 if (dialogState) {
                     this.getUserDetails();

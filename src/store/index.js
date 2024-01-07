@@ -28,11 +28,15 @@ export default createStore({
         legalSellerStep2: null,
         legalSellerStep3: null,
         legalSellerStep4: null,
+        packageId: null,
+        reportType: null,
+        shps_s: null,
         //seller modals
         orderLimitModal: {
             dialog: false,
             id: ''
         },
+        
         marketingDiscountModal: {
             dialog: false,
             id: ''
@@ -143,10 +147,28 @@ export default createStore({
         warningTolerance: {
             dialog: false,
             object: ''
-        }
+        },
+        returnedOrderFactorModal: {
+            dialog: false,
+            id: ''
+        },
+        returnedOrderDetailsModal: {
+            dialog: false,
+            id: ''
+        },
     },
 
     mutations: {
+        set_shps_s(state, shps_s) {
+            state.shps_s = shps_s;
+        },
+        set_reportType(state, reportType) {
+            state.reportType = reportType;
+        },
+
+        set_packageId(state, packageId) {
+            state.packageId = packageId;
+        },
         set_warningTolerance(state, form){
             state.warningTolerance.dialog = form.dialog
             state.warningTolerance.object = form.object
@@ -311,11 +333,31 @@ export default createStore({
             state.orderFactorModal.dialog = form.dialog
             state.orderFactorModal.id = form.id
         },
+        set_returnedOrderDetailsModal(state, form) {
+            state.returnedOrderDetailsModal.dialog = form.dialog
+            state.returnedOrderDetailsModal.id = form.id
+        },
+        set_returnedOrderFactorModal(state, form) {
+            state.returnedOrderFactorModal.dialog = form.dialog
+            state.returnedOrderFactorModal.id = form.id
+        },
     },
 
     actions: {},
 
     getters: {
+        get_shps_s(state) {
+            return state.shps_s;
+        },
+
+        get_reportType(state) {
+            return state.reportType;
+        },
+
+        get_packageId(state) {
+            return state.packageId;
+        },
+
         get_warningTolerance(state){
            return  state.warningTolerance.dialog
 
@@ -506,5 +548,11 @@ export default createStore({
         get_orderFactorModal(state) {
             return state.orderFactorModal
         },
+        get_returnedOrderDetailsModal(state) {
+            return state.returnedOrderDetailsModal
+        },
+        get_returnedOrderFactorModal(state) {
+            return state.returnedOrderFactorModal
+        }
     }
 });
