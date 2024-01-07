@@ -54,7 +54,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="sorting_placement_id" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.sorting_placement_id" class="t14300 text-gray500 py-5 number-font">
                         {{ item.sorting_placement_id }}
                     </span>
                     <span v-else class="t14300 text-gray500 py-5 number-font">
