@@ -22,6 +22,14 @@ export default function setup(posts) {
     const siteHistoryPage = ref(1)
     const pageLength =ref(1)
     const cookies = useCookies()
+    const headerConsigment =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه shps', show: true , value:'shps', order: false},
+        { name: 'نام کالا', show: true , value:'label', order: false},
+        { name: 'تعداد کالا', show: true, value:'number' , order: false},
+        { name: 'تلورانس پایین', show: false , value:'low_tolerance', order: false},
+        { name: 'تلورانس بالا', show: false, value:'high_tolerance', order: false },
+    ]);
     const header =ref([
         {name:'ردیف' , show:true, value:null, order: false},
         {name:'شناسه پنل' , show:true, value:'id', order: false},
@@ -326,5 +334,6 @@ export default function setup(posts) {
         getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
         headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
         getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
-        dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage}
+        dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage ,
+        headerConsigment}
 }

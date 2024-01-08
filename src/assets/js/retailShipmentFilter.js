@@ -20,6 +20,7 @@ export class RetailShipmentFilter {
         this.sort = null;
         this.per_page = 25;
         this.factor_id =null,
+        this.seller_id =null,
         this.page = 1;
         this.order = 'created_at';
         this.order_type = 'desc';
@@ -39,6 +40,9 @@ export class RetailShipmentFilter {
         let query = "?";
         if (this.factor_id !== null) {
             query += "factor_id=" + this.factor_id + "&";
+        }
+        if (this.seller_id !== null) {
+            query += "seller_id=" + this.seller_id + "&";
         }
         if (this.id !== null) {
             query += "id=" + this.id + "&";
@@ -92,10 +96,16 @@ export class RetailShipmentFilter {
     params_generator(routeQuery){
         let query = "?";
         if (this.factor_id !== null) {
-            query += "factor_id=" + this.factor + "&";
+            query += "factor_id=" + this.factor_id + "&";
         }
         else if (routeQuery.factor_id) {
             query += "factor_id=" + routeQuery.factor_id + "&";
+        }
+        if (this.seller_id !== null) {
+            query += "seller_id=" + this.seller_id + "&";
+        }
+        else if (routeQuery.seller_id) {
+            query += "seller_id=" + routeQuery.seller_id + "&";
         }
         if  (this.id) {
             query += "id=" + this.id + "&";

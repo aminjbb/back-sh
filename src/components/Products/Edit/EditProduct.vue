@@ -79,19 +79,23 @@ export default {
      * submit form
      */
     async submitForm() {
+
       this.loading = true
       var formdata = new FormData();
 
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'product/crud/update/' + this.$route.params.id
       AxiosMethod.form = formdata
-      console.log(this.$refs.ProductForm.form.selectedAttributes)
-      for (var i = 0; i < this.$refs.ProductForm.form.selectedAttributes.length; i++) {
-        formdata.append('attributes[' + i + '][attribute_id]', this.$refs.ProductForm.form.selectedAttributes[i].attribute_id);
-        for (var j = 0; j < this.$refs.ProductForm.form.selectedAttributes[i].attribute_value_ids.length; j++) {
-          formdata.append('attributes[' + i + '][attribute_value_ids][' + j + ']', this.$refs.ProductForm.form.selectedAttributes[i].attribute_value_ids[j]);
-        }
-      }
+      this.$refs.ProductForm.form.selectedAttributes.forEach((element , index) =>{
+        formdata.append('attributes[' + index + '][attribute_id]', element.attribute_id);
+        const array = []
+        this.$refs.ProductForm.form.selectedAttributes[index].attribute_value_ids.forEach(attrvalue=>{
+          array.push(attrvalue)
+        })
+        array.forEach((arrayElement , i)=>{
+          formdata.append('attributes[' + index + '][attribute_value_ids][' + i + ']', arrayElement);
+        })
+      })
       formdata.append('name', this.$refs.ProductForm.form.name)
       formdata.append('label', this.$refs.ProductForm.form.label)
       formdata.append('image_id', this.$refs.ProductForm.form.productImage)
