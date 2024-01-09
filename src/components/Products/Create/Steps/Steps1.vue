@@ -738,9 +738,9 @@ export default {
         title :'هیچ کدام',
         value : 'none'
       }
-      if (this.productSelected !== null){
-        localStorage.setItem('skuProductId' , this.productSelected.value)
-        this.getSkuGroups(this.productSelected.value)
+      if (this.createFromModel.productSelected !== null){
+        localStorage.setItem('skuProductId' , this.createFromModel.productSelected.value)
+        this.getSkuGroups(this.createFromModel.productSelected.value)
       }
       else {
         localStorage.removeItem('skuProductId')
