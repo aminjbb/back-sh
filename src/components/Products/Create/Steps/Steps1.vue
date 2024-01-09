@@ -194,6 +194,7 @@
                 align="center"
                 class="py-2 attrs-list"
             >
+
                 <v-col cols="4">
                     <div class="text-right my-2">
                         <span class="t12500">
@@ -224,7 +225,7 @@
                 </v-col>
                 
                 <v-col
-                    cols="7"
+                    cols="6"
                     class="d-flex justify-content-between align-items-center w-100 selected-attribute__values"
                 >
                     <div class="flex-grow-1 pl-5">
@@ -250,7 +251,7 @@
                                 variant="outlined"
                                 return-object
                                 class="selected-attribute__values__input"
-                                @update:modelValue="checkActiveAddButton(index)"
+                                @update:modelValue="checkActiveAddButton(index , items)"
                             >
                                 <template v-slot:chip="{ props, item }">
                                     <v-chip
@@ -285,6 +286,11 @@
                         />
                     </div>
                 </v-col>
+              <v-col cols="1" v-if="attrNumbers.length > 1"  @click="deleteAttributeRow(i)">
+                <v-btn variant="icon" class="mt-8">
+                  <v-icon color="error"> mdi-close </v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
 
             <v-btn 
@@ -840,6 +846,28 @@ export default {
       this.items.push(maketItem);
       this.createFromModel.variety.push(false)
       this.activeAddButton = false;
+    },
+    /**
+     * delete attribute row
+     */
+    deleteAttributeRow( index , items) {
+      this.number--;
+
+      this.attrNumbers.splice(index , 1)
+      this.createFromModel.attributes.splice(index , 1)
+      this.createFromModel.attributesValue.splice(index , 1)
+      console.log(this.createFromModel.attributesValue ,  this.createFromModel.attributes)
+      // this.attrNumbers.push(`attr${this.number}`);
+
+      // const maketItem = {
+      //   title: '',
+      //   attr_id: '',
+      //   values: '',
+      // }
+      //
+      // this.items.push(maketItem);
+      // this.createFromModel.variety.push(false)
+      // this.activeAddButton = false;
     },
 
     /**
