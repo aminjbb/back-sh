@@ -82,8 +82,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.count">
-                                {{ item.shipment_id }}
+                            <template v-if="item.shipment_id">
+                                {{item.shipment_id }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -99,9 +99,9 @@
               
                 <div
     class="seller__add-sku-btn d-flex justify-center align-center pointer"
-    @click="submitShipmentsForm()">
-    <v-icon size="15" :class="{ 'icon-circle': !iconStates[index] }">
-        {{ iconStates[index] ? 'mdi-plus' : 'mdi-check' }}
+    @click="submitShipmentsForm(item.id)">
+    <v-icon size="15" >
+        {{ submittedItemId === item.id ? 'mdi-check' : 'mdi-plus' }}
     </v-icon>
 </div>
             </div>
@@ -123,7 +123,7 @@
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="$router.push(`/driver-management/update`)">
+                                            @click="$router.push(`/print-label-bulk/index`)">
                                             <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت گروهی برچسب                                           
@@ -272,13 +272,14 @@
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
                 fetchCargoData: [],
-                iconStates: [],
                 paramsQuery: [],
                 filter : [],
                 reportType: null,
                 shps_s: null,
                 loading: false,
                 shipments: [],
+                isSubmitted: false,
+                submittedItemId: null,
 
                
   
@@ -292,7 +293,15 @@
       
       return this.$store.getters['get_packageId']
   },
-
+  
+  shipmentId() {
+      
+      return this.$store.getters['get_shipmentId']
+  },
+  shpsId() {
+      
+      return this.$store.getters['get_shpsId']
+  },
             /**
              * Get each items table based of header length
              */
@@ -311,9 +320,7 @@
             },
         },
         watch: {
-          items(newItems) {
-          this.iconStates = newItems.map(() => true);
-      },
+       
   },
         methods: {
   
@@ -323,19 +330,7 @@
              * Open Basic Discount modal
              * @param {*} id
              */
-           
-          
-             toggleIcon(index) {
-              this.iconStates[index] = !this.iconStates[index];
-  
-  },
-     
-      
-  
-  
-    
-           
-  
+
             /**
        * LostShpss modal
        */
@@ -345,7 +340,7 @@
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
+        AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
   
@@ -353,6 +348,7 @@
             dialog :true,
             object : data.data
           }
+          
           this.$store.commit('set_shps_s',  item.id);
           this.$store.commit('set_reportType' , 'lost');
           this.$store.commit('set_modalLostShpss' , form)
@@ -365,14 +361,14 @@
           AxiosMethod.token = this.$cookies.get('adminToken')
           AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
           let data = await AxiosMethod.axios_get()
-          console.log('set_shps_s', item.id)
+          console.log('set_shps_s', item.sku.id)
           if (data) {
     
             const form = {
               dialog :true,
               object : data.data
             }
-            this.$store.commit('set_shps_s', item.id);
+            this.$store.commit('set_shps_s', item.sku.id);
             this.$store.commit('set_reportType' , 'wastage');
             this.$store.commit('set_modalLostShpss' , form)
   
@@ -383,22 +379,16 @@
        * sending data in save btn
        */
 
-       async submitShipmentsForm() {
+       async submitShipmentsForm(itemId) {
     this.loading = true;
     var formdata = new FormData();
     const AxiosMethod = new AxiosCall();
     AxiosMethod.end_point = 'package/shps/print/label';
-    if (Array.isArray(this.shipments)) {
-        
-    } else {
-        console.error("shipments is not an array");
-    }
-    this.shipments.forEach((shipment, index) => {
-        formdata.append('package_id', this.packageId);;
-        formdata.append(`[${index}][shps]`, shipment.shps);
-        formdata.append(`shipments[${index}][package_id]`, shipment.package_id);
-    });
-
+    AxiosMethod.form = formdata
+    
+    formdata.append('package_id', this.packageId);;
+    formdata.append('shps', this.shpsId);
+    formdata.append(`shipment_id`, this.shipmentId);
     AxiosMethod.store = this.$store;
     AxiosMethod.using_auth = true;
     AxiosMethod.token = this.$cookies.get('adminToken');
@@ -406,18 +396,14 @@
     try {
         let data = await AxiosMethod.axios_post();
         if (data) {
-            // Here, update the iconStates for the submitted items
-            this.shipments.forEach((shipment, index) => {
-                this.iconStates[index] = false; // Assuming false shows 'mdi-check'
-            });
-
-            openToast(this.$store, '', "success");
+            this.isSubmitted = true;
+            openToast(this.$store, 'با موفقیت ذخیره شد', "success");
+            this.submittedItemId = itemId;
+            this.loading = false; 
         }
     } catch (error) {
         console.error("Error submitting form:", error);
-    } finally {
-        this.loading = false;
-    }
+    } 
 },
 
          /**
