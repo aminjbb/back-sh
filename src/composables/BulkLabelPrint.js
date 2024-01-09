@@ -31,7 +31,9 @@ export default function setup(posts) {
         {name:'شناسه کالا' , show:true , value:'id', order: false},
         {name:'نام کالا' , show:true , value:'name', order: false},
         {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
+        {name:' شناسه محموله ' , show:true, value:'is_active', order: false},
         {name:'ذخیره ' , show:true, value:'is_active', order: false},
+      
     ]);
 
 
@@ -49,23 +51,30 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true;
         AxiosMethod.token = cookies.cookies.get('adminToken');
-         
+        
         AxiosMethod.end_point = packageId ? `package/shps/list/${packageId}` : `package/shps/list/`;
         
         try {
             let response = await AxiosMethod.axios_get();
     
-            loading.value = false;
-    
-            if (response && response.data) {
+            if (response && response.data && response.data.shps_list) {
+                response.data.shps_list.forEach(item => {
+                    this.$store.commit('set_shipmentData', {
+                        shipment_id: item.shipment_id,
+                        shps: item.shps,
+                        package_id: item.package_id
+                    });
+                });
+
                 shpsList.value = response.data; 
             } else {
                 shpsList.value = [];
             }
         } catch (error) {
             console.error("Error in API call:", error);
-            loading.value = false;
             return [];
+        } finally {
+            loading.value = false;
         }
     }
     async function getShpssDetailLost(item) {
@@ -86,26 +95,48 @@ export default function setup(posts) {
         }
       }
 
-    async function getShpss(query) {
-        loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
+      async function getShpss(query) {
+        loading.value = true;
+        let paramsQuery = null;
+        if (query) {
+            paramsQuery = filter.params_generator(query.query);
+        } else {
+            paramsQuery = filter.params_generator(route.query);
         }
-        else  paramsQuery = filter.params_generator(route.query)
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
+    
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken');
+        AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`;
+    
+        let data = await AxiosMethod.axios_get();
+        console.log("API Response:", data);
+        if (data && data.data) {
+            // Log the values
+            console.log("API Response:", data.data);
+            console.log("shipment_id:", data.data.shipment_id);
+            console.log("shps:", data.data.shps);
+            console.log("package_id:", data.data.package_id);
+    
+            // Commit the values to Vuex
+            this.$store.commit('setShipmentData', {
+                shipment_id: data.data.shipment_id,
+                shps: data.data.shps,
+                package_id: data.data.package_id
+            });
+    
+            // Continue with setting up your form
+            const form = {
+                dialog: true,
+                object: data.data
+            };
+            this.$store.commit('set_modalLostShpss', form);
         }
-        this.$store.commit('set_modalLostShpss' , form)
-      }
+    
+        loading.value = false;
     }
+    
+    
 
     function addPerPage(number){
         filter.page = 1

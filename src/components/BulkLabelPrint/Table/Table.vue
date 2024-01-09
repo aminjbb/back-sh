@@ -77,6 +77,19 @@
                             </template>
                         </span>
                     </div>
+                    <div
+                        v-if="header[3].show"
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.count">
+                                {{ item.shipment_id }}
+                            </template>
+                            <template v-else>
+                                نامعلوم
+                            </template>
+                        </span>
+                    </div>
                    
     
                     <div
@@ -85,10 +98,12 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 <div
-          class="seller__add-sku-btn d-flex justify-center align-center pointer"
-          @click="toggleIcon(index)">
-          <v-icon size="15" :class="{ 'icon-circle': !iconStates[index] }">{{ iconStates[index] ? 'mdi-plus' : 'mdi-check' }}</v-icon>
-      </div>
+    class="seller__add-sku-btn d-flex justify-center align-center pointer"
+    @click="submitShipmentsForm()">
+    <v-icon size="15" :class="{ 'icon-circle': !iconStates[index] }">
+        {{ iconStates[index] ? 'mdi-plus' : 'mdi-check' }}
+    </v-icon>
+</div>
             </div>
     
                  
@@ -262,6 +277,9 @@
                 filter : [],
                 reportType: null,
                 shps_s: null,
+                loading: false,
+                shipments: [],
+
                
   
              
@@ -269,6 +287,12 @@
         },
     
         computed: {
+
+            packageId() {
+      
+      return this.$store.getters['get_packageId']
+  },
+
             /**
              * Get each items table based of header length
              */
@@ -310,10 +334,7 @@
   
   
     
-            /**
-             * Get row index in table
-             * @param {*} index
-             */
+           
   
             /**
        * LostShpss modal
@@ -332,7 +353,7 @@
             dialog :true,
             object : data.data
           }
-          this.$store.commit('set_shps_s', item?.shps?.sku?.sku?.id);
+          this.$store.commit('set_shps_s',  item.id);
           this.$store.commit('set_reportType' , 'lost');
           this.$store.commit('set_modalLostShpss' , form)
         }
@@ -342,22 +363,67 @@
           const AxiosMethod = new AxiosCall()
           AxiosMethod.using_auth = true
           AxiosMethod.token = this.$cookies.get('adminToken')
-          AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
+          AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
           let data = await AxiosMethod.axios_get()
+          console.log('set_shps_s', item.id)
           if (data) {
     
             const form = {
               dialog :true,
               object : data.data
             }
-            this.$store.commit('set_shps_s', item?.shps?.sku?.sku?.id);
+            this.$store.commit('set_shps_s', item.id);
             this.$store.commit('set_reportType' , 'wastage');
-            this.$store.commit('set_reportType' , 'wastage')
+            this.$store.commit('set_modalLostShpss' , form)
   
           }
         },
   
-  
+    /**
+       * sending data in save btn
+       */
+
+       async submitShipmentsForm() {
+    this.loading = true;
+    var formdata = new FormData();
+    const AxiosMethod = new AxiosCall();
+    AxiosMethod.end_point = 'package/shps/print/label';
+    if (Array.isArray(this.shipments)) {
+        
+    } else {
+        console.error("shipments is not an array");
+    }
+    this.shipments.forEach((shipment, index) => {
+        formdata.append('package_id', this.packageId);;
+        formdata.append(`[${index}][shps]`, shipment.shps);
+        formdata.append(`shipments[${index}][package_id]`, shipment.package_id);
+    });
+
+    AxiosMethod.store = this.$store;
+    AxiosMethod.using_auth = true;
+    AxiosMethod.token = this.$cookies.get('adminToken');
+
+    try {
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+            // Here, update the iconStates for the submitted items
+            this.shipments.forEach((shipment, index) => {
+                this.iconStates[index] = false; // Assuming false shows 'mdi-check'
+            });
+
+            openToast(this.$store, '', "success");
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    } finally {
+        this.loading = false;
+    }
+},
+
+         /**
+             * Get row index in table
+             * @param {*} index
+             */
   
             rowIndexTable(index) {
                 let rowIndex = 0

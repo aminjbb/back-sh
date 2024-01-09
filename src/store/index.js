@@ -31,6 +31,11 @@ export default createStore({
         packageId: null,
         reportType: null,
         shps_s: null,
+        shipmentData: {
+            shipment_id: null,
+            shps: null,
+            package_id: null
+        },
         //seller modals
         orderLimitModal: {
             dialog: false,
@@ -151,6 +156,12 @@ export default createStore({
     },
 
     mutations: {
+
+        set_shipmentData(state, payload) {
+            state.shipmentData.shipment_id = payload.shipment_id;
+            state.shipmentData.shps = payload.shps;
+            state.shipmentData.package_id = payload.package_id;
+        },
         set_shps_s(state, shps_s) {
             state.shps_s = shps_s;
         },
@@ -330,6 +341,9 @@ export default createStore({
     actions: {},
 
     getters: {
+        get_shipmentData(state) {
+            return state.shipmentData;
+        },
         get_shps_s(state) {
             return state.shps_s;
         },
