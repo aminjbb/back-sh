@@ -59,11 +59,8 @@ export default function setup(posts) {
     
             if (response && response.data && response.data.shps_list) {
                 response.data.shps_list.forEach(item => {
-                    this.$store.commit('set_shipmentData', {
-                        shipment_id: item.shipment_id,
-                        shps: item.shps,
-                        package_id: item.package_id
-                    });
+                    this.$store.commit('set_shipmentId',  item.shipment_id);
+                    this.$store.commit('set_shpsId',  item.shps);
                 });
 
                 shpsList.value = response.data; 
