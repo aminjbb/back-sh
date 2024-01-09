@@ -212,8 +212,8 @@
                     />
                 </v-col>
                 <v-col cols="1"  v-if="createFromModel.attributes[i]">
-                  <AddAttributeValueModal 
-                    :values="items[i].values" skuType="updateFromSku"
+                  <AddAttributeValueModal
+                    :values="createFromModel.attributes[i].values" skuType="updateFromSku"
                     :attributeId="createFromModel.attributes[i].id"
                     :getAllAttributes="getAllAttributes"
                     :getAttributeValues="getAttributeValues"
@@ -1084,13 +1084,12 @@ export default {
   },
 
   watch: {
-    activeAddButton(val){
-      console.log(val , 'activeAddButton')
-    },
+
     attributes(val){
       if (localStorage.getItem('createFromModelStep1')){
         const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
         this.createFromModel = jsonForm
+        console.log(jsonForm.attributes)
         jsonForm.attributes.forEach((element, i) => {
           const attrobj = this.attributeList.find(el => el.id == element.id)
           this.attrNumbers.forEach((element, i) => {
