@@ -69,14 +69,15 @@
     </template>
     
     <script>
+     import {
+        openToast
+    } from "@/assets/js/functions";
     import BulkLabelPrint from "@/composables/BulkLabelPrint";
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
     import Table from "@/components/BulkLabelPrint/Table/Table.vue";
-    import {
-        convertDateToJalai
-    } from "@/assets/js/functions";
+    
     export default {
 
    
@@ -127,7 +128,6 @@
         },
     
         methods: {
-            convertDateToJalai,
 
             async sendData() {
             this.loading = true
@@ -139,14 +139,20 @@
             formdata.append('package_id', this.packageId);
             formdata.append('report_type', this.reportType);
             formdata.append('shps_s', this.shpsS);
-
+            
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
+      
             if (data) {
                 this.loading = false;
-                
+                openToast(
+                        this.$store,
+                        '',
+                        "success"
+                    );
+    
 
             } else {
                 this.loading = false
@@ -189,7 +195,7 @@
                 this.shpssDetailLostObject.forEach(item => {
                     const form = {
                         name: item?.shps?.sku?.sku?.label,
-                        id: item?.shps?.sku?.sku?.id
+                        id: item?.id
                         
                     }
                     shpss.push(form)
