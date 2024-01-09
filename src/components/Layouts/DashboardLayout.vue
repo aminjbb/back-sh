@@ -336,6 +336,7 @@ export default {
             ],
             orders: [
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
             ],
         }
     },

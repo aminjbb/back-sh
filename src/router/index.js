@@ -157,6 +157,7 @@ import PrintFactorView from '../views/Factor/PrintFactorView.vue'
 /* RetailShipment */
 import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
 import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
+import PrintShipmentView from "@/views/RetailShipment/PrintShipmentView.vue";
 
 /* Crossdock */
 import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
@@ -164,6 +165,8 @@ import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue"
 
 /* Vehicle */
 import VehicleListView from '../views/Vehicle/VehicleListView.vue'
+
+/* Processing shipment */
 import ProcessingShipmentIndexView from "@/views/ProcessingShipment/ProcessingShipmentIndexView.vue";
 import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/ProcessingShipmentShpsListView.vue";
 
@@ -200,22 +203,31 @@ import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
-import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
 import CargoPrintView from "@/views/Cargo/CargoPrintView.vue";
+
+
 import ShipmetDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
 import ShipmentDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
-
+import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
 
 /* Orders */
 import OrderListView from "@/views/Orders/OrderListView.vue";
 import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
-import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
+
+/* Warehouse orders */
+import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
 import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
 import WarehouseOrderSortingView from "@/views/WarehouseOrders/WarehouseOrderSortingView.vue";
 import WarehouseOrderFactorPrintView from "@/views/WarehouseOrders/WarehouseOrderFactorPrintView.vue";
-import PrintShipmentView from "@/views/RetailShipment/PrintShipmentView.vue";
+
+/* Returned orders */
+import ReturnedOrderListView from "@/views/ReturnedOrders/ReturnedOrderListView.vue";
+import ReviewReturnedOrderRequestView from "@/views/ReturnedOrders/ReviewReturnedOrderRequestView.vue";
+import DeliveryReceiptView from "@/views/ReturnedOrders/DeliveryReceiptView.vue";
+import AddConsignmentView from "@/views/Seller/Consigment/AddConsignmentView.vue";
+import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.vue";
 
 
 const router = createRouter({
@@ -731,23 +743,22 @@ const router = createRouter({
             name: 'ظرقیت ویژه'
           }
         },
-       
+
 
 
       ],
     },
     {
       path: '/driver-management',
-      meta:{
-        name:' انبار'
+      meta: {
+        name: ' انبار'
       },
-      children: [
-        {
-          path: 'index',  
+      children: [{
+          path: 'index',
           name: 'DriverManagementView',
           component: DriverManagementView,
-          meta:{
-            name:'مدیریت رانندگان'
+          meta: {
+            name: 'مدیریت رانندگان'
           }
         },
         {
@@ -766,7 +777,7 @@ const router = createRouter({
             name: ' ویرایش اطلاعات راننده '
           }
         },
-    ]
+      ]
     },
     {
       path: '/Supplier', // Supplier routes
@@ -861,7 +872,22 @@ const router = createRouter({
             name: 'اضافه کردن کالا به فروشنده'
           }
         },
-
+        {
+          path: ':sellerId/consignment/add/sku',
+          name: 'AddConsignmentView',
+          component: AddConsignmentView,
+          meta: {
+            name: 'اضافه کردن کالا به فروشنده'
+          }
+        },
+          {
+              path: 'consignment/index',
+              name: 'ConsignmentListView',
+              component: ConsignmentListView,
+              meta: {
+                  name: 'محموله های فروشنده'
+              }
+          },
         {
           path: 'sku/:sellerId/history/warehouse-inventory',
           name: 'WarehouseInventoryHistoryView',
@@ -1395,8 +1421,7 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'CargoListingView',
           component: CargoListingView,
@@ -1428,16 +1453,14 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
-          path: 'index',
-          name: 'CargoReceivingListView',
-          component: CargoReceivingListView,
-          meta: {
-            name: 'دریافت محموله'
-          }
-        },
-      ],
+      children: [{
+        path: 'index',
+        name: 'CargoReceivingListView',
+        component: CargoReceivingListView,
+        meta: {
+          name: 'دریافت محموله'
+        }
+      }, ],
     },
 
     {
@@ -1469,16 +1492,14 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PackagePlacementListView',
-          component: PackagePlacementListView,
-          meta: {
-            name: 'جایگذاری بسته'
-          }
-        },
-      ],
+      children: [{
+        path: 'index',
+        name: 'PackagePlacementListView',
+        component: PackagePlacementListView,
+        meta: {
+          name: 'جایگذاری بسته'
+        }
+      }, ],
     },
 
     {
@@ -1486,8 +1507,7 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'PackagePlacementScanView',
           component: PackagePlacementScanView,
@@ -1527,16 +1547,14 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
-          path: 'index',
-          name: 'WarehouseInventoryListView',
-          component: WarehouseInventoryListView,
-          meta: {
-            name: 'موجودی انبار'
-          }
-        },
-      ],
+      children: [{
+        path: 'index',
+        name: 'WarehouseInventoryListView',
+        component: WarehouseInventoryListView,
+        meta: {
+          name: 'موجودی انبار'
+        }
+      }, ],
     },
 
     {
@@ -1544,8 +1562,7 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'WasteAndLostListView',
           component: WasteAndLostListView,
@@ -1575,8 +1592,7 @@ const router = createRouter({
         meta: {
           name: ' پرینت گروهی برچسب '
         }
-      },
-    ],
+      }, ],
     },
     {
       path: '/order-packaging', // order packaging
@@ -1584,21 +1600,22 @@ const router = createRouter({
         name: 'انبار'
       },
       children: [{
-        path: 'index',
-        name: 'order-packaging',
-        component: OrderPackagingListView,
-        meta: {
-          name: ' بسته بندی سفارش ها '
+          path: 'index',
+          name: 'order-packaging',
+          component: OrderPackagingListView,
+          meta: {
+            name: ' بسته بندی سفارش ها '
+          }
+        },
+        {
+          path: 'detail-info',
+          name: 'detail-info',
+          component: OrderDetailView,
+          meta: {
+            name: ' بسته بندی سفارش ها'
+          }
         }
-      },
-      {
-        path: 'detail-info',
-        name: 'detail-info',
-        component: OrderDetailView,
-        meta: {
-          name: ' بسته بندی سفارش ها'
-        }
-      }],
+      ],
     },
     {
 
@@ -1606,8 +1623,7 @@ const router = createRouter({
       meta: {
         name: 'انبار'
       },
-      children: [
-         {
+      children: [{
           path: 'index',
           name: 'WarehouseOrderListView',
           component: WarehouseOrderListView,
@@ -1655,8 +1671,7 @@ const router = createRouter({
       meta: {
         name: 'سفارش ها'
       },
-      children: [
-        {
+      children: [{
           path: 'index',
           name: 'OrderList',
           component: OrderListView,
@@ -1670,6 +1685,37 @@ const router = createRouter({
           component: orderEditUser,
           meta: {
             name: 'لیست سفارش ها'
+          }
+        },
+      ],
+    },
+    {
+      path: '/returned-orders', // Order route
+      meta: {
+        name: 'سفارش ها'
+      },
+      children: [{
+          path: 'index',
+          name: 'ReturnedOrdersList',
+          component: ReturnedOrderListView,
+          meta: {
+            name: 'کالاهای مرجوعی'
+          }
+        },
+        {
+          path: 'request/:id',
+          name: 'ReviewReturnedOrderRequestView',
+          component: ReviewReturnedOrderRequestView,
+          meta: {
+            name: 'کالاهای مرجوعی'
+          }
+        },
+        {
+          path: 'receipt/:id',
+          name: 'DeliveryReceiptView',
+          component: DeliveryReceiptView,
+          meta: {
+            name: 'کالاهای مرجوعی'
           }
         },
       ],

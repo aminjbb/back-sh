@@ -97,7 +97,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `factor/crud/detail/${route.params.id}/${paramsQuery}`
+        AxiosMethod.end_point = `factor/crud/detail/${route.params.id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)

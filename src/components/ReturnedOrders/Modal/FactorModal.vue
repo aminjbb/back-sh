@@ -1,6 +1,6 @@
 <template>
 <div class="text-right">
-    <v-dialog v-model="orderFactorModal.dialog" width="1060">
+    <v-dialog v-model="returnedOrderFactorModal.dialog" width="1060">
         <v-card class="py-5 px-3">
             <div class="modal__content d--rtl py-3 d-flex justify-star align-center mb-3" style="padding-right:15%;padding-left:15%;">
                 <div class="d-flex justify-center align-center pa-2 mb-2 flex-grow-1">
@@ -114,8 +114,8 @@ import {
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import Orders from "@/composables/Orders";
-import FactorModalTable from '@/components/Orders/Table/FactorModalTable.vue'
+import ReturnedOrders from "@/composables/ReturnedOrders";
+import FactorModalTable from '@/components/ReturnedOrders/Table/FactorModalTable.vue'
 
 export default {
 
@@ -131,9 +131,9 @@ export default {
     },
 
     computed: {
-        orderFactorModal() {
+        returnedOrderFactorModal() {
             try {
-                return this.$store.getters['get_orderFactorModal']
+                return this.$store.getters['get_returnedOrderFactorModal']
             } catch (error) {
                 return ''
             }
@@ -143,7 +143,7 @@ export default {
     setup(props) {
         const {
             factorModalHeader,
-        } = Orders();
+        } = ReturnedOrders();
         return {
             factorModalHeader,
         };
@@ -155,7 +155,7 @@ export default {
 
     methods: {
         close() {
-            closeModal(this.$store, 'set_orderFactorModal')
+            closeModal(this.$store, 'set_returnedOrderFactorModal')
         },
 
         openAccordion(id) {
@@ -182,7 +182,7 @@ export default {
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/get/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/get/${this.returnedOrderFactorModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -254,7 +254,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.orderFactorModal.id}`
+            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.returnedOrderFactorModal.id}`
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store
             let data = await AxiosMethod.axios_get();
@@ -271,7 +271,7 @@ export default {
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/payment/detail/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/payment/detail/${this.returnedOrderFactorModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -319,7 +319,7 @@ export default {
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.orderFactorModal.id}`;
+            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.returnedOrderFactorModal.id}`;
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store;
             let data = await AxiosMethod.axios_get();
@@ -367,7 +367,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.orderFactorModal.id}`
+            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.returnedOrderFactorModal.id}`
             AxiosMethod.form = formdata;
             AxiosMethod.store = this.$store
             let data = await AxiosMethod.axios_get();
@@ -380,7 +380,7 @@ export default {
 
     created() {
         this.$watch(
-            () => this.orderFactorModal.dialog,
+            () => this.returnedOrderFactorModal.dialog,
             (dialogState) => {
                 if (dialogState) {
                     this.getUserDetails();

@@ -66,7 +66,7 @@
                             {{ item.sku }}
                         </template>
                         <template v-else>
-                             -
+                            -
                         </template>
                     </span>
                 </div>
@@ -81,7 +81,7 @@
                             {{ item.shps_count }}
                         </template>
                         <template v-else>
-                             -
+                            -
                         </template>
                     </span>
                 </div>
@@ -120,11 +120,11 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.sum_buying_price">
-                            {{ item.sum_buying_price }}
+                        <template v-if="item.sum_buying_price || item.sum_buying_price == 0">
+                            {{ splitChar(item.sum_buying_price) }}
                         </template>
                         <template v-else>
-                             -
+                            -
                         </template>
                     </span>
                 </div>
@@ -135,11 +135,11 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.sum_customer_price">
-                            {{ item.sum_customer_price }}
+                        <template v-if="item.sum_customer_price || item.sum_customer_price == 0">
+                            {{ splitChar(item.sum_customer_price) }}
                         </template>
                         <template v-else>
-                             -
+                            -
                         </template>
                     </span>
                 </div>
@@ -150,11 +150,11 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.profit">
+                        <template v-if="item.profit || item.profit == 0">
                             {{ item.profit }}
                         </template>
                         <template v-else>
-                             -
+                            -
                         </template>
                     </span>
                 </div>
@@ -194,7 +194,8 @@ import {
 } from '@/assets/js/axios_call.js'
 import {
     openToast,
-    isOdd
+    isOdd,
+    splitChar
 } from "@/assets/js/functions";
 
 export default {
@@ -280,51 +281,36 @@ export default {
     },
 
     watch: {
-         //TODO : Un commnet this part after remove mocket data in `PricingList.vue`
-
-        /* items(val) {
+        items(val) {
             this.form = []
             val.forEach(element => {
                 const form = {
-                    customer_price: element.customer_price,
-                    buying_price: element.buying_price,
+                    customer_price: element.customer_price ? element.customer_price : '',
+                    buying_price: element.buying_price ? element.buying_price : '',
                     loading: false,
                     save: false,
                 }
                 this.form.push(form)
             });
-        } */
-    },
-
-    mounted() {
-        //TODO : remove this after remove mocket data in `PricingList.vue`
-        this.form = []
-        this.items.forEach(element => {
-            console.log(element);
-            const form = {
-                customer_price: element.customer_price,
-                buying_price: element.buying_price,
-                loading: false,
-                save: false,
-            }
-            this.form.push(form)
-            console.log(this.form)
-        });
+        }
     },
 
     methods: {
+        splitChar,
+
         async updatePricing(index, item) {
             this.form[index].loading = true
-            console.log(this.form[index])
             const formData = new FormData()
             formData.append('customer_price', this.form[index].customer_price)
             formData.append('buying_price', this.form[index].buying_price)
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.form = formData
+            AxiosMethod.store = this.$store;
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `factor/crud/update/shp/price/${item.id}`
-            let data = await AxiosMethod.axios_post()
+            AxiosMethod.end_point = `factor/crud/update/shp/price/${item.shps}`
+            let data = await AxiosMethod.axios_post();
+
             if (data) {
                 this.form[index].loading = false;
                 this.form[index].save = true;
@@ -332,10 +318,11 @@ export default {
 
                 if (this.form.length === this.items.length) {
                     const showVariable = this.form.every(obj => obj.save === true);
-                    if (showVariable === true) {
-                        this.updateList('true');
+                    if (showVariable) {
+                        this.showSave('true');
                     }
                 }
+                this.updateList('true');
             }
         },
 
@@ -345,6 +332,14 @@ export default {
          */
         updateList(status) {
             this.$emit('updateList', status);
+        },
+
+        /**
+         * showSave
+         * @param {*} status 
+         */
+        showSave(status) {
+            this.$emit('showSave', status);
         },
 
         /**
