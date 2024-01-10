@@ -11,27 +11,22 @@
                 <div
                     v-if="head.show"
                     @click="createOrdering(head.value, head.order)"
-                    class="c-table__header__item t12500 text-black"
-                    :class="head.order === true ? 'pointer' : ''"
+                    class="text-center c-table__header__item t12500 text-black"
+                    :class="head.order == true ? 'pointer' : ''"
                     :key="index"
-                    style="padding: 20px 5px !important"
-                    :style="[
-                        { width: itemsWidth, flex: `0 0 ${itemsWidth}` },
-                        index === 0  ? { width: '4.33333%', flex: '0 0 4.33333%' } : {},
-                        index === 7 ? { width: '15.33333%', flex: '0 0 15.33333%' } : {},
-                    ]">
-                    <v-icon v-if="head.order === true" :icon="getIcon(head.value)" />
-                    {{ head.name }}
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
+                    {{head.name}}
                 </div>
             </template>
     
-            <div class="c-table__header__item t12500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
-                وضیعت
+            <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                وضعیت    
             </div>
         </header>
     
         <div class="stretch-table">
-            <div v-if="items && items.length > 0/*  && !loading */" class="c-table__contents">
+            <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
                 <div
                     v-for="(item , index) in items"
                     :key="index"
@@ -39,154 +34,75 @@
                     class="d-flex justify-between c-table__contents__row">
                     <div
                         v-if="header[0].show"
-                        class="c-table__contents__item"
-                        style="width: 4.33333%; flex: 0 0 4.33333%">
-                        <span class="t13400 text-gray500 py-5 number-font">
+                        class="c-table__contents__item justify-center"
+                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
-                            
                         </span>
                     </div>
     
                     <div
                         v-if="item.id && header[1].show"
-                        class="c-table__contents__item"
+                        class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5 number-font">
+                        <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.id }}
                         </span>
-                    </div>
-    
+                    </div>    
                     <div
                         v-if="header[2].show"
-                        class="c-table__contents__item"
+                        class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5">
-                            <template v-if="item.type">
-                                {{ item.type }}
+                        <span class="t14300 text-gray500 py-5">
+                            <template v-if="item.shps.sku.label">
+                                {{ item.shps.sku.label }}  
                             </template>
                             <template v-else>
-                                -
+                                نامعلوم
                             </template>
                         </span>
                     </div>
     
                     <div
                         v-if="header[3].show"
-                        class="c-table__contents__item"
+                        class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5 number-font">
-                            <template v-if="item.shipment_type">
-                                {{item.shipment_type}}
+                        <span class="t14300 text-gray500 py-5 number-font">
+                            <template v-if="item.shps.sku.id">
+                                {{ item.shps.sku.id }}
                             </template>
                             <template v-else>
-                                -
+                                نامعلوم
                             </template>
                         </span>
                     </div>
-    
+                   
+
                     <div
-                        v-if="header[4].show"
-                        class="c-table__contents__item"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5">
-                            <template v-if="item.seller_name">
-                                {{ item.seller_name }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
+                v-if=" header[4].show "
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              
+                {{ item.count }}    
+            
+            </div>
     
-                    <div
-                        v-if="header[5].show"
-                        class="c-table__contents__item"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5">
-                            <template v-if="item.supplier">
-                                {{ item.supplier }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
+            <div
+                v-if=" header[4].show "
+                class="c-table__contents__item justify-center"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              
+                <v-text-field
+                ></v-text-field>  
+            
+            </div>
     
-                    <div
-                        v-if="header[6].show"
-                        class="c-table__contents__item"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5 number-font">
-                            <template v-if="item.license">
-                                {{ item.license }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
+                   
     
-                    <div
-                        v-if="header[7].show"
-                        class="c-table__contents__item"
-                        style="width: 15.33333%; flex: 0 0 15.33333%">
-                        <span class="t13400 text-gray500 py-5 number-font">
-                            <template v-if="item.shps_label">
-                                {{ item.shps_label }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
-    
-                    <div
-                        v-if="header[8].show"
-                        class="c-table__contents__item"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5">
-                            <template v-if="item.report_type">
-                                {{ item.report_type }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
-    
-                    <div
-                        v-if="header[9].show"
-                        class="c-table__contents__item"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t13400 text-gray500 py-5 number-font">
-                            <template v-if="item.created_at_fa">
-                                {{ item.created_at_fa }}
-                            </template>
-                            <template v-else>
-                                -
-                            </template>
-                        </span>
-                    </div>
-    
-                    <div style="width: 5.33333%; flex: 0 0 5.33333%" class="c-table__contents__item">
-                        <v-menu :location="location">
-                            <template v-slot:activator="{ props }">
-                                <v-icon v-bind="props" class="text-gray500">
-                                    mdi-dots-vertical
-                                </v-icon>
-                            </template>
-    
-                            <v-list class="c-table__more-options">
-                                <v-list-item-title>
-                                    <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
-                                        <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                        <span class="mr-1 text-grey-darken-1 t13400">
-                                            حذف
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list>
-                        </v-menu>
+                    <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+                        <div  class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
+                    <v-icon>mdi-plus</v-icon>
+                     </div>
                     </div>
                 </div>
             </div>
@@ -198,19 +114,35 @@
                 </div>
             </div>
         </div>
+       
+
+     
     </div>
     </template>
     
     <script>
+ 
+  
     import {
-        PanelFilter
-    } from "@/assets/js/filter"
+        AxiosCall
+    } from '@/assets/js/axios_call.js'
+    import {
+        SupplierPanelFilter
+    } from "@/assets/js/filter_supplier"
     
     import {
+        openToast,
         openConfirm,
         isOdd
     } from "@/assets/js/functions";
+    import {
+        openModal
+    } from "@/assets/js/functions_seller";
     export default {
+        components: {
+       
+  
+        },
     
         props: {
             /**
@@ -221,7 +153,10 @@
             /**
              * List of items
              */
-            items: [],
+             items: {
+      type: Array,
+      default: () => []
+         },
     
             /**
              * Model
@@ -268,13 +203,7 @@
                 default: false
             },
     
-            /**
-             * Edit endpoint for change active
-             */
-            activePath: {
-                type: String,
-                default: ''
-            },
+          
     
         },
     
@@ -284,12 +213,18 @@
                 ordering: {},
                 per_page: '25',
                 filter: [],
-                panelFilter: new PanelFilter(),
+                active: [],
+                panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
+
+             
             }
         },
     
         computed: {
+
+          
+
             /**
              * Get each items table based of header length
              */
@@ -307,13 +242,43 @@
                 return 'auto';
             },
         },
-    
+        watch: {
+        
+  },
         methods: {
+            /**
+             * Open Basic Discount modal
+             * @param {*} id
+             */
+            /**
+             * Open Basic Discount modal
+             * translation
+             */
+             translateType(type) {
+                const translations = {
+                    'consignment': 'انبارش',
+                    'in_review': 'در حال بررسی'
+                };
+                return translations[type] || type;
+            },
+          
+           
+          
+  
     
             /**
              * Get row index in table
              * @param {*} index
              */
+  
+            /**
+       * LostShpss modal
+       */
+    
+  
+  
+  
+  
             rowIndexTable(index) {
                 let rowIndex = 0
                 if (this.page === 1) {
@@ -358,11 +323,6 @@
                 return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
             },
     
-            returnTrueOrFalse(data) {
-                if (data === 1) return true
-                else return false
-            },
-    
             /**
              * Return odd index
              * @param {*} index
@@ -376,15 +336,10 @@
              * @param {*} id
              */
             removeItem(id) {
-                openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", this.deletePath + id, true);
-            },
-    
-            /**
-             * Update list
-             * @param {*} status 
-             */
-            updateList(status) {
-                this.$emit('updateList', status);
+                console.log("Removing item with ID:", id);
+                    console.log("Delete path:", this.deletePath + id);
+  
+                    openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
         },
     }

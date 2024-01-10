@@ -33,10 +33,16 @@ export default createStore({
         shps_s: null,
         shipmentId:null,
         shpsId:null,
+        sendingMethod:null,
         //seller modals
         orderLimitModal: {
             dialog: false,
             id: ''
+        },
+        modalPrintOrder: {
+            dialog: false,
+            id: ''
+
         },
         
         marketingDiscountModal: {
@@ -162,6 +168,10 @@ export default createStore({
 
     mutations: {
 
+        set_sendingMethod(state, sendingMethod){
+            state.sendingMethod = sendingMethod
+        },
+        
         set_shpsId(state, shpsId) {
             state.shpsId = shpsId;
         },
@@ -179,6 +189,10 @@ export default createStore({
 
         set_packageId(state, packageId) {
             state.packageId = packageId;
+        },
+        set_modalPrintOrder(state, form){
+            state.modalPrintOrder.dialog = form.dialog
+            state.modalPrintOrder.object = form.object
         },
         set_warningTolerance(state, form){
             state.warningTolerance.dialog = form.dialog
@@ -357,6 +371,9 @@ export default createStore({
     actions: {},
 
     getters: {
+        get_sendingMethod(state){
+           return state.sendingMethod 
+        },
         get_shpsId(state) {
             return state.shpsId;
         },
@@ -375,6 +392,14 @@ export default createStore({
         get_packageId(state) {
             return state.packageId;
         },
+        get_modalPrintOrder(state){
+            return  state.modalPrintOrder.dialog
+ 
+         },
+         get_modalPrintOrderObject(state){
+            return   state.modalPrintOrder.object
+ 
+         },
 
         get_warningTolerance(state){
            return  state.warningTolerance.dialog

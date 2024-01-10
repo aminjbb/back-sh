@@ -55,8 +55,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.status">
-                                {{ item.status }}
+                            <template v-if="item.user.first_name && item.user.last_name">
+                                {{ item.user.first_name }}  {{ item.user.last_name }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -69,8 +69,8 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.identification_code">
-                                {{ item.identification_code }}
+                            <template v-if="item.payment_method">
+                                {{ item.payment_method }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -84,8 +84,9 @@
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
-                تهران/تهران          
-              </div>
+                {{ item.state.label }}   /     {{ item.city.label }}
+            
+            </div>
     
                  
     
@@ -134,14 +135,13 @@
             </div>
         </div>
        
-        <ModalDamageReport/>
-       <ModalLostReport/>
+
+     
     </div>
     </template>
     
     <script>
-    import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
-    import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+ 
   
     import {
         AxiosCall
@@ -160,8 +160,7 @@
     } from "@/assets/js/functions_seller";
     export default {
         components: {
-          ModalLostReport,
-          ModalDamageReport
+       
   
         },
     
@@ -237,7 +236,7 @@
                 active: [],
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
-                iconStates: this.items.map(() => true), 
+
              
             }
         },
@@ -261,23 +260,26 @@
             },
         },
         watch: {
-          items(newItems) {
-          this.iconStates = newItems.map(() => true);
-      },
+        
   },
         methods: {
             /**
              * Open Basic Discount modal
              * @param {*} id
              */
-           
+            /**
+             * Open Basic Discount modal
+             * translation
+             */
+             translateType(type) {
+                const translations = {
+                    'consignment': 'انبارش',
+                    'in_review': 'در حال بررسی'
+                };
+                return translations[type] || type;
+            },
           
-             toggleIcon(index) {
-       
-                  let iconStatesCopy = [...this.iconStates];
-                  iconStatesCopy[index] = !iconStatesCopy[index];
-                  this.iconStates = iconStatesCopy;
-      },
+           
           
   
     
@@ -289,35 +291,9 @@
             /**
        * LostShpss modal
        */
-      async getShpssDetail(item) {
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `package/shps/list/${item.id}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          const form = {
-            dialog :true,
-            object : data.data
-          }
-          this.$store.commit('set_modalLostShpss' , form)
-        }
-      },
+    
   
-      async getShpssDetailLost(item) {
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `package/shps/list/${item.id}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          const form = {
-            dialog :true,
-            object : data.data
-          }
-          this.$store.commit('set_modalDamageShpss' , form)
-        }
-      },
+  
   
   
             rowIndexTable(index) {
@@ -379,7 +355,6 @@
             removeItem(id) {
                 console.log("Removing item with ID:", id);
                     console.log("Delete path:", this.deletePath + id);
-                    // openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
   
                     openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
