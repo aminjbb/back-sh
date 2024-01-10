@@ -151,51 +151,53 @@ export default {
      * delete cookies form and form step 1
      */
     deleteForms() {
-      const nullForm = {
-        brands: null,
-        colors: null,
-        numbers: null,
-        attributes: [],
-        attributesValue: [],
-        variety: [],
-        unit: [],
-        height: {},
-        width: {},
-        length: {},
-        weight: {},
-        volume: {},
-        operators:  {
-          label: 'هیچکدام',
-          name: 'none',
-        },
-        newOperator: '',
-      }
-      const badgeList = [
-        {
-          name: 'product_name',
-          label: 'نام محصول',
-          id: 'id11',
-        }
-      ]
-      const maketItem = {
-        title: '',
-        attr_id: '',
-        values: '',
-      }
-      this.$refs.skuForm1.createFromModel = nullForm
-      this.$refs.skuForm1.badgeList = badgeList
-      this.$refs.skuForm1.unitNumbersList = []
-      this.$refs.skuForm1.number = 1
-      this.$refs.skuForm1.attrNumbers = ["attr1"]
-      this.$refs.skuForm1.items = []
-      this.$refs.skuForm1.items.push(maketItem)
-      this.$refs.skuForm1.skuGroupDetail = []
+      // const nullForm = {
+      //   productSelected:null,
+      //   brands: null,
+      //   colors: [],
+      //   numbers: null,
+      //   attributes: [],
+      //   attributesValue: [],
+      //   variety: [false],
+      //   unit: [],
+      //   height: {},
+      //   width: {},
+      //   length: {},
+      //   weight: {},
+      //   volume: {},
+      //   operators: {
+      //     label: 'هیچکدام',
+      //     name: 'none',
+      //   },
+      //   newOperator: '',
+      // }
+      // const badgeList = [
+      //   {
+      //     name: 'product_name',
+      //     label: 'نام محصول',
+      //     id: 'id11',
+      //   }
+      // ]
+      // const maketItem = {
+      //   title: '',
+      //   attr_id: '',
+      //   values: '',
+      // }
+      // this.$refs.skuForm1.createFromModel = nullForm
+      // this.$refs.skuForm1.badgeList = badgeList
+      // this.$refs.skuForm1.unitNumbersList = []
+      // this.$refs.skuForm1.number = "1"
+      // this.$refs.skuForm1.attrNumbers = ["attr1"]
+      // this.$refs.skuForm1.items = []
+      // this.$refs.skuForm1.items.push(maketItem)
+      // this.$refs.skuForm1.skuGroupDetail = []
       localStorage.removeItem('createFromModelStep1')
       this.$cookies.remove('createFromModelStep2')
       this.$cookies.remove('createProductStep')
       this.$cookies.remove('attributesNumber')
       localStorage.removeItem('skuObject')
       localStorage.removeItem('skuGroupDetail')
+      location.reload();
     },
 
     /**
@@ -301,8 +303,8 @@ export default {
       let skGroupVolumeIndex = 0
       let skGroupColorIndex = 0
       let productId = null
-      if (localStorage.getItem('skuProductId')){
-        productId =  localStorage.getItem('skuProductId')
+      if (step1Form.productSelected){
+        productId =  step1Form.productSelected.value
       }
       else {
         productId =   this.$route.params.id

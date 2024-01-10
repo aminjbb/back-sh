@@ -21,7 +21,7 @@
 
                     <v-autocomplete
                         :items="productList"
-                        v-model="productSelected"
+                        v-model="createFromModel.productSelected"
                         :disabled="productDisabled"
                         return-object
                         clearable
@@ -187,7 +187,6 @@
                     </v-chip>
                 </v-col>
             </v-row>
-
             <v-row
                 v-for="(atts, i) in attrNumbers"
                 :key="i"
@@ -213,8 +212,8 @@
                     />
                 </v-col>
                 <v-col cols="1"  v-if="createFromModel.attributes[i]">
-                  <AddAttributeValueModal 
-                    :values="items[i].values" skuType="updateFromSku"
+                  <AddAttributeValueModal
+                    :values="createFromModel.attributes[i].values" skuType="updateFromSku"
                     :attributeId="createFromModel.attributes[i].id"
                     :getAllAttributes="getAllAttributes"
                     :getAttributeValues="getAttributeValues"
@@ -292,9 +291,8 @@
                 </v-btn>
               </v-col>
             </v-row>
+            <v-btn
 
-            <v-btn 
-                :disabled="!activeAddButton"
                 variant="text"
                 icon="mdi-plus"
                 @click="addNewRow"
@@ -489,6 +487,7 @@ export default {
     },
 
     createFromModel: {
+        productSelected:null,
         brands: null,
         colors: [],
         numbers: null,
@@ -734,20 +733,21 @@ export default {
       }
     },
     searchSkuGroups(){
-      this.getProductAttributes(this.productSelected.value)
+      this.getProductAttributes(this.createFromModel.productSelected.value)
       this.skuGroupSelected = {
         title :'هیچ کدام',
         value : 'none'
       }
-      if (this.productSelected !== null){
-        localStorage.setItem('skuProductId' , this.productSelected.value)
-        this.getSkuGroups(this.productSelected.value)
+      if (this.createFromModel.productSelected !== null){
+        localStorage.setItem('skuProductId' , this.createFromModel.productSelected.value)
+        this.getSkuGroups(this.createFromModel.productSelected.value)
       }
       else {
         localStorage.removeItem('skuProductId')
         this.skuGroups = []
         this.skuGroupDetail = ''
       }
+      this.saveCreateFromModel()
     },
     deleteForms() {
       const nullForm = {
@@ -802,7 +802,7 @@ export default {
       // TODO: Add find value request
       if (isnul) this.createFromModel.attributesValue[index] = null;
 
-      this.activeAddButton = false;
+      // this.activeAddButton = false;
       const newItem = {
         title: event.title,
         attr_id: event.id,
@@ -821,11 +821,11 @@ export default {
      * @param {string | number } index
      */
     checkActiveAddButton(index) {
-
       if (this.items && this.items[index] && this.items[index].title !== '' && this.createFromModel.attributesValue[index] !== null && this.createFromModel.attributesValue[index].length) {
         this.activeAddButton = true;
       } else {
         this.activeAddButton = false;
+
       }
       this.saveCreateFromModel()
     },
@@ -1005,30 +1005,19 @@ export default {
             jsonAttributesNumber = this.$cookies.get('attributesNumber')
             this.attrNumbers = JSON.parse(jsonAttributesNumber)
           }
-
-            const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
-
+          const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
           this.createFromModel = jsonForm
-          setTimeout(()=>{
-            jsonForm.attributes.forEach((element, i) => {
-              const attrobj = this.attributeList.find(el => el.id == element.id)
-              this.attrNumbers.forEach((element, i) => {
-                this.getAttributeValues(attrobj, i);
-              });
-            });
-          } , 2000)
-
-          for (let i = 0; i < jsonForm.attributes.length; i++) {
-
-
-            if (this.createFromModel.attributesValue[i] && !this.createFromModel.attributesValue[i].length) {
-              this.activeAddButton = false;
-              break;
-            } else {
-              this.activeAddButton = true;
-            }
-            this.addAttrBadge(`${jsonForm.attributes[i].title}`, `*${jsonForm.attributes[i].id}*attribute`, i, 'attribute')
-          }
+          this.searchSkuGroups()
+          // setTimeout(()=>{
+          //   jsonForm.attributes.forEach((element, i) => {
+          //     const attrobj = this.attributeList.find(el => el.id == element.id)
+          //     console.log(element)
+          //     this.attrNumbers.forEach((element, i) => {
+          //       this.getAttributeValues(attrobj, i);
+          //     });
+          //   });
+          //   this.checkActiveAddButton()
+          // } , 5000)
 
 
           jsonForm.unit.forEach(element => {
@@ -1038,6 +1027,7 @@ export default {
           // const item = this.unitNumbersModel + ' ' + this.unitName;
           // this.unitNumbersList.push(item);
           this.setBadge()
+
         }
 
       }, 2000);
@@ -1095,6 +1085,21 @@ export default {
 
   watch: {
 
+    attributes(val){
+      if (localStorage.getItem('createFromModelStep1')){
+        const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
+        this.createFromModel = jsonForm
+        console.log(jsonForm.attributes)
+        jsonForm.attributes.forEach((element, i) => {
+          const attrobj = this.attributeList.find(el => el.id == element.id)
+          this.attrNumbers.forEach((element, i) => {
+            this.getAttributeValues(attrobj, i);
+          });
+        });
+        this.checkActiveAddButton(this.attrNumbers.length-1)
+      }
+
+    },
     /**
      * after get product set sku groups
      * @param {*} skuGroup
