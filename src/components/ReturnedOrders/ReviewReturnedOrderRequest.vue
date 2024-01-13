@@ -1,30 +1,22 @@
-<template lang="">
+<template>
 <section class="review-order flex-column d-flex h-100">
-    <Stepper
-        :steps="steps"
-        :changeStep="changeStep"
-        :step="step" />
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
         <h3 class="t14400 create-product__header">اطلاعات درخواست مرجوعی</h3>
-
         <v-divider color="grey" />
+        <ReviewRequestStep1 :content="content" />
 
-        <template v-if="step === 1">
-            <ReviewRequestStep1 :content="content" />
-        </template>
+<!--        <template v-else-if="step === 2 && status==='x'">-->
+<!--            <div style="padding:20px 10% 80px">-->
+<!--                <h2 class="t12300 text-grey mb-3">دلیل رد مرجوعی <span class="text-red">*</span></h2>-->
+<!--                <v-textarea variant="outlined" v-model="rejectModel" />-->
+<!--            </div>-->
+<!--        </template>-->
 
-        <template v-else-if="step === 2 && status==='x'">
-            <div style="padding:20px 10% 80px">
-                <h2 class="t12300 text-grey mb-3">دلیل رد مرجوعی <span class="text-red">*</span></h2>
-                <v-textarea variant="outlined" v-model="rejectModel" />
-            </div>
-        </template>
+<!--        <template v-else-if="step === 2 && status==='y'">-->
+<!--            <returnedShpsTable :items="returnedShpsDetails" :header="returnedShpsModalHeader" />-->
+<!--        </template>-->
 
-        <template v-else-if="step === 2 && status==='y'">
-            <returnedShpsTable :items="returnedShpsDetails" :header="returnedShpsModalHeader" />
-        </template>
-
-        <footer class="create-product__actions ">
+        <footer class="create-warehouse__actions ">
             <v-row justify="space-between" class="px-8 pt-8">
                 <div>
                     <template v-if="step == 1">
@@ -95,6 +87,7 @@ import returnedShpsTable from '@/components/ReturnedOrders/Table/returnedShpsMod
 export default {
 
     data: () => ({
+      content:null,
         step: 1,
         loading: false,
         steps: [
