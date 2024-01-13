@@ -59,15 +59,13 @@
           </div>
           <div>
             <span class="t12500 text-gray600">
-              {{shps.sku.label}}
+              {{shps?.shps?.sku.label}}
             </span>
           </div>
           <div class="px-5">
             <div><span>تعداد</span></div>
             <div>
-              <v-text-field type="number" variant="outlined">
-
-              </v-text-field>
+              <v-text-field v-model="shpsList[index].count" type="number" variant="outlined"></v-text-field>
             </div>
           </div>
         </v-card>
@@ -92,6 +90,7 @@
             variant="outlined"
             prepend-inner-icon-cb="mdi-map-marker"
             rounded="lg"
+            v-model="user"
             :items="userList"
             item-title="name"
             item-value="value"
@@ -185,17 +184,22 @@
       <v-divider></v-divider>
       <v-col cols="8">
         <v-radio-group
-            v-model="shipment"
+            v-model="sendingMethod"
             inline
         >
           <v-radio
               label="پست"
-              value="radio-1"
+              value="post"
               class="mx-2"
           ></v-radio>
           <v-radio
               label="نفیس اکپرس"
-              value="radio-2"
+              value="nafis"
+              class="mx-2"
+          ></v-radio>
+          <v-radio
+              label="تیپاکس"
+              value="tipax"
               class="mx-2"
           ></v-radio>
         </v-radio-group>
@@ -209,15 +213,20 @@
 <script>
 
 import {AxiosCall} from "@/assets/js/axios_call";
+import User from '@/composables/User'
 export default {
-
+  setup(){
+    const {  getUserAddress , userAddress } = new User()
+    return {  getUserAddress , userAddress }
+  },
   data() {
     return {
-      shipment:null,
+      sendingMethod:null,
       address:null,
       userSearchList:[],
       skuSearchList:[],
       shpsList:[],
+      user:null,
       form: {
         name: '',
         type: [],
@@ -264,9 +273,10 @@ export default {
     async assignSku(shps) {
       const form = {
         shps : shps,
+        count:1
       }
 
-      this.shpsList.push(shps)
+      this.shpsList.push(form)
 
     },
   },
@@ -303,7 +313,9 @@ export default {
     }
   },
   watch: {
-
+    user(val){
+      this.getUserAddress(val.id)
+    }
   },
 
 }
