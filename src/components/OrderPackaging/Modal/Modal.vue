@@ -1,6 +1,6 @@
 <template>
     <div class="text-right ">
-        <v-dialog v-model="dialog" width="600"  >
+        <v-dialog v-model="dialog" width="700"  >
             <v-card class="">
                 <v-row
                     justify="space-between"
@@ -13,45 +13,68 @@
                     </v-col>
     
                     <v-col cols="7" class="t16400 ">
-                        ثبت مفقودی
+                        پرینت برچسب سفارش
                     </v-col>
                 </v-row>
                 <v-divider class="center-divider"/>
                 <div class=" px-5">
-                <v-row justify="center">
-                    <v-col cols="12" md="6">
-                        <div justify="start" class="text-center mb-3">
-                            <span class="t12400 color-grey ">
-                                    سریال کالا 
-                                    <span class="text-red">*</span>
-                                </span>
-                        </div>
+                <div >
+                    <div class=" mt-10 d-flex justify-center " >
+                        
                     
-                            <v-autocomplete
-                                :items="sphssList"
-                                density="compact"
-                                variant="outlined"
-                                item-title="name"
-                                item-value="id"
-                                single-line
-                               
-                              
-                                class="mx-auto" />
+                        <div class="border-nested-modal">    
+                    <div>
+                        <div class="d-flex justify-between">
+                            <span>image</span>
+                            <span>وزن بسته</span>
+                            <span>فرستنده</span>
+                        </div>
+                    </div>
+                    <div> 
+                        <span>کد پستی</span>    
+                    </div>
+                    <div class="d-flex justify-between"> 
+                        <span>گیرنده</span>
+                        <span>شماره تماس</span>
+                    </div>
+                    <div class="d-flex justify-end">
+                        <span>:ادرس</span>
+                    </div>
+                                        
+                    <div class="main-body-modal">
+                        <div class="d-flex justify-end">
+                            <span>:ادرس</span>
+                        </div>
+                        <div class="d-flex justify-between">
+                            <span>:کد پستی</span>
+                            <span>:شماره فاکتور</span>
+                        </div>
+                        
+                    </div>    
+                    <div class="d-flex justify-center">
+                            image
+                        </div>                       
+                </div>
                   
-                        </v-col>
-                    </v-row>
+                     </div>
+                    </div>
                     <v-row class="justify-between my-2 mx-2">
     
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
-                                @click="sendData()"
-                                height="40"
+                               
+                                height="40"                             
                                 rounded
                                 variant="flat"
-                                color="primary500"
-                                class="px-5 mt-1">
-                                تایید
-                            </v-btn>
+                                class="px-5 mt-1 border ">
+                                <template v-slot:prepend>
+                                <v-icon>mdi-printer-outline</v-icon>
+                                </template>
+                                پرینت برچسب
+                                 </v-btn>
+                            <span>
+                                
+                            </span>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-end mx-10">
                             <btn
@@ -72,11 +95,12 @@
      import {
         openToast
     } from "@/assets/js/functions";
-    import BulkLabelPrint from "@/composables/BulkLabelPrint";
+    import OrderPackaging from "@/composables/OrderPackaging";
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
     import Table from "@/components/BulkLabelPrint/Table/Table.vue";
+    
     
     export default {
 
@@ -109,7 +133,7 @@
                 headerShps,
                 getShpssDetailLost,
                 shpssDetailLost
-            } = BulkLabelPrint();
+            } = OrderPackaging();
     
             return {
                 getShpssDetailLost,
@@ -129,35 +153,7 @@
     
         methods: {
 
-            async sendData() {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'report/crud/create'
-            AxiosMethod.form = formdata
-
-            formdata.append('package_id', this.packageId);
-            formdata.append('report_type', this.reportType);
-            formdata.append('shps_s', this.shpsS);
-            
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-      
-            if (data) {
-                this.loading = false;
-                openToast(
-                        this.$store,
-                        '',
-                        "success"
-                    );
-    
-
-            } else {
-                this.loading = false
-            }
-        },
+       
 
     
             close() {
@@ -173,11 +169,7 @@
                     if (this.$refs.BlogForm.valid) this.createBlog()
                 }, 200)
             },
-           
-           
-    
 
-    
     
         },
         watch: {
@@ -205,16 +197,7 @@
                 return  []
             }
         },
-            packageId() {
-      
-                return this.$store.getters['get_packageId']
-            },
-            reportType() {
-                return this.$store.getters['get_reportType'];
-            },
-            shpsS(){
-                return this.$store.getters['get_shps_s']
-            },
+           
         
             dialog() {
                 return this.$store.getters['get_modalPrintOrder']
@@ -226,4 +209,21 @@
         }
     }
     </script>
+
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
     

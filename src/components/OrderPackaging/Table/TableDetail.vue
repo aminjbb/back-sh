@@ -93,8 +93,9 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 <v-text-field
-                ></v-text-field>  
-            
+                     variant="solo"
+                        
+                 ></v-text-field>
             </div>
     
                    
