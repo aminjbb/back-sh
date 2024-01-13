@@ -228,6 +228,7 @@ import ReviewReturnedOrderRequestView from "@/views/ReturnedOrders/ReviewReturne
 import DeliveryReceiptView from "@/views/ReturnedOrders/DeliveryReceiptView.vue";
 import AddConsignmentView from "@/views/Seller/Consigment/AddConsignmentView.vue";
 import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.vue";
+import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
 
 
 const router = createRouter({
@@ -1685,6 +1686,14 @@ const router = createRouter({
           component: orderEditUser,
           meta: {
             name: 'لیست سفارش ها'
+          }
+        },
+        {
+          path: 'create',
+          name: 'AddOrderView',
+          component: AddOrderView,
+          meta: {
+            name: 'ساخت سفارش'
           }
         },
       ],
