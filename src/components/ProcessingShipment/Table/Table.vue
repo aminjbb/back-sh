@@ -322,7 +322,6 @@ export default {
 
   watch: {
     items(val){
-      console.log(val)
       this.items.forEach(element => {
         const form = {
           loading: false,
@@ -410,7 +409,7 @@ export default {
       else return false
     },
     validate(item , index){
-      console.log(item.min_tolerance  , this.form[index].count)
+      // console.log(item.min_tolerance  , this.form[index].count)
       if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
         const formData = {
           count :this.form[index].count,
@@ -423,7 +422,7 @@ export default {
         this.$store.commit('set_warningTolerance' , form)
       }
       else{
-        this.updateShps
+        this.updateShps(index)
       }
     },
     /**
@@ -432,6 +431,7 @@ export default {
      * @param {*} item
      */
     async updateShps(index) {
+      this.form[index].loading = true
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
@@ -445,6 +445,7 @@ export default {
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
       if (data) {
+        this.form[index].loading = false
         openToast(
             this.$store,
             ' کالا با موفقیت ویرایش شد.',

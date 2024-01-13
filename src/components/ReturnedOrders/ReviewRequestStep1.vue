@@ -1,5 +1,5 @@
-<template lang="">
-<div class="review-request-details">
+<template>
+<div class="review-request-details scroller">
     <v-row>
         <v-col cols="3">
             <span class="title">شناسه سفارش : </span>
@@ -65,8 +65,14 @@
             </span>
         </v-col>
     </v-row>
-
+    <v-divider class="my-5"/>
     <div class="mt-8">
+        <span class="title">نام محصول : </span>
+        <span class="desc text-grey t12400">
+            <template v-if="item && item.request_title">{{item.request_title}}</template>
+            <template v-else> - </template>
+        </span>
+    </div>  <div class="mt-8">
         <span class="title">علت مرجوعی : </span>
         <span class="desc text-grey t12400">
             <template v-if="item && item.request_title">{{item.request_title}}</template>
@@ -165,6 +171,20 @@
 
         </swiper>
     </div>
+  <div class="d-flex justify-end my-5">
+    <v-btn
+        rounded
+        color="light-green-lighten-4"
+        variant="elevated"
+        width="115"
+        class="ml-2">
+      <span class="t12400">
+        تایید
+      </span>
+    </v-btn>
+      <RejectionReturnOrderModal/>
+
+  </div>
 </div>
 </template>
 
@@ -190,6 +210,7 @@ import {
     Thumbs
 } from 'swiper/modules';
 
+import RejectionReturnOrderModal from '@/components/ReturnedOrders/Modal/RejectionReturnOrderModal.vue'
 export default {
     props: {
         content: Object
@@ -197,6 +218,7 @@ export default {
     components: {
         Swiper,
         SwiperSlide,
+      RejectionReturnOrderModal
     },
     setup() {
         const thumbsSwiper = ref(null);
@@ -217,7 +239,7 @@ export default {
 <style lang="scss">
 .review-request-details {
     padding: 32px 10%;
-
+  height: calc(100% - 131px);
     .title {
         font-size: 13px;
         font-variation-settings: "wght"500;
