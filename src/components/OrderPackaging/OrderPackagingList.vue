@@ -32,11 +32,11 @@
           height="580"
       >
         <Table
-            :getShpsList="getShpsList"
+          
             class="flex-grow-1"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="filteredCargoData"
+            :items="mocketData"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -44,18 +44,7 @@
   
         <v-divider/>
   
-        <v-card-actions class="pb-3" >
-          <v-row class="px-5 py-2"  justify="end">
-            <v-btn
-                color="primary500"
-                height="40"
-                rounded
-                variant="flat"
-                class="px-8 mt-2">
-              بستن بسته
-            </v-btn>
-          </v-row>
-        </v-card-actions>
+      
       </v-card>
     </div>
   </template>
@@ -77,7 +66,7 @@
       ModalColumnFilter,
       ModalGroupAdd,
       ModalExcelDownload,
-     
+       
     },
   
     data(){
@@ -87,7 +76,88 @@
         allCargoData: [],
       filteredCargoData: [],
        
-   
+      "mocketData": [{
+                    "id": 21,
+                    "user": {
+                        "first_name": "اویس",
+                        "last_name": "اویس"
+                    },
+                    "shps_count": 10,
+                    "status": "paid",
+                    "payment_status": "unsuccessful",
+                    "payment_method": "saman",
+                    "packed_status": 1,
+                    "total_price": 22500000,
+                    "paid_price": 20000000,
+                    "submit_date": "2023-12-30 13:11:39",
+                    "submit_date_fa": "1402/10/09",
+                    "receive_date": "2024-01-04 13:11:39",
+                    "receive_date_fa": "1402/10/14",
+                    "total_discount": 2500000,
+                    "state": {
+                        "id": 1,
+                        "label": "فارس"
+                    },
+                    "city": {
+                        "id": 1,
+                        "label": "شیراز"
+                    }
+                },
+                {
+                    "id": 22,
+                    "user": {
+                        "first_name": "اویس",
+                        "last_name": "اویس"
+                    },
+                    "shps_count": 10,
+                    "status": "paid",
+                    "payment_status": "contradictory",
+                    "payment_method": "wallet",
+                    "packed_status": 0,
+                    "total_price": 22500000,
+                    "paid_price": 20000000,
+                    "submit_date": "2023-12-30 13:11:50",
+                    "submit_date_fa": "1402/10/09",
+                    "receive_date": "2024-01-04 13:11:50",
+                    "receive_date_fa": "1402/10/14",
+                    "total_discount": 2500000,
+                    "state": {
+                        "id": 1,
+                        "label": "فارس"
+                    },
+                    "city": {
+                        "id": 1,
+                        "label": "شیراز"
+                    }
+                },
+                {
+                    "id": 23,
+                    "user": {
+                        "first_name": "اویس",
+                        "last_name": "اویس"
+                    },
+                    "shps_count": 10,
+                    "status": "paid",
+                    "payment_status": "successful",
+                    "payment_method": "snapp",
+                    "packed_status": 0,
+                    "total_price": 22500000,
+                    "paid_price": 20000000,
+                    "submit_date": "2023-12-30 13:11:51",
+                    "submit_date_fa": "1402/10/09",
+                    "receive_date": "2024-01-04 13:11:51",
+                    "receive_date_fa": "1402/10/14",
+                    "total_discount": 2500000,
+                    "state": {
+                        "id": 1,
+                        "label": "فارس"
+                    },
+                    "city": {
+                        "id": 1,
+                        "label": "شیراز"
+                    }
+                }
+            ]
 
       }
     },
@@ -150,19 +220,12 @@
   
     methods: {
 
-      filterDataById(id) {
-      if (!id) {
-        this.filteredCargoData = this.allCargoData;
-        return;
-      }
-      this.filteredCargoData = this.allCargoData.filter(item => item.id === id);
-    },
   
+      updateSendingMethod() {
+    const paymentMethod = "saman"; 
+    this.$store.commit('set_sendingMethod', paymentMethod);
+  },
 
-
-  onFormSubmit() {
-     
-    },
 
 
       /**

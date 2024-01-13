@@ -6,9 +6,7 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
-    const BulkLabelPrintList = ref([]);
-
-    const cargoList = ref([]);
+  
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -16,13 +14,7 @@ export default function setup(posts) {
     const route = useRoute()
     const page = ref(1)
 
-    const packageHeader = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        {name:'نوع بسته' , show:true , value:'name', order: false},
-        {name:'تعداد کالا' , show:true ,  value:'label', order: false},
-        {name:'وضعیت ' , show:true, value:'is_active', order: false},
-    ]);
+   
 
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
@@ -35,10 +27,10 @@ export default function setup(posts) {
     const detailInfo = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:' شناسه shps' , show:true , value:'id', order: false},
-        {name:' نام کالا ' , show:true , value:'id', order: false},
-        {name:'  شناسه کالا' , show:true , value:'name', order: false},
-        {name:'  تعداد در سفارش ' , show:true, value:'is_active', order: false},
-        {name:'تعداد اسکن شده ' , show:true, value:'is_active', order: false},
+        {name:' نام کالا ' , show:true , value:'name', order: false},
+        {name:'  شناسه کالا' , show:true , value:'id', order: false},
+        {name:'  تعداد در سفارش ' , show:true, value:'number', order: false},
+        {name:'تعداد اسکن شده ' , show:true, value:'number', order: false},
     ]);
 
 
@@ -59,7 +51,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `package/crud/index/${paramsQuery}`;
+        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
             console.log("API Response:", response); 
@@ -68,7 +60,9 @@ export default function setup(posts) {
     
             if (response && response.data && response.data.data) {
                 pageLength.value = response.data.last_page;
-                return response.data.data; 
+            
+                return response.data; 
+               
             } else {
                 return [];
             }
@@ -109,7 +103,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page   , item , 
-        loading , packageHeader , cargoReceivingHeader, detailInfo}
+    return { pageLength,  addPerPage, getShpsList, dataTableLength , page   , item , 
+        loading  , cargoReceivingHeader, detailInfo}
 }
 

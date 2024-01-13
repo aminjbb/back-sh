@@ -106,10 +106,6 @@
 </div>
             </div>
     
-                 
-    
-                   
-    
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <v-menu :location="location">
                             <template v-slot:activator="{ props }">

@@ -29,11 +29,11 @@
         <Table
             class="flex-grow-1"
             :header="detailInfo"
-            :items=[]
+            :items= "detailMockData"
             :loading="loading"
             @updateList="updateList"
             deletePath="report/crud/delete/"
-            model="report" />
+           />
 
         <v-divider />
     </v-card>
@@ -43,21 +43,12 @@
   <script>
   import {ref} from 'vue'
   //Components
-  import Table from '@/components/OrderPackaging/Table/Table.vue'
-  import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
-  import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-  import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-  import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
+  import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
   import OrderPackagingList from '@/composables/OrderPackaging';
   
   export default {
     components: {
       Table,
-      ModalTableFilter,
-      ModalColumnFilter,
-      ModalGroupAdd,
-      ModalExcelDownload,
-     
     },
   
     data(){
@@ -66,7 +57,58 @@
         rule:[v=> !!v || 'این فیلد الزامی است'],
         allCargoData: [],
       filteredCargoData: [],
-       
+      "detailMockData": [
+        {
+            "id": 1,
+            "shps": {
+                "id": 10,
+                "sku": {
+                    "id": 15,
+                    "label": "شامپوی بدن شون مناسب برای  پوست چرب 1 عدد",
+                    "seller": {
+                        "id": 1,
+                        "shopping_name": "شاواز"
+                    }
+                }
+            },
+            "price": 200000,
+            "discount": 20000,
+            "total_price": 2000000,
+            "total_price_after_discount": 1800000,
+            "total_price_after_tax": 2180000,
+            "paid_price": 21600000,
+            "count": 10,
+            "logistic_packed_count": 0,
+            "base_discount": 0,
+            "marketing_discount": 0,
+            "discount_code": null
+        },
+        {
+            "id": 2,
+            "shps": {
+                "id": 2,
+                "sku": {
+                    "id": 6,
+                    "label": "کرم پودر شون رنگ  بژ مناسب برای پوست  چرب دارای خاصیت  آبرسانی 1 باکس",
+                    "seller": {
+                        "id": 2,
+                        "shopping_name": "فروشگاه نکین اسدی3ثث"
+                    }
+                }
+            },
+            "price": 200000,
+            "discount": 20000,
+            "total_price": 2000000,
+            "total_price_after_discount": 1800000,
+            "total_price_after_tax": 2180000,
+            "paid_price": 21600000,
+            "count": 10,
+            "logistic_packed_count": 0,
+            "base_discount": 0,
+            "marketing_discount": 0,
+            "discount_code": null
+        }
+    ]
    
 
       }
@@ -84,10 +126,14 @@
     computed: {
       confirmModal() {
         return this.$store.getters['get_confirmForm'].confirmModal;
-     
+      },
 
-
-      }
+      mocketData() {
+                return this.$store.state.mocketData;
+             },
+             paymentMethods() {
+                return this.mocketData.map(item => item.payment_method);
+            },
     },
     async mounted() {
   try {
@@ -129,22 +175,6 @@
     },
   
     methods: {
-
-      filterDataById(id) {
-      if (!id) {
-        this.filteredCargoData = this.allCargoData;
-        return;
-      }
-      this.filteredCargoData = this.allCargoData.filter(item => item.id === id);
-    },
-  
-
-
-  onFormSubmit() {
-     
-    },
-
-
       /**
        * Change Header Status
        * @param {*} index
