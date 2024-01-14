@@ -1,122 +1,120 @@
-<template lang="">
-<div>
-    <v-form ref="addOrderUser" v-model="valid">
-        <v-row
-            justify="center"
-            align="center"
-            class="px-15">
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+<template>
+  <v-form  class="create-product__info-form scroller" ref="editUser" v-model="valid">
+    <v-row
+        justify="center"
+        align="center"
+        class="px-15">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         نام و نام خانوادگی <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-text-field
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    label="نام و نام خانوادگی"
-                    v-model="form.user_name"
-                    :rules="persianRule" />
-            </v-col>
+        </div>
+        <v-text-field
+            density="compact"
+            variant="outlined"
+            single-line
+            label="نام و نام خانوادگی"
+            v-model="form.user_name"
+            :rules="persianRule" />
+      </v-col>
 
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         استان <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-autocomplete
-                    :items="provinceList"
-                    density="compact"
-                    variant="outlined"
-                    label="استان"
-                    single-line
-                    :rules="rule"
-                    v-model="form.province"
-                    @update:modelValue="getCities()" />
-            </v-col>
+        </div>
+        <v-autocomplete
+            :items="provinceList"
+            density="compact"
+            variant="outlined"
+            label="استان"
+            single-line
+            :rules="rule"
+            v-model="form.province"
+            @update:modelValue="getCities()" />
+      </v-col>
 
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         شهر <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-autocomplete
-                    :items="cityList"
-                    density="compact"
-                    variant="outlined"
-                    label="شهر"
-                    single-line
-                    :rules="rule"
-                    v-model="form.city" />
-            </v-col>
+        </div>
+        <v-autocomplete
+            :items="cityList"
+            density="compact"
+            variant="outlined"
+            label="شهر"
+            single-line
+            :rules="rule"
+            v-model="form.city" />
+      </v-col>
 
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         تلفن <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-text-field
-                    type="number"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    label="تلفن"
-                    v-model="form.phone"
-                    :rules="rule" />
-            </v-col>
+        </div>
+        <v-text-field
+            type="number"
+            density="compact"
+            variant="outlined"
+            single-line
+            label="تلفن"
+            v-model="form.phone"
+            :rules="rule" />
+      </v-col>
 
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         موبایل <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-text-field
-                    type="number"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    label="موبایل"
-                    v-model="form.mobile"
-                    :rules="mobileRule" />
-            </v-col>
+        </div>
+        <v-text-field
+            type="number"
+            density="compact"
+            variant="outlined"
+            single-line
+            label="موبایل"
+            v-model="form.mobile"
+            :rules="mobileRule" />
+      </v-col>
 
-            <v-col cols="12" md="6">
-                <div class="text-right my-5">
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
                     <span class="t14500">
                         کد پستی <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-text-field
-                    type="number"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    label="کد پستی"
-                    v-model="form.postal_code"
-                    :rules="rule" />
-            </v-col>
-            <v-col cols="12">
-                <div class="text-right my-5">
+        </div>
+        <v-text-field
+            type="number"
+            density="compact"
+            variant="outlined"
+            single-line
+            label="کد پستی"
+            v-model="form.postal_code"
+            :rules="rule" />
+      </v-col>
+      <v-col cols="12">
+        <div class="text-right my-5">
                     <span class="t14500">
                         آدرس <span class="text-red">*</span>
                     </span>
-                </div>
-                <v-text-field
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    label="آدرس"
-                    v-model="form.address"
-                    :rules="persianRule" />
-            </v-col>
-        </v-row>
-    </v-form>
-</div>
+        </div>
+        <v-text-field
+            density="compact"
+            variant="outlined"
+            single-line
+            label="آدرس"
+            v-model="form.address"
+            :rules="persianRule" />
+      </v-col>
+    </v-row>
+  </v-form>
 </template>
 
 <script>
@@ -125,8 +123,7 @@ import {
 } from "@/assets/js/axios_call";
 export default {
     props: {
-        type: '',
-        user: {},
+        orderDetail: {},
     },
 
     data() {
@@ -148,7 +145,7 @@ export default {
             persianRule: [
                 (v) => !!v || "این فیلد الزامی است",
                 (v) =>
-                /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]+$/.test(v) ||
+                /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأء۰۱۲۳۴۵۶۷۸۹0-9\s]+$/.test(v) ||
                 "فقط حروف فارسی ",
             ],
             mobileRule: [
@@ -200,13 +197,14 @@ export default {
          */
         setForm() {
             try {
-                this.form.user_name = this.user.user_name
-                this.form.province = this.user.state_id
-                this.form.city = this.user.city_id
-                this.form.phone = this.user.phone
-                this.form.mobile = this.user.mobile
-                this.form.postal_code = this.user.postal_code
-                this.form.address = this.user.address
+                this.form.user_name = this.orderDetail.receiver_name
+                this.form.province = this.orderDetail.state?.id
+                this.getCities()
+                this.form.city = this.orderDetail.city?.id
+                this.form.phone = this.orderDetail.receiver_phone
+                this.form.mobile = this.orderDetail.receiver_mobile
+                this.form.postal_code = this.orderDetail.receiver_postal_code
+                this.form.address = this.orderDetail.receiver_address
             } catch (error) {}
         },
 
@@ -248,9 +246,10 @@ export default {
     },
 
     watch: {
-        user() {
+      orderDetail() {
             this.setForm()
         }
     }
 }
 </script>
+

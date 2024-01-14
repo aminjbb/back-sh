@@ -500,7 +500,7 @@ const router = createRouter({
           name: 'createSku',
           component: CreateSku,
           meta: {
-            name: 'ایحاد کالا'
+            name: 'ایجاد کالا'
           }
         },
         {
@@ -650,7 +650,7 @@ const router = createRouter({
           name: 'createUser',
           component: CreateUserView,
           meta: {
-            name: 'ایحاد کاربر'
+            name: 'ایجاد کاربر'
           }
         },
         {
@@ -1254,7 +1254,7 @@ const router = createRouter({
           name: 'createFactor',
           component: AddFactorView,
           meta: {
-            name: 'ایحاد فاکتور'
+            name: 'ایجاد فاکتور'
           }
         },
         {
@@ -1681,7 +1681,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'user/:id/edit',
+          path: 'user/:orderId/edit',
           name: 'orderEditUser',
           component: orderEditUser,
           meta: {
