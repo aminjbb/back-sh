@@ -103,7 +103,7 @@
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="getShpssDetailWastage()">
+                                            @click="getDetailModal(item)">
                                             <v-icon size="small" class="text-grey-darken-1">mdi-printer</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت  برچسب                                           
@@ -135,6 +135,7 @@
     <script>
  
  import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
+ 
 
     import {
         AxiosCall
@@ -272,12 +273,12 @@
                 return translations[type] || type;
             },
           
-            async getShpssDetailWastage() {
+            async getDetailModal(item) {
           
           const AxiosMethod = new AxiosCall()
           AxiosMethod.using_auth = true
           AxiosMethod.token = this.$cookies.get('adminToken')
-          AxiosMethod.end_point = `package/shps/items/1`
+          AxiosMethod.end_point = `admin/order/print/label/${item.id}`
           let data = await AxiosMethod.axios_get()
          
           if (data) {

@@ -6,7 +6,7 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
-  
+    const orderList = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -61,10 +61,12 @@ export default function setup(posts) {
             if (response && response.data && response.data.data) {
                 pageLength.value = response.data.last_page;
             
-                return response.data; 
+                
+                 orderList.value = response.data.data
+                
                
             } else {
-                return [];
+                orderList.value = [];
             }
         } catch (error) {
             console.error("Error in API call:", error);
@@ -103,7 +105,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength,  addPerPage, getShpsList, dataTableLength , page   , item , 
+    return { pageLength,  addPerPage, getShpsList, dataTableLength , page   , item , orderList,
         loading  , cargoReceivingHeader, detailInfo}
 }
 

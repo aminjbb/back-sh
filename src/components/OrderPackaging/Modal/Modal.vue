@@ -20,40 +20,89 @@
                 <div class=" px-5">
                 <div >
                     <div class=" mt-10 d-flex justify-center " >
-                        
+                      
                     
                         <div class="border-nested-modal">    
                     <div>
                         <div class="d-flex justify-between">
-                            <span>image</span>
-                            <span>وزن بسته</span>
-                            <span>فرستنده</span>
+                            <span>
+                                <img src="@/assets/img/nafis-image.png" alt="shavaz image">
+
+                            </span>
+                            
+                            <span v-if="modalPrintOrderObject && modalPrintOrderObject.weight" class=" number-font">
+                                {{modalPrintOrderObject.weight}}
+                                <span class="modal__content__title">  : وزن بسته </span>
+                            </span>
+                            
+                            
+                           
+                            <span v-if="modalPrintOrderObject && modalPrintOrderObject.sender" class=" number-font">
+                                <span>فرستنده: </span>
+                                {{modalPrintOrderObject.sender}}
+                                
+                            </span>
+                           
                         </div>
                     </div>
                     <div> 
-                        <span>کد پستی</span>    
+                        <span class=" d-flex justify-end"> 
+
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_postal_code}} </span>
+                         :   کد پستی
+
+                        </span>    
                     </div>
+                    <br/>
                     <div class="d-flex justify-between"> 
-                        <span>گیرنده</span>
-                        <span>شماره تماس</span>
+                        <span>شماره تماس:
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_mobile}} </span>
+                        </span>
+                        
+                        <span>گیرنده
+
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_name}} </span>
+                        </span>
+                        
                     </div>
+                    <br/>
                     <div class="d-flex justify-end">
-                        <span>:ادرس</span>
+                        <span> 
+                            ادرس:
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_address}} </span>
+                        </span>
+                       
                     </div>
                                         
                     <div class="main-body-modal">
                         <div class="d-flex justify-end">
+                          <span class="t12500">تهران، محله ارم، بلوار ناصر حجازی، یعقوبی، اکبر اصغرزاده،
+                        پلاک ۱۶، واحد ۵</span>
                             <span>:ادرس</span>
                         </div>
+                        <br/>
                         <div class="d-flex justify-between">
-                            <span>:کد پستی</span>
-                            <span>:شماره فاکتور</span>
+                            <span>
+                                <span class=" number-font "> {{modalPrintOrderObject.order_factor_id}} </span>
+                                :شماره فاکتور</span>
+                            <span>
+                                <span class=" number-font"> {{modalPrintOrderObject.sender_postal_code}} </span>
+                                
+                                :کد پستی
+                            </span>
+                            
                         </div>
                         
                     </div>    
-                    <div class="d-flex justify-center">
-                            image
-                        </div>                       
+                    <div class="d-flex justify-center mt-4">
+                       
+                        <img src="@/assets/img/qrcode3.png" alt="shavaz image">
+                         
+                        </div>     
+                        <div class="d-flex justify-center">
+                            <span>۱۲۳۴۵۶۶۴۳۳۹۹۵۸</span> 
+                        </div>
+                                        
                 </div>
                   
                      </div>
@@ -92,14 +141,12 @@
     </template>
     
     <script>
-     import {
-        openToast
-    } from "@/assets/js/functions";
+    
     import OrderPackaging from "@/composables/OrderPackaging";
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
-    import Table from "@/components/BulkLabelPrint/Table/Table.vue";
+    import Table from "@/components/OrderPackaging/Table/Table.vue";
     
     
     export default {
@@ -147,7 +194,7 @@
         },
         components: {
             
-          
+        
     
         },
     
@@ -161,14 +208,9 @@
                     dialog: false,
                     object: ''
                 }
-                this.$store.commit('set_modalLostShpss', form)
+                this.$store.commit('set_modalPrintOrder', form)
             },
-            validate() {
-                this.$refs.BlogForm.$refs.addForm.validate()
-                setTimeout(() => {
-                    if (this.$refs.BlogForm.valid) this.createBlog()
-                }, 200)
-            },
+          
 
     
         },
@@ -181,31 +223,17 @@
     
         computed: {
 
-            sphssList() {
-            try {
-                let shpss = []
-                this.shpssDetailLostObject.forEach(item => {
-                    const form = {
-                        name: item?.shps?.sku?.sku?.label,
-                        id: item?.id
-                        
-                    }
-                    shpss.push(form)
-                })
-                return shpss
-            } catch (e) {
-                return  []
-            }
-        },
-           
-        
+      
+            modalPrintOrderObject() {
+                const data = this.$store.getters['get_modalPrintOrderObject'];
+        return data;                
+            },
+
+
             dialog() {
                 return this.$store.getters['get_modalPrintOrder']
             },
-            shpssDetailLostObject() {
-                const data = this.$store.getters['get_modalLostShpssObject'];
-        return data;                
-            },
+        
         }
     }
     </script>
