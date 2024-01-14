@@ -229,6 +229,7 @@ import DeliveryReceiptView from "@/views/ReturnedOrders/DeliveryReceiptView.vue"
 import AddConsignmentView from "@/views/Seller/Consigment/AddConsignmentView.vue";
 import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.vue";
 import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
+import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 
 
 const router = createRouter({
@@ -1727,6 +1728,38 @@ const router = createRouter({
             name: 'کالاهای مرجوعی'
           }
         },
+      ],
+    },
+    {
+      path: '/voucher', // Voucher route
+      meta: {
+        name: 'کد تخفیف'
+      },
+      children: [
+        //   {
+        //   path: 'index',
+        //   name: 'ReturnedOrdersList',
+        //   component: ReturnedOrderListView,
+        //   meta: {
+        //     name: 'کالاهای مرجوعی'
+        //   }
+        // },
+        {
+          path: 'create',
+          name: 'CreateVoucherView',
+          component: CreateVoucherView,
+          meta: {
+            name: 'ساخت'
+          }
+        },
+        // {
+        //   path: 'receipt/:id',
+        //   name: 'DeliveryReceiptView',
+        //   component: DeliveryReceiptView,
+        //   meta: {
+        //     name: 'کالاهای مرجوعی'
+        //   }
+        // },
       ],
     },
   ]

@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         <v-form ref="addColor" v-model="valid">
             <v-row justify="center" align="center">
@@ -29,7 +29,7 @@
                         variant="outlined"
                         single-line
                         label="اسم فارسی"
-                        :rules="persianRule"
+                        :rules="rule"
                         v-model="form.label"
                     />
                 </v-col>
