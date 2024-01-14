@@ -277,6 +277,7 @@ export default {
             open: [],
             menuOption: [
                 ['درخواست های خروجی', '/exports/index', 'mdi-export'],
+                ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
                 ['پیام ها', '/notifications/index', 'mdi-email-outline'],
                 ['تیکت ها', '/ticket/index', 'mdi-forum'],
                 ['گفتگو', '/chat', 'mdi-chat'],

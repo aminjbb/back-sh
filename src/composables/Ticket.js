@@ -23,7 +23,7 @@ export default function setup(posts) {
         { name: 'عنوان', show: true, value:'label', order: false},
         { name: 'اولویت', show: true, value:'priority', order: false},
         { name: 'وضعیت', show: true, value:'status', order: false},
-        { name: 'ایحاد کننده', show: true, value:'user_name', order: false},
+        { name: 'ایجاد کننده', show: true, value:'user_name', order: false},
         { name: 'تاریخ ایجاد', show: true, value:'created_at', order: true},
     ]);
 

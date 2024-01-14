@@ -205,7 +205,7 @@
                             </v-list-item-title>
 
                             <v-list-item-title>
-                                <div class="ma-3 pointer d--rtl" @click="$router.push(`orders/user/:${item.user_id}/edit`)">
+                                <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/edit`)">
                                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         ویرایش اطلاعات مشتری

@@ -7,6 +7,7 @@ import {UserPanelFilter} from "@/assets/js/filter_user";
 export default function setup(posts) {
     const users = ref([]);
     const user = ref(null);
+    const userAddress = ref(null)
     const userList  = ref([])
     const dataTableLength = ref(25)
     const page = ref(1)
@@ -21,7 +22,6 @@ export default function setup(posts) {
         {name:'ایمیل' , show:true, value:'email', order:false},
         {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
     ])
-
     const filterField = [
         { name: 'نام', type:'text', value:'first_name'},
         { name: 'نام خانوادگی', type:'text', value:'last_name'},
@@ -45,6 +45,18 @@ export default function setup(posts) {
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             users.value = data.data
+        }
+        else {
+        }
+    };
+    async function getUserAddress (id) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `user/crud/get/address/${id}`
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =  true
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            userAddress.value = data.data
         }
         else {
         }
@@ -112,6 +124,9 @@ export default function setup(posts) {
     })
 
 
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,user , getUser , addPerPage}
+    return {pageLength, users, getUsers ,
+        dataTableLength , page  , header , userList ,
+        getUserList , filterField ,user , getUser , addPerPage,
+        getUserAddress , userAddress}
 }
 

@@ -228,6 +228,8 @@ import ReviewReturnedOrderRequestView from "@/views/ReturnedOrders/ReviewReturne
 import DeliveryReceiptView from "@/views/ReturnedOrders/DeliveryReceiptView.vue";
 import AddConsignmentView from "@/views/Seller/Consigment/AddConsignmentView.vue";
 import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.vue";
+import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
+import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 
 
 const router = createRouter({
@@ -499,7 +501,7 @@ const router = createRouter({
           name: 'createSku',
           component: CreateSku,
           meta: {
-            name: 'ایحاد کالا'
+            name: 'ایجاد کالا'
           }
         },
         {
@@ -649,7 +651,7 @@ const router = createRouter({
           name: 'createUser',
           component: CreateUserView,
           meta: {
-            name: 'ایحاد کاربر'
+            name: 'ایجاد کاربر'
           }
         },
         {
@@ -1253,7 +1255,7 @@ const router = createRouter({
           name: 'createFactor',
           component: AddFactorView,
           meta: {
-            name: 'ایحاد فاکتور'
+            name: 'ایجاد فاکتور'
           }
         },
         {
@@ -1680,11 +1682,19 @@ const router = createRouter({
           }
         },
         {
-          path: 'user/:id/edit',
+          path: 'user/:orderId/edit',
           name: 'orderEditUser',
           component: orderEditUser,
           meta: {
             name: 'لیست سفارش ها'
+          }
+        },
+        {
+          path: 'create',
+          name: 'AddOrderView',
+          component: AddOrderView,
+          meta: {
+            name: 'ساخت سفارش'
           }
         },
       ],
@@ -1718,6 +1728,38 @@ const router = createRouter({
             name: 'کالاهای مرجوعی'
           }
         },
+      ],
+    },
+    {
+      path: '/voucher', // Voucher route
+      meta: {
+        name: 'کد تخفیف'
+      },
+      children: [
+        //   {
+        //   path: 'index',
+        //   name: 'ReturnedOrdersList',
+        //   component: ReturnedOrderListView,
+        //   meta: {
+        //     name: 'کالاهای مرجوعی'
+        //   }
+        // },
+        {
+          path: 'create',
+          name: 'CreateVoucherView',
+          component: CreateVoucherView,
+          meta: {
+            name: 'ساخت'
+          }
+        },
+        // {
+        //   path: 'receipt/:id',
+        //   name: 'DeliveryReceiptView',
+        //   component: DeliveryReceiptView,
+        //   meta: {
+        //     name: 'کالاهای مرجوعی'
+        //   }
+        // },
       ],
     },
   ]

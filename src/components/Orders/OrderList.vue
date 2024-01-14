@@ -11,7 +11,7 @@
                 <v-row justify="end" class="mt-0">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="order/index" :filterField="filterField" />
+                    <ModalTableFilter path="orders/index" :filterField="filterField" />
                 </v-row>
             </v-col>
         </v-row>
@@ -21,7 +21,7 @@
         <Table
             class="flex-grow-1"
             :header="header"
-            :items="mocketData"
+            :items="orderList"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -80,88 +80,7 @@ import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 export default {
     data() {
         return {
-            "mocketData": [{
-                    "id": 21,
-                    "user": {
-                        "first_name": "اویس",
-                        "last_name": "اویس"
-                    },
-                    "shps_count": 10,
-                    "status": "paid",
-                    "payment_status": "unsuccessful",
-                    "payment_method": "saman",
-                    "packed_status": 1,
-                    "total_price": 22500000,
-                    "paid_price": 20000000,
-                    "submit_date": "2023-12-30 13:11:39",
-                    "submit_date_fa": "1402/10/09",
-                    "receive_date": "2024-01-04 13:11:39",
-                    "receive_date_fa": "1402/10/14",
-                    "total_discount": 2500000,
-                    "state": {
-                        "id": 1,
-                        "label": "فارس"
-                    },
-                    "city": {
-                        "id": 1,
-                        "label": "شیراز"
-                    }
-                },
-                {
-                    "id": 22,
-                    "user": {
-                        "first_name": "اویس",
-                        "last_name": "اویس"
-                    },
-                    "shps_count": 10,
-                    "status": "paid",
-                    "payment_status": "contradictory",
-                    "payment_method": "wallet",
-                    "packed_status": 0,
-                    "total_price": 22500000,
-                    "paid_price": 20000000,
-                    "submit_date": "2023-12-30 13:11:50",
-                    "submit_date_fa": "1402/10/09",
-                    "receive_date": "2024-01-04 13:11:50",
-                    "receive_date_fa": "1402/10/14",
-                    "total_discount": 2500000,
-                    "state": {
-                        "id": 1,
-                        "label": "فارس"
-                    },
-                    "city": {
-                        "id": 1,
-                        "label": "شیراز"
-                    }
-                },
-                {
-                    "id": 23,
-                    "user": {
-                        "first_name": "اویس",
-                        "last_name": "اویس"
-                    },
-                    "shps_count": 10,
-                    "status": "paid",
-                    "payment_status": "successful",
-                    "payment_method": "snapp",
-                    "packed_status": 0,
-                    "total_price": 22500000,
-                    "paid_price": 20000000,
-                    "submit_date": "2023-12-30 13:11:51",
-                    "submit_date_fa": "1402/10/09",
-                    "receive_date": "2024-01-04 13:11:51",
-                    "receive_date_fa": "1402/10/14",
-                    "total_discount": 2500000,
-                    "state": {
-                        "id": 1,
-                        "label": "فارس"
-                    },
-                    "city": {
-                        "id": 1,
-                        "label": "شیراز"
-                    }
-                }
-            ]
+
         }
     },
 
