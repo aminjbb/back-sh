@@ -195,7 +195,7 @@ export default {
                 if (data.data) {
                     this.generalDetails = [{
                             label: 'شناسه سفارش',
-                            value: data.data.id ? data.dadta.id : '-'
+                            value: data.data.id ? data.data.id : '-'
                         },
                         {
                             label: 'وضعیت سفارش',
@@ -389,6 +389,8 @@ export default {
                 if (dialogState) {
                     this.getUserDetails();
                     this.getShpsDetails();
+                    this.getPaymentDetails();
+                    this.getGeneralDetails();
                 }
             }
         );

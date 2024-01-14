@@ -84,12 +84,12 @@ export default {
 
                 this.createWorkDayWarehouse(data.data.id)
                 openToast(this.$store,
-                    'انبار با موفقیت ایحاد شد.',
+                    'انبار با موفقیت ایجاد شد.',
                     "success")
             } else {
                 this.loading = false
                 openToast(this.$store,
-                    'ایحاد انبار با مشکل مواجه شد',
+                    'ایجاد انبار با مشکل مواجه شد',
                     "error")
             }
         },

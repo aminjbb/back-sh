@@ -80,6 +80,9 @@ export default {
       if (data) {
         this.createOrder()
       }
+      else {
+        this.loading = false
+      }
     },
     async createOrder() {
       this.loading = true
@@ -99,13 +102,14 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
+        this.loading = false
         openToast(this.$store,
-            'سفارش با موفقیت ایحاد شد.',
+            'سفارش با موفقیت ایجاد شد.',
             "success")
       } else {
         this.loading = false
         openToast(this.$store,
-            'ایحاد سفارش با مشکل مواجه شد',
+            'ایجاد سفارش با مشکل مواجه شد',
             "error")
       }
     },

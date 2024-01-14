@@ -105,12 +105,13 @@
       <v-item-group v-model="address" selected-class="bg-primary500">
         <v-container>
           <v-row>
+
             <v-col
-                v-for="n in 3"
-                :key="n"
+                v-for="(address , index) in userAddress"
+                :key="address.id"
                 cols="12"
             >
-              <v-item :value="n" v-slot="{ isSelected, selectedClass, toggle }">
+              <v-item :value="address.id" v-slot="{ isSelected, selectedClass, toggle }">
                 <v-card
                     :class="['d-flex align-center justify-lg-space-evenly px-10', selectedClass]"
                     dark
@@ -127,7 +128,7 @@
                     </div>
                     <div class="text-right mt-4">
                         <span class="t12500">
-                         تهران ، آزادی ، استاد معین
+                         {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
                         </span>
                     </div>
                   </div>
@@ -139,7 +140,7 @@
                     </div>
                     <div class="text-right mt-4">
                         <span class="t12500">
-                       1252225255585
+                       {{ address?.postal_code }}
                         </span>
                     </div>
                   </div>
@@ -151,7 +152,7 @@
                     </div>
                     <div class="text-right mt-4">
                         <span class="t12500">
-                       09223732465
+                       {{ address?.phone_number }}
                         </span>
                     </div>
                   </div>
@@ -163,7 +164,7 @@
                     </div>
                     <div class="text-right mt-4">
                         <span class="t12500">
-                       امین جباری
+                       {{ address?.first_name }} {{ address?.last_name }}
                         </span>
                     </div>
                   </div>
@@ -323,5 +324,4 @@ export default {
 
 
 <style>
-@import url("@neshan-maps-platform/vue3-openlayers/dist/style.css");
 </style>
