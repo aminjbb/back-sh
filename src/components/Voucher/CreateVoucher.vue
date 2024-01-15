@@ -95,12 +95,12 @@ export default {
       if (data) {
         this.loading = false
         openToast(this.$store,
-            'سفارش با موفقیت ایجاد شد.',
+            'کد تخفیف موفقیت ایجاد شد.',
             "success")
       } else {
         this.loading = false
         openToast(this.$store,
-            'ایجاد سفارش با مشکل مواجه شد',
+            'ایجاد کد تخفیف مشکل مواجه شد',
             "error")
       }
     },

@@ -27,7 +27,7 @@ export default function setup(posts) {
         { name: 'تاریخ شروع', show: true, value: 'site_price', order: true},
         { name: 'تاریخ پایان', show: true, value: 'site_price', order: true},
         { name: 'استان', show: false, value: 'site_price', order: true},
-        { name: 'وضعیت', show: true, value: 'site_price', order: true},
+        { name: 'وضعیت', show: true, value: 'is_active', order: false},
     ]);
     const headerShps = ref([
         { name: 'ردیف', show: true, value: null , order: false},
@@ -64,8 +64,6 @@ export default function setup(posts) {
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = 'voucher/crud/index'
-        AxiosMethod.form = formdata
-
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
