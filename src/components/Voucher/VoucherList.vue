@@ -21,10 +21,10 @@
       <Table
           class="flex-grow-1"
           :header="headerVouchers"
-          :items="[]"
+          :items="voucherList"
           :page="page"
           :perPage="dataTableLength"
-
+          activePath="asdasd"
           @updateList="updateList"
           deletePath="order/crud/delete/"
           model="order" />
@@ -87,11 +87,11 @@ export default {
   setup(props) {
     const {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength
+      ,dataTableLength ,pageLength ,getVoucherList
     } = Voucher();
     return {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength
+      ,dataTableLength ,pageLength , getVoucherList ,
     };
   },
 
@@ -114,12 +114,13 @@ export default {
 
     updateList(status) {
       if (status === 'true') {
-        this.getOrderList();
+        this.getVoucherList();
       }
     },
   },
 
   mounted() {
+    this.getVoucherList()
   },
 
   watch: {

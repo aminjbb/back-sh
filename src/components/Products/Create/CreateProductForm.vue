@@ -450,11 +450,8 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-
-       setTimeout(()=>{
-         this.loading = false
-         this.getSkuProduct(productId)
-       } , 5000)
+        this.loading = false
+        this.getSkuProduct(productId)
       } else {
         this.loading = false
       }
