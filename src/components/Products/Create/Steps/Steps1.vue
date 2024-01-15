@@ -799,6 +799,7 @@ export default {
      * @param {string | number } index
      */
     getAttributeValues(event, index, isnul) {
+      // console.log(event , index)
       // TODO: Add find value request
       if (isnul) this.createFromModel.attributesValue[index] = null;
 
@@ -1089,12 +1090,14 @@ export default {
       if (localStorage.getItem('createFromModelStep1')){
         const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
         this.createFromModel = jsonForm
-        console.log(jsonForm.attributes)
+        console.log(jsonForm.attributes ,'asdad')
         jsonForm.attributes.forEach((element, i) => {
-          const attrobj = this.attributeList.find(el => el.id == element.id)
-          this.attrNumbers.forEach((element, i) => {
-            this.getAttributeValues(attrobj, i);
-          });
+          // const attrobj = this.attributeList.find(el => el.id == element.id)
+          // this.attrNumbers.forEach((element, i) => {
+          //
+          // });
+          this.getAttributeValues(element, i);
+          this.addAttrBadge(`${element.title}`, `*${element.id}*attribute`, i,'attribute')
         });
         this.checkActiveAddButton(this.attrNumbers.length-1)
       }
