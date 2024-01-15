@@ -7,6 +7,7 @@
         <header class="modal__header d-flex justify-center align-center ">
             <span class="t16400 pa-6">
               اطلاعات سفارش
+              
             </span>
         </header>
         <v-divider color="grey" />
@@ -18,25 +19,53 @@
                     </span>
                 </div>
                 <div class="text-right my-3 mx-15">
-                    <span class="t13400 color-grey">
-                      روش ارسال :
+                    <span  class="t13400 color-grey">
+                      روش ارسال :  {{ orderListDetail.order_factor_id }}
+                      <span class="t13400 color-grey">                      
+                      </span>
                     </span>
                 </div>
        </div>
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
+    
         <Table
             class="flex-grow-1"
             :header="detailInfo"
-            :items= "detailMockData"
+            :items= "orderListDetail"
             :loading="loading"
             @updateList="updateList"
+            @all-comparisons-successful="handleComparisonChange"
             deletePath="report/crud/delete/"
            />
 
         <v-divider />
+        <v-card-actions class="pb-3">
+            <v-row class="px-5 py-2" justify="end">
+                <v-btn
+                    height="40"
+                    rounded
+                    variant="flat"
+                    class="px-8 mt-2">
+                    گزارش مغایرت
+                </v-btn>
+                <v-btn
+                    
+                    color="primary500"
+                    :disabled="!allComparisonsSuccessful"
+                    height="40"
+                    rounded
+                    variant="flat"
+                    class="px-8 mt-2"
+                    :class="{'gray-button': !allComparisonsSuccessful}">
+                    
+                    اتمام بسته بندی            
+                    </v-btn>
+            </v-row>
+        </v-card-actions>
     </v-card>
+
 </div>
   </template>
   
@@ -57,58 +86,9 @@
         rule:[v=> !!v || 'این فیلد الزامی است'],
         allCargoData: [],
       filteredCargoData: [],
-      "detailMockData": [
-        {
-            "id": 1,
-            "shps": {
-                "id": 10,
-                "sku": {
-                    "id": 15,
-                    "label": "شامپوی بدن شون مناسب برای  پوست چرب 1 عدد",
-                    "seller": {
-                        "id": 1,
-                        "shopping_name": "شاواز"
-                    }
-                }
-            },
-            "price": 200000,
-            "discount": 20000,
-            "total_price": 2000000,
-            "total_price_after_discount": 1800000,
-            "total_price_after_tax": 2180000,
-            "paid_price": 21600000,
-            "count": 10,
-            "logistic_packed_count": 0,
-            "base_discount": 0,
-            "marketing_discount": 0,
-            "discount_code": null
-        },
-        {
-            "id": 2,
-            "shps": {
-                "id": 2,
-                "sku": {
-                    "id": 6,
-                    "label": "کرم پودر شون رنگ  بژ مناسب برای پوست  چرب دارای خاصیت  آبرسانی 1 باکس",
-                    "seller": {
-                        "id": 2,
-                        "shopping_name": "فروشگاه نکین اسدی3ثث"
-                    }
-                }
-            },
-            "price": 200000,
-            "discount": 20000,
-            "total_price": 2000000,
-            "total_price_after_discount": 1800000,
-            "total_price_after_tax": 2180000,
-            "paid_price": 21600000,
-            "count": 10,
-            "logistic_packed_count": 0,
-            "base_discount": 0,
-            "marketing_discount": 0,
-            "discount_code": null
-        }
-    ]
+      allComparisonsSuccessful: false,
+
+   
    
 
       }
@@ -116,10 +96,11 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, detailInfo
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading,  detailInfo, getOrderListDetail, orderListDetail
       } = OrderPackagingList();
+      const orderDetails = ref(orderListDetail);
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, detailInfo
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, detailInfo, getOrderListDetail, orderListDetail, orderDetails
       };
     },
   
@@ -128,26 +109,9 @@
         return this.$store.getters['get_confirmForm'].confirmModal;
       },
 
-      mocketData() {
-                return this.$store.state.mocketData;
-             },
-             paymentMethods() {
-                return this.mocketData.map(item => item.payment_method);
-            },
+ 
     },
-    async mounted() {
-  try {
-    const data = await this.getShpsList();
-    console.log("Fetched data:", data);
-    this.allCargoData = await this.getShpsList();
-    console.log("All Cargo Data:", this.allCargoData);
-    this.filteredCargoData = this.allCargoData;
-  } catch (error) {
-    console.error("Error fetching all cargo data:", error);
-    this.allCargoData = [];
-    this.filteredCargoData = [];
-  }
-},
+  
   
     watch: {
       cargo(newId) {
@@ -175,19 +139,20 @@
     },
   
     methods: {
-      /**
-       * Change Header Status
-       * @param {*} index
-       * @param {*} value
-       */
-      changeHeaderShow(index, value) {
-        this.header[index].show = value
-      },
-      $route(){
-                this.getShpsList();
-
+      updateList(value) {
+            if (value === 'true') {
+                this.getOrderListDetail();
             }
-    }
+        },
+        
+        handleComparisonChange(allSuccessful) {
+        this.allComparisonsSuccessful = allSuccessful;
+    },
+   
+    },
+    mounted() {
+      this.getOrderListDetail(this.$route.params.orderId);
+    },
   }
   </script>
   

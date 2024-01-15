@@ -1,5 +1,6 @@
 <template>
     <div :style="{height: height}" class="c-table pl-1">
+        
         <v-progress-linear
             color="primary500"
             indeterminate
@@ -93,6 +94,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 <v-text-field
+                    v-model="userInputs[item.id]"                    
                      variant="solo"
                         
                  ></v-text-field>
@@ -102,7 +104,8 @@
     
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <div  class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
-                    <v-icon>mdi-plus</v-icon>
+                            <v-icon v-if="isCountEqual(item)">mdi-check</v-icon>
+                            <v-icon v-else>mdi-plus</v-icon>
                      </div>
                     </div>
                 </div>
@@ -217,6 +220,8 @@
                 active: [],
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
+                userInputs: {},
+
 
              
             }
@@ -263,7 +268,14 @@
                 return translations[type] || type;
             },
           
-           
+            onInputChange() {
+                const allEqual = this.items.every(item => this.isCountEqual(item));
+                this.$emit('all-comparisons-successful', allEqual);
+                },
+
+            isCountEqual(item) {
+             return this.userInputs[item.id] == item.count;
+            },
           
   
     
