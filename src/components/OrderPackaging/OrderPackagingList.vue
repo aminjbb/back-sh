@@ -31,12 +31,13 @@
           class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
           height="580"
       >
+
         <Table
           
             class="flex-grow-1"
             deletePath="category/crud/delete/"
             :header="cargoReceivingHeader"
-            :items="mocketData"
+            :items="orderList"
             :page="page"
             :perPage="dataTableLength"
             :loading="loading"
@@ -164,10 +165,10 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList,orderList
       } = OrderPackagingList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, orderList
       };
     },
   

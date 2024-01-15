@@ -88,10 +88,7 @@
             
             </div>
     
-                 
-    
-                   
-    
+
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <v-menu :location="location">
                             <template v-slot:activator="{ props }">
@@ -102,16 +99,11 @@
     
                             <v-list class="c-table__more-options">
                               
-    
-                               
-    
-                             
-    
                                 <v-list-item >
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="$router.push(`/driver-management/update`)">
+                                            @click="getDetailModal(item)">
                                             <v-icon size="small" class="text-grey-darken-1">mdi-printer</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت  برچسب                                           
@@ -135,14 +127,16 @@
             </div>
         </div>
        
-
+        <Modal/>
      
     </div>
     </template>
     
     <script>
  
-  
+ import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
+ 
+
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
@@ -160,7 +154,7 @@
     } from "@/assets/js/functions_seller";
     export default {
         components: {
-       
+            Modal
   
         },
     
@@ -279,7 +273,24 @@
                 return translations[type] || type;
             },
           
-           
+            async getDetailModal(item) {
+          
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `admin/order/print/label/${item.id}`
+          let data = await AxiosMethod.axios_get()
+         
+          if (data) {
+    
+            const form = {
+              dialog :true,
+              object : data.data
+            }
+            
+            this.$store.commit('set_modalPrintOrder' , form)
+          }
+        },
           
   
     
