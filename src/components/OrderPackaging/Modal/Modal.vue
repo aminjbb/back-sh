@@ -1,6 +1,6 @@
 <template>
     <div class="text-right ">
-        <v-dialog v-model="dialog" width="600"  >
+        <v-dialog v-model="dialog" width="700"  >
             <v-card class="">
                 <v-row
                     justify="space-between"
@@ -13,45 +13,117 @@
                     </v-col>
     
                     <v-col cols="7" class="t16400 ">
-                        ثبت مفقودی
+                        پرینت برچسب سفارش
                     </v-col>
                 </v-row>
                 <v-divider class="center-divider"/>
                 <div class=" px-5">
-                <v-row justify="center">
-                    <v-col cols="12" md="6">
-                        <div justify="start" class="text-center mb-3">
-                            <span class="t12400 color-grey ">
-                                    سریال کالا 
-                                    <span class="text-red">*</span>
-                                </span>
-                        </div>
+                <div >
+                    <div class=" mt-10 d-flex justify-center " >
+                      
                     
-                            <v-autocomplete
-                                :items="sphssList"
-                                density="compact"
-                                variant="outlined"
-                                item-title="name"
-                                item-value="id"
-                                single-line
-                               
-                              
-                                class="mx-auto" />
+                        <div class="border-nested-modal">    
+                    <div>
+                        <div class="d-flex justify-between">
+                            <span>
+                                <img src="@/assets/img/nafis-image.png" alt="shavaz image">
+
+                            </span>
+                            
+                            <span v-if="modalPrintOrderObject && modalPrintOrderObject.weight" class=" number-font">
+                                {{modalPrintOrderObject.weight}}
+                                <span class="modal__content__title">  : وزن بسته </span>
+                            </span>
+                            
+                            
+                           
+                            <span v-if="modalPrintOrderObject && modalPrintOrderObject.sender" class=" number-font">
+                                <span>فرستنده: </span>
+                                {{modalPrintOrderObject.sender}}
+                                
+                            </span>
+                           
+                        </div>
+                    </div>
+                    <div> 
+                        <span class=" d-flex justify-end"> 
+
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_postal_code}} </span>
+                         :   کد پستی
+
+                        </span>    
+                    </div>
+                    <br/>
+                    <div class="d-flex justify-between"> 
+                        <span>شماره تماس:
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_mobile}} </span>
+                        </span>
+                        
+                        <span>گیرنده
+
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_name}} </span>
+                        </span>
+                        
+                    </div>
+                    <br/>
+                    <div class="d-flex justify-end">
+                        <span> 
+                            ادرس:
+                            <span class=" number-font "> {{modalPrintOrderObject.receiver_address}} </span>
+                        </span>
+                       
+                    </div>
+                                        
+                    <div class="main-body-modal">
+                        <div class="d-flex justify-end">
+                          <span class="t12500">تهران، محله ارم، بلوار ناصر حجازی، یعقوبی، اکبر اصغرزاده،
+                        پلاک ۱۶، واحد ۵</span>
+                            <span>:ادرس</span>
+                        </div>
+                        <br/>
+                        <div class="d-flex justify-between">
+                            <span>
+                                <span class=" number-font "> {{modalPrintOrderObject.order_factor_id}} </span>
+                                :شماره فاکتور</span>
+                            <span>
+                                <span class=" number-font"> {{modalPrintOrderObject.sender_postal_code}} </span>
+                                
+                                :کد پستی
+                            </span>
+                            
+                        </div>
+                        
+                    </div>    
+                    <div class="d-flex justify-center mt-4">
+                       
+                        <img src="@/assets/img/qrcode3.png" alt="shavaz image">
+                         
+                        </div>     
+                        <div class="d-flex justify-center">
+                            <span>۱۲۳۴۵۶۶۴۳۳۹۹۵۸</span> 
+                        </div>
+                                        
+                </div>
                   
-                        </v-col>
-                    </v-row>
+                     </div>
+                    </div>
                     <v-row class="justify-between my-2 mx-2">
     
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
-                                @click="sendData()"
-                                height="40"
+                               
+                                height="40"                             
                                 rounded
                                 variant="flat"
-                                color="primary500"
-                                class="px-5 mt-1">
-                                تایید
-                            </v-btn>
+                                class="px-5 mt-1 border ">
+                                <template v-slot:prepend>
+                                <v-icon>mdi-printer-outline</v-icon>
+                                </template>
+                                پرینت برچسب
+                                 </v-btn>
+                            <span>
+                                
+                            </span>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-end mx-10">
                             <btn
@@ -69,14 +141,13 @@
     </template>
     
     <script>
-     import {
-        openToast
-    } from "@/assets/js/functions";
-    import BulkLabelPrint from "@/composables/BulkLabelPrint";
+    
+    import OrderPackaging from "@/composables/OrderPackaging";
     import {
         AxiosCall
     } from '@/assets/js/axios_call.js'
-    import Table from "@/components/BulkLabelPrint/Table/Table.vue";
+    import Table from "@/components/OrderPackaging/Table/Table.vue";
+    
     
     export default {
 
@@ -109,7 +180,7 @@
                 headerShps,
                 getShpssDetailLost,
                 shpssDetailLost
-            } = BulkLabelPrint();
+            } = OrderPackaging();
     
             return {
                 getShpssDetailLost,
@@ -123,41 +194,13 @@
         },
         components: {
             
-          
+        
     
         },
     
         methods: {
 
-            async sendData() {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'report/crud/create'
-            AxiosMethod.form = formdata
-
-            formdata.append('package_id', this.packageId);
-            formdata.append('report_type', this.reportType);
-            formdata.append('shps_s', this.shpsS);
-            
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-      
-            if (data) {
-                this.loading = false;
-                openToast(
-                        this.$store,
-                        '',
-                        "success"
-                    );
-    
-
-            } else {
-                this.loading = false
-            }
-        },
+       
 
     
             close() {
@@ -165,19 +208,10 @@
                     dialog: false,
                     object: ''
                 }
-                this.$store.commit('set_modalLostShpss', form)
+                this.$store.commit('set_modalPrintOrder', form)
             },
-            validate() {
-                this.$refs.BlogForm.$refs.addForm.validate()
-                setTimeout(() => {
-                    if (this.$refs.BlogForm.valid) this.createBlog()
-                }, 200)
-            },
-           
-           
-    
+          
 
-    
     
         },
         watch: {
@@ -189,41 +223,35 @@
     
         computed: {
 
-            sphssList() {
-            try {
-                let shpss = []
-                this.shpssDetailLostObject.forEach(item => {
-                    const form = {
-                        name: item?.shps?.sku?.sku?.label,
-                        id: item?.id
-                        
-                    }
-                    shpss.push(form)
-                })
-                return shpss
-            } catch (e) {
-                return  []
-            }
-        },
-            packageId() {
       
-                return this.$store.getters['get_packageId']
+            modalPrintOrderObject() {
+                const data = this.$store.getters['get_modalPrintOrderObject'];
+        return data;                
             },
-            reportType() {
-                return this.$store.getters['get_reportType'];
-            },
-            shpsS(){
-                return this.$store.getters['get_shps_s']
-            },
-        
+
+
             dialog() {
                 return this.$store.getters['get_modalPrintOrder']
             },
-            shpssDetailLostObject() {
-                const data = this.$store.getters['get_modalLostShpssObject'];
-        return data;                
-            },
+        
         }
     }
     </script>
+
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
     
