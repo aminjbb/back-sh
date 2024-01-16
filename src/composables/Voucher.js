@@ -1,13 +1,14 @@
 import { ref, onMounted, watch } from 'vue';
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
+import { PanelFilter } from '@/assets/js/filter_voucher.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const voucherList = ref([]);
-    const voucher = ref(null);
+    const voucherDetail = ref(null);
+    const voucher = ref([]);
     const dataTableLength = ref(25)
     let page = ref(1)
     const pageLength = ref(1)
@@ -44,6 +45,30 @@ export default function setup(posts) {
         { name: ' شماره تماس', show: true, value: 'phone', order: false},
     ]);
 
+    const indexFilterField =ref( [
+        {name:'عنوان' , type:'text', value:'name'},
+        {name:'کد تخفیف' , type:'text', value:'code'},
+        {name:'نوع کد تخفیف' , type:'select', value:'voucher_type'},
+        {name:'نوع تخفیف' , type:'select', value:'discount_type'},
+        {name:'هزینه ارسال' , type:'select', value:'sending_method'},
+        {name:'استان' , type:'select', value:'state_id'},
+        {name:'تاریخ شروع ' , type:'date', value:'start_time'},
+        {name:'تاریخ پایان ' , type:'date', value:'end_time'},
+        {name:'وضعیت' , type:'select', value:'is_active'},
+        {name:'کمترین مقدار تخفیف (از)' , type:'text', value:'discount_from'},
+        {name:'بیشترین مقدار تخفیف (تا)' , type:'text', value:'discount_to'},
+        {name:'کمترین شماره سفارش (از)' , type:'text', value:'order_count_from'},
+        {name:'بیشترین شماره سفارش (تا)' , type:'text', value:'order_count_to'},
+        {name:'کمترین تعداد استفاده سفارش (از)' , type:'text', value:'order_limit_from'},
+        {name:'بیشترین تعداد استفاده سفارش (تا)' , type:'text', value:'order_limit_to'},
+        {name:'کمترین تعداد استفاده مشتری(از) ' , type:'text', value:'user_limit_from'},
+        {name:'بیشترین تعداد استفاده مشتری(تا) ' , type:'text', value:'user_limit_to'},
+        {name:'کمترین هزینه سفارش (از) ' , type:'text', value:'min_order_price_from'},
+        {name:'بیشترین هزینه سفارش(تا)  ' , type:'text', value:'min_order_price_to'},
+        {name:'کالا ' , type:'select', value:'sku_id'},
+        {name:'مشتری ' , type:'select', value:'user_id'},
+    ]);
+
     const filterField =ref( [
         {name:'شناسه' , type:'text', value:'id'},
         {name:'نام انگلیسی' , type:'text', value:'name'},
@@ -51,31 +76,59 @@ export default function setup(posts) {
         {name:'نام فارسی' , type:'text', value:'label'},
         {name:'فعال سازی ' , type:'switch', value:'active'},
     ]);
-
+    const loading = ref(false)
+    const isFilter =ref(false)
+    const isFilterPage =ref(false)
+    const filter = new PanelFilter()
 
     async function  getVoucherList(query) {
-        // if(query){
-        //     formdata  = query
-        // }
-        // else if (route.query) {
-        //     formdata  = route.query
-        // }
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = 'voucher/crud/index'
+        AxiosMethod.end_point = `voucher/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            voucherList.value = data.data
+            voucherList.value = data.data.data
         }
     };
-    async function  getVoucher(query) {
+    async function  getVoucherDetail(query) {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `voucher/crud/get/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            voucherDetail.value = data.data
+        }
+    };
+    async function  getVoucherShps(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/get/shps/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            voucher.value = data.data
+        }
+    };
+    async function  getVoucherCustomer(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -128,6 +181,7 @@ export default function setup(posts) {
     })
 
     return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
-    ,dataTableLength ,pageLength , getVoucher , voucher , getVoucherList}
+    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
+        getVoucherDetail , voucherDetail, indexFilterField}
 }
 

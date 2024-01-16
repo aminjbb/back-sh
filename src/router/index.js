@@ -232,6 +232,7 @@ import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
 import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 import DetailVoucherView from "@/views/Voucher/DetailVoucherView.vue";
 import VoucherListView from "@/views/Voucher/VoucherListView.vue";
+import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView.vue";
 
 
 const router = createRouter({
@@ -1755,9 +1756,17 @@ const router = createRouter({
           }
         },
         {
-          path: ':voucherId',
+          path: ':voucherId/shps',
           name: 'DetailVoucherView',
           component: DetailVoucherView,
+          meta: {
+            name: 'جزئیات'
+          }
+        },
+        {
+          path: ':voucherId/customer',
+          name: 'VoucherDetailCustomerView',
+          component: VoucherDetailCustomerView,
           meta: {
             name: 'جزئیات'
           }

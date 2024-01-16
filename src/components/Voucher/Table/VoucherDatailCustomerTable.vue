@@ -40,29 +40,29 @@
           </div>
 
           <div
-              v-if="item.first_name && header[1].show"
+              v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.sku?.id }}
+                        {{ item.id }}
                     </span>
           </div>
 
           <div
-              v-if="item.last_name && header[2].show"
+              v-if="item.first_name && header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.sku?.label }}
+                        {{ item.first_name }}
                     </span>
           </div>
 
           <div
-              v-if="item.phone_number && header[3].show"
+              v-if="item.last_name && header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone_number }}
+                        {{ item.last_name }}
                     </span>
           </div>
           <div
@@ -70,11 +70,10 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.role?.label }}
+                        {{ item.phone_number }}
                     </span>
             <span v-else>----</span>
           </div>
-
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -180,16 +179,7 @@ export default {
   },
 
   methods: {
-    rowIndexTable(index) {
-      let rowIndex = 0
-      if (this.page === 1) {
-        rowIndex = (1 + index)
-        return rowIndex
-      } else {
-        rowIndex = ((this.page - 1) * this.perPage) + index + 1
-        return rowIndex
-      }
-    },
+
     /**
      * Return odd index
      * @param {*} index
