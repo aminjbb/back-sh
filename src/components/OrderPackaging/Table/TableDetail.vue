@@ -47,7 +47,7 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item.id }}
+                            {{ item.shps.id }}
                         </span>
                     </div>    
                     <div
@@ -81,7 +81,7 @@
 
                     <div
                 v-if=" header[4].show "
-                class="c-table__contents__item justify-center"
+                class="c-table__contents__item number-font justify-center t14300 text-gray500"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 {{ item.count }}    
