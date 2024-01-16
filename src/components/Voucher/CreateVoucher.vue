@@ -42,59 +42,51 @@ export default {
   },
   methods: {
     validate() {
+      this.$refs.CreateVoucherFrom.$refs.addVoucher.validate()
+      setTimeout(()=>{
+        let isFileNull = false
+        this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
+          switch (condition.data) {
+            case null:
+              isFileNull = true
+              openToast(this.$store,`پر کردن اطلاعات ${condition.title} الزامی است` , 'error')
+              break;
+            default:
+              isFileNull = false
+              break;
+          }
 
-      if (!this.$refs.CreateOrderForm.shpsList.length){
-        openToast(this.$store , 'محصولی انتخاب نشده است' , 'error')
-      }
-      else if (!this.$refs.CreateOrderForm.user){
-        openToast(this.$store , 'کاربر انتخاب نشده است' , 'error')
-      }
-      else if (!this.$refs.CreateOrderForm.address){
-        openToast(this.$store , 'آدرس حتما باید انتخاب شود' , 'error')
-      }
-      else if (!this.$refs.CreateOrderForm.sendingMethod){
-        openToast(this.$store , 'روش ارسال را انتخاب کنید' , 'error')
-      }
-      else{
-        this.countChecking()
-      }
+        })
+        if (this.$refs.CreateVoucherFrom.valid && !isFileNull) this.createVoucher()
+
+      }, 200)
+
 
     },
-
-    async countChecking() {
+    async createVoucher() {
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'admin/order/crud/check/count'
-      this.$refs.CreateOrderForm.shpsList.forEach((shps, index) => {
-        formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
-        formData.append(`shps_list[${index}][count]`, shps?.count)
+      AxiosMethod.end_point = 'voucher/crud/create'
+      formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
+      formData.append('code', this.$refs.CreateVoucherFrom.voucherForm.code)
+      formData.append('discount_type', this.$refs.CreateVoucherFrom.voucherForm.voucherAmountType)
+      formData.append('discount', this.$refs.CreateVoucherFrom.voucherForm.voucherAmount)
+      formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
+      formData.append('sending_price', this.$refs.CreateVoucherFrom.voucherForm.sending)
+      formData.append('voucher_type', this.$refs.CreateVoucherFrom.voucherForm.voucherType)
+      if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
+      this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
+        if (condition.value === 'start-and-end-time'){
+          const startDateSplit = condition.data[0].split(' ')
+          const endDateSplit = condition.data[1].split(' ')
+          formData.append('start_time', convertDateToGregorian(startDateSplit[0] , '/' , false) + ' ' + startDateSplit[1]+':00')
+          formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
+        }
+        else {
+          formData.append(condition.value, condition.data)
+        }
       })
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.toast_error = true
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.createOrder()
-      }
-      else {
-        this.loading = false
-      }
-    },
-    async createOrder() {
-      this.loading = true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'admin/order/crud/create'
-      this.$refs.CreateOrderForm.shpsList.forEach((shps, index) => {
-        formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
-        formData.append(`shps_list[${index}][count]`, shps?.count)
-      })
-      formData.append('user_id', this.$refs.CreateOrderForm.user.id)
-      formData.append('address_id', this.$refs.CreateOrderForm.address)
-      formData.append('sending_method', this.$refs.CreateOrderForm.sendingMethod)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
@@ -103,12 +95,12 @@ export default {
       if (data) {
         this.loading = false
         openToast(this.$store,
-            'سفارش با موفقیت ایجاد شد.',
+            'کد تخفیف موفقیت ایجاد شد.',
             "success")
       } else {
         this.loading = false
         openToast(this.$store,
-            'ایجاد سفارش با مشکل مواجه شد',
+            'ایجاد کد تخفیف مشکل مواجه شد',
             "error")
       }
     },
