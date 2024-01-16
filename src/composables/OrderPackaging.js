@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const orderList = ref([])
+    const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -42,6 +43,41 @@ export default function setup(posts) {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
+    function extractNumberFromBarcode(barcode) {
+        let parts = barcode.split("-");
+        return parts.length >= 3 ? parts[1] : null;
+    }
+
+    async function getOrderListDetail(packageId = null) {
+        loading.value = true;
+       
+        
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = cookies.cookies.get('adminToken');
+        
+        AxiosMethod.end_point = `admin/order/crud/shps/detail/${packageId}` ;
+        
+        try {
+            let response = await AxiosMethod.axios_get();
+            console.log("API Response:", response); 
+    
+            loading.value = false;
+    
+            if (response) {
+                pageLength.value = response.data.last_page;
+                orderListDetail.value = response.data
+
+               
+            } else {
+                orderListDetail.value = [];
+            }
+        } catch (error) {
+            console.error("Error in API call:", error);
+            loading.value = false;
+            return [];
+        }
+    }
     async function getShpsList(packageId= null) {
         loading.value = true;
         let params = packageId ? { id: packageId } : {};
@@ -60,9 +96,14 @@ export default function setup(posts) {
     
             if (response && response.data && response.data.data) {
                 pageLength.value = response.data.last_page;
-            
-                
+              
                  orderList.value = response.data.data
+                 orderList.value.forEach(item => {
+                    let extractedNumber = extractNumberFromBarcode(item.barcode);
+                    if (extractedNumber) {
+                        console.log("Extracted Number:", extractedNumber);
+                    }
+                });
                 
                
             } else {
@@ -74,7 +115,6 @@ export default function setup(posts) {
             return [];
         }
     }
-
 
     function addPerPage(number){
         filter.page = 1
@@ -105,7 +145,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength,  addPerPage, getShpsList, dataTableLength , page   , item , orderList,
+    return { pageLength,  addPerPage, getShpsList, dataTableLength , page   , item , orderList, orderListDetail, getOrderListDetail,
         loading  , cargoReceivingHeader, detailInfo}
 }
 
