@@ -7,7 +7,8 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const voucherList = ref([]);
-    const voucher = ref(null);
+    const voucherDetail = ref(null);
+    const voucher = ref([]);
     const dataTableLength = ref(25)
     let page = ref(1)
     const pageLength = ref(1)
@@ -44,7 +45,7 @@ export default function setup(posts) {
         { name: ' شماره تماس', show: true, value: 'phone', order: false},
     ]);
 
-    const filterField =ref( [
+    const indexFilterField =ref( [
         {name:'شناسه' , type:'text', value:'id'},
         {name:'نام انگلیسی' , type:'text', value:'name'},
         {name:'گروه' , type:'text', value:'group'},
@@ -67,15 +68,40 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            voucherList.value = data.data
+            voucherList.value = data.data.data
         }
     };
-    async function  getVoucher(query) {
+    async function  getVoucherDetail(query) {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `voucher/crud/get/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            voucherDetail.value = data.data
+        }
+    };
+    async function  getVoucherShps(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/get/shps/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            voucher.value = data.data
+        }
+    };
+    async function  getVoucherCustomer(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -128,6 +154,7 @@ export default function setup(posts) {
     })
 
     return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
-    ,dataTableLength ,pageLength , getVoucher , voucher , getVoucherList}
+    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
+        getVoucherDetail , voucherDetail}
 }
 

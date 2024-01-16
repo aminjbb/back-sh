@@ -232,29 +232,37 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش جزئیات
-                                    </span>
+                      نمایش کالاهای تخفیف
+                    </span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/edit`)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/customer`)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
-                                        ویرایش اطلاعات مشتری
-                                    </span>
+                      نمایش مشتری های تخفیف
+                    </span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/order`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش فاکتور مالی
-                                    </span>
+                      لیست سفارشات
+                    </span>
+                  </div>
+                </v-list-item-title>
+                <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">
+                        حذف
+                    </span>
                   </div>
                 </v-list-item-title>
               </v-list>
