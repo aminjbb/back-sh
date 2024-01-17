@@ -1613,7 +1613,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'detail-info',
+          path: 'detail-info/:orderId',
           name: 'detail-info',
           component: OrderDetailView,
           meta: {

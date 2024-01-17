@@ -21,6 +21,7 @@
                 :rules="rule" 
                 v-model="cargo"
                 placeholder="شناسه سفارش را اسکن نمایید"/>
+
               </div>
             </v-form>
           </v-col>
@@ -165,10 +166,10 @@
   
     setup(props) {
       const {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList,orderList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList,orderList, getOrderListDetail
       } = OrderPackagingList();
       return {
-        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, orderList
+        pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , cargoReceivingHeader , item , filterField ,loading, getShpsList, orderList, getOrderListDetail
       };
     },
   
@@ -181,27 +182,16 @@
       }
     },
     async mounted() {
-  try {
-    const data = await this.getShpsList();
-    console.log("Fetched data:", data);
-    this.allCargoData = await this.getShpsList();
-    console.log("All Cargo Data:", this.allCargoData);
-    this.filteredCargoData = this.allCargoData;
-  } catch (error) {
-    console.error("Error fetching all cargo data:", error);
-    this.allCargoData = [];
-    this.filteredCargoData = [];
-  }
+      this.fetchCargoData();
 },
   
     watch: {
-      cargo(newId) {
-        if (newId && Array.isArray(this.allCargoData)) {
-      this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
-    } else {
-      this.filteredCargoData = this.allCargoData;
-      }
-    },
+      cargo(newCargoId) {
+        if (newCargoId) {
+            this.fetchCargoData(newCargoId);
+            this.updatePackageIdInStore();
+        }
+        },
 
       confirmModal(val) {
         if (this.$cookies.get('deleteItem')) {
@@ -220,13 +210,23 @@
     },
   
     methods: {
-
+      async fetchCargoData(newCargoId) {
+            this.getShpsList(newCargoId);
+        },
+        updatePackageIdInStore() {
+        this.$store.commit('set_packageId', this.cargo);
+    },
   
       updateSendingMethod() {
     const paymentMethod = "saman"; 
     this.$store.commit('set_sendingMethod', paymentMethod);
   },
+  onFormSubmit() {
+    if (this.valid) {
+      this.$router.push( '/order-packaging/detail-info/' +this.cargo);
 
+    }
+  },
 
 
       /**
@@ -238,8 +238,7 @@
         this.header[index].show = value
       },
       $route(){
-                this.getShpsList();
-
+        this.fetchCargoData();
             }
     }
   }
