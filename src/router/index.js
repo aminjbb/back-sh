@@ -232,6 +232,9 @@ import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
 import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 import DetailVoucherView from "@/views/Voucher/DetailVoucherView.vue";
 import VoucherListView from "@/views/Voucher/VoucherListView.vue";
+import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
+
+
 
 
 const router = createRouter({
@@ -1764,6 +1767,24 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/free-delivery', // free delivery
+      meta: {
+        name: ' مارکتینگ '
+      },
+      children: [
+          {
+          path: 'index',
+          name: 'FreeDeliveryListView',
+          component: FreeDeliveryListView,
+          meta: {
+            name: ' ارسال رایگان'
+          }
+        },
+        
+      ],
+    },
+    
   ]
 })
 const privateRoutes = [
