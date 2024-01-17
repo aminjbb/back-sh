@@ -119,7 +119,7 @@
                 <v-autocomplete
                     v-model='createFromModel.colors'
                     :items="groupedColors"
-                    item-text="label"
+                    item-title="label"
                     chips
                     closable-chips
                     color="blue-grey-lighten-2"
@@ -127,6 +127,7 @@
                     variant="outlined"
                     return-object
                     class="selected-attribute__values__input"
+
                     @update:modelValue="saveCreateFromModel(index);addBadge(labels.color,'color')"
                 >
                   <template v-slot:chip="{ props, item }">
