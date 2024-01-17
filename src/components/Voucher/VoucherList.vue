@@ -11,7 +11,7 @@
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerVouchers" />
 
-            <ModalTableFilter path="orders/index" :filterField="[]" />
+            <ModalTableFilter path="voucher/index" :filterField="indexFilterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -24,7 +24,7 @@
           :items="voucherList"
           :page="page"
           :perPage="dataTableLength"
-          activePath="asdasd"
+          activePath="voucher/activation"
           @updateList="updateList"
           deletePath="order/crud/delete/"
           model="order" />
@@ -74,7 +74,7 @@
 <script>
 import Table from '@/components/Voucher/Table/VoucherListTable.vue'
 import Voucher from "@/composables/Voucher";
-import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
+import ModalTableFilter from '@/components/Voucher/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 
 export default {
@@ -87,11 +87,11 @@ export default {
   setup(props) {
     const {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength ,getVoucherList
+      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField
     } = Voucher();
     return {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength , getVoucherList ,
+      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField
     };
   },
 
@@ -126,6 +126,10 @@ export default {
   watch: {
     dataTableLength(val) {
     },
+    $route(){
+      this.getVoucherList()
+
+    }
   }
 }
 </script>

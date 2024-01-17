@@ -60,12 +60,13 @@
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
-          :header="headerShps"
+          :header="headerCustomer"
           :items="[]"
           :page="page"
           :perPage="pageLength"
           :loading="false"
-          />
+          model="customer"
+      />
 
       <v-divider/>
 
@@ -110,14 +111,14 @@
   </div>
 </template>
 <script>
-import Table from "@/components/Voucher/Table/VoucherDatailTable.vue";
+import Table from "@/components/Voucher/Table/VoucherDatailCustomerTable.vue";
 import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import Voucher from '@/composables/Voucher'
 export default {
   setup() {
-    const {headerShps ,getVoucherShps,voucher , dataTableLength ,
+    const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
       pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
-    return {headerShps,getVoucherShps,voucher,dataTableLength ,
+    return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
       pageLength,page,getVoucherDetail , voucherDetail}
   },
   components: {
@@ -125,7 +126,7 @@ export default {
     ModalTableFilter
   },
   mounted() {
-    this.getVoucherShps()
+    this.getVoucherCustomer()
     this.getVoucherDetail()
   }
 }
