@@ -166,7 +166,7 @@ export default {
         async finishedPack() {
             this.finishLoading = true
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `shipment/pack/${this.boxId}`
+            AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
