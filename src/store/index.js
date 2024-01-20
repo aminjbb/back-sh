@@ -34,6 +34,7 @@ export default createStore({
         shipmentId:null,
         shpsId:null,
         sendingMethod:null,
+        orderId: null,
         //seller modals
         orderLimitModal: {
             dialog: false,
@@ -167,6 +168,9 @@ export default createStore({
     },
 
     mutations: {
+        set_orderId(state, orderId){
+            state.orderId = orderId
+        },
 
         set_sendingMethod(state, sendingMethod){
             state.sendingMethod = sendingMethod
@@ -371,6 +375,11 @@ export default createStore({
     actions: {},
 
     getters: {
+
+        get_orderId(state){
+            return state.orderId 
+         },
+
         get_sendingMethod(state){
            return state.sendingMethod 
         },

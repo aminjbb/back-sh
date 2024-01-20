@@ -119,7 +119,7 @@
                                     <v-list-item-title>
                                         <div
                                             class="ma-5 pointer"
-                                            @click="$router.push(`/print-label-bulk/index`)">
+                                            @click=getDetail(item.shipment_id)>
                                             <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت گروهی برچسب                                           
@@ -161,13 +161,15 @@
                 </div>
             </div>
         </div>
-       
+        <ModalBulkPrintLabel :shipmentId="shipmentId"/>
         <ModalDamageReport/>
        <ModalLostReport/>
     </div>
     </template>
     
     <script>
+    import ModalBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalBulkPrintLabel.vue";
+
     import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
     import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
     import { PanelFilter } from '@/assets/js/filter.js'
@@ -191,7 +193,10 @@
     export default {
         components: {
           ModalLostReport,
-          ModalDamageReport
+          ModalDamageReport,
+          ModalBulkPrintLabel,
+
+
   
         },
     
@@ -276,7 +281,7 @@
                 shipments: [],
                 isSubmitted: false,
                 submittedItemId: null,
-
+                shipmentId:null
                
   
              
@@ -285,7 +290,9 @@
     
         computed: {
 
-            packageId() {
+
+
+      packageId() {
       
       return this.$store.getters['get_packageId']
   },
@@ -320,8 +327,25 @@
   },
         methods: {
   
-  
-  
+        async getDetail(id){
+        
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/print/barcode/${id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            const dialogForm = {
+                dialog: true,
+                object: data.data
+            }
+        this.$store.commit('set_bulkPrintLabel', dialogForm)
+        this.shipmentId = id
+          this.detail = data.data
+          this.dialog = true
+        }
+      },
+            
             /**
              * Open Basic Discount modal
              * @param {*} id

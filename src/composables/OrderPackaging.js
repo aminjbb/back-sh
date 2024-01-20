@@ -66,6 +66,7 @@ export default function setup(posts) {
     
             if (response) {
                 pageLength.value = response.data.last_page;
+                this.$store.commit('set_shpsId',  item.shps);
                 orderListDetail.value = response.data
 
                
@@ -102,6 +103,7 @@ export default function setup(posts) {
                     let extractedNumber = extractNumberFromBarcode(item.barcode);
                     if (extractedNumber) {
                         console.log("Extracted Number:", extractedNumber);
+                        this.$store.commit('set_orderId',  extractedNumber);
                     }
                 });
                 
