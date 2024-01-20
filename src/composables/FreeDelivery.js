@@ -52,16 +52,11 @@ export default function setup(posts) {
 
 
     async function  getVoucherList(query) {
-        // if(query){
-        //     formdata  = query
-        // }
-        // else if (route.query) {
-        //     formdata  = route.query
-        // }
+       
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = 'voucher/crud/index'
+        AxiosMethod.end_point = 'admin/delivery-discount/crud/index'
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)

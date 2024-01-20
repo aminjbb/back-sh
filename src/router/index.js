@@ -234,6 +234,8 @@ import DetailVoucherView from "@/views/Voucher/DetailVoucherView.vue";
 import VoucherListView from "@/views/Voucher/VoucherListView.vue";
 import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView.vue";
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
+import CreateFreeDeliveryView from "@/views/FreeDelivery/CreateFreeDeliveryView.vue";
+
 
 
 const router = createRouter({
@@ -1785,7 +1787,15 @@ const router = createRouter({
           name: 'FreeDeliveryListView',
           component: FreeDeliveryListView,
           meta: {
-            name: ' ارسال رایگان'
+            name: '  مارکتینگ'
+          }
+        },
+        {
+          path: 'create',
+          name: 'CreateFreeDeliveryView',
+          component: CreateFreeDeliveryView,
+          meta: {
+            name: 'ساخت'
           }
         },
         

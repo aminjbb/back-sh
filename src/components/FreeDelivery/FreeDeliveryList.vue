@@ -21,7 +21,7 @@
         <Table
             class="flex-grow-1"
             :header="headerFreeDelivery"
-            :items="voucherList"
+            :items="mockFreeDelivry"
             :page="page"
             :perPage="dataTableLength"
             activePath="asdasd"
@@ -80,7 +80,86 @@
   export default {
     data() {
       return {
-  
+        "mockFreeDelivry": [
+            {
+                "id": 1,
+                "state": {
+                    "id": 1,
+                    "name": "fars",
+                    "label": "فارس",
+                    "priority": "5",
+                    "is_active": 1,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                "post": false,
+                "pishtaz": false,
+                "nafis": false,
+                "tipax": false,
+                "is_active": false,
+                "order_count": 10,
+                "order_limit": 1,
+                "user_limit": 10,
+                "min_order_price": 100000,
+                "max_discount": 1000,
+                "start_time": "2024-07-08 12:00:00",
+                "start_time_fa": "1403/04/18",
+                "end_time": "2024-09-09 13:00:00",
+                "end_time_fa": "1403/06/19"
+            },
+            {
+                "id": 2,
+                "state": {
+                    "id": 1,
+                    "name": "fars",
+                    "label": "فارس",
+                    "priority": "5",
+                    "is_active": 1,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                "post": true,
+                "pishtaz": false,
+                "nafis": false,
+                "tipax": true,
+                "is_active": true,
+                "order_count": 10,
+                "order_limit": 1,
+                "user_limit": 10,
+                "min_order_price": 100000,
+                "max_discount": 1000,
+                "start_time": "2024-07-08 12:00:00",
+                "start_time_fa": "1403/04/18",
+                "end_time": "2024-09-09 13:00:00",
+                "end_time_fa": "1403/06/19"
+            },
+            {
+                "id": 3,
+                "state": {
+                    "id": 1,
+                    "name": "fars",
+                    "label": "فارس",
+                    "priority": "5",
+                    "is_active": 1,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                "post": true,
+                "pishtaz": false,
+                "nafis": false,
+                "tipax": true,
+                "is_active": true,
+                "order_count": 10,
+                "order_limit": 1,
+                "user_limit": 10,
+                "min_order_price": 100000,
+                "max_discount": 1000,
+                "start_time": "2024-07-08 12:00:00",
+                "start_time_fa": "1403/04/18",
+                "end_time": "2024-09-09 13:00:00",
+                "end_time_fa": "1403/06/19"
+            }
+        ],
       }
     },
   
