@@ -47,123 +47,59 @@
             </div>
   
             <div
-                v-if="item.id && header[1].show"
+                v-if=" header[1].show"
                 class="c-table__contents__item "
                 style="padding:3px"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font" v-if="item.name">
-                          {{ item.name }}
+                      <span class="t14300 text-gray500 py-5 number-font" >
+                         hello world largest world
                       </span>
-                      <span class="t14300 text-gray500 py-5 number-font" v-else>
-                            ---
-                      </span>
+                     
             </div>
-  
-            <div
-                v-if="header[2].show"
-                class="c-table__contents__item "
-                style="padding:3px"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5">
-                          <template v-if="item.discount_type">
-                              <span v-if="item.discount_type === 'percent'">
-                                درصدی
-                              </span>
-                             <span v-else>
-                                ریالی
-                              </span>
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
-            </div>
-  
-            <div
-                v-if="header[3].show"
-                class="c-table__contents__item "
-                style="padding:3px"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5 number-font">
-                          <template v-if="item.code">
-                              {{item.code}}
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
-            </div>
-  
+            
             <div
                 v-if="header[4].show"
                 class="c-table__contents__item"
                 style="padding:3px"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5">
-                          <template v-if="item.max_discount">
-                              {{ splitChar(item.max_discount) }}
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
+                <v-icon v-if="item.nafis" class="text-green" size="large">mdi-check</v-icon>
+                <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
             </div>
+
+            <div
+                v-if="header[3].show"
+                class="c-table__contents__item "
+                style="padding:3px"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <v-icon v-if="item.pishtaz" class="text-green" size="x-small">mdi-check</v-icon>
+                <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
+            </div>
+
+            <div
+                v-if="header[2].show"
+                class="c-table__contents__item "
+                style="padding:3px"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <v-icon v-if="item.post" class="text-green" size="large">mdi-check</v-icon>
+                <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
+                          
+            </div>
+  
+          
+  
+           
   
             <div
                 v-if="header[5].show"
                 class="c-table__contents__item"
                 style="padding:3px"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5">
-                          <template v-if="item.order_limit">
-                              {{item.order_limit }}
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
+                <v-icon v-if="item.tipax" class="text-green" size="large">mdi-check</v-icon>
+                <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
             </div>
   
-            <div
-                v-if="header[6].show"
-                class="c-table__contents__item "
-                style="padding:3px"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5">
-                          <template v-if="item.user_limit">
-                              {{ item.user_limit }}
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
-            </div>
+            
   
-            <!-- <div
-                v-if="header[7].show"
-                class="c-table__contents__item "
-                style="padding:3px"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5 number-font">
-                          <template v-if="item.min_order_price">
-                              {{item.min_order_price}}
-                          </template>
-                          <template v-else>
-                              -
-                          </template>
-                      </span>
-            </div> -->
-  
-            <div
-                v-if="header[8].show"
-                class="c-table__contents__item "
-                style="padding:3px"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t13400 text-gray500 py-5" v-if="item.order_count">
-                        {{item.order_count}}
-                      </span>
-              <span v-else>-</span>
-            </div>
   
             <div
                 v-if="header[9].show"
@@ -173,6 +109,21 @@
                       <span class="t13400 text-gray500 py-5 number-font">
                           <template v-if="item.start_time_fa">
                               {{ item.start_time_fa }}
+                          </template>
+                          <template v-else>
+                              -
+                          </template>
+                      </span>
+            </div>
+  
+            <div
+                v-if="header[9].show"
+                class="c-table__contents__item "
+                style="padding:3px"
+                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                      <span class="t13400 text-gray500 py-5 number-font">
+                          <template v-if="item.end_time_fa">
+                              {{ item.end_time_fa }}
                           </template>
                           <template v-else>
                               -
@@ -205,7 +156,7 @@
   
                 <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
                       نمایش کالاهای تخفیف
@@ -214,7 +165,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/customer`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.id}/customer`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
                       نمایش مشتری های تخفیف
@@ -377,6 +328,7 @@
         }
         return 'auto';
       },
+     
     },
   
     methods: {
@@ -433,6 +385,15 @@
       getPaymentMethod(method) {
         if (method === 'saman') {
           return 'درگاه سامان'
+        } else if (method === 'wallet') {
+          return 'کیف پول'
+        } else if (method === 'snapp') {
+          return 'اسنپ پی'
+        }
+      },
+      getSendingMethod(method) {
+        if (method === 'post') {
+          return mdi-check
         } else if (method === 'wallet') {
           return 'کیف پول'
         } else if (method === 'snapp') {

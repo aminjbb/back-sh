@@ -120,7 +120,7 @@
                 },
                 "post": true,
                 "pishtaz": false,
-                "nafis": false,
+                "nafis": true,
                 "tipax": true,
                 "is_active": true,
                 "order_count": 10,

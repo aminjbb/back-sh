@@ -235,6 +235,9 @@ import VoucherListView from "@/views/Voucher/VoucherListView.vue";
 import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView.vue";
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
 import CreateFreeDeliveryView from "@/views/FreeDelivery/CreateFreeDeliveryView.vue";
+import FreeDeliverySkuListView from "@/views/FreeDelivery/FreeDeliverySkuListView.vue";
+
+
 
 
 
@@ -1798,6 +1801,23 @@ const router = createRouter({
             name: 'ساخت'
           }
         },
+        {
+          path: ':freeDeliveryId/shps',
+          name: 'FreeDeliverySkuListView',
+          component: FreeDeliverySkuListView,
+          meta: {
+            name: 'مارکتینگ'
+          }
+        },
+        // {
+        //   path: ':freeDeliveryId/customer',
+        //   name: 'FreeDeliveryCustomerListView',
+        //   component: FreeDeliveryCustomerListView,
+        //   meta: {
+        //     name: 'مارکتینگ'
+        //   }
+        // },
+        
         
       ],
     },
