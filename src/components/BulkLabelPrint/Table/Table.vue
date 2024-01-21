@@ -340,6 +340,7 @@
                 object: data.data
             }
         this.$store.commit('set_bulkPrintLabel', dialogForm)
+    
         this.shipmentId = id
           this.detail = data.data
           this.dialog = true
