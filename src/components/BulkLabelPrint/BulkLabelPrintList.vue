@@ -50,6 +50,7 @@
         <v-card-actions class="pb-3">
             <v-row class="px-5 py-2" justify="end">
                 <v-btn
+                    @click="packingData()"
                     color="primary500"
                     height="40"
                     rounded
@@ -74,6 +75,10 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import BulkLabelPrintList from '@/composables/BulkLabelPrint';
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
+
 
 export default {
     components: {
@@ -91,6 +96,8 @@ export default {
             rule: [v => !!v || 'این فیلد الزامی است'],
             allCargoData: [],
             filteredCargoData: [],
+
+
 
         }
     },
@@ -127,6 +134,7 @@ export default {
     },
 
     computed: {
+
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal;
 
@@ -162,8 +170,36 @@ export default {
     },
 
     methods: {
+
+
+      async packingData() {
+
+        this.loading = true
+        var formData = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `package/crud/update/status/${this.cargo}`
+        AxiosMethod.form = formData
+        formData.append('status', 'received_by_warehouse')
+
+
+
+        AxiosMethod.store = this.$store
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.loading = false
+
+          this.$router.go(-1)
+
+
+        } else {
+          this.loading = false
+        }
+      }
+      ,
         async fetchCargoData(newCargoId) {
-            this.getShpsList(newCargoId);
+            this.getShpsList(newCargoId , this.$store);
         },
         updatePackageIdInStore() {
         this.$store.commit('set_packageId', this.cargo);
