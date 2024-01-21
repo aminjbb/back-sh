@@ -66,7 +66,7 @@
                 @click="updatePackage(item , index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-              <v-icon size="15" v-if="!form[index].sent_to_warehouse">mdi-dots-horizontal</v-icon>
+              <v-icon size="15" v-if="!form[index].sent_to_warehouse && item.status !='received_by_warehouse'">mdi-dots-horizontal</v-icon>
               <v-icon size="15" v-else>mdi-check</v-icon>
             </div>
           </div>
