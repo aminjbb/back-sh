@@ -118,9 +118,14 @@ export default {
   methods: {
     convertDateToJalai,
     convertDate(date){
-      const jalaliDate = convertDateToJalai( date , '-' , false)
-      const splitDate = jalaliDate.split('-')
-      return splitDate[0] + '/' +splitDate[1] +'/' + splitDate[2]
+     try {
+       const jalaliDate = convertDateToJalai( date , '-' , false)
+       const splitDate = jalaliDate.split('-')
+       return splitDate[0] + '/' +splitDate[1] +'/' + splitDate[2]
+     }
+     catch (e) {
+       return ''
+     }
     },
     print() {
       // this.close()
@@ -137,7 +142,7 @@ export default {
       if (data) {
         this.detail = data.data
         this.dialog = true
-        this.getShipmentShpslist()
+        // this.getShipmentShpslist()
       }
     },
 
