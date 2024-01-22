@@ -75,6 +75,7 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import BulkLabelPrintList from '@/composables/BulkLabelPrint';
+import { openToast} from "@/assets/js/functions";
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -180,9 +181,6 @@ export default {
         AxiosMethod.end_point = `package/crud/update/status/${this.cargo}`
         AxiosMethod.form = formData
         formData.append('status', 'received_by_warehouse')
-
-
-
         AxiosMethod.store = this.$store
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
@@ -190,8 +188,12 @@ export default {
         if (data) {
           this.loading = false
 
-          this.$router.go(-1)
-
+          location. reload()
+          openToast(
+              this.$store,
+              'بسته با موفقیت ویرایش گردید',
+              "success"
+          );
 
         } else {
           this.loading = false
