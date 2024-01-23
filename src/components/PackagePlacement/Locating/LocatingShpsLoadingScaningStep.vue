@@ -33,11 +33,12 @@ export default {
   methods:{
     qrCodeScan(){
       this.objectId = this.qrCode
+      const finalObject = this.objectId.split('-')
       this.qrCode = ''
       if (this.state === 'packageSphpsList') {
         this.packageScan()
       }
-      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.$route.params.packageId}/shps-list/locating-shelf/${this.objectId}`)
+      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.$route.params.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
     },
 
     async packageScan(){

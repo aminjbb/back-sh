@@ -112,6 +112,8 @@ export default {
     scanQrCode(){
       this.packageId = this.qrCode
       this.qrCode = ''
+      const finalPackageId = this.packageId.split('-')
+      this.$router.push(`/locating/${finalPackageId[1]}/shps-list`)
       // this.getSinglePackagePlacement(this.packageId)
     },
 
