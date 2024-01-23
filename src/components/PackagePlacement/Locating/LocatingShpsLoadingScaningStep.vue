@@ -36,19 +36,19 @@ export default {
       const finalObject = this.objectId.split('-')
       this.qrCode = ''
       if (this.state === 'packageSphpsList') {
-        this.packageScan()
+        this.packageScan(this.objectId , finalObject[1])
       }
       else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.$route.params.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
     },
 
-    async packageScan(){
+    async packageScan(barcode , objectId){
       const AxiosMethod = new AxiosCall()
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${this.objectId}`
+      AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${barcode}`
       AxiosMethod.using_auth = true
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.$router.push(`/locating/${this.objectId}/shps-list`)
+        this.$router.push(`/locating/${objectId}/shps-list`)
       }
     }
   },
