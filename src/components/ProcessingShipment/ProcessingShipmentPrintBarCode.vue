@@ -2,18 +2,25 @@
   <div class="text-center px-5 ma-5" id="printableArea-shipmentBarcode">
     <v-card class="content py-5">
       <v-row justify="center">
-        <v-col cols="4" v-for="(barCode , index) in detail ">
+        <v-col cols="4" v-for="(barCode , index) in detail " :key="'shpss-list-barcode'+index">
           <div class="d-flex justify-space-between px-15">
             <span>{{barCode?.shps?.seller?.id}}</span>
             <span>{{barCode?.shps?.seller?.shopping_name}}</span>
           </div>
           <div class="text-center">
-            <img width="190" height="80" :src="basUrl + barCode.barcode_image">
+            <img width="190" height="80" :src="basUrl + barCode.shps?.barcode_image">
+          </div>
+          <div class="text-center px-10">
+            {{barCode?.shps?.sku?.label }}
           </div>
           <div class="text-center">
-            <img width="133" height="69" :src="basUrl + barCode.shps?.barcode_image">
+            <img width="133" height="69" :src="basUrl + barCode?.barcode_image">
+          </div>
+          <div class="text-center px-10">
+            {{barCode?.barcode }}
           </div>
         </v-col>
+
       </v-row>
     </v-card>
 

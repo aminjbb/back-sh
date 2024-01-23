@@ -116,13 +116,11 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        // Update the endpoint to fetch cargo details based on the ID from the route parameters
-        AxiosMethod.end_point = `cargo/crud/get/${route.params.pageId}`; 
+        AxiosMethod.end_point = `page/crud/get/${route.params.pageId}`;
         let data = await AxiosMethod.axios_get()
-        if (data && data.status === "Success") {
-            pageSingle.value = data.data; // Assuming pageSingle will now hold the cargo data
+        if (data) {
+            pageSingle.value = data.data;
         }
-
         else {
         }
     }

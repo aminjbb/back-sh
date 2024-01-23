@@ -12,8 +12,5 @@ import LocatingDashboard from '@/components/PackagePlacement/Locating/LocatingDa
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-  min-width: 420px;
-}
+
 </style>

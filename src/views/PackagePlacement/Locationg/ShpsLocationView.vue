@@ -13,7 +13,5 @@ import ShpsLocation from '@/components/PackagePlacement/Locating/ShpsLocation.vu
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-}
+
 </style>

@@ -13,7 +13,5 @@ import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlace
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-}
+
 </style>
