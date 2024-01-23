@@ -12,7 +12,5 @@ import WarehouseOrderPickUp from '@/components/WarehouseOrderList/WarehouseOrder
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-}
+
 </style>

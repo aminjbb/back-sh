@@ -1,11 +1,11 @@
-<template lang="">
+<template >
     <div>
         <v-row 
             justify="center"
             align="center"
             class="pa-7"
         >
-            <v-col cols="5" class="pa-0">
+            <v-col cols="5" class="pa-0 d-none d-md-block">
                 <v-card
                     color="primary500"
                     class="h-93vh rounded-16"
@@ -20,7 +20,7 @@
                 </v-card>
             </v-col>
 
-            <v-col cols="7" lass="pa-0">
+            <v-col cols="6" md="7" lass="pa-0">
                 <LoginForm
                     v-if="loginStep"
                     ref="loginFormComponent"

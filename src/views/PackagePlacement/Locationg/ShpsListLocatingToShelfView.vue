@@ -12,7 +12,5 @@ import ShpsListLocatingToShelf from '@/components/PackagePlacement/Locating/Shps
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-}
+
 </style>
