@@ -23,6 +23,7 @@
             </div>
 
             <div
+                :id="`printableArea-${printModal.id}`"
                 class="d-flex justify-center align-center"
                 style="height: 180px;">
                 <div>
@@ -129,12 +130,28 @@ export default {
             } else {}
         },
 
-        /**
-         * Print barcode
-         */
-        print() {
-            //Add print modal
-        }
+      /**
+       * Print barcode
+       */
+      print() {
+        const printWindow = window.open('about:blank', '_blank');
+
+        this.$nextTick(() => {
+          const printContent = document.createElement('div');
+          printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
+          printWindow.document.title = "Print barcode";
+
+          printWindow.document.body.appendChild(printContent);
+
+          setTimeout(() => {
+            printWindow.print();
+
+            printWindow.onafterprint = function () {
+              printWindow.close();
+            };
+          }, 1000);
+        });
+      },
     },
 
     created() {
