@@ -20,7 +20,7 @@
               align="center"
               class="pa-1 my-2">
             <v-col class="mx-10" cols="2">
-              <v-btn @click="dialog = false" variant="icon">
+              <v-btn @click=close() variant="icon">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-col>
@@ -35,7 +35,7 @@
                 <v-row justify="center">
                   <v-col cols="4" v-for="(barCode , index) in detail " :key="'bulk-label-print'+index">
                     <div class="d-flex justify-space-between px-15">
-                      <span>{{barCode?.shps?.seller?.id}}</span>
+                      <span>{{barCode?.id}}</span>
                       <span>{{barCode?.shps?.seller?.shopping_name}}</span>
                     </div>
                     <div class="text-center">
@@ -48,7 +48,7 @@
                       <img width="133" height="69" :src="basUrl + barCode.shps?.barcode_image">
                     </div>
                     <div class="text-center px-10">
-                      {{barCode?.shps?.barcode }}
+                      {{barCode?.barcode }}
                     </div>
                   </v-col>
                 </v-row>
@@ -70,7 +70,7 @@
               <v-col cols="3" class="d-flex justify-end mx-10">
                 <btn
                     class="mt-3 mr-2"
-                    @click="dialog = false"
+                    @click=close()
                     style="cursor: pointer;">
                   انصراف
                 </btn>
@@ -104,8 +104,11 @@
   
       },
       close() {
-        this.dialog = false
-  
+        const form = {
+          dialog: false,
+          object: ''
+        }
+        this.$store.commit('set_bulkPrintLabel', form)
       },
       async getDetail(){
         const AxiosMethod = new AxiosCall()
