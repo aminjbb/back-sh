@@ -144,17 +144,17 @@ export default {
             this.addPerPage(val)
         },
         confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getPageList();
-                    openToast(
-                        this.$store,
-                        'صفحه مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
+          if (localStorage.getItem('deleteObject')) {
+            if (!val) {
+              this.getPageList()
+              openToast(
+                  this.$store,
+                  'عکس مورد نظر با موفقیت حذف شد',
+                  "success"
+              );
+              localStorage.removeItem('deleteObject')
             }
+          }
         },
     }
 }

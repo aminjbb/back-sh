@@ -5,7 +5,7 @@
                 <v-form
                     v-model="valid"
                     ref="login"
-                    @submit.prevent="validate"
+                    @submit.prevent="validate(false)"
                 >
                     <div class="text-center">
                         <img src="@/assets/img/shavaz-logo.png" class="mb-5" alt="shavaz image">
@@ -54,13 +54,27 @@
                                 :loading="loading"
                                 color="primary500"
                                 block rounded="xl"
-                                @click="validate()"
+                                @click="validate(false)"
                                 type="submit"
                             >
                                 <span class="t12300">
                                     ورود
                                 </span>
                             </v-btn>
+
+                          <v-btn
+                              :loading="loading"
+                              color="primary500"
+                              block
+                              rounded="xl"
+                              @click="validate(true)"
+                              type="submit"
+                              class="mt-5 d-md-none d-block"
+                          >
+                                <span class="t12300">
+                                  ورود با هندهلد
+                                </span>
+                          </v-btn>
                         </div>
 
                         <div class="mt-3 text-right container-400">
@@ -126,17 +140,17 @@ export default {
         /**
          * Validate form
          */
-        validate() {
+        validate(handheld) {
             this.$refs.login.validate()
             setTimeout(() => {
-                if (this.valid) this.submitForm()
+                if (this.valid) this.submitForm(handheld)
             }, 200);
         },
 
         /**
          * Submit form
          */
-        async submitForm() {
+        async submitForm(handheld) {
             this.loading=true
             var formdata = new FormData();
             formdata.append('phone_number', this.mobile)
@@ -151,7 +165,10 @@ export default {
                 localStorage.setItem('fullName' ,data.data.admin.first_name + ' ' + data.data.admin.last_name)
                 localStorage.setItem('userId' ,data.data.admin.id )
                 this.$cookies.set('adminToken',data.data.token);
-                this.$router.push('/')
+                if (!handheld) this.$router.push('/')
+                else if(handheld) this.$router.push('/locating/dashboard')
+
+
             }
             else{
                 this.loading=false

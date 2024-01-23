@@ -12,7 +12,5 @@ import WarehouseOrderSorting from '@/components/WarehouseOrderList/WarehouseOrde
   </v-layout>
 </template>
 <style>
-.scan-container{
-  max-width: 420px;
-}
+
 </style>

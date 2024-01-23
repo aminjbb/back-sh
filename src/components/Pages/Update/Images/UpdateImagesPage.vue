@@ -71,6 +71,9 @@ export default {
             } catch (e) {
                 return []
             }
+        },
+        confirmModal() {
+          return this.$store.getters['get_confirmForm'].confirmModal
         }
     },
 
@@ -110,6 +113,21 @@ export default {
     
     mounted() {
         this.getPage()
+    },
+    watch:{
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject')) {
+          if (!val) {
+            this.getPage()
+            openToast(
+                this.$store,
+                'عکس مورد نظر با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
     }
 }
 </script>
