@@ -4,26 +4,39 @@
         class="create-product__info-form scroller"
         v-model="valid">
       <v-row justify="start" align="center">
-        <v-col cols="12">
-          <div class="text-center">
-            <span class="t14500"> ارسال رایگان </span>
-          </div>
-        </v-col>
-        <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+        <v-col v-if="voucherForm.voucherType === 'group' ? 3 : 4">
           <div class="text-right my-5">
                   <span class="t14500 text-gray600">
                      عنوان *
                   </span>
           </div>
-  
+
           <v-text-field
               variant="outlined"
               :rules="rule"
               v-model="voucherForm.title"
               rounded="lg">
-  
+
           </v-text-field>
         </v-col>
+        <v-col cols="6">
+          <div class="text-right my-5">
+                  <span class="t14500 text-gray600">
+                    روش ارسال
+                  </span>
+          </div>
+
+          <v-select
+              :rules="rule"
+              :items="sendingMethods"
+              variant="outlined"
+              v-model="voucherForm.sendingWays"
+              multiple
+              rounded="lg">
+
+          </v-select>
+        </v-col>
+
 
 
         <v-col v-if="voucherForm.voucherType === 'group'" cols="3">
@@ -69,23 +82,7 @@
           </v-select>
         </v-col>
 
-        <v-col cols="6">
-          <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                    روش ارسال 
-                  </span>
-          </div>
-          
-          <v-select
-              :rules="rule"
-              :items="sendingMethods"
-              variant="outlined"
-              v-model="voucherForm.sendingWays"
-              multiple
-              rounded="lg">
-  
-          </v-select>
-        </v-col>
+
         
         <v-col cols="6">
           <div class="text-right my-5">
