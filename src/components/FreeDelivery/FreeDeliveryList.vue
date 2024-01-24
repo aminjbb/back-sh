@@ -11,22 +11,23 @@
             <v-row justify="end" class="mt-0">
               
   
-              <ModalTableFilter path="orders/index" :filterField="[]" />
+              <ModalTableFilter path="free-delivery/index" :filterField="indexFilterField" />
             </v-row>
           </v-col>
         </v-row>
       </v-card>
   
       <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+
         <Table
             class="flex-grow-1"
             :header="headerFreeDelivery"
-            :items="mockFreeDelivry"
+            :items="freeDeliveryList"
             :page="page"
             :perPage="dataTableLength"
             activePath="asdasd"
             @updateList="updateList"
-            deletePath="order/crud/delete/"
+            deletePath="admin/delivery-discount/crud/delete/"
             model="order" />
   
         <v-divider />
@@ -72,105 +73,27 @@
   </template>
   
   <script>
+  import ModalTableFilter from'@/components/FreeDelivery/Filter/Filter.vue'
   import Table from '@/components/FreeDelivery/Table/Table.vue'
   import FreeDelivery from "@/composables/FreeDelivery";
-  import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
+
 
   
   export default {
     data() {
       return {
-        "mockFreeDelivry": [
-            {
-                "id": 1,
-                "state": {
-                    "id": 1,
-                    "name": "fars",
-                    "label": "فارس",
-                    "priority": "5",
-                    "is_active": 1,
-                    "created_at": null,
-                    "updated_at": null
-                },
-                "post": false,
-                "pishtaz": false,
-                "nafis": false,
-                "tipax": false,
-                "is_active": false,
-                "order_count": 10,
-                "order_limit": 1,
-                "user_limit": 10,
-                "min_order_price": 100000,
-                "max_discount": 1000,
-                "start_time": "2024-07-08 12:00:00",
-                "start_time_fa": "1403/04/18",
-                "end_time": "2024-09-09 13:00:00",
-                "end_time_fa": "1403/06/19"
-            },
-            {
-                "id": 2,
-                "state": {
-                    "id": 1,
-                    "name": "fars",
-                    "label": "فارس",
-                    "priority": "5",
-                    "is_active": 1,
-                    "created_at": null,
-                    "updated_at": null
-                },
-                "post": true,
-                "pishtaz": false,
-                "nafis": true,
-                "tipax": true,
-                "is_active": true,
-                "order_count": 10,
-                "order_limit": 1,
-                "user_limit": 10,
-                "min_order_price": 100000,
-                "max_discount": 1000,
-                "start_time": "2024-07-08 12:00:00",
-                "start_time_fa": "1403/04/18",
-                "end_time": "2024-09-09 13:00:00",
-                "end_time_fa": "1403/06/19"
-            },
-            {
-                "id": 3,
-                "state": {
-                    "id": 1,
-                    "name": "fars",
-                    "label": "فارس",
-                    "priority": "5",
-                    "is_active": 1,
-                    "created_at": null,
-                    "updated_at": null
-                },
-                "post": true,
-                "pishtaz": false,
-                "nafis": false,
-                "tipax": true,
-                "is_active": true,
-                "order_count": 10,
-                "order_limit": 1,
-                "user_limit": 10,
-                "min_order_price": 100000,
-                "max_discount": 1000,
-                "start_time": "2024-07-08 12:00:00",
-                "start_time_fa": "1403/04/18",
-                "end_time": "2024-09-09 13:00:00",
-                "end_time_fa": "1403/06/19"
-            }
-        ],
+
       }
     },
   
     setup(props) {
       const {
-         headerFreeDelivery, filterField , page , voucherList
-        ,dataTableLength ,pageLength ,getVoucherList
+         headerFreeDelivery, filterField , page , freeDeliveryList
+        ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField
       } = FreeDelivery();
       return {
-         headerFreeDelivery, filterField , page , voucherList
-        ,dataTableLength ,pageLength , getVoucherList ,
+         headerFreeDelivery, filterField , page , freeDeliveryList
+        ,dataTableLength ,pageLength , getFreeDeliveryList , indexFilterField
       };
     },
   
@@ -193,16 +116,21 @@
   
       updateList(status) {
         if (status === 'true') {
-          this.getVoucherList();
+          this.getFreeDeliveryList();
         }
       },
     },
   
     mounted() {
-      this.getVoucherList()
+      this.getFreeDeliveryList()
+
     },
   
     watch: {
+      $route(){
+        this.getFreeDeliveryList()
+
+      },
       dataTableLength(val) {
       },
     }

@@ -236,6 +236,9 @@ import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
 import CreateFreeDeliveryView from "@/views/FreeDelivery/CreateFreeDeliveryView.vue";
 import FreeDeliverySkuListView from "@/views/FreeDelivery/FreeDeliverySkuListView.vue";
+import FreeDeliveryCustomerListView from "@/views/FreeDelivery/FreeDeliveryCustomerListView.vue";
+import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderListView.vue";
+
 
 
 
@@ -1790,7 +1793,7 @@ const router = createRouter({
           name: 'FreeDeliveryListView',
           component: FreeDeliveryListView,
           meta: {
-            name: '  مارکتینگ'
+            name: '  ارسال رایگان'
           }
         },
         {
@@ -1806,17 +1809,25 @@ const router = createRouter({
           name: 'FreeDeliverySkuListView',
           component: FreeDeliverySkuListView,
           meta: {
-            name: 'مارکتینگ'
+            name: 'ارسال رایگان'
           }
         },
-        // {
-        //   path: ':freeDeliveryId/customer',
-        //   name: 'FreeDeliveryCustomerListView',
-        //   component: FreeDeliveryCustomerListView,
-        //   meta: {
-        //     name: 'مارکتینگ'
-        //   }
-        // },
+        {
+          path: ':freeDeliveryId/customer',
+          name: 'FreeDeliveryCustomerListView',
+          component: FreeDeliveryCustomerListView,
+          meta: {
+            name: 'ارسال رایگان'
+          }
+        },
+        {
+          path: ':freeDeliveryId/orderList',
+          name: 'FreeDeliveryOrderListView',
+          component: FreeDeliveryOrderListView,
+          meta: {
+            name: 'ارسال رایگان'
+          }
+        },
         
         
       ],

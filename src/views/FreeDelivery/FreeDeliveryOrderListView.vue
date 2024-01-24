@@ -1,7 +1,7 @@
 <script setup>
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import FreeDeliveryCustomerList from '@/components/FreeDelivery/FreeDeliveryCustomerList.vue'
+import FreeDeliveryOrderList from '@/components/FreeDelivery/FreeDeliveryOrderList.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import FreeDeliveryCustomerList from '@/components/FreeDelivery/FreeDeliveryCust
     <DashboardLayout />
     <v-main>
       <Header/>
-      <FreeDeliveryCustomerList/>
+      <FreeDeliveryOrderList/>
     </v-main>
   </v-layout>
 </template>

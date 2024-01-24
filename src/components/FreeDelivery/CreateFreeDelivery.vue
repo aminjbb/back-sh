@@ -67,14 +67,10 @@
         this.loading = true
         let formData = new FormData();
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = 'voucher/crud/create'
+        AxiosMethod.end_point = 'admin/delivery-discount/crud/create'
         formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
-        formData.append('code', this.$refs.CreateVoucherFrom.voucherForm.code)
-        formData.append('discount_type', this.$refs.CreateVoucherFrom.voucherForm.voucherAmountType)
-        formData.append('discount', this.$refs.CreateVoucherFrom.voucherForm.voucherAmount)
+        formData.append('sending_method', this.$refs.CreateVoucherFrom.voucherForm.sendingWays)
         formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
-        formData.append('sending_price', this.$refs.CreateVoucherFrom.voucherForm.sending)
-        formData.append('voucher_type', this.$refs.CreateVoucherFrom.voucherForm.voucherType)
         if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
         this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
           if (condition.value === 'start-and-end-time'){
