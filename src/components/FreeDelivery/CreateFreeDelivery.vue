@@ -69,7 +69,9 @@
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'admin/delivery-discount/crud/create'
         formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
-        formData.append('sending_method', this.$refs.CreateVoucherFrom.voucherForm.sendingWays)
+        this.$refs.CreateVoucherFrom.voucherForm.sendingWays.forEach((sendingMethod)=>{
+          formData.append(sendingMethod,1)
+        })
         formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
         if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
         this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
