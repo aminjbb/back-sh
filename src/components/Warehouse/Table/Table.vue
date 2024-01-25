@@ -186,6 +186,14 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
+                              <v-list-item-title>
+                                <div class="ma-5 pointer" @click="$router.push('/warehouse/special-exit-capacity/' + item.id )">
+                                  <v-icon class="text-grey-darken-1">mdi-exit-to-app</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                            ظرفیت ویژه خروج
+                                        </span>
+                                </div>
+                              </v-list-item-title>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
