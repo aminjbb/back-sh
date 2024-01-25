@@ -48,11 +48,11 @@
   
             <div
                 v-if=" header[1].show"
-                class="c-table__contents__item "
+                class="c-table__contents__item ml-15 "
                 style="padding:3px"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                       <span class="t14300 text-gray500 py-5 number-font" >
-                         hello world largest world
+                         {{ item.name }}
                       </span>
                      
             </div>
@@ -146,7 +146,7 @@
                       </span>
             </div>
   
-            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+            <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item  ">
               <v-menu :location="location">
                 <template v-slot:activator="{ props }">
                   <v-icon v-bind="props" class="text-gray500">
@@ -174,7 +174,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/order`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.id}/orderList`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
                       لیست سفارشات
@@ -349,7 +349,8 @@
       showFactor(id) {
         openModal(this.$store, 'set_orderFactorModal', id, true)
       },
-  
+
+
       /**
        * Get row index in table
        * @param {*} index
@@ -466,7 +467,9 @@
        * @param {*} id
        */
       removeItem(id) {
+
         openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
+
       },
   
       /**
@@ -485,13 +488,13 @@
         else formdata.append('is_active', 0)
         AxiosMethod.store = this.$store
         AxiosMethod.form = formdata
-  
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
       },
     },
     watch: {
+
       items(val) {
         val.forEach(element => {
           var active = false

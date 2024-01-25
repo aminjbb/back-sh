@@ -4,57 +4,41 @@
         class="create-product__info-form scroller"
         v-model="valid">
       <v-row justify="start" align="center">
-        <v-col cols="12">
-          <div class="text-center">
-            <span class="t14500"> ارسال رایگان </span>
-          </div>
-        </v-col>
-        <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+        <v-col v-if="voucherForm.voucherType === 'group' ? 3 : 4">
           <div class="text-right my-5">
                   <span class="t14500 text-gray600">
                      عنوان *
                   </span>
           </div>
-  
+
           <v-text-field
               variant="outlined"
               :rules="rule"
               v-model="voucherForm.title"
               rounded="lg">
-  
+
           </v-text-field>
         </v-col>
-        <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+        <v-col cols="6">
           <div class="text-right my-5">
                   <span class="t14500 text-gray600">
-                       روش ارسال
+                    روش ارسال
                   </span>
           </div>
-  
-          <v-text-field
-              :rules="rule"
-              variant="outlined"
-              v-model="voucherForm.code"
-              rounded="lg">
-  
-          </v-text-field>
-        </v-col>
-        <!-- <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
-          <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                     نوع تخفیف *
-                  </span>
-          </div>
-  
+
           <v-select
               :rules="rule"
-              :items="voucherTypes"
+              :items="sendingMethods"
               variant="outlined"
-              v-model="voucherForm.voucherType"
-              rounded="lg"
-          @update:modelValue="checkUserCondition()">
+              v-model="voucherForm.sendingWays"
+              multiple
+              rounded="lg">
+
           </v-select>
-        </v-col> -->
+        </v-col>
+
+
+
         <v-col v-if="voucherForm.voucherType === 'group'" cols="3">
           <div class="text-right my-5">
                   <span class="t14500 text-gray600">
@@ -63,37 +47,7 @@
           </div>
           <v-text-field variant="outlined" v-model="voucherForm.voucherCount" type="number" min="1"/>
         </v-col>
-        <!-- <v-col cols="6">
-          <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                     نوع مقدار تخفیف *
-                  </span>
-          </div>
-  
-          <v-select
-              :rules="rule"
-              :items="voucherAmountTypes"
-              variant="outlined"
-              v-model="voucherForm.voucherAmountType"
-              rounded="lg">
-  
-          </v-select>
-        </v-col> -->
-        <!-- <v-col cols="6">
-          <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                     مقدار تخفیف *
-                  </span>
-          </div>
-  
-          <v-text-field
-              :rules="rule"
-              variant="outlined"
-              v-model="voucherForm.voucherAmount"
-              rounded="lg">
-  
-          </v-text-field>
-        </v-col> -->
+
 
        
         <v-col cols="6">
@@ -117,33 +71,18 @@
                      هزینه ارسال *
                   </span>
           </div>
-          
+
           <v-select
               :rules="rule"
               :items="sendingItems"
               variant="outlined"
               v-model="voucherForm.sending"
               rounded="lg">
-  
+
           </v-select>
         </v-col>
 
-        <v-col cols="6">
-          <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                    روش ارسال 
-                  </span>
-          </div>
-          
-          <v-select
-              :rules="rule"
-              :items="sendingMethods"
-              variant="outlined"
-              v-model="voucherForm.sendingWays"
-              rounded="lg">
-  
-          </v-select>
-        </v-col>
+
         
         <v-col cols="6">
           <div class="text-right my-5">
@@ -320,7 +259,7 @@
             title: 'نظیر به نظیر',
             value: 'peer_to_peer'
           },
-  
+
         ],
         voucherAmountTypes: [
           {
@@ -331,7 +270,7 @@
             title: 'درصدی',
             value: 'percent'
           },
-  
+
         ],
         voucherActives: [
           {
