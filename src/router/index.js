@@ -236,9 +236,10 @@ import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
 import CreateFreeDeliveryView from "@/views/FreeDelivery/CreateFreeDeliveryView.vue";
 import FreeDeliverySkuListView from "@/views/FreeDelivery/FreeDeliverySkuListView.vue";
+import AddSpecialExitCapacityView from "@/views/Warehouse/AddSpecialExitCapacityView.vue";
+
 import FreeDeliveryCustomerListView from "@/views/FreeDelivery/FreeDeliveryCustomerListView.vue";
 import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderListView.vue";
-
 
 
 
@@ -755,6 +756,14 @@ const router = createRouter({
           component: SpecialCapacityView,
           meta: {
             name: 'ظرقیت ویژه'
+          }
+        },
+        {
+          path: 'special-exit-capacity/:warehouseId',
+          name: 'AddSpecialExitCapacityView',
+          component: AddSpecialExitCapacityView,
+          meta: {
+            name: 'ظرفیت ویژه خروج'
           }
         },
 
