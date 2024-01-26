@@ -12,7 +12,7 @@
           mdi-chevron-left
         </v-icon>
       </div>
-  -   </div>
+     </div>
     <LocatingShpsListStep :scanShelf="scanShelf" :shpsList="packageShpsList" v-if="!scan"/>
     <LocatingShpsLoadingScaningStep :state="state" :scanTitle="scanTitle" v-else/>
   </v-card>

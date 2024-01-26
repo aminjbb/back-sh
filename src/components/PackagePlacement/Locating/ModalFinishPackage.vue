@@ -20,14 +20,12 @@
         <v-divider/>
         <v-row justify="center" class="my-10">
           <v-col cols="12" class="px-15">
-            <v-card class="mt-2">
-              <div class="text-center t12500">
-                {{detail?.message}}
-              </div>
-            </v-card>
+            <div class="text-center t12500">
+              {{detail?.message}}
+            </div>
           </v-col>
           <v-col cols="12" class="px-15">
-            <v-card class="mt-2" v-for="(shps , index) in detail.data">
+            <v-card class="mt-2" v-for="(shps , index) in detail?.data">
               <div class="d-flex justify-center">
                 <img :src="shps?.sku?.image_url" width="150" height="150" alt="">
               </div>
@@ -81,12 +79,14 @@ import {AxiosCall} from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
 
 export default {
-
+  props:{
+    package:null
+  },
   data(){
     return {
       valid:true,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      dialog:true,
+      dialog:false,
       form:{
         capacity:null
       },
@@ -100,14 +100,14 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${this.shipmentId}`
-      let data = await AxiosMethod.axios_get()
+      AxiosMethod.end_point = `package/locate/${this.package}?accept=${accept}`
+      let data = await AxiosMethod.axios_post()
       if (data) {
-        this.detail = data.data
+        this.detail = data
         if (accept === 0) this.dialog = true
         else {
           this.dialog = false
-          openToast(this.$store, data.data?.message , 'success')
+          openToast(this.$store, data?.message , 'success')
         }
       }
     },
