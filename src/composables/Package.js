@@ -9,6 +9,7 @@ export default function setup(posts) {
     const packageList = ref([]);
     const singlePackage = ref(null);
     const packageShpsList = ref(null);
+    const assignPackage = ref(null)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -97,6 +98,16 @@ export default function setup(posts) {
         else {
         }
     };
+    async function getAssignPackageList() {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `package/assigned`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            await getPackageShpsList(data.data.id)
+        }
+    };
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -127,6 +138,7 @@ export default function setup(posts) {
     })
 
     return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading,
-        historyHeader , getPackage , singlePackage , packageShpsList , getPackageShpsList}
+        historyHeader , getPackage , singlePackage , packageShpsList , getPackageShpsList, getAssignPackageList,
+        assignPackage}
 }
 

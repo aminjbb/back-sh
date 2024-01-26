@@ -72,7 +72,15 @@
       </v-col>
       <v-col cols="12">
         <v-card>
-          <Table :items="specialExitCapacityObject" :header="specialExitCapacityHeader"/>
+          <Table :getWarehouseExitCapacityList="getWarehouseExitCapacityList" :items="warehouseExitCapacityList.data" :header="specialExitCapacityHeader"/>
+          <v-pagination
+              v-model="page"
+              :length="exitCapacityPageLength"
+              rounded="circle"
+              size="40"
+              :total-visible="4"
+              prev-icon="mdi-chevron-right"
+              next-icon="mdi-chevron-left" />
         </v-card>
       </v-col>
 
@@ -89,8 +97,12 @@ import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {convertDateToGregorian, convertDateToJalai, gregorian_to_jalali} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 import Table from '@/components/Warehouse/SpecialExitCapacity/SpecialExitCapacityTable.vue'
+import Warehouse from '@/composables/Warehouse'
 export default {
-
+  setup(){
+    const {getWarehouseExitCapacityList , warehouseExitCapacityList , exitCapacityPageLength} = new Warehouse()
+    return {getWarehouseExitCapacityList , warehouseExitCapacityList , exitCapacityPageLength}
+  },
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -105,6 +117,7 @@ export default {
 
   data() {
     return {
+      page:1,
       form: {
         date: [],
         capacity:null,
@@ -150,21 +163,26 @@ export default {
       const AxiosMethod = new AxiosCall()
       formData.append('start_date' , startDate)
       formData.append('end_date' , endDate)
-      formData.append('exit-capacity', this.form.capacity)
+      formData.append('count', this.form.capacity)
       AxiosMethod.using_auth = true
       AxiosMethod.form = formData
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `warehouse/storage/exception/crud/create/${this.$route.params.warehouseId}`
+      AxiosMethod.end_point = `warehouse/exit/storage/exception/crud/create/${this.$route.params.warehouseId}`
       let data = await AxiosMethod.axios_post()
+      if (data){
+        this.getWarehouseExitCapacityList(1)
+      }
 
     }
   },
   mounted() {
-    const date = new Date();
-    let dateSplit = date.toISOString()
-    dateSplit = dateSplit.split('T')
-    const dateObject = dateSplit[0].split('-')
-    this.minDate = gregorian_to_jalali(parseInt(dateObject[0]), parseInt(dateObject[1]), parseInt(dateObject[2]))
+    this.getWarehouseExitCapacityList(this.page)
+  },
+
+  watch:{
+    page(val){
+      this.getWarehouseExitCapacityList(val)
+    }
   }
 }
 </script>

@@ -29,7 +29,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-grey-darken-3 py-5 number-font">
-                            {{item.date}}
+                            {{convertDateToJalai(item.date , '-' , false)}}
                         </span>
 
             </div>
@@ -41,7 +41,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
                         <span class="t14300 text-grey-darken-3 py-5">
-                            {{ item.capacity }}
+                            {{ item.count }}
                         </span>
             </div>
           </div>
@@ -50,7 +50,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-              <ModalEditSpecialExitCapacity :id="item.id" :capacity="item.capacity"/>
+              <ModalEditSpecialExitCapacity :getWarehouseExitCapacityList="getWarehouseExitCapacityList" :id="item.id" :capacity="item.count"/>
             </div>
           </div>
 
@@ -80,17 +80,6 @@ export default {
   },
 
   props: {
-    /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
 
     /**
      * List Items for header
@@ -103,98 +92,15 @@ export default {
     items: [],
 
     /**
-     * Delete Path
+     * get WarehouseExitCapacity
      */
-    deletePath: '',
-
-    /**
-     * Model
-     */
-    model: '',
-
-    /**
-     * Active checkbox
-     */
-    checkbox: {
-      type: Boolean,
-      default: false,
+    getWarehouseExitCapacityList: {
+      type:Function
     },
 
-    /**
-     * Variant
-     * Variant values: outlined
-     */
-    variant: {
-      type: String,
-      default: 'default',
-    },
 
-    /**
-     * Height
-     */
-    height: {
-      type: String,
-      default: '500',
-    },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
-
-    /**
-     * Page on table
-     */
-    page: {
-      type: Number,
-      default: 1
-    },
-
-    /**
-     * PerPage of data
-     */
-    perPage: {
-      type: Number,
-      default: 1
-    },
-
-    /**
-     * Active loading
-     */
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
   },
 
   data() {
@@ -246,6 +152,7 @@ export default {
   },
 
   methods: {
+    convertDateToJalai,
     convertDate(date){
       return  convertDateToJalai(date, '-' ,true)
     },

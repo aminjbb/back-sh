@@ -1539,7 +1539,7 @@ const router = createRouter({
           }
         },
         {
-          path: ':packageId/shps-list',
+          path: 'package/shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
           meta: {
