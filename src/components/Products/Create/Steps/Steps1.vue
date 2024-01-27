@@ -109,7 +109,6 @@
                       </v-tooltip>
                     </v-col>
                 </v-row>
-
                 <div class="text-right my-2">
                     <span class="t12500">
                         {{ labels.color }}
@@ -611,16 +610,14 @@ export default {
             const colorsInGroup = this.colorList.filter(color => color.group === group);
 
             for (const color of colorsInGroup) {
-                if (!uniqueValues.has(color.value)) {
-                    groupedColors.push({
-                        id:color.id,
-                        name: color.name,
-                        group: color.group,
-                        label: color.label,
-                        value: color.value
-                    });
-                    uniqueValues.add(color.value);
-                }
+              groupedColors.push({
+                id:color.id,
+                name: color.name,
+                group: color.group,
+                label: color.label,
+                value: color.value
+              });
+              uniqueValues.add(color.value);
             }
         }
         return groupedColors;
