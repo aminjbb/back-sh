@@ -67,7 +67,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `product/color/crud/index?per_page=1000000`
+        AxiosMethod.end_point = `product/color/crud/index?per_page=1000000&order=created_at&order_type=desc`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page

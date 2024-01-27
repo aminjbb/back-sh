@@ -6,10 +6,12 @@ import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 
 export default function setup(posts) {
     const warehouseList = ref([]);
+    const warehouseExitCapacityList = ref([]);
     const warehouse = ref({});
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
+    const exitCapacityPageLength =ref(1)
     const cookies = useCookies()
 
     const header = [
@@ -65,6 +67,19 @@ export default function setup(posts) {
            } , 2000)
         }
     };
+    async function getWarehouseExitCapacityList(page) {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `warehouse/exit/storage/exception/crud/index/${route.params.warehouseId}?page=${page}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            exitCapacityPageLength.value = data.data.last_page
+            warehouseExitCapacityList.value = data.data
+            loading.value = false
+        }
+    };
 
     function addPagination(page){
         filter.page = page
@@ -94,5 +109,7 @@ export default function setup(posts) {
         }
     })
 
-    return {pageLength, getWarehouseList, warehouseList, filterField, dataTableLength, page, header, addPagination, addPerPage,SpecialCapacityHeader, loading}
+    return {pageLength, getWarehouseList, warehouseList, filterField, dataTableLength, page, header, addPagination,
+        addPerPage,SpecialCapacityHeader, loading, getWarehouseExitCapacityList, warehouseExitCapacityList,
+        exitCapacityPageLength}
 }

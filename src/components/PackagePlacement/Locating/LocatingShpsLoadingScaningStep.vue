@@ -48,7 +48,7 @@ export default {
       AxiosMethod.using_auth = true
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.$router.push(`/locating/${objectId}/shps-list`)
+        this.$router.push(`/locating/package/shps-list`)
       }
     }
   },

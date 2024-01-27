@@ -59,7 +59,7 @@
       </div>
     </v-card>
     <div class="scan_box">
-      <div  class="mb-15"  v-if="error">
+      <div  class="mb-15"  v-if="!shpssDetail">
         <LocatingToShelfError/>
       </div>
       <div v-else>
@@ -94,6 +94,7 @@
               width="348"
               variant="flat"
               rounded
+              @click="$router.go(-1)"
               class="px-8 mt-2">
             بازگشت به لیست
           </v-btn>
@@ -101,7 +102,7 @@
 
       </v-row>
     </v-card-actions>
-    <LocatingToast/>
+    <LocatingToast v-if="toast"/>
   </v-card>
 </template>
 <script>
@@ -111,13 +112,14 @@ import Placement from '@/composables/Placement'
 import Sku from '@/composables/Sku'
 import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
+import {openToast} from "@/assets/js/functions";
 export default {
   setup(){
     const { getPlacement , placement} = new Placement()
-    const { getShpssDetail ,shpssDetail} = new Sku()
+    const { getShpssDetail } = new Sku()
     return {
       getPlacement , placement,
-      getShpssDetail ,shpssDetail
+      getShpssDetail
     }
   },
   data(){
@@ -125,12 +127,15 @@ export default {
       error:true,
       qrCode:'',
       shpssBarCode:'',
-      placeCount:0
+      placeCount:0,
+      toast:false,
+      shpssDetail:null
     }
   },
-
-  mounted() {
+  beforeMount() {
     this.getPlacement(this.$route.params.placementId)
+  },
+  mounted() {
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key== 'Enter' ) this.scanQrCode()
@@ -142,7 +147,20 @@ export default {
     scanQrCode(){
       this.shpssBarCode = this.qrCode
       this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
+      this.shpsDetail(this.shpssBarCode)
+
+    },
+    async shpsDetail(id){
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'shps/item/detail?barcode=' + id
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.shpssDetail = data.data
+        this.locateShpssToPlace()
+
+      }
     },
     async locateShpssToPlace(){
       const AxiosMethod = new AxiosCall()
@@ -151,17 +169,44 @@ export default {
       formData.append('package_id' , this.$route.params.packageId )
       formData.append('barcode' , this.shpssBarCode )
       AxiosMethod.using_auth = true
-      AxiosMethod.token = cookies.cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      AxiosMethod.store =this.$store
+      AxiosMethod.form = formData
+      AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = 'shps/item/place/'
-      let data = await AxiosMethod.axios_get()
+      let data = await AxiosMethod.axios_post()
       if (data) {
-        this.checkCount()
+        this.getShpsCount(this.shpssDetail?.package?.placement_id ,this.shpssDetail?.shps?.id  )
+      }
+      else{
       }
     },
-    checkCount(){
-      if (this.shpssDetail.shps_count < this.placeCount) ++this.placeCount
-      else this.placeCount = 0
-    }
+    async getShpsCount(id , shps){
+      const AxiosMethod = new AxiosCall()
+      const formData = new FormData()
+      AxiosMethod.using_auth = true
+      AxiosMethod.toast_error = true
+      AxiosMethod.store =this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'placement/shps/items/' + id +'?shps='+shps
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        console.log(data.data)
+        if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
+          this.placeCount = data.data[0]?.handheld_count
+          if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
+            this.toast = true
+            setTimeout(()=>{
+              this.$router.go(-1)
+            } , 4000)
+          }
+        }
+
+      }
+      else{
+      }
+    },
+
   },
 
   components:{

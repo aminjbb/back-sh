@@ -603,6 +603,7 @@ export default {
         const colors = []
         this.allColors.data.forEach(element => {
           const form = {
+            id:element.id,
             label: element.label,
             name: element.id,
             value: element.value,
