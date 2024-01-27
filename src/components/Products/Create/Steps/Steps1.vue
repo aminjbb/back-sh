@@ -115,7 +115,6 @@
                         {{ labels.color }}
                     </span>
                 </div>
-
                 <v-autocomplete
                     v-model='createFromModel.colors'
                     :items="groupedColors"
@@ -614,6 +613,7 @@ export default {
             for (const color of colorsInGroup) {
                 if (!uniqueValues.has(color.value)) {
                     groupedColors.push({
+                        id:color.id,
                         name: color.name,
                         group: color.group,
                         label: color.label,
