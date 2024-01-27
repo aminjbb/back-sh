@@ -199,7 +199,7 @@
                 rounded="lg">
             </v-text-field>
             <ModalGroupAdd
-                getEndPoint="voucher/crud/get/template"
+                getEndPoint="admin/delivery-discount/crud/get/template"
                 :isVoucher="true"
                 :updateCondition="updateCondition"
                 :condition="condition"

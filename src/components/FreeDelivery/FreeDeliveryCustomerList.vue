@@ -41,27 +41,37 @@
           </div>
         </div>
       </v-card>
-      <v-card height="70" class="mx-5 br-12" max-height="70">
+      <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
         <v-row
             justify="end"
             align="center"
-            class="px-10 py-5">
-  
-  
-          <v-col cols="6">
-            <v-row justify="end">
-  
-              <ModalTableFilter path="admin/index" :filterField="[]"/>
+            class="px-10 py-3">
+
+            <v-row class="mt-2">
+              <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" uploadEndpoint="admin/delivery-discount/attach/user/34" />
             </v-row>
-          </v-col>
+
+
+<v-row justify="end"
+       align="center"
+       >
+  <ModalTableFilter path="admin/index" :filterField="[]"/>
+</v-row>
+
+
+
+
+
+
         </v-row>
       </v-card>
   
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+
         <Table
             class="flex-grow-1"
             :header="headerCustomer"
-            :items="[]"
+            :items="customerList"
             :page="page"
             :perPage="pageLength"
             :loading="false"
@@ -111,23 +121,26 @@
     </div>
   </template>
   <script>
+  import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+
   import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
   import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
-  import Voucher from '@/composables/Voucher'
+  import FreeDelivery from '@/composables/FreeDelivery'
   export default {
     setup() {
       const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
-        pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
+        pageLength,page , getVoucherDetail , voucherDetail,getCustomerList, customerList, getFreeDeliveryList} = new FreeDelivery()
       return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
-        pageLength,page,getVoucherDetail , voucherDetail}
+        pageLength,page,getVoucherDetail , voucherDetail, getCustomerList, customerList, getFreeDeliveryList}
     },
     components: {
       Table,
-      ModalTableFilter
+      ModalTableFilter,
+      ModalGroupAdd
     },
     mounted() {
-      this.getVoucherCustomer()
-      this.getVoucherDetail()
+      this.getCustomerList()
+      this.getFreeDeliveryList()
     }
   }
   </script>

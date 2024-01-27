@@ -35,6 +35,27 @@
     data() {
       return {
         loading: false,
+        sendingMethods: [
+          {
+            title: ' نفیس اکسپرس',
+            value: 'nafis'
+          },
+
+          {
+            title: 'تیپاکس',
+            value: 'tipax'
+          },
+          {
+            title: 'پست پیشتاز ',
+            value: 'pishtaz'
+          },
+          {
+            title: 'پست ',
+            value: 'post'
+          },
+
+        ],
+
       }
     },
     components: {
@@ -69,9 +90,17 @@
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'admin/delivery-discount/crud/create'
         formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
-        this.$refs.CreateVoucherFrom.voucherForm.sendingWays.forEach((sendingMethod)=>{
-          formData.append(sendingMethod,1)
+
+        this.sendingMethods.forEach((method) => {
+          if (this.$refs.CreateVoucherFrom.voucherForm.sendingWays.includes(method.value)) {
+            formData.append(method.value, 1);
+          } else {
+            formData.append(method.value, 0);
+          }
+
         })
+
+
         formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
         if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
         this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
