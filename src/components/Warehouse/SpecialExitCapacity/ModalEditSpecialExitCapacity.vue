@@ -51,6 +51,7 @@
           <v-col cols="12">
             <div class="pa-4 d-flex justify-center">
               <v-btn
+                  :loading="loading"
                   @click="validate()"
                   color="primary500"
                   height="40"
@@ -85,10 +86,18 @@ export default {
     /** special id row **/
     id:null,
     /** capacity row **/
-    capacity:null
+    capacity:null,
+
+    /**
+     * get WarehouseExitCapacity
+     */
+    getWarehouseExitCapacityList: {
+      type:Function
+    },
   },
   data(){
     return {
+      loading :false,
       valid:true,
       rule: [v => !!v || 'این فیلد الزامی است'],
       dialog:false,
@@ -100,19 +109,27 @@ export default {
 
   methods: {
     async validate(){
-      await this.$refs.addWarehouseExitCapacity.validate()
-      if (this.valid) await this.addExitSpecialCapacity()
+      await this.$refs.editSpecialExitCapacity.validate()
+      if (this.valid) await this.editExitSpecialCapacity()
       this.loading = false
     },
-    async addExitSpecialCapacity(){
+    async editExitSpecialCapacity(){
+      this.loading = true
       const AxiosMethod = new AxiosCall()
+      const formData = new FormData()
+      formData.append('count' , this.form.capacity)
       AxiosMethod.using_auth = true
+      AxiosMethod.form = formData
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${this.shipmentId}`
-      let data = await AxiosMethod.axios_get()
+      AxiosMethod.end_point = `warehouse/exit/storage/exception/crud/update/${this.id}`
+      let data = await AxiosMethod.axios_post()
       if (data) {
-        this.detail = data.data
-        this.dialog = true
+        this.getWarehouseExitCapacityList(1)
+        this.dialog = false
+        this.loading = false
+      }
+      else{
+        this.loading = false
       }
     },
 

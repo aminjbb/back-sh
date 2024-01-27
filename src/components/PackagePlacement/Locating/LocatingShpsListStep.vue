@@ -17,7 +17,7 @@
     </v-col>
 
   </v-row>
-  <div class="bottom-box">
+  <div class="px-5">
     <v-btn
         color="primary500"
         height="40"
@@ -30,10 +30,16 @@
       </template>
       اسکن شلف
     </v-btn>
+
+    <div>
+      <ModalFinishPackage :package="shpsList?.package.id"/>
+    </div>
   </div>
+
 </template>
 <script>
 import ShpsCard from "@/components/PackagePlacement/Locating/ShpsCard.vue";
+import ModalFinishPackage from "@/components/PackagePlacement/Locating/ModalFinishPackage.vue";
 export default {
   props:{
     shpsList:[],
@@ -42,7 +48,8 @@ export default {
     }
   },
   components:{
-    ShpsCard
+    ShpsCard,
+    ModalFinishPackage
   },
 
   computed:{
@@ -66,7 +73,7 @@ export default {
 <style>
 .locating_box{
   overflow-x: auto !important;
-  height: calc(100% - 245px) !important;
+  height: calc(100% - 285px) !important;
 }
 
 </style>

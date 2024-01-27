@@ -1,7 +1,7 @@
 <template>
   <div class="text-right ">
     <v-btn
-        @click="dialog=true"
+        @click="placedPackage(0)"
         color="primary500"
         height="40"
         width="348"
@@ -20,24 +20,28 @@
         <v-divider/>
         <v-row justify="center" class="my-10">
           <v-col cols="12" class="px-15">
-            <v-card class="mt-2">
+            <div class="text-center t12500">
+              {{detail?.message}}
+            </div>
+          </v-col>
+          <v-col cols="12" class="px-15">
+            <v-card class="mt-2" v-for="(shps , index) in detail?.data">
               <div class="d-flex justify-center">
-                <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
+                <img :src="shps?.sku?.image_url" width="150" height="150" alt="">
               </div>
               <div class="text-center px-10 my-3">
               <span class="text-gray600">
-                تست ببک
+               {{shps?.sku?.label }}
               </span>
               </div>
 
               <div class="text-center px-10 my-3">
               <span class="text-error">
-                2 عدد
+                {{ shps?.count_for_placing }} عدد
               </span>
               </div>
             </v-card>
           </v-col>
-
         </v-row>
         <v-card-actions>
           <v-col cols="12">
@@ -72,14 +76,17 @@
 
 <script>
 import {AxiosCall} from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
-
+  props:{
+    package:null
+  },
   data(){
     return {
       valid:true,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      dialog:true,
+      dialog:false,
       form:{
         capacity:null
       },
@@ -93,11 +100,15 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${this.shipmentId}`
-      let data = await AxiosMethod.axios_get()
+      AxiosMethod.end_point = `package/locate/${this.package}?accept=${accept}`
+      let data = await AxiosMethod.axios_post()
       if (data) {
-        this.detail = data.data
-        this.dialog = true
+        this.detail = data
+        if (accept === 0) this.dialog = true
+        else {
+          this.dialog = false
+          openToast(this.$store, data?.message , 'success')
+        }
       }
     },
 

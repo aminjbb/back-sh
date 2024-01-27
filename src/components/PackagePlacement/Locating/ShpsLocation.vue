@@ -12,7 +12,7 @@
           mdi-chevron-left
         </v-icon>
       </div>
-  -   </div>
+     </div>
     <LocatingShpsListStep :scanShelf="scanShelf" :shpsList="packageShpsList" v-if="!scan"/>
     <LocatingShpsLoadingScaningStep :state="state" :scanTitle="scanTitle" v-else/>
   </v-card>
@@ -24,9 +24,9 @@ import Package from '@/composables/Package'
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export  default {
   setup(){
-      const {packageShpsList , getPackageShpsList} = new Package()
+      const {packageShpsList , getPackageShpsList ,getAssignPackageList} = new Package()
       return {
-        packageShpsList , getPackageShpsList
+        packageShpsList , getPackageShpsList , getAssignPackageList
       }
   },
   data(){
@@ -44,7 +44,7 @@ export  default {
     }
   },
   mounted() {
-    this.getPackageShpsList(this.$route.params.packageId)
+    this.getAssignPackageList()
   },
   components:{
     HandheldDrawer,
