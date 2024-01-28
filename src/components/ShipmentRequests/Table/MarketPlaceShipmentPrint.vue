@@ -49,12 +49,10 @@
                           <span class="t14300 text-gray500 py-5 number-font">
                               {{rowIndexTable(index)}}
                           </span>
-                <template v-if="checkbox">
-                  <v-checkbox class="mr-1" v-model=item.value />
-                </template>
+
               </div>
             </div>
-  
+
             <div
                 v-if=" header[1].show"
                 class="c-table__contents__item text-right"
@@ -63,7 +61,7 @@
                           {{ item.id }}
                       </span>
             </div>
-  
+
             <div
                 v-if=" header[2].show"
                 class="c-table__contents__item text-right"
@@ -76,8 +74,8 @@
                 v-if=" header[3].show"
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-             <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.created_at_fa}}
+                      <span class="t14300 text-gray500 py-5 number-font">
+                          {{ item.shps_attributes.count}}
                       </span>
             </div>
            
@@ -121,7 +119,7 @@
       /**
        * List Items for header
        */
-      header: [],
+
   
       /**
        * List of items
