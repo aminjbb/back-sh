@@ -5,7 +5,7 @@ import ProcessingShipmentPrintBarCode from '@/components/ProcessingShipment/Proc
 
 <template>
   <v-layout class="bg-gray">
-    <v-main  class="h-100vh">
+    <v-main >
       <ProcessingShipmentPrintBarCode/>
     </v-main>
   </v-layout>

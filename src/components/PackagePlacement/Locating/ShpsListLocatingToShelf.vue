@@ -176,22 +176,21 @@ export default {
       AxiosMethod.end_point = 'shps/item/place/'
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.getShpsCount(this.shpssDetail?.package?.placement_id ,this.shpssDetail?.shps?.id  )
+        this.getShpsCount(this.shpssDetail?.package?.placement_id ,this.shpssDetail?.shps?.id  ,this.shpssDetail?.package?.id )
       }
       else{
       }
     },
-    async getShpsCount(id , shps){
+    async getShpsCount(id , shps , packageId){
       const AxiosMethod = new AxiosCall()
       const formData = new FormData()
       AxiosMethod.using_auth = true
       AxiosMethod.toast_error = true
       AxiosMethod.store =this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'placement/shps/items/' + id +'?shps='+shps
+      AxiosMethod.end_point = 'placement/shps/items/' + id +'?shps='+shps +'&package_id=' +packageId
       let data = await AxiosMethod.axios_get()
       if (data) {
-        console.log(data.data)
         if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
           this.placeCount = data.data[0]?.handheld_count
           if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
