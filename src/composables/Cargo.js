@@ -101,7 +101,7 @@ export default function setup(posts) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =true
-        AxiosMethod.end_point = `cargo/crud/packages/${id}`
+        AxiosMethod.end_point = `cargo/receive/${id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             cargoReceivingList.value = data.data

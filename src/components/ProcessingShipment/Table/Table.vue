@@ -409,8 +409,9 @@ export default {
       else return false
     },
     validate(item , index){
-      // console.log(item.min_tolerance  , this.form[index].count)
-      if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
+      const minTolerance = item.shps_count * (item.min_tolerance / 100)
+      const maxTolerance = item.shps_count * (item.max_tolerance / 100)
+      if (this.form[index].count< minTolerance || this.form[index].count > maxTolerance){
         const formData = {
           count :this.form[index].count,
           shps:item.id

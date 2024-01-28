@@ -85,6 +85,7 @@
       <v-card-actions class="pb-3" >
         <v-row class="px-5 py-2"  justify="end">
           <v-btn
+              :loading="luggageLoading"
               @click="luggageCargo()"
               color="primary500"
               height="40"
@@ -127,7 +128,8 @@ export default {
     return {
       packageId:null,
       scanPackage:'',
-      loading:false
+      loading:false,
+      luggageLoading:false
     }
   },
 
@@ -179,45 +181,46 @@ export default {
 
   methods: {
     async luggageCargo(){
-      this.loading = true
+      this.luggageLoading = true
       var formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `cargo/crud/update/status/${this.$route.params.cargoId}`
-      formData.append('status', 'sent_to_warehouse')
-      AxiosMethod.form = formData
+      AxiosMethod.end_point = `cargo/sent/warehouse/${this.$route.params.cargoId}`
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.loading = false
+        this.luggageLoading = false
         this.$router.go(-1)
       }
       else {
-        this.loading = false
+        this.luggageLoading = false
       }
     },
     async assignPackage(){
-      this.loading = true
-      var formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `cargo/crud/attach/package/${this.$route.params.cargoId}`
-      formData.append('package_id', this.packageId)
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-        this.getPackageCargo()
-      }
-      else {
-        this.loading = false
-      }
+     try {
+       this.loading = true
+       var formData = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = `cargo/crud/attach/package/${this.$route.params.cargoId}`
+       formData.append('package_id', this.packageId)
+       AxiosMethod.form = formData
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loading = false
+         this.getPackageCargo()
+       }
+     }catch (e) {
+       this.loading = false
+     }
     },
     scanPackageId(){
-        this.packageId = this.scanPackage
+
+        const packageSplit = this.scanPackage.split('-')
+        this.packageId = packageSplit[1]
         this.scanPackage = ''
         this.assignPackage()
     },
