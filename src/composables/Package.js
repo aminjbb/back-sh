@@ -105,6 +105,7 @@ export default function setup(posts) {
         AxiosMethod.end_point = `package/assigned`
         let data = await AxiosMethod.axios_get()
         if (data) {
+            assignPackage.value = data.data.id
             await getPackageShpsList(data.data.id)
         }
     };

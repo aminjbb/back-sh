@@ -66,7 +66,7 @@
                 @click="updatePackage(item , index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-              <v-icon size="15" v-if="!form[index].sent_to_warehouse && item.status !='received_by_warehouse'">mdi-dots-horizontal</v-icon>
+              <v-icon size="15" v-if="!form[index].sent_to_warehouse">mdi-dots-horizontal</v-icon>
               <v-icon size="15" v-else>mdi-check</v-icon>
             </div>
           </div>
@@ -124,6 +124,12 @@ export default {
      */
     model: '',
 
+    /**
+     * check disabled btn
+     */
+    checkDisabledCloseCargo: {
+      type: Function,
+    },
     /**
      * Height
      */
@@ -222,11 +228,22 @@ export default {
   watch: {
     items(val) {
       this.form = []
+
       val.forEach(element => {
-        const form = {
-          sent_to_warehouse:false
+        let form ={}
+        if (element.status =='received_by_warehouse'){
+          form = {
+            sent_to_warehouse:true
+          }
         }
+        else{
+          form = {
+            sent_to_warehouse:false
+          }
+        }
+
         this.form.push(form)
+        this.checkDisabledCloseCargo(this.form)
       });
     }
   },
@@ -241,15 +258,13 @@ export default {
      */
     async updatePackage(item , index) {
       const AxiosMethod = new AxiosCall()
-      const formData =  new FormData()
-      formData.append('status' , 'received_by_warehouse')
       AxiosMethod.using_auth = true
-      AxiosMethod.form = formData
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/crud/update/status/${item.id}`
+      AxiosMethod.end_point = `package/receive/${item.id}`
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.form[index].sent_to_warehouse = true
+        this.checkDisabledCloseCargo( this.form)
       }
 
     },

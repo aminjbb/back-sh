@@ -149,9 +149,7 @@ export default {
             this.loadingPackage = true
             var formData = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `package/crud/update/status/${this.boxId}`
-            formData.append('status', 'sent_to_warehouse')
-            AxiosMethod.form = formData
+            AxiosMethod.end_point = `package/complete/${this.boxId}`
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')

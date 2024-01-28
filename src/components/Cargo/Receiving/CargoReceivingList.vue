@@ -6,19 +6,18 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="5">
-          <v-form v-model="valid" @submit.prevent="getCargoReceivingList(cargo)" ref="shipmentId" class="">
-            <div class="text-right ">
+
+          <div class="text-right ">
                  <span class="text-gray600 t14500">
                  شناسه کارگو
                  </span>
-              <span class="text-error">
+            <span class="text-error">
                   *
                 </span>
-            </div>
-            <div>
-              <v-text-field variant="outlined" :rules="rule" v-model="cargo" />
-            </div>
-          </v-form>
+          </div>
+          <div>
+            <v-text-field  variant="outlined" :rules="rule" v-model="cargo" />
+          </div>
         </v-col>
 
       </v-row>
@@ -28,6 +27,7 @@
         height="580"
     >
       <Table
+          :checkDisabledCloseCargo="checkDisabledCloseCargo"
           class="flex-grow-1"
           editUrl="/categories/edit/"
           activePath="category/crud/update/activation/"
@@ -46,7 +46,7 @@
         <v-row class="px-5 py-2"  justify="end">
           <v-btn
               @click="updateCargo()"
-              :disabled="!cargo"
+              :disabled="closeCargoDisabled"
               :loading="loading"
               color="primary500"
               height="40"
@@ -90,7 +90,8 @@ export default {
       qrCode:'',
       rule:[v=> !!v || 'این فیلد الزامی است'],
       loading:false,
-      valid:true
+      valid:true,
+      closeCargoDisabled:false
     }
   },
 
@@ -114,7 +115,9 @@ export default {
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
-    }
+    },
+
+
   },
 
   watch: {
@@ -135,8 +138,20 @@ export default {
   },
 
   methods: {
+    checkDisabledCloseCargo(form){
+      const  sentToWarehouseCargo = form.find(cargoDetail=>cargoDetail.sent_to_warehouse == false)
+      if (sentToWarehouseCargo) this.closeCargoDisabled = true
+      else this.closeCargoDisabled = false
+    },
     addQrCode(){
-      this.cargo = this.qrCode
+      this.qrCode = this.qrCode.replace('Backspace','');
+      const cargoSplit = this.qrCode.split('-')
+      if (cargoSplit[1]) {
+        this.cargo = cargoSplit[1]
+      }
+      else {
+        this.cargo =  this.qrCode
+      }
       this.qrCode = ''
       this.getCargoReceivingList(this.cargo)
     },
@@ -153,11 +168,10 @@ export default {
       this.loading = true
       const AxiosMethod = new AxiosCall()
       const formData =  new FormData()
-      formData.append('status' , 'received_by_warehouse')
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.using_auth =true
-      AxiosMethod.form =formData
-      AxiosMethod.end_point = `cargo/crud/update/status/${this.cargo}`
+      AxiosMethod.end_point = `cargo/close/${this.cargo}`
+      AxiosMethod.toast_error = true
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
