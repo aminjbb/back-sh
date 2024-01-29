@@ -9,6 +9,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 export default function setup(posts) {
     const ShipmentRequestsList = ref([]);
+    const shipmentRequest = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -81,6 +82,7 @@ export default function setup(posts) {
      * @param {*} query 
      */
     async function getShipmentRequestsList(query) {
+
         let paramsQuery = null
         filter.factor = route.params.factorId
         loading.value = true
@@ -96,6 +98,9 @@ export default function setup(posts) {
         if (data) {
             pageLength.value = data.data.last_page
             ShipmentRequestsList.value = data.data
+            shipmentRequest.value = data.data.id
+
+
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -125,7 +130,7 @@ export default function setup(posts) {
 
     return {   
          pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
-        dataTableLength, page, header, loading, 
+        dataTableLength, page, header, loading, shipmentRequest
          }
 }
 

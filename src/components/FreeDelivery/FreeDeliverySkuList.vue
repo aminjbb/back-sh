@@ -41,27 +41,36 @@
           </div>
         </div>
       </v-card>
-      <v-card height="70" class="mx-5 br-12" max-height="70">
+      <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
         <v-row
             justify="end"
             align="center"
-            class="px-10 py-5">
-  
-  
-          <v-col cols="6">
-            <v-row justify="end">
-  
-              <ModalTableFilter path="admin/index" :filterField="[]"/>
-            </v-row>
-          </v-col>
+            class="px-10 py-3">
+
+          <v-row class="mt-2">
+            <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" uploadEndpoint="admin/delivery-discount/attach/shps/34" />
+          </v-row>
+
+
+          <v-row justify="end"
+                 align="center"
+          >
+            <ModalTableFilter path="admin/index" :filterField="[]"/>
+          </v-row>
+
+
+
+
+
+
         </v-row>
       </v-card>
-  
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+
         <Table
             class="flex-grow-1"
             :header="headerShps"
-            :items="mockSkuList"
+            :items="skuList"
             :page="page"
             :perPage="pageLength"
             :loading="false"
@@ -110,74 +119,31 @@
     </div>
   </template>
   <script>
+  import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
   import Table from "@/components/FreeDelivery/Table/TableSkuList.vue";
   import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
-  import Voucher from '@/composables/Voucher'
+  import FreeDelivery from '@/composables/FreeDelivery'
   export default {
     setup() {
-      const {headerShps ,getVoucherShps,voucher , dataTableLength ,
-        pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
-      return {headerShps,getVoucherShps,voucher,dataTableLength ,
-        pageLength,page,getVoucherDetail , voucherDetail}
+      const {headerShps ,voucher , dataTableLength ,
+        pageLength,page , getVoucherDetail , voucherDetail ,skuList, getSkuList, getFreeDeliveryList} = new FreeDelivery()
+      return {headerShps,voucher,dataTableLength ,
+        pageLength,page,getVoucherDetail , voucherDetail, skuList, getSkuList, getFreeDeliveryList}
     },
 
     data() {
       return {
-        "mockSkuList": [
-            {
-                "id": 1,
-                "barcode": null,
-                "barcode_image": null,
-                "sku": {
-                    "id": 1,
-                    "label": "رژلب شنل مشکی دارد 5 تا",
-                    "image_url": null,
-                    "brand": {
-                        "id": 2033,
-                        "name": "channel",
-                        "label": "شنل",
-                        "is_active": 1,
-                        "priority": 1,
-                        "image_id": 1,
-                        "created_at": "2023-10-30T01:54:27.000000Z",
-                        "updated_at": "2023-10-30T01:54:27.000000Z",
-                        "created_at_fa": "1402/08/08",
-                        "updated_at_fa": "1402/08/08"
-                    }
-                }
-            },
-            {
-                "id": 2,
-                "barcode": null,
-                "barcode_image": null,
-                "sku": {
-                    "id": 3,
-                    "label": "رژ لبی شنل رنگ  قرمز روشن مناسب برای  بزرگسالان 2 بسته",
-                    "image_url": null,
-                    "brand": {
-                        "id": 2033,
-                        "name": "channel",
-                        "label": "شنل",
-                        "is_active": 1,
-                        "priority": 1,
-                        "image_id": 1,
-                        "created_at": "2023-10-30T01:54:27.000000Z",
-                        "updated_at": "2023-10-30T01:54:27.000000Z",
-                        "created_at_fa": "1402/08/08",
-                        "updated_at_fa": "1402/08/08"
-                    }
-                }
-            }
-        ],
+
       }
     },
     components: {
       Table,
-      ModalTableFilter
+      ModalTableFilter,
+      ModalGroupAdd
     },
     mounted() {
-      this.getVoucherShps()
-      this.getVoucherDetail()
+      this.getSkuList()
+      this.getFreeDeliveryList()
     }
   }
   </script>

@@ -8,6 +8,8 @@ import { useCookies } from "vue3-cookies";
 export default function setup(posts) {
     const freeDeliveryList = ref([]);
     const voucher = ref(null);
+    const skuList = ref(null);
+    const customerList = ref(null)
     const dataTableLength = ref(25)
     let page = ref(1)
     const pageLength = ref(1)
@@ -104,6 +106,32 @@ export default function setup(posts) {
             voucher.value = data.data
         }
     };
+    async function  getSkuList(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/delivery-discount/get/shps/${route.params.freeDeliveryId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            skuList.value = data.data.data
+        }
+    };
+    async function  getCustomerList(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/delivery-discount/get/users/${route.params.freeDeliveryId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+          customerList.value = data.data.data
+        }
+    };
 
     function addPerPage(number){
         const filter = new PanelFilter()
@@ -149,6 +177,6 @@ export default function setup(posts) {
     })
 
     return {headerShps , headerCustomer  , headerFreeDelivery,filterField , page , freeDeliveryList , headerOrderList
-    ,dataTableLength ,pageLength , getVoucher , voucher , getFreeDeliveryList, indexFilterField}
+    ,dataTableLength ,pageLength , getVoucher , getSkuList, voucher , getFreeDeliveryList, indexFilterField, getCustomerList, customerList, skuList}
 }
 
