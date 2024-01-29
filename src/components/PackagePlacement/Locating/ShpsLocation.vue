@@ -14,7 +14,7 @@
       </div>
      </div>
     <LocatingShpsListStep :scanShelf="scanShelf" :shpsList="packageShpsList" v-if="!scan"/>
-    <LocatingShpsLoadingScaningStep :state="state" :scanTitle="scanTitle" v-else/>
+    <LocatingShpsLoadingScaningStep :packageId="assignPackage" :state="state" :scanTitle="scanTitle" v-else/>
   </v-card>
 </template>
 <script >
@@ -24,9 +24,9 @@ import Package from '@/composables/Package'
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export  default {
   setup(){
-      const {packageShpsList , getPackageShpsList ,getAssignPackageList} = new Package()
+      const {packageShpsList , getPackageShpsList ,getAssignPackageList , assignPackage} = new Package()
       return {
-        packageShpsList , getPackageShpsList , getAssignPackageList
+        packageShpsList , getPackageShpsList , getAssignPackageList , assignPackage
       }
   },
   data(){

@@ -93,6 +93,7 @@ import ProcessingShipment from "@/composables/ProcessingShipment";
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
     setup(props) {
@@ -149,16 +150,14 @@ export default {
             this.loadingPackage = true
             var formData = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `package/crud/update/status/${this.boxId}`
-            formData.append('status', 'sent_to_warehouse')
-            AxiosMethod.form = formData
+            AxiosMethod.end_point = `package/complete/${this.boxId}`
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
                 this.loadingPackage = false
-                this.$router.go(-1)
+                openToast(this.$store , 'بسته با موقیت ویرایش شد' , 'success')
             } else {
                 this.loadingPackage = false
             }

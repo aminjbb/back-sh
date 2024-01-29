@@ -1,5 +1,5 @@
 <template>
-  <div class="  text-center px-5" :id="`printableArea-cargo`">
+  <div class="  text-center px-5 d--ltr" :id="`printableArea-cargo`">
     <v-card class="content " >
       <div class="d-flex justify-space-between pa-5 d--rtl ">
         <span><img :src="basUrl +object?.barcode_image"></span>

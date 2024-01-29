@@ -62,11 +62,16 @@
                     </span>
           </div>
           <div v-if="header[4].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
             <div
+                v-else
                 @click="updatePackage(item , index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-              <v-icon size="15" v-if="!form[index].sent_to_warehouse && item.status !='received_by_warehouse'">mdi-dots-horizontal</v-icon>
+              <v-icon size="15" v-if="!form[index].sent_to_warehouse">mdi-dots-horizontal</v-icon>
               <v-icon size="15" v-else>mdi-check</v-icon>
             </div>
           </div>
@@ -125,6 +130,12 @@ export default {
     model: '',
 
     /**
+     * check disabled btn
+     */
+    checkDisabledCloseCargo: {
+      type: Function,
+    },
+    /**
      * Height
      */
     height: {
@@ -178,7 +189,8 @@ export default {
     return {
       form:[
         {
-          sent_to_warehouse:false
+          sent_to_warehouse:false,
+          loading:false
         }
       ],
       panelFilter: new SupplierPanelFilter(),
@@ -222,11 +234,24 @@ export default {
   watch: {
     items(val) {
       this.form = []
+
       val.forEach(element => {
-        const form = {
-          sent_to_warehouse:false
+        let form ={}
+        if (element.status =='received_by_warehouse'){
+          form = {
+            sent_to_warehouse:true,
+            loading:false
+          }
         }
+        else{
+          form = {
+            sent_to_warehouse:false,
+            loading:false
+          }
+        }
+
         this.form.push(form)
+        this.checkDisabledCloseCargo(this.form)
       });
     }
   },
@@ -240,17 +265,27 @@ export default {
      * retailShipment detail modal
      */
     async updatePackage(item , index) {
-      const AxiosMethod = new AxiosCall()
-      const formData =  new FormData()
-      formData.append('status' , 'received_by_warehouse')
-      AxiosMethod.using_auth = true
-      AxiosMethod.form = formData
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/crud/update/status/${item.id}`
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.form[index].sent_to_warehouse = true
-      }
+     try {
+       this.form[index].loading = true
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.using_auth = true
+       AxiosMethod.toast_error = true
+       AxiosMethod.store = this.$store
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = `package/received/${item.id}`
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.form[index].loading = false
+         this.form[index].sent_to_warehouse = true
+         this.checkDisabledCloseCargo( this.form)
+       }
+       else{
+         this.form[index].loading = false
+       }
+     }
+     catch (e) {
+       this.form[index].loading = false
+     }
 
     },
     /**

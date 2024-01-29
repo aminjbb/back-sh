@@ -9,6 +9,7 @@
       <div class=" mt-8 d-flex justify-center px-10 text-center">
         <span class="text-black t20400">
             {{scanTitle}}
+
         </span>
       </div>
     </div>
@@ -21,7 +22,8 @@ export default {
   props:{
     scanTitle:'',
     state:'',
-    object:null
+    object:null,
+    packageId:null
   },
   data(){
     return{
@@ -38,7 +40,7 @@ export default {
       if (this.state === 'packageSphpsList') {
         this.packageScan(this.objectId , finalObject[1])
       }
-      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.$route.params.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
+      else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
     },
 
     async packageScan(barcode , objectId){
