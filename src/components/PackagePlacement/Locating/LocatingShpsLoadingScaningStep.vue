@@ -23,7 +23,8 @@ export default {
     scanTitle:'',
     state:'',
     object:null,
-    packageId:null
+    packageId:null,
+    successScan:{type :Function}
   },
   data(){
     return{
@@ -50,7 +51,8 @@ export default {
       AxiosMethod.using_auth = true
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.$router.push(`/locating/package/shps-list`)
+        this.successScan(`/locating/package/shps-list` , data.data?.id)
+
       }
     }
   },

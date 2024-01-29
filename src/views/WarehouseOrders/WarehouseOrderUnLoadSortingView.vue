@@ -1,12 +1,12 @@
 <script setup>
-import WarehouseOrderSorting from '@/components/WarehouseOrderList/WarehouseOrderSorting.vue'
+import WarehouseUnLoadSorting from '@/components/WarehouseOrderList/WarehouseUnLoadSorting.vue'
 </script>
 
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100vh ">
       <div class="d-flex justify-center align-center vh-100">
-        <WarehouseOrderSorting />
+        <WarehouseUnLoadSorting />
       </div>
     </v-main>
   </v-layout>

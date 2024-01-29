@@ -9,9 +9,9 @@
       <v-list-item prepend-icon="mdi-view-dashboard-outline" href="/locating/dashboard" title="داشبورد"  value="home"></v-list-item>
       <v-list-item prepend-icon="mdi-archive-outline" href="/locating/index" title="جایگذاری بسته" value="about"></v-list-item>
       <v-list-item prepend-icon="mdi-bookshelf" href="/locating/package/shps-list" title="جایگذاری محصولات" value="about"></v-list-item>
-      <v-list-item prepend-icon="mdi-shopping-outline" title="جمع آوری کالا" value="about"></v-list-item>
-      <v-list-item prepend-icon="mdi-package-variant-closed" title="جایگذاری در جایگاه سورتینگ" value="about"></v-list-item>
-      <v-list-item prepend-icon="mdi-package-variant-closed-minus" title="تخلیه جایگاه سورتینگ" value="about"></v-list-item>
+      <v-list-item prepend-icon="mdi-shopping-outline" href="/warehouse-orders/pick-up" title="جمع آوری کالا" value="about"></v-list-item>
+      <v-list-item prepend-icon="mdi-package-variant-closed"  href="/warehouse-orders/sorting" title="جایگذاری در جایگاه سورتینگ" value="about"></v-list-item>
+      <v-list-item prepend-icon="mdi-package-variant-closed-minus"  href="/warehouse-orders/un-load" title="تخلیه جایگاه سورتینگ" value="about"></v-list-item>
       <v-list-item @click="logOut()" prepend-icon="mdi-exit-to-app" title="خروج از حساب کاربری" value="about"></v-list-item>
     </v-list>
   </v-navigation-drawer>
