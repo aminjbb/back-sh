@@ -60,7 +60,7 @@ export default function setup(posts) {
         
         try {
             let response = await AxiosMethod.axios_get();
-            console.log("API Response:", response); 
+
     
             loading.value = false;
     

@@ -145,7 +145,9 @@ import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListVie
 import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
 
 /* Shipment */
-import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue'
+import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue';
+import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentRequestView.vue'
+
 
 /* Factor */
 import FactorListView from '../views/Factor/FactorListView.vue'
@@ -1256,7 +1258,16 @@ const router = createRouter({
         meta: {
           name: 'محموله های درخواستی '
         }
-      }, ]
+      },
+        {
+          path: ':shipmentRequestId/print',
+          name: 'PrintShipmentRequestView',
+          component: PrintShipmentRequestView,
+          meta: {
+            name: 'محموله های بازرگانی'
+          }
+        },
+      ]
     },
     {
       path: '/factor', // Factor routes

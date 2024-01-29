@@ -69,7 +69,7 @@
                 v-if=" header[4].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
+                      <span v-if="item.phone_number" class="t14300 text-gray500 py-5 number-font">
                           {{ item.phone_number }}
                       </span>
               <span v-else>----</span>
@@ -179,6 +179,16 @@
     },
   
     methods: {
+      rowIndexTable(index) {
+        let rowIndex = 0
+        if (this.page === 1) {
+          rowIndex = (1 + index)
+          return rowIndex
+        } else {
+          rowIndex = ((this.page - 1) * this.perPage) + index + 1
+          return rowIndex
+        }
+      },
   
       /**
        * Return odd index

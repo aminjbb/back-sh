@@ -40,7 +40,7 @@
                     </div>
                     <div class="mx-10">
                         <span class="t14500">
-                            شناسه محموله :
+                            شناسه محموله
                         </span>
                         <span class="t13400 text-gray500">
                             {{ retailObject.id }}
@@ -63,7 +63,7 @@
                             :header="headerQrcode"
                             :items="retailObject.shps_list"
                             editUrl="/seller/edit/"
-                            activePath="seller/crud/update/activation/"
+
                             deletePath="seller/crud/update/activation/"
                             changeStatusUrl="seller/crud/update/contract/"
                             :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
@@ -120,7 +120,8 @@ export default {
             header,
             loading,
             headerShps,
-            headerQrcode
+            headerQrcode,
+          shipmentRequest,
         } = ShipmentRequests();
 
         return {
@@ -130,7 +131,8 @@ export default {
             header,
             loading,
             headerShps,
-            headerQrcode
+            headerQrcode,
+          shipmentRequest
         };
     },
     components: {
@@ -140,6 +142,13 @@ export default {
     },
 
     methods: {
+
+      print() {
+
+        // this.close()
+        window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${this.retailObject.id}/print`, '_blank');
+
+      },
         convertDateToJalai,
 
         close() {
@@ -166,6 +175,9 @@ export default {
     },
 
     computed: {
+      baseUrl() {
+        return 'https://api.shvz.ir/'
+      },
         dialog() {
             return this.$store.getters['get_detailModalTestQrCode']
         },
