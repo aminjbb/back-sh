@@ -146,7 +146,7 @@ export default {
       print() {
 
         // this.close()
-        window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.retailObject.id}/detail-print`, '_blank');
+        window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${this.retailObject.id}/print`, '_blank');
 
       },
         convertDateToJalai,
@@ -175,6 +175,9 @@ export default {
     },
 
     computed: {
+      baseUrl() {
+        return 'https://api.shvz.ir/'
+      },
         dialog() {
             return this.$store.getters['get_detailModalTestQrCode']
         },

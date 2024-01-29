@@ -1,16 +1,16 @@
 <template>
-  <div  class="pa-5" id="printableArea-cargo d--ltr">
+  <div v-if="retailObject" class="pa-5" id="printableArea-cargo d--ltr" >
     <v-card >
       <div class="text-center px-5">
         <v-card class="d-flex justify-center align-center px-10 ma-5 " height="82">
-          <div v-if="retailObject" class=" mx-10 ">
-                        <span class="t14500">
-                            <img :src="retailObject.barcode_image" alt="Barcode Image" />
+          <div class="mx-10 d--rtl">
+            <div>
+              <img width="200" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
+            </div>
+            <div>
+              {{ retailObject?.barcode }}
+            </div>
 
-                        </span>
-            <span class="t13400 ">
-                            <p class="number-font">{{ retailObject.barcode }}</p>
-                        </span>
           </div>
           <div class="mx-10">
                         <span class="t14500">
@@ -101,7 +101,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/consignment/crud/get/${this.$route.params.shipmentId}`
+      AxiosMethod.end_point = `shipment/consignment/crud/get/${this.$route.params.shipmentRequestId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.retailObject =data.data
