@@ -93,6 +93,7 @@ import ProcessingShipment from "@/composables/ProcessingShipment";
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
     setup(props) {
@@ -156,7 +157,7 @@ export default {
             let data = await AxiosMethod.axios_post()
             if (data) {
                 this.loadingPackage = false
-                this.$router.go(-1)
+                openToast(this.$store , 'بسته با موقیت ویرایش شد' , 'success')
             } else {
                 this.loadingPackage = false
             }

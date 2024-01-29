@@ -55,7 +55,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font ">
-                        {{ item.shps_count }}
+                        {{ item.shps_packed_count }}
                     </span>
           </div>
           <div

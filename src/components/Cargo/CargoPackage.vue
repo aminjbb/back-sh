@@ -181,21 +181,26 @@ export default {
 
   methods: {
     async luggageCargo(){
-      this.luggageLoading = true
-      var formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `cargo/sent/warehouse/${this.$route.params.cargoId}`
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.luggageLoading = false
-        this.$router.go(-1)
-      }
-      else {
-        this.luggageLoading = false
-      }
+     try {
+       this.luggageLoading = true
+       var formData = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = `cargo/sent/warehouse/${this.$route.params.cargoId}`
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.luggageLoading = false
+         this.$router.go(-1)
+       }
+       else {
+         this.luggageLoading = false
+       }
+     }
+     catch (e) {
+       this.luggageLoading = false
+     }
     },
     async assignPackage(){
      try {
@@ -213,6 +218,9 @@ export default {
          this.loading = false
          this.getPackageCargo()
        }
+       else{
+         this.loading = false
+       }
      }catch (e) {
        this.loading = false
      }
@@ -220,7 +228,13 @@ export default {
     scanPackageId(){
 
         const packageSplit = this.scanPackage.split('-')
-        this.packageId = packageSplit[1]
+        if (packageSplit[1]){
+          this.packageId = packageSplit[1]
+        }
+        else{
+          this.packageId = this.scanPackage
+        }
+
         this.scanPackage = ''
         this.assignPackage()
     },

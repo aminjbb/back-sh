@@ -62,7 +62,12 @@
                     </span>
           </div>
           <div v-if="header[4].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
             <div
+                v-else
                 @click="updatePackage(item , index)"
                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
@@ -184,7 +189,8 @@ export default {
     return {
       form:[
         {
-          sent_to_warehouse:false
+          sent_to_warehouse:false,
+          loading:false
         }
       ],
       panelFilter: new SupplierPanelFilter(),
@@ -233,12 +239,14 @@ export default {
         let form ={}
         if (element.status =='received_by_warehouse'){
           form = {
-            sent_to_warehouse:true
+            sent_to_warehouse:true,
+            loading:false
           }
         }
         else{
           form = {
-            sent_to_warehouse:false
+            sent_to_warehouse:false,
+            loading:false
           }
         }
 
@@ -257,15 +265,27 @@ export default {
      * retailShipment detail modal
      */
     async updatePackage(item , index) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/receive/${item.id}`
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.form[index].sent_to_warehouse = true
-        this.checkDisabledCloseCargo( this.form)
-      }
+     try {
+       this.form[index].loading = true
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.using_auth = true
+       AxiosMethod.toast_error = true
+       AxiosMethod.store = this.$store
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = `package/received/${item.id}`
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.form[index].loading = false
+         this.form[index].sent_to_warehouse = true
+         this.checkDisabledCloseCargo( this.form)
+       }
+       else{
+         this.form[index].loading = false
+       }
+     }
+     catch (e) {
+       this.form[index].loading = false
+     }
 
     },
     /**

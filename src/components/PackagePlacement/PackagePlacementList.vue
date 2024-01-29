@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="200" class="ma-5 br-12 ">
+    <v-card height="300" class="ma-5 br-12 ">
         <v-row
             justify="center"
             align="center"
@@ -32,9 +32,7 @@
                     </div>
                     <div>
                         <v-autocomplete
-                            item-title="id"
-                            item-value="id"
-                            :items="placementList"
+                            :items="locatingPlacement"
                             v-model="shelf"
                             variant="outlined" />
                     </div>
@@ -104,14 +102,12 @@ export default {
         return {
             packageId: null,
             shelf: null,
-            loadingBtn: false
+            loadingBtn: false,
+            locatingPlacement:[]
         }
     },
     setup(props) {
-        const {
-            getAllPlacementList,
-            placementList
-        } = new Placement()
+
         const {
             pageLength,
             packagePlacement,
@@ -133,13 +129,14 @@ export default {
             header,
             item,
             loading,
-            getAllPlacementList,
-            placementList
+
         };
     },
     mounted() {
         this.getPackagePlacement()
-        this.getAllPlacementList()
+        for(let number =1 ; number <=500 ;number++){
+          this.locatingPlacement.push(number)
+        }
     },
     computed: {
         confirmModal() {
@@ -179,23 +176,28 @@ export default {
         },
 
         async addPackage() {
-            this.loadingBtn = true
-            var formData = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `placement/assign/package/`
-            formData.append('package_id', this.packageId)
-            formData.append('placement_id', this.shelf)
-            AxiosMethod.form = formData
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.loadingBtn = false;
-                this.getPackagePlacement();
-            } else {
-                this.loadingBtn = false
-            }
+           try {
+             this.loadingBtn = true
+             var formData = new FormData();
+             const AxiosMethod = new AxiosCall()
+             AxiosMethod.end_point = `placement/assign/package/`
+             formData.append('package_id', this.packageId)
+             formData.append('placement_id', this.shelf)
+             AxiosMethod.form = formData
+             AxiosMethod.store = this.$store
+             AxiosMethod.using_auth = true
+             AxiosMethod.token = this.$cookies.get('adminToken')
+             let data = await AxiosMethod.axios_post()
+             if (data) {
+               this.loadingBtn = false;
+               this.getPackagePlacement();
+             } else {
+               this.loadingBtn = false
+             }
+           }
+           catch (e) {
+             this.loadingBtn = false
+           }
         }
     },
 

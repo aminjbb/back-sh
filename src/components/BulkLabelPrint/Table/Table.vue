@@ -101,7 +101,7 @@
     class="seller__add-sku-btn d-flex justify-center align-center pointer"
     @click="submitShipmentsForm(item.id)">
     <v-icon size="15" >
-        {{ submittedItemId === item.id ? 'mdi-check' : 'mdi-plus' }}
+        {{ submittedItemId === item.id || item.label_printed === 1 ?  'mdi-check' : 'mdi-plus' }}
     </v-icon>
 </div>
             </div>
@@ -201,6 +201,7 @@
         },
     
         props: {
+          packageId:null,
             /**
              * List Items for header
              */
@@ -290,12 +291,6 @@
     
         computed: {
 
-
-
-      packageId() {
-      
-      return this.$store.getters['get_packageId']
-  },
   
   shipmentId() {
       
