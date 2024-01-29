@@ -248,14 +248,5 @@ export default {
   height: calc(100% - 390px);
 
 }
-.loading_modal{
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background: #0000004a;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 </style>

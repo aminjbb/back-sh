@@ -1,5 +1,6 @@
 <template>
   <v-card class="h-100 width-100 ">
+
     <div class="package_list" v-if="!scan">
      <div class="d-flex justify-space-between align-center">
 
@@ -131,6 +132,7 @@ export default {
 </script>
 <style>
 .width-100{
+  width: 100%;
   background: #F7F8FA;
 }
 .scan_table{

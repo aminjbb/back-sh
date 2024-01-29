@@ -242,6 +242,7 @@ import AddSpecialExitCapacityView from "@/views/Warehouse/AddSpecialExitCapacity
 
 import FreeDeliveryCustomerListView from "@/views/FreeDelivery/FreeDeliveryCustomerListView.vue";
 import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderListView.vue";
+import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
 
 
 
@@ -1685,6 +1686,13 @@ const router = createRouter({
           path: 'sorting',
           name: 'WarehouseOrderSortingView',
           component: WarehouseOrderSortingView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },{
+          path: 'un-load',
+          name: 'WarehouseOrderUnLoadSortingView',
+          component: WarehouseOrderUnLoadSortingView,
           meta: {
             name: 'سفارش ها'
           }

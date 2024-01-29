@@ -81,44 +81,8 @@ export default function setup(posts) {
             },
 
     ]);
-    const pickUpShps = ref({
-        shps: {
-            id: 36,
-            barcode: "170409463932",
-            barcode_image: "storage/barcode/170409463932.png",
-            sku: {
-                id: 3,
-                label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  نرم کنندگی 1 عدد",
-                image_url: "http://localhost:8000/storage/shavaz/brand/image/2023-08-26/cosmetics-logo.png",
-                brand: {
-                    id: 1,
-                    name: "Chanel",
-                    label: "شانل",
-                    is_active: 0,
-                    priority: 4,
-                    image_id: null,
-                    created_at: "2023-11-02T12:00:37.000000Z",
-                    updated_at: "2023-11-01T12:00:37.000000Z",
-                    created_at_fa: "1402/08/11",
-                    updated_at_fa: "1402/08/10"
-                }
-            }
-        },
-        placement: {
-            id: 7416,
-            row_numbe: 38,
-            placement_number: 6,
-            step_number: 6,
-            shelf_number: 4,
-            barcode: "5-7416-1703692912",
-            barcode_image: "storage/shavaz/barcode/5-7416-1703692912.png",
-            created_at: "2023-12-27T16:01:52.000000Z",
-            updated_at: "2023-12-27T16:01:52.000000Z",
-            created_at_fa: "1402/10/06",
-            updated_at_fa: "1402/10/06"
-        },
-        count: 10
-    })
+    const pickUpShps = ref([])
+    const pickUpIsNull = ref(false)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -159,17 +123,20 @@ export default function setup(posts) {
         }
     };
     async function getPickUpShps(query) {
-
+        loading.value = true
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/pickup${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/pickup`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            orders.value = data.data
+            loading.value = false
+            if (data.data.length === 0) pickUpIsNull.value=true
+            pickUpShps.value = data.data
         }
 
         else {
+            loading.value = false
         }
     };
 
@@ -203,6 +170,6 @@ export default function setup(posts) {
     })
 
     return {pageLength,filterField, orders ,addPerPage, getWarehouseOrders, dataTableLength, page, header,loading ,
-        getPickUpShps , pickUpShps}
+        getPickUpShps , pickUpShps ,pickUpIsNull}
 }
 
