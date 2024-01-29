@@ -10,6 +10,7 @@ export default function setup(posts) {
     const singlePackage = ref(null);
     const packageShpsList = ref(null);
     const assignPackage = ref(null)
+    const donePackage = ref(false);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -105,8 +106,11 @@ export default function setup(posts) {
         AxiosMethod.end_point = `package/assigned`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            assignPackage.value = data.data.id
-            await getPackageShpsList(data.data.id)
+            if (data.data == null) donePackage.value = true
+            else {
+                assignPackage.value = data.data.id
+                await getPackageShpsList(data.data.id)
+            }
         }
     };
     function addPerPage(number){
@@ -140,6 +144,6 @@ export default function setup(posts) {
 
     return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading,
         historyHeader , getPackage , singlePackage , packageShpsList , getPackageShpsList, getAssignPackageList,
-        assignPackage}
+        assignPackage , donePackage}
 }
 

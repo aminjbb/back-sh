@@ -1,7 +1,7 @@
 <template>
 
   <v-card class="h-100 scan-success position__relative d-flex align-center justify-center">
-    <div>
+    <div >
       <div class="d-flex justify-center">
         <v-icon color="white" size="30">
           mdi-check-circle
@@ -14,27 +14,34 @@
       </div>
       <div class=" mt-8 d-flex justify-center px-10 text-center">
         <span class="text-white t20400">
-      بسته با شناسه ۱۲۳۴۳۲۱۲۳۴ به شما اختصاص داده شد.
+      بسته با شناسه {{ packageId }} به شما اختصاص داده شد.
         </span>
       </div>
-    </div>
-    <div class="bottom-box">
-      <v-btn
-          color="white"
-          height="40"
-          width="348"
-          rounded
-          class="px-8 mt-2">
+      <div class="bottom-box d-flex justify-center mt-15 pt-15">
+        <v-btn
+            @click="$router.push(changeRoute)"
+            color="white"
+            height="40"
+            width="348"
+            rounded
+            class="px-8 mt-2">
 
        <span class="text-black">
-         تلاش مجدد
+         ادامه
        </span>
-      </v-btn>
+        </v-btn>
+      </div>
     </div>
+
   </v-card>
+
 </template>
 <script >
 export default {
+  props:{
+    changeRoute : null,
+    packageId:null
+  },
   data(){
     return{
 

@@ -73,7 +73,7 @@
        </v-row>
      </v-card-actions>
    </div>
-    <LocatingShpsLoadingScaningStep  v-else :object="object" :state="state" :scanTitle="scanTitle"/>
+    <LocatingShpsLoadingScaningStep  v-else :successScan="successScan" :object="object" :state="state" :scanTitle="scanTitle"/>
   </v-card>
 </template>
 <script>
@@ -81,6 +81,9 @@ import PackagePlacement from '@/composables/PackagePlacement'
 import LocatingShpsLoadingScaningStep from "@/components/PackagePlacement/Locating/LocatingShpsLoadingScaningStep.vue";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export default {
+  props:{
+    successScan:{type :Function}
+  },
   components: {HandheldDrawer, LocatingShpsLoadingScaningStep},
   setup(){
       const {getSinglePackagePlacement ,singlePackagePlacement } = new PackagePlacement()
@@ -101,21 +104,21 @@ export default {
 
   mounted() {
     this.getSinglePackagePlacement()
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.scanQrCode()
-      else this.qrCode += e.key
-    });
+    // var element = document.body // You must specify element here.
+    // element.addEventListener('keydown', e => {
+    //   if (e.key== 'Enter' ) this.scanQrCode()
+    //   else this.qrCode += e.key
+    // });
   },
 
   methods:{
-    scanQrCode(){
-      this.packageId = this.qrCode
-      this.qrCode = ''
-      const finalPackageId = this.packageId.split('-')
-      this.$router.push(`/locating/${finalPackageId[1]}/shps-list`)
-      // this.getSinglePackagePlacement(this.packageId)
-    },
+    // scanQrCode(){
+    //   this.packageId = this.qrCode
+    //   this.qrCode = ''
+    //   const finalPackageId = this.packageId.split('-')
+    //   this.$router.push(`/locating/${finalPackageId[1]}/shps-list`)
+    //   // this.getSinglePackagePlacement(this.packageId)
+    // },
 
     selectPackagePlacement(packagePlacement){
       this.object = packagePlacement

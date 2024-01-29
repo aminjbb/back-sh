@@ -1,5 +1,11 @@
 <template>
   <v-card class="h-100 width-100 position__relative">
+    <div class="loading_modal" v-if="loading">
+      <v-progress-circular
+          indeterminate
+          color="purple"
+      ></v-progress-circular>
+    </div>
     <div class="d-flex justify-space-between align-center">
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
@@ -70,15 +76,15 @@
               {{ placeCount }}
             </span>
             </v-card>
-            <span class="t16400 text-black">عدد از {{ shpssDetail?.shps_count }} عدد اسکن شده</span>
+            <span class="t16400 text-black">عدد از {{ allCount }} عدد اسکن شده</span>
           </v-card>
           <v-card class="mt-2">
             <div class="d-flex justify-center">
-              <img :src="shpssDetail?.sku?.image_url" width="150" height="150" alt="">
+              <img :src="shpssDetail?.shps?.sku?.sku?.image_url" width="150" height="150" alt="">
             </div>
             <div class="text-center px-10 my-3">
             <span class="text-gray600">
-              {{ shpssDetail?.sku?.lable }}
+              {{ shpssDetail?.shps?.sku?.sku?.label}}
             </span>
             </div>
           </v-card>
@@ -129,7 +135,9 @@ export default {
       shpssBarCode:'',
       placeCount:0,
       toast:false,
-      shpssDetail:null
+      shpssDetail:null,
+      allCount:'',
+      loading:false
     }
   },
   beforeMount() {
@@ -147,63 +155,82 @@ export default {
     scanQrCode(){
       this.shpssBarCode = this.qrCode
       this.qrCode = ''
-      this.shpsDetail(this.shpssBarCode)
-
+      if (!this.loading)  this.shpsDetail(this.shpssBarCode)
     },
     async shpsDetail(id){
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'shps/item/detail?barcode=' + id
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpssDetail = data.data
-        this.locateShpssToPlace()
+     try {
+       this.loading =true
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = 'shps/item/detail?barcode=' + id
+       let data = await AxiosMethod.axios_get()
+       if (data) {
+         this.shpssDetail = data.data
+         this.locateShpssToPlace()
 
-      }
+       }
+       else {
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.loading = false
+     }
     },
     async locateShpssToPlace(){
-      const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      formData.append('placement_id' , this.$route.params.placementId)
-      formData.append('package_id' , this.$route.params.packageId )
-      formData.append('barcode' , this.shpssBarCode )
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_error = true
-      AxiosMethod.store =this.$store
-      AxiosMethod.form = formData
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'shps/item/place/'
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.getShpsCount(this.shpssDetail?.package?.placement_id ,this.shpssDetail?.shps?.id  ,this.shpssDetail?.package?.id )
-      }
-      else{
+      try {
+        const AxiosMethod = new AxiosCall()
+        const formData = new FormData()
+        formData.append('placement_id' , this.$route.params.placementId)
+        formData.append('package_id' , this.$route.params.packageId )
+        formData.append('barcode' , this.shpssBarCode )
+        AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store =this.$store
+        AxiosMethod.form = formData
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = 'shps/item/place/'
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.getShpsCount(this.$route.params.placementId,this.shpssDetail?.shps?.id  ,this.shpssDetail?.package?.id )
+        }
+        else{
+          this.loading = false
+        }
+      }catch (e) {
+        this.loading = false
       }
     },
     async getShpsCount(id , shps , packageId){
-      const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_error = true
-      AxiosMethod.store =this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'placement/shps/items/' + id +'?shps='+shps +'&package_id=' +packageId
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
-          this.placeCount = data.data[0]?.handheld_count
-          if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
-            this.toast = true
-            setTimeout(()=>{
-              this.$router.go(-1)
-            } , 4000)
-          }
-        }
+     try {
+       const AxiosMethod = new AxiosCall()
+       const formData = new FormData()
+       AxiosMethod.using_auth = true
+       AxiosMethod.toast_error = true
+       AxiosMethod.store =this.$store
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = 'placement/shps/items/' + id +'?shps='+shps +'&package_id=' +packageId
+       let data = await AxiosMethod.axios_get()
+       if (data) {
+         this.loading = false
+         this.allCount = data.data[0].count
+         if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
+           this.placeCount = data.data[0]?.handheld_count
+           if (parseInt(data.data[0]?.handheld_count) === data.data[0].count){
+             this.toast = true
+             setTimeout(()=>{
+               this.$router.push('/locating/index')
+             } , 4000)
+           }
+         }
 
-      }
-      else{
-      }
+       }
+
+     }
+     catch (e) {
+       this.loading = false
+     }
     },
 
   },
@@ -216,9 +243,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .scan_box{
   height: calc(100% - 390px);
 
+}
+.loading_modal{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: #0000004a;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
