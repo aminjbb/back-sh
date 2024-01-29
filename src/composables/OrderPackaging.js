@@ -83,30 +83,29 @@ export default function setup(posts) {
         loading.value = true;
         let params = packageId ? { id: packageId } : {};
         let paramsQuery = filter.params_generator(params);
-        
-    
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
         AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
-            console.log("API Response:", response); 
-    
             loading.value = false;
-    
-            if (response && response.data && response.data.data) {
+            if (response ) {
+
                 pageLength.value = response.data.last_page;
-              
                  orderList.value = response.data.data
+
                  orderList.value.forEach(item => {
                     let extractedNumber = extractNumberFromBarcode(item.barcode);
                     if (extractedNumber) {
-                        console.log("Extracted Number:", extractedNumber);
-                        this.$store.commit('set_orderId',  extractedNumber);
+
+                        console.log("Extracted:", item.barcode);
+
                     }
                 });
-                
+
+                console.log("Extracted:", item.id);
+                this.$store.commit('set_orderId',  item.id);
                
             } else {
                 orderList.value = [];

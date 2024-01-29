@@ -54,7 +54,7 @@
                 <v-btn
                     
                     color="primary500"
-                    :disabled="!allComparisonsSuccessful"
+
                     height="40"
                     rounded
                     variant="flat"
