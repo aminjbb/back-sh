@@ -5,7 +5,7 @@
                 <v-form
                     v-model="valid"
                     ref="login"
-                    @submit.prevent="validate(false)"
+                    @submit.prevent="validate('/')"
                 >
                     <div class="text-center">
                         <img src="@/assets/img/shavaz-logo.png" class="mb-5" alt="shavaz image">
@@ -54,8 +54,8 @@
                                 :loading="loading"
                                 color="primary500"
                                 block rounded="xl"
-                                @click="validate(false)"
-                                type="submit"
+                                @click="validate('/')"
+
                             >
                                 <span class="t12300">
                                     ورود
@@ -67,8 +67,7 @@
                               color="primary500"
                               block
                               rounded="xl"
-                              @click="validate(true)"
-                              type="submit"
+                              @click="validate('/locating/dashboard')"
                               class="mt-5 d-md-none d-block"
                           >
                                 <span class="t12300">
@@ -140,17 +139,17 @@ export default {
         /**
          * Validate form
          */
-        validate(handheld) {
+        validate(to) {
             this.$refs.login.validate()
             setTimeout(() => {
-                if (this.valid) this.submitForm(handheld)
+                if (this.valid) this.submitForm(to)
             }, 200);
         },
 
         /**
          * Submit form
          */
-        async submitForm(handheld) {
+        async submitForm(to) {
             this.loading=true
             var formdata = new FormData();
             formdata.append('phone_number', this.mobile)
@@ -165,8 +164,8 @@ export default {
                 localStorage.setItem('fullName' ,data.data.admin.first_name + ' ' + data.data.admin.last_name)
                 localStorage.setItem('userId' ,data.data.admin.id )
                 this.$cookies.set('adminToken',data.data.token);
-                if (!handheld) this.$router.push('/')
-                else if(handheld) this.$router.push('/locating/dashboard')
+                this.$router.push(to)
+                // this.$router.push()
 
 
             }

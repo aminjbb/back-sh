@@ -31,11 +31,11 @@
         </div>
 
       </div>
-      <div class="px-5" style="    position: absolute; bottom: 8px;">
+      <div class="px-5 d-flex justify-center" style="  left: 0;right: 0;  position: absolute; bottom: 8px;">
         <v-btn
             color="primary500"
             height="40"
-            width="348"
+            width="248"
             rounded
             @click="$router.push('/locating/index')"
             class="px-8 mt-5">
