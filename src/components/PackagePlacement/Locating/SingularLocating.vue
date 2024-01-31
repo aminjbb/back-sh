@@ -5,14 +5,31 @@
         color="purple"
     ></v-progress-circular>
   </div>
-  <template v-if="!pickUpIsNull && !pickUpDone">
+  <template v-if="!shpsScan && !pickUpDone && !shelfScan">
+    <div class="h-100 d-flex align-center justify-center">
+      <div>
+        <div class="d-flex justify-center">
+          <v-icon color="black" size="30">
+            mdi-barcode-scan
+          </v-icon>
+        </div>
+        <div class=" mt-8 d-flex justify-center px-10 text-center">
+          <span class="text-black t20400">
+          شناسه کالا را اسکن کنید.
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <template v-else-if="shpsScan && !pickUpDone && !shelfScan">
     <v-card class="h-100">
       <div class="d-flex justify-space-between align-center">
         <div class="pa-3 d-flex">
           <HandheldDrawer/>
           <span class="t20400">
-         جمع آوری کالا
-        </span>
+            جایگذاری تکی
+          </span>
         </div>
         <div class="pa-3">
           <v-icon size="30">
@@ -68,15 +85,6 @@
       <div class="scan_box mb-10">
         <div>
           <div class="px-5">
-            <v-card min-height="92" class="d-flex justify-center align-center">
-              <v-card class="ml-5 br br__12 d-flex justify-center align-center" height="52" width="52"
-                      color="primary500">
-            <span class="text-white number-font">
-             {{ pickUpShps?.count }}
-            </span>
-              </v-card>
-              <span class="t16400 text-black">عدد مانده</span>
-            </v-card>
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center">
                 <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
@@ -90,47 +98,38 @@
             </v-card>
           </div>
         </div>
+        <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
+          <v-btn
+              @click="shelfScan = true ; shpsScan=false"
+              color="primary500"
+              height="40"
+              width="348"
+              variant="flat"
+              rounded
+              class="px-8 mt-2">
+            اسکن شناسه شلف
+          </v-btn>
+        </div>
       </div>
-      <!--    <v-card-actions>-->
-      <!--      <v-row justify="center">-->
-      <!--        <v-col cols="10">-->
-      <!--          <v-btn-->
-      <!--              color="primary500"-->
-      <!--              height="40"-->
-      <!--              width="348"-->
-      <!--              variant="flat"-->
-      <!--              rounded-->
-      <!--              class="px-8 mt-2">-->
-      <!--            بازگشت به لیست-->
-      <!--          </v-btn>-->
-      <!--        </v-col>-->
-
-      <!--      </v-row>-->
-      <!--    </v-card-actions>-->
-      <!--    <LocatingToast/>-->
     </v-card>
   </template>
-  <template v-else-if="pickUpIsNull && !pickUpDone">
-    <div class="h-100 bg-warning d-flex  justify-center align-center">
-      <div class=" d-flex justify-center my-3">
-          <span class="t20400">
-            کالایی برای جمع آوری یافت نشد
+  <template v-else-if="!shpsScan && shelfScan && !pickUpDone">
+    <div class="h-100 d-flex align-center justify-center">
+      <div>
+        <div class="d-flex justify-center">
+          <v-icon color="black" size="30">
+            mdi-barcode-scan
+          </v-icon>
+        </div>
+        <div class=" mt-8 d-flex justify-center px-10 text-center">
+          <span class="text-black t20400">
+         شناسه شلف را اسکن کنید.
           </span>
-      </div>
-      <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
-        <v-btn
-            color="white"
-            height="40"
-            width="348"
-            rounded
-            @click="$router.push('/locating/dashboard')"
-            class="px-8 mt-5">
-          بازگشت به داشبورد
-        </v-btn>
+        </div>
       </div>
     </div>
   </template>
-  <template v-else-if="pickUpIsNull && pickUpDone">
+  <template v-else-if="!shelfScan&& !shelfScan && pickUpDone">
     <div class="h-100 bg-success d-flex  justify-center align-center">
       <div>
         <div class="d-flex justify-center">
@@ -140,7 +139,12 @@
         </div>
         <div class="text-center mt-15">
             <span class="t20400">
-           جمع آوری کالا با موفقیت به اتمام رسید.
+           جایگاه کالا تغییر کرد.
+          </span>
+        </div>
+        <div class="text-center mt-15">
+          <span  class="t18400">
+            کالا با شناسه ۱۲۳۴۵۶ به شلف با شناسه ۲۲۳۳۴۴ منصوب شد.
           </span>
         </div>
         <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
@@ -149,9 +153,9 @@
               height="40"
               width="348"
               rounded
-              @click="$router.push('/locating/dashboard')"
+              @click="pickUpDone = false"
               class="px-8 mt-5">
-            بازگشت به داشبورد
+            بازگشت
           </v-btn>
         </div>
       </div>
@@ -167,9 +171,9 @@ import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 
 export default {
   setup() {
-    const {getPickUpShps, pickUpShps, pickUpIsNull , loading} = new WarehouseOrder()
+    const {getPickUpShps, pickUpShps , loading} = new WarehouseOrder()
     return {
-      getPickUpShps, pickUpShps, pickUpIsNull , loading
+      getPickUpShps, pickUpShps , loading
     }
   },
   data() {
@@ -178,12 +182,14 @@ export default {
       qrCode: '',
       shpssBarCode: '',
       placeCount: 0,
-      pickUpDone: false
+      pickUpDone: true,
+      shpsScan:false,
+      shelfScan:false
     }
   },
 
   mounted() {
-    this.getPickUpShps()
+    // this.getPickUpShps()
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key == 'Enter') this.scanQrCode()

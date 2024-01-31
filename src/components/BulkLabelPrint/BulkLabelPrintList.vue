@@ -95,7 +95,7 @@ export default {
       rule: [v => !!v || 'این فیلد الزامی است'],
       allCargoData: [],
       filteredCargoData: [],
-
+      closePackageLoading :false
 
     }
   },
@@ -188,28 +188,29 @@ export default {
       this.getShpsList(this.packageId, this.$store);
     },
     async packingData() {
-      this.loading = true
-      var formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `package/crud/update/status/${this.packageId}`
-      AxiosMethod.form = formData
-      formData.append('status', 'received_by_warehouse')
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-
-        location.reload()
-        openToast(
-            this.$store,
-            'بسته با موفقیت ویرایش گردید',
-            "success"
-        );
-
-      } else {
-        this.loading = false
+      try {
+        this.closePackageLoading = true
+        var formData = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `package/crud/update/status/${this.packageId}`
+        AxiosMethod.form = formData
+        formData.append('status', 'received_by_warehouse')
+        AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.closePackageLoading = false
+          openToast(
+              this.$store,
+              'بسته با موفقیت ویرایش گردید',
+              "success"
+          );
+        }
+      }
+      catch (e) {
+        this.closePackageLoading = false
       }
     },
 

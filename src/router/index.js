@@ -242,6 +242,8 @@ import AddSpecialExitCapacityView from "@/views/Warehouse/AddSpecialExitCapacity
 
 import FreeDeliveryCustomerListView from "@/views/FreeDelivery/FreeDeliveryCustomerListView.vue";
 import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderListView.vue";
+import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
+import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
 
 
 
@@ -1550,6 +1552,14 @@ const router = createRouter({
           }
         },
         {
+          path: 'singular-locating',
+          name: 'SingularLocatingView',
+          component: SingularLocatingView,
+          meta: {
+            name: 'جایگذاری بسته'
+          }
+        },
+        {
           path: 'package/shps-list',
           name: 'ShpsLocationView',
           component: ShpsLocationView,
@@ -1685,6 +1695,13 @@ const router = createRouter({
           path: 'sorting',
           name: 'WarehouseOrderSortingView',
           component: WarehouseOrderSortingView,
+          meta: {
+            name: 'سفارش ها'
+          }
+        },{
+          path: 'un-load',
+          name: 'WarehouseOrderUnLoadSortingView',
+          component: WarehouseOrderUnLoadSortingView,
           meta: {
             name: 'سفارش ها'
           }

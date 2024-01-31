@@ -16,7 +16,7 @@
                 </span>
           </div>
           <div>
-            <v-text-field  variant="outlined" :rules="rule" v-model="cargo" />
+            <v-text-field variant="outlined" :rules="rule" v-model="cargo"/>
           </div>
         </v-col>
 
@@ -42,8 +42,8 @@
 
       <v-divider/>
 
-      <v-card-actions class="pb-3" >
-        <v-row class="px-5 py-2"  justify="end">
+      <v-card-actions class="pb-3">
+        <v-row class="px-5 py-2" justify="end">
           <v-btn
               @click="updateCargo()"
               :disabled="closeCargoDisabled"
@@ -53,7 +53,7 @@
               rounded
               variant="flat"
               class="px-8 mt-2">
-              بستن کارگو
+            بستن کارگو
           </v-btn>
         </v-row>
       </v-card-actions>
@@ -72,6 +72,7 @@ import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {AxiosCall} from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
 
 export default {
 
@@ -84,31 +85,31 @@ export default {
     CreateCargo
   },
 
-  data(){
-    return{
-      cargo:null ,
-      qrCode:'',
-      rule:[v=> !!v || 'این فیلد الزامی است'],
-      loading:false,
-      valid:true,
-      closeCargoDisabled:false
+  data() {
+    return {
+      cargo: null,
+      qrCode: '',
+      rule: [v => !!v || 'این فیلد الزامی است'],
+      loading: false,
+      valid: true,
+      closeCargoDisabled: false
     }
   },
 
   mounted() {
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
-      if (e.key == 'Enter' ) this.addQrCode()
+      if (e.key == 'Enter') this.addQrCode()
       else this.qrCode += e.key
     });
   },
 
   setup(props) {
     const {
-      pageLength,  addPerPage, getCargoReceivingList , cargoReceivingList, dataTableLength , page  , cargoReceivingHeader
+      pageLength, addPerPage, getCargoReceivingList, cargoReceivingList, dataTableLength, page, cargoReceivingHeader
     } = Cargo();
     return {
-      pageLength,  addPerPage, getCargoReceivingList , cargoReceivingList, dataTableLength , page  , cargoReceivingHeader
+      pageLength, addPerPage, getCargoReceivingList, cargoReceivingList, dataTableLength, page, cargoReceivingHeader
     };
   },
 
@@ -138,19 +139,18 @@ export default {
   },
 
   methods: {
-    checkDisabledCloseCargo(form){
-      const  sentToWarehouseCargo = form.find(cargoDetail=>cargoDetail.sent_to_warehouse == false)
+    checkDisabledCloseCargo(form) {
+      const sentToWarehouseCargo = form.find(cargoDetail => cargoDetail.sent_to_warehouse == false)
       if (sentToWarehouseCargo) this.closeCargoDisabled = true
       else this.closeCargoDisabled = false
     },
-    addQrCode(){
-      this.qrCode = this.qrCode.replace('Backspace','');
+    addQrCode() {
+      this.qrCode = this.qrCode.replace('Backspace', '');
       const cargoSplit = this.qrCode.split('-')
       if (cargoSplit[1]) {
         this.cargo = cargoSplit[1]
-      }
-      else {
-        this.cargo =  this.qrCode
+      } else {
+        this.cargo = this.qrCode
       }
       this.qrCode = ''
       this.getCargoReceivingList(this.cargo)
@@ -164,18 +164,23 @@ export default {
       this.header[index].show = value
     },
 
-    async updateCargo(){
-      this.loading = true
-      const AxiosMethod = new AxiosCall()
-      const formData =  new FormData()
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.using_auth =true
-      AxiosMethod.end_point = `cargo/close/${this.cargo}`
-      AxiosMethod.toast_error = true
-      let data = await AxiosMethod.axios_post()
-      if (data) {
+    async updateCargo() {
+      try {
+        this.loading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.using_auth = true
+        AxiosMethod.end_point = `cargo/close/${this.cargo}`
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          openToast(this.$store , 'کارگو با موفیت بسته شد')
+          this.loading = false
+          this.cargo = ''
+        }
+      } catch (e) {
         this.loading = false
-        this.cargo = ''
       }
     }
   },

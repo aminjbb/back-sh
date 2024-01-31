@@ -4,8 +4,8 @@ import WarehouseOrderPickUp from '@/components/WarehouseOrderList/WarehouseOrder
 
 <template>
   <v-layout class="bg-gray">
-    <v-main class="h-100vh d-flex justify-center">
-      <div class="scan-container">
+    <v-main class="h-100 ">
+      <div class="vh-100 " >
         <WarehouseOrderPickUp />
       </div>
     </v-main>
