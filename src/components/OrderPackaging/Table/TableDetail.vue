@@ -92,7 +92,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 <v-text-field
-                    v-model="userInputs[item.id]"                    
+                    v-model="userInputs[index]"
                      variant="solo"
                         
                  ></v-text-field>
@@ -147,6 +147,8 @@
         },
     
         props: {
+
+            orderId:null,
             /**
              * List Items for header
              */
@@ -229,7 +231,9 @@
     
         computed: {
 
-          
+          orderId(){
+            return this.$store.getters['get_orderId']
+          },
 
             /**
              * Get each items table based of header length
@@ -272,16 +276,14 @@
                 };
                 return translations[type] || type;
             },
-          orderId(){
-            return this.$store.getters['get_orderId']
-          },
+
           shpsId(){
             return this.$store.getters['get_shpsId']
           },
 
           checkAndPostApi() {
-            this.items.forEach(item => {
-              if (this.userInputs[item.id] == item.count) {
+            this.items.forEach((item, index) => {
+              if (this.userInputs[index] == item.count) {
                 this.postApi(item);
               }
             });
@@ -293,7 +295,7 @@
             AxiosMethod.end_point = 'admin/order/logistic-packed'
             AxiosMethod.form = formdata
             formdata.append('logistic_packed_count', 1)
-            formdata.append(`order_id`, item.orderId);
+            formdata.append(`order_id`, this.orderId);
             formdata.append('shps', item.id)
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
