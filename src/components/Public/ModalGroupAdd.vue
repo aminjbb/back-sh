@@ -84,7 +84,9 @@ export default {
     isRetail: false,
     isVoucher: false,
     updateCondition: {type: Function},
-    condition: null
+    condition: null,
+    type: null,
+    dataForm: null,
   },
 
   data() {
@@ -159,7 +161,12 @@ export default {
       this.templateLoading = true
       const AxiosMethod = new AxiosCall()
       var formdata = new FormData();
-      formdata.append('file', file)
+      if(this.type== "voucher"){
+        formdata.append(this.dataForm, file)
+      }else {
+        formdata.append('file', file)
+      }
+
 
       AxiosMethod.end_point = this.uploadEndpoint;
       AxiosMethod.token = this.$cookies.get('adminToken')

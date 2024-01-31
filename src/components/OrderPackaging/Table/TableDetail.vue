@@ -77,8 +77,6 @@
                             </template>
                         </span>
                     </div>
-                   
-
                     <div
                 v-if=" header[4].show "
                 class="c-table__contents__item number-font justify-center t14300 text-gray500"
@@ -94,7 +92,7 @@
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               
                 <v-text-field
-                    v-model="userInputs[item.id]"                    
+                    v-model="userInputs[index]"
                      variant="solo"
                         
                  ></v-text-field>
@@ -104,7 +102,7 @@
     
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <div  class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
-                            <v-icon v-if="isCountEqual(item)">mdi-check</v-icon>
+                            <v-icon class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 " v-if="isCountEqual(item) ">mdi-check</v-icon>
                             <v-icon v-else>mdi-plus</v-icon>
                      </div>
                     </div>
@@ -149,6 +147,8 @@
         },
     
         props: {
+
+            orderId:null,
             /**
              * List Items for header
              */
@@ -221,6 +221,8 @@
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
                 userInputs: {},
+                loading: false,
+
 
 
              
@@ -229,7 +231,9 @@
     
         computed: {
 
-          
+          orderId(){
+            return this.$store.getters['get_orderId']
+          },
 
             /**
              * Get each items table based of header length
@@ -249,6 +253,11 @@
             },
         },
         watch: {
+
+          userInputs: {
+            handler: 'checkAndPostApi',
+            deep: true,
+          }
         
   },
         methods: {
@@ -267,7 +276,41 @@
                 };
                 return translations[type] || type;
             },
-          
+
+          shpsId(){
+            return this.$store.getters['get_shpsId']
+          },
+
+          checkAndPostApi() {
+            this.items.forEach((item, index) => {
+              if (this.userInputs[index] == item.count) {
+                this.postApi(item);
+              }
+            });
+          },
+          async postApi(item) {
+            this.loading = true
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = 'admin/order/logistic-packed'
+            AxiosMethod.form = formdata
+            formdata.append('logistic_packed_count', 1)
+            formdata.append(`order_id`, this.orderId);
+            formdata.append('shps', item.id)
+            AxiosMethod.store = this.$store
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+            if (data) {
+              this.loading = false
+
+
+
+            } else {
+              this.loading = false
+            }
+          }
+          ,
             onInputChange() {
                 const allEqual = this.items.every(item => this.isCountEqual(item));
                 this.$emit('all-comparisons-successful', allEqual);
