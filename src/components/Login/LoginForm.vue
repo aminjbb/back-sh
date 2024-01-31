@@ -22,7 +22,7 @@
                                 :rules="mobileRule"
                                 class=""
                                 variant="outlined"
-                                placeholder="۰۹۱۲۱۲۳۴۵۶۷" 
+                                placeholder="۰۹۱۲۱۲۳۴۵۶۷"
                             />
                         </div>
 
@@ -40,6 +40,7 @@
                                 variant="outlined"
                                 :type="passwordType"
                                 placeholder="***********"
+
                             >
                                 <template v-slot:prepend-inner>
                                     <v-btn @click="changePasswordType()" min-width="10" small variant="icon">

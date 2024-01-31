@@ -107,7 +107,6 @@ export default {
         },
 
         async createBanner() {
-            console.log(this.banner)
             this.loading = true
             let formData = new FormData();
             let endPoint = null

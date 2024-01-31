@@ -1,6 +1,6 @@
 <template>
 <section class="create-product flex-column d-flex h-100">
-    <v-card class="mx-5 br-12 py-5" height="200">
+    <v-card class="mx-5 br-12 py-5" height="250">
         <v-row
             justify="center"
             align="center"
