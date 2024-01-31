@@ -100,12 +100,13 @@ export default function setup(posts) {
                     if (extractedNumber) {
 
                         console.log("Extracted:", item.barcode);
+                        console.log("Extracted 11:", extractedNumber);
+                        this.$store.commit('set_orderId',  extractedNumber);
 
                     }
                 });
 
-                console.log("Extracted:", item.id);
-                this.$store.commit('set_orderId',  item.id);
+
                
             } else {
                 orderList.value = [];

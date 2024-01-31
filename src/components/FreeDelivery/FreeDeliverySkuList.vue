@@ -48,7 +48,7 @@
             class="px-10 py-3">
 
           <v-row class="mt-2">
-            <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" uploadEndpoint="admin/delivery-discount/attach/shps/34" />
+            <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="shps_file" :uploadEndpoint= "`admin/delivery-discount/attach/shps/${freeDeliveryId}`" />
           </v-row>
 
 
@@ -132,8 +132,9 @@
     },
 
     data() {
-      return {
 
+        return{
+          freeDeliveryId:this.$route.params.freeDeliveryId,
       }
     },
     components: {

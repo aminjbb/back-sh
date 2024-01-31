@@ -48,8 +48,8 @@
             class="px-10 py-3">
 
             <v-row class="mt-2">
-              <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" uploadEndpoint="admin/delivery-discount/attach/user/34" />
-            </v-row>
+              <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="user_file" :uploadEndpoint= "`admin/delivery-discount/attach/user/${freeDeliveryId}`" />
+            </v-row>`
 
 
 <v-row justify="end"
@@ -122,11 +122,15 @@
   </template>
   <script>
   import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-
   import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
   import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
   import FreeDelivery from '@/composables/FreeDelivery'
   export default {
+    data(){
+      return{
+        freeDeliveryId:this.$route.params.freeDeliveryId,
+      }
+    },
     setup() {
       const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
         pageLength,page , getVoucherDetail , voucherDetail,getCustomerList, customerList, getFreeDeliveryList} = new FreeDelivery()
