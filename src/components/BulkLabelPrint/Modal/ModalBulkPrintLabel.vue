@@ -35,7 +35,7 @@
                 <v-row justify="center">
                   <v-col cols="4" v-for="(barCode , index) in detail " :key="'bulk-label-print'+index">
                     <div class="d-flex justify-space-between px-15">
-                      <span>{{barCode?.id}}</span>
+                      <span>{{barCode?.shps?.seller?.id}}</span>
                       <span>{{barCode?.shps?.seller?.shopping_name}}</span>
                     </div>
                     <div class="text-center">

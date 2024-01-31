@@ -165,9 +165,21 @@ export default createStore({
             dialog: false,
             id: ''
         },
+        openOrderModal:{
+            dialog: false,
+            object:null
+        },
+        returnedOrderItems:[]
     },
 
     mutations: {
+        set_returnedOrderItems(state , object){
+            state.returnedOrderItems.push(object)
+        },
+        set_openOrderModal(state , form){
+          state.openOrderModal.dialog = form.dialog
+          state.openOrderModal.object = form.object
+        },
         set_orderId(state, orderId){
             state.orderId = orderId
         },
@@ -372,10 +384,25 @@ export default createStore({
         },
     },
 
-    actions: {},
+    actions: {
+        set_returnedOrderItems({state , commit} , object ){
+            const findObject = state.returnedOrderItems.find(returnOrder=> returnOrder?.object?.barcode === object.object.barcode)
+            if (findObject) findObject.subTitle = object.subTitle
+            else commit('set_returnedOrderItems' ,  object)
+        }
+    },
 
     getters: {
+        get_returnedOrderItems(state) {
+          return state.returnedOrderItems
+        },
+        get_openOrderModal(state){
+           return  state.openOrderModal.dialog
+        },
+        get_openOrderModalObject(state){
+           return  state.openOrderModal.object
 
+        },
         get_orderId(state){
             return state.orderId 
          },

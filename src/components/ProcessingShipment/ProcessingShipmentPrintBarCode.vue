@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center px-5 ma-5" id="printableArea-shipmentBarcode">
+  <div class="text-center px-5 ma-5 d--ltr"  id="printableArea-shipmentBarcode">
     <v-card class="content py-5">
       <v-row justify="center">
         <v-col cols="4" v-for="(barCode , index) in detail " :key="'shpss-list-barcode'+index">

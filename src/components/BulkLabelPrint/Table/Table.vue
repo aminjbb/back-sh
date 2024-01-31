@@ -282,7 +282,7 @@
                 shipments: [],
                 isSubmitted: false,
                 submittedItemId: null,
-
+              shipmentId:null,
                
   
              
@@ -291,11 +291,6 @@
     
         computed: {
 
-  
-  shipmentId() {
-      
-      return this.$store.getters['get_shipmentId']
-  },
   shpsId() {
       
       return this.$store.getters['get_shpsId']
@@ -323,7 +318,7 @@
         methods: {
   
         async getDetail(id){
-        
+          this.shipmentId = id
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
@@ -336,7 +331,7 @@
             }
         this.$store.commit('set_bulkPrintLabel', dialogForm)
 
-        this.shipmentId = id
+
           this.detail = data.data
           this.dialog = true
         }

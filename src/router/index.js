@@ -244,6 +244,7 @@ import FreeDeliveryCustomerListView from "@/views/FreeDelivery/FreeDeliveryCusto
 import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderListView.vue";
 import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
 import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
+import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
 
 
 
@@ -1706,7 +1707,14 @@ const router = createRouter({
             name: 'سفارش ها'
           }
         },
-
+        {
+          path: 'open-order',
+          name: 'OpenOrderView',
+          component: OpenOrderView,
+          meta: {
+            name: 'سفارش مرجوع شده'
+          }
+        },
         // {
         //   path: 'print-factor',
         //   name: 'WarehouseOrderListView',
