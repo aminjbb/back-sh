@@ -9,6 +9,7 @@
           <v-form @submit.prevent="onFormSubmit" v-model="valid">
             <div>
               <v-text-field
+                  :autofocus="true"
                   variant="outlined"
                   :rules="rule"
                   v-model="cargoId"
@@ -68,21 +69,16 @@ export default {
       rule: [v => !!v || 'این فیلد الزامی است'],
       allCargoData: [],
       filteredCargoData: [],
-      qrCode: '',
+      qrCode: null,
       valid: null,
-
-
     }
   },
 
-  setup(props) {
+  setup() {
     const {
-      pageLength,
       cargoList,
-      addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
       item,
       filterField,
@@ -92,12 +88,9 @@ export default {
       getOrderListDetail
     } = OrderPackagingList();
     return {
-      pageLength,
       cargoList,
-      addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
       item,
       filterField,
@@ -107,25 +100,8 @@ export default {
       getOrderListDetail
     };
   },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal;
-
-
-    }
-  },
   async mounted() {
     await this.fetchCargoData();
-    let element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key === 'Enter') this.addQrCode()
-      else if (e.key === 'Backspace' || e.key === 'Delete') {
-        this.qrCode = ''
-      } else {
-        this.qrCode += e.key
-      }
-    });
   },
 
   watch: {
@@ -137,13 +113,10 @@ export default {
 
       }
     },
-
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
   },
-
   methods: {
     async fetchCargoData(newCargoId) {
       this.getShpsList(newCargoId);
@@ -151,31 +124,21 @@ export default {
     updatePackageIdInStore() {
       this.$store.commit('set_packageId', this.cargoId);
     },
-    addQrCode() {
-      this.qrCode = this.qrCode.replace('Backspace', '');
-      const cargoSplit = this.qrCode.split('-')
-      if (cargoSplit[1]) {
-        this.cargoId = cargoSplit[1]
-      } else {
-        this.cargoId = this.qrCode
-      }
-      this.qrCode = ''
-      this.getShpsList(this.cargoId)
-
-      this.fetchCargoData(this.cargoId);
-      this.updatePackageIdInStore();
-    },
     updateSendingMethod() {
       const paymentMethod = "saman";
       this.$store.commit('set_sendingMethod', paymentMethod);
     },
     onFormSubmit() {
+      if (this.cargoId.includes('-')) {
+        const cargoSplit = this.cargoId.split('-')
+        if (cargoSplit[1]) {
+          this.cargoId = cargoSplit[1]
+        }
+      }
       if (this.valid) {
         this.$router.push('/order-packaging/detail-info/' + this.cargoId);
       }
     },
-
-
     /**
      * Change Header Status
      * @param {*} index

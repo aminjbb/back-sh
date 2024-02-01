@@ -7,7 +7,6 @@
       <header class="modal__header d-flex justify-center align-center ">
             <span class="t16400 pa-6">
               اطلاعات سفارش
-              
             </span>
       </header>
       <v-divider color="grey"/>
@@ -92,12 +91,9 @@ export default {
   },
   setup(props) {
     const {
-      pageLength,
       cargoList,
-      addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
       item,
       filterField,
@@ -108,12 +104,9 @@ export default {
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
-      pageLength,
       cargoList,
-      addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
       item,
       filterField,
@@ -130,17 +123,7 @@ export default {
       return this.$store.getters['get_confirmForm'].confirmModal;
     },
   },
-
-
   watch: {
-    cargo(newId) {
-      if (newId && Array.isArray(this.allCargoData)) {
-        this.filteredCargoData = this.allCargoData.filter(item => item.id === newId);
-      } else {
-        this.filteredCargoData = this.allCargoData;
-      }
-    },
-
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -148,13 +131,10 @@ export default {
         }
       }
     },
-
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
   },
-
   methods: {
     updateList(value) {
       if (value === 'true') {

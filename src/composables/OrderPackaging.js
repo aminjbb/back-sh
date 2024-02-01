@@ -1,20 +1,14 @@
-import {ref, onMounted, watch} from 'vue';
-import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
+import {ref} from 'vue';
 import {PanelFilter} from '@/assets/js/filter.js'
-import {useRouter, useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const orderList = ref([])
     const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
-    const router = useRouter()
-    const route = useRoute()
-    const page = ref(1)
-
 
     const cargoReceivingHeader = ref([
         {name: 'ردیف', show: true, value: null, order: false},
@@ -32,41 +26,22 @@ export default function setup(posts) {
         {name: '  تعداد در سفارش ', show: true, value: 'number', order: false},
         {name: 'تعداد اسکن شده ', show: true, value: 'number', order: false},
     ]);
-
-
     const item = []
     const loading = ref(false)
-    const isFilter = ref(false)
-    const isFilterPage = ref(false)
     const filter = new PanelFilter()
-
-    function extractNumberFromBarcode(barcode) {
-        let parts = barcode.split("-");
-        return parts.length >= 3 ? parts[1] : null;
-    }
-
     async function getOrderListDetail(packageId = null) {
         loading.value = true;
-
-
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true;
         AxiosMethod.token = cookies.cookies.get('adminToken');
-
         AxiosMethod.end_point = `admin/order/crud/shps/detail/${packageId}`;
-
         try {
             let response = await AxiosMethod.axios_get();
-
-
             loading.value = false;
-
             if (response) {
                 pageLength.value = response.data.last_page;
                 this.$store.commit('set_shpsId', item.shps);
                 orderListDetail.value = response.data
-
-
             } else {
                 orderListDetail.value = [];
             }
@@ -97,42 +72,9 @@ export default function setup(posts) {
             loading.value = false;
         }
     }
-
-    function addPerPage(number) {
-        filter.page = 1
-        filter.per_page = number
-        router.push('/categories/index' + filter.params_generator(route.query))
-    }
-
-    function addPagination(page) {
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/categories/index' + filter.params_generator(route.query))
-    }
-
-
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value = true
-            page.value = 1
-            filter.page = 1
-        }
-        await getCategories(to)
-    })
-
-    watch(page, function (val) {
-        if (!isFilter.value) {
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
     return {
-        pageLength,
-        addPerPage,
         getShpsList,
         dataTableLength,
-        page,
         item,
         orderList,
         orderListDetail,
