@@ -6,7 +6,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 import {da} from "vuetify/locale";
 
-export default function setup(posts) {
+export default function setup() {
     const ticket = ref([]);
     const oneTicket =ref(null)
     const allTickets = ref([]);

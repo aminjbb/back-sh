@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const freeDeliveryList = ref([]);
     const voucher = ref(null);
     const skuList = ref(null);
@@ -134,7 +134,6 @@ export default function setup(posts) {
     };
 
     function addPerPage(number){
-        const filter = new PanelFilter()
         if (route.query.name) {
             filter.name =route.query.name
         }
@@ -148,7 +147,7 @@ export default function setup(posts) {
         filter.page = 1;
         page = 1;
         filter.per_page = number
-        router.push('/color/'+ filter.query_maker())
+        router.push('/free-delivery/index'+ filter.query_maker())
 
     }
 
@@ -168,7 +167,7 @@ export default function setup(posts) {
         }
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/color/'+ filter.query_maker())
+        router.push('/free-delivery/index'+ filter.query_maker())
     }
 
 
@@ -176,7 +175,7 @@ export default function setup(posts) {
         addPagination(val)
     })
 
-    return {headerShps , headerCustomer  , headerFreeDelivery,filterField , page , freeDeliveryList , headerOrderList
+    return {headerShps , headerCustomer  , headerFreeDelivery,filterField , page , freeDeliveryList , headerOrderList , addPerPage
     ,dataTableLength ,pageLength , getVoucher , getSkuList, voucher , getFreeDeliveryList, indexFilterField, getCustomerList, customerList, skuList}
 }
 

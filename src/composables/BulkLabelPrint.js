@@ -12,12 +12,7 @@ export default function setup(posts) {
     const cargoList = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)
-    const pageLength = ref(1)
-    const router = useRouter()
     const route = useRoute()
-    const page = ref(1)
-    
-
     const packageHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:'شناسه بسته' , show:true , value:'created_at', order: false},
@@ -25,7 +20,6 @@ export default function setup(posts) {
         {name:'تعداد کالا' , show:true ,  value:'label', order: false},
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
-
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
         {name:'شناسه کالا' , show:true , value:'id', order: false},
@@ -35,15 +29,7 @@ export default function setup(posts) {
         {name:'ذخیره ' , show:true, value:'is_active', order: false},
       
     ]);
-
-
-
-   
-
-    const item = []
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
     async function getShpsList(packageId = null) {
@@ -83,7 +69,6 @@ export default function setup(posts) {
         AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            console.log(data);
           const form = {
             dialog :true,
             object : data.data
@@ -133,39 +118,10 @@ export default function setup(posts) {
     
         loading.value = false;
     }
-    
-    
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/categories/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/categories/index'+ filter.params_generator(route.query))
-    }
 
 
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getCategories(to)
-    })
 
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return { pageLength, cargoList, addPerPage, getShpsList, BulkLabelPrintList, dataTableLength , page, getShpss , getShpssDetailLost,shpssDetailLost, item , 
+    return { cargoList, getShpsList, BulkLabelPrintList, dataTableLength, getShpss , getShpssDetailLost,shpssDetailLost ,
         loading , packageHeader , cargoReceivingHeader , shpsList}
 }
 

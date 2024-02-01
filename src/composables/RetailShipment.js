@@ -1,16 +1,11 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_menu.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {tr} from "vuetify/locale";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
-export default function setup(posts) {
-    const retailShipments =ref([
-
-    ],)
+export default function setup() {
+    const retailShipments =ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -49,7 +44,6 @@ export default function setup(posts) {
         { name: 'تاریخ ساخت', type:'date', value:'created_at', place:'تاریخ ساخت'},
         { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
     ];
-
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -77,17 +71,6 @@ export default function setup(posts) {
             } , 2000)
         }
     };
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/menu/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/menu/index'+ filter.params_generator(route.query))
-    }
 
     watch(page, function(val) {
         if (!isFilter.value){

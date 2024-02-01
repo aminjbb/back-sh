@@ -5,7 +5,7 @@ import {useRouter,useRoute} from 'vue-router'
 import {onBeforeRouteLeave,onBeforeRouteUpdate} from 'vue-router'
 import {PanelFilter} from '@/assets/js/filter_notification.js'
 
-export default function setup(posts) {
+export default function setup() {
     const notifications = ref([]);
     const notification = ref({});
     const dataTableLength = ref(25)

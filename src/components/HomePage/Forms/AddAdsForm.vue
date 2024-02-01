@@ -64,29 +64,9 @@
 </template>
 
 <script>
-import {
-  watch
-} from 'vue'
-import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import {
-  convertDateToJalai, openConfirm
-} from "@/assets/js/functions";
-import RolePermission from '@/composables/RolePermission'
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 export default {
-  setup() {
-    const {
-      allRolePermission,
-      getAllRolePermission,
-    } = new RolePermission()
-    return {
-      allRolePermission,
-      getAllRolePermission
-    }
-  },
+
   props: {
     supplier: null,
     device:'',
@@ -94,8 +74,6 @@ export default {
   },
   components: {
     UploadFileSection,
-    datePicker: VuePersianDatetimePicker,
-
   },
 
   data() {
@@ -119,7 +97,6 @@ export default {
   methods: {
     removeItem(id) {
       this.form.image = ''
-      // openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
     },
     /**
      * Get image id

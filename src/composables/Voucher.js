@@ -1,11 +1,10 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter_voucher.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const voucherList = ref([]);
     const voucherDetail = ref(null);
     const voucher = ref([]);
@@ -152,7 +151,7 @@ export default function setup(posts) {
         filter.page = 1;
         page = 1;
         filter.per_page = number
-        router.push('/color/'+ filter.query_maker())
+        router.push('/voucher/'+ filter.query_maker())
 
     }
 
@@ -172,7 +171,7 @@ export default function setup(posts) {
         }
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/color/'+ filter.query_maker())
+        router.push('/voucher/'+ filter.query_maker())
     }
 
 

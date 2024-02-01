@@ -37,8 +37,8 @@
           deletePath="category/crud/delete/"
           :header="cargoReceivingHeader"
           :items="shpsList.shps_list "
-          :page="page"
-          :perPage="dataTableLength"
+          :page="1"
+          :perPage="1000"
           :packageId="packageId"
           :loading="loading"/>
 
@@ -102,28 +102,22 @@ export default {
 
   setup(props) {
     const {
-      pageLength,
       cargoList,
       addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
-      item,
       filterField,
       loading,
       getShpsList,
       shpsList
     } = BulkLabelPrintList();
     return {
-      pageLength,
       cargoList,
       addPerPage,
       getCargoList,
       dataTableLength,
-      page,
       cargoReceivingHeader,
-      item,
       filterField,
       loading,
       getShpsList,

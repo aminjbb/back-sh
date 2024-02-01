@@ -6,7 +6,7 @@ import { useCookies } from "vue3-cookies";
 import {DriverFilter} from "@/assets/js/filter_driver.js";
 
 
-export default function setup(posts) {
+export default function setup() {
     const driver = ref(null)
     const DriverManagementList = ref([]);
     const dataTableLength = ref(25)
@@ -15,8 +15,6 @@ export default function setup(posts) {
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
-
-   
 
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -122,13 +120,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/menu/index'+ filter.params_generator(route.query))
+        router.push('/driver-management/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/menu/index'+ filter.params_generator(route.query))
+        router.push('/driver-management/index'+ filter.params_generator(route.query))
     }
 
     watch(page, function(val) {

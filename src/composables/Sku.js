@@ -4,7 +4,7 @@ import { SkuPanelFilter } from '@/assets/js/filter_sku.js'
 import { useRouter, useRoute } from 'vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-export default function setup(posts) {
+export default function setup() {
     const skues = ref([]);
     const skuGroups =ref([])
     const skuGroup =ref(null)

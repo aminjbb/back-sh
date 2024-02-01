@@ -66,11 +66,6 @@ export default {
         ModalShpsBarCode
     },
 
-    computed: {
-        avatar() {
-            return this.$store.getters['get_avatar']
-        }
-    },
 
     methods: {
         validate() {

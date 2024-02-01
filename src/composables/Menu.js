@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_menu.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const menus =ref([])
     const allMenu =ref([])
     const menu = ref(null)

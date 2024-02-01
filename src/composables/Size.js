@@ -1,14 +1,10 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup(posts) {
     const size = ref([]);
-    const dataTableLength = ref(25)
-    let page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
     const router = useRouter()
@@ -30,7 +26,6 @@ export default function setup(posts) {
         {name:'فعال سازی ' , type:'switch', value:'active'},
     ];
 
-    const item = []
 
     async function  getSize(query) {
         var formdata  ={}
@@ -53,53 +48,8 @@ export default function setup(posts) {
         }
     };
 
-    function addPerPage(number){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
 
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push('/color/'+ filter.query_maker())
 
-    }
-
-    function addPagination(page){
-        const filter = new BrandPanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/color/'+ filter.query_maker())
-
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-        getVolume() 
-    })
-
-    watch(page, function(val) {
-        addPagination(val)
-    })
-
-    return {filterField, size, getSize ,addPerPage , dataTableLength , page  , header , item}
+    return {filterField, size, getSize    , header }
 }
 

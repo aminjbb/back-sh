@@ -5,7 +5,7 @@ import {useRouter, useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const product = ref([]);
     const oneProduct = ref('');
     const dataTableLength = ref(25)
