@@ -40,8 +40,10 @@ export default function setup() {
             loading.value = false;
             if (response) {
                 pageLength.value = response.data.last_page;
-                this.$store.commit('set_shpsId', item.shps);
+
                 orderListDetail.value = response.data
+                console.log('set_shpsId',response.data);
+
             } else {
                 orderListDetail.value = [];
             }

@@ -102,8 +102,8 @@
     
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <div  class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
-                            <v-icon class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 " v-if="isCountEqual(item) ">mdi-check</v-icon>
-                            <v-icon v-else>mdi-plus</v-icon>
+                          <v-icon v-if="apiSuccess[item.id]" class="">mdi-check</v-icon>
+                          <v-icon v-else>mdi-plus</v-icon>
                      </div>
                     </div>
                 </div>
@@ -222,10 +222,12 @@
                 activeColumn: false,
                 userInputs: {},
                 loading: false,
+                apiSuccess: {},
 
 
 
-             
+
+
             }
         },
     
@@ -261,6 +263,9 @@
         
   },
         methods: {
+
+
+
             /**
              * Open Basic Discount modal
              * @param {*} id
@@ -284,25 +289,28 @@
           checkAndPostApi() {
             this.items.forEach((item, index) => {
               if (this.userInputs[index] == item.count) {
-                this.postApi(item);
+                this.postApi(item, index);
               }
             });
           },
-          async postApi(item) {
+          async postApi(item, index) {
             this.loading = true
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
             AxiosMethod.end_point = 'admin/order/logistic-packed'
             AxiosMethod.form = formdata
-            formdata.append('logistic_packed_count', 1)
-            formdata.append(`order_id`, this.orderId);
-            formdata.append('shps', item.id)
+
+            let userInput = this.userInputs[index];
+            formdata.append('logistic_packed_count', userInput)
+            formdata.append(`order_id`, item.id);
+            formdata.append('shps', item.shps.id)
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-              this.loading = false
+              this.apiSuccess[item.id] = true;
+              this.loading = false;
 
 
 
@@ -311,14 +319,7 @@
             }
           }
           ,
-            onInputChange() {
-                const allEqual = this.items.every(item => this.isCountEqual(item));
-                this.$emit('all-comparisons-successful', allEqual);
-                },
 
-            isCountEqual(item) {
-             return this.userInputs[item.id] == item.count;
-            },
           
   
     
@@ -398,6 +399,13 @@
                     openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
         },
+      created() {
+        this.items.forEach((item) => {
+          this.$set(this.apiSuccess, item.id, false);
+        });
+      },
     }
+
+
     </script>
     
