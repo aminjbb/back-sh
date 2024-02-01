@@ -95,7 +95,6 @@ export default function setup(posts) {
         let data = await AxiosMethod.axios_get();
         console.log("API Response:", data);
         if (data && data.data) {
-            // Log the values
             console.log("API Response:", data.data);
             console.log("shipment_id:", data.data.shipment_id);
             console.log("shps:", data.data.shps);
