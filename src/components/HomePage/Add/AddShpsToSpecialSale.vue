@@ -56,8 +56,7 @@
           :header="homePageSkuHeader"
           :items="homePageSingleSlider.skus"
           editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          deletePath="seller/crud/update/activation/"
+          :deletePath="`page/home/section/slider/${$route.params.specialId}/sku/detach/`"
           changeStatusUrl="seller/crud/update/contract/"
           :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
           :loading="loading"
@@ -241,18 +240,19 @@ export default {
       this.addSkuPerPage(val)
     },
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getSellerList();
+          this.getHomePageSingleSlider()
           openToast(
               this.$store,
-              'انبار با موفقیت حذف شد',
+              'محصول با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },
+
     $route(to, from) {
       this.getSkuSeller()
     }
