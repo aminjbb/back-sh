@@ -148,7 +148,7 @@
     
         props: {
 
-            orderId:null,
+
             /**
              * List Items for header
              */
@@ -233,9 +233,7 @@
     
         computed: {
 
-          orderId(){
-            return this.$store.getters['get_orderId']
-          },
+
 
             /**
              * Get each items table based of header length
@@ -264,7 +262,16 @@
   },
         methods: {
 
+          onFormSubmit() {
+            if (this.userInputs.includes('-')) {
+              const cargoSplit = this.userInputs.split('-')
+              if (cargoSplit[1]) {
+                this.cargoId = cargoSplit[1]
+                console.log(cargoSplit)
+              }
+            }
 
+          },
 
             /**
              * Open Basic Discount modal
@@ -281,6 +288,7 @@
                 };
                 return translations[type] || type;
             },
+
 
           shpsId(){
             return this.$store.getters['get_shpsId']
@@ -301,12 +309,14 @@
             AxiosMethod.form = formdata
 
             let userInput = this.userInputs[index];
+            let orderId = this.$route.params.orderId
             formdata.append('logistic_packed_count', userInput)
-            formdata.append(`order_id`, item.id);
+            formdata.append(`order_id`, orderId);
             formdata.append('shps', item.shps.id)
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
+
             let data = await AxiosMethod.axios_post()
             if (data) {
               this.apiSuccess[item.id] = true;

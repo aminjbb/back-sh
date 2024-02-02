@@ -24,11 +24,20 @@
                       </span>
                     </span>
         </div>
+        <v-form >
+          <div>
+            <v-text-field
+                v-model="userInputs[index]"
+                variant="solo"
+
+            ></v-text-field>
+          </div>
+        </v-form>
       </div>
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
-
+      {{extractedIds}}
       <Table
           class="flex-grow-1"
           :header="detailInfo"
@@ -87,6 +96,8 @@ export default {
       allCargoData: [],
       filteredCargoData: [],
       allComparisonsSuccessful: false,
+      userInputs: {},
+      extractedId:[]
     }
   },
   setup(props) {
@@ -100,7 +111,10 @@ export default {
       loading,
       detailInfo,
       getOrderListDetail,
-      orderListDetail
+      orderListDetail,
+      barcodeNum,
+      getShpsList,
+      extractedIds
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
@@ -114,7 +128,10 @@ export default {
       detailInfo,
       getOrderListDetail,
       orderListDetail,
-      orderDetails
+      orderDetails,
+      barcodeNum,
+      getShpsList,
+      extractedIds
     };
   },
 
@@ -136,6 +153,18 @@ export default {
     },
   },
   methods: {
+
+
+    extractIdsFromQRCode(content) {
+      const parts = content.split('-');
+      if(parts.length > 2) {
+        const extractedNumber = parts[1];
+        this.extractedId = Number(extractedNumber);
+
+        this.updateChildrenInputs();
+      }
+    },
+
     updateList(value) {
       if (value === 'true') {
         this.getOrderListDetail();
