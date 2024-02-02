@@ -7,7 +7,6 @@ export default function setup() {
     const volume = ref([]);
     const cookies = useCookies()
     const route = useRoute()
-
     async function  getVolume(query) {
         var formdata  ={}
         if(query){
@@ -24,12 +23,9 @@ export default function setup() {
 
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             volume.value = data.data
         }
     };
-
-
     return { volume, getVolume   }
 }
 
