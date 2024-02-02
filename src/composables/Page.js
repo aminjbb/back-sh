@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_page.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const pageList = ref([]);
     const templates =ref([])
     const pageSingle = ref(null)

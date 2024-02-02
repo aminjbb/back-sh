@@ -4,7 +4,7 @@ import {useCookies} from "vue3-cookies";
 import {useRouter, useRoute} from 'vue-router'
 import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
 import {PanelFilter} from '@/assets/js/filter.js'
-export default function setup(posts) {
+export default function setup() {
     const permissions = ref([]);
     const allPermission = ref([]);
     const permission = ref({});

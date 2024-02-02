@@ -1,13 +1,10 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_menu.js'
+
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {tr} from "vuetify/locale";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
-
-export default function setup(posts) {
+export default function setup() {
     const processingShipment =ref([
         {
             id: 21,
@@ -45,10 +42,8 @@ export default function setup(posts) {
 
     ],)
     const shipmentShpsList =ref(null)
-    const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const page = ref(1)
     const router = useRouter()
     const route = useRoute()
 
@@ -88,8 +83,6 @@ export default function setup(posts) {
         { name: 'تعداد کالا', show: true, value:'high_tolerance', order: false },
         { name: 'قیمت مصرف کل', show: true, value:'high_tolerance', order: false },
     ]);
-
-
 
     const filterFieldAllRetail = [
         {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
@@ -141,27 +134,10 @@ export default function setup(posts) {
 
         }
     };
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/menu/index'+ filter.params_generator(route.query))
-    }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/menu/index'+ filter.params_generator(route.query))
-    }
 
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {filterFieldAllRetail, getRetailShipmentList,processingShipment, pageLength ,addPerPage,
-        dataTableLength, page, header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller,
+    return {filterFieldAllRetail, getRetailShipmentList,processingShipment,
+          header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller,
         headerDetailShipment}
 }
 

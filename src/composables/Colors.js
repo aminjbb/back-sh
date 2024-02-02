@@ -5,7 +5,7 @@ import { PanelFilter} from '@/assets/js/filter.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const color = ref([]);
     const allColors = ref([]);
     const colorGroups = ref([]);

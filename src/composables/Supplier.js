@@ -4,7 +4,7 @@ import { useCookies } from "vue3-cookies";
 import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
 import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 
-export default function setup(posts) {
+export default function setup() {
     const supplierList = ref([]);
     const allSuppliers = ref([]);
     const supplier = ref({});

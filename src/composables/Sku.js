@@ -4,7 +4,7 @@ import { SkuPanelFilter } from '@/assets/js/filter_sku.js'
 import { useRouter, useRoute } from 'vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-export default function setup(posts) {
+export default function setup() {
     const skues = ref([]);
     const skuGroups =ref([])
     const skuGroup =ref(null)
@@ -151,7 +151,7 @@ export default function setup(posts) {
         let paramsQuery = null
         skuGroupLoading.value = true
         if (query){
-            paramsQuery = filter.params_generator(query)
+            paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)
 
@@ -164,11 +164,13 @@ export default function setup(posts) {
             AxiosMethod.end_point = `product/sku/group/crud/index/${paramsQuery}&product_id=${route.params.productId}`
         }
         else{
+            console.log(paramsQuery)
             AxiosMethod.end_point = `product/sku/group/crud/index/${paramsQuery}`
         }
 
         let data = await AxiosMethod.axios_get()
         if (data) {
+            pageLength.value = data.data.last_page
             allSkuGroups.value = data.data
             skuGroupLoading.value = false
         }
@@ -202,10 +204,11 @@ export default function setup(posts) {
 
 
     onBeforeRouteUpdate(async (to, from) => {
+        page.value = 1
+        filter.page = 1
         if (!isFilterPage.value) {
             isFilter.value =true
-            page.value = 1
-            filter.page = 1
+
         }
 
         if(route.name === 'groupSkuList' || route.name === 'productSkuList' || route.name === 'skuList'){

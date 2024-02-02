@@ -1,11 +1,11 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import {  onBeforeRouteUpdate } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter_order.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const returnedOrderList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -145,13 +145,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/orders/index'+ filter.params_generator(route.query))
+        router.push('/returned-orders/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/orders/index'+ filter.params_generator(route.query))
+        router.push('/returned-orders/index'+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {

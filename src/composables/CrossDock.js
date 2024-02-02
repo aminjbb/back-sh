@@ -1,13 +1,11 @@
 import { ref, onMounted, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_menu.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {tr} from "vuetify/locale";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
-export default function setup(posts) {
+export default function setup() {
     const crossDock =ref([])
     const orders =ref([])
     const dataTableLength = ref(25)
@@ -98,13 +96,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/menu/index'+ filter.params_generator(route.query))
+        router.push('/cross-dock/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/menu/index'+ filter.params_generator(route.query))
+        router.push('/cross-dock/index'+ filter.params_generator(route.query))
     }
 
     watch(page, function(val) {

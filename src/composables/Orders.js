@@ -1,11 +1,11 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import {  onBeforeRouteUpdate } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter_order.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const orderList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -79,7 +79,6 @@ export default function setup(posts) {
         { name: 'مبلغ جمع مالیات و عوارض (ریال)', show: true, value:'tax_amount', order: false },
         { name: 'جمع مبلغ کل بعلاوه جمع  مالیات و عوارض (ریال)', show: true, value:'tax_amount_sum' , order: false},
     ]);
-
 
     const loading = ref(false)
     const isFilter =ref(false)

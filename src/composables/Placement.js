@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_placement.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const placementList = ref([]);
     const placement = ref(null);
     const dataTableLength = ref(25)
@@ -71,17 +71,6 @@ export default function setup(posts) {
            } , 2000)
         }
     };
-    async function getAllPlacementList(query) {
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `placement/crud/index?per_page=1000000`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-
-            placementList.value = data.data.data
-        }
-    };
     async function getPlacement(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -123,6 +112,6 @@ export default function setup(posts) {
     })
 
     return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading,
-        shpssHeader , getAllPlacementList , getPlacement , placement}
+        shpssHeader  , getPlacement , placement}
 }
 

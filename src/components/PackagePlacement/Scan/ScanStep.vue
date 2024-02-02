@@ -96,31 +96,19 @@ export default {
     return{
       qrCode:'',
       packageId:'',
-      scan:false,
-      scanTitle:'',
-      state:'',
+      scan:true,
+      scanTitle:'شناسه بسته را اسکن کنید.',
+      state:'packageSphpsList',
       object:''
     }
   },
 
   mounted() {
     this.getSinglePackagePlacement()
-    // var element = document.body // You must specify element here.
-    // element.addEventListener('keydown', e => {
-    //   if (e.key== 'Enter' ) this.scanQrCode()
-    //   else this.qrCode += e.key
-    // });
+
   },
 
   methods:{
-    // scanQrCode(){
-    //   this.packageId = this.qrCode
-    //   this.qrCode = ''
-    //   const finalPackageId = this.packageId.split('-')
-    //   this.$router.push(`/locating/${finalPackageId[1]}/shps-list`)
-    //   // this.getSinglePackagePlacement(this.packageId)
-    // },
-
     selectPackagePlacement(packagePlacement){
       this.object = packagePlacement
       this.scan = true

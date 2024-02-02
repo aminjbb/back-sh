@@ -5,7 +5,7 @@ import {useCookies } from 'vue3-cookies'
 import { useRouter, useRoute } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter.js'
 
-export default function setup(posts) {
+export default function setup() {
     const exports = ref([]);
     const cookies = useCookies()
     const dataTableLength = ref(25)

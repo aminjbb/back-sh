@@ -99,11 +99,7 @@ export default {
     setup(props) {
         const {
             processingShipment,
-            pageLength,
             filterField,
-            addPerPage,
-            dataTableLength,
-            page,
             header,
             loading,
             headerShps,
@@ -114,11 +110,7 @@ export default {
 
         return {
             processingShipment,
-            pageLength,
             filterField,
-            addPerPage,
-            dataTableLength,
-            page,
             header,
             loading,
             headerShps,

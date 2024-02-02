@@ -5,7 +5,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const cargoList = ref([]);
     const cargoReceivingList = ref([]);
     const cargo = ref(null);
@@ -53,7 +53,6 @@ export default function setup(posts) {
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
 
-
     const filterField = [
         {name:'شناسه کارگو' , type:'text', value:'name'},
         {name:'نوع خودرو' , type:'text', value:'label'},
@@ -66,7 +65,6 @@ export default function setup(posts) {
         { name:'وضعیت' , type: 'date', value:'updated_at'},
     ];
 
-    const item = []
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -131,28 +129,18 @@ export default function setup(posts) {
         }
     }
 
-
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/categories/index'+ filter.params_generator(route.query))
+        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/categories/index'+ filter.params_generator(route.query))
+        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
     }
 
-
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getCategories(to)
-    })
 
     watch(page, function(val) {
         if (!isFilter.value){
@@ -161,7 +149,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,
+    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header  , filterField ,
         loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,
         detailCargoHeader ,  getCargoReceivingList , cargoReceivingList}
 }

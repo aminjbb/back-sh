@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_waste.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const itemList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
