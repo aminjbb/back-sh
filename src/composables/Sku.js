@@ -177,6 +177,10 @@ export default function setup() {
         else {
             skuGroupLoading.value = false
         }
+        setTimeout(()=>{
+            isFilter.value =false
+            isFilterPage.value = false
+        } , 2000)
     };
 
     async function getSkuGroupDetail(skuGroupId ) {
@@ -204,11 +208,11 @@ export default function setup() {
 
 
     onBeforeRouteUpdate(async (to, from) => {
-        page.value = 1
-        filter.page = 1
+
         if (!isFilterPage.value) {
             isFilter.value =true
-
+            page.value = 1
+            filter.page = 1
         }
 
         if(route.name === 'groupSkuList' || route.name === 'productSkuList' || route.name === 'skuList'){
