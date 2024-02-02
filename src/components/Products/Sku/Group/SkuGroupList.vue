@@ -38,7 +38,7 @@
         >
             <Table 
                 class="flex-grow-1"
-                      editUrl="/product/get/skugroups/update/"
+                editUrl="/product/get/skugroups/update/"
                 model="skuGroup" 
                 :header="skuGroupsHeader" 
                 :items="allSkuGroups.data"
