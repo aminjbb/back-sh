@@ -80,7 +80,7 @@ export default function setup() {
         }
     })
 
-    return { pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header , item ,
+    return { pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header  ,
         loading , getSinglePackagePlacement ,singlePackagePlacement }
 }
 

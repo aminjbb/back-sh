@@ -44,7 +44,7 @@
                 </span>
                 </div>
                 <div>
-                  <v-text-field v-model="packageId" variant="outlined"/>
+                  <v-text-field :autofocus="true" @keyup.enter="scanPackageId()" v-model="packageId" variant="outlined"/>
                 </div>
               </div>
             </v-col>
@@ -75,8 +75,8 @@
           :header="packageHeader"
           :items="packageCargo"
           updateUrl="category/csv/mass-update"
-          :page="page"
-          :perPage="dataTableLength"
+          :page="1"
+          :perPage="1000"
           :loading="loading"
       />
 
@@ -145,11 +145,6 @@ export default {
   mounted() {
     this.getCargo();
     this.getPackageCargo();
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.scanPackageId()
-      else this.scanPackage += e.key
-    });
   },
 
   computed: {
@@ -226,17 +221,13 @@ export default {
      }
     },
     scanPackageId(){
-
-        const packageSplit = this.scanPackage.split('-')
-        if (packageSplit[1]){
+      if (this.packageId.includes('-')) {
+        const packageSplit = this.packageId.split('-')
+        if (packageSplit[1]) {
           this.packageId = packageSplit[1]
         }
-        else{
-          this.packageId = this.scanPackage
-        }
-
-        this.scanPackage = ''
-        this.assignPackage()
+      }
+      this.assignPackage()
     },
     /**
      * Change Header Status

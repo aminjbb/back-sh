@@ -16,7 +16,7 @@
                 </span>
           </div>
           <div>
-            <v-text-field variant="outlined" :rules="rule" v-model="cargo"/>
+            <v-text-field :autofocus="true" @keyup.enter="addQrCode()" variant="outlined" :rules="rule" v-model="cargo"/>
           </div>
         </v-col>
 
@@ -35,8 +35,8 @@
           :header="cargoReceivingHeader"
           :items="cargoReceivingList"
           updateUrl="category/csv/mass-update"
-          :page="page"
-          :perPage="dataTableLength"
+          :page="1"
+          :perPage="1000"
           :loading="loading"
       />
 
@@ -96,46 +96,13 @@ export default {
     }
   },
 
-  mounted() {
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.addQrCode()
-      else this.qrCode += e.key
-    });
-  },
-
   setup(props) {
     const {
-      pageLength, addPerPage, getCargoReceivingList, cargoReceivingList, dataTableLength, page, cargoReceivingHeader
+       getCargoReceivingList, cargoReceivingList, dataTableLength, cargoReceivingHeader
     } = Cargo();
     return {
-      pageLength, addPerPage, getCargoReceivingList, cargoReceivingList, dataTableLength, page, cargoReceivingHeader
+       getCargoReceivingList, cargoReceivingList, dataTableLength, cargoReceivingHeader
     };
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    },
-
-
-  },
-
-  watch: {
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getCategories()
-          this.$cookies.remove('deleteItem')
-        }
-
-      }
-    },
-
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
-
   },
 
   methods: {
@@ -145,15 +112,16 @@ export default {
       else this.closeCargoDisabled = false
     },
     addQrCode() {
-      this.qrCode = this.qrCode.replace('Backspace', '');
-      const cargoSplit = this.qrCode.split('-')
-      if (cargoSplit[1]) {
-        this.cargo = cargoSplit[1]
-      } else {
-        this.cargo = this.qrCode
+      if (this.cargo.includes('-')) {
+        const cargoSplit = this.cargo.split('-')
+        if (cargoSplit[1]) {
+          this.getCargoReceivingList(cargoSplit[1])
+        }
       }
-      this.qrCode = ''
-      this.getCargoReceivingList(this.cargo)
+      else{
+        this.getCargoReceivingList(this.cargo)
+      }
+
     },
     /**
      * Change Header Status
