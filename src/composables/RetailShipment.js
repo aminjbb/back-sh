@@ -79,6 +79,6 @@ export default function setup() {
         }
     })
 
-    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading ,headerShps}
+    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength , dataTableLength, page, header, loading ,headerShps}
 }
 
