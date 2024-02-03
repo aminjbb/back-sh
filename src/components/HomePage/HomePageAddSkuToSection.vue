@@ -51,7 +51,7 @@
             :items="homePageSingleCategory.skus"
             editUrl="/seller/edit/"
             activePath="seller/crud/update/activation/"
-            deletePath="seller/crud/update/activation/"
+            :deletePath="`page/home/section/category/${$route.params.categoryId}/sku/detach/`"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
             @updateList="updateList"
@@ -242,19 +242,20 @@ export default {
         dataSkuTableLength(val) {
             this.addSkuPerPage(val)
         },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSellerList();
-                    openToast(
-                        this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getHomePageSingleCategory()
+            openToast(
+                this.$store,
+                'محصول با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
+
         $route(to, from) {
             this.getSkuSeller()
         }

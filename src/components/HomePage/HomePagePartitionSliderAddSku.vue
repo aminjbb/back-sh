@@ -51,7 +51,7 @@
             :items="homeSinglePartitionSlider?.skus"
             :updateSkuUrl="`page/home/section/slider/${homeSinglePartitionSlider?.slider_id}/sku/attach`"
             activePath="seller/crud/update/activation/"
-            :deletePath="`page/home/section/${$route.params.sectionId}/sku/detach/`"
+            :deletePath="`page/home/section/slider/${$route.params.partitionId}/sku/detach/`"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
             @updateList="updateList"
