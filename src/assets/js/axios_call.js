@@ -363,7 +363,6 @@ export class AxiosCall {
             this.version,
             "/",
             this.end_point,
-            "/"
         );
         let data = false;
         if (this.using_auth) {
