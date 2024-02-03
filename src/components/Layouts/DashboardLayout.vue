@@ -334,6 +334,8 @@ export default {
             ],
             marketing: [
                 ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
