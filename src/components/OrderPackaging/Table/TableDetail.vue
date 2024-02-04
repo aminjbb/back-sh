@@ -1,59 +1,60 @@
 <template>
-    <div :style="{height: height}" class="c-table pl-1">
-        
-        <v-progress-linear
-            color="primary500"
-            indeterminate
-            reverse
-            v-if="loading" />
-    
-        <header class="c-table__header d-flex justify-between">
-            <template v-for="(head, index) in header">
-                <div
-                    v-if="head.show"
-                    @click="createOrdering(head.value, head.order)"
-                    class="text-center c-table__header__item t12500 text-black"
-                    :class="head.order == true ? 'pointer' : ''"
-                    :key="index"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
-                    {{head.name}}
-                </div>
-            </template>
-    
-            <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                وضعیت    
-            </div>
-        </header>
-    
-        <div class="stretch-table">
-            <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
-                <div
-                    v-for="(item , index) in items"
-                    :key="index"
-                    :class="oddIndex(index) ? 'bg-gray90' : ''"
-                    class="d-flex justify-between c-table__contents__row">
-                    <div
-                        v-if="header[0].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+  <div :style="{height: height}" class="c-table pl-1">
+
+    <v-progress-linear
+        color="primary500"
+        indeterminate
+        reverse
+        v-if="loading"/>
+
+    <header class="c-table__header d-flex justify-between">
+      <template v-for="(head, index) in header">
+        <div
+            v-if="head.show"
+            @click="createOrdering(head.value, head.order)"
+            class="text-center c-table__header__item t12500 text-black"
+            :class="head.order == true ? 'pointer' : ''"
+            :key="index"
+            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <v-icon v-if="head.order == true" :icon="getIcon(head.value)"/>
+          {{ head.name }}
+        </div>
+      </template>
+
+      <div class="text-center c-table__header__item t12500 text-black"
+           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        وضعیت
+      </div>
+    </header>
+
+    <div class="stretch-table">
+      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+        <div
+            v-for="(item , index) in items"
+            :key="index"
+            :class="oddIndex(index) ? 'bg-gray90' : ''"
+            class="d-flex justify-between c-table__contents__row">
+          <div
+              v-if="header[0].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{rowIndexTable(index)}}
+                            {{ rowIndexTable(index) }}
                         </span>
-                    </div>
-    
-                    <div
-                        v-if="item.id && header[1].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          </div>
+
+          <div
+              v-if="item.id && header[1].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.shps.id }}
                         </span>
-                    </div>    
-                    <div
-                        v-if="header[2].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          </div>
+          <div
+              v-if="header[2].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
                             <template v-if="item.shps.sku.label">
                                 {{ item.shps.sku.label }}  
@@ -62,12 +63,12 @@
                                 نامعلوم
                             </template>
                         </span>
-                    </div>
-    
-                    <div
-                        v-if="header[3].show"
-                        class="c-table__contents__item justify-center"
-                        :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          </div>
+
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
                             <template v-if="item.shps.sku.id">
                                 {{ item.shps.sku.id }}
@@ -76,328 +77,334 @@
                                 نامعلوم
                             </template>
                         </span>
-                    </div>
-                    <div
-                v-if=" header[4].show "
-                class="c-table__contents__item number-font justify-center t14300 text-gray500"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              
-                {{ item.count }}    
-            
-            </div>
-    
-            <div
-                v-if=" header[4].show "
-                class="c-table__contents__item justify-center"
-                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              
+          </div>
+          <div
+              v-if=" header[4].show "
+              class="c-table__contents__item number-font justify-center t14300 text-gray500"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+            {{ item.count }}
+
+          </div>
+
+          <div
+              v-if=" header[4].show "
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+
+            <v-form @submit.prevent="orderDetailProp()">
+              <div>
                 <v-text-field
+                    :autofocus="true"
+                    variant="outlined"
                     v-model="userInputs[index]"
-                     variant="solo"
-                        
-                 ></v-text-field>
+                />
+              </div>
+            </v-form>
+
+          </div>
+
+
+          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+            <div class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
+              <v-icon v-if="apiSuccess[item.id]" class="">mdi-check</v-icon>
+              <v-icon v-else>mdi-plus</v-icon>
             </div>
-    
-                   
-    
-                    <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                        <div  class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
-                            <v-icon class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 " v-if="isCountEqual(item) ">mdi-check</v-icon>
-                            <v-icon v-else>mdi-plus</v-icon>
-                     </div>
-                    </div>
-                </div>
-            </div>
-            <div v-else class="null-data-table d-flex justify-center align-center flex-column">
-                <img src="@/assets/img/NullTable.png" alt="shavaz image">
-                <div class="d-flex justify-center align-center flex-column">
-                    <span class="title4 text-black mb-5">لیست خالی!</span>
-                    <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
-                </div>
-            </div>
+          </div>
         </div>
-       
-
-     
+      </div>
+      <div v-else class="null-data-table d-flex justify-center align-center flex-column">
+        <img src="@/assets/img/NullTable.png" alt="shavaz image">
+        <div class="d-flex justify-center align-center flex-column">
+          <span class="title4 text-black mb-5">لیست خالی!</span>
+          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+        </div>
+      </div>
     </div>
-    </template>
-    
-    <script>
- 
-  
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
-    import {
-        SupplierPanelFilter
-    } from "@/assets/js/filter_supplier"
-    
-    import {
-        openToast,
-        openConfirm,
-        isOdd
-    } from "@/assets/js/functions";
-    import {
-        openModal
-    } from "@/assets/js/functions_seller";
-    export default {
-        components: {
-       
-  
-        },
-    
-        props: {
 
-            orderId:null,
-            /**
-             * List Items for header
-             */
-            header: [],
-    
-            /**
-             * List of items
-             */
-             items: {
+
+  </div>
+</template>
+
+<script>
+
+
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
+import {
+  SupplierPanelFilter
+} from "@/assets/js/filter_supplier"
+
+import {
+  openToast,
+  openConfirm,
+  isOdd
+} from "@/assets/js/functions";
+import {
+  openModal
+} from "@/assets/js/functions_seller";
+
+export default {
+  components: {},
+
+  props: {
+
+    /**
+     * List Items for header
+     */
+    header: [],
+
+    /**
+     * List of items
+     */
+    items: {
       type: Array,
       default: () => []
-         },
-    
-            /**
-             * Model
-             */
-            model: '',
-    
-            /**
-             * Height
-             */
-            height: {
-                type: String,
-                default: '500',
-            },
-    
-            /**
-             * Delete endpoint for change filter
-             */
-            deletePath: {
-                type: String,
-                default: ''
-            },
-    
-            /**
-             * Page on table
-             */
-            page: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * PerPage of data
-             */
-            perPage: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * Active loading
-             */
-            loading: {
-                type: Boolean,
-                default: false
-            },
-    
-          
-    
-        },
-    
-        data() {
-            return {
-                order_type: "desc",
-                ordering: {},
-                per_page: '25',
-                filter: [],
-                active: [],
-                panelFilter: new SupplierPanelFilter(),
-                activeColumn: false,
-                userInputs: {},
-                loading: false,
+    },
+
+    /**
+     * Model
+     */
+    model: '',
+
+    /**
+     * Height
+     */
+    height: {
+      type: String,
+      default: '500',
+    },
+
+    /**
+     * Delete endpoint for change filter
+     */
+    deletePath: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Page on table
+     */
+    page: {
+      type: Number,
+      default: 1
+    },
+
+    /**
+     * PerPage of data
+     */
+    perPage: {
+      type: Number,
+      default: 1
+    },
+
+    /**
+     * Active loading
+     */
+    loading: {
+      type: Boolean,
+      default: false
+    },
 
 
-
-             
-            }
-        },
-    
-        computed: {
-
-          orderId(){
-            return this.$store.getters['get_orderId']
-          },
-
-            /**
-             * Get each items table based of header length
-             */
-            itemsWidth() {
-                let headerLength = 0;
-                if (this.header && this.header.length > 0) {
-                    this.header.forEach(element => {
-                        if (element.show == true) {
-                            headerLength++;
-                        }
-                    });
-                    const width = 100 / (headerLength + 1);
-                    return `${width}%`;
-                }
-                return 'auto';
-            },
-        },
-        watch: {
-
-          userInputs: {
-            handler: 'checkAndPostApi',
-            deep: true,
-          }
-        
   },
-        methods: {
-            /**
-             * Open Basic Discount modal
-             * @param {*} id
-             */
-            /**
-             * Open Basic Discount modal
-             * translation
-             */
-             translateType(type) {
-                const translations = {
-                    'consignment': 'انبارش',
-                    'in_review': 'در حال بررسی'
-                };
-                return translations[type] || type;
-            },
 
-          shpsId(){
-            return this.$store.getters['get_shpsId']
-          },
-
-          checkAndPostApi() {
-            this.items.forEach((item, index) => {
-              if (this.userInputs[index] == item.count) {
-                this.postApi(item);
-              }
-            });
-          },
-          async postApi(item) {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'admin/order/logistic-packed'
-            AxiosMethod.form = formdata
-            formdata.append('logistic_packed_count', 1)
-            formdata.append(`order_id`, this.orderId);
-            formdata.append('shps', item.id)
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-              this.loading = false
+  data() {
+    return {
+      order_type: "desc",
+      ordering: {},
+      per_page: '25',
+      filter: [],
+      active: [],
+      panelFilter: new SupplierPanelFilter(),
+      activeColumn: false,
+      userInputs: [],
+      loading: false,
+      apiSuccess: {},
 
 
-
-            } else {
-              this.loading = false
-            }
-          }
-          ,
-            onInputChange() {
-                const allEqual = this.items.every(item => this.isCountEqual(item));
-                this.$emit('all-comparisons-successful', allEqual);
-                },
-
-            isCountEqual(item) {
-             return this.userInputs[item.id] == item.count;
-            },
-          
-  
-    
-            /**
-             * Get row index in table
-             * @param {*} index
-             */
-  
-            /**
-       * LostShpss modal
-       */
-    
-  
-  
-  
-  
-            rowIndexTable(index) {
-                let rowIndex = 0
-                if (this.page === 1) {
-                    rowIndex = (1 + index)
-                    return rowIndex
-                } else {
-                    rowIndex = ((this.page - 1) * this.perPage) + index + 1
-                    return rowIndex
-                }
-            },
-    
-            /**
-             * Create ordering
-             * @param {*} index
-             * @param { boolean } order
-             */
-            createOrdering(index, order) {
-                if (order === true) {
-                    if (index) {
-                        if (this.order_type === 'desc') {
-                            this.order_type = 'asc'
-                            this.panelFilter.order_type = 'asc'
-                        } else {
-                            this.order_type = 'desc'
-                            this.panelFilter.order_type = 'desc'
-                        }
-    
-                        this.panelFilter.order = index
-                        this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-    
-                        this.ordering = {};
-                        this.ordering[index] = !this.ordering[index];
-                    }
-                }
-            },
-    
-            /**
-             * Get icon
-             * @param {*} column
-             */
-            getIcon(column) {
-                return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-            },
-    
-            /**
-             * Return odd index
-             * @param {*} index
-             */
-            oddIndex(index) {
-                return isOdd(index)
-            },
-    
-            /**
-             * Remove Item
-             * @param {*} id
-             */
-            removeItem(id) {
-                console.log("Removing item with ID:", id);
-                    console.log("Delete path:", this.deletePath + id);
-  
-                    openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
-            },
-        },
     }
-    </script>
+  },
+
+  computed: {
+
+
+    /**
+     * Get each items table based of header length
+     */
+    itemsWidth() {
+      let headerLength = 0;
+      if (this.header && this.header.length > 0) {
+        this.header.forEach(element => {
+          if (element.show == true) {
+            headerLength++;
+          }
+        });
+        const width = 100 / (headerLength + 1);
+        return `${width}%`;
+      }
+      return 'auto';
+    },
+  },
+  watch: {
+
+    userInputs: {
+      handler: 'checkAndPostApi',
+      deep: true,
+    },
+    items(){
+      this.items.forEach(element=>{
+        this.userInputs.push(0)
+      })
+    }
+
+  },
+  methods: {
+    orderDetailProp(value, value2) {
+
+      const shpsOrderIndex = value.findIndex(shps=> shps.id == value2)
+      ++this.userInputs[shpsOrderIndex]
+    },
+    /**
+     * Open Basic Discount modal
+     * @param {*} id
+     */
+    /**
+     * Open Basic Discount modal
+     * translation
+     */
+    translateType(type) {
+      const translations = {
+        'consignment': 'انبارش',
+        'in_review': 'در حال بررسی'
+      };
+      return translations[type] || type;
+    },
+
+
+    shpsId() {
+      return this.$store.getters['get_shpsId']
+    },
+
+    checkAndPostApi() {
+      this.items.forEach((item, index) => {
+        if (this.userInputs[index] == item.count) {
+
+
+          this.postApi(item, index);
+        }
+      });
+    },
+    async postApi(item, index) {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'admin/order/logistic-packed'
+      AxiosMethod.form = formdata
+
+      let userInput = this.userInputs[index];
+      let orderId = this.$route.params.orderId
+      formdata.append('logistic_packed_count', userInput)
+      formdata.append(`order_id`, orderId);
+      formdata.append('shps', item.shps.id)
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.apiSuccess[item.id] = true;
+        this.loading = false;
+
+
+      } else {
+        this.loading = false
+      }
+    }
+    ,
+
+
+    /**
+     * Get row index in table
+     * @param {*} index
+     */
+
+    /**
+     * LostShpss modal
+     */
+
+
+
+
+
+    rowIndexTable(index) {
+      let rowIndex = 0
+      if (this.page === 1) {
+        rowIndex = (1 + index)
+        return rowIndex
+      } else {
+        rowIndex = ((this.page - 1) * this.perPage) + index + 1
+        return rowIndex
+      }
+    },
+
+    /**
+     * Create ordering
+     * @param {*} index
+     * @param { boolean } order
+     */
+    createOrdering(index, order) {
+      if (order === true) {
+        if (index) {
+          if (this.order_type === 'desc') {
+            this.order_type = 'asc'
+            this.panelFilter.order_type = 'asc'
+          } else {
+            this.order_type = 'desc'
+            this.panelFilter.order_type = 'desc'
+          }
+
+          this.panelFilter.order = index
+          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+
+          this.ordering = {};
+          this.ordering[index] = !this.ordering[index];
+        }
+      }
+    },
+
+    /**
+     * Get icon
+     * @param {*} column
+     */
+    getIcon(column) {
+      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
+    },
+
+    /**
+     * Return odd index
+     * @param {*} index
+     */
+    oddIndex(index) {
+      return isOdd(index)
+    },
+
+    /**
+     * Remove Item
+     * @param {*} id
+     */
+
+  },
+  created() {
+    this.items.forEach((item) => {
+      this.$set(this.apiSuccess, item.id, false);
+    });
+  },
+}
+
+
+</script>
     

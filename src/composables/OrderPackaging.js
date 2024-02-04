@@ -9,6 +9,8 @@ export default function setup() {
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
+    const barcodeNum = ref([])
+    const extractedIds = ref(null)
 
     const cargoReceivingHeader = ref([
         {name: 'ردیف', show: true, value: null, order: false},
@@ -40,8 +42,17 @@ export default function setup() {
             loading.value = false;
             if (response) {
                 pageLength.value = response.data.last_page;
-                this.$store.commit('set_shpsId', item.shps);
+
                 orderListDetail.value = response.data
+
+                extractedIds.value = [];
+
+                response.data.forEach(item => {
+                     extractedIds.value.push(item.id);
+
+                });
+
+
             } else {
                 orderListDetail.value = [];
             }
@@ -66,6 +77,12 @@ export default function setup() {
             if (response) {
                 pageLength.value = response.data.last_page;
                 orderList.value = response.data.data
+
+                barcodeNum.value = [];
+
+                orderList.value.forEach(item => {
+                    barcodeNum.value.push(item.barcode);
+                });
             }
         } catch (error) {
             console.error("Error in API call:", error);
@@ -81,7 +98,9 @@ export default function setup() {
         getOrderListDetail,
         loading,
         cargoReceivingHeader,
-        detailInfo
+        detailInfo,
+        barcodeNum,
+        extractedIds
     }
 }
 

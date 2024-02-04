@@ -24,12 +24,24 @@
                       </span>
                     </span>
         </div>
+        <v-form >
+          <v-form @submit.prevent="splitedNum" >
+            <div>
+              <v-text-field
+                  :autofocus="true"
+                  variant="outlined"
+                  v-model="orderId"
+                  />
+            </div>
+          </v-form>
+        </v-form>
       </div>
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
 
       <Table
+          ref="oredrDetailFunc"
           class="flex-grow-1"
           :header="detailInfo"
           :items="orderListDetail"
@@ -47,7 +59,10 @@
               height="40"
               rounded
               variant="flat"
-              class="px-8 mt-2">
+              class="px-8 mt-2"
+              @click="contradictedOrder"
+
+          >
             گزارش مغایرت
           </v-btn>
           <v-btn
@@ -58,7 +73,9 @@
               rounded
               variant="flat"
               class="px-8 mt-2"
-              :class="{'gray-button': !allComparisonsSuccessful}">
+              :class="{'gray-button': !allComparisonsSuccessful}"
+              @click="submitForm"
+              >
 
             اتمام بسته بندی
           </v-btn>
@@ -71,9 +88,11 @@
 
 <script>
 import {ref} from 'vue'
-//Components
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 
 export default {
   components: {
@@ -87,6 +106,12 @@ export default {
       allCargoData: [],
       filteredCargoData: [],
       allComparisonsSuccessful: false,
+      userInputs: {},
+      orderId: null,
+      extractedId:[],
+      savedOrderId:null,
+
+
     }
   },
   setup(props) {
@@ -100,7 +125,10 @@ export default {
       loading,
       detailInfo,
       getOrderListDetail,
-      orderListDetail
+      orderListDetail,
+      barcodeNum,
+      getShpsList,
+      extractedIds
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
@@ -114,7 +142,10 @@ export default {
       detailInfo,
       getOrderListDetail,
       orderListDetail,
-      orderDetails
+      orderDetails,
+      barcodeNum,
+      getShpsList,
+      extractedIds
     };
   },
 
@@ -124,6 +155,9 @@ export default {
     },
   },
   watch: {
+    savedOrderId(value){
+
+    },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -136,6 +170,69 @@ export default {
     },
   },
   methods: {
+
+    async submitForm() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `admin/order/complete/${this.$route.params.orderId}}`
+      AxiosMethod.form = formdata
+
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/order-packaging/index');
+
+
+      } else {
+        this.loading = false
+      }
+    },
+    async contradictedOrder() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `admin/order/contradicted/${this.$route.params.orderId}`
+      AxiosMethod.form = formdata
+      formdata.append('is_contradicted', 1)
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/order-packaging/index');
+
+
+      } else {
+        this.loading = false
+      }
+    },
+    splitedNum() {
+      if (this.orderId.includes('-')) {
+        const orderSplit = this.orderId.split('-')
+        if (orderSplit[1]) {
+          this.orderId = orderSplit[1]
+          this.savedOrderId = orderSplit[1]
+
+           this.orderListDetail.find(element => {
+             this.Idshps = element.id.toString()
+            const match = element.id.toString() === this.savedOrderId;
+
+
+
+            return match;
+          });
+
+          this.$refs.oredrDetailFunc.orderDetailProp(this.orderListDetail,  this.savedOrderId )
+        }
+
+      }
+    },
+
     updateList(value) {
       if (value === 'true') {
         this.getOrderListDetail();
