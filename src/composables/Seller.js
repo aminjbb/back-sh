@@ -1,9 +1,8 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
 import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
-import {registry} from "chart.js";
 import {SkuPanelFilter} from "@/assets/js/filter_sku";
 import {SkuSellerPanelFilter} from "@/assets/js/filter_sku_to_seller";
 

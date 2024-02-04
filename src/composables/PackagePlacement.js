@@ -1,11 +1,11 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref, watch } from 'vue';
+import {  onBeforeRouteUpdate } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const packagePlacement = ref([]);
     const singlePackagePlacement = ref([]);
     const cookies = useCookies()
@@ -22,7 +22,6 @@ export default function setup(posts) {
         {name:'شماره جایگاه' , show:true ,  value:'label', order: false},
     ]);
 
-    const item = []
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -55,13 +54,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/categories/index'+ filter.params_generator(route.query))
+        router.push('/package-placement/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/categories/index'+ filter.params_generator(route.query))
+        router.push('/package-placement/index'+ filter.params_generator(route.query))
     }
 
 
@@ -71,7 +70,7 @@ export default function setup(posts) {
             page.value = 1
             filter.page = 1
         }
-        await getCategories(to)
+        await getPackagePlacement(to)
     })
 
     watch(page, function(val) {
@@ -81,7 +80,7 @@ export default function setup(posts) {
         }
     })
 
-    return { pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header , item ,
+    return { pageLength, packagePlacement, addPerPage, getPackagePlacement, dataTableLength , page  , header  ,
         loading , getSinglePackagePlacement ,singlePackagePlacement }
 }
 

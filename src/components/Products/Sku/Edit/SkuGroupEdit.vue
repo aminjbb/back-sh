@@ -15,6 +15,7 @@
 
             </span>
             </div>
+
             <v-text-field
                 v-model="specsFromModal.label"
                 class="t1330"
@@ -23,6 +24,15 @@
                 :placeholder="lables.label"
                 @update:modelValue="saveCreateFromModel();"
             />
+          </v-col>
+          <v-col cols="12">
+            <div>
+              <UploadFileSection @getImage="getSkuImage"/>
+              <div class="d-flex align-center mt-5" v-if="specsFromModal.image">
+                <span>IMG-{{ specsFromModal.image }}</span>
+                <span class="mr-15"><v-icon color="error" @click="removeItem(specsFromModal.image)">mdi-delete</v-icon></span>
+              </div>
+            </div>
           </v-col>
 
         </v-row >
@@ -70,7 +80,10 @@
 import {ref} from 'vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import Sku from '@/composables/Sku'
+import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+import {openConfirm} from "@/assets/js/functions";
 export default {
+  components: {UploadFileSection},
   setup(){
     const {getSkuGroup , skuGroup} = new Sku()
     return {getSkuGroup , skuGroup}
@@ -83,7 +96,7 @@ export default {
     },
     specsFromModal: {
       label:null,
-
+      image:null
     },
     rule: [v => !!v || 'این فیلد الزامی است'],
     editorConfig: {
@@ -93,6 +106,12 @@ export default {
   }),
 
   methods: {
+    getSkuImage(image){
+      this.specsFromModal.image = image.data.data.image_id
+    },
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
+    },
     saveCreateFromModel() {
       const createFromModelJson = JSON.stringify(this.specsFromModal);
       this.$cookies.set('createFromModelStep2', createFromModelJson);
@@ -123,12 +142,31 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
-        this.$router.push('/product/get/skugroups/index')
+        this.attachImage()
+
       } else {
         this.loading = false
       }
     },
+    async attachImage(){
+      const formData = new FormData()
+      formData.append('image_id', this.specsFromModal.image)
 
+      this.loading = true
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'product/sku/group/crud/attach/image/' + this.$route.params.skuGroupId
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/product/get/skugroups/index')
+      } else {
+        this.loading = false
+      }
+    }
   },
   watch:{
     skuGroup(val){

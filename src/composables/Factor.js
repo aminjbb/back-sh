@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter_factor.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const factorList = ref([]);
     const priceList = ref([])
     const templates =ref([])

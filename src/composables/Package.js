@@ -1,11 +1,11 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import {  onBeforeRouteUpdate } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const packageList = ref([]);
     const singlePackage = ref(null);
     const packageShpsList = ref(null);
@@ -41,7 +41,6 @@ export default function setup(posts) {
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
         { name: 'وضعیت', show: true, value:'status', order: false },
     ]);
-
 
     const loading = ref(false)
     const isFilter =ref(false)

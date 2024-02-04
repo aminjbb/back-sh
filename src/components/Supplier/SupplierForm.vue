@@ -192,35 +192,18 @@
 </template>
 
 <script>
-import {
-    watch
-} from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
-import {
-    convertDateToJalai
-} from "@/assets/js/functions";
-import RolePermission from '@/composables/RolePermission'
+
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
 export default {
-    setup() {
-        const {
-            allRolePermission,
-            getAllRolePermission,
-        } = new RolePermission()
-        return {
-            allRolePermission,
-            getAllRolePermission
-        }
-    },
+
     props: {
         supplier: null
     },
     components: {
         datePicker: VuePersianDatetimePicker,
-        ModalUploaderAvatar
     },
 
     data() {

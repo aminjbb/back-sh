@@ -71,7 +71,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <template v-if="item.unique_code">
+                    <template v-if="item.id">
                         <span class="t14300 text-gray500 py-5 number-font">
                             {{ item.id }}
                         </span>

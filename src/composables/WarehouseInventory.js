@@ -5,7 +5,7 @@ import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
-export default function setup(posts) {
+export default function setup() {
     const itemList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -60,13 +60,13 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/warehouse_inventory/index'+ filter.params_generator(route.query))
+        router.push('/warehouse-inventory/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/warehouse_inventory/index'+ filter.params_generator(route.query))
+        router.push('/warehouse-inventory/index'+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {

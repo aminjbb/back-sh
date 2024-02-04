@@ -6,7 +6,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 import {HomePageFilter} from "@/assets/js/homePage_filter";
 
-export default function setup(posts) {
+export default function setup() {
     const homeSections = ref([]);
     const homeSection = ref(null);
     const homeSlider = ref(null)
@@ -291,22 +291,15 @@ export default function setup(posts) {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/home/index'+ filter.params_generator(route.query))
+        router.push('/home-page/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/home/index'+ filter.params_generator(route.query))
+        router.push('/home-page/index'+ filter.params_generator(route.query))
     }
 
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {getHomeSection, getHomeSections,pageLength,filterBannerField, homeSection,homeSections
         ,addPerPage, dataTableLength, page, sectionsHeader,loading , bannerHeader ,specialSalesHeader

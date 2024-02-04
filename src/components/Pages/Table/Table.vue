@@ -181,7 +181,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/template`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/template`)">
                                         <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قالب صفحه
@@ -192,7 +192,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/seo`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/seo`)">
                                         <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تنظیمات سئو
@@ -203,7 +203,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/image`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/image`)">
                                         <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تصاویر
@@ -214,7 +214,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/update/content`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/content`)">
                                         <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             محتوا
@@ -225,7 +225,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`${item.id}/sliders/index`)">
+                                    <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/sliders/index`)">
                                         <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت محصولات

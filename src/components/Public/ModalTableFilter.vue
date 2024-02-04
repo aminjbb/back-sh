@@ -490,10 +490,11 @@ export default {
         filter.title = null
       }
 
-      filter.page = 1;
+
       if(this.$route.query.per_page){
         filter.per_page = this.$route.query.per_page;
       }
+      filter.page = 1;
       this.$router.push('/' + this.path + '/' + filter.query_maker());
       this.dialog = false;
     },

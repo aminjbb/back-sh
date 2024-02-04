@@ -125,6 +125,7 @@ export default {
 
   watch: {
     dataTableLength(val) {
+      this.dataTableLength(val)
     },
     $route(){
       this.getVoucherList()

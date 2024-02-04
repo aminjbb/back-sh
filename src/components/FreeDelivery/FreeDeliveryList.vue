@@ -88,11 +88,11 @@
   
     setup(props) {
       const {
-         headerFreeDelivery, filterField , page , freeDeliveryList
+         headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
         ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField
       } = FreeDelivery();
       return {
-         headerFreeDelivery, filterField , page , freeDeliveryList
+         headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
         ,dataTableLength ,pageLength , getFreeDeliveryList , indexFilterField
       };
     },
@@ -132,6 +132,8 @@
 
       },
       dataTableLength(val) {
+        console.log(val)
+        this.addPerPage(val)
       },
     }
   }

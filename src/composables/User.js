@@ -4,7 +4,7 @@ import { useCookies } from "vue3-cookies";
 import { useRouter, useRoute } from 'vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import {UserPanelFilter} from "@/assets/js/filter_user";
-export default function setup(posts) {
+export default function setup() {
     const users = ref([]);
     const user = ref(null);
     const userAddress = ref(null)

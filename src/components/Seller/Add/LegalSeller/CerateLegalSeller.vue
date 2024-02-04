@@ -80,14 +80,6 @@
 import {ref} from 'vue'
 
 import Stepper from '@/components/Public/Stepper.vue'
-import Brands from '@/composables/Brands';
-import Colors from '@/composables/Colors';
-import Attributes from '@/composables/Attributes';
-import Operators from '@/composables/Operators';
-import Volume from '@/composables/Volume';
-import Size from '@/composables/Size';
-import Product from '@/composables/Product';
-import Sku from '@/composables/Sku';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {convertDateToGregorian, openToast} from "@/assets/js/functions";
 import { onMounted, onUnmounted } from 'vue'

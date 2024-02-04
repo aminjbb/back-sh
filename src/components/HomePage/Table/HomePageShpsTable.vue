@@ -182,6 +182,7 @@ import {
 export default {
 
     props: {
+        partition:false,
         updateSkuUrl: {
             type: String,
             default: '',
@@ -453,7 +454,8 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+          if (this.partition) openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id+'?partition_id='+this.$route.params.partitionId, true)
+           else openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
 }

@@ -147,6 +147,9 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
+    $route(){
+      this.getCargoList()
+    }
 
   },
 
