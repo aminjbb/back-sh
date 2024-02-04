@@ -24,7 +24,6 @@
         class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
         height="580"
     >
-
       <Table
 
           class="flex-grow-1"
@@ -85,7 +84,8 @@ export default {
       loading,
       getShpsList,
       orderList,
-      getOrderListDetail
+      getOrderListDetail,
+      barcodeNum
     } = OrderPackagingList();
     return {
       cargoList,
@@ -97,7 +97,8 @@ export default {
       loading,
       getShpsList,
       orderList,
-      getOrderListDetail
+      getOrderListDetail,
+      barcodeNum
     };
   },
   async mounted() {
