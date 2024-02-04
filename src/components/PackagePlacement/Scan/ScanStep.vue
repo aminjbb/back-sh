@@ -96,7 +96,7 @@ export default {
     return{
       qrCode:'',
       packageId:'',
-      scan:true,
+      scan:false,
       scanTitle:'شناسه بسته را اسکن کنید.',
       state:'packageSphpsList',
       object:''
