@@ -25,20 +25,23 @@
                     </span>
         </div>
         <v-form >
-          <div>
-            <v-text-field
-                v-model="userInputs[index]"
-                variant="solo"
-
-            ></v-text-field>
-          </div>
+          <v-form @submit.prevent="splitedNum" >
+            <div>
+              <v-text-field
+                  :autofocus="true"
+                  variant="outlined"
+                  v-model="orderId"
+                  />
+            </div>
+          </v-form>
         </v-form>
       </div>
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
-      {{extractedIds}}
+
       <Table
+          ref="akbar"
           class="flex-grow-1"
           :header="detailInfo"
           :items="orderListDetail"
@@ -56,7 +59,10 @@
               height="40"
               rounded
               variant="flat"
-              class="px-8 mt-2">
+              class="px-8 mt-2"
+              @click="contradictedOrder"
+
+          >
             گزارش مغایرت
           </v-btn>
           <v-btn
@@ -67,7 +73,9 @@
               rounded
               variant="flat"
               class="px-8 mt-2"
-              :class="{'gray-button': !allComparisonsSuccessful}">
+              :class="{'gray-button': !allComparisonsSuccessful}"
+              @click="submitForm"
+              >
 
             اتمام بسته بندی
           </v-btn>
@@ -80,9 +88,11 @@
 
 <script>
 import {ref} from 'vue'
-//Components
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 
 export default {
   components: {
@@ -97,7 +107,11 @@ export default {
       filteredCargoData: [],
       allComparisonsSuccessful: false,
       userInputs: {},
-      extractedId:[]
+      orderId: null,
+      extractedId:[],
+      savedOrderId:null,
+
+
     }
   },
   setup(props) {
@@ -141,6 +155,9 @@ export default {
     },
   },
   watch: {
+    savedOrderId(value){
+
+    },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -154,14 +171,65 @@ export default {
   },
   methods: {
 
+    async submitForm() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `admin/order/complete/${this.$route.params.orderId}}`
+      AxiosMethod.form = formdata
 
-    extractIdsFromQRCode(content) {
-      const parts = content.split('-');
-      if(parts.length > 2) {
-        const extractedNumber = parts[1];
-        this.extractedId = Number(extractedNumber);
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/order-packaging/index');
 
-        this.updateChildrenInputs();
+
+      } else {
+        this.loading = false
+      }
+    },
+    async contradictedOrder() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `admin/order/contradicted/${this.$route.params.orderId}`
+      AxiosMethod.form = formdata
+      formdata.append('is_contradicted', 1)
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/order-packaging/index');
+
+
+      } else {
+        this.loading = false
+      }
+    },
+    splitedNum() {
+      if (this.orderId.includes('-')) {
+        const orderSplit = this.orderId.split('-')
+        if (orderSplit[1]) {
+          this.orderId = orderSplit[1]
+          this.savedOrderId = orderSplit[1]
+
+           this.orderListDetail.find(element => {
+             this.Idshps = element.id.toString()
+            const match = element.id.toString() === this.savedOrderId;
+
+
+
+            return match;
+          });
+
+          this.$refs.akbar.test(this.orderListDetail,  this.savedOrderId )
+        }
+
       }
     },
 

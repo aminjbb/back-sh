@@ -30,7 +30,7 @@
                 <div
                     v-for="(item , index) in items"
                     :key="index"
-                    :class="oddIndex(index) ? 'bg-gray90' : ''"
+                    :class="oddIndex(index) ? 'bg-gray90' : '', item.contradicted === 1 ? 'red-background' : ''"
                     class="d-flex justify-between c-table__contents__row">
                     <div
                         v-if="header[0].show"

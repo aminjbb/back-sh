@@ -44,7 +44,7 @@ export default function setup() {
                 pageLength.value = response.data.last_page;
 
                 orderListDetail.value = response.data
-                console.log('data',response.data);
+
                 extractedIds.value = [];
 
                 response.data.forEach(item => {
