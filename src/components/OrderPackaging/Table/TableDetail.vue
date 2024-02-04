@@ -93,7 +93,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
 
-            <v-form @submit.prevent="test()">
+            <v-form @submit.prevent="orderDetailProp()">
               <div>
                 <v-text-field
                     :autofocus="true"
@@ -263,7 +263,7 @@ export default {
 
   },
   methods: {
-    test(value, value2) {
+    orderDetailProp(value, value2) {
 
       const shpsOrderIndex = value.findIndex(shps=> shps.id == value2)
       ++this.userInputs[shpsOrderIndex]

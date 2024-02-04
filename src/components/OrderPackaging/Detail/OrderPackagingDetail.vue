@@ -41,7 +41,7 @@
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
 
       <Table
-          ref="akbar"
+          ref="oredrDetailFunc"
           class="flex-grow-1"
           :header="detailInfo"
           :items="orderListDetail"
@@ -227,7 +227,7 @@ export default {
             return match;
           });
 
-          this.$refs.akbar.test(this.orderListDetail,  this.savedOrderId )
+          this.$refs.oredrDetailFunc.orderDetailProp(this.orderListDetail,  this.savedOrderId )
         }
 
       }
