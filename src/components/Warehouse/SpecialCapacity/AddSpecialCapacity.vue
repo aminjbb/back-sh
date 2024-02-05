@@ -160,7 +160,7 @@ export default {
 
      AxiosMethod.using_auth = true
      AxiosMethod.token = this.$cookies.get('adminToken')
-     AxiosMethod.end_point = `warehouse/storage/exception/crud/index/${this.$route.params.warehouseId}`
+     AxiosMethod.end_point = `warehouse/storage/exception/crud/index/${this.$route.params.warehouseId}?per_page=10000`
      let data = await AxiosMethod.axios_get()
      if (data) {
        this.SpecialCapacityObject = data.data.data

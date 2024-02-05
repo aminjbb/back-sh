@@ -308,6 +308,9 @@ export default {
                 return 'انتقال به انبار اصلی'
             } else if (status === 'received_by_warehouse') {
                 return 'رسیده به انبار اصلی'
+            }
+            else if (status === 'completed') {
+              return 'اتمام پردازش'
             } else {
                 return 'خالی';
             }

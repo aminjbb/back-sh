@@ -80,7 +80,10 @@ import {openToast} from "@/assets/js/functions";
 
 export default {
   props:{
-    package:null
+    package:null,
+    getAssignPackageList:{
+      type:Function
+    },
   },
   data(){
     return {
@@ -107,6 +110,7 @@ export default {
         if (accept === 0) this.dialog = true
         else {
           this.dialog = false
+          this.getAssignPackageList()
           openToast(this.$store, data?.message , 'success')
         }
       }

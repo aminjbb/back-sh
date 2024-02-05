@@ -61,7 +61,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14300 text-grey-darken-3 py-5">
-                            {{ item.market_storage_count }}
+                            {{ item.retail_storage_count }}
                         </span>
                     </div>
                 </div>

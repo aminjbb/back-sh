@@ -23,8 +23,10 @@
           </div>
           <div>
             <v-text-field
+                :autofocus="true"
                 variant="outlined"
                 :rules="rule"
+                @keyup.enter="scanPackageId()"
                 v-model="packageId"/>
           </div>
         </v-col>
@@ -126,20 +128,9 @@ export default {
   },
 
   computed: {
-
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal;
-
     }
-  },
-  mounted() {
-
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanPackageId()
-      else this.scanPackage += e.key
-    });
-
   },
 
   watch: {
@@ -170,16 +161,17 @@ export default {
 
     scanPackageId(){
 
-      const packageSplit = this.scanPackage.split('-')
+      const packageSplit = this.packageId.split('-')
+      let PackageScan = ''
       if (packageSplit[1]){
-        this.packageId = packageSplit[1]
+        PackageScan = packageSplit[1]
       }
       else{
-        this.packageId = this.scanPackage
+        PackageScan = this.packageId
       }
 
       this.scanPackage = ''
-      this.getShpsList(this.packageId, this.$store);
+      this.getShpsList(PackageScan, this.$store);
     },
     async packingData() {
       try {

@@ -109,8 +109,8 @@ export class PanelFilter {
         if (this.shps_count_to !== null) {
             query += "shps_count_to=" +  this.shps_count_to  + "&";
         }
-        if (this.shps_count_to !== null) {
-            query += "shps_count_to=" +  this.shps_count_to  + "&";
+        if (this.shps_count_from !== null) {
+            query += "shps_count_from=" +  this.shps_count_from  + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -272,7 +272,7 @@ export class PanelFilter {
             query += "shps_count_from=" + this.shps_count_from + "&";
         }
 
-        if (routeQuery.shps_count_to) {
+            if (routeQuery.shps_count_to) {
             query += "shps_count_to=" + routeQuery.shps_count_to + "&";
         }
         else if (this.shps_count_to) {

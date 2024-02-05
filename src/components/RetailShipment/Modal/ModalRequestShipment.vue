@@ -235,7 +235,12 @@ export  default {
       }
     }
   },
-
+  mounted() {
+    const filter = {
+      q :' '
+    }
+    this.getWarehouseList(filter  )
+  },
   watch:{
     warehouse(val){
       this.updateWorkDay()

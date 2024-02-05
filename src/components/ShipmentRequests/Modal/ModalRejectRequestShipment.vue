@@ -142,6 +142,7 @@ export default {
             let data = await AxiosMethod.axios_post()
             if (data) {
                 this.loading = false
+                this.subject = ''
                 this.getShipmentRequestsList()
                 this.close()
             } else {

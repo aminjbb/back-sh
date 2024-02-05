@@ -14,20 +14,20 @@
         </span>
       </div>
       <div class="pa-3">
-        <v-icon size="30">
+        <v-icon @click="$router.go(-1)"  size="30">
           mdi-chevron-left
         </v-icon>
       </div>
     </div>
 
-    <v-card class="ma-5 br-15" min-height="196">
-      <div class="d-flex justify-center my-3">
-          <span class="t20400">
+    <v-card class="ma-5 br-15" max-height="116">
+      <div class="d-flex justify-center my-1">
+          <span class="t18400">
             اطلاعات جایگذاری
           </span>
       </div>
       <v-divider/>
-      <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
+      <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
          <div>
            <span class="t16400">
            شماره ردیف :
@@ -45,7 +45,7 @@
           </span>
         </div>
       </div>
-      <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
+      <div class="text-right  px-5 d-flex justify-space-between px-10">
         <div>
            <span class="t16400">
            شماره طبقه :
@@ -64,6 +64,9 @@
         </div>
       </div>
     </v-card>
+    <v-card class="mx-5 mb-1 br-15 pa-2" >
+      <v-text-field @keyup.enter="scanQrCode()" :autofocus="true" v-model="shpssBarCode" variant="outlined" ></v-text-field>
+    </v-card>
     <div class="scan_box">
       <div  class="mb-15"  v-if="!shpssDetail">
         <LocatingToShelfError/>
@@ -80,7 +83,7 @@
           </v-card>
           <v-card class="mt-2">
             <div class="d-flex justify-center">
-              <img :src="shpssDetail?.shps?.sku?.sku?.image_url" width="150" height="150" alt="">
+              <img :src="shpssDetail?.shps?.sku?.sku?.image_url" width="100" height="100" alt="">
             </div>
             <div class="text-center px-10 my-3">
             <span class="text-gray600">
@@ -137,25 +140,18 @@ export default {
       toast:false,
       shpssDetail:null,
       allCount:'',
-      loading:false
+      loading:false,
+      readyToScan:false
     }
   },
   beforeMount() {
     this.getPlacement(this.$route.params.placementId)
   },
-  mounted() {
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.scanQrCode()
-      else this.qrCode += e.key
-    });
-  },
+
 
   methods:{
     scanQrCode(){
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
-      if (!this.loading)  this.shpsDetail(this.shpssBarCode)
+      if (!this.loading)  this.locateShpssToPlace()
     },
     async shpsDetail(id){
      try {
@@ -167,7 +163,7 @@ export default {
        let data = await AxiosMethod.axios_get()
        if (data) {
          this.shpssDetail = data.data
-         this.locateShpssToPlace()
+         this.getShpsCount(this.$route.params.placementId,this.shpssDetail?.shps?.id  ,this.shpssDetail?.package?.id , data.data.shipment_id)
 
        }
        else {
@@ -176,6 +172,7 @@ export default {
      }
      catch (e) {
        this.loading = false
+       this.shpssBarCode = ''
      }
     },
     async locateShpssToPlace(){
@@ -193,16 +190,17 @@ export default {
         AxiosMethod.end_point = 'shps/item/place/'
         let data = await AxiosMethod.axios_post()
         if (data) {
-          this.getShpsCount(this.$route.params.placementId,this.shpssDetail?.shps?.id  ,this.shpssDetail?.package?.id )
+          this.shpsDetail(this.shpssBarCode)
         }
         else{
           this.loading = false
         }
       }catch (e) {
         this.loading = false
+        this.shpssBarCode = ''
       }
     },
-    async getShpsCount(id , shps , packageId){
+    async getShpsCount(id , shps , packageId , shipmentId){
      try {
        const AxiosMethod = new AxiosCall()
        const formData = new FormData()
@@ -214,13 +212,15 @@ export default {
        let data = await AxiosMethod.axios_get()
        if (data) {
          this.loading = false
-         this.allCount = data.data[0].count
-         if (parseInt(data.data[0]?.handheld_count) > this.placeCount){
-           this.placeCount = data.data[0]?.handheld_count
-           if (parseInt(data.data[0]?.handheld_count) === data.data[0].count){
+         const findShps = data.data.find(shps=> shps.shipment_id == shipmentId)
+         this.allCount = findShps.count
+         this.shpssBarCode = ''
+         if (parseInt(findShps?.handheld_count) > this.placeCount){
+           this.placeCount = findShps?.handheld_count
+           if (parseInt(findShps?.handheld_count) === findShps.count){
              this.toast = true
              setTimeout(()=>{
-               this.$router.push('/locating/index')
+               this.$router.push('/locating/package/shps-list')
              } , 4000)
            }
          }
@@ -230,6 +230,7 @@ export default {
      }
      catch (e) {
        this.loading = false
+       this.shpssBarCode = ''
      }
     },
 
@@ -245,7 +246,7 @@ export default {
 
 <style scoped>
 .scan_box{
-  height: calc(100% - 390px);
+  height: calc(100% - 330px);
 
 }
 

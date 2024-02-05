@@ -354,6 +354,9 @@ export default {
       if (this.factor_id) {
         Filter.factor_id = this.factor_id
       }
+      else if (this.$route.query.factor_id){
+        Filter.factor_id =this.$route.query.factor_id
+      }
 
       if (this.retail_id) {
         Filter.id = this.retail_id

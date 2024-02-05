@@ -158,8 +158,6 @@ import {
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 export default {
-
-
   props: {
     detail:null,
     /**

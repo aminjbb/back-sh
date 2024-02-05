@@ -19,6 +19,7 @@
     </div>
     <div class="bottom-box">
       <v-btn
+          @click="cancelError()"
           color="white"
           height="40"
           width="348"
@@ -34,6 +35,9 @@
 </template>
 <script >
 export default {
+  props:{
+    cancelError : {type:Function}
+  },
   data(){
     return{
 

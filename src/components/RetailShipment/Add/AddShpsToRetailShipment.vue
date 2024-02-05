@@ -23,7 +23,6 @@
                   <v-row justify="center">
 
                     <v-col cols="4">
-
                       <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
                         <v-icon>mdi-plus</v-icon>
                       </div>
@@ -90,6 +89,7 @@
                   rounded
                   variant="text"
                   width="115"
+                  @click="$router.go(-1)"
               >
                 <span class="t14300">
                 انصراف
@@ -260,7 +260,10 @@ export default {
     },
     deleteSku(shps){
       const index = this.shpsList.findIndex(skuShps => skuShps.id === shps)
-      if (index > -1) this.shpsList.splice(index , 1)
+      if (index > -1) {
+        this.shpsList.splice(index , 1)
+        this.$refs.retailShipmentShps.form.splice(index , 1)
+      }
     }
   },
 

@@ -208,34 +208,7 @@
           {
             label: 'رد شده',
             value: 'rejected',
-          },{
-            label: 'تایید شده',
-            value: 'approved',
-          },{
-            label: 'در حال ارسال به انبار',
-            value: 'sending_warehouse',
-          },{
-            label: 'رسیده به انبار',
-            value: 'received_by_warehouse',
-          },{
-            label: 'در حال شمارش',
-            value: 'counting',
-          },{
-            label: 'تایید شده انبار',
-            value: 'approved_by_warehouse',
-          },{
-            label: 'به سمت انبار اصلی',
-            value: 'sending_base_warehouse',
-          },{
-            label: 'رسیده به انبار اصلی',
-            value: 'received_base_warehouse',
-          },{
-            label: 'در حال جایگذاری',
-            value: 'locating',
-          },{
-            label: 'موجود شده در انبار',
-            value: 'located',
-          },
+          }
         ],
         admin:'',
         admins:[],

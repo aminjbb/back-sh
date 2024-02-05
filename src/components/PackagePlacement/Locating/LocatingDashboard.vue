@@ -15,7 +15,7 @@
               mdi-account-circle
             </v-icon>
             <span class="t20400 mr-3">
-              رامین ناصری
+              {{ fullName }}
             </span>
           </div>
          <span class="t20400 text-gray600 mr-5">
@@ -71,9 +71,18 @@
  import {defineComponent} from "vue";
  import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 
- export default defineComponent({
-   components: {HandheldDrawer}
- })
+ export default {
+   components: {HandheldDrawer},
+   computed:{
+     fullName() {
+       try {
+         return localStorage.getItem('fullName')
+       } catch (error) {
+         return ''
+       }
+     },
+   }
+ }
  </script>
  <style>
  .pick-up__counter{
