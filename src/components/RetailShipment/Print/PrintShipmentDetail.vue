@@ -44,7 +44,7 @@
                             شناسه فاکتور :
                         </span>
             <span class="t13400 text-gray500">
-                            {{ retailObject?.factor?.id }}
+                            {{ retailObject?.factor_id }}
                         </span>
           </div>
 

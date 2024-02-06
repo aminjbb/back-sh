@@ -136,7 +136,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.getPackageList(val)
+            this.addPerPage(val)
         },
     }
 }

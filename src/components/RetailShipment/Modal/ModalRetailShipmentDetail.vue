@@ -55,11 +55,11 @@
                         </span>
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span class="t10500">
                             شناسه فاکتور :
                         </span>
               <span class="t13400 text-gray500">
-                            {{ retailObject.factor?.id }}
+                            {{ retailObject.factor_id}}
                         </span>
             </div>
 

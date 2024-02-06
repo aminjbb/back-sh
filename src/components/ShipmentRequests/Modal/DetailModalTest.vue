@@ -17,7 +17,7 @@
                 </v-col>
             </v-row>
             <div class="text-center  ">
-                <v-card class="d-flex justify-center align-center px-10 ma-5  " height="82">
+              <v-card class="d-flex justify-center align-center px-10 ma-5  " height="82">
                     <div class="mx-10">
                         <span class="t14500">
                             تاریخ ارسال :
@@ -47,6 +47,13 @@
                     </div>
 
                 </v-card>
+              <v-card class="ma-5" min-height="82" >
+                <div class="my-2">دلیل رد</div>
+                <v-divider class="mb-3"/>
+                <div class="pa-5 text-right">
+                  {{retailObject?.rejection_reason}}
+                </div>
+              </v-card>
                 <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
                     <div class="table-scroll-container">
                         <Table

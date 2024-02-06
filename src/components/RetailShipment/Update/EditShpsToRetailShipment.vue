@@ -57,7 +57,7 @@
           :items="retailShipment?.shps_list"
           editUrl="/seller/edit/"
           activePath="seller/crud/update/activation/"
-          :deletePath="`cargo/${$route.params.retailId}/detach/shps/`"
+          :deletePath="`shipment/consignment/${$route.params.retailId}/detach/shps/`"
           changeStatusUrl="seller/crud/update/contract/"
           :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
           :loading="loading"

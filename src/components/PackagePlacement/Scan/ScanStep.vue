@@ -11,7 +11,7 @@
         </span>
        </div>
        <div class="pa-3">
-         <v-icon size="30">
+         <v-icon @click="$router.go(-1)" size="30">
            mdi-chevron-left
          </v-icon>
        </div>
@@ -74,7 +74,7 @@
        </v-row>
      </v-card-actions>
    </div>
-    <LocatingShpsLoadingScaningStep  v-else :successScan="successScan" :object="object" :state="state" :scanTitle="scanTitle"/>
+    <LocatingShpsLoadingScaningStep  v-else :errorScan="errorScan" :successScan="successScan" :object="object" :state="state" :scanTitle="scanTitle"/>
   </v-card>
 </template>
 <script>
@@ -83,7 +83,8 @@ import LocatingShpsLoadingScaningStep from "@/components/PackagePlacement/Locati
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 export default {
   props:{
-    successScan:{type :Function}
+    successScan:{type :Function},
+    errorScan:{type :Function}
   },
   components: {HandheldDrawer, LocatingShpsLoadingScaningStep},
   setup(){
@@ -96,7 +97,7 @@ export default {
     return{
       qrCode:'',
       packageId:'',
-      scan:true,
+      scan:false,
       scanTitle:'شناسه بسته را اسکن کنید.',
       state:'packageSphpsList',
       object:''

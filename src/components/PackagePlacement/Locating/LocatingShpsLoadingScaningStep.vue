@@ -9,7 +9,7 @@
       <div class=" mt-8 d-flex justify-center px-10 text-center">
         <span class="text-black t20400">
             {{scanTitle}}
-
+            <v-text-field v-model="objectId" :autofocus="true" @keyup.enter="qrCodeScan()"></v-text-field>
         </span>
       </div>
     </div>
@@ -24,18 +24,19 @@ export default {
     state:'',
     object:null,
     packageId:null,
-    successScan:{type :Function}
+    successScan:{type :Function},
+    errorScan:{type :Function},
+
   },
   data(){
     return{
-      qrCode:'',
-      objectId:''
+      objectId:'',
+      readyToScan:false
     }
   },
 
   methods:{
     qrCodeScan(){
-      this.objectId = this.qrCode
       const finalObject = this.objectId.split('-')
       this.qrCode = ''
       if (this.state === 'packageSphpsList') {
@@ -45,26 +46,22 @@ export default {
     },
 
     async packageScan(barcode , objectId){
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${barcode}`
-      AxiosMethod.using_auth = true
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.successScan(`/locating/package/shps-list` , data.data?.id)
+     try {
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = `package/crud/handheld/scan?barcode=${barcode}`
+       AxiosMethod.using_auth = true
+       let data = await AxiosMethod.axios_get()
+       if (data) {
+         this.successScan(`/locating/package/shps-list` , data.data?.id)
 
-      }
+       }
+     }
+     catch (e) {
+       this.errorScan()
+     }
     }
   },
-
-
-  mounted() {
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key== 'Enter' ) this.qrCodeScan()
-      else this.qrCode += e.key
-    });
-  }
 }
 </script>
 <style>

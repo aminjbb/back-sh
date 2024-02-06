@@ -32,7 +32,7 @@
           </span>
         </div>
         <div class="pa-3">
-          <v-icon size="30">
+          <v-icon @click="$router.go(-1)"  size="30">
             mdi-chevron-left
           </v-icon>
         </div>

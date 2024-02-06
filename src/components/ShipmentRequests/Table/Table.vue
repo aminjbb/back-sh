@@ -79,7 +79,7 @@
                     </div>
 
                     <div
-                        v-if="header[3].show"
+                        v-if="header[4].show"
                         class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -92,7 +92,7 @@
                         </span>
                     </div>
                     <div
-                        v-if="header[3].show"
+                        v-if="header[5].show"
                         class="c-table__contents__item justify-center "
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -108,7 +108,7 @@
                         </span>
                     </div>
                     <div
-                        v-if="header[4].show"
+                        v-if="header[6].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
@@ -122,7 +122,7 @@
                     </div>
 
                     <div
-                        v-if="header[5].show"
+                        v-if="header[7].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -136,7 +136,7 @@
                     </div>
 
                     <div
-                        v-if="header[6].show"
+                        v-if="header[8].show"
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
@@ -150,7 +150,7 @@
                     </div>
 
                     <div
-                      v-if="header[7].show"
+                      v-if="header[9].show"
                       class="c-table__contents__item justify-center"
                       :ref="`factor--${index}`"
                       :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -166,20 +166,25 @@
                             </div>
                             <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${index}`">
                                 <div
-                                    class="factor-dropdown__item d-flex align-center pr-2"
+
+                                    class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--1">
                                     {{ translateType(item.status) }}
 
-                                    
                                 </div>
                                 <div
-                                    class="factor-dropdown__item d-flex align-center pr-2"
+
+                                    class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--2"
                                     @click="openRejectModal(item)">
                                     رد شده
                                 </div>
                                 <div
-                                    class="factor-dropdown__item d-flex align-center pr-2"
+
+
+
+                                    class="retail-status-box my-2 t10400"
+
                                     id="factor-dropdown__item--3"
                                     @click="updateStatus(index,'approved',item)">
                                     تایید شده
@@ -519,7 +524,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
 
             if (data.status === 'Success') {
 
-                this.updateList('true');
+                this.getShipmentRequestsList()
 
                 openToast(
                     this.$store,
