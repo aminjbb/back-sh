@@ -24,6 +24,7 @@
             v-model="form.date"
         />
         <date-picker
+            :min="minDate"
             clearable
             range
             custom-input=".custom-input"
@@ -118,6 +119,7 @@ export default {
   data() {
     return {
       page:1,
+      minDate:'',
       form: {
         date: [],
         capacity:null,
@@ -177,6 +179,12 @@ export default {
   },
   mounted() {
     this.getWarehouseExitCapacityList(this.page)
+    let date = new Date();
+    date.setDate(date.getDate() + 1)
+    let dateSplit = date.toISOString()
+    dateSplit = dateSplit.split('T')
+    const dateObject = dateSplit[0].split('-')
+    this.minDate = gregorian_to_jalali(parseInt(dateObject[0]), parseInt(dateObject[1]), parseInt(dateObject[2]))
   },
 
   watch:{

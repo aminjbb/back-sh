@@ -121,7 +121,13 @@
                             </v-icon>
                         </template>
                         <v-list-item-title>
-                            <div class="ma-5 pointer d--rtl" @click="removeItem(item.id)">
+                            <div class="ma-5 pointer d--rtl" v-if="model === 'addShps'" @click="deleteFunction(item.id)">
+                                <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
+                                <span class="mr-2 text-grey-darken-1 t13400">
+                                    حذف
+                                </span>
+                            </div>
+                          <div v-else class="ma-5 pointer d--rtl" @click="removeItem(item.id)">
                                 <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
                                 <span class="mr-2 text-grey-darken-1 t13400">
                                     حذف
