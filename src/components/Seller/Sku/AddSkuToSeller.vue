@@ -66,6 +66,8 @@
         <Table
             class="flex-grow-1"
             :header="headerSku"
+            :page="skuSellerPage"
+            :perPage="dataSkuTableLength"
             :items="sellerSku.data"
             editUrl="/seller/edit/"
             activePath="seller/crud/update/activation/"
@@ -87,7 +89,7 @@
                 <v-col cols="6" class="d-flex justify-center">
                     <div class="text-center">
                         <v-pagination
-                            v-model="skuPage"
+                            v-model="skuSellerPage"
                             :length="pageLength"
                             rounded="circle"
                             size="40"
@@ -141,10 +143,10 @@ export default {
   setup(props) {
     const {
       getSkuSeller , sellerSku,headerSku,
-      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuPerPage,pageLength
+      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuSellerPerPage,pageLength , skuSellerPage,
     } = Seller();
     return {
-      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuPerPage , pageLength,
+      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuSellerPerPage , pageLength,  skuSellerPage,
       skuPage ,dataSkuTableLength
     };
   },
@@ -297,12 +299,11 @@ export default {
 
   mounted() {
     this.getSkuSeller();
-
   },
 
   watch: {
     dataSkuTableLength(val) {
-      this.addSkuPerPage(val)
+      this.addSkuSellerPerPage(val)
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
