@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-dialog
         v-model="marketingDiscountModal.dialog"
@@ -7,7 +7,7 @@
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
-                    تخفیف پایه
+                    تخفیف مارکتینگ
                 </span>
 
                 <v-btn
