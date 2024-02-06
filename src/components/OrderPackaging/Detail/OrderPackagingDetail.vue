@@ -13,13 +13,13 @@
       <div class="d-flex justify-center mx-16 mt-4 ">
         <div class="text-right my-3 mx-15">
                     <span class="t13400 color-grey">
-                        شناسه سفارش :
+                     {{ orderListDetail.id}}   شناسه سفارش :
                         
                     </span>
         </div>
         <div class="text-right my-3 mx-15">
                     <span class="t13400 color-grey">
-                      روش ارسال :  {{ orderListDetail.order_factor_id }}
+                      روش ارسال :  {{ orderListDetail.sending_method }}
                       <span class="t13400 color-grey">                      
                       </span>
                     </span>
@@ -28,7 +28,7 @@
           <v-form @submit.prevent="splitedNum" >
             <div>
               <v-text-field
-                  :autofocus="true"
+
                   variant="outlined"
                   v-model="orderId"
                   />
