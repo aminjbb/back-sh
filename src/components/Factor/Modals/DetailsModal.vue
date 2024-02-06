@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-dialog
         v-model="showDetailsModal.dialog"
@@ -78,7 +78,10 @@
                                 قیمت مصرف
                             </div>
                             <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
-                                تعداد کالا
+                                تعداد درخواستی
+                            </div>
+                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
+                              تعداد دریافتی
                             </div>
                             <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 قیمت خرید کل
@@ -149,14 +152,24 @@
 
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            <template v-if="shps.shps_count !== null">
-                                                {{shps.shps_count}}
+                                            <template v-if="shps.shps_requested_count !== null">
+                                                {{shps.shps_requested_count}}
                                             </template>
                                             <template v-else>
                                                 -
                                             </template>
                                         </span>
                                     </div>
+                                  <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
+                                        <span class="t12300 text-gray500 py-5 number-font">
+                                            <template v-if="shps.shps_received_count !== null">
+                                                {{shps.shps_received_count}}
+                                            </template>
+                                            <template v-else>
+                                                -
+                                            </template>
+                                        </span>
+                                  </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
@@ -232,6 +245,14 @@
                                 -
                             </template>
                         </div>
+                      <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
+                        <template v-if="factorSkuData && factorSkuData.total_shps_count >= 0">
+                          {{factorSkuData.total_shps_count}}
+                        </template>
+                        <template v-else>
+                          -
+                        </template>
+                      </div>
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_buying_price >= 0">
                                 {{factorSkuData.total_buying_price}}
