@@ -18,6 +18,9 @@
           شناسه کالا را اسکن کنید.
           </span>
         </div>
+        <div class=" mt-3 d-flex justify-center px-10 text-center">
+         <v-text-field v-model="shpssSingeLocate" variant="outlined" :autofocus="true" />
+        </div>
       </div>
     </div>
 
@@ -182,19 +185,14 @@ export default {
       qrCode: '',
       shpssBarCode: '',
       placeCount: 0,
-      pickUpDone: true,
+      pickUpDone: false,
       shpsScan:false,
       shelfScan:false
     }
   },
 
   mounted() {
-    // this.getPickUpShps()
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanQrCode()
-      else this.qrCode += e.key
-    });
+
   },
 
   methods: {

@@ -50,12 +50,14 @@ export default function setup() {
         loading.value = true
 
         const AxiosMethod = new AxiosCall()
+        let paramsQuery = null
         if (query){
-            AxiosMethod.form = query
+            paramsQuery = filter.params_generator(query.query)
         }
+        else  paramsQuery = filter.params_generator(route.query)
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `warehouse/crud/index`
+        AxiosMethod.end_point = `warehouse/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
