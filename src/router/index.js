@@ -246,6 +246,9 @@ import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOr
 import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
 import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
 
+/* Wastage */
+import WastageListView from "@/views/Wastage/WastageListView.vue";
+import LostItemListView from "@/views/Lost/LostItemListView.vue";
 
 
 
@@ -1624,6 +1627,36 @@ const router = createRouter({
           }
         },
       ],
+    },
+    {
+      path: '/wastage',
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'WastageListView',
+        component: WastageListView,
+        meta: {
+          name: ' ضایعات'
+        }
+
+      }]
+    },
+    {
+      path: '/lost',
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'LostItemListView',
+        component: LostItemListView,
+        meta: {
+          name: ' مفقودی'
+        }
+
+      }]
     },
     {
       path: '/print-label-bulk', // print label bulk
