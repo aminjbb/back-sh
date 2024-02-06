@@ -19,10 +19,10 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
-          :getShipmentRequestsList="getShipmentRequestsList"
+          :getShipmentRequestsList="getUpComingList"
           class="flex-grow-1"
           :header="header"
-          :items="ShipmentRequestsList.data"
+          :items="upComingList?.data"
           :page="page"
           :perPage="dataTableLength"
           activePath="page/crud/update/activation/"
@@ -76,38 +76,22 @@
 </template>
 
 <script>
-import Table from '@/components/ShipmentRequests/Table/Table.vue'
-import ShipmentRequests from "@/composables/ShipmentRequests";
+import Table from '@/components/UpComing/Table/Table.vue'
+import UpComing from "@/composables/UpComing";
 import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
-  setup(props) {
+  setup() {
     const {
-      pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      addPagination,
-      addPerPage,
-      loading
-    } = ShipmentRequests();
+      pageLength, filterField,upComingList ,addPerPage, getUpComingList,
+      dataTableLength, page, header, loading
+    } = UpComing();
     return {
-      pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      addPagination,
-      addPerPage,
-      loading
+      pageLength, filterField,upComingList ,addPerPage, getUpComingList,
+      dataTableLength, page, header, loading
     };
   },
 
@@ -138,7 +122,7 @@ export default {
   },
 
   mounted() {
-    this.getShipmentRequestsList();
+    this.getUpComingList();
   },
 
   watch: {
@@ -159,8 +143,7 @@ export default {
       }
     },
     $route(){
-      this.getShipmentRequestsList();
-
+      this.getUpComingList();
     }
   }
 }

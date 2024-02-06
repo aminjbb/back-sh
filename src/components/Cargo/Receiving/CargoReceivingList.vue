@@ -134,11 +134,18 @@ export default {
 
     async updateCargo() {
       try {
+        let cargo = null
+        if (this.cargo.includes('-')){
+          const cargoSplit = this.cargo.split('-')
+          if (cargoSplit[1]) cargo= cargoSplit[1]
+          else cargo= this.cargo
+        }
+        else cargo= this.cargo
         this.loading = true
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.using_auth = true
-        AxiosMethod.end_point = `cargo/close/${this.cargo}`
+        AxiosMethod.end_point = `cargo/close/${cargo}`
         AxiosMethod.toast_error = true
         AxiosMethod.store = this.$store
         let data = await AxiosMethod.axios_post()
