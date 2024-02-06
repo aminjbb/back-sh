@@ -71,7 +71,16 @@ export default function setup() {
             } , 2000)
         }
     };
-
+    function addPagination(page){
+        filter.page = page
+        filter.per_page = dataTableLength.value
+        router.push('/retail-shipment/index/'+ filter.params_generator(route.query))
+    }
+    function addPerPage(number){
+        filter.page = 1
+        filter.per_page =number
+        router.push('/retail-shipment/index'+ filter.params_generator(route.query))
+    }
     watch(page, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true
@@ -79,6 +88,7 @@ export default function setup() {
         }
     })
 
-    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength , dataTableLength, page, header, loading ,headerShps}
+    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength , dataTableLength, page, header,
+        loading ,headerShps , addPerPage}
 }
 

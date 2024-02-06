@@ -32,7 +32,7 @@
     </v-btn>
 
     <div>
-      <ModalFinishPackage :package="shpsList?.package.id"/>
+      <ModalFinishPackage :getAssignPackageList="getAssignPackageList" :package="shpsList?.package.id"/>
     </div>
   </div>
 
@@ -45,7 +45,10 @@ export default {
     shpsList:[],
     scanShelf:{
       type:Function
-    }
+    },
+    getAssignPackageList:{
+      type:Function
+    },
   },
   components:{
     ShpsCard,

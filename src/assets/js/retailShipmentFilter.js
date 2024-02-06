@@ -136,9 +136,15 @@ export class RetailShipmentFilter {
         if (routeQuery.shps_variety_from)  {
             query += "shps_variety_from=" + routeQuery.shps_variety_from + "&";
         }
-        else if  (this.shps_variety_to){
-            query += "shps_variety_to=" + this.shps_variety_to + "&";
+        else if  (this.shps_variety_from){
+            query += "shps_variety_from=" + this.shps_variety_from + "&";
         }
+         if  (routeQuery.shps_variety_to){
+            query += "shps_variety_to=" + routeQuery.shps_variety_to + "&";
+        }
+         else if  (this.shps_variety_to){
+             query += "shps_variety_to=" + this.shps_variety_to + "&";
+         }
 
         if (routeQuery.status)  {
             query += "status=" + routeQuery.status + "&";

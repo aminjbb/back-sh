@@ -5,7 +5,7 @@
             class="flex-grow-1"
             :header="pricingHeader"
             :items="priceList.shps_list"
-            :page="page"
+            :page="1"
             :perPage="dataTableLength"
             @updateList="updateList"
             @showSave="showSave"
@@ -83,18 +83,18 @@
                     height="40"
                     rounded
                     class="px-8 mt-1 ml-5">
-                    انصراف
+                    بازگشت
                 </v-btn>
 
-                <v-btn
-                    @click="$router.push('/factor/index')"
-                    color="primary500"
-                    height="40"
-                    :disabled="showSaveButton === true ? false : true"
-                    rounded
-                    class="px-8 mt-1">
-                    ذخیره
-                </v-btn>
+<!--                <v-btn-->
+<!--                    @click="$router.push('/factor/index')"-->
+<!--                    color="primary500"-->
+<!--                    height="40"-->
+<!--                    :disabled="showSaveButton === true ? false : true"-->
+<!--                    rounded-->
+<!--                    class="px-8 mt-1">-->
+<!--                    ذخیره-->
+<!--                </v-btn>-->
             </v-row>
         </div>
     </v-card>

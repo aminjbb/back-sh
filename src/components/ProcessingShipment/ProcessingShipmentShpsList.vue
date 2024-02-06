@@ -45,6 +45,7 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+
         <Table
             ref="processingShipmentShps"
             class="flex-grow-1"
@@ -155,18 +156,23 @@ export default {
             }
         },
         async finishedPack() {
-            this.finishLoading = true
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
+            try {
+              this.finishLoading = true
+              const AxiosMethod = new AxiosCall()
+              AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
+              AxiosMethod.store = this.$store
+              AxiosMethod.using_auth = true
+              AxiosMethod.token = this.$cookies.get('adminToken')
+              let data = await AxiosMethod.axios_post()
+              if (data) {
                 this.finishLoading = false
                 this.$router.go(-1)
-            } else {
+              } else {
                 this.finishLoading = false
+              }
+            }
+            catch (e) {
+              this.finishLoading = false
             }
         },
     },

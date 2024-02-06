@@ -1,8 +1,8 @@
 <template>
   <div class="h-100">
     <SuccessScan  v-if="success" :packageId="packageId" :changeRoute="changeRoute"/>
-    <ScanError v-else-if="error"/>
-    <ScanStep :successScan="successScan" v-else/>
+    <ScanError :cancelError="cancelError" v-else-if="error"/>
+    <ScanStep :successScan="successScan" :errorScan="errorScan" v-else/>
   </div>
 </template>
 <script>
@@ -23,6 +23,12 @@ export default {
       this.success = true
       this.changeRoute = route
       this.packageId =packageId
+    },
+    errorScan(){
+      this.error = true
+    },
+    cancelError(){
+      this.error = false
     }
   },
   components:{

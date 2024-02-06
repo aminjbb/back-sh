@@ -8,13 +8,13 @@
         </span>
       </div>
       <div class="pa-3">
-        <v-icon size="30">
+        <v-icon @click="$router.go(-1)"  size="30">
           mdi-chevron-left
         </v-icon>
       </div>
      </div>
     <template v-if="!donePackage">
-      <LocatingShpsListStep :scanShelf="scanShelf" :shpsList="packageShpsList" v-if="!scan"/>
+      <LocatingShpsListStep :getAssignPackageList="getAssignPackageList" :scanShelf="scanShelf" :shpsList="packageShpsList" v-if="!scan"/>
       <LocatingShpsLoadingScaningStep :packageId="assignPackage" :state="state" :scanTitle="scanTitle" v-else/>
     </template>
     <template v-else>
@@ -31,7 +31,7 @@
         </div>
 
       </div>
-      <div class="px-5 d-flex justify-center" style="  left: 0;right: 0;  position: absolute; bottom: 8px;">
+      <div class="px-5 d-flex justify-center" style=" left: 0;right: 0;  position: absolute; bottom: 8px;">
         <v-btn
             color="primary500"
             height="40"

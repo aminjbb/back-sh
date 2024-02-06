@@ -126,8 +126,13 @@ export class RetailShipmentFilter {
         if (routeQuery.shps_variety_from)  {
             query += "shps_variety_from=" + routeQuery.shps_variety_from + "&";
         }
-        else if  (this.shps_variety_to){
+
+
+        if  (this.shps_variety_to){
             query += "shps_variety_to=" + this.shps_variety_to + "&";
+        }
+        else if (routeQuery.shps_variety_to)  {
+            query += "shps_variety_to=" + routeQuery.shps_variety_to + "&";
         }
 
         if (routeQuery.status)  {
