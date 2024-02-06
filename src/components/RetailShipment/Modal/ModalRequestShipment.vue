@@ -175,11 +175,19 @@ export  default {
       }
 
     },
-    searchWarehouse(e){
+    async searchWarehouse(e){
       const filter = {
         name: e
       }
-      this.getWarehouseList(filter)
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.form = filter
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `warehouse/crud/index`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.warehouseList =  data.data
+      }
     },
     async sendWarehouse(){
       this.loading=true
@@ -236,10 +244,8 @@ export  default {
     }
   },
   mounted() {
-    const filter = {
-      q :' '
-    }
-    this.getWarehouseList(filter  )
+
+    this.searchWarehouse('')
   },
   watch:{
     warehouse(val){
