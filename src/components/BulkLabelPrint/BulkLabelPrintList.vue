@@ -175,10 +175,16 @@ export default {
     },
     async packingData() {
       try {
+        let packageId = null
+        if (this.packageId.includes('-')) {
+          const cargoSplit = this.packageId.split('-')
+          if (cargoSplit[1]) packageId = cargoSplit[1]
+          else packageId = this.packageId
+        } else packageId = this.packageId
         this.closePackageLoading = true
         var formData = new FormData();
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `package/crud/update/status/${this.packageId}`
+        AxiosMethod.end_point = `package/crud/update/status/${packageId}`
         AxiosMethod.form = formData
         formData.append('status', 'received_by_warehouse')
         AxiosMethod.store = this.$store

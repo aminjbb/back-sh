@@ -151,22 +151,8 @@ export default {
          */
         print() {
             const printWindow = window.open('about:blank', '_blank');
-
-            this.$nextTick(() => {
-                const printContent = document.createElement('div');
-                printContent.innerHTML = document.getElementById(`printableArea-${this.data.id}`).innerHTML;
-                printWindow.document.title = "Print barcode";
-
-                printWindow.document.body.appendChild(printContent);
-
-                setTimeout(() => {
-                    printWindow.print();
-
-                    printWindow.onafterprint = function () {
-                        printWindow.close();
-                    };
-                }, 1000);
-            });
+            printWindow.document.write(document.getElementById(`printableArea-${this.data.id}`).innerHTML)
+            printWindow.print();
         },
     }
 }
