@@ -245,6 +245,7 @@ import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderLis
 import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
 import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
 import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
+import UpComingView from "@/views/Warehouse/UpComingView.vue";
 
 
 
@@ -1270,6 +1271,21 @@ const router = createRouter({
             name: 'محموله های بازرگانی'
           }
         },
+      ]
+    },
+    {
+      path: '/up-coming', // upComing request routes
+      meta: {
+        name: 'انبار'
+      },
+      children: [{
+        path: 'index',
+        name: 'UpComingView',
+        component: UpComingView,
+        meta: {
+          name: 'محموله های آتی'
+        }
+      },
       ]
     },
     {
