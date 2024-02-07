@@ -20,8 +20,7 @@
           </v-icon>
         </div>
       </div>
-
-      <v-card class="ma-5 br-15" min-height="196">
+      <v-card class="ma-5 br-15" max-height="116">
         <div class="d-flex justify-center my-3">
           <span class="t20400">
             جایگاه کالا
@@ -65,6 +64,9 @@
           </div>
         </div>
       </v-card>
+      <v-card class="mx-5 mb-1 br-15 pa-2" >
+        <v-text-field @keyup.enter="scanQrCode()" :autofocus="true" v-model="shpssBarCode" variant="outlined" ></v-text-field>
+      </v-card>
       <div class="scan_box mb-10">
         <div>
           <div class="px-5">
@@ -91,23 +93,6 @@
           </div>
         </div>
       </div>
-      <!--    <v-card-actions>-->
-      <!--      <v-row justify="center">-->
-      <!--        <v-col cols="10">-->
-      <!--          <v-btn-->
-      <!--              color="primary500"-->
-      <!--              height="40"-->
-      <!--              width="348"-->
-      <!--              variant="flat"-->
-      <!--              rounded-->
-      <!--              class="px-8 mt-2">-->
-      <!--            بازگشت به لیست-->
-      <!--          </v-btn>-->
-      <!--        </v-col>-->
-
-      <!--      </v-row>-->
-      <!--    </v-card-actions>-->
-      <!--    <LocatingToast/>-->
     </v-card>
   </template>
   <template v-else-if="pickUpIsNull && !pickUpDone">
@@ -193,8 +178,6 @@ export default {
 
   methods: {
     scanQrCode() {
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
       this.pickUpshpss(this.shpssBarCode)
     },
     async pickUpshpss(barcode) {
@@ -221,7 +204,7 @@ export default {
 
 <style>
 .scan_box {
-  height: calc(100% - 390px);
+  height: calc(100% - 330px);
 
 }
 </style>

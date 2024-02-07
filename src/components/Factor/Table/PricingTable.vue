@@ -77,14 +77,29 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_count">
-                            {{ item.shps_count }}
+                        <template v-if="item.shps_requested_count">
+                            {{ item.shps_requested_count }}
                         </template>
                         <template v-else>
                             -
                         </template>
                     </span>
                 </div>
+
+              <div
+                  v-if="header[3].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13400 text-gray500 py-5 number-font">
+                        <template v-if="item.shps_received_count">
+                            {{ item.shps_received_count }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+              </div>
 
                 <div
                     v-if="header[4].show"

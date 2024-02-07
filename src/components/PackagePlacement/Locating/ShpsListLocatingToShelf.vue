@@ -215,8 +215,8 @@ export default {
          const findShps = data.data.find(shps=> shps.shipment_id == shipmentId)
          this.allCount = findShps.packed_count
          this.shpssBarCode = ''
-         if (parseInt(findShps?.handheld_count) > this.placeCount){
-           this.placeCount = findShps?.handheld_count
+         this.placeCount = findShps?.handheld_count
+         if (parseInt(findShps?.handheld_count) >= this.placeCount){
            if (parseInt(findShps?.handheld_count) === findShps.packed_count){
              this.toast = true
              setTimeout(()=>{

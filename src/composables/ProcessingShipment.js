@@ -5,42 +5,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 export default function setup() {
-    const processingShipment =ref([
-        {
-            id: 21,
-            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
-            shps_count: 50,
-            min_tolerance: 0,
-            max_tolerance: 50,
-            packed_count: 0,
-            is_packed: 0
-        },{
-            id: 21,
-            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
-            shps_count: 50,
-            min_tolerance: 0,
-            max_tolerance: 50,
-            packed_count: 0,
-            is_packed: 0
-        },{
-            id: 21,
-            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
-            shps_count: 50,
-            min_tolerance: 0,
-            max_tolerance: 50,
-            packed_count: 0,
-            is_packed: 0
-        },{
-            id: 21,
-            sku_label: "کرم پودر شون رنگ  بژ مناسب برای پوست  خشک دارای خاصیت  آبرسانی 1 عدد",
-            shps_count: 50,
-            min_tolerance: 0,
-            max_tolerance: 50,
-            packed_count: 0,
-            is_packed: 0
-        },
-
-    ],)
+    const processingShipment =ref([],)
     const shipmentShpsList =ref(null)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -66,6 +31,14 @@ export default function setup() {
         { name: 'تلورانس بالا', show: true, value:'high_tolerance', order: false },
         { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
         { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
+    ]);
+    const headerShpsSellerUpcoming =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'نام کالا', show: true , value:'label', order: false},
+        { name: 'تعداد درخواستی', show: true, value:'number' , order: false},
+        { name: 'تعداد تایید شده', show: true, value:'count', order: false },
+        { name: 'قیمت خرید', show: true, value:'price', order: false },
+        { name: 'ذخیره', show: true, value:'save', order: false },
     ]);
     const headerShpsSeller =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -138,6 +111,6 @@ export default function setup() {
 
     return {filterFieldAllRetail, getRetailShipmentList,processingShipment,
           header, loading ,headerShps , getShipmentShpslist , shipmentShpsList , headerShpsSeller,
-        headerDetailShipment}
+        headerDetailShipment , headerShpsSellerUpcoming}
 }
 

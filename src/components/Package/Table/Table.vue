@@ -119,14 +119,14 @@
                                 </div>
                             </v-list-item-title>
 
-                            <v-list-item-title>
+                            <v-list-item :disabled="item.status ==='sent_to_warehouse' || item.status ==='received_by_warehouse'">
                                 <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
                                         حذف
                                     </span>
                                 </div>
-                            </v-list-item-title>
+                            </v-list-item>
                         </v-list>
                     </v-menu>
                 </div>
