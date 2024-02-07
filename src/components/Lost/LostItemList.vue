@@ -86,68 +86,7 @@ export default {
   },
   data(){
     return{
-      lostItemData:[
-        {
-          "id": 3,
-          "package_id": 9,
-          "package_type": "bulk",
-          "shipment_type": "consignment_shavaz",
-          "seller_id": null,
-          "supplier": {
-            "full_name": "supplier 3",
-            "shopping_name": "shopping name 3"
-          },
-          "shps_s": 2279,
-          "shps": {
-            "id": 42,
-            "label": "شامپوی بدن شون مناسب برای  آقایان 1 عدد",
-            "seller": {
-              "id": 2,
-              "shopping_name": "فروشگاه نکین اسدی3ثث"
-            }
-          },
-          "report_type": "lost",
-          "creator": {
-            "id": 4,
-            "first_name": "حانیه",
-            "last_name": "عاصمی"
-          },
-          "created_at": "2024-01-01T10:27:44.000000Z",
-          "created_at_fa": "1402/10/11",
-          "updated_at": "2024-01-01T10:27:44.000000Z",
-          "updated_at_fa": "1402/10/11"
-        },
-        {
-          "id": 4,
-          "package_id": 9,
-          "package_type": "bulk",
-          "shipment_type": "consignment_shavaz",
-          "seller_id": null,
-          "supplier": {
-            "full_name": "supplier 3",
-            "shopping_name": "shopping name 3"
-          },
-          "shps_s": 2279,
-          "shps": {
-            "id": 42,
-            "label": "شامپوی بدن شون مناسب برای  آقایان 1 عدد",
-            "seller": {
-              "id": 2,
-              "shopping_name": "فروشگاه نکین اسدی3ثث"
-            }
-          },
-          "report_type": "lost",
-          "creator": {
-            "id": 4,
-            "first_name": "حانیه",
-            "last_name": "عاصمی"
-          },
-          "created_at": "2024-01-01T10:30:56.000000Z",
-          "created_at_fa": "1402/10/11",
-          "updated_at": "2024-01-01T10:30:56.000000Z",
-          "updated_at_fa": "1402/10/11"
-        }
-      ]
+
     }
   },
   setup(props) {

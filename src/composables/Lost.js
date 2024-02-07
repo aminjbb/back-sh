@@ -25,6 +25,10 @@ export default function setup() {
         { name: 'نام فروشگاه', show: true , value:'shopping_name', order: false},
         { name: 'نام سازنده', show: true , value:'creator_id', order: false},
         { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
+
+
+
+
     ]);
 
 

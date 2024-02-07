@@ -11,7 +11,7 @@
           ثبت ضایعات
         </v-col>
         <v-divider color="grey"/>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="6" >
           <div class="text-right  ">
 
                         <span class="text-gray600 t14500">
@@ -21,28 +21,30 @@
                             *
                         </span>
           </div>
-          <div class="d-flex justify-end w-full">
-
-            <div class=" w-full">
-              <v-text-field
-                  class="justify-end"
+          <div class="d-flex justify-between">
+            <div >
+                 <v-text-field
+                     class="shrink"
                   :autofocus="true"
                   variant="outlined"
                   :rules="rule"
+                    style="width: 500px;"
                   v-model="shps_s"/>
+
+
             </div>
 
-            <v-btn
-                @click="addShps()"
-                variant="outlined"
-                height="40"
-                rounded
-                class="px-8 mt-1 mr-5"
-            >
-              ثبت
-            </v-btn>
-          </div>
+            <div >
+              <v-btn
+                  @click="addShps()"
+                  color="primary500"
+                  height="40"
+                  rounded
+                  variant="flat"
+              >ثبت             </v-btn>
 
+            </div>
+          </div>
 
         </v-col>
       </v-row>
@@ -62,17 +64,42 @@
 
       <v-divider />
 
+
       <v-card-actions class="pb-3">
-        <v-row class="px-5 py-2" justify="end">
-          <v-btn
-              @click="packingData()"
-              color="primary500"
-              height="40"
-              rounded
-              variant="flat"
-              class="px-8 mt-2">
-            بستن بسته
-          </v-btn>
+        <v-row class="px-8">
+          <v-col cols="3" class="d-flex justify-start">
+          </v-col>
+
+          <v-col cols="6" class="d-flex justify-center">
+            <div class="text-center">
+              <v-pagination
+                  v-model="page"
+                  :length="pageLength"
+                  rounded="circle"
+                  size="40"
+                  :total-visible="4"
+                  prev-icon="mdi-chevron-right"
+                  next-icon="mdi-chevron-left" />
+            </div>
+          </v-col>
+
+          <v-col cols="3" class="d-flex justify-end">
+            <div
+                align="center"
+                id="rowSection"
+                class="d-flex align-center">
+                        <span class="ml-5">
+                            تعداد سطر در هر صفحه
+                        </span>
+              <span class="mt-2" id="row-selector">
+                            <v-select
+                                v-model="dataTableLength"
+                                class="t1330"
+                                variant="outlined"
+                                :items="[25,50,100]" />
+                        </span>
+            </div>
+          </v-col>
         </v-row>
       </v-card-actions>
     </v-card>
@@ -109,14 +136,11 @@ export default {
   data() {
     return {
       scanPackage:'',
-
       rule: [v => !!v || 'این فیلد الزامی است'],
       allCargoData: [],
       filteredCargoData: [],
       closePackageLoading :false,
-
-
-        shps_s: null,
+      shps_s: null,
 
     }
   },
@@ -173,7 +197,7 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false;
-        this.getWasteShps();
+
 
       } else {
         this.loading = false

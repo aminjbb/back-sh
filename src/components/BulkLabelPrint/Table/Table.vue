@@ -128,26 +128,7 @@
                                     </v-list-item-title>
                                 </v-list-item>
     
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
-                                            <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت مفقودی
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
-                                <v-list-item>
-                                    <v-list-item-title>
-                                        <div class="ma-5 pointer" @click="getShpssDetailWastage(item)">
-                                            <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت ضایعات 
-                                            </span>
-                                        </div>
-                                    </v-list-item-title>
-                                </v-list-item>
+
                             </v-list>
                         </v-menu>
                     </div>
