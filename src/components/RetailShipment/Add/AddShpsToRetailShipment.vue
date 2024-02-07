@@ -44,8 +44,8 @@
         </v-col>
         <v-col cols="2">
           <ModalGroupAdd
-              getEndPoint="cargo/csv/get/template"
-              uploadEndpoint="cargo/csv/bulk"
+              getEndPoint="shipment/csv/get/template"
+              uploadEndpoint="shipment/csv/bulk"
               :updateShps="updateShps"
               :isRetail="true"
           />
