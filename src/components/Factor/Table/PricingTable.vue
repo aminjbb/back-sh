@@ -77,14 +77,29 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_count">
-                            {{ item.shps_count }}
+                        <template v-if="item.shps_requested_count">
+                            {{ item.shps_requested_count }}
                         </template>
                         <template v-else>
                             -
                         </template>
                     </span>
                 </div>
+
+              <div
+                  v-if="header[3].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13400 text-gray500 py-5 number-font">
+                        <template v-if="item.shps_received_count">
+                            {{ item.shps_received_count }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+              </div>
 
                 <div
                     v-if="header[4].show"
@@ -299,6 +314,7 @@ export default {
         splitChar,
 
         async updatePricing(index, item) {
+          try {
             this.form[index].loading = true
             const formData = new FormData()
             formData.append('customer_price', this.form[index].customer_price)
@@ -308,22 +324,26 @@ export default {
             AxiosMethod.form = formData
             AxiosMethod.store = this.$store;
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `factor/crud/update/shp/price/${item.shps}`
+            AxiosMethod.end_point = `factor/crud/update/${this.$route.params.id}/shps/price/${item.shps}`
             let data = await AxiosMethod.axios_post();
 
             if (data) {
-                this.form[index].loading = false;
-                this.form[index].save = true;
-                openToast(this.$store, 'اطلاعات با موفقیت ویرایش شد', 'success');
+              this.form[index].loading = false;
+              this.form[index].save = true;
+              openToast(this.$store, 'اطلاعات با موفقیت ویرایش شد', 'success');
 
-                if (this.form.length === this.items.length) {
-                    const showVariable = this.form.every(obj => obj.save === true);
-                    if (showVariable) {
-                        this.showSave('true');
-                    }
+              if (this.form.length === this.items.length) {
+                const showVariable = this.form.every(obj => obj.save === true);
+                if (showVariable) {
+                  this.showSave('true');
                 }
-                this.updateList('true');
+              }
+              this.updateList('true');
             }
+          }
+          catch (e) {
+            this.form[index].loading = false;
+          }
         },
 
         /**

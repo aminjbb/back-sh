@@ -135,22 +135,24 @@ export default {
        */
       print() {
         const printWindow = window.open('about:blank', '_blank');
-
-        this.$nextTick(() => {
-          const printContent = document.createElement('div');
-          printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
-          printWindow.document.title = "Print barcode";
-
-          printWindow.document.body.appendChild(printContent);
-
-          setTimeout(() => {
-            printWindow.print();
-
-            printWindow.onafterprint = function () {
-              printWindow.close();
-            };
-          }, 1000);
-        });
+        printWindow.document.write(document.getElementById(`printableArea-${this.printModal.id}`).innerHTML)
+        printWindow.print();
+        // this.$nextTick(() => {
+        //   const printContent = document.createElement('div');
+        //   printContent.innerHTML ='<p>akbar</p>';
+        //   // printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
+        //   console.log(printContent , 'printContent')
+        //   // printWindow.document.title = "Print barcode";
+        //   //
+        //   // printWindow.document.body.appendChild(printContent);
+        //
+        //   // setTimeout(() => {
+        //   //   // printWindow.print();
+        //   //   printWindow.onafterprint = function () {
+        //   //     // printWindow.close();
+        //   //   };
+        //   // }, 2000);
+        // });
       },
     },
 

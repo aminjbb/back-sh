@@ -45,7 +45,7 @@
       <Table
           ref="processingShipmentShps"
           class="flex-grow-1"
-          :header="headerTable"
+          :header="headerShpsSellerUpcoming"
           :items="shipmentShpsList"
           editUrl=""
           activePath=""
@@ -102,7 +102,7 @@ export default {
       headerShps,
       getShipmentShpslist,
       shipmentShpsList,
-      headerShpsSeller
+      headerShpsSellerUpcoming
     } = ProcessingShipment();
 
     return {
@@ -113,7 +113,7 @@ export default {
       headerShps,
       getShipmentShpslist,
       shipmentShpsList,
-      headerShpsSeller
+      headerShpsSellerUpcoming
     };
   },
   components: {
@@ -186,15 +186,6 @@ export default {
       }
     },
   },
-  computed: {
-    headerTable() {
-      try {
-        if (this.shipmentShpsList[0].max_tolerance) return this.headerShps
-        return this.headerShpsSeller
-      } catch (e) {
-        return this.headerShps
-      }
-    }
-  }
+
 }
 </script>

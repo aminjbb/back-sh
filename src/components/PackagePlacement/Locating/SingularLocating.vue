@@ -18,6 +18,9 @@
           شناسه کالا را اسکن کنید.
           </span>
         </div>
+        <div class=" mt-3 d-flex justify-center px-10 text-center">
+          <v-text-field @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+        </div>
       </div>
     </div>
 
@@ -32,7 +35,7 @@
           </span>
         </div>
         <div class="pa-3">
-          <v-icon @click="$router.go(-1)"  size="30">
+          <v-icon @click="$router.go(-1)" size="30">
             mdi-chevron-left
           </v-icon>
         </div>
@@ -45,50 +48,59 @@
           </span>
         </div>
         <v-divider/>
-        <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
-          <div>
+        <template v-if="pickUpShps.placement">
+          <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
+            <div>
            <span class="t16400">
            شماره ردیف :
             <span class="text-gray600 number-font">
               {{ pickUpShps?.placement?.row_numbe }}
             </span>
           </span>
-          </div>
-          <div>
+            </div>
+            <div>
           <span class="t16400">
            شماره قفسه  :
             <span class="text-gray600 number-font">
               {{ pickUpShps?.placement?.placement_number }}
             </span>
           </span>
+            </div>
           </div>
-        </div>
-        <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
-          <div>
+          <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
+            <div>
            <span class="t16400">
            شماره طبقه :
             <span class="text-gray600 number-font">
                {{ pickUpShps?.placement?.step_number }}
             </span>
           </span>
-          </div>
-          <div>
+            </div>
+            <div>
           <span class="t16400">
            شماره شلف   :
             <span class="text-gray600 number-font">
              {{ pickUpShps?.placement?.shelf_number }}
             </span>
           </span>
+            </div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <div class="text-right my-5 px-5 d-flex justify-center px-10">
+            <span>
+              جایگاهی برای این کالا وجود ندارد
+            </span>
+          </div>
+
+        </template>
       </v-card>
       <div class="scan_box mb-10">
         <div>
           <div class="px-5">
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center">
-                <img src="@/assets/img/productImge.png" width="150" height="150" alt="">
-                <!--              <img :src="pickUpShps?.shps?.sku?.image_url" width="150" height="150" alt="">-->
+                <img :src="pickUpShps?.shps?.sku?.image_url" width="150" height="150" alt="">
               </div>
               <div class="text-center px-10 my-3">
               <span class="text-gray600">
@@ -126,10 +138,13 @@
          شناسه شلف را اسکن کنید.
           </span>
         </div>
+        <div class=" mt-3 d-flex justify-center px-10 text-center">
+          <v-text-field @keyup.enter="shpsDetail()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+        </div>
       </div>
     </div>
   </template>
-  <template v-else-if="!shelfScan&& !shelfScan && pickUpDone">
+  <template v-else-if="!shelfScan&& !shpsScan && pickUpDone">
     <div class="h-100 bg-success d-flex  justify-center align-center">
       <div>
         <div class="d-flex justify-center">
@@ -143,8 +158,8 @@
           </span>
         </div>
         <div class="text-center mt-15">
-          <span  class="t18400">
-            کالا با شناسه ۱۲۳۴۵۶ به شلف با شناسه ۲۲۳۳۴۴ منصوب شد.
+          <span class="t18400">
+            کالا با شناسه {{ shpssSingeLocate }} به شلف با شناسه {{ placementSplitId }} منصوب شد.
           </span>
         </div>
         <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
@@ -153,7 +168,7 @@
               height="40"
               width="348"
               rounded
-              @click="pickUpDone = false"
+              @click="clearPage()"
               class="px-8 mt-5">
             بازگشت
           </v-btn>
@@ -171,37 +186,89 @@ import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 
 export default {
   setup() {
-    const {getPickUpShps, pickUpShps , loading} = new WarehouseOrder()
+    const {getPickUpShps, pickUpShps, loading} = new WarehouseOrder()
     return {
-      getPickUpShps, pickUpShps , loading
+      getPickUpShps, pickUpShps, loading
     }
   },
   data() {
     return {
-      error: true,
-      qrCode: '',
       shpssBarCode: '',
       placeCount: 0,
-      pickUpDone: true,
-      shpsScan:false,
-      shelfScan:false
+      pickUpDone: false,
+      shpsScan: true,
+      shelfScan: false,
+      shpssSingeLocate: null,
+      placementBarcode: null,
+      placementSplitId: null
     }
   },
 
-  mounted() {
-    // this.getPickUpShps()
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanQrCode()
-      else this.qrCode += e.key
-    });
-  },
-
   methods: {
-    scanQrCode() {
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
-      this.pickUpshpss(this.shpssBarCode)
+    clearPage() {
+      this.pickUpDone = false
+      this.shpsScan = true
+      this.shelfScan = false
+      this.shpssSingeLocate = null
+      this.placementBarcode = null
+      this.placementSplitId = null
+    },
+    async placementScan() {
+      try {
+        const barcodeSplit = this.placementBarcode.split('-')
+        if (barcodeSplit[1]) {
+          this.placementSplitId = barcodeSplit[1]
+          await this.singularLocate(barcodeSplit[1])
+        } else {
+          this.placementSplitId = this.placementBarcode
+          await this.singularLocate(this.placementBarcode)
+        }
+      } catch (e) {
+
+      }
+    },
+    async singularLocate(placement) {
+      try {
+        this.loading = true
+        const formData = new FormData()
+        formData.append('placement_id', placement)
+        formData.append('barcode', this.shpssSingeLocate)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = 'shps/item/singular/locate'
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          this.shelfScan = false
+          this.shpsScan = false
+          this.pickUpDone = true
+        } else {
+
+        }
+      } catch (e) {
+        this.loading = false
+        this.shpssBarCode = ''
+      }
+    },
+    async shpsDetail() {
+      try {
+        this.loading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = 'shps/item/pickup?detail=' + this.shpssSingeLocate
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          this.pickUpShps = data.data
+          this.shpsScan = true
+        } else {
+          this.loading = false
+        }
+      } catch (e) {
+        this.loading = false
+        this.shpssBarCode = ''
+      }
     },
     async pickUpshpss(barcode) {
       const AxiosMethod = new AxiosCall()

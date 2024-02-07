@@ -68,7 +68,7 @@
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
-          model="sku" />
+          model="addShps" />
 
       <v-divider />
 

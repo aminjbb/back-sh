@@ -114,7 +114,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = 'placement/shps/items/' + this.$route.params.placementId
+            AxiosMethod.end_point = 'placement/shps/list/' + this.$route.params.placementId
             AxiosMethod.toast_error = true
             let data = await AxiosMethod.axios_get()
             if (data) {

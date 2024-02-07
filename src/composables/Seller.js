@@ -16,6 +16,7 @@ export default function setup(posts) {
     const dataTableLength = ref(25)
     const dataSkuTableLength = ref(25)
     const page = ref(1)
+    const skuSellerPage = ref(1)
     const skuPage = ref(1)
     const priceHistoryPage = ref(1)
     const siteHistoryPage = ref(1)
@@ -187,6 +188,7 @@ export default function setup(posts) {
         AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
+            pageLength.value =data.data.last_page
             sellerSku.value = data.data
             loading.value = false
         }
@@ -278,6 +280,16 @@ export default function setup(posts) {
         console.log( skuFilter.per_page)
         router.push(route.path + skuFilter.params_generator(route.query))
     }
+    function addSkuSellerPagination(page){
+        skuSellerFilter.page = page
+        skuSellerFilter.per_page = dataTableLength.value
+        router.push(route.path + skuSellerFilter.params_generator(route.query))
+    }
+    function addSkuSellerPerPage(number){
+        skuSellerFilter.page = 1
+        skuSellerFilter.per_page =number
+        router.push(route.path + skuSellerFilter.params_generator(route.query))
+    }
 
     function addSkuPagination(page){
         skuFilter.page = page
@@ -300,7 +312,9 @@ export default function setup(posts) {
             page.value = 1
             filter.page = 1
         }
+
         if (route.name === 'PriceHistoryView') await getPriceHistory(to)
+        if (route.name === 'AddSkuSellerView') await getSkuSeller(to)
         else await getSellerList(to)
     })
 
@@ -328,11 +342,17 @@ export default function setup(posts) {
             siteHistoryPagination(val)
         }
     })
+    watch(skuSellerPage, function(val) {
+        if (!isFilter.value){
+            isFilterPage.value = true
+            addSkuSellerPagination(val)
+        }
+    })
 
     return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
         getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
         headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
         getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
         dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage ,
-        headerConsigment}
+        headerConsigment , addSkuSellerPerPage , skuSellerPage}
 }

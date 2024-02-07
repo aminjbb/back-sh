@@ -38,7 +38,7 @@ export default function setup() {
 
     const shpssHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'سریال shpss', show: true , value:'shipment_id', order: false},
+        { name: 'سریال shps', show: true , value:'shipment_id', order: false},
         { name: 'نام کالا', show: true, value:'sku_label' , order: false},
         { name: 'تعداد کالا', show: true , value:'count', order: false},
     ]);
