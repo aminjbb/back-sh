@@ -111,7 +111,6 @@
     
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
-                               
                                 height="40"                             
                                 rounded
                                 variant="flat"
