@@ -6,83 +6,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
-    const orders = ref([
-        {
-            id: 2,
-            user: {
-                first_name: "اویس",
-                last_name: "اویس"
-            },
-            shps_count: 20,
-            status: "paid",
-            payment_status: "successful",
-            payment_method: "saman",
-            packed_status: 0,
-            total_price: 1800000,
-            paid_price: 1400000,
-            submit_date: "2024-01-06 11:37:58",
-            submit_date_fa: "1402/10/16",
-            receive_date: "2024-01-11 11:37:58",
-            receive_date_fa: "1402/10/21",
-            total_discount: 400000,
-            invitation_code: "Hanie",
-            bank_number: 32339202,
-            paid_by_wallet: 320000,
-            paid_by_bank: 1280000,
-            paid_by_snapp: null,
-            sending_price: 350000,
-            sorting_placement_id: 5987,
-            sorted: true,
-            contradicted: 0,
-            state: {
-                id: 1,
-                labe: "فارس"
-            },
-            city: {
-                id: 1,
-                label: "شیراز"
-            }
-        },
-        {
-            id: 1,
-            user: {
-                first_name: "اویس",
-                last_name: "اویس"
-            },
-            shps_count: 20,
-            status: "paid",
-            payment_status: "successful",
-            payment_method: "saman",
-            packed_status: 0,
-            total_price: 1800000,
-            paid_price: 1400000,
-            submit_date: "2024-01-06 11:37:58",
-            submit_date_fa: "1402/10/16",
-            receive_date: "2024-01-11 11:37:58",
-            receive_date_fa: "1402/10/21",
-            total_discount: 400000,
-            invitation_code: "Hanie",
-            bank_number: 32339202,
-            paid_by_wallet: 320000,
-            paid_by_bank: 1280000,
-            paid_by_snapp: null,
-            sending_price: 350000,
-            sorting_placement_id: null,
-            sorted: null,
-            contradicted: 0,
-            state: {
-                id: 1,
-                labe: "فارس"
-            },
-            city: {
-            id: 1,
-                label: "شیراز"
-                }
-            },
-
-    ]);
+    const orders = ref([]);
     const pickUpShps = ref([])
     const pickUpIsNull = ref(false)
+    const pickUpCount = ref(0)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -133,6 +60,7 @@ export default function setup() {
             loading.value = false
             if (data.data.length === 0) pickUpIsNull.value=true
             pickUpShps.value = data.data
+            pickUpCount.value = parseInt(data.data.count) - parseInt(data.data.picked_count)
         }
 
         else {
@@ -170,6 +98,6 @@ export default function setup() {
     })
 
     return {pageLength,filterField, orders ,addPerPage, getWarehouseOrders, dataTableLength, page, header,loading ,
-        getPickUpShps , pickUpShps ,pickUpIsNull}
+        getPickUpShps , pickUpShps ,pickUpIsNull , pickUpCount}
 }
 
