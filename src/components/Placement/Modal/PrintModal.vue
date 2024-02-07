@@ -29,40 +29,44 @@
                 <div>
                     <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
                     <br />
-                  <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
+                  <div style="display: flex;justify-content: center;margin: 14px;">
                     <div>
+                      <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
+                        <div>
                          <span class="t12400">
                          شماره ردیف :
                           <span class="t12400 text-gray600 number-font">
                             {{ data?.row_number }}
                           </span>
                         </span>
-                    </div>
-                    <div>
+                        </div>
+                        <div>
                         <span class="t12400">
                          شماره قفسه  :
                           <span class=" t12400 text-gray600 number-font">
                             {{ data?.placement_number }}
                           </span>
                         </span>
-                    </div>
-                  </div>
-                  <div class="text-right  px-5 d-flex justify-space-between px-10">
-                    <div>
+                        </div>
+                      </div>
+                      <div class="text-right  px-5 d-flex justify-space-between px-10">
+                        <div>
                          <span class="t12400">
                          شماره طبقه :
                           <span class=" t12400 text-gray600 number-font">
                              {{ data?.step_number }}
                           </span>
                         </span>
-                    </div>
-                    <div>
+                        </div>
+                        <div>
                         <span class="t12400">
                          شماره شلف   :
                           <span class=" t12400 text-gray600 number-font">
                            {{ data?.shelf_number }}
                           </span>
                         </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                     <div
