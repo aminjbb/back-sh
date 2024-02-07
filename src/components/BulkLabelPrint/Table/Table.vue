@@ -129,29 +129,31 @@
                   </v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
-                      <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت مفقودی
-                                            </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="getShpssDetailWastage(item)">
-                      <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت ضایعات 
-                                            </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
+
               </v-list>
             </v-menu>
+
           </div>
+          <v-list-item>
+            <v-list-item-title>
+              <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
+                <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
+                <span class="mr-2 text-grey-darken-1 t14300">
+                                              ثبت مفقودی
+                                            </span>
+              </div>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <div class="ma-5 pointer" @click="getShpssDetailWastage(item)">
+                <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
+                <span class="mr-2 text-grey-darken-1 t14300">
+                                              ثبت ضایعات
+                                            </span>
+              </div>
+            </v-list-item-title>
+          </v-list-item>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -167,13 +169,11 @@
     <ModalLostReport/>
   </div>
 </template>
-
 <script>
 import ModalBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalBulkPrintLabel.vue";
 
 import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
 import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
-import {PanelFilter} from '@/assets/js/filter.js'
 
 
 import {
@@ -188,9 +188,7 @@ import {
   openConfirm,
   isOdd
 } from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
+
 
 export default {
   components: {
@@ -387,7 +385,7 @@ export default {
      * sending data in save btn
      */
 
-    async submitShipmentsForm(itemId , shipmentId) {
+    async submitShipmentsForm(itemId, shipmentId) {
       let packageId = null
       if (this.packageId.includes('-')) {
         const cargoSplit = this.packageId.split('-')
@@ -395,13 +393,13 @@ export default {
         else packageId = this.packageId
       } else packageId = this.packageId
       this.loading = true;
-      var formdata = new FormData();
+      let formdata = new FormData();
       const AxiosMethod = new AxiosCall();
       AxiosMethod.end_point = 'package/shps/print/label';
       AxiosMethod.form = formdata
 
       formdata.append('package_id', packageId);
-      ;
+
       formdata.append('shps', this.shpsId);
       formdata.append(`shipment_id`, shipmentId);
       AxiosMethod.store = this.$store;

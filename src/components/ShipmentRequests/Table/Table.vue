@@ -164,22 +164,27 @@
                                 <span>{{ factorSelectedTitle(item.status) }}</span>
                                 <v-icon icon="mdi-chevron-down"></v-icon>
                             </div>
-                            <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
+                            <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${index}`">
                                 <div
+
                                     class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--1">
                                     {{ translateType(item.status) }}
 
-                                    
                                 </div>
                                 <div
+
                                     class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--2"
                                     @click="openRejectModal(item)">
                                     رد شده
                                 </div>
                                 <div
+
+
+
                                     class="retail-status-box my-2 t10400"
+
                                     id="factor-dropdown__item--3"
                                     @click="updateStatus(index,'approved',item)">
                                     تایید شده
@@ -390,7 +395,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 isFollow: [],
                 panelFilter: new SupplierPanelFilter(),
                 activeColumn: false,
-                selectedOption: 'Select an Option',
+
             }
         },
     
@@ -526,6 +531,11 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                     'وضعیت با موفقیت ویرایش شد.',
                     "success"
                 );
+              this.$router.push(`/shipment-requests/index`)
+
+            }
+            else {
+              this.loading = true
             }
         },
 

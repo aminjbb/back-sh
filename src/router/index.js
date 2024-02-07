@@ -248,6 +248,10 @@ import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
 import UpComingView from "@/views/Warehouse/UpComingView.vue";
 import UpComingShipmentView from "@/views/Warehouse/UpComingShipmentView.vue";
 
+/* Wastage */
+import WastageListView from "@/views/Wastage/WastageListView.vue";
+import LostItemListView from "@/views/Lost/LostItemListView.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
