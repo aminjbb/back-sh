@@ -60,7 +60,7 @@ export default function setup() {
             loading.value = false
             if (data.data.length === 0) pickUpIsNull.value=true
             pickUpShps.value = data.data
-            pickUpCount.value = data.data.count - data.data.pick_count
+            pickUpCount.value = parseInt(data.data.count) - parseInt(data.data.picked_count)
         }
 
         else {

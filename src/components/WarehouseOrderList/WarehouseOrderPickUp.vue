@@ -173,6 +173,7 @@ export default {
   },
   methods: {
     scanQrCode() {
+      console.log(this.shpssBarCode)
       this.pickUpshpss(this.shpssBarCode)
     },
     async pickUpshpss(barcode) {
@@ -182,8 +183,9 @@ export default {
         const formData = new FormData()
         formData.append('barcode', barcode)
         formData.append('placement_id', this.pickUpShps?.placement_id)
+        AxiosMethod.form = formData
         AxiosMethod.using_auth = true
-        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.end_point = 'admin/order/pick'
         let data = await AxiosMethod.axios_post()
         if (data) {
