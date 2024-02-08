@@ -154,6 +154,9 @@ export default {
           this.loading = false
           this.cargo = ''
         }
+        else {
+          this.loading = false
+        }
       } catch (e) {
         this.loading = false
       }
