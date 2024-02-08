@@ -106,7 +106,6 @@
     </v-dialog>
   </div>
 </template>
-
 <script>
 import RetailShipment from "@/composables/RetailShipment";
 import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";

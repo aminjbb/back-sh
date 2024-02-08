@@ -47,7 +47,7 @@
                     </div>
 
                 </v-card>
-              <v-card class="ma-5" min-height="82" >
+              <v-card class="ma-5" min-height="82" v-if="retailObject?.rejection_reason">
                 <div class="my-2">دلیل رد</div>
                 <v-divider class="mb-3"/>
                 <div class="pa-5 text-right">
