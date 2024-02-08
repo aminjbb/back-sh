@@ -149,7 +149,7 @@ export default {
           else packageId = this.boxId
         } else packageId = this.boxId
         this.loadingPackage = true
-        var formData = new FormData();
+          var formData = new FormData();
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `package/complete/${packageId}`
         AxiosMethod.store = this.$store

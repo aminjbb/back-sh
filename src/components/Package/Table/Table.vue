@@ -310,7 +310,7 @@ export default {
                 return 'رسیده به انبار اصلی'
             }
             else if (status === 'completed') {
-              return 'اتمام پردازش'
+              return 'پر شده'
             } else {
                 return 'خالی';
             }
