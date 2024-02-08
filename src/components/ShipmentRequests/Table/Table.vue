@@ -608,23 +608,22 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/crossdock/crud/print/barcode/${item.id}`
+            AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
             let data = await AxiosMethod.axios_get()
             if (data && data.data) {
-                
                 const baseUrl = "https://api.shvz.ir/";
-
                 if (data.data.barcode_image) {
                 data.data.barcode_image = baseUrl + data.data.barcode_image;
+                  const form = {
+                    dialog: true,
+                    object: data.data
+                  }
+                  this.$store.commit('set_detailModalTestQrCodeFull', form)
             }
             // if (data.data.shps.barcode_image) {
             //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
             // }
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_detailModalTestQrCodeFull', form)
+
             } else {
             console.error("Data not found");
         }
