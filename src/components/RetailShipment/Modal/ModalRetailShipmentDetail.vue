@@ -47,11 +47,11 @@
                         </span>
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span class="t12500">
                             تامین کننده :
                         </span>
               <span class="t13400 text-gray500">
-                            زیبارویان نفیس
+                            {{ retailObject?.factor?.supplier?.full_name }}
                         </span>
             </div>
             <div class="mx-10 d--rtl">
@@ -106,7 +106,6 @@
     </v-dialog>
   </div>
 </template>
-
 <script>
 import RetailShipment from "@/composables/RetailShipment";
 import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";

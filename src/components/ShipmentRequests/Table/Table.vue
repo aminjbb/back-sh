@@ -153,7 +153,7 @@
                       v-if="header[9].show"
                       class="c-table__contents__item justify-center"
                       :ref="`factor--${index}`"
-                      :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                      :style="{ width: itemsWidth, flex: `0 0 11%` }">
                       <template v-if="item.status">
         
                         <div v-if="item.status === 'in_review'" class="factor-dropdown">
@@ -161,7 +161,7 @@
                                 class="factor-dropdown__selected"
                                 @click="showDropDown(index)"
                                 :style="{ backgroundColor: BgSelected(item.status) }">
-                                <span>{{ factorSelectedTitle(item.status) }}</span>
+                                <span class="t10400">{{ factorSelectedTitle(item.status) }}</span>
                                 <v-icon icon="mdi-chevron-down"></v-icon>
                             </div>
                             <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${index}`">

@@ -135,8 +135,6 @@ import {
   openToast
 } from "@/assets/js/functions";
 export default {
-
-
   props: {
     updateSkuUrl:{
       type: String,
