@@ -23,27 +23,27 @@
               <div class="border-header-box">
                 <div class="d-flex justify-space-between pa-2">
                   <div class="t11500">
-                    نام فروشگاه : پارس حیان سیما
+                    نام فروشگاه : {{ factorDetail.company_name }}
                   </div>
                   <div class="t11500">
-                    شناسه ملی : ۰۰۹۹۵۸۳۷۲۳
+                    شناسه ملی : {{ factorDetail.identification_code }}
                   </div>
                   <div class="t11500">
-                    شماره ثبت : ۰۹۵۸۳۷
+                    شماره ثبت : {{ factorDetail.company_registration_number }}
                   </div>
                   <div class="t11500">
-                    شماره اقتصادی : ۰۹۵۸۳۷
+                    شماره اقتصادی : {{ factorDetail.economic_code }}
                   </div>
                 </div>
                 <div class="d-flex justify-space-between pa-2">
                   <div class="t11500">
-                    نشانی شرکت : تهران - گاندی جنوبی - نبش خیابان بیست و یکم - پلاک ۲۳
+                    نشانی شرکت : {{ factorDetail.address }}
                   </div>
                   <div class="t11500">
-                    کد پستی : ۰۹۵۸۳۷
+                    کد پستی : {{factorDetail.postal_code}}
                   </div>
                   <div class="t11500">
-                    تلفن : ۸۸۱۰۳۷۴۴
+                    تلفن : {{ factorDetail.phone }}
                   </div>
 
                 </div>
@@ -56,8 +56,8 @@
                   شماره فاکتور :
                 </span>
 
-                <span class="t11500">
-                  ۰۹۵۸۳۷
+                <span class="t11500 number-font">
+                  {{ factorDetail.order_factor_id }}
                 </span>
               </div>
               <div class="d-flex justify-space-between mt-1">
@@ -65,8 +65,8 @@
                   تاریخ :
                 </span>
 
-                <span class="t11500">
-                  ۱۳۹۷/12/11
+                <span class="t11500 number-font">
+                  {{ factorDetail.created_at_fa }}
                 </span>
               </div>
               <div class="d-flex justify-space-between mt-1">
@@ -74,8 +74,8 @@
                   پیگیری :
                 </span>
 
-                <span class="t11500">
-                 ۱۲۳۵۶۶۶۶۶۴
+                <span class="t11500 number-font">
+                 {{ factorDetail.order_factor_id }}
                 </span>
               </div>
             </div>
@@ -95,24 +95,24 @@
               <div class="border-header-box">
                 <div class="d-flex justify-space-between pt-1 px-2">
                   <div class="t11500">
-                    خریدار : امیر امیری
+                    خریدار :  {{ factorUser.first_name }} {{ factorUser.last_name }}
                   </div>
                   <div class="t11500">
-                    شماره اقتصادی/شماره ملی : ۰۰۲۳۴۸۷۸۷
+                    شماره اقتصادی/شماره ملی : {{ factorUser.national_code }}
                   </div>
                   <div class="t11500">
-                    شناسه ملی : ۰۰۲۳۴۸۷۸۷
+                    شناسه ملی : {{ factorUser.national_code }}
                   </div>
                   <div class="t11500">
-                    شماره ثبت : ۴۸۷۸۷
+                    شماره ثبت : {{ factorUser.id }}
                   </div>
                 </div>
                 <div class="text-right t11500 pt-1 px-2">
-                  نشانی : تهران - گاندی جنوبی - نبش خیابان بیست و یکم - پلاک ۲۳
+                  نشانی : {{ factorDetail?.state?.label }} - {{ factorDetail?.city?.label }} - نبش خیابان بیست و یکم - پلاک ۲۳
                 </div>
                 <div class="d-flex justify-space-between pt-1 px-2">
                   <div class="t11500">
-                    شماره تماس : ۰۹۱۲۳۱۱۳۳۸۷
+                    شماره تماس : {{ factorUser?.phone_number }}
                   </div>
                   <div class="t11500 ml-15 pl-15">
                     کد پستی : ۰۰۲۳۴۸۷۸۷
@@ -127,8 +127,8 @@
                  شماره مالیاتی :
                 </span>
 
-                  <span class="t11500">
-                  ۰۹۵۸۳۷
+                  <span class="t11500 number-font">
+                  {{ factorDetail.tax_code }}
                 </span>
                 </div>
                 <div class="d-flex justify-space-between mt-1">
@@ -136,8 +136,8 @@
                   سریال حافظه مالیاتی :
                 </span>
 
-                  <span class="t11500">
-                  a12000098
+                  <span class="t11500 number-font">
+                  {{ factorDetail?.tax_memory_code }}
                 </span>
                 </div>
                 <div class="d-flex justify-space-between mt-1">
@@ -145,8 +145,8 @@
                  سریال پایانه فروشگاهی :
                 </span>
 
-                  <span class="t11500">
-                  a57000001
+                  <span class="t11500 number-font">
+                  {{ factorDetail?.shopping_terminal_code }}
                 </span>
                 </div>
               </div>
@@ -230,11 +230,11 @@
 
 
           </v-row>
-          <v-row justify="end" class="px-6 mt-0">
+          <v-row v-for="(item , index) in factorDetail?.shavaz?.data" justify="end" class="px-6 mt-0">
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box  d-flex justify-center align-center">
                   <span class="t11500">
-                    ۱
+                    {{ item.id }}
                   </span>
               </div>
             </v-col>
@@ -242,50 +242,49 @@
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center">
                 <span class="t11500 px-1">
-                 ۱۲۳۴۵۶
+                 {{ item?.shps?.id }}
                 </span>
               </div>
             </v-col>
             <v-col cols="3" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center px-2">
                 <span class="t11500 px-1">
-                  کانسیلر میبلین مدل Instant Age
-                   Rewind کد 120 ظرفیت 6 میلی لیتر
+                   {{ item?.shps?.sku?.label }}
                 </span>
               </div>
             </v-col>
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box  d-flex justify-center align-center px-2 text-center">
                   <span class="t11500">
-                      پارس حیان سیما
+                      {{ item.count }}
                   </span>
               </div>
             </v-col>
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center px-2">
-                  <span class="t11500">
-                    ۱
+                  <span class="t11500 number-font">
+                    {{ splitChar(item?.price) }}
                   </span>
               </div>
             </v-col>
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    13,000,000
+                     {{ splitChar(item?.total_price) }}
                   </span>
               </div>
             </v-col>
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    13,000,000
+                   {{splitChar(item.discount) }}
                   </span>
               </div>
             </v-col>
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    13,000
+                  {{splitChar(item.total_price_after_discount) }}
                   </span>
               </div>
             </v-col>
@@ -293,14 +292,14 @@
              <v-col cols="1" class="px-0 pt-0">
                <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    13,000,000
+                      {{splitChar(item.total_price_after_tax) }}
                   </span>
                </div>
              </v-col>
               <v-col cols="1" class="px-0 pt-0">
                 <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    13,000,000
+                    {{splitChar(item.total_price) }}
                   </span>
                 </div>
               </v-col>
@@ -325,7 +324,7 @@
             <v-col cols="1" class="px-0 pt-0">
               <div class="border-header-sum bg-gray200 text-center">
                   <span class="t11500 number-font">
-                    13,000,000
+                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount)}}
                   </span>
               </div>
             </v-col>
@@ -336,18 +335,30 @@
           </v-row>
 
           <v-row justify="end" class="px-6 mt-0" >
-            <v-col cols="5" class="px-0 pt-0">
-              <div class="border-header-sum bg-gray200 text-center">
-                  <span class="t11500">
-                    اعتبار مالیاتی قابل استفاده توسط خریدار
-                  </span>
-              </div>
-            </v-col>
-            <v-col cols="7" class="px-0 pt-0">
+
+            <v-col cols="6" class="px-0 pt-0">
               <div class="border-header-sum bg-gray200">
 
               </div>
             </v-col>
+            <v-col cols="5" class="px-0 pt-0">
+              <div class="border-header-sum bg-gray200 text-right">
+                <span class="t11500">
+                  جمع کل پس از کسر تخفیف با احتساب مالیات و عوارض (ریال) :
+                </span>
+              </div>
+            </v-col>
+            <v-col cols="1" class="px-0 pt-0">
+              <div class="border-header-sum bg-gray200 text-center">
+                  <span class="t11500 number-font">
+                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount)}}
+                  </span>
+              </div>
+            </v-col>
+
+
+
+
           </v-row>
 
           <div class="px-3">
@@ -427,6 +438,8 @@
 
 <script>
 
+import {splitChar} from "../../../assets/js/functions";
+
 export default {
   data(){
     return{
@@ -434,6 +447,7 @@ export default {
     }
   },
   methods: {
+    splitChar,
     print() {
       // this.close()
       window.open(`${ import.meta.env.VITE_API_SITEURL}warehouse-orders/1/print`, '_blank');
@@ -456,6 +470,15 @@ export default {
     },
     factorDetail() {
       return this.$store.getters['get_modalWarehouseOrdersFactorObject']
+    },
+
+    factorUser(){
+      try {
+        return this.factorDetail.user[0]
+      }
+      catch (e) {
+        return ''
+      }
     }
   }
 }
