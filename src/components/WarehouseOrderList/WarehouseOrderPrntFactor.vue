@@ -419,11 +419,11 @@
 
     methods:{
 
-      async getOrderFactorDetail(id){
+      async getOrderFactorDetail(){
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/print/factor/${id}`
+        AxiosMethod.end_point = `admin/order/print/factor/${this.$route.params.orderId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
           this.factorDetail = data.data
