@@ -175,7 +175,7 @@
                 header,
                 loading,
                 headerShps,
-              orderListDetail,
+                orderListDetail,
                 getShpssDetailLost,
                 shpssDetailLost
             } = OrderPackaging();
@@ -184,7 +184,7 @@
                 getShpssDetailLost,
                 shpssDetailLost,
                 dataTableLength,
-              orderListDetail,
+                orderListDetail,
                 page,
                 header,
                 loading,
