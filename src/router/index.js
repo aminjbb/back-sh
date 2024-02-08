@@ -1914,6 +1914,40 @@ const router = createRouter({
 
             ],
         },
+        {
+            path: '/wastage', // wastage
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'WastageListView',
+                component: WastageListView,
+                meta: {
+                    name: 'مفقودی '
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/lost', // lost
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'LostItemListView',
+                component: LostItemListView,
+                meta: {
+                    name: 'مفقودی '
+                }
+            },
+
+
+            ]
+        },
 
     ]
 })
