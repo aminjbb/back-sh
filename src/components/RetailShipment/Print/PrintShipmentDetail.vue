@@ -36,7 +36,7 @@
                             تامین کننده :
                         </span>
             <span class="t13400 text-gray500">
-                            زیبارویان نفیس
+                             {{ retailObject?.factor?.supplier?.full_name }}
                         </span>
           </div>
           <div class="mx-10 d--rtl">
@@ -49,7 +49,7 @@
           </div>
 
         </v-card>
-        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" height="580">
+        <v-card class="ma-5 br-12 " min-height="580">
           <Table
               class="flex-grow-1"
               :header="headerShps"
