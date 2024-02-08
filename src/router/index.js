@@ -217,6 +217,9 @@ import OrderListView from "@/views/Orders/OrderListView.vue";
 import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
+import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
+
+
 
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
@@ -1685,7 +1688,15 @@ const router = createRouter({
                     meta: {
                         name: ' بسته بندی سفارش ها'
                     }
-                }
+                },
+                {
+                    path: ':orderId/print',
+                    name: 'PrintOrderPackagingListView',
+                    component: PrintOrderPackagingListView,
+                    meta: {
+                        name: 'بسته بندی سفارش ها'
+                    }
+                },
             ],
         },
         {
@@ -1902,6 +1913,40 @@ const router = createRouter({
 
 
             ],
+        },
+        {
+            path: '/wastage', // wastage
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'WastageListView',
+                component: WastageListView,
+                meta: {
+                    name: 'مفقودی '
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/lost', // lost
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'LostItemListView',
+                component: LostItemListView,
+                meta: {
+                    name: 'مفقودی '
+                }
+            },
+
+
+            ]
         },
 
     ]

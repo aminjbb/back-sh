@@ -70,7 +70,8 @@
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
                             <template v-if="item.payment_method">
-                                {{ item.payment_method }}
+                               {{ translateType(item.sending_method) }}
+
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -257,6 +258,14 @@
         
   },
         methods: {
+
+          translateType(type) {
+            const translations = {
+              'post': 'پست',
+              'tipax': 'تیپاکس '
+            };
+            return translations[type] || type;
+          },
             /**
              * Open Basic Discount modal
              * @param {*} id
@@ -265,13 +274,7 @@
              * Open Basic Discount modal
              * translation
              */
-             translateType(type) {
-                const translations = {
-                    'consignment': 'انبارش',
-                    'in_review': 'در حال بررسی'
-                };
-                return translations[type] || type;
-            },
+
           
             async getDetailModal(item) {
           

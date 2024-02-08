@@ -111,6 +111,7 @@
     
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
+                                @click="print()"
                                 height="40"                             
                                 rounded
                                 variant="flat"
@@ -142,10 +143,7 @@
     <script>
     
     import OrderPackaging from "@/composables/OrderPackaging";
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
-    import Table from "@/components/OrderPackaging/Table/Table.vue";
+
     
     
     export default {
@@ -177,6 +175,7 @@
                 header,
                 loading,
                 headerShps,
+              orderListDetail,
                 getShpssDetailLost,
                 shpssDetailLost
             } = OrderPackaging();
@@ -185,6 +184,7 @@
                 getShpssDetailLost,
                 shpssDetailLost,
                 dataTableLength,
+              orderListDetail,
                 page,
                 header,
                 loading,
@@ -199,7 +199,12 @@
     
         methods: {
 
-       
+          print() {
+
+            // this.close()
+            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.orderListDetail.id}/print`, '_blank');
+
+          },
 
     
             close() {
@@ -222,10 +227,10 @@
     
         computed: {
 
-      
+
             modalPrintOrderObject() {
                 const data = this.$store.getters['get_modalPrintOrderObject'];
-        return data;                
+        return data;
             },
 
 
@@ -253,4 +258,3 @@
 
 
 </style>
-    
