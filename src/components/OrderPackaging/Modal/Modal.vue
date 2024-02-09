@@ -76,8 +76,7 @@
 
                     <div class="main-body-modal">
                         <div class="d-flex justify-end">
-                          <span class="t12500">تهران، محله ارم، بلوار ناصر حجازی، یعقوبی، اکبر اصغرزاده،
-                        پلاک ۱۶، واحد ۵</span>
+                          <span class="t12500">{{modalPrintOrderObject.sender_address}}</span>
                             <span>:ادرس</span>
                         </div>
                         <br/>
