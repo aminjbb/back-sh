@@ -52,6 +52,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 
+
 export default {
   components: {
     Table,
@@ -119,6 +120,7 @@ export default {
     },
   },
   methods: {
+
     async fetchCargoData(newCargoId) {
       this.getShpsList(newCargoId);
     },
