@@ -42,7 +42,7 @@ export default function setup() {
     async function getSinglePackagePlacement(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `package/crud/index?scanned_with_handheld=0&is_located=0&placement_status=empty`
+        AxiosMethod.end_point = `package/crud/index?scanned_with_handheld=0&is_located=0&placement_status=full`
         AxiosMethod.using_auth = true
         let data = await AxiosMethod.axios_get()
         if (data) {

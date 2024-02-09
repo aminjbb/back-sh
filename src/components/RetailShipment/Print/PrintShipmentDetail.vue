@@ -1,11 +1,11 @@
 <template>
-  <div  class="pa-5" id="printableArea-cargo d--ltr">
-    <v-card >
+  <div class="pa-5" id="printableArea-cargo d--ltr">
+    <v-card>
       <div class="text-center px-5">
         <v-card class="d-flex justify-center align-center px-10 ma-5 " height="82">
           <div class="mx-10 d--rtl">
             <div>
-              <img width="200" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
+              <img width="100" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
             </div>
             <div>
               {{ retailObject?.barcode }}
@@ -36,7 +36,7 @@
                             تامین کننده :
                         </span>
             <span class="t13400 text-gray500">
-                            زیبارویان نفیس
+                             {{ retailObject?.factor?.supplier?.full_name }}
                         </span>
           </div>
           <div class="mx-10 d--rtl">
@@ -49,7 +49,7 @@
           </div>
 
         </v-card>
-        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" height="580">
+        <v-card class="ma-5 br-12 " min-height="580">
           <Table
               class="flex-grow-1"
               :header="headerShps"
@@ -67,7 +67,7 @@
     </v-card>
   </div>
 </template>
-<script >
+<script>
 import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
 import RetailShipment from "@/composables/RetailShipment";
@@ -85,18 +85,18 @@ export default {
       headerShps
     };
   },
-  components:{
+  components: {
     Table
   },
-  data(){
-    return{
-      retailObject:null
+  data() {
+    return {
+      retailObject: null
     }
   },
   mounted() {
     this.retailShipmentDetail()
   },
-  methods:{
+  methods: {
     convertDateToJalai,
 
     async retailShipmentDetail(item) {
@@ -106,11 +106,11 @@ export default {
       AxiosMethod.end_point = `shipment/consignment/crud/get/${this.$route.params.shipmentId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.retailObject =data.data
-       setTimeout(()=>{
-         var myElement = document.getElementById('printableArea-cargo');
-         window.print(myElement);
-       } , 2000)
+        this.retailObject = data.data
+        setTimeout(() => {
+          var myElement = document.getElementById('printableArea-cargo');
+          window.print(myElement);
+        }, 2000)
       }
 
     },

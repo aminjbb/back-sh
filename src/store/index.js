@@ -147,7 +147,7 @@ export default createStore({
         },
         modalWarehouseOrdersFactor: {
             dialog: false,
-            object: ''
+            object : ''
         },
         orderFactorModal: {
             dialog: false,

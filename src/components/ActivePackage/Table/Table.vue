@@ -245,6 +245,9 @@ export default {
                 return 'انتقال به انبار اصلی'
             } else if (status === 'received_by_warehouse') {
                 return 'رسیده به انبار اصلی'
+            }
+            else if (status === 'completed') {
+              return 'پر شده'
             } else {
                 return 'خالی';
             }
