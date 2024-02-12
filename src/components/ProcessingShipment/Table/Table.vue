@@ -162,6 +162,9 @@ export default {
 
 
   props: {
+    packId: {
+      type :String
+    },
     deleteFunction: {
       type: Function,
     },
@@ -419,20 +422,26 @@ export default {
       else return false
     },
     validate(item , index){
-      if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
-        const formData = {
-          count :this.form[index].count,
-          shps:item.id
+      if (this.packId){
+        if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
+          const formData = {
+            count :this.form[index].count,
+            shps:item.id
+          }
+          const form ={
+            dialog:true,
+            object:formData
+          }
+          this.$store.commit('set_warningTolerance' , form)
         }
-        const form ={
-          dialog:true,
-          object:formData
+        else{
+          this.updateShps(index)
         }
-        this.$store.commit('set_warningTolerance' , form)
       }
       else{
-        this.updateShps(index)
+        openToast(this.$store , 'ابتدا شناسه بسته را وارد کنید'  , 'error')
       }
+
     },
     /**
      * Change Active
@@ -449,7 +458,7 @@ export default {
       AxiosMethod.end_point = `shipment/shps/pack`
       formData.append('shipment_id', this.$route.params.shipmentId)
       formData.append('shps', this.items[index].id)
-      formData.append('package_id', localStorage.getItem('packId'))
+      formData.append('package_id', this.packId)
       formData.append('packed_count', this.form[index].count)
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_post()
