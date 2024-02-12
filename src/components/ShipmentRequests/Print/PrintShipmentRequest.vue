@@ -2,7 +2,7 @@
   <div v-if="retailObject" class="pa-5" id="printableArea-cargo d--ltr" >
     <v-card >
       <div class="text-center px-5">
-        <v-card class="d-flex justify-center align-center px-10 ma-5 " height="82">
+        <v-card class="" height="150">
           <div class="mx-10 d--rtl">
             <div>
               <img width="200" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
@@ -12,37 +12,38 @@
             </div>
 
           </div>
-          <div class="mx-10">
-                        <span class="t14500">
+          <div class="d-flex justify-center align-center px-10 ma-5 ">
+            <div class="mx-10">
+                        <span style="font-size: 7px">
                             تاریخ تحویل :
                         </span>
-            <span v-if="retailObject.received_by_warehouse_at " class="t13400 text-gray500 number-font d--ltr ">
-                            {{convertDateToJalai(retailObject.received_by_warehouse_at ,  '-' , false) }}
+              <span v-if="retailObject.sent_to_warehouse_at " style="font-size: 7px;direction: ltr">
+                            {{convertDateToJalai(retailObject.sent_to_warehouse_at ,  '-' , false) }}
                         </span>
-            <span v-else class="t13400 text-gray500 d--ltr">
+              <span v-else style="font-size: 7px">
                             ----
                         </span>
-          </div>
-          <div class="mx-10">
-                        <span class="t14500">
+            </div>
+            <div class="mx-10">
+                        <span style="font-size: 7px">
                             شناسه محموله
                         </span>
-            <span class="t13400 text-gray500">
+              <span style="font-size: 7px">
                             {{ retailObject.id }}
                         </span>
-          </div>
-
-          <div class="mx-10">
-                        <span class="t14500">
+            </div>
+            <div class="mx-10">
+                        <span style="font-size: 7px">
                             نام فروشگاه :
                         </span>
-            <span class="t13400 text-gray500">
+              <span style="font-size: 7px">
                             {{retailObject.shopping_name }}
                         </span>
+            </div>
           </div>
         </v-card>
-        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" height="580">
-          <div class="table-scroll-container">
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="580">
+          <div >
             <Table
                 class="flex-grow-1"
                 :header="headerQrcode"
