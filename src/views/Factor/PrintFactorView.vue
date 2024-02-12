@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-card>
         <div class="pa-4">

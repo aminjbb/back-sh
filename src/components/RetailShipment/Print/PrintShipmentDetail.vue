@@ -1,52 +1,57 @@
 <template>
   <div class="pa-5" id="printableArea-cargo d--ltr">
     <v-card>
-      <div class="text-center px-5">
-        <v-card class="d-flex justify-center align-center px-10 ma-5 " height="82">
-          <div class="mx-10 d--rtl">
-            <div>
-              <img width="100" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
-            </div>
-            <div>
-              {{ retailObject?.barcode }}
-            </div>
+      <div class="text-center ">
+        <v-card class=" " height="180">
+          <div class="d-flex justify-center align-center px-10 ma-5">
+           <div class="mx-10 d--rtl">
+             <div>
+               <img width="150" height="58" :src="baseUrl + retailObject?.barcode_image" alt="">
+             </div>
+             <div>
+               {{ retailObject?.barcode }}
+             </div>
 
-          </div>
+           </div>
+
+         </div>
+          <div class="d-flex justify-space-between align-center px-10 ma-5">
           <div class="mx-10 d--rtl">
-                        <span class="t14500">
-                            تاریخ ارسال :
-                        </span>
-            <span v-if="retailObject?.sent_to_warehouse_at " class="t13400 text-gray500 number-font d--ltr">
-                            {{ convertDateToJalai(retailObject?.sent_to_warehouse_at, '-', false) }}
-                        </span>
-            <span v-else class="t13400 text-gray500">
-                            ----
-                        </span>
-          </div>
-          <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span style="font-size: 7px">
                             شناسه محموله :
                         </span>
-            <span class="t13400 text-gray500 number-font">
+            <span style="font-size: 7px">
                             {{ retailObject?.id }}
                         </span>
           </div>
           <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span style="font-size: 7px">
                             تامین کننده :
                         </span>
-            <span class="t13400 text-gray500">
+            <span style="font-size: 7px">
                              {{ retailObject?.factor?.supplier?.full_name }}
                         </span>
           </div>
           <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span style="font-size: 7px">
                             شناسه فاکتور :
                         </span>
-            <span class="t13400 text-gray500">
+            <span style="font-size: 9px">
                             {{ retailObject?.factor_id }}
                         </span>
           </div>
+          <div class="mx-10 d--rtl">
+                        <span style="font-size: 7px">
+                            تاریخ ارسال :
+                        </span>
+              <span v-if="retailObject?.sent_to_warehouse_at " style="font-size: 7px; direction: rtl">
+              {{ convertDateToJalai(retailObject?.sent_to_warehouse_at, '-', false) }}
+            </span>
+              <span v-else style="font-size: 7px">
+                            ----
+                        </span>
+            </div>
+        </div>
 
         </v-card>
         <v-card class="ma-5 br-12 " min-height="580">
