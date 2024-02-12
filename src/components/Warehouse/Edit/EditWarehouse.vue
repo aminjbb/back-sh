@@ -89,7 +89,7 @@ export default {
             formData.append('phone_number', this.$refs.WarehouseForm.form.phoneNumber)
             formData.append('lat', this.$refs.WarehouseForm.form.latLong.latitude)
             formData.append('long', this.$refs.WarehouseForm.form.latLong.longitude)
-            formData.append('is_active', 0)
+            formData.append('is_active', this.warehouse.is_active)
             AxiosMethod.form = formData
             AxiosMethod.store = this.$store
             AxiosMethod.using_auth = true
