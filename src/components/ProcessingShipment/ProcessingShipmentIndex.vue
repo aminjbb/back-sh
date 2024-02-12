@@ -29,7 +29,7 @@
       </div>
       <footer class="create-warehouse__actions">
         <v-row justify="end" class="pl-10 pt-5">
-          <ModalShpsBarCode :shipmentId="splitShipmentId" class="ml-2"/>
+          <ModalShpsBarCode v-show="false" :shipmentId="splitShipmentId" class="ml-2"/>
           <ModalDetaiShipment :shipmentId="splitShipmentId" class="ml-2"/>
           <v-btn
               :loading="loading"

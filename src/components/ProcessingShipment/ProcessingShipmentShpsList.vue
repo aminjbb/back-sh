@@ -52,6 +52,7 @@
           deletePath=""
           changeStatusUrl=""
           updateSkuUrl=""
+          :packId="packId"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="processingShipmentShps"/>
@@ -128,16 +129,17 @@ export default {
       boxId: null,
       loadingPackage: false,
       finishLoading: false,
-      rule: [v => !!v || 'این فیلد الزامی است']
+      rule: [v => !!v || 'این فیلد الزامی است'],
+      packId:null
     }
   },
   methods: {
     setpackId() {
       if (this.boxId.includes('-')) {
         const cargoSplit = this.boxId.split('-')
-        if (cargoSplit[1]) localStorage.setItem('packId', cargoSplit[1])
-        else localStorage.setItem('packId', this.boxId)
-      } else localStorage.setItem('packId', this.boxId)
+        if (cargoSplit[1]) this.packId =cargoSplit[1]
+        else this.packId = this.boxId
+      } else this.packId = this.boxId
 
     },
     async packageUpdate() {

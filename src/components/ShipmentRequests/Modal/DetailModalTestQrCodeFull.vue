@@ -18,29 +18,28 @@
             </v-row>
             <v-divider />
             <div class="text-center px-5">
-                <v-cart class="content">
-                    <div class="qr-code-container px-10 ma-5">
-                        <div v-if="retailObject" class="qr-code-item mx-10 ">
-                            <span class="d-flex justify-between">
-                                <p>22222</p>
-                                <p>{{ item.shps.shopping_name }}</p>
-                            </span>
-                            <span>
-                                <img :src="item.barcode_image" alt="Data Image" />
-                            </span>
-
-                            <span>
-                                <p>{{ item.barcode }}</p>
-                            </span>
-                            <span>
-                                <img :src="item.secondImageUrl" alt="Data Image" />
-                            </span>
-                            <span>
-                                <p>{{ item.text }}</p>
-                            </span>
-                        </div>
-                    </div>
-                </v-cart>
+                <v-card class="content">
+                  <v-row justify="center">
+                    <v-col cols="4" v-for="(barCode , index) in retailObject " :key="'bulk-label-print'+index">
+                      <div class="d-flex justify-space-between px-15">
+                        <span>{{barCode?.shps?.seller?.id}}</span>
+                        <span>{{barCode?.shps?.seller?.shopping_name}}</span>
+                      </div>
+                      <div class="text-center">
+                        <img width="190" height="80" :src="baseUrl + barCode.barcode_image">
+                      </div>
+                      <div class="text-center px-10">
+                        {{barCode?.shps?.sku?.label }}
+                      </div>
+                      <div class="text-center">
+                        <img width="133" height="69" :src="baseUrl + barCode.shps?.barcode_image">
+                      </div>
+                      <div class="text-center px-10">
+                        {{barCode?.barcode }}
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-card>
                 <v-row class="justify-between my-2 mx-2">
 
                     <v-col cols="3" class="d-flex mx-10 ">
@@ -128,6 +127,9 @@ export default {
     },
 
     computed: {
+      baseUrl(){
+        return "https://api.shvz.ir/";
+      },
         dialog() {
             return this.$store.getters['get_detailModalTestQrCodeFull']
         },

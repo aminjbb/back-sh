@@ -138,20 +138,6 @@
           <div
               v-if="header[8].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.updated_at_fa">
-                                {{ item.updated_at_fa }}
-                            </template>
-                            <template v-else>
-                                نامعلوم
-                            </template>
-                        </span>
-          </div>
-
-          <div
-              v-if="header[9].show"
-              class="c-table__contents__item justify-center"
               :ref="`factor--${index}`"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <template v-if="item.status">
@@ -531,19 +517,19 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `shipment/detail/${item.id}`
       let data = await AxiosMethod.axios_get()
-      if (data && data.data) {
-
-        const baseUrl = "https://api.shvz.ir/";
-
-        if (data.data.barcode_image) {
-          data.data.barcode_image = baseUrl + data.data.barcode_image;
-        }
-
+      if (data) {
         const form = {
           dialog: true,
           object: data.data
         }
         this.$store.commit('set_detailModalTestQrCode', form)
+        const baseUrl = "https://api.shvz.ir/";
+
+        // if (data.data.barcode_image) {
+        //   data.data.barcode_image = baseUrl + data.data.barcode_image;
+        // }
+
+
       } else {
         console.error("Data not found");
       }
@@ -565,26 +551,27 @@ export default {
 
     },
     async requestShipmentDetailShipmentDetail3(item) {
+
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
       let data = await AxiosMethod.axios_get()
-      if (data && data.data) {
-
-        const baseUrl = "https://api.shvz.ir/";
-
-        if (data.data.barcode_image) {
-          data.data.barcode_image = baseUrl + data.data.barcode_image;
-        }
-        // if (data.data.shps.barcode_image) {
-        //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
-        // }
+      if (data) {
         const form = {
           dialog: true,
           object: data.data
         }
         this.$store.commit('set_detailModalTestQrCodeFull', form)
+        // const baseUrl = "https://api.shvz.ir/";
+        //
+        // if (data.data.barcode_image) {
+        //   data.data.barcode_image = baseUrl + data.data.barcode_image;
+        // }
+        // if (data.data.shps.barcode_image) {
+        //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
+        // }
+
       } else {
         console.error("Data not found");
       }
