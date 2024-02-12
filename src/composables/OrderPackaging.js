@@ -5,6 +5,7 @@ import {useCookies} from "vue3-cookies";
 
 export default function setup() {
     const orderList = ref([])
+
     const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -77,6 +78,7 @@ export default function setup() {
             if (response) {
                 pageLength.value = response.data.last_page;
                 orderList.value = response.data.data
+
 
                 barcodeNum.value = [];
 
