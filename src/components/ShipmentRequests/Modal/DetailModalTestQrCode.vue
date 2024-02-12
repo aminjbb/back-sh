@@ -23,15 +23,15 @@
             <div class="d-flex justify-space-between pa-5 d--rtl">
 
               <span>شناسه محموله : {{ retailObject?.id }}</span>
-              <span v-if="detail.seller">نام فروشگاه : {{ retailObject?.seller?.shopping_name  }}</span>
-              <span >تاریخ تحویل : {{convertDate(retailObject?.sent_to_warehouse_at)}} </span>
+              <span v-if="retailObject?.seller">نام فروشگاه : {{ retailObject?.seller?.shopping_name  }}</span>
+              <span >تاریخ تحویل : {{ convertDateToJalai(retailObject?.sent_to_warehouse_at , '-' , false)}} </span>
               <div class="text-center">
                 <div>
-                  <span><img :src="retailObject.barcode_image"></span>
+                  <span><img :src="baseUrl + retailObject?.barcode_image"></span>
                 </div>
                 <div>
                 <span>
-                   <span>{{retailObject.barcode}}</span>
+                   <span>{{retailObject?.barcode}}</span>
                 </span>
                 </div>
               </div>
@@ -44,8 +44,8 @@
                 activePath="category/crud/update/activation/"
                 deletePath="category/crud/delete/"
                 :header="headerDetailShipment"
-                :items="detail?.shps_list"
-                :detail="detail"
+                :items="retailObject?.shps_list"
+                :detail="retailObject"
                 updateUrl="category/csv/mass-update"
                 model="shipmentDetail"
             />
@@ -81,7 +81,7 @@
 
 <script>
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
-import Table from "@/components/ShipmentRequests/Table/MarketPlaceShipmentPrint.vue";
+import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
 import {
     convertDateToJalai
 } from "@/assets/js/functions";
