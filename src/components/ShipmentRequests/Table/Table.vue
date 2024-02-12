@@ -183,7 +183,7 @@
 
 
 
-                                    class="retail-status-box my-2 t10400"
+                                    class="factor-dropdown__item retail-status-box my-2 t10400"
 
                                     id="factor-dropdown__item--3"
                                     @click="updateStatus(index,'approved',item)">
@@ -239,33 +239,7 @@
                                 </v-list-item-title>
                             </v-list-item>
                         </v-list>
-                       
-                        
-                        
-                        <!-- <v-list class="c-table__more-options">
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail4(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                         3   نمایش جزئیات
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
-                        </v-list> -->
-                        <!-- <v-list class="c-table__more-options">
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                         4   نمایش جزئیات
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
-                        </v-list> -->
+
 
                     </v-menu>
                 </div>

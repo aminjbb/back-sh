@@ -158,18 +158,8 @@ export default {
       }
       this.$store.commit('set_detailModalTest', form)
     },
-    validate() {
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(() => {
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      }, 200)
-    },
-    searchWarehouse(e) {
-      const filter = {
-        name: e
-      }
-      this.getWarehouseList(filter)
-    },
+
+
 
   },
 
@@ -180,13 +170,7 @@ export default {
     retailObject() {
       return this.$store.getters['get_detailModalTestObject']
     },
-    warehouseData() {
-      try {
-        return this.warehouseList.data
-      } catch (e) {
-        return []
-      }
-    }
+
   }
 }
 </script>
