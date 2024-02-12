@@ -9,7 +9,7 @@
           <v-row justify="start">
 
             <v-autocomplete
-                placeholder="نام کالا یا شماره SKU را جستجو نمایید"
+                placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
                 variant="outlined"
                 prepend-inner-icon-cb="mdi-map-marker"
                 rounded="lg"
@@ -135,11 +135,11 @@ import {
 export default {
   setup(props) {
     const {
-      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps
+      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header ,headerShps
     } = RetailShipment();
 
     return {
-      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps
+      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header ,headerShps
     };
   },
 
@@ -216,35 +216,39 @@ export default {
       }
     },
     async sendShps(){
-      this.loading = true
-      const formData = new FormData()
-
-      this.$refs.retailShipmentShps.form.forEach((shps , index) => {
-        formData.append(`shps_list[${index}][shps]`, shps.shps.id)
-        formData.append(`shps_list[${index}][count]`, shps.count)
-        formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
-        formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
-      })
-      formData.append('factor_id' , this.$route.params.factorId)
-      formData.append('type' , 'consignment')
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/consignment/crud/create`
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
+      try {
         this.loading = true
-        openToast(
-            this.$store,
-            'محموله با موفقیت ایجاد گردید.',
-            "success"
-        );
-        this.$router.push(`/retail-shipment/index?factor_id=${this.$route.params.factorId}`)
+        const formData = new FormData()
+        this.$refs.retailShipmentShps.form.forEach((shps , index) => {
+          formData.append(`shps_list[${index}][shps]`, shps.shps.id)
+          formData.append(`shps_list[${index}][count]`, shps.count)
+          formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
+          formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
+        })
+        formData.append('factor_id' , this.$route.params.factorId)
+        formData.append('type' , 'consignment')
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/consignment/crud/create`
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.loading = true
+          openToast(
+              this.$store,
+              'محموله با موفقیت ایجاد گردید.',
+              "success"
+          );
+          this.$router.push(`/retail-shipment/index?factor_id=${this.$route.params.factorId}`)
+        }
+        else {
+          this.loading = false
+        }
       }
-      else {
-        this.loading = true
+      catch (e) {
+        this.loading = false
       }
     },
     async assignSku(shps) {
