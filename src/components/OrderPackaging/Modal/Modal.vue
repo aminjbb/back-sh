@@ -11,7 +11,7 @@
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </v-col>
-    
+
                     <v-col cols="7" class="t16400 ">
                         پرینت برچسب سفارش
                     </v-col>
@@ -20,64 +20,63 @@
                 <div class=" px-5">
                 <div >
                     <div class=" mt-10 d-flex justify-center " >
-                      
-                    
-                        <div class="border-nested-modal">    
+
+
+                        <div class="border-nested-modal">
                     <div>
                         <div class="d-flex justify-between">
                             <span>
                                 <img src="@/assets/img/nafis-image.png" alt="shavaz image">
 
                             </span>
-                            
+
                             <span v-if="modalPrintOrderObject && modalPrintOrderObject.weight" class=" number-font">
                                 {{modalPrintOrderObject.weight}}
                                 <span class="modal__content__title">  : وزن بسته </span>
                             </span>
-                            
-                            
-                           
+
+
+
                             <span v-if="modalPrintOrderObject && modalPrintOrderObject.sender" class=" number-font">
                                 <span>فرستنده: </span>
                                 {{modalPrintOrderObject.sender}}
-                                
+
                             </span>
-                           
+
                         </div>
                     </div>
-                    <div> 
-                        <span class=" d-flex justify-end"> 
+                    <div>
+                        <span class=" d-flex justify-end">
 
                             <span class=" number-font "> {{modalPrintOrderObject.receiver_postal_code}} </span>
                          :   کد پستی
 
-                        </span>    
+                        </span>
                     </div>
                     <br/>
-                    <div class="d-flex justify-between"> 
+                    <div class="d-flex justify-between">
                         <span>شماره تماس:
                             <span class=" number-font "> {{modalPrintOrderObject.receiver_mobile}} </span>
                         </span>
-                        
+
                         <span>گیرنده
 
                             <span class=" number-font "> {{modalPrintOrderObject.receiver_name}} </span>
                         </span>
-                        
+
                     </div>
                     <br/>
                     <div class="d-flex justify-end">
-                        <span> 
+                        <span>
                             ادرس:
                             <span class=" number-font "> {{modalPrintOrderObject.receiver_address}} </span>
                         </span>
-                       
+
                     </div>
-                                        
+
                     <div class="main-body-modal">
                         <div class="d-flex justify-end">
-                          <span class="t12500">تهران، محله ارم، بلوار ناصر حجازی، یعقوبی، اکبر اصغرزاده،
-                        پلاک ۱۶، واحد ۵</span>
+                          <span class="t12500">{{modalPrintOrderObject.sender_address}}</span>
                             <span>:ادرس</span>
                         </div>
                         <br/>
@@ -87,32 +86,32 @@
                                 :شماره فاکتور</span>
                             <span>
                                 <span class=" number-font"> {{modalPrintOrderObject.sender_postal_code}} </span>
-                                
+
                                 :کد پستی
                             </span>
-                            
+
                         </div>
-                        
-                    </div>    
+
+                    </div>
                     <div class="d-flex justify-center mt-4">
-                       
+
                         <img src="@/assets/img/qrcode3.png" alt="shavaz image">
-                         
-                        </div>     
-                        <div class="d-flex justify-center">
-                            <span>۱۲۳۴۵۶۶۴۳۳۹۹۵۸</span> 
+
                         </div>
-                                        
+                        <div class="d-flex justify-center">
+                            <span>۱۲۳۴۵۶۶۴۳۳۹۹۵۸</span>
+                        </div>
+
                 </div>
-                  
+
                      </div>
                     </div>
                     <v-row class="justify-between my-2 mx-2">
-    
+
                         <v-col cols="3" class="d-flex mx-10 ">
                             <v-btn
                                 @click="print()"
-                                height="40"                             
+                                height="40"
                                 rounded
                                 variant="flat"
                                 class="px-5 mt-1 border ">
@@ -122,7 +121,7 @@
                                 پرینت برچسب
                                  </v-btn>
                             <span>
-                                
+
                             </span>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-end mx-10">
@@ -168,23 +167,24 @@
 
            
             const {
-                
-             
+
+              orderList,
                 dataTableLength,
                 page,
                 header,
                 loading,
                 headerShps,
-              orderListDetail,
+                orderListDetail,
                 getShpssDetailLost,
                 shpssDetailLost
             } = OrderPackaging();
     
             return {
+                orderList,
                 getShpssDetailLost,
                 shpssDetailLost,
                 dataTableLength,
-              orderListDetail,
+                orderListDetail,
                 page,
                 header,
                 loading,
@@ -198,11 +198,12 @@
         },
     
         methods: {
+          
 
           print() {
 
             // this.close()
-            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.orderListDetail.id}/print`, '_blank');
+            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/10/print`, '_blank');
 
           },
 
@@ -230,7 +231,7 @@
 
             modalPrintOrderObject() {
                 const data = this.$store.getters['get_modalPrintOrderObject'];
-        return data;
+                  return data;
             },
 
 

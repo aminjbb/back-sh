@@ -63,10 +63,7 @@
                             :header="headerQrcode"
                             :items="retailObject.shps_list"
                             editUrl="/seller/edit/"
-
                             deletePath="seller/crud/update/activation/"
-                            changeStatusUrl="seller/crud/update/contract/"
-                            :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
                             :loading="loading"
                             @updateList="updateList"
                             updateUrl="seller/csv/mass-update"
