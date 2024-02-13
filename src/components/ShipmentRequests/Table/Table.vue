@@ -210,14 +210,14 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            پرینت برچسب
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
+<!--                                <v-list-item-title>-->
+<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
+<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
+<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
+<!--                                            پرینت برچسب-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+<!--                                </v-list-item-title>-->
                                
                                     <v-list-item-title>
                                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
@@ -228,15 +228,15 @@
                                     </div>
                                 
                                 </v-list-item-title>
-                            <v-list-item-title>
+<!--                            <v-list-item-title>-->
 
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            پرینت محموله
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
+<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">-->
+<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
+<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
+<!--                                            پرینت محموله-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+<!--                                </v-list-item-title>-->
                             </v-list-item>
                         </v-list>
 
@@ -523,11 +523,12 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
         /**
          * retailShipment detail modal
          */
+
          async requestShipmentDetailShipmentDetail1(item) {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/consignment/crud/get/${item.id}`
+      AxiosMethod.end_point = `shipment/detail/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
