@@ -1,19 +1,37 @@
 <template>
-  <div class="barcode-label-container" id="printableArea-shipmentBarcode">
-    <v-row v-for="(barCode, index) in detail" :key="'shpss-list-barcode'+index" class="barcode-label">
-      <v-col cols="12">
-        <div class="barcode-sku">
-          {{ barCode?.shps?.sku?.label }}
-        </div>
-        <div class="barcode-image">
-          <img :src="baseUrl + barCode?.barcode_image" :alt="barCode?.barcode">
-        </div>
-        <div class="barcode-value">
-          {{ barCode?.barcode }}
-        </div>
-      </v-col>
-    </v-row>
-  </div>
+  <v-row id="printableArea-shipmentBarcode" class="custom-margin-bottom">
+    <v-col v-for="(barCode , index) in detail" cols="6" :key="'shpss-list-barcode'+index" class="text-center">
+      <img class="px-2" style="width: 35mm ; height: 11mm" :src="basUrl + barCode?.barcode_image"
+           :alt="barCode?.barcode">
+      <br>
+      <span style="font-size: 8px">
+                              {{ barCode?.shps?.sku?.label.substring(0, 20) }}
+        </span>
+      <br>
+      <span style="font-size: 8px">
+                              {{ barCode?.barcode }}
+        </span>
+
+      <!--        <div class="d-flex justify-space-between ">-->
+      <!--          <span>{{barCode?.shps?.seller?.id}}</span>-->
+      <!--          <span>{{barCode?.shps?.seller?.shopping_name}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="text-center">-->
+      <!--          <img width="180" height="70" :src="basUrl + barCode.shps?.barcode_image">-->
+      <!--        </div>-->
+      <!--"-->
+      <!--        <v-row>-->
+      <!--          <v-col cols="12" class="py-0">-->
+      <!--          </v-col>-->
+      <!--          <v-col class="py-0" cols="12" style="font-size: 5px">-->
+      <!--            {{ barCode?.shps?.sku?.label }}-->
+      <!--          </v-col>-->
+      <!--          <v-col class="py-0" cols="12" style="font-size: 5px">-->
+      <!--            {{ barCode?.barcode }}-->
+      <!--          </v-col>-->
+      <!--        </v-row>-->
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -45,6 +63,7 @@ export default {
         this.detail = data.data
         setTimeout(() => {
           var myElement = document.getElementById('printableArea-shipmentBarcode');
+          myElement.style.marginBottom = this.detail.length * 0.9 + 'mm'
           window.print(myElement);
         }, 1000);
       }
@@ -53,31 +72,14 @@ export default {
   },
 
   computed: {
-    baseUrl() {
+    basUrl() {
       return 'https://api.shvz.ir/'
     },
 
   }
 }
 </script>
-<style scoped>
-.barcode-label-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.barcode-label {
-  height: 140mm;
-  width: 35mm;
-  margin-bottom: 10mm;
-}
-
-.barcode-sku, .barcode-image, .barcode-value {
-  text-align: center;
-}
-
-.barcode-image > img {
-  width: 100%;
-  height: auto;
+<style>
+.custom-margin-bottom {
 }
 </style>
