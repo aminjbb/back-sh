@@ -222,32 +222,32 @@
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:17.1111%;padding:15px 10px"></div>
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
-                            <template v-if="factorSkuData && factorSkuData.buying_price >= 0">
-                                {{factorSkuData.buying_price}}
+                            <template v-if="factorSkuData && factorSkuData.sum_total_buying_price >=0">
+                                {{factorSkuData.sum_total_buying_price}}
                             </template>
                             <template v-else>
                                 -
                             </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
-                            <template v-if="factorSkuData && factorSkuData.customer_price >= 0">
-                                {{factorSkuData.customer_price}}
+                            <template v-if="factorSkuData && factorSkuData.sum_total_customer_price >= 0">
+                                {{factorSkuData.sum_total_customer_price}}
                             </template>
                             <template v-else>
                                 -
                             </template>
                         </div>
                         <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
-                            <template v-if="factorSkuData && factorSkuData.total_shps_count >= 0">
-                                {{factorSkuData.total_shps_count}}
+                            <template v-if="factorSkuData && factorSkuData.total_requested_count >= 0">
+                                {{factorSkuData.total_requested_count}}
                             </template>
                             <template v-else>
                                 -
                             </template>
                         </div>
                       <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
-                        <template v-if="factorSkuData && factorSkuData.total_shps_count >= 0">
-                          {{factorSkuData.total_shps_count}}
+                        <template v-if="factorSkuData && factorSkuData.total_received_count >= 0">
+                          {{factorSkuData.total_received_count}}
                         </template>
                         <template v-else>
                           -
