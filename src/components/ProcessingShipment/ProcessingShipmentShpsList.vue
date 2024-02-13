@@ -7,22 +7,23 @@
           class="px-10 py-5">
         <v-col cols="5">
           <div class="text-right ">
-                        <span class="text-gray600 t14500">
-                            شناسه بسته
-                        </span>
+            <span class="text-gray600 t14500">
+              شناسه بسته
+            </span>
             <span class="text-error">
-                            *
-                        </span>
+              *
+            </span>
           </div>
           <div>
             <v-text-field
                 @keyup="setpackId()"
                 variant="outlined"
                 :rules="rule"
-                :autofocus="true"
+                :autofocus="packageFocus"
                 v-model="boxId"/>
           </div>
         </v-col>
+
         <v-col cols="3">
           <div class="d-flex justify-start pt-5">
             <v-btn
@@ -35,6 +36,22 @@
                 class="px-8 mt-1">
               تکمیل ظرفیت بسته
             </v-btn>
+          </div>
+        </v-col>
+
+        <v-col v-if="shipmentType === 'seller'" cols="5">
+          <div class="text-right ">
+                        <span class="text-gray600 t14500">
+                            شناسه کالا
+                        </span>
+          </div>
+          <div>
+            <v-text-field
+                @keyup.enter="packedShpss()"
+                variant="outlined"
+                :rules="rule"
+                :autofocus="shpssFocus"
+                v-model="boxId"/>
           </div>
         </v-col>
       </v-row>
@@ -55,7 +72,7 @@
           :packId="packId"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
-          model="processingShipmentShps"/>
+          :model="shipmentType"/>
       <v-divider/>
       <v-card-actions class="pb-3">
         <v-row class="px-8">
@@ -130,14 +147,16 @@ export default {
       loadingPackage: false,
       finishLoading: false,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      packId:null
+      packId: null,
+      packageFocus:true,
+      shpssFocus:true
     }
   },
   methods: {
     setpackId() {
       if (this.boxId.includes('-')) {
         const cargoSplit = this.boxId.split('-')
-        if (cargoSplit[1]) this.packId =cargoSplit[1]
+        if (cargoSplit[1]) this.packId = cargoSplit[1]
         else this.packId = this.boxId
       } else this.packId = this.boxId
 
@@ -151,7 +170,7 @@ export default {
           else packageId = this.boxId
         } else packageId = this.boxId
         this.loadingPackage = true
-          var formData = new FormData();
+        var formData = new FormData();
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `package/complete/${packageId}`
         AxiosMethod.store = this.$store
@@ -187,6 +206,25 @@ export default {
         this.finishLoading = false
       }
     },
+    async packedShpss() {
+      try {
+        this.finishLoading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
+        AxiosMethod.store = this.$store
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.finishLoading = false
+          this.$router.go(-1)
+        } else {
+          this.finishLoading = false
+        }
+      } catch (e) {
+        this.finishLoading = false
+      }
+    },
   },
   computed: {
     headerTable() {
@@ -195,6 +233,14 @@ export default {
         return this.headerShpsSeller
       } catch (e) {
         return this.headerShps
+      }
+    },
+    shipmentType() {
+      try {
+        if (this.shipmentShpsList[0].max_tolerance) return 'shavaz'
+        return 'seller'
+      } catch (e) {
+        return  'shavaz'
       }
     }
   }

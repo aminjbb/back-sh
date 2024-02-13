@@ -86,7 +86,6 @@
           <v-col cols="3" class="d-flex justify-end">
             <div  class="d-flex align-center">
               <v-btn
-                  :loading="loading"
                   rounded
                   variant="text"
                   width="115"
@@ -96,7 +95,7 @@
               </span>
               </v-btn>
               <v-btn
-                  :loading="loading"
+                  :loading="loadingBtn"
                   rounded
                   color="primary500"
                   variant="elevated"
@@ -152,7 +151,7 @@ export default {
     return{
       skuSearchList:[],
       shpsList:[],
-      loading:false
+      loadingBtn:false
     }
   },
 
@@ -221,34 +220,41 @@ export default {
       }
     },
     async sendShps(){
-      this.loading = true
-      const formData = new FormData()
+     try {
+       this.loadingBtn = true
+       const formData = new FormData()
+       this.$refs.retailShipmentShps.form.forEach((shps , index) => {
+         formData.append(`shps_list[${index}][shps]`, shps.shps.id)
+         formData.append(`shps_list[${index}][count]`, shps.count)
+         formData.append(`shps_list[${index}][max_tolerance]` , 100)
+         formData.append(`shps_list[${index}][min_tolerance]` , 0)
+       })
+       formData.append('seller_id' , this.$route.params.sellerId)
 
-      this.$refs.retailShipmentShps.form.forEach((shps , index) => {
-        formData.append(`shps_list[${index}][shps]`, shps.shps.id)
-        formData.append(`shps_list[${index}][count]`, shps.count)
-      })
-      formData.append('seller_id' , this.$route.params.sellerId)
-      formData.append('type' , 'consignment')
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/consignment/crud/create`
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = true
-        openToast(
-            this.$store,
-            'محموله با موفقیت ایجاد گردید.',
-            "success"
-        );
-        this.$router.push(`/retail-shipment/index?factor_id=${this.$route.params.factorId}`)
-      }
-      else {
-        this.loading = true
-      }
+       formData.append('type' , 'consignment')
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.using_auth = true
+       AxiosMethod.store = this.$store
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = `shipment/consignment/crud/create`
+       AxiosMethod.form = formData
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loadingBtn = false
+         openToast(
+             this.$store,
+             'محموله با موفقیت ایجاد گردید.',
+             "success"
+         );
+         this.$router.go(-1)
+       }
+       else {
+         this.loadingBtn = false
+       }
+     }
+     catch (e) {
+       this.loadingBtn = false
+     }
     },
     async assignSku(shps) {
       const form = {

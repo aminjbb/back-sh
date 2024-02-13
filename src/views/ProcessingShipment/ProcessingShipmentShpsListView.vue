@@ -12,6 +12,4 @@ import ProcessingShipmentShpsList from '@/components/ProcessingShipment/Processi
       <ProcessingShipmentShpsList/>
     </v-main>
   </v-layout>
-
-
 </template>

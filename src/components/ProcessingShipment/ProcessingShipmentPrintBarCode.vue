@@ -1,29 +1,27 @@
 <template>
-  <div class="text-center px-5 ma-5 d--ltr"  id="printableArea-shipmentBarcode">
-    <v-card class="content py-5">
-      <v-row justify="center">
-        <v-col cols="4" v-for="(barCode , index) in detail " :key="'shpss-list-barcode'+index">
-          <div class="d-flex justify-space-between px-15">
-            <span>{{barCode?.shps?.seller?.id}}</span>
-            <span>{{barCode?.shps?.seller?.shopping_name}}</span>
-          </div>
-          <div class="text-center">
-            <img width="190" height="80" :src="basUrl + barCode.shps?.barcode_image">
-          </div>
-          <div class="text-center px-10">
-            {{barCode?.shps?.sku?.label }}
-          </div>
-          <div class="text-center">
-            <img width="133" height="69" :src="basUrl + barCode?.barcode_image">
-          </div>
-          <div class="text-center px-10">
-            {{barCode?.barcode }}
-          </div>
-        </v-col>
-
-      </v-row>
-    </v-card>
-
+  <div class="text-center d--ltr" id="printableArea-shipmentBarcode">
+    <v-row class="pa-0 ma-0">
+      <v-col v-for="(barCode , index) in detail" cols="6" :key="'shpss-list-barcode'+index" class="pa-0 " :class="index < (detail.length - 1) ? 'mb-11' : 'mb-0'">
+        <!--        <div class="d-flex justify-space-between ">-->
+        <!--          <span>{{barCode?.shps?.seller?.id}}</span>-->
+        <!--          <span>{{barCode?.shps?.seller?.shopping_name}}</span>-->
+        <!--        </div>-->
+        <!--        <div class="text-center">-->
+        <!--          <img width="180" height="70" :src="basUrl + barCode.shps?.barcode_image">-->
+        <!--        </div>-->
+        <!--"-->
+        <div class="text-center" style="font-size: 8px ;direction: rtl">
+          {{ barCode?.shps?.sku?.label }}
+        </div>
+        <div class="text-center">
+          <img width="100" height="45" :src="basUrl + barCode?.barcode_image" :alt="barCode?.barcode">
+        </div>
+        <!--        style="font-size: 7px"-->
+        <div class="text-center" style="font-size: 8px ;direction: rtl">
+          {{ barCode?.barcode }}
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -31,13 +29,13 @@
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  props:{
-    shipmentId:null
+  props: {
+    shipmentId: null
   },
-  data(){
+  data() {
     return {
-      dialog:false,
-      detail:null,
+      dialog: false,
+      detail: null,
     }
   },
   mounted() {
@@ -46,7 +44,7 @@ export default {
 
   methods: {
 
-    async getDetail(){
+    async getDetail() {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
@@ -64,7 +62,7 @@ export default {
   },
 
   computed: {
-    basUrl(){
+    basUrl() {
       return 'https://api.shvz.ir/'
     },
 
