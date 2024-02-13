@@ -41,7 +41,7 @@
             :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-start">
           <div
-              v-if="header[0].show"
+
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
@@ -55,7 +55,7 @@
           </div>
 
           <div
-              v-if=" header[1].show"
+
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -65,7 +65,7 @@
 
 
           <div
-              v-if=" header[2].show"
+
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
@@ -73,7 +73,7 @@
                     </span>
           </div>
           <div
-              v-if=" header[3].show"
+
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
@@ -82,7 +82,7 @@
 
           </div>
           <div
-              v-if=" header[4].show"
+
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
@@ -91,7 +91,7 @@
           </div>
 
           <div
-              v-if=" header[4].show"
+
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
@@ -99,7 +99,7 @@
               </span>
           </div>
           <div
-              v-if=" header[5].show && model === 'upcoming'"
+              v-if="  model === 'upcoming'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
@@ -107,7 +107,7 @@
               </span>
           </div>
           <div
-              v-if=" header[6].show && form[index]"
+              v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-progress-circular

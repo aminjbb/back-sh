@@ -1,29 +1,18 @@
 <template>
-  <div class="text-center px-5 ma-5 d--ltr"  id="printableArea-shipmentBarcode">
-    <v-card class="content py-5">
-      <v-row justify="center">
-        <v-col cols="4" v-for="(barCode , index) in detail " :key="'shpss-list-barcode'+index">
-          <div class="d-flex justify-space-between px-15">
-            <span>{{barCode?.shps?.seller?.id}}</span>
-            <span>{{barCode?.shps?.seller?.shopping_name}}</span>
-          </div>
-          <div class="text-center">
-            <img width="190" height="80" :src="basUrl + barCode.shps?.barcode_image">
-          </div>
-          <div class="text-center px-10">
-            {{barCode?.shps?.sku?.label }}
-          </div>
-          <div class="text-center">
-            <img width="133" height="69" :src="basUrl + barCode?.barcode_image">
-          </div>
-          <div class="text-center px-10">
-            {{barCode?.barcode }}
-          </div>
-        </v-col>
-
-      </v-row>
-    </v-card>
-
+  <div class="barcode-label-container" id="printableArea-shipmentBarcode">
+    <v-row v-for="(barCode, index) in detail" :key="'shpss-list-barcode'+index" class="barcode-label">
+      <v-col cols="12">
+        <div class="barcode-sku">
+          {{ barCode?.shps?.sku?.label }}
+        </div>
+        <div class="barcode-image">
+          <img :src="baseUrl + barCode?.barcode_image" :alt="barCode?.barcode">
+        </div>
+        <div class="barcode-value">
+          {{ barCode?.barcode }}
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -31,13 +20,13 @@
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  props:{
-    shipmentId:null
+  props: {
+    shipmentId: null
   },
-  data(){
+  data() {
     return {
-      dialog:false,
-      detail:null,
+      dialog: false,
+      detail: null,
     }
   },
   mounted() {
@@ -46,7 +35,7 @@ export default {
 
   methods: {
 
-    async getDetail(){
+    async getDetail() {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
@@ -64,10 +53,31 @@ export default {
   },
 
   computed: {
-    basUrl(){
+    baseUrl() {
       return 'https://api.shvz.ir/'
     },
 
   }
 }
 </script>
+<style scoped>
+.barcode-label-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.barcode-label {
+  height: 140mm;
+  width: 35mm;
+  margin-bottom: 10mm;
+}
+
+.barcode-sku, .barcode-image, .barcode-value {
+  text-align: center;
+}
+
+.barcode-image > img {
+  width: 100%;
+  height: auto;
+}
+</style>
