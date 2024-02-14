@@ -69,7 +69,7 @@
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                       <span class="t12500 text-gray500 py-5 number-font">
-                          {{ item.sku?.label }}
+                          {{ item.sku_label }}
                       </span>
             </div>
             <div
@@ -116,7 +116,7 @@
                 v-if=" header[8].show"
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-             <span class="t14300 text-gray500 py-5 number-font">
+             <span class="t14300 text-gray500 py-5 number-font ml-10">
                           {{ item.profit }}
                       </span>
             </div>

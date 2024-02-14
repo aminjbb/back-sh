@@ -147,6 +147,7 @@ import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailS
 /* Shipment */
 import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue';
 import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentRequestView.vue'
+import PrintShipmentRequestDetailView from '../views/ShipmentRequests/PrintShipmentRequestDetailView.vue'
 
 
 /* Factor */
@@ -1271,6 +1272,14 @@ const router = createRouter({
                     path: ':shipmentRequestId/print',
                     name: 'PrintShipmentRequestView',
                     component: PrintShipmentRequestView,
+                    meta: {
+                        name: 'محموله های بازرگانی'
+                    }
+                },
+                {
+                    path: ':shipmentRequestDetailId/print-detail',
+                    name: 'PrintShipmentRequestDetailView',
+                    component: PrintShipmentRequestDetailView,
                     meta: {
                         name: 'محموله های بازرگانی'
                     }
