@@ -183,7 +183,6 @@ export class AxiosCall {
                     data = response.data;
                 })
                 .catch((err) => {
-                    console.log('Axios error:',err.response.data.message)
                     if (err.response.data.message){
                         openToast(
                             this.store,
@@ -321,7 +320,7 @@ export class AxiosCall {
                     if (this.toast_error) {
                         openToast(
                             this.store,
-                            this.toast_error_message,
+                            err.response.data.message,
                             "error"
                         );
                     }
@@ -346,7 +345,7 @@ export class AxiosCall {
                     if (this.toast_error) {
                         openToast(
                             this.store,
-                            this.toast_error_message,
+                            err.response.data.message,
                             "error"
                         );
                     }
