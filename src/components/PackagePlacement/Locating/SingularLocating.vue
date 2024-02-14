@@ -158,7 +158,7 @@
           </span>
         </div>
         <div class="text-center mt-15">
-          <span class="t18400">
+          <span class="t18400 dir-rtl">
             کالا با شناسه {{ shpssSingeLocate }} به شلف با شناسه {{ placementSplitId }} منصوب شد.
           </span>
         </div>
@@ -235,6 +235,8 @@ export default {
         formData.append('barcode', this.shpssSingeLocate)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.end_point = 'shps/item/singular/locate'
         AxiosMethod.form = formData
