@@ -233,11 +233,8 @@
         </div>
       </div>
     </div>
-    <MarketPlaceDetailModal/>
     <DetailModalTestQrCodeFull/>
     <DetailModalTestQrCode/>
-    <DetailModalTest/>
-    <DetailsModal/>
   </div>
 </template>
 
