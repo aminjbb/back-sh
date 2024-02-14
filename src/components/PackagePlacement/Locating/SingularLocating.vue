@@ -247,7 +247,7 @@ export default {
           this.pickUpDone = true
           this.loading = false
         } else {
-          this.loading = true
+          this.loading = false
         }
       } catch (e) {
         this.loading = false
