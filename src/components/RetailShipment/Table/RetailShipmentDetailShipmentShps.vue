@@ -69,7 +69,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sku?.label }}
+                        {{ item?.sku_label }}
                     </span>
           </div>
 
@@ -78,7 +78,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
            <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_attributes?.count }}
+                        {{ item.shps_count }}
                     </span>
           </div>
           <div
@@ -86,7 +86,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
            <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_attributes?.min_tolerance }}
+                        {{ item?.min_tolerance }}
                     </span>
           </div>
           <div
@@ -94,7 +94,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_attributes?.max_tolerance }}
+                        {{ item?.max_tolerance }}
                     </span>
           </div>
 
