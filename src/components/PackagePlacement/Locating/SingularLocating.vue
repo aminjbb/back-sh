@@ -100,11 +100,11 @@
           <div class="px-5">
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center">
-                <img :src="pickUpShps?.shps?.sku?.image_url" width="150" height="150" alt="">
+                <img :src="pickUpShps?.shps?.sku?.sku?.image_url" width="150" height="150" alt="">
               </div>
               <div class="text-center px-10 my-3">
               <span class="text-gray600">
-                {{ pickUpShps?.shps?.sku?.label }}
+                {{ pickUpShps?.shps?.sku?.sku?.label }}
               </span>
               </div>
             </v-card>
@@ -139,7 +139,7 @@
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field @keyup.enter="shpsDetail()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
         </div>
       </div>
     </div>
@@ -196,7 +196,7 @@ export default {
       shpssBarCode: '',
       placeCount: 0,
       pickUpDone: false,
-      shpsScan: true,
+      shpsScan: false,
       shelfScan: false,
       shpssSingeLocate: null,
       placementBarcode: null,
@@ -238,7 +238,7 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.end_point = 'shps/item/singular/locate'
         AxiosMethod.form = formData
-        let data = await AxiosMethod.axios_get()
+        let data = await AxiosMethod.axios_post()
         if (data) {
           this.shelfScan = false
           this.shpsScan = false
@@ -257,11 +257,12 @@ export default {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'shps/item/pickup?detail=' + this.shpssSingeLocate
+        AxiosMethod.end_point = 'shps/item/detail?barcode=' + this.shpssSingeLocate
         let data = await AxiosMethod.axios_get()
         if (data) {
           this.pickUpShps = data.data
           this.shpsScan = true
+          this.loading = false
         } else {
           this.loading = false
         }
