@@ -70,8 +70,8 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.count">
-                                {{ item.count }}
+                            <template v-if="item.packed_count">
+                                {{ item.packed_count }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -120,7 +120,7 @@
                   <v-list-item-title>
                     <div
                         class="ma-5 pointer"
-                        @click=getDetail(item.shipment_id)>
+                        @click=getDetail(item)>
                       <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت گروهی برچسب                                           
@@ -312,12 +312,12 @@ export default {
   watch: {},
   methods: {
 
-    async getDetail(id) {
-      this.shipmentId = id
+    async getDetail(shipment) {
+      this.shipmentId = shipment.shipment_id
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${id}`
+      AxiosMethod.end_point = `shipment/print/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=${this.packageId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const dialogForm = {

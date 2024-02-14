@@ -27,7 +27,7 @@
                 variant="outlined"
                 :rules="rule"
                 @keyup.enter="scanPackageId()"
-                v-model="packageId"/>
+                v-model="scanPackage"/>
           </div>
         </v-col>
       </v-row>
@@ -161,15 +161,16 @@ export default {
 
     scanPackageId(){
 
-      const packageSplit = this.packageId.split('-')
+      const packageSplit = this.scanPackage.split('-')
       let PackageScan = ''
       if (packageSplit[1]){
+        this.packageId = packageSplit[1]
         PackageScan = packageSplit[1]
       }
       else{
-        PackageScan = this.packageId
+        this.packageId = packageSplit[1]
+        PackageScan = this.scanPackage
       }
-
       this.scanPackage = ''
       this.getShpsList(PackageScan, this.$store);
     },
