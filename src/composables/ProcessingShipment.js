@@ -45,7 +45,6 @@ export default function setup() {
         { name: 'نام کالا', show: true , value:'label', order: false},
         { name: 'تعداد درخواستی', show: true, value:'number' , order: false},
         { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
-        { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
     ]);
 
     const headerDetailShipment =ref([
