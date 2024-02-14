@@ -87,20 +87,21 @@
   
   export default {
     props:{
-      shipmentId:null
+      shipmentId:null,
+      packageId:null,
+      shpsId:null,
     },
     data(){
       return {
       
       }
     },
-  
-  
+
     methods: {
       print() {
         console.log(this.shipmentId);
         // this.close()
-        window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/barcode-print`, '_blank');
+        window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/${this.shpsId}/${this.packageId}/barcode-print`, '_blank');
   
       },
       close() {

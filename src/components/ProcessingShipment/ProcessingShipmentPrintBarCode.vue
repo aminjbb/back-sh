@@ -4,8 +4,8 @@
       <img class="px-2" style="width: 35mm ; height: 11mm" :src="basUrl + barCode?.barcode_image"
            :alt="barCode?.barcode">
       <br>
-      <span style="font-size: 8px">
-                              {{ barCode?.shps?.sku?.label.substring(0, 20) }}
+      <span style="font-size: 7px">
+                              {{ barCode?.shps?.sku?.label.substring(0, 50) }}
         </span>
       <br>
       <span style="font-size: 8px">
@@ -57,7 +57,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${this.$route.params.shipmentId}`
+      AxiosMethod.end_point = `shipment/print/barcode/${this.$route.params.shipmentId}?shps=${this.$route.params.shpsId}&package_id=${this.$route.params.packageId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.detail = data.data
