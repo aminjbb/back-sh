@@ -20,7 +20,11 @@
         <div class="text-center px-5" :id="`printableArea-cargo`">
           <v-card class="content">
               <div class="d-flex justify-space-between pa-5">
-                <span><img :src="basUrl +object?.barcode_image"></span>
+                <span>
+                  <img :src="basUrl +object?.barcode_image">
+                  <br>
+                  {{object?.barcode}}
+                </span>
                 <span>شناسه کارگو : {{ object?.id }}</span>
                 <span>راننده : {{ object?.driver?.full_name }}</span>
                 <span>خودرو : {{ object?.vehicle?.license }}</span>
