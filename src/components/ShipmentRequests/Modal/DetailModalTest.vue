@@ -37,12 +37,12 @@
                             {{ retailObject.id }}
                         </span>
             </div>
-            <div class="mx-10" v-if="retailObject.seller">
+            <div class="mx-10" v-if="retailObject.supplier">
                         <span class="t14500">
-                            نام فروشگاه :
+                            نام فروشگاه:
                         </span>
               <span class="t13400 text-gray500">
-                            {{ retailObject?.seller?.shopping_name }}
+                            {{ retailObject?.supplier?.shopping_name }}
                         </span>
             </div>
 
@@ -65,6 +65,7 @@
           </v-card>
           <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
             <div class="table-scroll-container">
+
               <Table
                   class="flex-grow-1  "
                   :header="headerShps"
@@ -77,6 +78,69 @@
                   :loading="loading"
                   @updateList="updateList"
                   model="sku"/>
+            </div>
+            <v-divider />
+            <div class="calculate-all d-flex justify-end align-center">
+              <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px">
+                جمع:
+              </div>
+
+              <div class="text-center  c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
+                <template v-if="retailObject && retailObject.shps_list.buying_price >= 0">
+                  {{retailObject.buying_price}}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_list.customer_price >= 0">
+                  {{retailObject.shps_list.customer_price }}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_list.sum_customer_price ">
+                  {{retailObject.shps_list.sum_customer_price}}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black mr-15" style="width:11.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_count >= 0">
+                  {{retailObject.shps_count}}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black mr-10" style="width:11.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_count >= 0">
+                  {{retailObject.total_buying_price}}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_count >= 0">
+                  {{retailObject.total_customer_price}}
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
+              <div class="text-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+                <template v-if="retailObject && retailObject.shps_count >= 0">
+                  {{retailObject.total_profit}}%
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </div>
             </div>
 
             <v-row class="justify-between my-2 mx-2 ">
@@ -113,8 +177,8 @@
 
 <script>
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
-import RetailShipment from "@/composables/RetailShipment";
-import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmentShps.vue";
+import ShipmentRequests from "@/composables/ShipmentRequests";
+import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
 import {
   convertDateToJalai
 } from "@/assets/js/functions";
@@ -127,8 +191,10 @@ export default {
       page,
       header,
       loading,
-      headerShps
-    } = RetailShipment();
+      headerShps,
+      getDetail,
+        detail
+    } = ShipmentRequests();
 
     return {
       retailShipments,
@@ -136,7 +202,9 @@ export default {
       page,
       header,
       loading,
-      headerShps
+      headerShps,
+      getDetail,
+      detail
     };
   },
   components: {
@@ -149,6 +217,14 @@ export default {
   },
 
   methods: {
+
+
+    print() {
+
+      // this.close()
+      window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${this.retailObject.id}/print-detail`, '_blank');
+
+    },
     convertDateToJalai,
 
     close() {
@@ -158,18 +234,8 @@ export default {
       }
       this.$store.commit('set_detailModalTest', form)
     },
-    validate() {
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(() => {
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      }, 200)
-    },
-    searchWarehouse(e) {
-      const filter = {
-        name: e
-      }
-      this.getWarehouseList(filter)
-    },
+
+
 
   },
 
@@ -180,13 +246,7 @@ export default {
     retailObject() {
       return this.$store.getters['get_detailModalTestObject']
     },
-    warehouseData() {
-      try {
-        return this.warehouseList.data
-      } catch (e) {
-        return []
-      }
-    }
+
   }
 }
 </script>

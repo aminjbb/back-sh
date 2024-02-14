@@ -112,7 +112,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px;  ">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.total_profit}}%
                             </template>
