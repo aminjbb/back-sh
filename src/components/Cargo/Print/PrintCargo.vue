@@ -1,13 +1,21 @@
 <template>
   <div class="  text-center px-5 d--ltr" :id="`printableArea-cargo`">
-    <v-card class="content " >
+    <v-card class="content mt-2" >
+      <div class="d-flex justify-center pt-2">
+         <span>
+          <img :src="basUrl +object?.barcode_image">
+            <br>
+                  {{object?.barcode}}
+        </span>
+      </div>
       <div class="d-flex justify-space-between pa-5 d--rtl ">
-        <span><img :src="basUrl +object?.barcode_image"></span>
+
         <span>شناسه کارگو : {{ object?.id }}</span>
         <span>راننده : {{ object?.driver?.full_name }}</span>
         <span>خودرو : {{ object?.vehicle?.license }}</span>
 
       </div>
+
     </v-card>
     <v-card min-height="500" class="d--rtl mt-2" >
       <Table
