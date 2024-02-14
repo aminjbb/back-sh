@@ -243,8 +243,9 @@ export default {
           this.shelfScan = false
           this.shpsScan = false
           this.pickUpDone = true
+          this.loading = false
         } else {
-
+          this.loading = true
         }
       } catch (e) {
         this.loading = false
