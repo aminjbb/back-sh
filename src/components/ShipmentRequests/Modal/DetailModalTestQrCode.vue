@@ -8,7 +8,7 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="dialog =false" variant="icon">
+            <v-btn @click="close()" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -24,7 +24,7 @@
 
               <span>شناسه محموله : {{ retailObject?.id }}</span>
               <span v-if="retailObject?.seller">نام فروشگاه : {{ retailObject?.seller?.shopping_name  }}</span>
-              <span >تاریخ تحویل : {{ convertDateToJalai(retailObject?.sent_to_warehouse_at , '-' , false)}} </span>
+              <span v-if="retailObject?.sent_to_warehouse_at">تاریخ تحویل : {{ convertDateToJalai(retailObject?.sent_to_warehouse_at , '-' , false)}} </span>
               <div class="text-center">
                 <div>
                   <span><img :src="baseUrl + retailObject?.barcode_image"></span>
@@ -67,7 +67,7 @@
             <v-col cols="3" class="d-flex justify-end mx-10">
               <btn
                   class="mt-3 mr-2"
-                  @click="dialog = false"
+                  @click="close()"
                   style="cursor: pointer;">
                 انصراف
               </btn>
