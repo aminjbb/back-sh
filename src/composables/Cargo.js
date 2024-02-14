@@ -93,12 +93,14 @@ export default function setup() {
             } , 2000)
         }
     };
-    async function  getCargoReceivingList(id) {
+    async function  getCargoReceivingList(id , store) {
         loading.value = true
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = store
         AxiosMethod.end_point = `cargo/receive/${id}`
         let data = await AxiosMethod.axios_get()
         if (data) {

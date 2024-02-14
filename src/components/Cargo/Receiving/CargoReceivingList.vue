@@ -115,11 +115,11 @@ export default {
       if (this.cargo.includes('-')) {
         const cargoSplit = this.cargo.split('-')
         if (cargoSplit[1]) {
-          this.getCargoReceivingList(cargoSplit[1])
+          this.getCargoReceivingList(cargoSplit[1] , this.$store)
         }
       }
       else{
-        this.getCargoReceivingList(this.cargo)
+        this.getCargoReceivingList(this.cargo , this.$store)
       }
 
     },
