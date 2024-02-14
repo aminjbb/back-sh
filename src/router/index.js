@@ -1434,7 +1434,7 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: ':shipmentId/barcode-print',
+                    path: ':shipmentId/:shpsId/:packageId/barcode-print',
                     name: 'ShipmentBarCodePrintView',
                     component: ShipmentBarCodePrintView,
                     meta: {

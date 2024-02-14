@@ -164,7 +164,7 @@
         </div>
       </div>
     </div>
-    <ModalBulkPrintLabel :shipmentId="shipmentId"/>
+    <ModalBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId"/>
     <ModalDamageReport/>
     <ModalLostReport/>
   </div>
@@ -281,6 +281,7 @@ export default {
       isSubmitted: false,
       submittedItemId: null,
       shipmentId: null,
+      shps_id:null
 
 
     }
@@ -314,6 +315,7 @@ export default {
 
     async getDetail(shipment) {
       this.shipmentId = shipment.shipment_id
+      this.shps_id = shipment.shps
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
