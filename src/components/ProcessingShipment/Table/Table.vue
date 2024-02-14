@@ -449,26 +449,33 @@ export default {
      * @param {*} item
      */
     async updateShps(index) {
-      this.form[index].loading = true
-      const formData = new FormData()
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/shps/pack`
-      formData.append('shipment_id', this.$route.params.shipmentId)
-      formData.append('shps', this.items[index].id)
-      formData.append('package_id', this.packId)
-      formData.append('packed_count', this.form[index].count)
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
+      try {
+        this.form[index].loading = true
+        const formData = new FormData()
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/shps/pack`
+        formData.append('shipment_id', this.$route.params.shipmentId)
+        formData.append('shps', this.items[index].id)
+        formData.append('package_id', this.packId)
+        formData.append('packed_count', this.form[index].count)
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.form[index].loading = false
+          openToast(
+              this.$store,
+              ' کالا با موفقیت ویرایش شد.',
+              "success"
+          );
+        }
+        else{
+          this.form[index].loading = false
+        }
+      }catch (e) {
         this.form[index].loading = false
-        openToast(
-            this.$store,
-            ' کالا با موفقیت ویرایش شد.',
-            "success"
-        );
       }
 
     },

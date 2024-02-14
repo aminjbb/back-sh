@@ -44,7 +44,7 @@
                 </span>
                 </div>
                 <div>
-                  <v-text-field :autofocus="true" @keyup.enter="scanPackageId()" v-model="packageId" variant="outlined"/>
+                  <v-text-field :autofocus="true" @keyup.enter="scanPackageId()" v-model="packageScan" variant="outlined"/>
                 </div>
               </div>
             </v-col>
@@ -129,7 +129,8 @@ export default {
       packageId:null,
       scanPackage:'',
       loading:false,
-      luggageLoading:false
+      luggageLoading:false,
+      packageScan:null
     }
   },
 
@@ -211,20 +212,29 @@ export default {
        let data = await AxiosMethod.axios_post()
        if (data) {
          this.loading = false
+         this.packageScan = ''
+         this.packageId = ''
          this.getPackageCargo()
        }
        else{
          this.loading = false
+         this.packageScan = ''
+         this.packageId = ''
        }
      }catch (e) {
        this.loading = false
+       this.packageScan = ''
+       this.packageId = ''
      }
     },
     scanPackageId(){
-      if (this.packageId.includes('-')) {
-        const packageSplit = this.packageId.split('-')
+      if (this.packageScan.includes('-')) {
+        const packageSplit = this.packageScan.split('-')
         if (packageSplit[1]) {
           this.packageId = packageSplit[1]
+        }
+        else{
+          this.packageId = this.packageScan
         }
       }
       this.assignPackage()
