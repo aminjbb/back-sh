@@ -48,7 +48,7 @@
         </v-col>
       </v-row>
     </v-card>
-
+{{retailShipment?.shps_list}}
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           ref="retailShipmentShps"
@@ -202,8 +202,7 @@ export default {
       }
     },
     async getRetailShipmentDetail(item) {
-      this.retailShipment = []
-      this.$refs.retailShipmentShps.form = []
+
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')

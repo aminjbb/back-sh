@@ -81,8 +81,8 @@
                     style="padding:0"
                     class="c-table__contents__item text-right"
                     :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
-                        {{ item.sku?.label }}
+                    <span class="t11500 text-gray500 py-5 number-font">
+                        {{ item.sku_label }}
                     </span>
                 </div>
 
