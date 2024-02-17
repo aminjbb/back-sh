@@ -5,7 +5,6 @@ import {useCookies} from "vue3-cookies";
 
 export default function setup() {
     const orderList = ref([])
-
     const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
