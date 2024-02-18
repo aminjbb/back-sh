@@ -85,7 +85,6 @@
                         {{ item.sku_label }}
                     </span>
                 </div>
-
                 <div
                     v-if=" header[3].show"
                     class="c-table__contents__item number-font text-right"
@@ -342,10 +341,24 @@ export default {
     },
 
     watch: {
+        items(){
+          if (this.items.length){
+            this.items.forEach((element)=>{
 
+              const form = {
+                shps : element.id,
+                maxTolerance :element?.max_tolerance  ,
+                minTolerance :element?.min_tolerance,
+                count:element?.shps_count
+              }
+              this.form.push(form)
+            })
+          }
+        }
     },
 
     methods: {
+
         /**
          * Mass update modal
          */
