@@ -48,7 +48,6 @@
         </v-col>
       </v-row>
     </v-card>
-
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           ref="retailShipmentShps"
@@ -202,23 +201,13 @@ export default {
       }
     },
     async getRetailShipmentDetail(item) {
-      this.retailShipment = []
-      this.$refs.retailShipmentShps.form = []
+
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `shipment/consignment/crud/get/${this.$route.params.retailId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        data.data.shps_list.forEach(shps=>{
-          const form = {
-            shps : shps.id,
-            maxTolerance :shps.shps_attributes?.max_tolerance,
-            minTolerance :shps.shps_attributes?.min_tolerance,
-            count:shps.shps_attributes?.count
-          }
-          this.$refs.retailShipmentShps.form.push(form)
-        })
         this.retailShipment =data.data
       }
 

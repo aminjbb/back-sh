@@ -11,6 +11,7 @@
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </v-col>
+                  {{ orderList}}
 
                     <v-col cols="7" class="t16400 ">
                         پرینت برچسب سفارش
@@ -156,10 +157,10 @@
               
                 id: '',
                 name: '',
-                
+
             },
-           
-           
+
+
         }},
 
 
@@ -168,7 +169,7 @@
            
             const {
 
-              orderList,
+                orderList,
                 dataTableLength,
                 page,
                 header,
@@ -176,9 +177,10 @@
                 headerShps,
                 orderListDetail,
                 getShpssDetailLost,
-                shpssDetailLost
+                shpssDetailLost,
+                getShpsList
             } = OrderPackaging();
-    
+
             return {
                 orderList,
                 getShpssDetailLost,
@@ -188,7 +190,8 @@
                 page,
                 header,
                 loading,
-                headerShps
+                headerShps,
+                getShpsList
             };
         },
         components: {
@@ -198,12 +201,12 @@
         },
     
         methods: {
-          
+
 
           print() {
 
             // this.close()
-            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/10/print`, '_blank');
+            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.modalPrintOrderObject.id}/print`, '_blank');
 
           },
 

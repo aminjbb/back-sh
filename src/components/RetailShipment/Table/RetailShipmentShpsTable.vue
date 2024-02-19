@@ -81,11 +81,10 @@
                     style="padding:0"
                     class="c-table__contents__item text-right"
                     :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
-                        {{ item.sku?.label }}
+                    <span class="t11500 text-gray500 py-5 number-font">
+                        {{ item.sku_label }}
                     </span>
                 </div>
-
                 <div
                     v-if=" header[3].show"
                     class="c-table__contents__item number-font text-right"
@@ -342,10 +341,24 @@ export default {
     },
 
     watch: {
+        items(){
+          if (this.items.length){
+            this.items.forEach((element)=>{
 
+              const form = {
+                shps : element.id,
+                maxTolerance :element?.max_tolerance  ,
+                minTolerance :element?.min_tolerance,
+                count:element?.shps_count
+              }
+              this.form.push(form)
+            })
+          }
+        }
     },
 
     methods: {
+
         /**
          * Mass update modal
          */
