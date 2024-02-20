@@ -100,7 +100,7 @@
 
             <div
                 class="seller__add-sku-btn d-flex justify-center align-center pointer"
-                @click="submitShipmentsForm(item.id , item.shipment_id)">
+                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps)">
               <v-icon size="15">
                 {{ submittedItemId === item.id || item.label_printed === 1 ? 'mdi-check' : 'mdi-plus' }}
               </v-icon>
@@ -289,10 +289,6 @@ export default {
 
   computed: {
 
-    shpsId() {
-
-      return this.$store.getters['get_shpsId']
-    },
     /**
      * Get each items table based of header length
      */
@@ -387,7 +383,7 @@ export default {
      * sending data in save btn
      */
 
-    async submitShipmentsForm(itemId, shipmentId) {
+    async submitShipmentsForm(itemId, shipmentId , shps) {
       let packageId = null
       if (this.packageId.includes('-')) {
         const cargoSplit = this.packageId.split('-')
@@ -402,7 +398,7 @@ export default {
 
       formdata.append('package_id', packageId);
 
-      formdata.append('shps', this.shpsId);
+      formdata.append('shps', shps);
       formdata.append(`shipment_id`, shipmentId);
       AxiosMethod.store = this.$store;
       AxiosMethod.using_auth = true;

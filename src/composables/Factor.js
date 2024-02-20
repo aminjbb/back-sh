@@ -59,6 +59,7 @@ export default function setup() {
      * @param {*} query 
      */
     async function getFactorList(query) {
+        factorList.value = []
         loading.value = true
         let paramsQuery = null
         if (query){

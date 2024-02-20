@@ -127,7 +127,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
                             <template v-if="item.created_at_fa">
-                                {{ item.created_at_fa }}
+                                {{ convertDateToJalai(item.sent_to_warehouse_at , '-' , false) }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -141,39 +141,10 @@
               :ref="`factor--${index}`"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <template v-if="item.status">
-
-              <div v-if="item.status === 'in_review'" class="factor-dropdown">
-                <div
-                    class="factor-dropdown__selected"
-                    @click="showDropDown(index)"
-                    :style="{ backgroundColor: BgSelected(item.status) }">
-                  <span>{{ factorSelectedTitle(item.status) }}</span>
-                  <v-icon icon="mdi-chevron-down"></v-icon>
-                </div>
-                <div class="factor-dropdown__items" :id="`factor-dropdown__items-${index}`">
-                  <div
-                      class="factor-dropdown__item my-2 t10400"
-                      id="factor-dropdown__item--1">
-                    {{ translateType(item.status) }}
-
-
-                  </div>
-                  <div
-                      class="factor-dropdown__item my-2 t10400"
-                      id="factor-dropdown__item--2"
-                      @click="openRejectModal(item)">
-                    رد شده
-                  </div>
-                  <div
-                      class="retail-status-box my-2 t10400"
-                      id="factor-dropdown__item--3"
-                      @click="updateStatus(index,'approved',item)">
-                    تایید شده
-                  </div>
-                </div>
-              </div>
-              <div v-else class="expanded-background" :style="{ backgroundColor: BgSelected(item.status) }">
-                {{ factorSelectedTitle(item.status) }}
+              <div
+                  class="factor-dropdown__selected"
+                  :style="{ backgroundColor: BgSelected(item.status) }">
+                <span style="font-size: 9px " > در حال ارسال به انبار</span>
               </div>
             </template>
             <template v-else>
@@ -200,14 +171,14 @@
                     </div>
 
                   </v-list-item-title>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">
-                      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                        پرینت برچسب
-                      </span>
-                    </div>
-                  </v-list-item-title>
+<!--                  <v-list-item-title>-->
+<!--                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
+<!--                      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
+<!--                      <span class="mr-2 text-grey-darken-1 t14300">-->
+<!--                        پرینت برچسب-->
+<!--                      </span>-->
+<!--                    </div>-->
+<!--                  </v-list-item-title>-->
                   <v-list-item-title>
 
                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">
@@ -256,7 +227,7 @@ import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPl
 import {
   openToast,
   openConfirm,
-  isOdd
+  isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 import {
   openModal
@@ -375,6 +346,7 @@ export default {
   },
 
   methods: {
+    convertDateToJalai,
     openRejectModal(item) {
       const form = {
         dialog: true,

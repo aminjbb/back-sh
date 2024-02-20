@@ -54,7 +54,7 @@
            <span class="t16400">
            شماره ردیف :
             <span class="text-gray600 number-font">
-              {{ pickUpShps?.placement?.row_numbe }}
+              {{ pickUpShps?.placement?.row_number }}
             </span>
           </span>
             </div>
@@ -207,7 +207,7 @@ export default {
   methods: {
     clearPage() {
       this.pickUpDone = false
-      this.shpsScan = true
+      this.shpsScan = false
       this.shelfScan = false
       this.shpssSingeLocate = null
       this.placementBarcode = null

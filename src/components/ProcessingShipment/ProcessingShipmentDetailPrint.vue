@@ -22,9 +22,8 @@
       <Table
           class="flex-grow-1"
           editUrl="/categories/edit/"
-          activePath="category/crud/update/activation/"
-          deletePath="category/crud/delete/"
           :header="detailCargoHeader"
+          :detail="detail"
           :items="detail?.shps_list"
           updateUrl="category/csv/mass-update"
           model="shipmentDetail"
@@ -61,10 +60,10 @@ export default {
       if (data) {
         this.detail = data.data
         this.dialog = true
-        // setTimeout(() => {
-        //   var myElement = document.getElementById('printableArea-shipment');
-        //   window.print(myElement);
-        // }, 1000);
+        setTimeout(() => {
+          var myElement = document.getElementById('printableArea-shipment');
+          window.print(myElement);
+        }, 1000);
       }
     },
   },

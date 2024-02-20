@@ -39,7 +39,7 @@ export default function setup() {
         { name: 'تنوع آیتم', type:'text', value:'number_from', place:'از'},
         { name: 'تنوع آیتم', type:'text', value:'number_to', place:'تا'},
         { name: 'نام سازنده', type:'auto-complete', value:'admin', place:'نام سازنده'},
-        { name: 'تاریخ ساخت', type:'date', value:'created_at', place:'تاریخ ساخت'},
+        { name: 'تاریخ ارسال', type:'date', value:'created_at', place:'تاریخ ارسال'},
         { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
     ];
     const headerShps =ref([
