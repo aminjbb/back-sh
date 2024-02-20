@@ -27,9 +27,6 @@
           :items="retailShipments"
           :page="page"
           :perPage="dataTableLength"
-          editUrl="/seller/edit/"
-          activePath="seller/crud/update/activation/"
-          changeStatusUrl="seller/crud/update/contract/"
           deletePath="shipment/consignment/crud/delete/"
           :loading="loading"
           updateUrl="seller/csv/mass-update"
@@ -40,7 +37,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="cargo/csv/export" />
+<!--            <ModalExcelDownload getEndPoint="cargo/csv/export" />-->
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">

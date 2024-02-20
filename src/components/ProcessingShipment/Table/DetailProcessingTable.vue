@@ -29,7 +29,6 @@
             :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-between c-table__contents__row">
           <div
-              v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -37,7 +36,6 @@
                     </span>
           </div>
           <div
-              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -45,7 +43,6 @@
                     </span>
           </div>
           <div
-              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -53,30 +50,27 @@
                     </span>
           </div>
           <div
-              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sum_customer_price }}
+                        {{ splitChar(item?.customer_price) }}
                     </span>
           </div>
           <div
-              v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_count }}
+                        {{ item?.shps_count }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5 number-font">
-                        {{ item.shps_packed_count }}
+                        {{ item?.shps_packed_count }}
                     </span>
           </div>
           <div
-              v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.sum_buying_price }}
+                        {{splitChar( item?.sum_customer_price )}}
                     </span>
           </div>
 
@@ -114,7 +108,7 @@
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-black py-5 number-font">
-                       {{ detail.sum_shps_customer_price }}
+                       {{ splitChar(detail?.sum_shps_customer_price) }}
                     </span>
             </div>
             <div
@@ -130,7 +124,7 @@
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-black py-5 number-font">
-                        {{ detail.total_customer_price }}
+                        {{ splitChar(detail.total_customer_price )}}
                     </span>
             </div>
 
@@ -155,7 +149,7 @@ import {
 import {
   openToast,
   openConfirm,
-  isOdd, convertDateToJalai
+  isOdd, convertDateToJalai, splitChar
 } from "@/assets/js/functions";
 export default {
   props: {
@@ -317,6 +311,7 @@ export default {
 
 
   methods: {
+    splitChar,
     checkPermission(status , permissions){
       const index = permissions.findIndex(p => p === status)
       if (index > -1) return true

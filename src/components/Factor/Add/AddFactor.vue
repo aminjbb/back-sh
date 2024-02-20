@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="mh-100">
     <v-card class="ma-5 br-12 pa-10 position__relative" min-height="600">
         <FactorForm ref="FactorForm" />
@@ -69,22 +69,22 @@ export default {
          * Submit form
          */
         async submitForm() {
-            console.log(this.$refs.FactorForm.form);
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'factor/crud/create'
-            AxiosMethod.form = formdata
-            formdata.append('supplier_id', this.$refs.FactorForm.form.supplier_id)
-            formdata.append('factor_number', this.$refs.FactorForm.form.factor_number)
-            formdata.append(`pre_factor_number`, this.$refs.FactorForm.form.pre_factor_number)
-            formdata.append('status', this.$refs.FactorForm.form.status)
+            try {
+              this.loading = true
+              var formdata = new FormData();
+              const AxiosMethod = new AxiosCall()
+              AxiosMethod.end_point = 'factor/crud/create'
+              AxiosMethod.form = formdata
+              formdata.append('supplier_id', this.$refs.FactorForm.form.supplier_id)
+              formdata.append('factor_number', this.$refs.FactorForm.form.factor_number)
+              formdata.append(`pre_factor_number`, this.$refs.FactorForm.form.pre_factor_number)
+              formdata.append('status', this.$refs.FactorForm.form.status)
 
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
+              AxiosMethod.store = this.$store
+              AxiosMethod.using_auth = true
+              AxiosMethod.token = this.$cookies.get('adminToken')
+              let data = await AxiosMethod.axios_post()
+              if (data) {
                 this.loading = false
                 this.$router.push('/factor/index');
                 openToast(
@@ -93,8 +93,12 @@ export default {
                     "success"
                 );
 
-            } else {
+              } else {
                 this.loading = false
+              }
+            }
+            catch (e) {
+              this.loading = false
             }
         }
     }

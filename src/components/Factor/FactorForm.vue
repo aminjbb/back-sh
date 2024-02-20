@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div>
     <v-form ref="addFactor" v-model="valid">
         <v-row
@@ -13,12 +13,12 @@
                 </div>
 
                 <v-autocomplete
-                    v-if="dataSupplier && dataSupplier.length"
                     density="compact"
                     variant="outlined"
                     single-line
                     :items="dataSupplier"
                     v-model="form.supplier_id"
+                    :rules="rule"
                     item-title="label"
                     item-value="value" />
             </v-col>

@@ -21,32 +21,9 @@
         </template>
 
         <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-menu :location="location">
-                <template v-slot:activator="{ props }">
-                    <v-icon v-bind="props">
-                        mdi-dots-vertical
-                    </v-icon>
-                </template>
-
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title>
-                            <v-btn
-                                @click="massUpdateModal()"
-                                variant="text"
-                                height="40"
-                                rounded
-                                class="px-5 mt-1 text-grey-darken-1 t14300">
-                                <template v-slot:append>
-                                    <v-icon>mdi-pen-minus</v-icon>
-                                </template>
-                                ویرایش گروهی تنظیمات سئو
-                            </v-btn>
-                        </v-list-item-title>
-
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+        <span class="t10400 text-black">
+          عملیات
+        </span>
         </div>
     </header>
 
@@ -67,7 +44,7 @@
                 </div>
                 <div
                     v-if=" header[1].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
@@ -75,7 +52,7 @@
                 </div>
                 <div
                     v-if=" header[2].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.factor_id }}
@@ -83,7 +60,7 @@
                 </div>
                 <div
                     v-if=" header[3].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_count }}
@@ -91,7 +68,7 @@
                 </div>
                 <div
                     v-if=" header[4].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.shps_variety }}
@@ -99,7 +76,7 @@
                 </div>
                 <div
                     v-if=" header[5].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.creator?.first_name }} {{ item.creator?.last_name }}
@@ -107,7 +84,7 @@
                 </div>
                 <div
                     v-if=" header[6].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.created_at_fa }}
@@ -115,7 +92,7 @@
                 </div>
                 <div
                     v-if=" header[7].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.updated_at_fa }}
@@ -123,7 +100,7 @@
                 </div>
                 <div
                     v-if=" header[8].show"
-                    class="c-table__contents__item text-right"
+                    class="c-table__contents__item  justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="retail-status-box d-flex align-center pr-2">
                         <span class="t14300 text-gray500 py-5 ">
@@ -223,7 +200,6 @@ import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
-
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
     openToast,

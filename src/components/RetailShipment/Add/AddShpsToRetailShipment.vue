@@ -252,6 +252,7 @@ export default {
       }
     },
     async assignSku(shps) {
+      console.log(shps)
      const form = {
         shps : shps,
         maxTolerance :'100',

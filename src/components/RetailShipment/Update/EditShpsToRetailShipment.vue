@@ -9,7 +9,7 @@
           <v-row justify="start">
 
             <v-autocomplete
-                placeholder="نام کالا یا شماره SKU را جستجو نمایید"
+                placeholder="نام کالا یا شماره shps را جستجو نمایید"
                 variant="outlined"
                 prepend-inner-icon-cb="mdi-map-marker"
                 rounded="lg"

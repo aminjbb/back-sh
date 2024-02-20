@@ -79,6 +79,7 @@
                       item-value="value"
                       single-line
                       clearable
+                      no-data-text="ادمین را جستوجو کنید"
                       v-debounce:1s.unlock="searchAdmin"
                       variant="outlined"
                   />
@@ -427,7 +428,7 @@ export default {
     removeAllFilters() {
       this.$router.push('/' + this.path);
       this.values = [];
-
+      this.statusModel = ''
       this.filterField.forEach(el => {
         const form = {
           name: el.value,

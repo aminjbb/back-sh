@@ -168,7 +168,7 @@ export default {
         PackageScan = packageSplit[1]
       }
       else{
-        this.packageId = packageSplit[1]
+        this.packageId = this.scanPackage
         PackageScan = this.scanPackage
       }
       this.scanPackage = ''

@@ -29,7 +29,7 @@
                             تامین کننده :
                         </span>
             <span style="font-size: 7px">
-                             {{ retailObject?.factor?.supplier?.full_name }}
+                             {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
           </div>
           <div class="mx-10 d--rtl">
@@ -42,7 +42,7 @@
           </div>
           <div class="mx-10 d--rtl">
                         <span style="font-size: 7px">
-                            تاریخ ارسال :
+                            تاریخ تحویل :
                         </span>
               <span v-if="retailObject?.sent_to_warehouse_at " style="font-size: 7px; direction: rtl">
               {{ convertDateToJalai(retailObject?.sent_to_warehouse_at, '-', false) }}
