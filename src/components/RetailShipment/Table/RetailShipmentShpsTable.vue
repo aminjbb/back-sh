@@ -444,8 +444,9 @@ export default {
      */
     async updateRetailShipment(index) {
       try {
-        if (this.form[index].count > 0 && this.form[index].minTolerance > 0 && this.form[index].maxTolerance > 0) {
-          if (this.form[index].minTolerance > this.form[index].maxTolerance) {
+        console.log(this.form[index].minTolerance , this.form[index].maxTolerance)
+        if (parseInt(this.form[index].count )>= 0 && parseInt(this.form[index].minTolerance )>= 0 && parseInt(this.form[index].maxTolerance )>= 0) {
+          if (parseInt(this.form[index].minTolerance )> parseInt(this.form[index].maxTolerance)) {
             openToast(
                 this.$store,
                 'تلورانس پایین نمیتواند بیشتر از تلورانس بالا باشد',
