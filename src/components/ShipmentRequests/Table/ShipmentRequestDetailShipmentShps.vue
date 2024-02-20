@@ -236,7 +236,6 @@
        * Get each items table based of header length
        */
       itemsWidth() {
-        console.log('Header:', this.header);
         let headerLength = 0;
         if (this.header !== undefined && this.header.length > 0) {
           this.header.forEach(element => {
