@@ -24,7 +24,7 @@
           :items="voucherList"
           :page="page"
           :perPage="dataTableLength"
-          activePath="voucher/activation"
+          activePath="voucher/activation/"
           @updateList="updateList"
           deletePath="order/crud/delete/"
           model="order" />
