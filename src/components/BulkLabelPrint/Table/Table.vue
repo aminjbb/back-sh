@@ -178,7 +178,7 @@
       </div>
     </div>
     <ModalBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId"/>
-    <PackageManagementModal :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
+    <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
     <ModalDamageReport/>
     <ModalLostReport/>
   </div>
@@ -216,6 +216,9 @@ export default {
   },
 
   props: {
+    getShpsList:{
+      type:Function
+    },
     packageId: null,
     /**
      * List Items for header

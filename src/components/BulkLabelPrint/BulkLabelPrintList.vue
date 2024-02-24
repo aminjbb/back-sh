@@ -42,7 +42,8 @@
           :page="1"
           :perPage="1000"
           :packageId="packageId"
-          :loading="loading"/>
+          :loading="loading"
+      :getShpsList="getShpsList"/>
 
       <v-divider/>
 
