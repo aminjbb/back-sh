@@ -6,7 +6,7 @@ import { useCookies } from "vue3-cookies";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 export default function setup() {
     const processingShipment =ref([],)
-    const shipmentShpsList =ref(null)
+    const shipmentShpsList =ref([])
     const pageLength = ref(1)
     const cookies = useCookies()
     const router = useRouter()
