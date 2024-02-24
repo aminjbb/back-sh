@@ -84,6 +84,9 @@ export default {
     shipmentId:null,
     packageId:null,
     shpsId:null,
+    getShpsList:{
+      type:Function
+    },
   },
   data(){
     return {
@@ -129,6 +132,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           openToast(this.$store , 'بسته با موفقیت ساخته شد' , 'success')
+          this.getShpsList(this.packageId , this.$store)
           this.close()
         }
         else {
