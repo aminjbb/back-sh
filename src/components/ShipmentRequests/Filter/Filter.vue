@@ -382,7 +382,6 @@
   
         Filter.page = 1;
         if (this.$route.query.per_page)   Filter.per_page = this.$route.query.per_page;
-  
         this.$router.push('/' + this.path + '/' + Filter.query_maker());
         this.dialog = false;
       },

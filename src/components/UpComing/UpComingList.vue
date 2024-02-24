@@ -28,7 +28,6 @@
           activePath="page/crud/update/activation/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-
           model="page" />
 
       <v-divider />
@@ -142,8 +141,8 @@ export default {
         }
       }
     },
-    $route(){
-      this.getUpComingList();
+    $route(to){
+      this.getUpComingList(to);
     }
   }
 }
