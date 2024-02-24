@@ -169,10 +169,14 @@ export default createStore({
             dialog: false,
             object:null
         },
-        returnedOrderItems:[]
+        returnedOrderItems:[],
+        packageManagementModal:false,
     },
 
     mutations: {
+        set_packageManagementModal(state , bool){
+            state.packageManagementModal = bool
+        },
         set_returnedOrderItems(state , object){
             state.returnedOrderItems.push(object)
         },
@@ -393,6 +397,9 @@ export default createStore({
     },
 
     getters: {
+        get_packageManagementModal(state){
+           return  state.packageManagementModal
+        },
         get_returnedOrderItems(state) {
           return state.returnedOrderItems
         },

@@ -92,48 +92,6 @@
                         </span>
           </div>
 
-
-          <div
-              v-if=" header[4].show "
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
-            <div
-                class="seller__add-sku-btn d-flex justify-center align-center pointer"
-                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps)">
-              <v-icon size="15">
-                {{ submittedItemId === item.id || item.label_printed === 1 ? 'mdi-check' : 'mdi-plus' }}
-              </v-icon>
-            </div>
-          </div>
-
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props" class="text-gray500">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
-
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div
-                        class="ma-5 pointer"
-                        @click=packageManagement(item)>
-                      <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                              مدیریت بسته
-                                                </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-
-
-              </v-list>
-            </v-menu>
-
-          </div>
           <v-list-item>
             <v-list-item-title>
               <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
@@ -164,19 +122,10 @@
         </div>
       </div>
     </div>
-    <ModalBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId"/>
-    <PackageManagementModal :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
-    <ModalDamageReport/>
-    <ModalLostReport/>
+
   </div>
 </template>
 <script>
-import ModalBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalBulkPrintLabel.vue";
-
-import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
-import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
-
-
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -193,14 +142,6 @@ import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageMan
 
 
 export default {
-  components: {
-    PackageManagementModal,
-    ModalLostReport,
-    ModalDamageReport,
-    ModalBulkPrintLabel,
-
-
-  },
 
   props: {
     packageId: null,
@@ -311,9 +252,7 @@ export default {
   },
   watch: {},
   methods: {
-    packageManagement(shipment){
-      this.shipmentId = shipment.shipment_id
-      this.shps_id = shipment.shps
+    packageManagement(){
       this.$store.commit('set_packageManagementModal' , true)
     },
     async getDetail(shipment) {
@@ -496,4 +435,3 @@ export default {
   },
 }
 </script>
-    
