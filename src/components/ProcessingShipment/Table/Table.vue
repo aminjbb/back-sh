@@ -484,6 +484,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           this.form[index].loading = false
+          this.getShipmentShpslist()
           openToast(
               this.$store,
               ' کالا با موفقیت ویرایش شد.',

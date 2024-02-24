@@ -134,7 +134,6 @@ export default {
     basUrl(){
       return 'https://api.shvz.ir/'
     },
-
   }
 }
 </script>
