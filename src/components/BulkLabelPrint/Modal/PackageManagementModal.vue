@@ -108,7 +108,7 @@ export default {
     },
     async validate(){
       await this.$refs.packageManagement.validate()
-      if (this.valid) this.createSubPackage
+      if (this.valid) this.createSubPackage()
     },
     async createSubPackage(){
       try {
