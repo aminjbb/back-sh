@@ -128,9 +128,22 @@
                     </div>
                   </v-list-item-title>
                 </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <div
+                        class="ma-5 pointer"
+                        @click=getDetail(item)>
+                      <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14300">
+                                              پرینت
+                      </span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
 
 
               </v-list>
+
             </v-menu>
 
           </div>

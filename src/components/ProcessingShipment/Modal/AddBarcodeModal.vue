@@ -36,6 +36,7 @@
             <v-col cols="3" class="d-flex mx-10 ">
               <v-btn
                   @click="validate()"
+                  :loading="loading"
                   height="40"
                   rounded
                   variant="flat"
@@ -68,13 +69,17 @@ import {openToast} from "@/assets/js/functions";
 export default {
   props:{
     barcode:null,
-    skuId:null
+    skuId:null,
+    getShipmentShpslist:{
+      type:Function
+    }
   },
   data(){
     return {
       dialog:false,
       rule:[(v) => !!v || 'این فیلد الزامی است'],
-      newBarcode:null
+      newBarcode:null,
+      loading:false
     }
   },
 
@@ -112,6 +117,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           openToast(this.$store , 'بارکد با موقیت به کالا متصل شد' , 'success')
+          this.getShipmentShpslist()
           this.close()
         }
         else {
