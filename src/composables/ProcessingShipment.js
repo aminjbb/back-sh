@@ -29,7 +29,9 @@ export default function setup() {
         { name: 'تعداد درخواستی', show: true, value:'number' , order: false},
         { name: 'تلورانس پایین', show: true , value:'low_tolerance', order: false},
         { name: 'تلورانس بالا', show: true, value:'high_tolerance', order: false },
+        { name: 'تعداد باقیمانده', show: true, value:'high_tolerance', order: false },
         { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
+        { name: 'بارکد کالا', show: true, value:'high_tolerance', order: false },
         { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
     ]);
     const headerShpsSellerUpcoming =ref([

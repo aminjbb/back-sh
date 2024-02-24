@@ -1,5 +1,11 @@
 <template>
   <div class="text-right ">
+    <div
+        @click="validateOpenModal()"
+        class="check__barcode-box d-flex justify-center align-center pointer " :class="barcode? 'bg-success' : 'bg-error'">
+      <v-icon v-if="barcode" size="15">mdi-check</v-icon>
+      <v-icon v-else size="15">mdi-plus</v-icon>
+    </div>
     <v-dialog v-model="dialog" width="600">
       <v-card class="">
         <v-row
@@ -7,44 +13,24 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
 
           <v-col cols="7" class="t16400 ">
-            مدیریت
+           اسکن بارکد کالا
           </v-col>
         </v-row>
         <v-divider/>
         <div class="text-center px-5" >
-        <v-form ref="packageManagement" v-model="valid">
-          <v-row justify="center" class="pa-10">
-            <v-col cols="11">
-              <div class="text-right">
-                <span class="text-error">*</span>
-                <span>
-                    تعداد
-                  </span>
-              </div>
-              <div>
-                <v-text-field type="number" :rules="rule" v-model="count" variant="outlined"/>
-              </div>
-            </v-col>
-            <v-col cols="11">
-              <div class="text-right">
-                <span class="text-error">*</span>
-                <span>
-                    شناسه بسته
-                  </span>
-
-              </div>
-              <div>
-                <v-text-field :rules="rule" v-model="requestedPackageId" :autofocus="true" variant="outlined"/>
-              </div>
-            </v-col>
-          </v-row>
-        </v-form>
+          <v-form ref="addBarcode" v-model="valid">
+            <v-row justify="center" class="pa-5">
+              <v-col cols="8">
+                <v-text-field :rules="rule" variant="outlined" v-model="newBarcode" :autofocus="true"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
           <v-row class="justify-between my-2 mx-2">
 
             <v-col cols="3" class="d-flex mx-10 ">
@@ -55,7 +41,7 @@
                   variant="flat"
                   color="primary500"
                   class="px-5 mt-1">
-             تایید
+                تایید
               </v-btn>
             </v-col>
             <v-col cols="3" class="d-flex mx-10 ">
@@ -65,7 +51,7 @@
                   rounded
                   variant="outlined"
                   class="px-5 mt-1">
-                    انصراف
+                انصراف
               </v-btn>
             </v-col>
           </v-row>
@@ -81,54 +67,51 @@ import {openToast} from "@/assets/js/functions";
 
 export default {
   props:{
-    shipmentId:null,
-    packageId:null,
-    shpsId:null,
+    barcode:null,
+    skuId:null
   },
   data(){
     return {
+      dialog:false,
       rule:[(v) => !!v || 'این فیلد الزامی است'],
-      count:null,
-      requestedPackageId:null,
-      loading :false,
-      valid:true
+      newBarcode:null
     }
   },
 
 
   methods: {
-    print(id) {
+    print() {
       // this.close()
-      window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/${this.shpsId}/${id}/barcode-print`, '_blank');
+      window.open(`${ import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/barcode-print`, '_blank');
 
     },
     close() {
-      this.$refs.packageManagement.reset()
-        this.$store.commit('set_packageManagementModal' , false)
+      this.dialog = false
+      this.$refs.addBarcode.reset()
     },
-    async validate(){
-      await this.$refs.packageManagement.validate()
-      if (this.valid) this.createSubPackage
+    validateOpenModal(){
+      if (this.barcode === null) this.dialog = true
     },
-    async createSubPackage(){
+   async validate(){
+     await this.$refs.addBarcode.validate()
+      if (this.valid) this.assignBarcodeToSku()
+    },
+
+    async assignBarcodeToSku(){
       try {
         this.loading = true
         const formData = new FormData()
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
-        formData.append('shps' , this.shpsId)
-        formData.append('count' , this.count)
-        formData.append('package_id' , this.packageId)
-        formData.append('requested_package_id' , this.requestedPackageId)
-        formData.append('shipment_id' , this.shipmentId)
+        formData.append('barcode' , this.newBarcode)
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.store = this.$store
         AxiosMethod.form = formData
         AxiosMethod.toast_error = true
-        AxiosMethod.end_point = `package/shps/transfer/`
+        AxiosMethod.end_point = `product/sku/crud/attach/barcode/${this.skuId}`
         let data = await AxiosMethod.axios_post()
         if (data) {
-          openToast(this.$store , 'بسته با موفقیت ساخته شد' , 'success')
+          openToast(this.$store , 'بارکد با موقیت به کالا متصل شد' , 'success')
           this.close()
         }
         else {
@@ -139,16 +122,12 @@ export default {
         this.loading = false
       }
     },
-
   },
 
   computed: {
     basUrl(){
       return 'https://api.shvz.ir/'
     },
-    dialog(){
-      return this.$store.getters['get_packageManagementModal']
-    }
 
   }
 }

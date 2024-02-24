@@ -89,6 +89,14 @@
                 {{ item.max_tolerance }}
               </span>
           </div>
+          <div
+
+              class="c-table__contents__item"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <span class="t14300 text-gray500 py-5 number-font">
+               11
+              </span>
+          </div>
 
           <div
 
@@ -105,6 +113,12 @@
               <div class="t14300 text-gray500 py-5 number-font">
                 <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].price" variant="outlined"/>
               </div>
+          </div>
+          <div
+              v-if="  form[index] && model === 'shavaz'"
+              class="c-table__contents__item"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <AddBarcodeModal :barcode="null" :skuId="item.sku_id"/>
           </div>
           <div
               v-if="  form[index] && model === 'shavaz'"
@@ -157,8 +171,10 @@ import {
 import {
   openToast
 } from "@/assets/js/functions";
+import AddBarcodeModal from "@/components/ProcessingShipment/Modal/AddBarcodeModal.vue";
 
 export default {
+  components: {AddBarcodeModal},
 
 
   props: {
