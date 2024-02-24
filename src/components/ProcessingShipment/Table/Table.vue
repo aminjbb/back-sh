@@ -118,7 +118,7 @@
               v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                <AddBarcodeModal :barcode="item.barcode" :skuId="item.sku_id"/>
+                <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
           </div>
           <div
               v-if="  form[index] && model === 'shavaz'"
@@ -178,6 +178,9 @@ export default {
 
 
   props: {
+    getShipmentShpslist:{
+      type:Function
+    },
     packId: {
       type :String
     },
