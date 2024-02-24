@@ -94,7 +94,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-               11
+               {{ item.remained_count }}
               </span>
           </div>
 
@@ -118,7 +118,7 @@
               v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                <AddBarcodeModal :barcode="null" :skuId="item.sku_id"/>
+                <AddBarcodeModal :barcode="item.barcode" :skuId="item.sku_id"/>
           </div>
           <div
               v-if="  form[index] && model === 'shavaz'"

@@ -49,11 +49,8 @@
           </div>
           <div>
             <v-text-field
-                @keyup="setpackId()"
                 variant="outlined"
-                :rules="rule"
-                :autofocus="packageFocus"
-                v-model="boxId"/>
+                v-model="barcodeShps"/>
           </div>
         </v-col>
 
@@ -62,12 +59,11 @@
             <v-btn
                 color="primary500"
                 :loading="loadingPackage"
-                @click="packageUpdate()"
-                :disabled="!boxId"
+                @click="filterShps()"
                 height="40"
                 rounded
                 class="px-8 mt-1">
-             ثبت
+              ثبت
             </v-btn>
           </div>
         </v-col>
@@ -95,7 +91,7 @@
           ref="processingShipmentShps"
           class="flex-grow-1"
           :header="headerTable"
-          :items="shipmentShpsList"
+          :items="shipmentShpsListFilterd"
           editUrl=""
           activePath=""
           deletePath=""
@@ -180,8 +176,10 @@ export default {
       finishLoading: false,
       rule: [v => !!v || 'این فیلد الزامی است'],
       packId: null,
-      packageFocus:true,
-      shpssFocus:true
+      packageFocus: true,
+      shpssFocus: true,
+      shipmentShpsListFilterd: [],
+      barcodeShps: null
     }
   },
   methods: {
@@ -257,6 +255,25 @@ export default {
         this.finishLoading = false
       }
     },
+    async filterShps() {
+      if (this.barcodeShps && this.barcodeShps !== "") {
+        const filterData = this.shipmentShpsListFilterd.find(element => {
+          return element.barcode == this.barcodeShps
+        })
+
+        if (filterData) {
+          this.shipmentShpsListFilterd = []
+
+          this.shipmentShpsListFilterd.push(filterData)
+        } else {
+          openToast(this.$store, 'شناسه کالا وجود ندارد')
+        }
+
+      } else {
+        this.shipmentShpsListFilterd = this.shipmentShpsList
+      }
+
+    }
   },
   computed: {
     headerTable() {
@@ -272,8 +289,18 @@ export default {
         if (this.shipmentShpsList[0].max_tolerance) return 'shavaz'
         return 'seller'
       } catch (e) {
-        return  'shavaz'
+        return 'shavaz'
       }
+    }
+  },
+  watch: {
+    barcodeShps(value) {
+      if (value === '' || !value) {
+        this.shipmentShpsListFilterd = this.shipmentShpsList
+      }
+    },
+    shipmentShpsList() {
+      this.shipmentShpsListFilterd = this.shipmentShpsList
     }
   }
 }
