@@ -50,7 +50,6 @@
           <div class="d-flex justify-start pt-5">
             <v-btn
                 color="primary500"
-                :loading="loadingPackage"
                 @click="filterShps()"
                 height="40"
                 rounded
@@ -128,8 +127,8 @@ export default {
       allCargoData: [],
       filteredCargoData: [],
       closePackageLoading :false,
-      barcode:null,
-      shipmentShpsListFilterd:[]
+      shipmentShpsListFilterd:[],
+      barcodeShps:null
 
     }
   },
@@ -201,7 +200,7 @@ export default {
     async filterShps() {
       if (this.barcodeShps && this.barcodeShps !== "") {
         const filterData = this.shipmentShpsListFilterd.find(element => {
-          return element.barcode == this.barcodeShps
+          return element.sku.barcode == this.barcodeShps
         })
 
         if (filterData) {
