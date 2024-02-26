@@ -442,20 +442,7 @@ export default {
     },
     validate(item , index){
       if (this.packId){
-        if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
-          const formData = {
-            count :this.form[index].count,
-            shps:item.id
-          }
-          const form ={
-            dialog:true,
-            object:formData
-          }
-          this.$store.commit('set_warningTolerance' , form)
-        }
-        else{
-          this.updateShps(index)
-        }
+        this.updateShps(index)
       }
       else{
         openToast(this.$store , 'ابتدا شناسه بسته را وارد کنید'  , 'error')

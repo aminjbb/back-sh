@@ -184,24 +184,28 @@ export default {
     },
 
     async addShps() {
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'report/crud/create'
-      AxiosMethod.form = formdata
-      formdata.append('report_type', "wastage")
-      formdata.append(`shps_s`, this.shps_s)
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false;
+     try {
+       this.loading = true
+       var formdata = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = 'report/crud/create'
+       AxiosMethod.form = formdata
+       formdata.append('report_type', "wastage")
+       formdata.append(`shps_s`, this.shps_s)
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loading = false;
+       } else {
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.loading = false;
 
-
-      } else {
-        this.loading = false
-      }
+     }
     },
 
 
