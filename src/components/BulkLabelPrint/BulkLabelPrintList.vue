@@ -30,6 +30,35 @@
                 v-model="scanPackage"/>
           </div>
         </v-col>
+        <v-col cols="3">
+          <div class="text-right ">
+            <span class="text-gray600 t14500">
+             شناسه کالا
+            </span>
+            <span class="text-error">
+              *
+            </span>
+          </div>
+          <div>
+            <v-text-field
+                variant="outlined"
+                v-model="barcodeShps"/>
+          </div>
+        </v-col>
+
+        <v-col cols="3">
+          <div class="d-flex justify-start pt-5">
+            <v-btn
+                color="primary500"
+                :loading="loadingPackage"
+                @click="filterShps()"
+                height="40"
+                rounded
+                class="px-8 mt-1">
+              ثبت
+            </v-btn>
+          </div>
+        </v-col>
       </v-row>
     </v-card>
 
@@ -38,7 +67,7 @@
           class="flex-grow-1"
           deletePath="category/crud/delete/"
           :header="cargoReceivingHeader"
-          :items="shpsList.shps_list "
+          :items="shipmentShpsListFilterd"
           :page="1"
           :perPage="1000"
           :packageId="packageId"
@@ -98,12 +127,14 @@ export default {
       rule: [v => !!v || 'این فیلد الزامی است'],
       allCargoData: [],
       filteredCargoData: [],
-      closePackageLoading :false
+      closePackageLoading :false,
+      barcode:null,
+      shipmentShpsListFilterd:[]
 
     }
   },
 
-  setup(props) {
+  setup() {
     const {
       cargoList,
       addPerPage,
@@ -135,6 +166,14 @@ export default {
   },
 
   watch: {
+    barcodeShps(value) {
+      if (value === '' || !value) {
+        this.shipmentShpsListFilterd = this.shpsList.shps_list
+      }
+    },
+    shpsList(){
+      this.shipmentShpsListFilterd = this.shpsList.shps_list
+    },
     cargo(newCargoId) {
       if (newCargoId) {
         this.fetchCargoData(newCargoId);
@@ -159,7 +198,23 @@ export default {
   },
 
   methods: {
+    async filterShps() {
+      if (this.barcodeShps && this.barcodeShps !== "") {
+        const filterData = this.shipmentShpsListFilterd.find(element => {
+          return element.barcode == this.barcodeShps
+        })
 
+        if (filterData) {
+          this.shipmentShpsListFilterd = []
+
+          this.shipmentShpsListFilterd.push(filterData)
+        } else {
+          openToast(this.$store, 'شناسه کالا وجود ندارد')
+        }
+      } else {
+        this.shipmentShpsListFilterd = this.shipmentShpsList
+      }
+    },
     scanPackageId(){
 
       const packageSplit = this.scanPackage.split('-')

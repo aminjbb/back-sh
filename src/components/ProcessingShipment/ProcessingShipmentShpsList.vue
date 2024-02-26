@@ -224,6 +224,7 @@ export default {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
         AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
