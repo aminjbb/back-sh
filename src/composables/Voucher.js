@@ -151,7 +151,7 @@ export default function setup() {
         filter.page = 1;
         page = 1;
         filter.per_page = number
-        router.push('/voucher/'+ filter.query_maker())
+        router.push('/voucher/index'+ filter.query_maker())
 
     }
 
@@ -171,7 +171,7 @@ export default function setup() {
         }
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/voucher/'+ filter.query_maker())
+        router.push('/voucher/index'+ filter.query_maker())
     }
 
 
@@ -181,6 +181,6 @@ export default function setup() {
 
     return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-        getVoucherDetail , voucherDetail, indexFilterField}
+        getVoucherDetail , voucherDetail, indexFilterField , addPerPage}
 }
 

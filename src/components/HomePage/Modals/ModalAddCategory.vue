@@ -45,6 +45,7 @@
 
         <div class="d-flex justify-space-between pb-5 px-10">
           <v-btn
+              :loading="loading"
               width="80"
               @click="validate()"
               color="primary500"
@@ -82,7 +83,8 @@ export  default {
   },
   data(){
     return{
-      dialog:false
+      dialog:false,
+      loading:false
     }
   },
 
@@ -95,32 +97,37 @@ export  default {
     },
 
     async createCategory(){
-      this.loading=true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/home/section/banner/create'
-      formData.append('homepage_section_id' , this.$route.params.sectionId)
-      formData.append('link', this.$refs.CategoryForm.form.link)
-      formData.append('label', this.$refs.CategoryForm.form.title)
-      formData.append(`image_alt`, this.$refs.CategoryForm.form.imageAlt)
-      formData.append('image_id', this.$refs.CategoryForm.form.image)
-      formData.append('priority', this.$refs.CategoryForm.form.priority)
-      formData.append('image_id', this.$refs.CategoryForm.form.image)
-      formData.append('device', 'desktop')
-      formData.append('is_active', 0)
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth =true
-      AxiosMethod.token =this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading=false
-        this.dialog = false
-        this.getHomePageBanner()
-      }
-      else{
-        this.loading=false
-      }
+     try {
+       this.loading=true
+       let formData = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = 'page/home/section/banner/create'
+       formData.append('homepage_section_id' , this.$route.params.sectionId)
+       formData.append('link', this.$refs.CategoryForm.form.link)
+       formData.append('label', this.$refs.CategoryForm.form.title)
+       formData.append(`image_alt`, this.$refs.CategoryForm.form.imageAlt)
+       formData.append('image_id', this.$refs.CategoryForm.form.image)
+       formData.append('priority', this.$refs.CategoryForm.form.priority)
+       formData.append('image_id', this.$refs.CategoryForm.form.image)
+       formData.append('device', 'desktop')
+       formData.append('is_active', 0)
+       AxiosMethod.form = formData
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth =true
+       AxiosMethod.token =this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loading=false
+         this.dialog = false
+         this.getHomePageBanner()
+       }
+       else{
+         this.loading=false
+       }
+     }
+     catch (e) {
+       this.loading=false
+     }
     }
 
   }

@@ -2,7 +2,7 @@
   <div>
     <v-row justify="center">
       <v-col v-for="(number , index) in max" :cols="myCol">
-        <ModalAddAdsBanner :maxWidth="maxWidth" :banner="banners[index]" :device="device"/>
+        <ModalAddAdsBanner :getHomePageBanner="getHomePageBanner" :maxWidth="maxWidth" :banner="banners[index]" :device="device"/>
       </v-col>
     </v-row>
   </div>
@@ -27,7 +27,8 @@ export default {
   props:{
     max:2,
     device:'',
-    banners:[]
+    banners:[],
+    getHomePageBanner:{type:Function}
   }
 }
 </script>

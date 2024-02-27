@@ -60,7 +60,7 @@
             :header="bannerHeader"
             :items="homePageBanner.data"
             editUrl="/seller/edit/"
-            activePath="seller/crud/update/activation/"
+            activePath="page/home/section/banner/update/activation/"
             deletePath="page/home/section/banner/delete/"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"

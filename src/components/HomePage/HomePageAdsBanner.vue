@@ -11,6 +11,7 @@
                 <AddAdsBanner
                     :banners="desktopBanner"
                     :max="homeSection?.max"
+                    :getHomePageBanner="getHomePageBanner"
                     device="desktop" />
             </div>
             <div class="text-right pa-10">
@@ -22,6 +23,7 @@
                 <AddAdsBanner
                     :banners="tabletBanner"
                     :max="homeSection?.max"
+                    :getHomePageBanner="getHomePageBanner"
                     device="tablet" />
             </div>
             <div class="text-right pa-10">
@@ -33,6 +35,7 @@
                 <AddAdsBanner
                     :banners="mobileBanner"
                     :max="homeSection?.max"
+                    :getHomePageBanner="getHomePageBanner"
                     device="mobile" />
             </div>
         </div>
