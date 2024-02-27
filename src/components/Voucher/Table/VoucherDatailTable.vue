@@ -4,7 +4,7 @@
         color="primary500"
         indeterminate
         reverse
-        v-if="loading" />
+        v-if="loading"/>
 
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
@@ -15,8 +15,8 @@
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-if="head.order == true"  />
-          {{head.name}}
+          <v-icon v-if="head.order == true"/>
+          {{ head.name }}
         </div>
 
       </template>
@@ -35,12 +35,12 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{rowIndexTable(index)}}
+                        {{ rowIndexTable(index) }}
                     </span>
           </div>
 
           <div
-              v-if="item.first_name && header[1].show"
+              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
@@ -49,7 +49,7 @@
           </div>
 
           <div
-              v-if="item.last_name && header[2].show"
+              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
@@ -58,19 +58,22 @@
           </div>
 
           <div
-              v-if="item.phone_number && header[3].show"
+              v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone_number }}
+                    <span class="t14300 text-gray500 py-5 number-font" v-if=" item.customer_price">
+                        {{ item.customer_price }}
+                    </span>
+                    <span class="t14300 text-gray500 py-5 number-font" v-else>
+                        ----
                     </span>
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.role?.label }}
+                    <span v-if="item.customer_price" class="t14300 text-gray500 py-5 number-font">
+                        {{ item.customer_price }}
                     </span>
             <span v-else>----</span>
           </div>
@@ -96,6 +99,7 @@ import {
 import {
   PanelFilter
 } from "@/assets/js/filter"
+
 export default {
 
   props: {
@@ -155,7 +159,7 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      isBan:[],
+      isBan: [],
       panelFilter: new PanelFilter(),
     }
   },
