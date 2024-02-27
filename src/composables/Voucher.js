@@ -123,11 +123,15 @@ export default function setup() {
         }
     };
     async function  getVoucherCustomer(query) {
-
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}`
+        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -174,13 +178,45 @@ export default function setup() {
         router.push('/voucher/index'+ filter.query_maker())
     }
 
+    function addPerPageCustomer(number){
+        const filter = new PanelFilter()
+        if (route.query.name) {
+            filter.name =route.query.name
+        }
+        if (route.query.label) {
+            filter.label =route.query.label
+        }
 
-    watch(page, function(val) {
-        addPagination(val)
-    })
+        if (route.query.id) {
+            filter.id =route.query.id
+        }
+        filter.page = 1;
+        page = 1;
+        filter.per_page = number
+        router.push(route.path+ filter.query_maker())
 
+    }
+
+    function addPaginationCustomer(page){
+        const filter = new PanelFilter()
+        if (route.query.name) {
+            filter.name =route.query.name
+        }
+        if (route.query.label) {
+            filter.label =route.query.label
+        }
+        if (route.query.active) {
+            filter.active =route.query.active
+        }
+        if (route.query.id) {
+            filter.id =route.query.id
+        }
+        filter.page = page
+        filter.per_page = dataTableLength.value
+        router.push(route.path + filter.query_maker())
+    }
     return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
-    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-        getVoucherDetail , voucherDetail, indexFilterField , addPerPage}
+    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
+        getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer}
 }
 

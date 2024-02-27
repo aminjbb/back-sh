@@ -32,7 +32,7 @@
         </div>
 
         <v-text-field
-            :rules="rule"
+            :rules="englishRule"
             variant="outlined"
             v-model="voucherForm.code"
             rounded="lg">
@@ -392,6 +392,10 @@ export default {
         inputType:'file'
       },
       rule: [v => !!v || 'این فیلد الزامی است'],
+      englishRule: [
+        (v) => !!v || "این فیلد الزامی است",
+        (v) => RegExp("^[a-zA-Z0-9$@$!%*?&#^-_. +]+$").test(v) || "کد تخفیف قابل قبول نیست",
+      ],
       valid: false,
       provinces:[]
 
