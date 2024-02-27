@@ -46,6 +46,7 @@
 
             <div class="d-flex justify-space-between pb-5 px-10">
                 <v-btn
+                    :loading="loading"
                     width="80"
                     @click="validate()"
                     color="primary500"
@@ -78,7 +79,8 @@ export default {
     props: {
         device: '',
         banner: null,
-        maxWidth: null
+        maxWidth: null,
+      getHomePageBanner:{type:Function}
     },
     
     components: {
@@ -88,7 +90,8 @@ export default {
     data() {
         return {
             dialog: false,
-            image: ''
+            image: '',
+          loading:false
         }
     },
 
@@ -107,31 +110,37 @@ export default {
         },
 
         async createBanner() {
-            this.loading = true
-            let formData = new FormData();
-            let endPoint = null
-            if (this.banner) endPoint = `page/home/section/banner/update/${this.banner.id}`
-            else endPoint = `page/home/section/banner/create/`
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = endPoint
-            formData.append('homepage_section_id', this.$route.params.sectionId)
-            formData.append('link', this.$refs.AddAdsForm.form.link)
-            formData.append(`image_alt`, this.$refs.AddAdsForm.form.imageAlt)
-            formData.append('device', this.device)
-            formData.append('image_id', this.$refs.AddAdsForm.form.image)
-            AxiosMethod.form = formData
-            formData.append('is_active', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.loading = false
-                this.image = this.$refs.AddAdsForm.form.imageUrl
-                this.dialog = false
-            } else {
-                this.loading = false
-            }
+           try {
+             this.loading = true
+             let formData = new FormData();
+             let endPoint = null
+             if (this.banner) endPoint = `page/home/section/banner/update/${this.banner.id}`
+             else endPoint = `page/home/section/banner/create/`
+             const AxiosMethod = new AxiosCall()
+             AxiosMethod.end_point = endPoint
+             formData.append('homepage_section_id', this.$route.params.sectionId)
+             formData.append('link', this.$refs.AddAdsForm.form.link)
+             formData.append(`image_alt`, this.$refs.AddAdsForm.form.imageAlt)
+             formData.append('device', this.device)
+             formData.append('image_id', this.$refs.AddAdsForm.form.image)
+             AxiosMethod.form = formData
+             formData.append('is_active', 0)
+             AxiosMethod.store = this.$store
+             AxiosMethod.using_auth = true
+             AxiosMethod.token = this.$cookies.get('adminToken')
+             let data = await AxiosMethod.axios_post()
+             if (data) {
+               this.getHomePageBanner()
+               this.loading = false
+               this.image = this.$refs.AddAdsForm.form.imageUrl
+               this.dialog = false
+             } else {
+               this.loading = false
+             }
+           }
+           catch (e) {
+             this.loading = false
+           }
         }
     },
 

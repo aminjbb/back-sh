@@ -396,7 +396,7 @@ export default {
             val.forEach(element => {
                 const form = {
                     banner: element.id,
-                    image: element.id,
+                    image: element.image ?.id,
                     imageId: element.image ?.id,
                     imageUrl: element.image ?.image_url,
                     priority: element.priority,
@@ -450,7 +450,7 @@ export default {
             this.form[index].loading = true
             const formData = new FormData()
             formData.append('homepage_section_id', this.$route.params.sectionId)
-            formData.append('image_id', this.form[index].image)
+            if (this.form[index].image)  formData.append('image_id', this.form[index].image)
             formData.append('priority', this.form[index].priority)
             formData.append('device', this.form[index].device)
             if (this.form[index].end_time != null) formData.append('end_time', this.form[index].end_time)

@@ -132,17 +132,7 @@
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
 
-                                        <span class=" text-grey-darken-1 t14300">
-                                            حذف
-                                        </span>
-
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/home-page/${$route.params.sectionId}/partition-slider/${item.id}/add/sku`)">
@@ -152,6 +142,17 @@
                                     </div>
                                 </v-list-item-title>
                             </v-list-item>
+                          <v-list-item>
+                            <v-list-item-title>
+                              <div class="ma-5 pointer" @click="removeItem(item.id)">
+
+                                        <span class=" text-grey-darken-1 t14300">
+                                            حذف
+                                        </span>
+
+                              </div>
+                            </v-list-item-title>
+                          </v-list-item>
                         </v-list>
                     </v-menu>
                 </div>
