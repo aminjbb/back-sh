@@ -86,7 +86,7 @@ export default function setup() {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/wastage/index'+ filter.params_generator(route.query))
+        router.push(route.path+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {
