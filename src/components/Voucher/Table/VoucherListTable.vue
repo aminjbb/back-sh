@@ -112,7 +112,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.order_limit">
                             {{ item.order_limit }}
                         </template>
@@ -127,7 +127,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.user_limit">
                             {{ item.user_limit }}
                         </template>
@@ -144,7 +144,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.min_order_price">
-                            {{ item.min_order_price }}
+                            {{ splitChar(item.min_order_price ) }}
                         </template>
                         <template v-else>
                             -
@@ -157,7 +157,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5" v-if="item.order_count">
+                    <span class="t13400 text-gray500 py-5 number-font" v-if="item.order_count">
                       {{ item.order_count }}
                     </span>
             <span v-else>-</span>
