@@ -5,7 +5,19 @@
           justify="center"
           align="center"
           class="px-10 pt-3">
-        <v-col cols="6" />
+        <v-col cols="6" >
+          <v-btn
+              @click="$router.push('/voucher/create')"
+              color="primary500"
+              height="40"
+              rounded
+              class="px-8 ">
+            <template v-slot:prepend>
+              <v-icon>mdi-plus</v-icon>
+            </template>
+            افزودن
+          </v-btn>
+        </v-col>
 
         <v-col cols="6">
           <v-row justify="end" class="mt-0">
@@ -87,11 +99,11 @@ export default {
   setup(props) {
     const {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField
+      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField , addPerPage
     } = Voucher();
     return {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField
+      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField , addPerPage
     };
   },
 
@@ -125,10 +137,10 @@ export default {
 
   watch: {
     dataTableLength(val) {
-      this.dataTableLength(val)
+      this.addPerPage(val)
     },
-    $route(){
-      this.getVoucherList()
+    $route(to){
+      this.getVoucherList(to)
 
     }
   }
