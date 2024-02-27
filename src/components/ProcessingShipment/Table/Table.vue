@@ -124,17 +124,26 @@
               v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-progress-circular
-                v-if="form[index].loading"
-                indeterminate
-                color="primary"></v-progress-circular>
-            <div
-                v-else
-                @click="validate(item , index)"
-                class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-              <v-icon size="15">mdi-plus</v-icon>
-            </div>
+           <template v-if="item.is_packed === 0">
+             <v-progress-circular
+                 v-if="form[index].loading"
+                 indeterminate
+                 color="primary"></v-progress-circular>
+             <div
+                 v-else
+                 @click="validate(item , index)"
+                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+               <v-icon size="15">mdi-plus</v-icon>
+             </div>
+           </template>
+            <template v-else>
+              <div
+                  class="seller__add-sku-btn d-flex justify-center align-center pointer">
+                <v-icon size="15">mdi-check</v-icon>
+              </div>
+            </template>
           </div>
         </div>
       </div>
