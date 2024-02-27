@@ -118,9 +118,9 @@ import Voucher from '@/composables/Voucher'
 export default {
   setup() {
     const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
+      pageLength,page , getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer} = new Voucher()
     return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail}
+      pageLength,page,getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer}
   },
   components: {
     Table,
@@ -129,6 +129,18 @@ export default {
   mounted() {
     this.getVoucherCustomer()
     this.getVoucherDetail()
+  },
+
+  watch:{
+    dataTableLength(val){
+      this.addPerPageCustomer(val)
+    },
+    $route(to){
+      this.getVoucherCustomer(to)
+    },
+    page(val){
+      this.addPaginationCustomer(val)
+    }
   }
 }
 </script>

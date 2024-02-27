@@ -99,11 +99,11 @@ export default {
   setup(props) {
     const {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField , addPerPage
+      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField , addPerPage,addPagination
     } = Voucher();
     return {
       headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField , addPerPage
+      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField , addPerPage,addPagination
     };
   },
 
@@ -142,6 +142,9 @@ export default {
     $route(to){
       this.getVoucherList(to)
 
+    },
+    page(val){
+     this.addPagination(val)
     }
   }
 }

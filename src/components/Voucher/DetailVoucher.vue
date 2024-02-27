@@ -35,8 +35,10 @@
           <span class="t14500">
              مقدار تخفیف:
           </span>
-          <span class="t14500 text-gray500 number-font">
-              450,000 ریال
+          <span class="t14500 text-gray500 number-font"  v-if="voucherDetail?.discount_type === 'percent'">
+              {{ voucherDetail?.discount }} %
+          </span> <span class="t14500 text-gray500 number-font"  v-else>
+              {{  voucherDetail?.discount  }} ریال
           </span>
         </div>
       </div>
@@ -61,7 +63,7 @@
       <Table
           class="flex-grow-1"
           :header="headerShps"
-          :items="[]"
+          :items="voucher?.data"
           :page="page"
           :perPage="pageLength"
           :loading="false"
