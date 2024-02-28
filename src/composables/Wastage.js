@@ -27,8 +27,6 @@ export default function setup() {
         { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
     ]);
 
-
-
     const createHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه بسته', show: true , value:'id', order: false},
@@ -42,6 +40,17 @@ export default function setup() {
         { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
     ]);
 
+    const filterField = [
+        { name: 'شناسه بسته', type:'text', value:'package_id'},
+        { name: 'نوع بسته', type:'select', value:'package_type'},
+        { name:'نوع محموله', type: 'select', value:'shipment_type'},
+        { name: 'نام فروشگاه', type:'text', value:'shopping_name'},
+        { name: 'تامین کننده', type:'select', value:'supplier_id'},
+        { name: 'سریال کالا', type:'text', value:'shps_s'},
+        { name: 'نام کالا', type:'text', value:'sku_label'},
+        { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
+        { name: 'تاریخ افزودن به لیست', type:'date', value:'date'},
+    ];
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -57,11 +66,11 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `report/crud/index?report_type=wastage`
+        AxiosMethod.end_point = `report/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            itemList.value = data.data
+            pageLength.value = data.data.last_page
+            itemList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -102,6 +111,6 @@ export default function setup() {
         }
     })
 
-    return {pageLength, itemList ,addPerPage, getWasteAndLostList, dataTableLength, page, header,loading, createHeader}
+    return {pageLength, itemList ,addPerPage, getWasteAndLostList, dataTableLength, page, header,loading, createHeader ,filterField}
 }
 

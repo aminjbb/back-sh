@@ -76,10 +76,8 @@
                 isFileNull = false
                 break;
             }
-  
           })
           if (this.$refs.CreateVoucherFrom.valid && !isFileNull) this.createVoucher()
-  
         }, 200)
   
   
