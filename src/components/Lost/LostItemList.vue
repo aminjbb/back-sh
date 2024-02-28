@@ -9,9 +9,7 @@
 
         <v-col cols="12">
           <v-row justify="end p-5">
-
-
-<!--            <ModalTableFilter path="report/index" :filterField="filterField" />-->
+            <ModalTableFilter path="report/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -33,6 +31,41 @@
       <v-divider />
 
       <v-card-actions class="pb-3">
+        <v-row class="pr-5">
+          <v-col cols="3">
+          </v-col>
+
+          <v-col cols="6">
+            <div class="text-center">
+              <v-pagination
+                  v-model="page"
+                  :length="pageLength"
+                  rounded="circle"
+                  size="40"
+                  :total-visible="4"
+                  prev-icon="mdi-chevron-right"
+                  next-icon="mdi-chevron-left" />
+            </div>
+          </v-col>
+
+          <v-col cols="3">
+            <div
+                align="center"
+                id="rowSection"
+                class="d-flex align-center">
+                        <span class="ml-5">
+                            تعداد سطر در هر صفحه
+                        </span>
+              <span class="mt-2" id="row-selector">
+                            <v-select
+                                v-model="dataTableLength"
+                                class="t1330"
+                                variant="outlined"
+                                :items="[25,50,100]" />
+                        </span>
+            </div>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
   </div>
@@ -41,8 +74,7 @@
 <script>
 import Table from '@/components/Lost/Table/Table.vue'
 import Lost from "@/composables/Lost";
-import ModalTableFilter from '@/components/WasteAndLost/Filter/Filter.vue'
-
+import ModalTableFilter from '@/components/Lost/Filter/Filter.vue'
 
 export default {
   components: {
@@ -105,8 +137,13 @@ export default {
 
   watch: {
     dataTableLength(val) {
-      this.getWasteAndLostList(val)
+      this.addPerPage(val)
     },
+    page(val){
+      console.log(val)
+      this.addPagination(val)
+    },
+
   }
 }
 </script>
