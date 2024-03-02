@@ -1933,7 +1933,7 @@ const router = createRouter({
                 name: 'WastageListView',
                 component: WastageListView,
                 meta: {
-                    name: 'مفقودی '
+                    name: 'ضایعات '
                 }
             },
 
