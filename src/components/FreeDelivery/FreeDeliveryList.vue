@@ -38,7 +38,7 @@
             :items="freeDeliveryList"
             :page="page"
             :perPage="dataTableLength"
-            activePath="asdasd"
+            activePath="admin/delivery-discount/activation/"
             @updateList="updateList"
             deletePath="admin/delivery-discount/crud/delete/"
             model="order" />

@@ -115,6 +115,14 @@ export default {
     },
     async createSubPackage(){
       try {
+        const packageIdSplit = this.requestedPackageId.split('-')
+        let packageId = ''
+        if (packageIdSplit[1]){
+          packageId = packageIdSplit[1]
+        }
+        else{
+          packageId =  this.requestedPackageId
+        }
         this.loading = true
         const formData = new FormData()
         const AxiosMethod = new AxiosCall()
@@ -122,7 +130,7 @@ export default {
         formData.append('shps' , this.shpsId)
         formData.append('count' , this.count)
         formData.append('package_id' , this.packageId)
-        formData.append('requested_package_id' , this.requestedPackageId)
+        formData.append('requested_package_id' ,packageId )
         formData.append('shipment_id' , this.shipmentId)
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.store = this.$store

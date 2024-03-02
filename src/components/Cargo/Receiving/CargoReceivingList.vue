@@ -151,6 +151,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           openToast(this.$store , 'کارگو با موفیت بسته شد')
+          // this.cargoReceivingList = []
           this.loading = false
           this.cargo = ''
         }

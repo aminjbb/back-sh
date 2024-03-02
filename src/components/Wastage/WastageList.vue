@@ -47,7 +47,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="1" class="mt-3">
-          <ModalTableFilter path="report/index" :filterField="filterField" />
+          <ModalTableFilter path="wastage/index" :filterField="filterField" />
         </v-col>
       </v-row>
     </v-card>
@@ -199,6 +199,7 @@ export default {
        AxiosMethod.token = this.$cookies.get('adminToken')
        let data = await AxiosMethod.axios_post()
        if (data) {
+         this.getWasteAndLostList();
          this.loading = false;
        } else {
          this.loading = false

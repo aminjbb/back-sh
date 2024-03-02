@@ -31,7 +31,7 @@ export class PanelFilter {
         this.supplier_id = null;
         this.shps_s = null;
         this.sku_label = null;
-        this.report_type = 'lost';
+        this.report_type = 'wastage';
         this.creator_id = null;
     }
 
