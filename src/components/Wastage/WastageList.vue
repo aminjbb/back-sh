@@ -207,7 +207,6 @@ export default {
      }
      catch (e) {
        this.loading = false;
-
      }
     },
     updateList(status) {
