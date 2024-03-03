@@ -32,7 +32,7 @@
            <span class="t12400">
            شماره ردیف :
             <span class="t12400 text-gray600 number-font">
-              {{ pickUpShps?.placement?.row_numbe }}
+              {{ pickUpShps?.placement?.row_number }}
             </span>
           </span>
           </div>
@@ -173,7 +173,6 @@ export default {
   },
   methods: {
     scanQrCode() {
-      console.log(this.shpssBarCode)
       this.pickUpshpss(this.shpssBarCode)
     },
     async pickUpshpss(barcode) {
@@ -182,7 +181,7 @@ export default {
         const AxiosMethod = new AxiosCall()
         const formData = new FormData()
         formData.append('barcode', barcode)
-        formData.append('placement_id', this.pickUpShps?.placement_id)
+        formData.append('placement_id', this.pickUpShps?.placement.id)
         AxiosMethod.form = formData
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
