@@ -8,7 +8,7 @@
                 ref="CategoryForm"
                 type="edit"
                 :category="category"
-                :parent-category="categoreis.data"
+                :parent-category="allCategories.data"
             />
 
             <v-row
@@ -135,13 +135,13 @@ export default {
     },
 
     setup(props) {
-        const {categoreis, getCategories} = Categories();
-        return {categoreis, getCategories};
+        const {allCategories, getAllCategories} = Categories();
+        return {allCategories, getAllCategories};
     },
 
     mounted(){
         this.getCategory();
-        this.getCategories();
+        this.getAllCategories();
     }
 }
 </script>
