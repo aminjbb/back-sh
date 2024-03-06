@@ -262,7 +262,8 @@
           translateType(type) {
             const translations = {
               'post': 'پست',
-              'tipax': 'تیپاکس '
+              'tipax': 'تیپاکس ',
+              'nafis': 'نفیس'
             };
             return translations[type] || type;
           },
