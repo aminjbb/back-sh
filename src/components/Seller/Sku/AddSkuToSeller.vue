@@ -70,7 +70,7 @@
             :perPage="dataSkuTableLength"
             :items="sellerSku.data"
             editUrl="/seller/edit/"
-            activePath="seller/crud/update/activation/"
+            :activePath="`seller/${$route.params.sellerId}/sku/update/activation/`"
             :deletePath="`seller/${$route.params.sellerId}/sku/delete/`"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
