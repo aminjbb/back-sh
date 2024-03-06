@@ -23,7 +23,7 @@
              نوع تخفیف:
           </span>
           <div>
-            <span class="t14500 text-gray500" v-if="voucherDetail?.voucher_type === 'percent'">
+            <span class="t14500 text-gray500" v-if="voucherDetail?.discount_type === 'percent'">
               درصدی
             </span>
             <span class="t14500 text-gray500" v-else>
@@ -35,8 +35,10 @@
           <span class="t14500">
              مقدار تخفیف:
           </span>
-          <span class="t14500 text-gray500 number-font">
-              450,000 ریال
+          <span class="t14500 text-gray500 number-font"  v-if="voucherDetail?.discount_type === 'percent'">
+              {{ voucherDetail?.discount }} %
+          </span> <span class="t14500 text-gray500 number-font"  v-else>
+              {{  voucherDetail?.discount  }} ریال
           </span>
         </div>
       </div>
@@ -56,12 +58,11 @@
         </v-col>
       </v-row>
     </v-card>
-
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
           :header="headerCustomer"
-          :items="[]"
+          :items="voucher?.data"
           :page="page"
           :perPage="pageLength"
           :loading="false"
@@ -117,9 +118,9 @@ import Voucher from '@/composables/Voucher'
 export default {
   setup() {
     const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
+      pageLength,page , getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer} = new Voucher()
     return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail}
+      pageLength,page,getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer}
   },
   components: {
     Table,
@@ -128,6 +129,18 @@ export default {
   mounted() {
     this.getVoucherCustomer()
     this.getVoucherDetail()
+  },
+
+  watch:{
+    dataTableLength(val){
+      this.addPerPageCustomer(val)
+    },
+    $route(to){
+      this.getVoucherCustomer(to)
+    },
+    page(val){
+      this.addPaginationCustomer(val)
+    }
   }
 }
 </script>

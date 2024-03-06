@@ -78,6 +78,7 @@
                         item-title="label"
                         item-value="value"
                         single-line
+                        no-data-text="لطفا ادمین را جستجو کنید"
                         clearable
                         v-debounce:1s.unlock="searchAdmin"
                         variant="outlined"
@@ -119,7 +120,6 @@
                     </v-text-field>
                     <date-picker
                         clearable
-                        range
                         format="jYYYY-jMM-jDD"
                         display-format="jYYYY-jMM-jDD"
                         :custom-input="`.start-input${Filter.value}`"
@@ -382,7 +382,6 @@
   
         Filter.page = 1;
         if (this.$route.query.per_page)   Filter.per_page = this.$route.query.per_page;
-  
         this.$router.push('/' + this.path + '/' + Filter.query_maker());
         this.dialog = false;
       },
@@ -390,7 +389,7 @@
       removeAllFilters() {
         this.$router.push('/' + this.path);
         this.values = [];
-  
+        this.statusModel = ''
         this.filterField.forEach(el => {
           const form = {
             name: el.value,

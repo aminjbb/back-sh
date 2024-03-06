@@ -468,7 +468,7 @@
        */
       removeItem(id) {
 
-        openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
+        openConfirm(this.$store, "از حذف آیتم مورد نظر اطمینان دارید؟", "حذف", "delete", this.deletePath + id, true);
 
       },
   

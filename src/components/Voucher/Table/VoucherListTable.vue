@@ -4,7 +4,7 @@
         color="primary500"
         indeterminate
         reverse
-        v-if="loading" />
+        v-if="loading"/>
 
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
@@ -16,8 +16,8 @@
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
-          {{head.name}}
+          <v-icon v-if="head.order == true" :icon="getIcon(head.value)"/>
+          {{ head.name }}
         </div>
       </template>
 
@@ -42,26 +42,26 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{rowIndexTable(index)}}
+                        {{ rowIndexTable(index) }}
                     </span>
           </div>
 
           <div
               v-if="item.id && header[1].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font" v-if="item.name">
                         {{ item.name }}
                     </span>
-                    <span class="t14300 text-gray500 py-5 number-font" v-else>
+            <span class="t14300 text-gray500 py-5 number-font" v-else>
                           ---
                     </span>
           </div>
 
           <div
               v-if="header[2].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
@@ -81,12 +81,12 @@
 
           <div
               v-if="header[3].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.code">
-                            {{item.code}}
+                            {{ item.code }}
                         </template>
                         <template v-else>
                             -
@@ -96,27 +96,25 @@
 
           <div
               v-if="header[4].show"
-              class="c-table__contents__item"
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.max_discount">
-                            {{ splitChar(item.max_discount) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
+                      <span v-if="item.discount_type === 'percent'">
+                        {{ item.discount }}
+                      </span>
+                      <span v-else>
+                          {{ splitChar(item.max_discount) }}
+                      </span>
           </div>
 
           <div
               v-if="header[5].show"
-              class="c-table__contents__item"
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.order_limit">
-                            {{item.order_limit }}
+                            {{ item.order_limit }}
                         </template>
                         <template v-else>
                             -
@@ -126,10 +124,10 @@
 
           <div
               v-if="header[6].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.user_limit">
                             {{ item.user_limit }}
                         </template>
@@ -141,12 +139,12 @@
 
           <div
               v-if="header[7].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.min_order_price">
-                            {{item.min_order_price}}
+                            {{ splitChar(item.min_order_price ) }}
                         </template>
                         <template v-else>
                             -
@@ -156,18 +154,18 @@
 
           <div
               v-if="header[8].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5" v-if="item.order_count">
-                      {{item.order_count}}
+                    <span class="t13400 text-gray500 py-5 number-font" v-if="item.order_count">
+                      {{ item.order_count }}
                     </span>
             <span v-else>-</span>
           </div>
 
           <div
               v-if="header[9].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
@@ -182,12 +180,12 @@
 
           <div
               v-if="header[10].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.end_time_fa">
-                            {{ item.end_time_fa}}
+                            {{ item.end_time_fa }}
                         </template>
                         <template v-else>
                             -
@@ -196,12 +194,12 @@
           </div>
           <div
               v-if="header[11].show"
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.state">
-                            {{ item.state?.lable}}
+                            {{ item.state?.lable }}
                         </template>
                         <template v-else>
                             -
@@ -210,7 +208,7 @@
           </div>
           <div
 
-              class="c-table__contents__item "
+              class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
@@ -218,7 +216,7 @@
                                 v-model="active[index]"
                                 inset
                                 color="success"
-                                @change="changeActive(index,item)" />
+                                @change="changeActive(index,item)"/>
                     </span>
           </div>
 

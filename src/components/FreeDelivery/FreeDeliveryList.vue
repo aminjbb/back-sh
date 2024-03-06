@@ -5,7 +5,20 @@
             justify="center"
             align="center"
             class="px-10 pt-3">
-          <v-col cols="6" />
+          <v-col cols="6" >
+
+            <v-btn
+                @click="$router.push('/free-delivery/create')"
+                color="primary500"
+                height="40"
+                rounded
+                class="px-8 ">
+              <template v-slot:prepend>
+                <v-icon>mdi-plus</v-icon>
+              </template>
+              افزودن
+            </v-btn>
+          </v-col>
   
           <v-col cols="6">
             <v-row justify="end" class="mt-0">
@@ -25,7 +38,7 @@
             :items="freeDeliveryList"
             :page="page"
             :perPage="dataTableLength"
-            activePath="asdasd"
+            activePath="admin/delivery-discount/activation/"
             @updateList="updateList"
             deletePath="admin/delivery-discount/crud/delete/"
             model="order" />

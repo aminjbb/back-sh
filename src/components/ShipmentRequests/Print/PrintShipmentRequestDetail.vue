@@ -35,11 +35,18 @@
                             نام تامین کننده :
                         </span>
           <span class="t10400 text-gray500">
-                            {{ retailObject?.factor?.supplier?.full_name }}
+                            {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
         </div>
 
       </v-card>
+    <v-card class="ma-5" min-height="82" v-if="retailObject?.rejection_reason">
+      <div class="my-2">دلیل رد</div>
+      <v-divider class="mb-3"/>
+      <div class="pa-5 text-right">
+        {{ retailObject?.rejection_reason }}
+      </div>
+    </v-card>
 
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
         <div class="table-scroll-container">

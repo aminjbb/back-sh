@@ -5,7 +5,7 @@
           justify="start"
           align="center"
           class="px-10 py-5">
-        <v-col cols="5">
+        <v-col cols="3">
           <div class="text-right ">
             <span class="text-gray600 t14500">
               شناسه بسته
@@ -38,7 +38,35 @@
             </v-btn>
           </div>
         </v-col>
+        <v-col cols="3">
+          <div class="text-right ">
+            <span class="text-gray600 t14500">
+             شناسه کالا
+            </span>
+            <span class="text-error">
+              *
+            </span>
+          </div>
+          <div>
+            <v-text-field
+                variant="outlined"
+                v-model="barcodeShps"/>
+          </div>
+        </v-col>
 
+        <v-col cols="3">
+          <div class="d-flex justify-start pt-5">
+            <v-btn
+                color="primary500"
+                :loading="loadingPackage"
+                @click="filterShps()"
+                height="40"
+                rounded
+                class="px-8 mt-1">
+              ثبت
+            </v-btn>
+          </div>
+        </v-col>
         <v-col v-if="shipmentType === 'seller'" cols="5">
           <div class="text-right ">
                         <span class="text-gray600 t14500">
@@ -60,10 +88,11 @@
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
       <Table
+          :getShipmentShpslist="getShipmentShpslist"
           ref="processingShipmentShps"
           class="flex-grow-1"
           :header="headerTable"
-          :items="shipmentShpsList"
+          :items="shipmentShpsListFilterd"
           editUrl=""
           activePath=""
           deletePath=""
@@ -148,8 +177,10 @@ export default {
       finishLoading: false,
       rule: [v => !!v || 'این فیلد الزامی است'],
       packId: null,
-      packageFocus:true,
-      shpssFocus:true
+      packageFocus: true,
+      shpssFocus: true,
+      shipmentShpsListFilterd: [],
+      barcodeShps: null
     }
   },
   methods: {
@@ -193,6 +224,7 @@ export default {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
         AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
@@ -225,6 +257,25 @@ export default {
         this.finishLoading = false
       }
     },
+    async filterShps() {
+      if (this.barcodeShps && this.barcodeShps !== "") {
+        const filterData = this.shipmentShpsListFilterd.find(element => {
+          return element.barcode == this.barcodeShps
+        })
+
+        if (filterData) {
+          this.shipmentShpsListFilterd = []
+
+          this.shipmentShpsListFilterd.push(filterData)
+        } else {
+          openToast(this.$store, 'شناسه کالا وجود ندارد')
+        }
+
+      } else {
+        this.shipmentShpsListFilterd = this.shipmentShpsList
+      }
+
+    }
   },
   computed: {
     headerTable() {
@@ -240,8 +291,18 @@ export default {
         if (this.shipmentShpsList[0].max_tolerance) return 'shavaz'
         return 'seller'
       } catch (e) {
-        return  'shavaz'
+        return 'shavaz'
       }
+    }
+  },
+  watch: {
+    barcodeShps(value) {
+      if (value === '' || !value) {
+        this.shipmentShpsListFilterd = this.shipmentShpsList
+      }
+    },
+    shipmentShpsList() {
+      this.shipmentShpsListFilterd = this.shipmentShpsList
     }
   }
 }

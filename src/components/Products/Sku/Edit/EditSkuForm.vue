@@ -427,8 +427,8 @@ export default {
       this.specsFromModal.specifications = this.sku.story
       this.specsFromModal.advantages = this.sku.advantage
       this.specsFromModal.disAdvantages = this.sku.disadvantage
-      this.specsFromModal.usage = this.sku.how_to_use
-      this.specsFromModal.instructions = this.sku.uses_case
+      this.specsFromModal.usage = this.sku.uses_case
+      this.specsFromModal.instructions = this.sku.how_to_use
       this.specsFromModal.heightValue = this.height
       this.specsFromModal.widthValue = this.width
       this.specsFromModal.lengthValue = this.length

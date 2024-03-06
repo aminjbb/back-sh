@@ -9,9 +9,7 @@
 
         <v-col cols="12">
           <v-row justify="end p-5">
-
-
-<!--            <ModalTableFilter path="report/index" :filterField="filterField" />-->
+            <ModalTableFilter path="lost/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -33,11 +31,11 @@
       <v-divider />
 
       <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
+        <v-row class="pr-5">
+          <v-col cols="3">
           </v-col>
 
-          <v-col cols="6" class="d-flex justify-center">
+          <v-col cols="6">
             <div class="text-center">
               <v-pagination
                   v-model="page"
@@ -50,7 +48,7 @@
             </div>
           </v-col>
 
-          <v-col cols="3" class="d-flex justify-end">
+          <v-col cols="3">
             <div
                 align="center"
                 id="rowSection"
@@ -76,8 +74,7 @@
 <script>
 import Table from '@/components/Lost/Table/Table.vue'
 import Lost from "@/composables/Lost";
-import ModalTableFilter from '@/components/WasteAndLost/Filter/Filter.vue'
-
+import ModalTableFilter from '@/components/Lost/Filter/Filter.vue'
 
 export default {
   components: {
@@ -140,8 +137,13 @@ export default {
 
   watch: {
     dataTableLength(val) {
-      this.getWasteAndLostList(val)
+      this.addPerPage(val)
     },
+    page(val){
+      console.log(val)
+      this.addPagination(val)
+    },
+
   }
 }
 </script>

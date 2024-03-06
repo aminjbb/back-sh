@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column align-stretch">
     <v-card height="200" class="ma-5 br-12 stretch-card-header-90">
       <v-row
-          justify="start"
+          justify="space-between"
           align="start"
           class="px-10 py-5">
         <v-col
@@ -45,7 +45,9 @@
 
             </div>
           </div>
-
+        </v-col>
+        <v-col cols="12" md="1" class="mt-3">
+          <ModalTableFilter path="wastage/index" :filterField="filterField" />
         </v-col>
       </v-row>
     </v-card>
@@ -66,11 +68,11 @@
 
 
       <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
+        <v-row class="pr-5">
+          <v-col cols="3">
           </v-col>
 
-          <v-col cols="6" class="d-flex justify-center">
+          <v-col cols="6">
             <div class="text-center">
               <v-pagination
                   v-model="page"
@@ -83,7 +85,7 @@
             </div>
           </v-col>
 
-          <v-col cols="3" class="d-flex justify-end">
+          <v-col cols="3">
             <div
                 align="center"
                 id="rowSection"
@@ -112,7 +114,7 @@ import {
 } from 'vue'
 //Components
 import Table from '@/components/Wastage/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
+import ModalTableFilter from '@/components/Wastage/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -156,7 +158,7 @@ export default {
       header,
       addPagination,
       addPerPage,
-      loading
+      loading,
     } = Wastage();
     return {
       pageLength,
@@ -184,27 +186,29 @@ export default {
     },
 
     async addShps() {
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'report/crud/create'
-      AxiosMethod.form = formdata
-      formdata.append('report_type', "wastage")
-      formdata.append(`shps_s`, this.shps_s)
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false;
-
-
-      } else {
-        this.loading = false
-      }
+     try {
+       this.loading = true
+       var formdata = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = 'report/crud/create'
+       AxiosMethod.form = formdata
+       formdata.append('report_type', "wastage")
+       formdata.append(`shps_s`, this.shps_s)
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.getWasteAndLostList();
+         this.loading = false;
+       } else {
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.loading = false;
+     }
     },
-
-
     updateList(status) {
       if (status === 'true') {
         this.getWasteAndLostList();
@@ -220,6 +224,9 @@ export default {
     dataTableLength(val) {
       this.getWasteAndLostList(val)
     },
+    page(val){
+      this.addPagination(val)
+    }
   }
 }
 </script>

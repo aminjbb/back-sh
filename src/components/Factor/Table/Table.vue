@@ -56,7 +56,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         <template v-if="item.supplier">
-                            {{ item.supplier.full_name }}
+                            {{ item.supplier.shopping_name }}
                         </template>
                         <template v-else>
                             نامعلوم
@@ -177,7 +177,7 @@
                                 </v-list-item-title>
                             </v-list-item>
 
-                            <v-list-item>
+                            <v-list-item :disabled="item.status == 'pricing'  ? true : false">
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/index?factor_id=${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>

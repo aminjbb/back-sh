@@ -11,7 +11,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="shipment-requests/index" :filterField="filterField" />
+            <ModalTableFilter path="up-coming/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -28,7 +28,6 @@
           activePath="page/crud/update/activation/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-
           model="page" />
 
       <v-divider />
@@ -142,8 +141,8 @@ export default {
         }
       }
     },
-    $route(){
-      this.getUpComingList();
+    $route(to){
+      this.getUpComingList(to);
     }
   }
 }

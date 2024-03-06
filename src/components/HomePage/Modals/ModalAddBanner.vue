@@ -9,7 +9,7 @@
         <template v-slot:prepend>
             <v-icon>mdi-plus</v-icon>
         </template>
-        افزودن تکی
+        افزودن بنر
     </v-btn>
     <v-dialog v-model="dialog" width="908">
         <v-card>
@@ -54,6 +54,7 @@
                     تایید
                 </v-btn>
                 <v-btn
+                    @click="dialog = false"
                     variant="text"
                     height="40"
                     rounded

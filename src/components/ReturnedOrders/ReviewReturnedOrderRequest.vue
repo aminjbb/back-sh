@@ -3,7 +3,8 @@
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
         <h3 class="t14400 create-product__header">اطلاعات درخواست مرجوعی</h3>
         <v-divider color="grey" />
-        <ReviewRequestStep1 :content="content" />
+
+        <ReviewRequestStep1 :content="returnedOrder?.data" />
 
 <!--        <template v-else-if="step === 2 && status==='x'">-->
 <!--            <div style="padding:20px 10% 80px">-->
@@ -105,12 +106,12 @@ export default {
         returnedShpsTable
     },
 
-    setup(props) {
+    setup() {
         const {
-            returnedShpsModalHeader
+         getReturnOrder , returnedOrder
         } = ReturnedOrders();
         return {
-            returnedShpsModalHeader
+         getReturnOrder , returnedOrder
         };
     },
 
@@ -141,6 +142,9 @@ export default {
             this.step = step
         },
     },
+   mounted() {
+      this.getReturnOrder()
+   }
 }
 </script>
 

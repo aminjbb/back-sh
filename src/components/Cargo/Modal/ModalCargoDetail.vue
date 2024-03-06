@@ -35,10 +35,8 @@
             <Table
                 class="flex-grow-1"
                 editUrl="/categories/edit/"
-                activePath="category/crud/update/activation/"
-                deletePath="category/crud/delete/"
                 :header="detailCargoHeader"
-                :items="object?.packages"
+                :items="object?.active_packages"
                 updateUrl="category/csv/mass-update"
 
             />

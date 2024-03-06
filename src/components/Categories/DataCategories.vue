@@ -119,6 +119,7 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Categories from '@/composables/Categories';
+import {openToast} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -141,16 +142,19 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                  this.getCategories()
-                  this.$cookies.remove('deleteItem')
-                }
-
-            }
-        },
-
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject')) {
+          if (!val) {
+            this.getCategories()
+            openToast(
+                this.$store,
+                'آیتم مورد نظر با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
         dataTableLength(val) {
             this.addPerPage(val)
         },

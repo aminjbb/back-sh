@@ -1,7 +1,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_waste.js'
+import { PanelFilter } from '@/assets/js/filter_lost.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -45,13 +45,24 @@ export default function setup() {
         { name: 'نوع گزارش', show: true , value:'report_type', order: false},
         { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
     ]);
-
+    const filterField = [
+        { name: 'شناسه بسته', type:'text', value:'package_id'},
+        { name: 'نوع بسته', type:'select', value:'package_type'},
+        { name:'نوع محموله', type: 'select', value:'shipment_type'},
+        { name: 'نام فروشگاه', type:'text', value:'shopping_name'},
+        { name: 'تامین کننده', type:'select', value:'supplier_id'},
+        { name: 'سریال کالا', type:'text', value:'shps_s'},
+        { name: 'نام کالا', type:'text', value:'sku_label'},
+        { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
+        { name: 'تاریخ افزودن به لیست', type:'date', value:'date'},
+    ];
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
     async function getWasteAndLostList(query) {
+        console.log('hiiii')
         loading.value = true
         let paramsQuery = null
         if (query){
@@ -61,11 +72,11 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `report/crud/index?report_type=lost`
+        AxiosMethod.end_point = `report/crud/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            itemList.value = data.data
+            pageLength.value = data.data.last_page
+            itemList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -80,17 +91,16 @@ export default function setup() {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/wastage/index'+ filter.params_generator(route.query))
+        router.push(route.path+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/wastage/index'+ filter.params_generator(route.query))
+        router.push(route.path+ filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {
-
         if (!isFilterPage.value) {
             isFilter.value =true
             page.value = 1
@@ -106,6 +116,7 @@ export default function setup() {
         }
     })
 
-    return {pageLength, itemList ,addPerPage, getWasteAndLostList, dataTableLength, page, header,loading, createHeader}
+    return {pageLength, itemList ,addPerPage, getWasteAndLostList, dataTableLength, page, header,loading, createHeader ,
+        filterField , addPagination}
 }
 

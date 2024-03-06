@@ -89,6 +89,14 @@
                 {{ item.max_tolerance }}
               </span>
           </div>
+          <div
+
+              class="c-table__contents__item"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <span class="t14300 text-gray500 py-5 number-font">
+               {{ item.remained_count }}
+              </span>
+          </div>
 
           <div
 
@@ -110,17 +118,32 @@
               v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-progress-circular
-                v-if="form[index].loading"
-                indeterminate
-                color="primary"></v-progress-circular>
-            <div
-                v-else
-                @click="validate(item , index)"
-                class="seller__add-sku-btn d-flex justify-center align-center pointer">
+                <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
+          </div>
+          <div
+              v-if="  form[index] && model === 'shavaz'"
+              class="c-table__contents__item"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
-              <v-icon size="15">mdi-plus</v-icon>
-            </div>
+           <template v-if="item.is_packed === 0">
+             <v-progress-circular
+                 v-if="form[index].loading"
+                 indeterminate
+                 color="primary"></v-progress-circular>
+             <div
+                 v-else
+                 @click="validate(item , index)"
+                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+               <v-icon size="15">mdi-plus</v-icon>
+             </div>
+           </template>
+            <template v-else>
+              <div
+                  class="seller__add-sku-btn d-flex justify-center align-center pointer">
+                <v-icon size="15">mdi-check</v-icon>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -157,11 +180,16 @@ import {
 import {
   openToast
 } from "@/assets/js/functions";
+import AddBarcodeModal from "@/components/ProcessingShipment/Modal/AddBarcodeModal.vue";
 
 export default {
+  components: {AddBarcodeModal},
 
 
   props: {
+    getShipmentShpslist:{
+      type:Function
+    },
     packId: {
       type :String
     },
@@ -423,20 +451,7 @@ export default {
     },
     validate(item , index){
       if (this.packId){
-        if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
-          const formData = {
-            count :this.form[index].count,
-            shps:item.id
-          }
-          const form ={
-            dialog:true,
-            object:formData
-          }
-          this.$store.commit('set_warningTolerance' , form)
-        }
-        else{
-          this.updateShps(index)
-        }
+        this.updateShps(index)
       }
       else{
         openToast(this.$store , 'ابتدا شناسه بسته را وارد کنید'  , 'error')
@@ -465,6 +480,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           this.form[index].loading = false
+          this.getShipmentShpslist()
           openToast(
               this.$store,
               ' کالا با موفقیت ویرایش شد.',

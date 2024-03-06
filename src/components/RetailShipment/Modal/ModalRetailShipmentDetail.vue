@@ -29,9 +29,9 @@
             </div>
             <div class="mx-10 d--rtl">
                         <span class="t14500">
-                            تاریخ ارسال :
+                            تاریخ تحویل :
                         </span>
-              <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500 number-font d--ltr">
+              <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500 number-font"  style="font-size: 7px; direction: ltr">
                             {{ convertDateToJalai(retailObject.sent_to_warehouse_at, '-', false) }}
                         </span>
               <span v-else class="t13400 text-gray500">
@@ -51,7 +51,7 @@
                             تامین کننده :
                         </span>
               <span class="t13400 text-gray500">
-                            {{ retailObject?.factor?.supplier?.full_name }}
+                            {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
             </div>
             <div class="mx-10 d--rtl">
