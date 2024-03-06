@@ -643,7 +643,7 @@ export default {
         async changeActive(index, item) {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.activePath + item.id
+            AxiosMethod.end_point = this.activePath + item?.sku?.id
             if (this.active[index]) formdata.append('is_active', 1)
             else formdata.append('is_active', 0)
             AxiosMethod.store = this.$store
