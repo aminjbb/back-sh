@@ -148,7 +148,8 @@ import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailS
 import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue';
 import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentRequestView.vue'
 import PrintShipmentRequestDetailView from '../views/ShipmentRequests/PrintShipmentRequestDetailView.vue'
-
+/* Deposit */
+import DepositRequestView from '../views/DepositRequests/DepositeRequestsView.vue';
 
 /* Factor */
 import FactorListView from '../views/Factor/FactorListView.vue'
@@ -813,6 +814,7 @@ const router = createRouter({
                 },
             ]
         },
+
         {
             path: '/Supplier', // Supplier routes
             meta: {
@@ -1284,6 +1286,21 @@ const router = createRouter({
                         name: 'محموله های بازرگانی'
                     }
                 },
+            ]
+        },
+        {
+            path: '/deposit-request', // deposit-request
+            meta: {
+                name: ' مالی'
+            },
+            children: [{
+                path: 'index',
+                name: 'DepositRequest',
+                component: DepositRequestView,
+                meta: {
+                    name: 'درخواست واریز '
+                }
+            },
             ]
         },
         {
