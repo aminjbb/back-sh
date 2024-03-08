@@ -27,7 +27,7 @@
 
             <v-divider class="mb-3"/>
             <div class="pa-5 text-right">
-              {{ retailObject?.rejection_reason }}
+              {{ retailObject?.reason }}
             </div>
           </v-card>
 
@@ -39,8 +39,7 @@
 </template>
 
 <script>
-import ShipmentRequests from "@/composables/ShipmentRequests";
-import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
+import ShipmentRequests from "@/composables/DepositRequest.js";
 import {
   convertDateToJalai
 } from "@/assets/js/functions";
@@ -70,7 +69,7 @@ export default {
     };
   },
   components: {
-    Table,
+
 
 
   },
@@ -87,7 +86,7 @@ export default {
         dialog: false,
         object: ''
       }
-      this.$store.commit('set_detailModalTest', form)
+      this.$store.commit('set_depositDetail', form)
     },
 
 
@@ -96,10 +95,10 @@ export default {
 
   computed: {
     dialog() {
-      return this.$store.getters['get_detailModalTest']
+      return this.$store.getters['get_depositDetail']
     },
     retailObject() {
-      return this.$store.getters['get_detailModalTestObject']
+      return this.$store.getters['get_depositDetailObject']
     },
 
   }

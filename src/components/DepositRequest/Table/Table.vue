@@ -112,8 +112,8 @@
               class="c-table__contents__item justify-center "
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.created_at">
-                                {{ item.created_at }}
+                            <template v-if="item.created_at_fa">
+                                {{ item.created_at_fa }}
                             </template>
 
                             <template v-else>
@@ -171,8 +171,6 @@
                   </div>
                   <div
 
-
-
                       class="factor-dropdown__item retail-status-box my-2 t10400"
 
                       id="factor-dropdown__item--3"
@@ -200,14 +198,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item>
-                  <!--                                <v-list-item-title>-->
-                  <!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
-                  <!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-                  <!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-                  <!--                                            پرینت برچسب-->
-                  <!--                                        </span>-->
-                  <!--                                    </div>-->
-                  <!--                                </v-list-item-title>-->
+
 
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
@@ -217,15 +208,7 @@
                     </div>
 
                   </v-list-item-title>
-                  <!--                            <v-list-item-title>-->
 
-                  <!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">-->
-                  <!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-                  <!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-                  <!--                                            پرینت محموله-->
-                  <!--                                        </span>-->
-                  <!--                                    </div>-->
-                  <!--                                </v-list-item-title>-->
                 </v-list-item>
               </v-list>
 
@@ -245,7 +228,7 @@
 
     <DetailModalTest />
 
-    <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
+    <ModalRejectWithdrawRequest :getShipmentRequestsList="getShipmentRequestsList"/>
   </div>
 </template>
 
@@ -259,18 +242,18 @@ import {
 
 
 import DetailModalTest from "@/components/DepositRequest/Modal/Modal.vue";
+import ModalRejectWithdrawRequest from "@/components/DepositRequest/Modal/ModalRejectedWithdraw.vue";
+
 
 import {
   openToast,
   openConfirm,
   isOdd
 } from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
+
 export default {
   components: {
-
+    ModalRejectWithdrawRequest,
     DetailModalTest,
 
   },
@@ -372,13 +355,6 @@ export default {
       return 'auto';
     },
 
-
-  },
-
-  watch: {
-    items(val) {
-
-    }
   },
 
   methods: {
@@ -387,7 +363,7 @@ export default {
         dialog :true,
         object : item
       }
-      this.$store.commit('set_modalRejectRequestShipment' , form)
+      this.$store.commit('set_modalRejectWithdrawRequest' , form)
     },
     showDropDown(index) {
       const item = this.items[index];
@@ -405,7 +381,7 @@ export default {
     },
     BgSelected(status) {
       if (status === 'pending') {
-        return '#EDE7F6';  // Light purple
+        return '#FFF3E0';  // Light purple
       }
       if (status === 'accepted') {
         return '#E8F5E9';  // Light green
@@ -428,13 +404,7 @@ export default {
       }
 
     },
-    // requestShipmentTest(item) {
-    //   const form = {
-    //     dialog :true,
-    //     object : item
-    //   }
-    //   this.$store.commit('set_detailModalTest' , form)
-    // },
+
 
 
 
@@ -442,16 +412,14 @@ export default {
      * Update list
      * @param {*} status
      */
-    // updateList(status) {
-    //   this.$emit('updateList', status);
-    // },
+
 
 
     async updateStatus(index, status, item) {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
       formdata.append('status', status)
-      AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
+      AxiosMethod.end_point = 'finance/admin/transaction/crud/withdraw/accept/' + item.id
       AxiosMethod.store = this.$store
       AxiosMethod.form = formdata
       AxiosMethod.using_auth = true
@@ -467,7 +435,7 @@ export default {
             'وضعیت با موفقیت ویرایش شد.',
             "success"
         );
-        this.$router.push(`/shipment-requests/index`)
+        this.$router.push(`/deposit-request/index`)
 
       }
       else {
@@ -490,14 +458,14 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/detail/${item.id}`
+      AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/get/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const form = {
           dialog :true,
           object : data.data
         }
-        this.$store.commit('set_detailModalTest' , form)
+        this.$store.commit('set_depositDetail' , form)
 
       }
 
