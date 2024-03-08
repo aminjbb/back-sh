@@ -21,34 +21,7 @@
 
       </template>
 
-      <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-menu :location="location">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props">
-              mdi-dots-vertical
-            </v-icon>
-          </template>
 
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>
-                <v-btn
-                    @click="massUpdateModal()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 mr-5">
-                  <template v-slot:prepend>
-                    <v-icon>mdi-pen-minus</v-icon>
-                  </template>
-                  ویرایش گروهی
-                </v-btn>
-              </v-list-item-title>
-
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
     </header>
 
     <div class="stretch-table">
@@ -68,29 +41,39 @@
           </div>
 
           <div
-              v-if="item.first_name && header[1].show"
+              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.first_name }}
+                    <span v-if="item.user.phone_number" class="t14300 text-gray500 py-5">
+                        {{ item.user.phone_number }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
+                    </span>
+          </div>
+
+
+          <div
+              v-if=" header[2].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.user.first_name" class="t14300 text-gray500 py-5">
+                        {{ item.user.first_name }} {{ item.user.last_name }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
           <div
-              v-if="item.last_name && header[2].show"
+              v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.last_name }}
+                    <span v-if="item.refid" class="t14300 text-gray500 py-5">
+                        {{ item.refid }}
                     </span>
-          </div>
-
-          <div
-              v-if="item.phone_number && header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone_number }}
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
@@ -98,24 +81,49 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ convertDateToJalai(item.created_at , '-' , true) }}
+                    <span v-if="item.status" class="t14300 text-gray500 py-5">
+                        {{ item.status }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
           <div
               v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
-                        {{ convertDateToJalai(item.last_logged_in , '-' , true) }}
+                    <span v-if="item.status" class="t14300 text-gray500 py-5">
+                        {{ item.status }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5 number-font">
-                        ---
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
+                    </span>
+          </div>
+          <div
+              v-if=" header[6].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span v-if="item.type == 'withdraw'" class="t14300 text-error py-5">
+                        - {{splitChar(item.amount ) }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
           <div
-              v-if=" header[6].show"
+              v-if=" header[7].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                      <span v-if="item.type === 'deposit'" class="t14300 text-success py-5 number-font d--ltr">
+                        + {{splitChar( item.amount)}}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
+                    </span>
+          </div>
+          <div
+              v-if=" header[8].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.email" class="t14300 text-gray500 py-5">
@@ -126,55 +134,18 @@
                     </span>
           </div>
           <div
-              v-if=" header[7].show"
+              v-if=" header[9].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-switch
-                v-model="isBan[index]"
-                inset
-                color="success"
-                @change="changeBan(index,item)" />
+                    <span v-if="item.email" class="t14300 text-gray500 py-5">
+                        {{ item.email }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
+                    </span>
           </div>
 
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
 
-              <v-list class="c-table__more-options">
-                <v-list-item>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
-                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                            ویرایش
-                                        </span>
-                    </div>
-                  </v-list-item-title>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push('wallet')">
-                      <v-icon class="text-grey-darken-1">mdi-wallet-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                            کیف پول
-                                        </span>
-                    </div>
-                  </v-list-item-title>
-
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.id)">
-                      <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                            حذف
-                                        </span>
-                    </div>
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -191,10 +162,6 @@
 
 <script>
 import {
-  convertDateToJalai,
-  isOdd
-} from '@/assets/js/functions'
-import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
 import {
@@ -202,7 +169,10 @@ import {
 } from "@/assets/js/filter"
 import {
   openToast,
-  openConfirm
+  openConfirm,
+  convertDateToJalai,
+  isOdd,
+  splitChar
 } from "@/assets/js/functions";
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 export default {
@@ -327,13 +297,12 @@ export default {
   },
 
   methods: {
+    splitChar,
     convertDateToJalai,
     /**
      * Mass update modal
      */
-    massUpdateModal() {
-      this.$store.commit('set_massUpdateModal', true)
-    },
+
     getStatusColor(status) {
       const color = '';
 
@@ -452,19 +421,7 @@ export default {
      * @param {*} index
      * @param {*} item
      */
-    async changeBan(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.banPath + item.id
-      if (this.isBan[index]) formdata.append('is_ban', 1)
-      else formdata.append('is_ban', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
 
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
 
     /**
      * Return odd index

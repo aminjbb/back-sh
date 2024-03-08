@@ -94,8 +94,16 @@ export default createStore({
             dialog: false,
             object: ''
         },
+        modalRejectWithdrawRequest: {
+            dialog: false,
+            object: ''
+        },
 
         detailModalTest: {
+            dialog: false,
+            object: ''
+        },
+        depositDetail: {
             dialog: false,
             object: ''
         },
@@ -247,6 +255,10 @@ export default createStore({
             state.detailModalTest.dialog = form.dialog
             state.detailModalTest.object = form.object
         },
+        set_depositDetail(state, form) {
+            state.depositDetail.dialog = form.dialog
+            state.depositDetail.object = form.object
+        },
         set_detailModalTestQrCode(state, form) {
             state.detailModalTestQrCode.dialog = form.dialog
             state.detailModalTestQrCode.object = form.object
@@ -258,6 +270,10 @@ export default createStore({
         set_modalRejectRequestShipment(state, form) {
             state.modalRejectRequestShipment.dialog = form.dialog
             state.modalRejectRequestShipment.object = form.object
+        },
+        set_modalRejectWithdrawRequest(state, form) {
+            state.modalRejectWithdrawRequest.dialog = form.dialog
+            state.modalRejectWithdrawRequest.object = form.object
         },
         set_modalRetailShipmentDetail(state, form) {
             state.modalRetailShipmentDetail.dialog = form.dialog
@@ -495,6 +511,12 @@ export default createStore({
         get_detailModalTestObject(state) {
             return state.detailModalTest.object
         },
+        get_depositDetail(state) {
+            return state.depositDetail.dialog
+        },
+        get_depositDetailObject(state) {
+            return state.depositDetail.object
+        },
         get_detailModalTestQrCode(state) {
             return state.detailModalTestQrCode.dialog
         },
@@ -512,6 +534,12 @@ export default createStore({
         },
         get_modalRejectRequestShipmentObject(state) {
             return state.modalRejectRequestShipment.object
+        },
+        get_modalRejectWithdrawRequest(state) {
+            return state.modalRejectWithdrawRequest.dialog
+        },
+        get_modalRejectWithdrawRequestObject(state) {
+            return state.modalRejectWithdrawRequest.object
         },
         get_modalRetailShipmentDetail(state) {
             return state.modalRetailShipmentDetail.dialog

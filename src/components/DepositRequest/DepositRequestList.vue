@@ -112,71 +112,7 @@ export default {
   },
   data() {
     return {
-      "mockData" : [
-        {
-          "id": 1,
-          "user_id": 1,
-          "amount": "1000",
-          "card_number": "5285698714523691",
-          "created_at": "2024-02-05T09:03:31.000000Z",
-          "updated_at": "2024-02-05T09:03:31.000000Z",
-          "admin_id": 1,
-          "reason": "problem",
-          "status": "pending",
-          "user": {
-            "id": 1,
-            "first_name": "شاواز",
-            "last_name": "شاوازیان",
-            "national_code": "0000000000",
-            "phone_number": "09121499276",
-            "email": "shavaz@shavaz.com",
-            "role_id": 4,
-            "birth_date": "1990-02-02",
-            "is_ban": 0,
-            "avatar": "https://api.shvz.ir/storage/shavaz/user/user-logo.jpg",
-            "created_at": "2023-12-26T17:38:12.000000Z",
-            "updated_at": "2024-02-28T16:05:11.000000Z",
-            "basket_id": 31,
-            "created_at_fa": "1402/10/05",
-            "updated_at_fa": "1402/12/09",
-            "birth_date_fa": "1368/11/13",
-            "wallet": {
-              "id": 1,
-              "name": "wallet",
-              "label": "کیف پول",
-              "currency": "ریال",
-              "user_id": 1,
-              "value": "963776500",
-              "is_active": 1,
-              "deleted_at": null,
-              "created_at": "2023-10-24T13:56:48.000000Z",
-              "updated_at": "2024-02-18T08:15:35.000000Z",
-              "inaccessible_value": "0"
-            }
-          },
-          "admin": {
-            "id": 1,
-            "first_name": "حسین",
-            "last_name": "تهرانی",
-            "role_id": 1,
-            "phone_number": "09121499276",
-            "email": "tehrani@gmail.com",
-            "birth_date": "2066-12-14",
-            "is_ban": 0,
-            "avatar": "https://api.shvz.ir/storage/shavaz/avatar/image/2023-11-01/EWXKHiklUMyEHamJB5nCTj8Q4BAn0QGrXwFf9Zya.png",
-            "deleted_at": null,
-            "created_at": "2023-10-23T13:56:44.000000Z",
-            "updated_at": "2024-02-28T09:50:35.000000Z",
-            "last_logged_in": "2024-02-28 13:20:35",
-            "type": "admin",
-            "last_logged_in_fa": "1402/12/09 ساعت 13:20:35"
-          }
-        },
 
-
-
-
-      ],
     }
 
 

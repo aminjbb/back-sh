@@ -65,6 +65,9 @@ import EditAdminView from '../views/Admin/EditAdminView.vue'
 import UserListView from '../views/User/UserListView.vue'
 import CreateUserView from '../views/User/CreateUserView.vue'
 import EditUserView from '../views/User/EditUserView.vue'
+import UserWalletView from '../views/User/UserWalletView.vue'
+
+
 
 /* admin permission */
 import PermissionListView from '../views/Admin/Permssion/PermissionListView.vue'
@@ -688,6 +691,14 @@ const router = createRouter({
                         name: 'ویرایش کاربر'
                     }
                 },
+                {
+                    path: 'wallet',
+                    name: 'walletUser',
+                    component: UserWalletView,
+                    meta: {
+                        name: 'کیف پول'
+                    }
+                },
             ],
         },
         {
@@ -1289,7 +1300,7 @@ const router = createRouter({
             ]
         },
         {
-            path: '/deposit-request', // deposit-request
+            path: '/withdraw-request', // withdraw-request
             meta: {
                 name: ' مالی'
             },
