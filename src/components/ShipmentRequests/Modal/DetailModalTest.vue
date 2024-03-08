@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+
 import ShipmentRequests from "@/composables/ShipmentRequests";
 import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
 import {
@@ -209,7 +209,7 @@ export default {
   },
   components: {
     Table,
-    UploadFileSection
+
 
   },
   data() {
