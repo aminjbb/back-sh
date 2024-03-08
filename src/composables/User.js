@@ -9,6 +9,7 @@ export default function setup() {
     const user = ref(null);
     const userAddress = ref(null)
     const userList  = ref([])
+    const transactionList  = ref([])
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
@@ -21,6 +22,18 @@ export default function setup() {
         {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
         {name:'ایمیل' , show:true, value:'email', order:false},
         {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
+    ])
+    const headerTransaction = ref([
+        {name:'ردیف' , show:true, value:null, order:false},
+        {name:'شماره مشتری' , show:true, value:'first_name', order:false},
+        {name:'نام مشتری' , show:true, value:'last_name', order:false},
+        {name:'کد رهگیری' , show:true, value:'phone_number', order:false},
+        {name:' وضعیت تراکنش' , show:true, value:'email', order:false},
+        {name:'علت تراکنش' , show:true, value:'last_login', order:false},
+        {name:'برداشت از کیف پول' , show:true, value:'email', order:false},
+        {name:' شارژ کیف پول' , show:true, value:'is_ban', order:false},
+        {name:' موجودی کیف پول' , show:true, value:'is_ban', order:false},
+        {name:' تاریخ تراکنش' , show:true, value:'is_ban', order:false},
     ])
     const filterField = [
         { name: 'نام', type:'text', value:'first_name'},
@@ -95,6 +108,29 @@ export default function setup() {
             } , 2000)
         }
     };
+    async function getTransactionList (query) {
+        let paramsQuery = null
+        loading.value = true
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `finance/admin/transaction/crud/index/${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            transactionList.value = data.data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    };
+
 
     function addPagination(page){
         filter.page = page
@@ -127,6 +163,6 @@ export default function setup() {
     return {pageLength, users, getUsers ,
         dataTableLength , page  , header , userList ,
         getUserList , filterField ,user , getUser , addPerPage,
-        getUserAddress , userAddress}
+        getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList}
 }
 
