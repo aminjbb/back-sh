@@ -126,8 +126,8 @@
               v-if=" header[8].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.email" class="t14300 text-gray500 py-5">
-                        {{ item.email }}
+                    <span v-if="item.wallet" class="t14300 text-gray500 py-5 number-font">
+                        {{ splitChar(item.wallet.value) }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -137,8 +137,8 @@
               v-if=" header[9].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.email" class="t14300 text-gray500 py-5">
-                        {{ item.email }}
+                    <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5">
+                        {{ item.created_at_fa }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----

@@ -157,6 +157,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getUserList()
+    }
   }
 }
 </script>

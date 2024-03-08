@@ -155,7 +155,7 @@
                     </div>
                   </v-list-item-title>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push('wallet')">
+                    <div class="ma-5 pointer" @click="$router.push('wallet?user_id='+item.id)">
                       <v-icon class="text-grey-darken-1">mdi-wallet-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             کیف پول

@@ -144,7 +144,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.getVehicleList(val)
+            this.addPerPage(val)
         },
 
       confirmModal(val) {
