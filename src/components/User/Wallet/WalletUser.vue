@@ -118,8 +118,10 @@ import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 export default {
   setup(props) {
-    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,addPerPage, headerTransaction, getTransactionList, transactionList} = User();
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , addPerPage, headerTransaction, getTransactionList, transactionList};
+    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,
+      addPerPage, headerTransaction, getTransactionList, transactionList} = User();
+    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,
+      addPerPage, headerTransaction, getTransactionList, transactionList};
   },
   components:{
     ModalExcelDownload,
@@ -128,8 +130,6 @@ export default {
     Table
   },
   mounted() {
-
-
     this.getTransactionList()
   },
   methods: {
@@ -159,6 +159,9 @@ export default {
         }
       }
     },
+    $route(to){
+      this.getTransactionList(to)
+    }
   }
 }
 </script>

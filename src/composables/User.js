@@ -4,6 +4,7 @@ import { useCookies } from "vue3-cookies";
 import { useRouter, useRoute } from 'vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import {UserPanelFilter} from "@/assets/js/filter_user";
+import {userWalletFilter} from "@/assets/js/wallet_filter";
 export default function setup() {
     const users = ref([]);
     const user = ref(null);
@@ -48,6 +49,7 @@ export default function setup() {
     const isFilter =ref(false)
     const isFilterPage =ref(false)
     const filter = new UserPanelFilter()
+    const walletFilter = new userWalletFilter()
     async function getUsers (filter) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'user/crud/index'
@@ -112,9 +114,9 @@ export default function setup() {
         let paramsQuery = null
         loading.value = true
         if (query){
-            paramsQuery = filter.params_generator(query.query)
+            paramsQuery = walletFilter.params_generator(query.query)
         }
-        else  paramsQuery = filter.params_generator(route.query)
+        else  paramsQuery = walletFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -135,12 +137,12 @@ export default function setup() {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/user/index/'+ filter.params_generator(route.query))
+        router.push(route.path+ filter.params_generator(route.query))
     }
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/user/index'+ filter.params_generator(route.query))
+        router.push(route.path+ filter.params_generator(route.query))
     }
     watch(page, function(val) {
         if (!isFilter.value){
@@ -149,15 +151,6 @@ export default function setup() {
         }
     })
 
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getUserList(to)
-    })
 
 
     return {pageLength, users, getUsers ,
