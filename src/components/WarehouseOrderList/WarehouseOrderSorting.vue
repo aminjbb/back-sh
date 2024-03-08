@@ -28,12 +28,13 @@
         </span>
           </div>
           <div class="mt-10 px-2">
-            <v-text-field v-model="shpssBarCode" variant="solo"></v-text-field>
+            <v-text-field @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode" variant="solo"></v-text-field>
           </div>
           <div class="mt-15 pt-15">
             <v-row justify="center pt-15 mt-15">
               <v-col cols="10">
                 <v-btn
+                    @click="getShpssDetail()"
                     color="primary500"
                     height="40"
                     width="348"
@@ -188,31 +189,17 @@ export default {
       isPlacement: false,
       shpssDetail: '',
       shelfScan: false,
-      sortingDone: true
+      sortingDone: false
     }
   },
 
-  mounted() {
-    // this.getPlacement(this.$route.params.placementId)
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanQrCode()
-      else this.qrCode += e.key
-    });
-  },
 
   methods: {
-    scanQrCode() {
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
-    },
-
-    async getShpssDetail(qrCode) {
+    async getShpssDetail() {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/item?barcode=${qrCode}`
+      AxiosMethod.end_point = `admin/order/item?barcode=${this.qrCode}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.shpssDetail = data.data
