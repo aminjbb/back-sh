@@ -147,7 +147,7 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const {
       pageLength,
       getWasteAndLostList,
@@ -221,6 +221,19 @@ export default {
   },
 
   watch: {
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getWasteAndLostList();
+          openToast(
+              this.$store,
+              'محصول با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
     dataTableLength(val) {
       this.getWasteAndLostList(val)
     },
