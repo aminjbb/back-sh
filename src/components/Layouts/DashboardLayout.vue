@@ -313,7 +313,7 @@ export default {
                 [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
-
+                ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
 
                 
 
@@ -343,6 +343,7 @@ export default {
             orders: [
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
+
             ],
         }
     },

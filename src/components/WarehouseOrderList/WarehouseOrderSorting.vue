@@ -28,12 +28,13 @@
         </span>
           </div>
           <div class="mt-10 px-2">
-            <v-text-field v-model="shpssBarCode" variant="solo"></v-text-field>
+            <v-text-field @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode" variant="solo"></v-text-field>
           </div>
           <div class="mt-15 pt-15">
             <v-row justify="center pt-15 mt-15">
               <v-col cols="10">
                 <v-btn
+                    @click="getShpssDetail()"
                     color="primary500"
                     height="40"
                     width="348"
@@ -119,10 +120,11 @@
             </v-icon>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-        <span class="text-black t20400">
-        شناسه شلف را اسکن کنید.
-        </span>
+            <span class="text-black t20400">
+            شناسه شلف را اسکن کنید.
+            </span>
           </div>
+          <v-text-field @keyup.enter="sortingShps(qrCode,shelfBarcode)" :autofocus="true" v-model="shelfBarcode" variant="solo"></v-text-field>
         </div>
       </div>
 
@@ -142,8 +144,8 @@
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
             <span class="text-white t18400">
-                  جایگذاری کالا با شناسه ۱۲۳۴۵۴
-        در جایگاه سورتینگ ۱۲۳۴۴ با موفقیت انجام شد.
+                  جایگذاری کالا با شناسه {{ skuDetail?.id }}
+        در جایگاه سورتینگ {{ shelfBarcode }} با موفقیت انجام شد.
             </span>
           </div>
           <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
@@ -188,31 +190,18 @@ export default {
       isPlacement: false,
       shpssDetail: '',
       shelfScan: false,
-      sortingDone: true
+      sortingDone: false,
+      shelfBarcode:''
     }
   },
 
-  mounted() {
-    // this.getPlacement(this.$route.params.placementId)
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanQrCode()
-      else this.qrCode += e.key
-    });
-  },
 
   methods: {
-    scanQrCode() {
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
-    },
-
-    async getShpssDetail(qrCode) {
+    async getShpssDetail() {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/item?barcode=${qrCode}`
+      AxiosMethod.end_point = `admin/order/item?barcode=${this.qrCode}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.shpssDetail = data.data
@@ -229,8 +218,8 @@ export default {
       AxiosMethod.end_point = `admin/order/sort`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.shpssDetail = data.data
-        if (data.data.placement) this.sortingShps()
+
+
       }
     },
     checkCount() {
