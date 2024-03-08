@@ -11,7 +11,6 @@
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </v-col>
-                  {{ orderList}}
 
                     <v-col cols="7" class="t16400 ">
                         پرینت برچسب سفارش
@@ -203,10 +202,11 @@
         methods: {
 
 
+
           print() {
 
             // this.close()
-            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.modalPrintOrderObject.id}/print`, '_blank');
+            window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.$route.params.orderId}/print`, '_blank');
 
           },
 
