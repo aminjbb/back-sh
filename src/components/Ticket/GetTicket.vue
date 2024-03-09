@@ -198,6 +198,7 @@ export default {
          * Update ticket
          */
         async updateTicket() {
+          try {
             this.loading = true;
             var formdata = new FormData();
 
@@ -212,23 +213,27 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                this.loading = false;
-                openToast(
-                    this.$store,
-                    'تیکت با موفقیت ویرایش شد',
-                    "success"
-                );
-                this.getTicket();
+              this.loading = false;
+              openToast(
+                  this.$store,
+                  'تیکت با موفقیت ویرایش شد',
+                  "success"
+              );
+              this.getTicket();
 
             } else {
-                this.loading = false;
+              this.loading = false;
 
-                openToast(
-                    this.$store,
-                    'درخواست شما با مشکل مواجه شد',
-                    "error"
-                );
+              openToast(
+                  this.$store,
+                  'درخواست شما با مشکل مواجه شد',
+                  "error"
+              );
             }
+          }
+          catch (e) {
+            this.loading = false;
+          }
         },
 
         /**
