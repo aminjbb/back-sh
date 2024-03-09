@@ -198,17 +198,13 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item>
-
-
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
+                    <div class="ma-5 pointer" @click="withdrawDetail(item)">
                       <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
 مشاهده دلیل رد                                        </span>
                     </div>
-
                   </v-list-item-title>
-
                 </v-list-item>
               </v-list>
 
@@ -454,7 +450,7 @@ export default {
      * retailShipment detail modal
      */
 
-    async requestShipmentDetailShipmentDetail1(item) {
+    async withdrawDetail(item) {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
