@@ -205,7 +205,7 @@
       </div>
     </div>
     <DetailModalTestQrCodeFull/>
-    <DetailModalTestQrCode/>
+    <ModalDetailUpComing/>
   </div>
 </template>
 
@@ -220,7 +220,7 @@ import {
 import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
 import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import DetailModalTestQrCode from "@/components/ShipmentRequests/Modal/DetailModalTestQrCode.vue";
+import ModalDetailUpComing from "@/components/UpComing/ModalDetailUpComing.vue";
 import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
 import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
 
@@ -237,7 +237,7 @@ export default {
   components: {
     DetailsModal,
     DetailModalTest,
-    DetailModalTestQrCode,
+    ModalDetailUpComing,
     DetailModalTestQrCodeFull,
     MarketPlaceDetailModal,
   },
