@@ -11,22 +11,8 @@
       >
         <v-col cols="6">
           <v-row justify="start">
-            <v-btn
-                @click="$router.push('/user/create')"
-                color="primary500"
-                height="40"
-                rounded
-                class="px-8 mt-1"
-            >
-              <template v-slot:prepend>
-                <v-icon>mdi-plus</v-icon>
-              </template>
-              شارژ کیف پول
-            </v-btn>
-            <!--            <ModalGroupAdd-->
-            <!--                getEndPoint="user/csv/get/template"-->
-            <!--                uploadEndpoint="user/csv/bulk"-->
-            <!--            />-->
+
+           <IncreseWalletModal :getTransactionList="getTransactionList"/>
           </v-row>
         </v-col>
 
@@ -116,6 +102,7 @@ import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
 export default {
   setup(props) {
     const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,
@@ -127,7 +114,7 @@ export default {
     ModalExcelDownload,
     ModalGroupAdd,
     ModalTableFilter, ModalColumnFilter,
-    Table
+    Table,IncreseWalletModal
   },
   mounted() {
     this.getTransactionList()
