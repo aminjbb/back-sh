@@ -260,6 +260,7 @@ import UpComingShipmentView from "@/views/Warehouse/UpComingShipmentView.vue";
 import WastageListView from "@/views/Wastage/WastageListView.vue";
 import LostItemListView from "@/views/Lost/LostItemListView.vue";
 import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
+import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
 
 
 const router = createRouter({
@@ -1333,6 +1334,14 @@ const router = createRouter({
                     path: ':shipmentId/shipment',
                     name: 'UpComingShipmentView',
                     component: UpComingShipmentView,
+                    meta: {
+                        name: 'محموله های آتی'
+                    }
+                },
+                {
+                    path: ':shipmentId/print',
+                    name: 'UpcomingPrintView',
+                    component: UpcomingPrintView,
                     meta: {
                         name: 'محموله های آتی'
                     }
