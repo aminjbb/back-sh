@@ -277,7 +277,7 @@
 
 
       <div>
-        <UploadFileSection @getImage="getSkuImage"/>
+        <UploadFileSection module="sku" @getImage="getSkuImage"/>
         <div class="d-flex align-center mt-5" v-if="specsFromModal.skuImage">
           <span>IMG-{{ specsFromModal.skuImage }}</span>
           <span class="mr-15"><v-icon color="error" @click="removeItem(specsFromModal.skuImage)">mdi-delete</v-icon></span>

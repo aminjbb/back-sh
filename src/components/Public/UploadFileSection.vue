@@ -65,11 +65,12 @@ const store = useStore()
 const route = useRoute()
 let loading = ref(false)
 const router = useRouter()
+const props = defineProps(['module'])
+console.log(props.module)
 
 function onDrop(e) {
     files.value = e.dataTransfer.files
     file = files.value[0]
-    console.log(files.value.length)
     submitImage(0)
 }
 /**
@@ -104,7 +105,8 @@ async function submitImage(index) {
         var formdata = new FormData();
         const AxiosMethod = new AxiosCall()
         formdata.append('file', file)
-        formdata.append('module', 'page')
+        if (props?.module === 'sku') formdata.append('module', 'sku')
+        else formdata.append('module', 'page')
         AxiosMethod.using_auth = true
         AxiosMethod.store = store
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -114,7 +116,6 @@ async function submitImage(index) {
         if (data) {
             uploadLoading.value = false
             if (index >= 0) {
-                console.log(files.value.length - 1, index)
                 if (files.value.length - 1 > index) {
 
                     file = files.value[++index]
