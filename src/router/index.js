@@ -259,6 +259,7 @@ import UpComingShipmentView from "@/views/Warehouse/UpComingShipmentView.vue";
 /* Wastage */
 import WastageListView from "@/views/Wastage/WastageListView.vue";
 import LostItemListView from "@/views/Lost/LostItemListView.vue";
+import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 
 
 const router = createRouter({
@@ -1985,7 +1986,23 @@ const router = createRouter({
 
             ]
         },
+        {
+            path: '/bulk_edit', // wastage
+            meta: {
+                name: 'ویرایش گروهی'
+            },
+            children: [{
+                path: 'index',
+                name: 'BulkEditView',
+                component: BulkEditView,
+                meta: {
+                    name: 'ویرایش گروهی '
+                }
+            },
 
+
+            ]
+        },
     ]
 })
 const privateRoutes = [
