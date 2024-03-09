@@ -249,6 +249,7 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
         if (data) {
+          this.shipmentShpsListFilterd= []
           this.closePackageLoading = false
           openToast(
               this.$store,
