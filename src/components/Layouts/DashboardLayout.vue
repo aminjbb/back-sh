@@ -261,7 +261,37 @@
                 </v-list-item>
 
             </v-list-group>
+          <v-list-group value="bulk">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-shopping-outline</v-icon>
+                </template>
 
+                <span class="t14500">
+                            ویرایش گروهی
+                        </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in bulkEdit"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14500">
+                        {{title}}
+                    </span>
+            </v-list-item>
+
+          </v-list-group>
         </v-list>
 
     </v-navigation-drawer>
@@ -345,6 +375,9 @@ export default {
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
 
             ],
+          bulkEdit: [
+            ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
+          ],
         }
     },
 }
