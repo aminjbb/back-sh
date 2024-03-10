@@ -145,6 +145,7 @@ export default {
 
         else if (this.isVoucher) {
           this.updateCondition(this.condition , data.data.data.url)
+          this.dialog = false
         }
 
 
