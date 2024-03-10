@@ -261,6 +261,7 @@ import WastageListView from "@/views/Wastage/WastageListView.vue";
 import LostItemListView from "@/views/Lost/LostItemListView.vue";
 import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
+import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
 
 
 const router = createRouter({
@@ -1899,6 +1900,14 @@ const router = createRouter({
                     component: DetailVoucherView,
                     meta: {
                         name: 'جزئیات'
+                    }
+                },
+                {
+                    path: ':voucherId/order',
+                    name: 'VoucherOrderView',
+                    component: VoucherOrderView,
+                    meta: {
+                        name: 'سفارش ها'
                     }
                 },
                 {

@@ -38,7 +38,7 @@
           :perPage="dataTableLength"
           activePath="voucher/activation/"
           @updateList="updateList"
-          deletePath="order/crud/delete/"
+          deletePath="voucher/crud/delete/"
           model="order" />
 
       <v-divider />
@@ -88,6 +88,7 @@ import Table from '@/components/Voucher/Table/VoucherListTable.vue'
 import Voucher from "@/composables/Voucher";
 import ModalTableFilter from '@/components/Voucher/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import {openToast} from "@/assets/js/functions";
 
 export default {
   data() {
@@ -136,6 +137,19 @@ export default {
   },
 
   watch: {
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getVoucherList()
+          openToast(
+              this.$store,
+              'آیتم با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
     dataTableLength(val) {
       this.addPerPage(val)
     },

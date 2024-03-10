@@ -60,7 +60,20 @@
           </div>
 
           <div
-              v-if="header[2].show"
+              v-if="item.id && header[2].show"
+              class="c-table__contents__item justify-center"
+              style="padding:3px"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.voucher_type">
+                        {{ item.voucher_type }}
+                    </span>
+            <span class="t14300 text-gray500 py-5 number-font" v-else>
+                          ---
+                    </span>
+          </div>
+
+          <div
+              v-if="header[3].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -80,7 +93,7 @@
           </div>
 
           <div
-              v-if="header[3].show"
+              v-if="header[4].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -95,20 +108,20 @@
           </div>
 
           <div
-              v-if="header[4].show"
+              v-if="header[5].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.discount_type === 'percent'">
+                      <span v-if="item.discount_type === 'percent'" class="number-font">
                         {{ item.discount }}
                       </span>
-                      <span v-else>
+                      <span v-else class="number-font">
                           {{ splitChar(item.max_discount) }}
                       </span>
           </div>
 
           <div
-              v-if="header[5].show"
+              v-if="header[6].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -123,7 +136,7 @@
           </div>
 
           <div
-              v-if="header[6].show"
+              v-if="header[7].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -138,7 +151,7 @@
           </div>
 
           <div
-              v-if="header[7].show"
+              v-if="header[8].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -153,7 +166,7 @@
           </div>
 
           <div
-              v-if="header[8].show"
+              v-if="header[9].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -164,7 +177,7 @@
           </div>
 
           <div
-              v-if="header[9].show"
+              v-if="header[10].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -179,7 +192,7 @@
           </div>
 
           <div
-              v-if="header[10].show"
+              v-if="header[11].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -193,7 +206,7 @@
                     </span>
           </div>
           <div
-              v-if="header[11].show"
+              v-if="header[12].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -207,7 +220,7 @@
                     </span>
           </div>
           <div
-
+              v-if="header[13 ].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -248,7 +261,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/order`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/order`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
                       لیست سفارشات
@@ -530,7 +543,7 @@ export default {
      * @param {*} id
      */
     removeItem(id) {
-      openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
+      openConfirm(this.$store, "آیا از حذف آیتم مورد نظر مظمئن هستید ؟", "حذف تخفیف", "delete", this.deletePath + id, true);
     },
 
     /**
