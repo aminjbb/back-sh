@@ -44,7 +44,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.user.phone_number" class="t14300 text-gray500 py-5">
+                    <span v-if="item.user.phone_number" class="t14300 text-gray500 py-5 number-font">
                         {{ item.user.phone_number }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
@@ -69,7 +69,7 @@
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.refid" class="t14300 text-gray500 py-5">
+                    <span v-if="item.refid" class="t14300 text-gray500 py-5 number-font">
                         {{ item.refid }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
@@ -82,7 +82,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.status" class="t14300 text-gray500 py-5">
-                        {{ item.status }}
+                        {{ translateType(item.status) }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -93,7 +93,8 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.status" class="t14300 text-gray500 py-5">
-                        {{ item.status }}
+
+                        {{ translateType(item.charge_type) }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -137,7 +138,7 @@
               v-if=" header[9].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5">
+                    <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5 number-font">
                         {{ item.created_at_fa }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
@@ -302,6 +303,20 @@ export default {
     /**
      * Mass update modal
      */
+
+    translateType(type) {
+      const translations = {
+        'post_cost': 'هزینه پستی',
+        'difference_order': 'مغایرت',
+        'cancel_order': ' انصراف از خرید',
+        'return_order': ' مرجوعی سفارش',
+        'other': ' سایر',
+        'success': 'موفق ',
+
+
+      };
+      return translations[type] || type;
+    },
 
 
 

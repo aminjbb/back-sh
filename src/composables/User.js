@@ -139,6 +139,11 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push(route.path+ filter.params_generator(route.query))
     }
+    function addPaginationWallet(page){
+        walletFilter.page = page
+        walletFilter.per_page = dataTableLength.value
+        router.push(route.path+ walletFilter.params_generator(route.query))
+    }
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
@@ -147,7 +152,10 @@ export default function setup() {
     watch(page, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true
-            addPagination(val)
+            if (route.name === 'walletUser') addPaginationWallet(val)
+            else addPagination(val)
+
+
         }
     })
 
@@ -156,6 +164,7 @@ export default function setup() {
     return {pageLength, users, getUsers ,
         dataTableLength , page  , header , userList ,
         getUserList , filterField ,user , getUser , addPerPage,
-        getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList}
+        getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList,
+        addPaginationWallet}
 }
 
