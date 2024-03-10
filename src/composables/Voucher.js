@@ -16,9 +16,9 @@ export default function setup() {
     const route = useRoute()
     const headerVouchers =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'id', order: false},
+        { name: 'عنوان', show: true, value: 'name', order: false},
         { name: 'نوع مقدار تخفیف', show: true, value: 'label', order: false},
-        { name: 'نوع  تخفیف', show: true, value: 'voucher_type', order: false},
+        { name: 'نوع  تخفیف', show: true, value: 'discount_type', order: false},
         { name: 'کد تخفیف', show: true, value: 'code', order: false},
         { name: ' مقدار تخفیف', show: true, value: 'discount', order: false},
         { name: ' تعداد استفاده سفارش', show: true, value: 'order_limit', order: false},

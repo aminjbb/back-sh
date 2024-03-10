@@ -64,8 +64,8 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.voucher_type">
-                        {{ item.voucher_type }}
+                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.label">
+                        {{ item.label }}
                     </span>
             <span class="t14300 text-gray500 py-5 number-font" v-else>
                           ---
