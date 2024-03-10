@@ -70,11 +70,12 @@ export class userWalletFilter {
 
     params_generator(routeQuery){
         let query = "?";
-        if (this.user_id ) {
-            query += "user_id=" + this.user_id + "&";
-        }
-        else if (routeQuery.user_id ){
+        if (routeQuery.user_id ){
             query += "user_id=" + routeQuery.user_id + "&";
+        }
+
+        else if (this.user_id ) {
+            query += "user_id=" + this.user_id + "&";
         }
         if (this.firstName ) {
             query += "first_name=" + this.firstName + "&";
