@@ -108,13 +108,13 @@ export default function setup() {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/deposit-request/index'+ filter.params_generator(route.query))
+        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/deposit-request/index'+ filter.params_generator(route.query))
+        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
     }
 
     watch(page, function(val) {
