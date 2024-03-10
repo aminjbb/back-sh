@@ -365,6 +365,10 @@ export default {
         {
           text: 'مرجوعی',
           value: 'returned'
+        },
+        {
+          text: 'در انتظار پرداخت',
+          value: 'payment_in_progress'
         }
       ],
     }
@@ -401,10 +405,9 @@ export default {
      * @param {*} status
      */
     getOrderStatus(status){
-     const persianStatus = this.orderStatus.find(orderStatus => {
-       orderStatus.value === status
-      })
-      return persianStatus.text
+     const persianStatus = this.orderStatus.find(orderStatus =>   orderStatus.value === status)
+      if (persianStatus)   return persianStatus.text
+
     },
 
     /**
