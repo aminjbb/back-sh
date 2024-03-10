@@ -27,7 +27,7 @@ export default function setup() {
         { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
         { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
         { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
-        { name: 'استان', show: false, value: 'state_id', order: true},
+        { name: 'استان', show: false, value: 'state_id', order: false},
         { name: 'وضعیت', show: true, value: 'is_active', order: false},
     ]);
     const headerShps = ref([

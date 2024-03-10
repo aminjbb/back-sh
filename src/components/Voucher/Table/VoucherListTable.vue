@@ -59,21 +59,10 @@
                     </span>
           </div>
 
-          <div
-              v-if="item.id && header[2].show"
-              class="c-table__contents__item justify-center"
-              style="padding:3px"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.label">
-                        {{ item.label }}
-                    </span>
-            <span class="t14300 text-gray500 py-5 number-font" v-else>
-                          ---
-                    </span>
-          </div>
+
 
           <div
-              v-if="header[3].show"
+              v-if="header[2].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -91,7 +80,24 @@
                         </template>
                     </span>
           </div>
-
+          <div
+              v-if="item.voucher_type && header[3].show"
+              class="c-table__contents__item justify-center"
+              style="padding:3px"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.voucher_type === 'regular'">
+                          عادی
+                    </span>
+            <span class="t14300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'group'">
+                        گروهی
+                    </span>
+            <span class="t14300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'peer_to_peer'">
+                        نظیر به نظیر
+                    </span>
+            <span class="t14300 text-gray500 py-5 number-font" v-else>
+                          ---
+                    </span>
+          </div>
           <div
               v-if="header[4].show"
               class="c-table__contents__item justify-center"
@@ -112,12 +118,10 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.discount_type === 'percent'" class="number-font">
+                      <span  class="number-font">
                         {{ item.discount }}
                       </span>
-                      <span v-else class="number-font">
-                          {{ splitChar(item.max_discount) }}
-                      </span>
+
           </div>
 
           <div
@@ -157,7 +161,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.min_order_price">
-                            {{ splitChar(item.min_order_price ) }}
+                            {{ splitChar(item.min_order_price) }}
                         </template>
                         <template v-else>
                             -
@@ -211,8 +215,8 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.state">
-                            {{ item.state?.lable }}
+                        <template v-if="item.state_id">
+                            {{ item.state_id }}
                         </template>
                         <template v-else>
                             -
