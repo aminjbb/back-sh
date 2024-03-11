@@ -58,30 +58,35 @@ export default {
     validate(){
       this.$refs.PromotionPageForm.$refs.createPromotionPage.validate()
       setTimeout(()=>{
-        if (this.$refs.PromotionPageForm.valid) this.createMenu()
+        if (this.$refs.PromotionPageForm.valid) this.editPromotion()
       } , 200)
     },
 
-    async createMenu(){
-      this.loading=true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `page/promotion/crud/update/${this.$route.params.promotionId}`
-      formData.append('name' , this.$refs.PromotionPageForm.form.name)
-      formData.append('label' , this.$refs.PromotionPageForm.form.lable)
-      formData.append('is_active' , this.promotion.is_active)
+    async editPromotion(){
+      try {
+        this.loading=true
+        let formData = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `page/promotion/crud/update/${this.$route.params.promotionId}`
+        formData.append('name' , this.$refs.PromotionPageForm.form.name)
+        formData.append('label' , this.$refs.PromotionPageForm.form.lable)
+        formData.append('is_active' , this.promotion.is_active)
 
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth =true
-      AxiosMethod.token =this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading=false
-        this.$router.push('/promotion-page/index')
+        AxiosMethod.form = formData
+        AxiosMethod.store = this.$store
+        AxiosMethod.using_auth =true
+        AxiosMethod.token =this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.loading=false
+          this.$router.push('/promotion-page/index')
 
+        }
+        else{
+          this.loading=false
+        }
       }
-      else{
+      catch (e) {
         this.loading=false
       }
     }
