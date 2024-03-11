@@ -21,9 +21,7 @@
       </template>
 
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-icon v-bind="props" class="text-gray500">
-          mdi-dots-vertical
-        </v-icon>
+       <span>مشاهده</span>
       </div>
     </header>
 
