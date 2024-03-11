@@ -153,6 +153,8 @@ import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentReq
 import PrintShipmentRequestDetailView from '../views/ShipmentRequests/PrintShipmentRequestDetailView.vue'
 /* Deposit */
 import DepositRequestView from '../views/DepositRequests/DepositeRequestsView.vue';
+/* ContactUs */
+import ContactUsView from '../views/ContactUs/ContactUsView.vue';
 
 /* Factor */
 import FactorListView from '../views/Factor/FactorListView.vue'
@@ -1313,6 +1315,21 @@ const router = createRouter({
                 component: DepositRequestView,
                 meta: {
                     name: 'درخواست واریز '
+                }
+            },
+            ]
+        },
+        {
+            path: '/contact-us', // contact-us
+            meta: {
+                name: ' ارتباط با ما'
+            },
+            children: [{
+                path: 'index',
+                name: 'ContactUs',
+                component: ContactUsView,
+                meta: {
+                    name: 'ارتباط با ما '
                 }
             },
             ]
