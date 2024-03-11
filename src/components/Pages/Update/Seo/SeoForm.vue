@@ -111,8 +111,8 @@ export default {
         this.form.slug = this.page.slug
         this.form.metaTitle = this.page.meta_title
         this.form.metaDescription = this.page.meta_description
-        this.form.ogTitle = this.user.og_title
-        this.form.ogDescription = this.user.og_description
+        this.form.ogTitle = this.page.og_title
+        this.form.ogDescription = this.page.og_description
 
       } catch (error) { }
     }
