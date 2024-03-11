@@ -8,10 +8,10 @@ import { useCookies } from "vue3-cookies";
 export default function setup() {
     const promotions =ref([])
     const promotion = ref(null)
-    const promotionSkuGroups = ref([])
+    const promotionShpsList = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
-    const pageLengthSkuGroup = ref(1)
+    const pageLengthShpsList = ref(1)
     const cookies = useCookies()
     const page = ref(1)
     const router = useRouter()
@@ -74,7 +74,7 @@ export default function setup() {
         else {
         }
     };
-    async function getPromotionSkuGroups(page , perPage) {
+    async function getPromotionShpsList(page , perPage) {
         loading.value = true
         const form ={
             page :page,
@@ -84,11 +84,11 @@ export default function setup() {
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.form = form
-        AxiosMethod.end_point = `page/promotion/crud/get/sku_groups/${route.params.promotionId}`
+        AxiosMethod.end_point = `page/promotion/crud/get/seller-sku/${route.params.promotionId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLengthSkuGroup.value = Math.ceil(data.data.total / data.data.per_page)
-            promotionSkuGroups.value = data.data
+            pageLengthShpsList.value = Math.ceil(data.data.total / data.data.per_page)
+            promotionShpsList.value = data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -141,6 +141,6 @@ export default function setup() {
         }
     })
 
-    return {getPromotionSkuGroups,promotionSkuGroups, pageLengthSkuGroup,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading }
+    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading }
 }
 
