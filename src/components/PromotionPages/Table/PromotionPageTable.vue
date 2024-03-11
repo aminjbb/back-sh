@@ -159,15 +159,15 @@
                     </span>
             </div>
             <div
-                v-if="item.pivot?.priority && header[3].show"
+                v-if="  header[3].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <div  class="t14300 text-gray500 py-5" style="width: 100px;">
 <!--                        {{ item.pivot?.priority }}-->
                       <v-text-field variant="outlined"  v-model="priorities[index]" type="number"  />
 
 
-                    </span>
+                    </div>
             </div>
             
             <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`  }" @click="saveSkuToPromotion(item, index)" class="d-flex justify-center align-center ">
