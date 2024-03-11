@@ -267,7 +267,8 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-shopping-outline</v-icon>
+                  <v-icon>mdi-file-edit-outline</v-icon>
+
                 </template>
 
                 <span class="t14500">
@@ -299,7 +300,7 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-shopping-outline</v-icon>
+                  <v-icon>mdi-currency-usd</v-icon>
                 </template>
 
                 <span class="t14500">
@@ -330,7 +331,7 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-shopping-outline</v-icon>
+                  <v-icon>mdi-message-reply-text-outline</v-icon>
                 </template>
 
                 <span class="t14500">
