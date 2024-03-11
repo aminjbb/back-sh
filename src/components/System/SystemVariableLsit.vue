@@ -25,7 +25,7 @@
                   {{systemItemValue.detail}}
                 </div>
                 <div>
-                  {{splitChar(systemItemValue.value)}} تومان
+                  {{splitChar(systemItemValue.value)}} ریال
                 </div>
                 <div style="width: 200px">
                   <v-text-field v-model="form[systemItemValueIndex].value" variant="outlined" placeholder="قیمت جدید"></v-text-field>

@@ -103,37 +103,8 @@
                     {{title}}
                 </span>
             </v-list-item>
-          <v-list-group value="financial">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" active-class="bg-active">
-                <template v-slot:prepend>
-                  <v-icon>mdi-currency-usd</v-icon>
-                </template>
 
-                <span class="t14500">
-                            مالی
-                        </span>
-              </v-list-item>
-            </template>
 
-            <v-list-item
-                v-for="([title, to, icon], i) in financial"
-                v-bind="props"
-                :key="i"
-                :value="title"
-                :to="to"
-                active-class="bg-active"
-                style="padding-right:16px !important">
-              <template v-slot:prepend>
-                <v-icon size="x-small">{{icon}}</v-icon>
-              </template>
-
-              <span class="t14500">
-                        {{title}}
-                    </span>
-            </v-list-item>
-
-          </v-list-group>
 
             <v-list-group value="warehouse">
                 <template v-slot:activator="{ props }">
@@ -296,7 +267,8 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-shopping-outline</v-icon>
+                  <v-icon>mdi-file-edit-outline</v-icon>
+
                 </template>
 
                 <span class="t14500">
@@ -328,7 +300,7 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-shopping-outline</v-icon>
+                  <v-icon>mdi-currency-usd</v-icon>
                 </template>
 
                 <span class="t14500">
@@ -339,6 +311,37 @@
 
             <v-list-item
                 v-for="([title, to, icon], i) in withdraw"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14500">
+                        {{title}}
+                    </span>
+            </v-list-item>
+
+          </v-list-group>
+          <v-list-group value="message">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-message-reply-text-outline</v-icon>
+                </template>
+
+                <span class="t14500">
+                            پیام ها
+                        </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in message"
                 v-bind="props"
                 :key="i"
                 :value="title"
@@ -371,7 +374,7 @@ export default {
             menuOption: [
                 ['درخواست های خروجی', '/exports/index', 'mdi-export'],
                 ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
-                ['پیام ها', '/notifications/index', 'mdi-email-outline'],
+
                 ['تیکت ها', '/ticket/index', 'mdi-forum'],
                 ['گفتگو', '/chat', 'mdi-chat'],
                 ['مدیریت مشتریان', '/user/index', 'mdi-account-group'],
@@ -443,9 +446,13 @@ export default {
             ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
           ],
 
-          withdraw: [
+             withdraw: [
             ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
           ],
+              message: [
+            ['پیام ها', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
+            ['ارتباط با ما', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
+          ]
 
         }
     },
