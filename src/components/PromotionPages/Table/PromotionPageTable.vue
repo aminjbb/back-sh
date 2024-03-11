@@ -146,8 +146,8 @@
             v-if="header[1].show"
   class="c-table__contents__item justify-center"
   :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-    <span class="t14300 text-gray500 py-5" v-show="item.label">
-      {{ item.label }}
+    <span class="t14300 text-gray500 py-5" v-show="item.sku">
+      {{ item.sku?.label }}
     </span>
             </div>
             <div
@@ -388,8 +388,8 @@ export default {
   AxiosMethod.using_auth = true;
   AxiosMethod.store =  this.$store;
   AxiosMethod.token = this.$cookies.get('adminToken');
-  AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/sku_group/attach`;
-  formData.append('sku_group_id', item.id);  
+  AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/seller-sku/attach`;
+  formData.append('seller_sku_id', item.id);
   formData.append('is_active', 1);
   formData.append('priority', this.priorities[index]);
 

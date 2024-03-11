@@ -8,25 +8,21 @@
         <v-col cols="6" >
           <v-row align="center" justify="start" class="pt-1">
             <v-autocomplete
-                placeholder="شماره گروه کالا (SKU Group) را جستجو نمایید"
+                placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
                 variant="outlined"
                 prepend-inner-icon-cb="mdi-map-marker"
                 rounded="lg"
-                :items="skuGroupList"
+                :items="skuList"
                 item-title="name"
-                item-value="id"
-                v-debounce:1s.unlock="searchSkuGroup"
-            >
+                item-value="value"
+                v-debounce:1s.unlock="searchSku">
 
-
-              <template v-slot:item="{ props, item }">
-                <v-list-item
-                >
+              <template v-slot:item="item">
+                <v-list-item>
                   <v-row justify="center">
 
                     <v-col cols="4">
-
-                      <div @click="assignSkuToPromotion(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                      <div @click="sendShps(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
                         <v-icon>mdi-plus</v-icon>
                       </div>
 
@@ -44,7 +40,7 @@
               </template>
             </v-autocomplete>
 
-            <ModalGroupAdd getEndPoint="page/promotion/csv/get/template" uploadEndpoint="page/promotion/csv/bulk/sku_group" />
+            <ModalGroupAdd getEndPoint="page/promotion/csv/get/template" uploadEndpoint="page/promotion/csv/bulk/seller-sku" />
 
           </v-row>
         </v-col>
@@ -63,11 +59,11 @@
       <Table
           class="flex-grow-1"
           :header="skuGroupHeader"
-          :items="promotionSkuGroups.data"
+          :items="promotionShpsList.data"
           :page="page"
           :perPage="dataTableLength"
           activePath="system/menu/crud/update/activation/"
-          :deletePath="`page/promotion/${$route.params.promotionId}/sku_group/detach/`"
+          :deletePath="`page/promotion/${$route.params.promotionId}/seller-sku/detach/`"
           :loading="loading"
           updateUrl="page/csv/mass-update"
           model="skuPromotionPage" />
@@ -77,7 +73,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload :hasFilter="false" getEndPoint="page/promotion/csv/get/export" />
+            <ModalExcelDownload :hasFilter="false" :getEndPoint="`page/promotion/csv/${$route.params.promotionId}/get/seller-sku/export`" />
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
@@ -126,12 +122,12 @@ import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup(props) {
-    const {getPromotionSkuGroups,promotionSkuGroups, pageLengthSkuGroup, promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}=new PromotionPage()
-    return{getPromotionSkuGroups,promotionSkuGroups, pageLengthSkuGroup,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}
+    const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}=new PromotionPage()
+    return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}
   },
   data(){
     return{
-      skuGroupSearchList:[]
+      skuSearchList:[]
     }
   },
   components: {
@@ -146,86 +142,88 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-   
 
-    skuGroupList(){
+    skuList() {
       try {
-        let skuGroup = []
-        this.skuGroupSearchList.forEach(sku => {
+        let sku = []
+        this.skuSearchList.forEach(skuSearch => {
           const form = {
-            name: sku.label + '(' +sku.id+')',
-            id : sku.id
+            name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
+            value: skuSearch
           }
-          skuGroup.push(form)
+          sku.push(form)
         })
-        return skuGroup
-      }
-      catch (e) {
-        console.log(e)
-        return  []
+        return sku
+      } catch (e) {
+        return []
       }
     },
+
   },
 
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-    async searchSkuGroup(e){
-      const filter = {
-        per_page : 10,
-        q : e
-      }
+    async searchSku(search) {
+      this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.form = filter
-      AxiosMethod.end_point = `product/sku/group/crud/index/`
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.skuGroupSearchList = data.data.data
+        this.skuSearchList = data.data.data
       }
     },
 
-    async assignSkuToPromotion(id){
-      const formData = new FormData()
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.store =  this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/sku_group/attach`
-      formData.append('sku_group_id' , id)
-      formData.append('is_active' , 1)
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.getPromotionSkuGroups(1 , this.dataTableLength);
-
-        // this.getSkuSeller();
-        openToast(
-            this.$store,
-            'کد کالا با موفقیت افزوده شد.',
-            "success"
-        );
+    async sendShps(item){
+      try {
+        this.loading = true
+        const formData = new FormData()
+        formData.append('seller_sku_id' , item.id)
+        // formData.append('type' , 'consignment')
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/seller-sku/attach`
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.loading = false
+          this.getPromotionShpsList(1 , this.dataTableLength);
+          openToast(
+              this.$store,
+              ' با موفقیت ایجاد گردید.',
+              "success"
+          );
+        }
+        else {
+          this.loading = false
+        }
       }
-    }
+      catch (e) {
+        this.loading = false
+      }
+    },
   },
 
   mounted() {
-    this.getPromotionSkuGroups(1 , this.dataTableLength);
+    this.getPromotionShpsList(1 , this.dataTableLength);
   },
 
   watch: {
     dataTableLength(val) {
-      this.getPromotionSkuGroups(1 , val);
+      this.getPromotionShpsList(1 , val);
     },
     page(val){
-      this.getPromotionSkuGroups(val , this.dataTableLength);
+      this.getPromotionShpsList(val , this.dataTableLength);
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          this.getPromotionSkuGroups(1 , this.dataTableLength);
+          this.getPromotionShpsList(1 , this.dataTableLength);
           openToast(
               this.$store,
               'محصول با موفقیت حذف شد',
