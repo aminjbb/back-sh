@@ -262,6 +262,7 @@ import LostItemListView from "@/views/Lost/LostItemListView.vue";
 import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
 import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
+import SystemVariableView from "@/views/System/SystemVariableView.vue";
 
 
 const router = createRouter({
@@ -2015,6 +2016,23 @@ const router = createRouter({
                 component: BulkEditView,
                 meta: {
                     name: 'ویرایش گروهی '
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/system', // wastage
+            meta: {
+                name: 'سیستم'
+            },
+            children: [{
+                path: 'index',
+                name: 'SystemVariableView',
+                component: SystemVariableView,
+                meta: {
+                    name: 'متغییر ها'
                 }
             },
 
