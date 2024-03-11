@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-dialog
         v-model="consumerPriceModal.dialog"
@@ -136,35 +136,40 @@ export default {
         },
 
         async updateCustomerPrice() {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/update/customer_price/${this.consumerPriceModal?.id}`
-            AxiosMethod.form = formdata
-            formdata.append('customer_price', this.priceModel)
-            formdata.append('step', 'update')
+           try {
+             this.loading = true
+             var formdata = new FormData();
+             const AxiosMethod = new AxiosCall()
+             AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/update/customer_price/${this.consumerPriceModal?.id}`
+             AxiosMethod.form = formdata
+             formdata.append('customer_price', this.priceModel)
+             formdata.append('step', 'update')
 
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.loading = false;
-                this.close();
-                openToast(
-                    this.$store,
-                    'کالای فروشنده با موفقیت ویرایش گردید',
-                    "success"
-                );
-                this.updateList('true');
-            } else {
-                this.loading = false;
-                openToast(
-                    this.$store,
-                    'ویرایش با مشکل مواجه شد',
-                    "error"
-                );
-            }
+             AxiosMethod.store = this.$store
+             AxiosMethod.using_auth = true
+             AxiosMethod.token = this.$cookies.get('adminToken')
+             let data = await AxiosMethod.axios_post()
+             if (data) {
+               this.loading = false;
+               this.close();
+               openToast(
+                   this.$store,
+                   'کالای فروشنده با موفقیت ویرایش گردید',
+                   "success"
+               );
+               this.updateList('true');
+             } else {
+               this.loading = false;
+               openToast(
+                   this.$store,
+                   'ویرایش با مشکل مواجه شد',
+                   "error"
+               );
+             }
+           }
+           catch (e) {
+             this.loading = false;
+           }
         },
 
         async calculateCustomerPrice() {

@@ -16,17 +16,18 @@ export default function setup() {
     const route = useRoute()
     const headerVouchers =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'id', order: false},
-        { name: 'نوع تخفیف', show: true, value: 'label', order: false},
-        { name: 'کد تخفیف', show: true, value: 'customer_price', order: false},
-        { name: ' مقدار تخفیف', show: true, value: 'site_price', order: false},
-        { name: ' تعداد استفاده سفارش', show: true, value: 'site_price', order: false},
-        { name: ' تعداد استفاده مشتری', show: true, value: 'site_price', order: false},
-        { name: 'حداقل هزینه سفارش', show: true, value: 'site_price', order: false},
-        { name: 'چندمین سفارش', show: true, value: 'site_price', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'site_price', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'site_price', order: true},
-        { name: 'استان', show: false, value: 'site_price', order: true},
+        { name: 'عنوان', show: true, value: 'name', order: false},
+        { name: 'نوع مقدار تخفیف', show: true, value: 'label', order: false},
+        { name: 'نوع  تخفیف', show: true, value: 'discount_type', order: false},
+        { name: 'کد تخفیف', show: true, value: 'code', order: false},
+        { name: ' مقدار تخفیف', show: true, value: 'discount', order: false},
+        { name: ' تعداد استفاده سفارش', show: true, value: 'order_limit', order: false},
+        { name: ' تعداد استفاده مشتری', show: true, value: 'user_limit', order: false},
+        { name: 'حداقل هزینه سفارش', show: true, value: 'min_order_price', order: false},
+        { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
+        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
+        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
+        { name: 'استان', show: false, value: 'state_id', order: false},
         { name: 'وضعیت', show: true, value: 'is_active', order: false},
     ]);
     const headerShps = ref([
@@ -42,6 +43,17 @@ export default function setup() {
         { name: 'نام مشتری', show: true, value: 'first_name', order: true},
         { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
         { name: ' شماره تماس', show: true, value: 'phone', order: false},
+    ]);
+    const headerOrder =ref( [
+        { name: 'ردیف', show: true, value: null , order: false},
+        { name: 'شماره سفارش', show: true, value: 'id', order: true},
+        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
+        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
+        { name: ' شماره تماس', show: true, value: 'phone', order: false},
+        { name: ' چندمین سفارش', show: true, value: 'order_number', order: false},
+        { name: ' تعداد آیتم', show: true, value: 'variant', order: false},
+        { name: 'مبلغ', show: true, value: 'price', order: false},
+        { name: 'تاریخ ثبت', show: true, value: 'created_at', order: false},
     ]);
 
     const indexFilterField =ref( [
@@ -217,6 +229,7 @@ export default function setup() {
     }
     return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
-        getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer}
+        getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
+        headerOrder}
 }
 
