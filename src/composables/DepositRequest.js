@@ -6,9 +6,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 
 export default function setup() {
-    const retailObject = ref([])
     const ShipmentRequestsList = ref([]);
-    const detail = ref([])
     const shipmentRequest = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -31,43 +29,17 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
-        { name:'تعداد آیتم' , type: 'text', value:'count_from' , place:'از'},
-        { name: 'تعداد آیتم', type:'text', value:'count_to' , place:'تا'},
-        { name: 'شناسه فاکتور', type:'text', value:'factor_id' , place:'شناسه فاکتور'},
-        { name: 'تنوع آیتم', type:'text', value:'number_from', place:'از'},
-        { name: 'تنوع آیتم', type:'text', value:'number_to', place:'تا'},
-        { name: 'نام سازنده', type:'auto-complete', value:'admin', place:'نام سازنده'},
-        { name: 'تاریخ ارسال', type:'date', value:'created_at', place:'تاریخ ارسال'},
-        { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
+        {name:'شماره تماس' , type:'text', value:'retail_id' , place:'شماره تماس'},
+        { name:'نام مشتری' , type: 'text', value:'count_from' , place:'نام مشتری'},
+        { name: 'شماره کارت مشتری', type:'number', value:'count_to' , place:'شماره کارت مشتری'},
+        { name: 'نام ادمین', type:'text', value:'factor_id' , place:'نام ادمین'},
+        { name: 'حداقل مبلغ درخواستی', type:'number', value:'number_from', place:'از'},
+        { name: 'حداکثر مبلغ درخواستی', type:'number', value:'number_to', place:'تا'},
+        { name: 'حداقل موجودی کیف پول', type:'number', value:'admin', place:'از '},
+        { name: 'حداکثر موجودی کیف پول ', type:'number', value:'created_at', place:' تا'},
+        { name: 'تاریخ درخواست', type:'date', value:'status', place:'از'},
+        { name: ' وضعیت درخواست', type:'select', value:'status', place:'تا'},
     ];
-    const headerShps =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه shps', show: true , value:'shps', order: false},
-        { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: ' قیمت خرید', show: true , value:'number', order: false},
-        { name: ' قیمت مصرف', show: true, value:'number' , order: false},
-        { name: 'تعداد کالا', show: true, value:'number' , order: false},
-        { name: ' قیمت خرید کل  ', show: true, value:'number' , order: false},
-        { name: ' قیمت مصرف کل  ', show: true, value:'number' , order: false},
-        { name: ' درصد سود ', show: true, value:'number' , order: false},
-
-
-    ]);
-    const headerQrcode =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه shps', show: true , value:'shps', order: false},
-        { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: ' تعداد کلا ', show: true , value:'number', order: false},
-
-
-
-
-    ]);
-
-
-
-
 
     const loading = ref(false)
     const isFilter =ref(false)
@@ -108,13 +80,13 @@ export default function setup() {
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/deposit-request/index'+ filter.params_generator(route.query))
+        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
     }
 
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push('/deposit-request/index'+ filter.params_generator(route.query))
+        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
     }
 
     watch(page, function(val) {
@@ -125,7 +97,7 @@ export default function setup() {
     })
 
     return {
-        pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
+        pageLength, filterField, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
         dataTableLength, page, header, loading, shipmentRequest
     }
 }

@@ -431,7 +431,7 @@ export default {
             'وضعیت با موفقیت ویرایش شد.',
             "success"
         );
-        this.$router.push(`/deposit-request/index`)
+        this.$router.push(`/withdraw-request/index`)
 
       }
       else {
