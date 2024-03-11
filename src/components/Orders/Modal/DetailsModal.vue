@@ -1,8 +1,8 @@
 <template>
 <div class="text-right">
-    <v-dialog v-model="orderDetailsModal.dialog" width="1060">
-        <v-card class="pa-5">
-            <div class="accordion mb-5">
+    <v-dialog v-model="orderDetailsModal.dialog">
+        <v-card class="pa-5 " >
+            <div class="accordion mb-5 scroller">
                 <header class="accordion__header" id="accordion-header-1" @click="openAccordion(1)">
                     <span>
                         اطلاعات کلی
@@ -11,9 +11,9 @@
                     <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
                 </header>
 
-                <div class="accordion__content" id="accordion-content-1">
+                <div class="accordion__content " id="accordion-content-1">
                     <div class="simple-table-parent">
-                        <div class="simple-table">
+                        <div class="simple-table ">
                             <v-row
                                 v-for="(item,index) in generalDetails"
                                 :key="`general-${index}`"
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="accordion mb-5">
+            <div class="accordion mb-5 scroller">
                 <header class="accordion__header" id="accordion-header-2" @click="openAccordion(2)">
                     <span>
                         مشخصات گیرنده
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="accordion mb-5">
+            <div class="accordion mb-5 scroller">
                 <header class="accordion__header" id="accordion-header-3" @click="openAccordion(3)">
                     <span>
                         اطلاعات پرداخت
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="accordion mb-5">
+            <div class="accordion mb-5 scroller">
                 <header class="accordion__header" id="accordion-header-4" @click="openAccordion(4)">
                     <span>
                         تخفیف ها
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="accordion mb-5">
+            <div class="accordion mb-5 scroller">
                 <header class="accordion__header" id="accordion-header-5" @click="openAccordion(5)">
                     <span>
                         جزئیات سفارش
@@ -97,8 +97,11 @@
                     <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
                 </header>
 
-                <div class="accordion__content" id="accordion-content-5">
-                    <ShpsTable :items="shpsDetails" :header="shpsModalHeader" />
+                <div class="accordion__content " id="accordion-content-5">
+                  <div class="flex-grow-1 d-flex flex-column align-stretch">
+                    <ShpsTable class="flex-grow-1" :items="shpsDetails" :header="shpsModalHeader" />
+                  </div>
+
                 </div>
             </div>
         </v-card>
@@ -264,6 +267,7 @@ export default {
             let data = await AxiosMethod.axios_get();
             if (data) {
                 this.shpsDetails = data.data;
+              console.log(this.shpsDetails , 'shpsDetails')
             } else {}
         },
 
@@ -391,6 +395,7 @@ export default {
                     this.getShpsDetails();
                     this.getPaymentDetails();
                     this.getGeneralDetails();
+                    this.getDiscountDetails()
                 }
             }
         );

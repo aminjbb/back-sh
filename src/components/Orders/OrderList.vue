@@ -141,7 +141,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.getOrderList(val)
+            this.addPerPage(val)
         },
     }
 }

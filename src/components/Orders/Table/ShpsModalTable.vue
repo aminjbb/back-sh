@@ -1,5 +1,5 @@
 <template>
-<div class="c-table d--rtl">
+<div class="c-table d--rtl" style="overflow-x: scroll;">
     <header class="c-table__header d-flex justify-between">
         <template v-for="(head, index) in header">
             <div
@@ -96,8 +96,8 @@
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
-                        <template v-if="item.price">
-                            {{ splitChar(item.price) }}
+                        <template v-if="item.customer_price">
+                            {{ splitChar(item.customer_price) }}
                         </template>
                         <template v-else>
                             -
@@ -141,8 +141,8 @@
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
-                        <template v-if="item.code">
-                            {{ item.code }}
+                        <template v-if="item.discount_code">
+                            {{ item.discount_code }}
                         </template>
                         <template v-else>
                             -
@@ -156,8 +156,8 @@
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
-                        <template v-if="item.total_price">
-                            {{ splitChar(item.total_price) }} تومان
+                        <template v-if="item.paid_price">
+                            {{ splitChar(item.paid_price) }} تومان
                         </template>
                         <template v-else>
                             -
