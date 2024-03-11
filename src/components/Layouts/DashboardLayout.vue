@@ -395,6 +395,7 @@ export default {
                 ['صفحات', '/page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['منو ها', '/menu/index', 'mdi-checkbox-blank-circle-outline'],
                 ['صفحه اصلی', '/home-page/index', 'mdi-checkbox-blank-circle-outline'],
+                ['متغییر ها', '/system/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             marketing: [
                 ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
