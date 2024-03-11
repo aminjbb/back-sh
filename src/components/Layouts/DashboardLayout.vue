@@ -323,9 +323,7 @@
             </v-list-item>
 
           </v-list-group>
-<<<<<<< HEAD
 
-=======
           <v-list-group value="withdraw">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
@@ -357,7 +355,6 @@
             </v-list-item>
 
           </v-list-group>
->>>>>>> master
         </v-list>
 
     </v-navigation-drawer>
