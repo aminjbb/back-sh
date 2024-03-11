@@ -103,6 +103,37 @@
                     {{title}}
                 </span>
             </v-list-item>
+          <v-list-group value="financial">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-currency-usd</v-icon>
+                </template>
+
+                <span class="t14500">
+                            مالی
+                        </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in financial"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14500">
+                        {{title}}
+                    </span>
+            </v-list-item>
+
+          </v-list-group>
 
             <v-list-group value="warehouse">
                 <template v-slot:activator="{ props }">
@@ -292,6 +323,7 @@
             </v-list-item>
 
           </v-list-group>
+
           <v-list-group value="withdraw">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
@@ -407,12 +439,14 @@ export default {
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
 
             ],
-          bulkEdit: [
+            bulkEdit: [
             ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
           ],
+
           withdraw: [
             ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
           ],
+
         }
     },
 }
