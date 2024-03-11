@@ -164,7 +164,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.submit_date_fa">
-                            {{ item.submit_date_fa }}
+                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
                         </template>
                         <template v-else>
                             -
@@ -209,7 +209,7 @@
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
-                                        ویرایش اطلاعات مشتری
+                                        ویرایش اطلاعات گیرنده
                                     </span>
                   </div>
                 </v-list-item-title>
@@ -399,6 +399,15 @@ export default {
   },
 
   methods: {
+    splitTime(date){
+      try {
+        const dateSplit = date.split(' ')
+        return dateSplit[1]
+      }
+      catch (e) {
+
+      }
+    },
     splitChar,
     /**
      * return persian order status

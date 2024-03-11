@@ -41,8 +41,8 @@
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 22.6667%; flex: 0 0 22.6667%">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.label">
-                            {{ item.label }}
+                        <template v-if="item.name">
+                            {{ item.name }}
                         </template>
                         <template v-else>
                             -
@@ -199,7 +199,7 @@ export default {
                 rowIndex = (1 + index)
                 return rowIndex
             } else {
-                rowIndex = ((this.page - 1) * this.perPage) + index + 1
+                rowIndex = ((1 - 1) * 10000) + index + 1
                 return rowIndex
             }
         },
