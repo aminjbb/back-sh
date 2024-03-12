@@ -30,7 +30,7 @@
                         variant="outlined"
                         single-line
                         v-model="form.package_id"
-                        v-debounce:1s.unlock="getPackage" />
+                        v-debounce="getPackage" />
                 </v-col>
 
                 <v-col cols="12" md="6">
@@ -77,7 +77,7 @@
                         item-title="name"
                         item-value="id"
                         single-line
-                        v-debounce:1s.unlock="searchSku"
+                        v-debounce="searchSku"
                         v-model="form.shps_s" />
                 </v-col>
             </v-row>

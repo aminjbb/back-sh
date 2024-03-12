@@ -19,7 +19,7 @@
                     clearable
                     variant="outlined"
                     no-data-text="محصولی برای نمایش وجود ندارد"
-                    v-debounce:1s.unlock="searchUser" />
+                    v-debounce="searchUser" />
             </v-col>
 
             <v-col cols="3">

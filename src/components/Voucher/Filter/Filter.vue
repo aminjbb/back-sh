@@ -121,7 +121,7 @@
                     item-title="name"
                     item-value="id"
                     v-model="skuModel"
-                    v-debounce:1s.unlock="searchSku"/>
+                    v-debounce="searchSku"/>
                 <v-autocomplete
                     v-if="filter.value == 'user_id'"
                     :items="userList"
@@ -132,7 +132,7 @@
                     item-title="name"
                     item-value="value"
                     v-model="customerModel"
-                    v-debounce:1s.unlock="searchUser"/>
+                    v-debounce="searchUser"/>
               </v-col>
 
               <v-col

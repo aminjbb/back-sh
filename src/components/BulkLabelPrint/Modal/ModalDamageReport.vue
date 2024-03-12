@@ -33,7 +33,7 @@
                               item-title="label"
                               item-value="id"
                               single-line
-                              v-debounce:1s.unlock="searchSku"
+                              v-debounce="searchSku"
                               class="mx-auto" />
                       </v-col>
                   </v-row>
