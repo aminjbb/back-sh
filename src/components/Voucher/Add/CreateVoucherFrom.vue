@@ -361,7 +361,7 @@ export default {
           inputType:'text'
         },
         {
-          title: 'سقف هزینه سفارش',
+          title: 'سقف مبلغ تخفبف',
           value: 'max_discount',
            data:'',
           inputType:'text'
