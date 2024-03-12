@@ -78,8 +78,8 @@
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
               <v-pagination
-                  v-model="page"
-                  :length="pageLength"
+                  v-model="promotionPage"
+                  :length="pageLengthShpsList"
                   rounded="circle"
                   size="40"
                   :total-visible="4"
@@ -122,8 +122,8 @@ import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup(props) {
-    const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}=new PromotionPage()
-    return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,skuGroupHeader}
+    const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}=new PromotionPage()
+    return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}
   },
   data(){
     return{
@@ -217,7 +217,7 @@ export default {
     dataTableLength(val) {
       this.getPromotionShpsList(1 , val);
     },
-    page(val){
+    promotionPage(val){
       this.getPromotionShpsList(val , this.dataTableLength);
     },
     confirmModal(val) {

@@ -14,6 +14,7 @@ export default function setup() {
     const pageLengthShpsList = ref(1)
     const cookies = useCookies()
     const page = ref(1)
+    const promotionPage = ref(1)
     const router = useRouter()
     const route = useRoute()
 
@@ -141,6 +142,6 @@ export default function setup() {
         }
     })
 
-    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading }
+    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading , promotionPage }
 }
 
