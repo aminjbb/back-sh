@@ -96,7 +96,7 @@ export default {
 
   computed: {
     baseUrl() {
-      return 'https://api.shvz.ir/'
+      return import.meta.env.VITE_API_BACKEND_URL
     },
   },
   beforeMount() {

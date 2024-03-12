@@ -548,7 +548,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             let data = await AxiosMethod.axios_get()
             if (data && data.data) {
                 
-                const baseUrl = "https://api.shvz.ir/";
+                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
 
                 if (data.data.barcode_image) {
                 data.data.barcode_image = baseUrl + data.data.barcode_image;
@@ -586,7 +586,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
             let data = await AxiosMethod.axios_get()
             if (data && data.data) {
-                const baseUrl = "https://api.shvz.ir/";
+                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
                 if (data.data.barcode_image) {
                 data.data.barcode_image = baseUrl + data.data.barcode_image;
                   const form = {

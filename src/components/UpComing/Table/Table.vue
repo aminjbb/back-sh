@@ -492,7 +492,7 @@ export default {
           object: data.data
         }
         this.$store.commit('set_detailModalTestQrCode', form)
-        const baseUrl = "https://api.shvz.ir/";
+        const baseUrl = import.meta.env.VITE_API_BACKEND_URL
 
         // if (data.data.barcode_image) {
         //   data.data.barcode_image = baseUrl + data.data.barcode_image;
@@ -532,7 +532,7 @@ export default {
           object: data.data
         }
         this.$store.commit('set_detailModalTestQrCodeFull', form)
-        // const baseUrl = "https://api.shvz.ir/";
+        // const baseUrl = import.meta.env.VITE_API_BACKEND_URL
         //
         // if (data.data.barcode_image) {
         //   data.data.barcode_image = baseUrl + data.data.barcode_image;
