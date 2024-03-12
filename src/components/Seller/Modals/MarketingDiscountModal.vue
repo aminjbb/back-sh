@@ -178,7 +178,7 @@
                             :disabled="discountTypeModel == null ?  true : false"
                             single-line
                             v-model="discountModel"
-                            v-debounce:1s.unlock="calculateMarketingDiscount"
+                            v-debounce="calculateMarketingDiscount"
                             :rules="rule" />
                     </div>
                 </v-col>

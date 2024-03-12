@@ -54,7 +54,7 @@
                     single-line
                     v-model="priceModel"
                     :rules="rule"
-                    v-debounce:1s.unlock="calculateCustomerPrice" />
+                    v-debounce="calculateCustomerPrice" />
             </div>
 
             <div class="mt-5 px-5">

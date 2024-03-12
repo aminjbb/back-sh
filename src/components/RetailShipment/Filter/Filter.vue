@@ -80,7 +80,7 @@
                       single-line
                       clearable
                       no-data-text="ادمین را جستوجو کنید"
-                      v-debounce:1s.unlock="searchAdmin"
+                      v-debounce="searchAdmin"
                       variant="outlined"
                   />
                 </v-col>

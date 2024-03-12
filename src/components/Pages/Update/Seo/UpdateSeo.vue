@@ -67,6 +67,7 @@ export default {
       formData.append('meta_description', this.$refs.SeoForm.form.metaDescription)
       formData.append('og_title', this.$refs.SeoForm.form.ogTitle)
       formData.append('og_description', this.$refs.SeoForm.form.ogDescription)
+      formData.append('is_active', this.pageSingle.is_active)
 
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
