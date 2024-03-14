@@ -80,7 +80,7 @@
                         item-value="value"
                         single-line
                         clearable
-                        v-debounce:1s.unlock="searchProduct"
+                        v-debounce="searchProduct"
                         variant="outlined"
                     />
                     <v-autocomplete

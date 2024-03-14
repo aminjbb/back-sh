@@ -79,7 +79,7 @@
                       item-value="value"
                       single-line
                       clearable
-                      v-debounce:1s.unlock="searchAdmin"
+                      v-debounce="searchAdmin"
                       variant="outlined"
                   />
                 </v-col>

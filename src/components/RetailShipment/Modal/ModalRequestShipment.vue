@@ -43,7 +43,7 @@
                   :items="warehouseData"
                   item-title="name"
                   item-value="id"
-                  v-debounce:1s.unlock="searchWarehouse"
+                  v-debounce="searchWarehouse"
 
               />
             </v-col>

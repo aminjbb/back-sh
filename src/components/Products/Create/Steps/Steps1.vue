@@ -28,7 +28,7 @@
                         variant="outlined"
                         :loading="loading"
                         no-data-text="محصولی برای نمایش وجود ندارد"
-                        v-debounce:1s.unlock="searchProduct"
+                        v-debounce="searchProduct"
                         @update:modelValue="searchSkuGroups()"
 
                     />

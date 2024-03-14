@@ -77,7 +77,7 @@ export default {
       else formData.append('has_chevron' , 1)
       formData.append('type' , this.$refs.MenuForm.form.deviceType)
       formData.append('position' , this.$refs.MenuForm.form.position)
-      formData.append('is_active' , 0)
+      formData.append('is_active' , this.menu.is_active)
 
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store

@@ -24,7 +24,7 @@
             :items="skuList"
             item-title="name"
             item-value="value"
-            v-debounce:1s.unlock="searchSku">
+            v-debounce="searchSku">
 
           <template v-slot:item="item">
             <v-list-item>
@@ -94,7 +94,7 @@
             :items="userList"
             item-title="name"
             item-value="value"
-            v-debounce:1s.unlock="searchUser">
+            v-debounce="searchUser">
 
         </v-autocomplete>
       </v-col>

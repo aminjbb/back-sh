@@ -15,7 +15,7 @@
                         :items="skuList"
                         item-title="name"
                         item-value="id"
-                        v-debounce:1s.unlock="searchSku">
+                        v-debounce="searchSku">
 
                         <template v-slot:item="item">
                             <v-list-item>
