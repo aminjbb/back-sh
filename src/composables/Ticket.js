@@ -24,6 +24,7 @@ export default function setup() {
         { name: 'اولویت', show: true, value:'priority', order: false},
         { name: 'وضعیت', show: true, value:'status', order: false},
         { name: 'ایجاد کننده', show: true, value:'user_name', order: false},
+        { name: 'موبایل', show: true, value:'mobile', order: false},
         { name: 'تاریخ ایجاد', show: true, value:'created_at', order: true},
     ]);
 

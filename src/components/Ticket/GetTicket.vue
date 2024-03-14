@@ -35,6 +35,10 @@
             <span class="title"> کاربر :</span>
             <div class="pr-2 mt-2">{{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}</div>
           </div>
+          <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
+            <span class="title"> موبایل :</span>
+            <div class="pr-2 mt-2">{{ oneTicket.user.phone_number }}</div>
+          </div>
 
           <v-btn
               :loading="loading"
