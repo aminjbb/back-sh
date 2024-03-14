@@ -69,6 +69,23 @@ export default {
       } , 200)
     },
 
+    convertPersianToEnglishNumber(input) {
+      const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+      let result = '';
+      for (let i = 0; i < input.length; i++) {
+        const index = persianNumbers.indexOf(input[i]);
+        if (index !== -1) {
+          result += englishNumbers[index];
+        } else {
+          result += input[i];
+        }
+      }
+
+      return result;
+    },
+
     async editAdmin(){
       this.loading=true
       const birthDate = convertDateToGregorian(this.$refs.AdminForm.form.birthDate , '-' , false)
@@ -77,7 +94,7 @@ export default {
       AxiosMethod.end_point = `admin/crud/update/${this.$route.params.adminId}`
       formData.append('first_name' , this.$refs.AdminForm.form.fistName)
       formData.append('last_name', this.$refs.AdminForm.form.lastName)
-      formData.append('phone_number', this.$refs.AdminForm.form.phoneNumber)
+      formData.append('phone_number', this.convertPersianToEnglishNumber(this.$refs.AdminForm.form.phoneNumber))
       formData.append('email', this.$refs.AdminForm.form.email)
       formData.append('birth_date', birthDate)
       if (this.avatar) formData.append('avatar', this.avatar)
