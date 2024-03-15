@@ -91,8 +91,17 @@
                     </span>
                 </div>
 
+              <div
+                  v-if="item.user && header[6].show"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item.user.phone_number }}
+                    </span>
+              </div>
+
                 <div
-                    v-if="item.created_at_fa && header[6].show"
+                    v-if="item.created_at_fa && header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
