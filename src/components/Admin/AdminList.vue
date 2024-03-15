@@ -95,6 +95,7 @@ import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import Admin from "@/composables/Admin";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import {openToast} from "@/assets/js/functions";
 export default {
     setup(props) {
         const {
@@ -150,14 +151,19 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getAdminList();
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getAdminList();
+            openToast(
+                this.$store,
+                'ادمین با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
     }
 }
 </script>

@@ -123,14 +123,19 @@ export function convertDateToGregorian(date , split , server){
    }
 }
 export function convertDateToJalai(date , split , server){
-   if (!server){
-       const splitDate = date.split(split)
-       return gregorian_to_jalali(parseInt(splitDate[0]), parseInt(splitDate[1]) , parseInt(splitDate[2]))
+   try {
+       if (!server){
+           const splitDate = date.split(split)
+           return gregorian_to_jalali(parseInt(splitDate[0]), parseInt(splitDate[1]) , parseInt(splitDate[2]))
+       }
+       else {
+           const firstLevelSplitDate = date .split('T')
+           const splitDate = firstLevelSplitDate[0].split(split)
+           return gregorian_to_jalali(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
+       }
    }
-   else {
-       const firstLevelSplitDate = date .split('T')
-       const splitDate = firstLevelSplitDate[0].split(split)
-       return gregorian_to_jalali(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
+   catch (e) {
+       return  ' ---- '
    }
 }
 export function gregorian_to_jalali(gy, gm, gd) {

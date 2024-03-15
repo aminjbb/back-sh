@@ -478,11 +478,12 @@ export default {
          * Remove Item
          * @param {*} id
          */
-        removeItem(id) {
-            (this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+          removeItem(id) {
+          openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
     },
     watch:{
+
       items(val){
         val.forEach(admin => {
           if (admin.is_ban === 1)  this.isBan.push(true)
