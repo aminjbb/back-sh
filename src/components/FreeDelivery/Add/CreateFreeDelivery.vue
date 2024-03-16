@@ -68,18 +68,22 @@
         <v-col cols="6">
           <div class="text-right my-5">
                   <span class="t14500 text-gray600">
-                     هزینه ارسال *
+                     هزینه ارسال
                   </span>
           </div>
+          <div>
+            <span>
+              رایگان
+            </span>
+          </div>
+<!--          <v-select -->
+<!--              :rules="rule"-->
+<!--              :items="sendingItems"-->
+<!--              variant="outlined"-->
+<!--              v-model="voucherForm.sending"-->
+<!--              rounded="lg">-->
 
-          <v-select
-              :rules="rule"
-              :items="sendingItems"
-              variant="outlined"
-              v-model="voucherForm.sending"
-              rounded="lg">
-
-          </v-select>
+<!--          </v-select>-->
         </v-col>
 
 
@@ -237,7 +241,7 @@
           voucherAmountType: null,
           voucherAmount: null,
           voucherActive: '1',
-          sending: null,
+          sending: 'free',
           voucherCondition: new Set(),
           sendingWays: null
 
@@ -283,18 +287,7 @@
           },
   
         ],
-        sendingItems: [
-          {
-            title: 'پیش فرض',
-            value: 'default'
-          },
-          
-          {
-            title: 'رایگان',
-            value: 'free'
-          },
-  
-        ],
+
         sendingMethods: [
           {
             title: ' نفیس اکسپرس',
@@ -346,12 +339,12 @@
              data:null,
             inputType:'text'
           },
-          {
-            title: 'سقف هزینه سفارش',
-            value: 'max_discount',
-             data:'',
-            inputType:'text'
-          },
+          // {
+          //   title: 'سقف هزینه سفارش',
+          //   value: 'max_discount',
+          //    data:'',
+          //   inputType:'text'
+          // },
           {
             title: 'زمان شروع و پایان',
             value: 'start-and-end-time',
