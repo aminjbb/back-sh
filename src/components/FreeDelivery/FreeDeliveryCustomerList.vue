@@ -10,35 +10,7 @@
                {{ voucherDetail?.name }}
             </span>
           </div>
-          <div>
-            <span class="t14500">
-               کد تخفیف:
-            </span>
-            <span class="t14500 text-gray500" >
-               {{ voucherDetail?.code }}
-            </span>
-          </div>
-          <div class="d-flex">
-            <span class="t14500">
-               نوع تخفیف:
-            </span>
-            <div>
-              <span class="t14500 text-gray500" v-if="voucherDetail?.voucher_type === 'percent'">
-                درصدی
-              </span>
-              <span class="t14500 text-gray500" v-else>
-                ریالی
-              </span>
-            </div>
-          </div>
-          <div>
-            <span class="t14500">
-               مقدار تخفیف:
-            </span>
-            <span class="t14500 text-gray500 number-font">
-                450,000 ریال
-            </span>
-          </div>
+
         </div>
       </v-card>
       <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>

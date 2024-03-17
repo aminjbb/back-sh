@@ -10,35 +10,7 @@
                {{ voucherDetail?.name }}
             </span>
         </div>
-        <div>
-            <span class="t14500">
-               کد تخفیف:
-            </span>
-          <span class="t14500 text-gray500" >
-               {{ voucherDetail?.code }}
-            </span>
-        </div>
-        <div class="d-flex">
-            <span class="t14500">
-               نوع تخفیف:
-            </span>
-          <div>
-              <span class="t14500 text-gray500" v-if="voucherDetail?.voucher_type === 'percent'">
-                درصدی
-              </span>
-            <span class="t14500 text-gray500" v-else>
-                ریالی
-              </span>
-          </div>
-        </div>
-        <div>
-            <span class="t14500">
-               مقدار تخفیف:
-            </span>
-          <span class="t14500 text-gray500 number-font">
-                450,000 ریال
-            </span>
-        </div>
+
       </div>
     </v-card>
     <v-card height="70" class="mx-5 br-12" max-height="70">
@@ -123,52 +95,7 @@ export default {
 
   data() {
     return {
-      "mockSkuList": [
-        {
-          "id": 1,
-          "barcode": null,
-          "barcode_image": null,
-          "sku": {
-            "id": 1,
-            "label": "رژلب شنل مشکی دارد 5 تا",
-            "image_url": null,
-            "brand": {
-              "id": 2033,
-              "name": "channel",
-              "label": "شنل",
-              "is_active": 1,
-              "priority": 1,
-              "image_id": 1,
-              "created_at": "2023-10-30T01:54:27.000000Z",
-              "updated_at": "2023-10-30T01:54:27.000000Z",
-              "created_at_fa": "1402/08/08",
-              "updated_at_fa": "1402/08/08"
-            }
-          }
-        },
-        {
-          "id": 2,
-          "barcode": null,
-          "barcode_image": null,
-          "sku": {
-            "id": 3,
-            "label": "رژ لبی شنل رنگ  قرمز روشن مناسب برای  بزرگسالان 2 بسته",
-            "image_url": null,
-            "brand": {
-              "id": 2033,
-              "name": "channel",
-              "label": "شنل",
-              "is_active": 1,
-              "priority": 1,
-              "image_id": 1,
-              "created_at": "2023-10-30T01:54:27.000000Z",
-              "updated_at": "2023-10-30T01:54:27.000000Z",
-              "created_at_fa": "1402/08/08",
-              "updated_at_fa": "1402/08/08"
-            }
-          }
-        }
-      ],
+      mockSkuList:[]
     }
   },
   components: {
@@ -176,8 +103,8 @@ export default {
     ModalTableFilter
   },
   mounted() {
-    this.getVoucherShps()
-    this.getVoucherDetail()
+    // this.getVoucherShps()
+    // this.getVoucherDetail()
   }
 }
 </script>
