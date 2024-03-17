@@ -443,6 +443,14 @@
     },
     mounted() {
       this.getProvince()
+      this.voucherForm.voucherCondition.add(
+          {
+            title: 'زمان شروع و پایان',
+            value: 'start-and-end-time',
+            data:[],
+            inputType:'date'
+          }
+      )
     }
   
   }
