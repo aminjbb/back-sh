@@ -327,18 +327,6 @@
              data:null,
             inputType:'text'
           },
-          // {
-          //   title: 'سقف هزینه سفارش',
-          //   value: 'max_discount',
-          //    data:'',
-          //   inputType:'text'
-          // },
-          {
-            title: 'زمان شروع و پایان',
-            value: 'start-and-end-time',
-             data:[],
-            inputType:'date'
-          },
           {
             title: 'اعمال تخفیف بر اساس کالا',
             value: 'shps_file',
