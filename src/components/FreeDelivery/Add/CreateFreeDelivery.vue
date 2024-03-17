@@ -322,18 +322,6 @@
             inputType:'text'
           },
           {
-            title: 'تعداد استفاده سفارش',
-            value: 'order_limit',
-             data:null,
-            inputType:'text'
-          },
-          {
-            title: 'تعداد استفاده مشتری',
-            value: 'user_limit',
-             data:null,
-            inputType:'text'
-          },
-          {
             title: 'حداقل هزینه سفارش',
             value: 'min_order_price',
              data:null,
