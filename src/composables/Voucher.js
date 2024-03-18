@@ -115,7 +115,6 @@ export default function setup() {
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `voucher/crud/get/${route.params.voucherId}`
-
         let data = await AxiosMethod.axios_get()
         if (data) {
             voucherDetail.value = data.data
