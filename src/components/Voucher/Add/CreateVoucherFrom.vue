@@ -75,6 +75,7 @@
             :items="voucherAmountTypes"
             variant="outlined"
             v-model="voucherForm.voucherAmountType"
+            @update:modelValue="chekCondition"
             rounded="lg">
 
         </v-select>
@@ -329,6 +330,12 @@ export default {
         },
 
       ],
+      voucherConditionsTemp:{
+        title: 'سقف مبلغ تخفیف',
+        value: 'max_discount',
+        data:'',
+        inputType:'text'
+      },
       voucherConditions: [
         {
           title: 'انتخاب استان',
@@ -360,12 +367,7 @@ export default {
            data:null,
           inputType:'text'
         },
-        {
-          title: 'سقف مبلغ تخفبف',
-          value: 'max_discount',
-           data:'',
-          inputType:'text'
-        },
+
         {
           title: 'زمان شروع و پایان',
           value: 'start-and-end-time',
@@ -403,6 +405,16 @@ export default {
   },
 
   methods: {
+    chekCondition(e){
+      if (e === 'rial'){
+        this.voucherForm.voucherCondition.forEach(x => x.value === 'max_discount' ? this.voucherForm.voucherCondition.delete(x) : x)
+        const indexConditions = this.voucherConditions.findIndex(condition =>condition.value === 'max_discount')
+        if (indexConditions !== -1) this.voucherConditions.splice(indexConditions , 1)
+      }
+      else{
+        this.voucherConditions.push(this.voucherConditionsTemp)
+      }
+    },
     async getProvince() {
       const form = {
         per_page: 10000
