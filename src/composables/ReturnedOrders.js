@@ -144,10 +144,10 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/returned/order/detail/crud/get/${route.params.id}`
+        AxiosMethod.end_point = `admin/returned/order/detail/get/${route.params.id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            returnedOrder.value = data
+            returnedOrder.value = data.data
             loading.value = false
         } else {
         }

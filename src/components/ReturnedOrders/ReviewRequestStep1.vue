@@ -5,7 +5,7 @@
         <span class="title">شناسه سفارش : </span>
 
         <span class="desc text-grey t12400">
-                <template v-if="content && content.id">{{ content.id }}</template>
+                <template v-if="content && content[0]">{{ content[0]?.order.id }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
@@ -22,7 +22,7 @@
         <span class="title">نام مشتری : </span>
         <span class="desc text-grey t12400">
                 <template
-                    v-if="content && content.user">{{ content.user.first_name }} {{ content.user.last_name }}</template>
+                    v-if="content && content[0]">{{ content[0].user.first_name }} {{ content[0].user.last_name }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
@@ -30,11 +30,11 @@
       <v-col cols="3">
         <span class="title">روش پرداخت : </span>
         <span class="desc text-grey t12400">
-                <template v-if="content && content.order">
-                  <span v-if="content?.order.payment_method === 'wallet'">
+                <template v-if="content && content[0]">
+                  <span v-if="content[0]?.order.payment_method === 'wallet'">
                       کیف پول
                   </span>
-                   <span v-else-if="content?.order.payment_method === 'snap_pay'">
+                   <span v-else-if="content[0]?.order.payment_method === 'snap_pay'">
                       اسنپ پی
                   </span>
                    <span v-else>
@@ -48,7 +48,7 @@
       <v-col cols="3">
         <span class="title">مبلغ پرداختی : </span>
         <span class="desc text-grey t12400">
-                <template v-if="content && content.order" class="number-font">{{ splitChar(content?.order?.paid_price) }}</template>
+                <template v-if="content && content[0]" class="number-font">{{ splitChar(content[0]?.order?.paid_price) }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
@@ -56,7 +56,7 @@
       <v-col cols="3">
         <span class="title">تاریخ ثبت سفارش : </span>
         <span class="desc text-grey t12400">
-                <template v-if="content && content.order">{{ content?.order?.submit_date_fa }}</template>
+                <template v-if="content && content[0]">{{ content[0]?.order?.submit_date_fa }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
@@ -64,7 +64,7 @@
       <v-col cols="3">
         <span class="title">تاریخ ارسال سفارش : </span>
         <span class="desc text-grey t12400">
-                <template v-if="content && content.order">{{ content?.order?.receive_date_fa }}</template>
+                <template v-if="content && content[0]">{{ content[0]?.order?.receive_date_fa }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
@@ -72,82 +72,86 @@
       <v-col cols="3">
         <span class="title">تاریخ ثبت مرجوعی : </span>
         <span class="desc text-grey t12400">
-                <template v-if="content && content.returned_order">{{ content?.returned_order?.created_at_fa }}</template>
+                <template v-if="content && content[0]">{{ content[0]?.returned_order?.created_at_fa }}</template>
                 <template v-else> - </template>
             </span>
       </v-col>
     </v-row>
     <v-divider class="my-5"/>
-    <div class="mt-8">
-      <span class="title">نام محصول : </span>
-      <span class="desc text-grey t12400">
-            <template v-if="content && content.shps">{{ content.shps?.sku?.label }}</template>
+    <div v-for="(returnOrder , index) in content">
+      <div class="mt-8">
+        <span class="title">نام محصول : </span>
+        <span class="desc text-grey t12400">
+            <template v-if="returnOrder && returnOrder.shps">{{ returnOrder.shps?.sku?.label }}</template>
             <template v-else> - </template>
         </span>
-    </div>
-    <div class="mt-8">
-      <span class="title">علت مرجوعی : </span>
-      <span class="desc text-grey t12400">
-            <template v-if="content && content.description">{{ content.request_title }}</template>
+      </div>
+      <div class="mt-8">
+        <span class="title">علت مرجوعی : </span>
+        <span class="desc text-grey t12400">
+            <template v-if="returnOrder && returnOrder.return_reason">{{ returnOrder.return_reason }}</template>
             <template v-else> - </template>
         </span>
-    </div>
+      </div>
 
-    <div class="mt-8">
-      <span class="title">توضیحات : </span>
-      <span class="desc text-grey t12400">
-            <template v-if="content && content.description">{{ content.description }}</template>
+      <div class="mt-8">
+        <span class="title">توضیحات : </span>
+        <span class="desc text-grey t12400">
+            <template v-if="returnOrder && returnOrder.description">{{ returnOrder.description }}</template>
             <template v-else> - </template>
         </span>
-    </div>
+      </div>
 
-    <div class="mt-8">
-      <div class="title mb-5">تصویر یا ویدیو :</div>
-      <swiper
-          @swiper="setThumbsSwiper"
-          :loop="true"
-          :spaceBetween="15"
-          :slidesPerView="6"
-          :navigation="true"
-          :freeMode="true"
-          :watchSlidesProgress="true"
-          :modules="modules"
-          v-if="content"
-          class="slider-thumbnail">
-        <swiper-slide v-for="image in content.files"><img :src="image.url"/></swiper-slide>
+      <div class="mt-8">
+        <div class="title mb-5">تصویر یا ویدیو :</div>
+        <swiper
+            @swiper="setThumbsSwiper"
+            :loop="true"
+            :spaceBetween="15"
+            :slidesPerView="6"
+            :navigation="true"
+            :freeMode="true"
+            :watchSlidesProgress="true"
+            :modules="modules"
+            v-if="returnOrder"
+            class="slider-thumbnail">
+          <swiper-slide v-for="image in returnOrder.files"><img :src="image.url"/></swiper-slide>
 
-      </swiper>
-      <swiper
-          :navigation="false"
-          :thumbs="{ swiper: thumbsSwiper }"
-          :modules="modules"
-          :spaceBetween="0"
-          :loop="true"
-          v-if="content"
-          class="main-slider mt-5">
-        <swiper-slide v-for="image in content.files">
-          <a class="d-block" :href="image.url" target="_blank">
-            <img :src="image.url"/>
-          </a>
-        </swiper-slide>
+        </swiper>
+        <swiper
+            :navigation="false"
+            :thumbs="{ swiper: thumbsSwiper }"
+            :modules="modules"
+            :spaceBetween="0"
+            :loop="true"
+            v-if="returnOrder"
+            class="main-slider mt-5">
+          <swiper-slide v-for="image in returnOrder.files">
+            <a class="d-block" :href="image.url" target="_blank">
+              <img :src="image.url"/>
+            </a>
+          </swiper-slide>
 
 
-      </swiper>
-    </div>
-    <div class="d-flex justify-end my-5">
-      <v-btn
-          rounded
-          color="light-green-lighten-4"
-          variant="elevated"
-          width="115"
-          class="ml-2">
+        </swiper>
+      </div>
+      <div class="d-flex justify-end my-5">
+        <v-btn
+            @click="approvedReturn(returnOrder.id)"
+            rounded
+            color="light-green-lighten-4"
+            variant="elevated"
+            width="115"
+            class="ml-2">
       <span class="t12400">
         تایید
       </span>
-      </v-btn>
-      <RejectionReturnOrderModal/>
+        </v-btn>
+        <RejectionReturnOrderModal/>
 
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -175,9 +179,10 @@ import {
 
 import RejectionReturnOrderModal from '@/components/ReturnedOrders/Modal/RejectionReturnOrderModal.vue'
 import {splitChar} from "../../assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  methods: {splitChar},
+
   props: {
     content: null
   },
@@ -199,6 +204,26 @@ export default {
       modules: [FreeMode, Navigation, Thumbs],
     };
   },
+
+  methods: {
+    splitChar,
+
+    async approvedReturn(id){
+      const AxiosMethod = new AxiosCall()
+      const formData = new FormData()
+      formData.append('crm_status' , 'approved')
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = formData
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/returned/order/detail/crud/update/${id}`
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+
+      } else {
+      }
+    }
+  },
+
 }
 </script>
 

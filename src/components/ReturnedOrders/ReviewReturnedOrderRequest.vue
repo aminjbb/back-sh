@@ -4,18 +4,7 @@
         <h3 class="t14400 create-product__header">اطلاعات درخواست مرجوعی</h3>
         <v-divider color="grey" />
 
-        <ReviewRequestStep1 :content="returnedOrder?.data" />
-
-<!--        <template v-else-if="step === 2 && status==='x'">-->
-<!--            <div style="padding:20px 10% 80px">-->
-<!--                <h2 class="t12300 text-grey mb-3">دلیل رد مرجوعی <span class="text-red">*</span></h2>-->
-<!--                <v-textarea variant="outlined" v-model="rejectModel" />-->
-<!--            </div>-->
-<!--        </template>-->
-
-<!--        <template v-else-if="step === 2 && status==='y'">-->
-<!--            <returnedShpsTable :items="returnedShpsDetails" :header="returnedShpsModalHeader" />-->
-<!--        </template>-->
+        <ReviewRequestStep1  :content="returnedOrder" />
 
         <footer class="create-warehouse__actions ">
             <v-row justify="space-between" class="px-8 pt-8">
@@ -52,24 +41,18 @@
                         variant="elevated"
                         width="115"
                         class="ml-2"
-                        v-if="step == 1"
-                        @click="increaseStep('x')">
+                        >
                         <span class="t12400">رد درخواست</span>
                     </v-btn>
 
                     <v-btn
                         :loading="loading"
                         rounded
-                        :color="step < 2 ? 'light-green-lighten-4' : 'primary500'"
+                        color="light-green-lighten-4"
                         variant="elevated"
-                        width="115"
-                        @click="increaseStep('y')">
-                        <span v-if="step < 2" class="t12400">
+                        width="115">
+                        <span class="t12400">
                             تایید درخواست
-                        </span>
-
-                        <span v-else class="t12400">
-                            تایید و ثبت
                         </span>
                     </v-btn>
                 </div>
@@ -89,7 +72,6 @@ export default {
 
     data: () => ({
       content:null,
-        step: 1,
         loading: false,
         steps: [
             'اطلاعات درخواست مرجوعی',
