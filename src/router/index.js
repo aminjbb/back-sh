@@ -265,6 +265,8 @@ import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
 import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
 import SystemVariableView from "@/views/System/SystemVariableView.vue";
+import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
+import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 
 
 const router = createRouter({
@@ -1918,6 +1920,14 @@ const router = createRouter({
                     component: DetailVoucherView,
                     meta: {
                         name: 'جزئیات'
+                    }
+                },
+                {
+                    path: ':voucherId/get',
+                    name: 'DetailsDiscountCodeView',
+                    component: DetailsDiscountCodeView,
+                    meta: {
+                        name: 'جزئیات کد تخفیف'
                     }
                 },
                 {
