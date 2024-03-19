@@ -267,6 +267,7 @@ import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
 import SystemVariableView from "@/views/System/SystemVariableView.vue";
 import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
+import InitilizeWarehouse from "@/views/Warehouse/Initialize/InitilizeWarehouse.vue";
 
 
 const router = createRouter({
@@ -1655,6 +1656,14 @@ const router = createRouter({
                     component: SingularLocatingView,
                     meta: {
                         name: 'جایگذاری بسته'
+                    }
+                },
+                {
+                    path: 'initilize',
+                    name: 'InitilizeWarehouse',
+                    component: InitilizeWarehouse,
+                    meta: {
+                        name: 'جایگذاری اولیه'
                     }
                 },
                 {

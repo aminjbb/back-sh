@@ -2,7 +2,9 @@
   <v-card height="100vh">
     <v-row>
       <v-col cols="12" class="text-center">
+      <v-row justify="end" class="pa-5">
         <HandheldDrawer/>
+      </v-row>
         <span class="t20400">
           انبارگردانی
         </span>
@@ -12,26 +14,29 @@
       <v-col cols="12">
         شلف
         <v-text-field
+            variant="solo"
             hint="شلف را اسکن کنید"
             v-model="shelfBarcode"
         />
       </v-col>
-      Sku
+      بارکد کالا
       <v-col cols="12">
         <v-text-field
+            variant="solo"
             hint="sku را اسکن کنید"
             v-model="skuBarcode"
         />
       </v-col>
       <v-col cols="12">
         <v-text-field
+            variant="solo"
             type="number"
             hint="تعداد"
             v-model="count"
         />
       </v-col>
       <v-col cols="12" class="text-center">
-        <v-btn width="150" @click="submit" color="success">تایید</v-btn>
+        <v-btn :loading="loading" width="150" @click="submit" color="success">تایید</v-btn>
       </v-col>
     </v-row>
   </v-card>
@@ -40,6 +45,7 @@
 <script>
 
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {HandheldDrawer},
@@ -48,11 +54,32 @@ export default {
       shelfBarcode: null,
       skuBarcode: null,
       count: 0,
+      loading:false
     }
   },
   methods:{
-    submit(){
-
+   async submit(){
+     try {
+       this.loading = true
+       const formData = new FormData()
+       formData.append('sku_barcode' , this.skuBarcode)
+       formData.append('count' , this.count)
+       formData.append('shelf_barcode' , this.shelfBarcode)
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.using_auth =true
+       AxiosMethod.form =formData
+       AxiosMethod.store =this.$store
+       AxiosMethod.toast_error =true
+       AxiosMethod.end_point = `warehouse/relocate`
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.loading = false
+     }
     }
   }
 }
