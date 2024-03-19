@@ -62,6 +62,7 @@
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
+          :objectStatus="retailShipment?.status"
           model="editShpsRetail" />
 
       <v-divider />
