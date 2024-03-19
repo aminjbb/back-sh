@@ -218,6 +218,7 @@ import CargoPrintView from "@/views/Cargo/CargoPrintView.vue";
 import ShipmetDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
 import ShipmentDetailPrintView from "@/views/ProcessingShipment/ShipmentDetailPrintView.vue";
 import ShipmentBarCodePrintView from "@/views/ProcessingShipment/ShipmentBarCodePrintView.vue";
+import InitialShipmentBarCodePrintView from "@/views/ProcessingShipment/InitialShipmentBarCodePrintView.vue";
 
 /* Orders */
 import OrderListView from "@/views/Orders/OrderListView.vue";
@@ -1498,6 +1499,14 @@ const router = createRouter({
                     path: ':shipmentId/:shpsId/:packageId/barcode-print',
                     name: 'ShipmentBarCodePrintView',
                     component: ShipmentBarCodePrintView,
+                    meta: {
+                        name: 'پردازش محموله'
+                    }
+                },
+                {
+                    path: ':shipmentId/:shpsId/:packageId/:placerId/initial-barcode-print',
+                    name: 'InitialShipmentBarCodePrintView',
+                    component: InitialShipmentBarCodePrintView,
                     meta: {
                         name: 'پردازش محموله'
                     }

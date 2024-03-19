@@ -139,17 +139,13 @@
         </div>
       </div>
     </div>
-    <ModalBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId"/>
+    <ModalInitialBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id"/>
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
                             :shipmentId="shipmentId"/>
-    <ModalDamageReport/>
-    <ModalLostReport/>
   </div>
 </template>
 <script>
-import ModalBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalBulkPrintLabel.vue";
-import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
-import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+import ModalInitialBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalInitialBulkPrintLabel.vue";
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -167,9 +163,7 @@ import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageMan
 export default {
   components: {
     PackageManagementModal,
-    ModalLostReport,
-    ModalDamageReport,
-    ModalBulkPrintLabel,
+    ModalInitialBulkPrintLabel,
   },
   props: {
     getShpsList: {
@@ -238,6 +232,7 @@ export default {
 
   data() {
     return {
+      currentItem:null,
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -288,6 +283,7 @@ export default {
       this.$store.commit('set_packageManagementModal', true)
     },
     async getDetail(shipment) {
+      this.currentItem = shipment
       this.shipmentId = shipment.shipment_id
       this.shps_id = shipment.shps
       const AxiosMethod = new AxiosCall()
