@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-    <ModalInitialBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id"/>
+    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id"/>
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
                             :shipmentId="shipmentId"/>
   </div>
@@ -232,6 +232,7 @@ export default {
 
   data() {
     return {
+      dialog:false,
       currentItem:null,
       order_type: "desc",
       ordering: {},
