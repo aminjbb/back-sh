@@ -406,6 +406,7 @@ export default {
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
                 [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],

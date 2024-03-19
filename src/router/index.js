@@ -268,6 +268,7 @@ import SystemVariableView from "@/views/System/SystemVariableView.vue";
 import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import InitilizeWarehouse from "@/views/Warehouse/Initialize/InitilizeWarehouse.vue";
+import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLabelPrintListView.vue";
 
 
 const router = createRouter({
@@ -1742,6 +1743,20 @@ const router = createRouter({
                 component: BulkLabelPrintListView,
                 meta: {
                     name: ' پرینت گروهی برچسب '
+                }
+            },],
+        },
+        {
+            path: '/initial-print-label-bulk', // print label bulk
+            meta: {
+                name: 'انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'initialPrintLabelBulk',
+                component: InitialBulkLabelPrintListView,
+                meta: {
+                    name: ' پرینت اولیه گروهی برچسب '
                 }
             },],
         },
