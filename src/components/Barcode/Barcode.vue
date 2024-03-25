@@ -17,7 +17,6 @@ export default {
   mounted() {
     let settings = {
       format: this.format,
-      width:4
     };
     JsBarcode("#barcode-"+this.index, this.barcodeValue,settings);
   }
