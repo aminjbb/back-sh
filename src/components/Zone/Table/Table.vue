@@ -85,7 +85,7 @@ import {
     isOdd
 } from "@/assets/js/functions";
 
-import ModalPickUpper from '@/components/zone/Modal/PickUpperModal.vue'
+import ModalPickUpper from '@/components/Zone/Modal/PickUpperModal.vue'
 
 import {
     openModal
