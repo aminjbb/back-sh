@@ -7,10 +7,11 @@
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"
             :index="index"
+            :text="barCode?.shps?.sku?.label.substring(0, 90)"
         ></barcode>
-        <span style="font-size: 8px;font-weight: 800;margin-top:-2vh!important;position: absolute!important;">
-                                                {{ barCode?.shps?.sku?.label.substring(0, 90) }}
-        </span>
+<!--        <span style="font-size: 8px;font-weight: 800;margin-top:-2vh!important;position: absolute!important;">-->
+<!--                                                {{ barCode?.shps?.sku?.label.substring(0, 90) }}-->
+<!--        </span>-->
       </div>
     </v-col>
   </v-row>
