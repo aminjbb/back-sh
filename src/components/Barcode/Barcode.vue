@@ -22,7 +22,7 @@ export default {
       textAlign: 'rif',
       textPosition: 'top',
       fontOptions: 'bold',
-      fontSize: 10,
+      fontSize: 20,
       textMargin: 8,
       height: 80
     };
