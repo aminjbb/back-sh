@@ -81,12 +81,12 @@ export default {
           this.skuBarcode = null
           this.count = 0
           this.loading = false
-          openToast(this.store, 'کالای مورد نظر با موفقیت به شلف افزوده شد.', "success")
+          openToast(this.$store, 'کالای مورد نظر با موفقیت به شلف افزوده شد.', "success")
         }
       } catch (e) {
         if (e.response.data.message) {
           openToast(
-              this.store,
+              this.$store,
               e.response.data.message,
               "error"
           );
