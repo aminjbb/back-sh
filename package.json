@@ -12,6 +12,7 @@
     "@neshan-maps-platform/vue3-openlayers": "^1.0.6",
     "axios": "^1.4.0",
     "chart.js": "^3.9.1",
+    "jsbarcode": "^3.11.6",
     "laravel-echo": "^1.15.3",
     "pusher-js": "^8.3.0",
     "qs": "^6.11.2",
