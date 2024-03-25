@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg style="width: 162px!important;" :id="'barcode-'+index"></svg>
+    <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
 
@@ -23,3 +23,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+svg{
+  width: 160px!important;
+}
+</style>

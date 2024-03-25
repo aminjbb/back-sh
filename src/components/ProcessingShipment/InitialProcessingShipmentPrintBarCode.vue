@@ -8,7 +8,7 @@
             :format="'CODE128'"
             :index="index"
         ></barcode>
-        <span style="font-size: 15px;font-weight: 800">
+        <span style="font-size: 8px;font-weight: 800;margin-top:-45px!important;position: absolute!important;">
                                                 {{ barCode?.shps?.sku?.label.substring(0, 90) }}
         </span>
       </div>
@@ -64,6 +64,5 @@ export default {
 }
 </script>
 <style>
-.custom-margin-bottom {
-}
+
 </style>
