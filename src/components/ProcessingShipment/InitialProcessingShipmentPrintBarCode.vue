@@ -1,7 +1,7 @@
 <template>
   <v-row id="printableArea-shipmentBarcode" v-if="detail">
     <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
-           :class="`text-center ${index % 2 == 0 ? 'text-left' : 'text-left'}`"
+           :class="`${index % 2 == 0 ? 'text-center' : 'text-left'}`"
     >
       <barcode
           :barcodeValue="barCode.barcode"
