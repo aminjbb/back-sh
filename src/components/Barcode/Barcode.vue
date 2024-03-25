@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg :id="'barcode-'+index"></svg>
+    <svg width="400px" :id="'barcode-'+index"></svg>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
   mounted() {
     let settings = {
       format: this.format,
+      width:4
     };
     JsBarcode("#barcode-"+this.index, this.barcodeValue,settings);
   }

@@ -1,17 +1,17 @@
 <template>
   <v-row id="printableArea-shipmentBarcode" v-if="detail">
     <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
-           :class="`${index % 2 == 0 ? 'text-center' : 'text-left'}`"
     >
-      <barcode
-          :barcodeValue="barCode.barcode"
-          :format="'CODE128'"
-          :index="index"
-      ></barcode>
-      <span style="font-size: 15px;font-weight: 800">
+      <div>
+        <barcode
+            :barcodeValue="barCode.barcode"
+            :format="'CODE128'"
+            :index="index"
+        ></barcode>
+        <span style="font-size: 15px;font-weight: 800">
                                                 {{ barCode?.shps?.sku?.label.substring(0, 90) }}
         </span>
-      <br>
+      </div>
     </v-col>
   </v-row>
 </template>
