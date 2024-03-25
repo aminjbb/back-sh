@@ -22,9 +22,9 @@ export default {
       textAlign: 'rif',
       textPosition: 'top',
       fontOptions: 'bold',
-      fontSize: 20,
+      fontSize: 18,
       textMargin: 8,
-      height: 80
+      height: 70
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
