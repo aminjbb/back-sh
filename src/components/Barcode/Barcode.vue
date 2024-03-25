@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg :id="'barcode-'+index"></svg>
+    <svg style="max-width: 162px!important;" :id="'barcode-'+index"></svg>
   </div>
 </template>
 
