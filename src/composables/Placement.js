@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const placementList = ref([]);
+    const rowList = ref([]);
     const placement = ref(null);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
@@ -71,6 +72,7 @@ export default function setup() {
            } , 2000)
         }
     };
+
     async function getPlacement(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -82,6 +84,32 @@ export default function setup() {
             placement.value = data.data
         }
     };
+
+    async function getRowList ( query) {
+        const filter = {
+            per_page : 1000000,
+        }
+        let rows = null;
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = 'placement/crud/index'
+        AxiosMethod.form = filter
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =  true
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            rows = data.data.data;
+
+            rows.forEach(item => {
+                if (!rowList.value.includes(item.row_number)) {
+                    rowList.value.push(item.row_number);
+                }
+            })
+        }
+        else {
+        }
+    };
+
 
     function addPerPage(number){
         filter.page = 1
@@ -112,6 +140,6 @@ export default function setup() {
     })
 
     return {pageLength,filterField, placementList ,addPerPage, getPlacementList, dataTableLength, page, header,loading,
-        shpssHeader  , getPlacement , placement}
+        shpssHeader  , getPlacement , placement,getRowList,rowList}
 }
 

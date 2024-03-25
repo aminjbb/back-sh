@@ -67,8 +67,6 @@ import CreateUserView from '../views/User/CreateUserView.vue'
 import EditUserView from '../views/User/EditUserView.vue'
 import UserWalletView from '../views/User/UserWalletView.vue'
 
-
-
 /* admin permission */
 import PermissionListView from '../views/Admin/Permssion/PermissionListView.vue'
 import RolePermissionListView from '../views/Admin/RolePermission/RolePermissionListView.vue'
@@ -270,6 +268,9 @@ import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import InitilizeWarehouse from "@/views/Warehouse/Initialize/InitilizeWarehouse.vue";
 import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLabelPrintListView.vue";
+
+/* Zone */
+import ZoneListView from '../views/Zone/ZoneListView.vue'
 
 
 const router = createRouter({
@@ -2093,6 +2094,23 @@ const router = createRouter({
                 component: SystemVariableView,
                 meta: {
                     name: 'متغییر ها'
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/zone', // Zone
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'ZoneListView',
+                component: ZoneListView,
+                meta: {
+                    name: 'ناحیه بندی انبار '
                 }
             },
 
