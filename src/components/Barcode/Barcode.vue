@@ -1,6 +1,6 @@
 <template>
   <div class="barcode-container">
-    <div class="barcode-text" v-html="text"></div>
+    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text"></div>
     <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
@@ -14,9 +14,17 @@ export default {
     barcodeValue: [Number, String],
     format: String,
     index: Number,
-    text: String
+    text: String,
+  },
+  data() {
+    return {
+      fontSize: 12
+    }
   },
   mounted() {
+    if (this.text.length >= 30) {
+      this.fontSize = 6
+    }
     let settings = {
       format: this.format,
       textAlign: 'rif',
@@ -36,6 +44,7 @@ export default {
 svg {
   width: 160px !important;
 }
+
 .barcode-container {
   position: relative;
 }
@@ -45,6 +54,5 @@ svg {
   top: 100px; /* Adjust this value according to your needs. */
   width: 100%;
   text-align: right;
-  font-size: 12px;
 }
 </style>
