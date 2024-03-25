@@ -7,7 +7,7 @@
             :format="'CODE128'"
             :index="index"
         ></barcode>
-        <span style="font-size: 15px;font-weight: 800">
+        <span style="font-size: 8px;font-weight: 800">
                                                 {{ barCode?.shps?.sku?.label.substring(0, 90) }}
         </span>
         <br>
