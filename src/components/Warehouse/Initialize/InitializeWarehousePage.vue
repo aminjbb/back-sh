@@ -2,9 +2,9 @@
   <v-card height="100vh">
     <v-row>
       <v-col cols="12" class="text-center">
-      <v-row justify="end" class="pa-5">
-        <HandheldDrawer/>
-      </v-row>
+        <v-row justify="end" class="pa-5">
+          <HandheldDrawer/>
+        </v-row>
         <span class="t20400">
           انبارگردانی
         </span>
@@ -46,6 +46,9 @@
 
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
+import {
+  openToast,
+} from "@/assets/js/functions";
 
 export default {
   components: {HandheldDrawer},
@@ -54,32 +57,45 @@ export default {
       shelfBarcode: null,
       skuBarcode: null,
       count: 0,
-      loading:false
+      loading: false
     }
   },
-  methods:{
-   async submit(){
-     try {
-       this.loading = true
-       const formData = new FormData()
-       formData.append('sku_barcode' , this.skuBarcode)
-       formData.append('count' , this.count)
-       formData.append('shelf_barcode' , this.shelfBarcode)
-       const AxiosMethod = new AxiosCall()
-       AxiosMethod.token = this.$cookies.get('adminToken')
-       AxiosMethod.using_auth =true
-       AxiosMethod.form =formData
-       AxiosMethod.store =this.$store
-       AxiosMethod.toast_error =true
-       AxiosMethod.end_point = `warehouse/relocate`
-       let data = await AxiosMethod.axios_post()
-       if (data) {
-         this.loading = false
-       }
-     }
-     catch (e) {
-       this.loading = false
-     }
+  methods: {
+    async submit() {
+      try {
+        this.loading = true
+        const formData = new FormData()
+        formData.append('sku_barcode', this.skuBarcode)
+        formData.append('count', this.count)
+        formData.append('shelf_barcode', this.shelfBarcode)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.using_auth = true
+        AxiosMethod.form = formData
+        AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
+        AxiosMethod.end_point = `warehouse/relocate`
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.shelfBarcode = null
+          this.skuBarcode = null
+          this.count = 0
+          this.loading = false
+          openToast(this.store, 'کالای مورد نظر با موفقیت به شلف افزوده شد.', "success")
+        }
+      } catch (e) {
+        if (e.response.data.message) {
+          openToast(
+              this.store,
+              e.response.data.message,
+              "error"
+          );
+        }
+        this.loading = false
+        this.shelfBarcode = null
+        this.skuBarcode = null
+        this.count = 0
+      }
     }
   }
 }
