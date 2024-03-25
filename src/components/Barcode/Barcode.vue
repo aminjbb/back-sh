@@ -1,7 +1,7 @@
 <template>
   <div class="barcode-container">
-    <svg :id="'barcode-'+index"></svg>
     <div class="barcode-text" v-html="text"></div>
+    <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
 
@@ -19,6 +19,12 @@ export default {
   mounted() {
     let settings = {
       format: this.format,
+      textAlign: 'rif',
+      textPosition: 'top',
+      fontOptions: 'bold',
+      fontSize: 10,
+      textMargin: 8,
+      height: 80
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
@@ -39,6 +45,6 @@ svg {
   top: 100px; /* Adjust this value according to your needs. */
   width: 100%;
   text-align: right;
-  font-size: 5px;
+  font-size: 12px;
 }
 </style>
