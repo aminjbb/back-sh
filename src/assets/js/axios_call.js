@@ -114,7 +114,6 @@ export class AxiosCall {
                     data = response.data;
                 })
                 .catch((err) => {
-                    console.log(err.response.data)
                     if (err.response.data.message){
                         openToast(
                             this.store,
@@ -125,7 +124,10 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
-                    if (err.response.status == 422) {
+                    else if (err.response.status == 403) {
+                        router.push('/')
+                    }
+                    else if (err.response.status == 422) {
 
                         const details = err.response.data.details
                         const key = Object.keys(details)
@@ -193,6 +195,9 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
+                    else if (err.response.status == 403) {
+                        router.push('/')
+                    }
                     if (err.response.status == 442) {
                         const details = err.response.data.details
                         const key = Object.keys(details)
@@ -241,6 +246,9 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403) {
+                        router.push('/')
                     }
                     if (this.toast_error) {
                         openToast(
@@ -317,6 +325,9 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
+                    else if (err.response.status == 403) {
+                        router.push('/')
+                    }
                     if (this.toast_error) {
                         openToast(
                             this.store,
@@ -341,6 +352,9 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403) {
+                        router.push('/')
                     }
                     if (this.toast_error) {
                         openToast(
@@ -387,6 +401,9 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
+                    else if (err.response.status == 403) {
+                        router.push('/')
+                    }
                     if (this.toast_error) {
                         openToast(this.store, err.response.data.message, "error")
                     }
@@ -406,6 +423,9 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403) {
+                        router.push('/')
                     }
                     if (this.toast_error) {
                         openToast(
