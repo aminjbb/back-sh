@@ -52,7 +52,7 @@ svg {
 
 .barcode-text {
   position: absolute;
-  top: 70px; /* Adjust this value according to your needs. */
+  top: 40px; /* Adjust this value according to your needs. */
   width: 100%;
   text-align: right;
 }
