@@ -15,9 +15,6 @@
             <div class="mt-2 mb-2 px-5">
                 <v-divider />
             </div>
-
-            <h2 class="t14500 text-center my-2">{{ name }}</h2>
-
             <div class="d-flex justify-center align-center mt-5">
                 
                 <div style="width:80%">
@@ -103,6 +100,7 @@ export default {
 
         closeModal() {
             this.dialog = false;
+          this.values = []
         },
 
         openModal() {
@@ -113,8 +111,8 @@ export default {
             this.loading = true
             let formData = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `warehouse/zone/sync`
-            formData.append('admin_id', this.id)
+            AxiosMethod.end_point = `warehouse/zone/update`
+            formData.append('zone_id', this.id)
 
             this.values.forEach((value, index) => {
                 formData.append(`row_ids[${index}]`, value)
@@ -129,7 +127,7 @@ export default {
                 this.loading = false;
                 openToast(
                     this.$store,
-                    'ناحیه کاربر با موفقیت ویرایش شد.',
+                    'ناحیه با موفقیت ویرایش شد.',
                     "success"
                 );
                 this.closeModal();
