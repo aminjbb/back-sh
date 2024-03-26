@@ -1,6 +1,6 @@
 <template>
   <div class="barcode-container">
-    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text"></div>
+    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text + '<br> SHPS-' + shps"></div>
     <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
@@ -15,11 +15,11 @@ export default {
     format: String,
     index: Number,
     text: String,
-    barcodeText:String
+    shps:String
   },
   data() {
     return {
-      fontSize: 12
+      fontSize: 12,
     }
   },
   mounted() {
@@ -31,7 +31,6 @@ export default {
       fontSize: 18,
       textMargin: 8,
       height: 45,
-      text:this.barcodeText
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
