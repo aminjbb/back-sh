@@ -12,9 +12,9 @@
         </v-col></v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch pt-5" height="580">
+    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch pt-5 scroller"  height="580">
       <div v-for="(system , index) in items" :key="`system${index}`">
-        <div class="text-center">
+        <div class="text-center my-10">
           {{system.title}}
         </div>
         <div  v-for="(systemItem , systemItemIndex) in system.items" :key="`systemItem${systemItemIndex}`" >
@@ -25,13 +25,13 @@
                   {{systemItemValue.detail}}
                 </div>
                 <div>
-                  {{splitChar(systemItemValue.value)}} ریال
+                  {{splitChar(systemItemValue.value)}}
                 </div>
                 <div style="width: 200px">
-                  <v-text-field v-model="form[systemItemValueIndex].value" variant="outlined" placeholder="قیمت جدید"></v-text-field>
+                  <input style="border: 1px black solid;" type="text" :ref="`${systemItemValue.id}${systemItemIndex}`" variant="outlined" :placeholder="systemItemValue.detail"/>
                 </div>
                 <div style="width: 200px">
-                  <v-btn :loading="form[systemItemValueIndex].loading" @click="updateValueSystem(systemItemValue.id , systemItemValueIndex)" :ref="`btn${systemItemValueIndex}`" rounded variant="icon" >
+                  <v-btn  @click="updateValueSystem(systemItemValue.id , systemItemIndex)" :ref="`btn${systemItemValueIndex}`" rounded variant="icon" >
                     <v-icon color="success">mdi-plus</v-icon>
                   </v-btn>
                 </div>
@@ -58,22 +58,20 @@ export default {
     splitChar,
    async updateValueSystem(id , index){
       try {
-        this.form[index].loading = true
         const AxiosMethod = new AxiosCall()
         const formData = new FormData()
-        formData.append('value' , this.form[index].value)
+        formData.append('value' ,this.$refs[`${id}${index}`][0].value)
         AxiosMethod.end_point = `system/setting/admin/crud/update/${id}`
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.form = formData
         AxiosMethod.using_auth =  true
         let data = await AxiosMethod.axios_post()
         if (data) {
-          this.form[index].loading = false
           this.getSystemSetting()
         }
       }
       catch (e) {
-        this.form[index].loading = false
+        console.log(e)
       }
     }
   },
@@ -86,22 +84,7 @@ export default {
   },
 
   watch:{
-    items(){
-      const findItem = this.items.find(item=> item.title == 'ارسال سفارش')
-      if (findItem){
-        findItem.items.forEach(item=>{
-          item.forEach(newItem=>{
-            const form ={
-              value :'',
-              loading :false
-            }
-            this.form.push(form)
-          })
-        })
-      }
 
-
-    }
   },
 
   mounted() {

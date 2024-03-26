@@ -16,8 +16,8 @@ export default function setup() {
 
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه کاربری', show: true , value:'id', order: false},
-        { name: 'نام پیک آپر', show: true, value:'name' , order: false},
+        { name: 'نام', show: true , value:'id', order: false},
+        { name: 'نام انگلیسی', show: true, value:'name' , order: false},
     ]);
 
     const loading = ref(false)
@@ -36,16 +36,11 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `warehouse/zone/staff${paramsQuery}`
+        AxiosMethod.end_point = `warehouse/zone/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             zoneList.value = data.data
             loading.value = false
-           setTimeout(()=>{
-               isFilter.value =false
-               isFilterPage.value = false
-           } , 2000)
         }
     };
 
