@@ -17,6 +17,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه سفارش', show: true , value:'id', order: false},
+        { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
@@ -30,6 +31,7 @@ export default function setup() {
 
     const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'شماره سفارش' , type:'text', value:'order_number'},
         {name:'نام مشتری' , type:'select', value:'creator_id'},
         {name:'وضعیت سفارش' , type:'select', value:'status'},
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
