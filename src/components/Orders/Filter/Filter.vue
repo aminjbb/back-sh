@@ -91,7 +91,7 @@
                                 hide-details
                                 item-title="label"
                                 item-value="value"
-                                :items="paymentStatus"
+                                :items="paymentStatuses"
                                 v-model="paymentStatusModel" />
 
                             <v-select
@@ -102,7 +102,7 @@
                                 hide-details
                                 item-title="label"
                                 item-value="value"
-                                :items="paymentMethod"
+                                :items="paymentMethods"
                                 v-model="paymentMethodModel" />
 
                             <v-autocomplete
@@ -112,8 +112,7 @@
                                 variant="outlined"
                                 single-line
                                 hide-details
-                                :rules="rule"
-                                v-model="provinceModel"
+                                v-model="province"
                                 @update:modelValue="getCities()" />
 
                             <v-autocomplete
@@ -123,8 +122,7 @@
                                 variant="outlined"
                                 single-line
                                 hide-details
-                                :rules="rule"
-                                v-model="cityModel" />
+                                v-model="city" />
                         </v-col>
 
                         <v-col
@@ -219,33 +217,52 @@ export default {
 
     data() {
         return {
+           cities:[],
             dialog: false,
             values: [],
             originalData: [],
             filteredData: [],
-            statusList: [{
-                    label: 'خالی',
-                    value: 'empty'
+            statusList: [
+                {
+                    label: 'پیش پردازش',
+                    value: 'pre_progress'
+                },
+              {
+                    label: 'ارسال شده',
+                    value: 'sending'
                 },
                 {
-                    label: 'لودینگ',
-                    value: 'loading'
-                },
-                {
-                    label: 'در حال بارگیری',
-                    value: 'luggage'
-                },
-                {
-                    label: 'انتقال به انبار اصلی',
-                    value: 'sent_to_warehouse'
-                },
-                {
-                    label: 'رسیده به انبار اصلی',
-                    value: 'received_by_warehouse'
+                    label: 'تحویل داده شده',
+                    value: 'received'
                 }
             ],
+            paymentMethods: [
+            {
+              label: 'کیف پول',
+              value: 'wallet'
+            },
+            {
+              label: 'آنلاین',
+              value: 'online'
+            },
+            {
+              label: 'اسنپ پی',
+              value: 'snap_pay'
+            }
+          ],
+            paymentStatuses: [
+            {
+              label: 'پرداخت شده',
+              value: 'successful'
+            },
+            {
+              label: 'در انتظار پرداخت',
+              value: 'failed'
+            }
+          ],
             statusModel: null,
-
+            paymentMethodModel: null,
+            paymentStatusModel: null,
             packedStatus: [{
                     label: 'بارگیری شده',
                     value: '1'
@@ -256,17 +273,8 @@ export default {
                 }
             ],
             packedStatusModel: null,
-
-            typeList: [{
-                    label: 'پالت',
-                    value: 'pallet'
-                },
-                {
-                    label: 'بالک',
-                    value: 'bulk'
-                },
-            ],
-            typeModel: null,
+          province :null,
+          city:null
         }
     },
 
@@ -416,7 +424,7 @@ export default {
             AxiosMethod.using_auth = true
             AxiosMethod.form = form
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `system/state/crud/get/${this.provinceModel}`
+            AxiosMethod.end_point = `system/state/crud/get/${this.province}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 this.cities = data.data.cities
