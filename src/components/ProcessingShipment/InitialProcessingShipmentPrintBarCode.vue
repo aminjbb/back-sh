@@ -2,7 +2,7 @@
   <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
     <v-col class="my-0 py-0" cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
     >
-      <div>
+      <div style="height: 120px!important;">
         <barcode
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"
