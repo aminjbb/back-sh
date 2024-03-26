@@ -33,7 +33,7 @@
                   </v-col>
   
                   <v-col cols="3" class="d-flex justify-end">
-                      <div
+                      <!-- <div
                           align="center"
                           id="rowSection"
                           class="d-flex align-center">
@@ -47,7 +47,7 @@
                                   variant="outlined"
                                   :items="[25,50,100]" />
                           </span>
-                      </div>
+                      </div> -->
                   </v-col>
               </v-row>
           </v-card-actions>
