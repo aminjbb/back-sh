@@ -55,9 +55,18 @@
                         {{ item.id }}
                     </span>
           </div>
+          <div
+              v-if="item.order_number && header[2].show"
+              class="c-table__contents__item justify-center"
+              style="padding:3px"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.order_number }}
+                    </span>
+          </div>
 
           <div
-              v-if="header[2].show"
+              v-if="header[3].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -72,7 +81,7 @@
           </div>
 
           <div
-              v-if="header[3].show"
+              v-if="header[4].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -87,7 +96,7 @@
           </div>
 
           <div
-              v-if="header[4].show"
+              v-if="header[5].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -102,7 +111,7 @@
           </div>
 
           <div
-              v-if="header[5].show"
+              v-if="header[6].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -117,7 +126,7 @@
           </div>
 
           <div
-              v-if="header[6].show"
+              v-if="header[7].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -132,7 +141,7 @@
           </div>
 
           <div
-              v-if="header[7].show"
+              v-if="header[8].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -147,7 +156,7 @@
           </div>
 
           <div
-              v-if="header[8].show"
+              v-if="header[9].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -158,7 +167,7 @@
           </div>
 
           <div
-              v-if="header[9].show"
+              v-if="header[10].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -173,7 +182,7 @@
           </div>
 
           <div
-              v-if="header[10].show"
+              v-if="header[11].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">

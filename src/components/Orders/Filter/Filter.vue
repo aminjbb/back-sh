@@ -355,6 +355,14 @@ export default {
                 return ''
             }
         },
+      orderNumber() {
+            try {
+                const idObject = this.values.find(element => element.name === 'order_number');
+                return idObject.value
+            } catch (error) {
+                return ''
+            }
+        },
 
         paidPriceFrom() {
             try {
@@ -415,6 +423,11 @@ export default {
                 filter.id = this.id
             } else if (this.$route.query.id) {
                 filter.id = null
+            }
+            if (this.orderNumber) {
+                filter.orderNumber = this.orderNumber
+            } else if (this.$route.query.order_nmumber) {
+                filter.orderNumber = null
             }
 
             if (this.userModal && this.userModal.id) {

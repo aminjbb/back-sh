@@ -22,6 +22,7 @@ export class PanelFilter {
         this.order = 'created_at';
         this.order_type = 'desc';
         this.id = null;
+        this.orderNumber = null;
         this.creator_id = null;
 
         this.status = null;
@@ -54,6 +55,9 @@ export class PanelFilter {
         
         if (this.id !== null) {
             query += "id=" + this.id + "&";
+        }
+        if (this.orderNumber !== null) {
+            query += "order_number=" + this.orderNumber + "&";
         }
 
         if (this.creator_id !== null) {
@@ -151,6 +155,11 @@ export class PanelFilter {
             query += "id=" + this.id + "&";
         } else if (routeQuery.id) {
             query += "id=" + routeQuery.id + "&";
+        }
+        if (this.orderNumber) {
+            query += "order_number=" + this.orderNumber + "&";
+        } else if (routeQuery.order_number) {
+            query += "order_number=" + routeQuery.order_number + "&";
         }
 
         if (this.creator_id) {
