@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-row id="printableArea-shipmentBarcode" v-if="detail">
-      <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index" class="text-center">
+    <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
+      <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index" class="text-center my-0 py-0">
         <barcode
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"

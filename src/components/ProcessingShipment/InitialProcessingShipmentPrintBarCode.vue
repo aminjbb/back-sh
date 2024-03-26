@@ -1,6 +1,6 @@
 <template>
-  <v-row id="printableArea-shipmentBarcode" v-if="detail">
-    <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
+  <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
+    <v-col class="my-0 py-0" cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
     >
       <div>
         <barcode
