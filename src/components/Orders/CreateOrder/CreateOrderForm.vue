@@ -260,6 +260,7 @@ export default {
         this.userSearchList = data.data.data
       }
     },
+    
     async searchSku(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
