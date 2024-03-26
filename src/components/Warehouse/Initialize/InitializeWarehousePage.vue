@@ -14,14 +14,18 @@
       <v-col cols="12">
         شلف
         <v-text-field
+            :autofocus="shelfFocus"
             variant="solo"
             hint="شلف را اسکن کنید"
             v-model="shelfBarcode"
+            @keyup.enter="changeFocus()"
         />
       </v-col>
       بارکد کالا
       <v-col cols="12">
         <v-text-field
+            ref="skuText"
+            :autofocus="skuFocus"
             variant="solo"
             hint="sku را اسکن کنید"
             v-model="skuBarcode"
@@ -57,7 +61,9 @@ export default {
       shelfBarcode: null,
       skuBarcode: null,
       count: 0,
-      loading: false
+      loading: false,
+      shelfFocus:true,
+      skuFocus:false
     }
   },
   methods: {
@@ -84,18 +90,15 @@ export default {
           openToast(this.$store, 'کالای مورد نظر با موفقیت به شلف افزوده شد.', "success")
         }
       } catch (e) {
-        if (e.response.data.message) {
-          openToast(
-              this.$store,
-              e.response.data.message,
-              "error"
-          );
-        }
         this.loading = false
         this.shelfBarcode = null
         this.skuBarcode = null
         this.count = 0
       }
+    },
+
+    changeFocus(){
+      this.$refs.skuText.focus()
     }
   }
 }

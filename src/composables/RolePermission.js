@@ -7,8 +7,11 @@ export default function setup() {
     const rolePermissions = ref([]);
     const rolePermission = ref({});
     const allRolePermission = ref({});
+    const pageLength = ref(1);
+    const dataTableLength = ref(25);
     const cookies = useCookies()
     const route = useRoute()
+    const router = useRouter()
     const header = ref([
         {name: 'ردیف', show: true},
         {name: 'شناسه', show: true},
@@ -64,7 +67,11 @@ export default function setup() {
             rolePermission.value = data.data
         }
     };
-
+    function addPerPage(number){
+        filter.page = 1
+        filter.per_page =number
+        router.push('/role-permission/index'+ filter.params_generator(route.query))
+    }
     return {
         getRolePermissions,
         header,
@@ -73,7 +80,10 @@ export default function setup() {
         getRolePermission,
         rolePermission,
         allRolePermission,
-        getAllRolePermission
+        getAllRolePermission,
+        pageLength,
+        dataTableLength,
+        addPerPage
 
     }
 }
