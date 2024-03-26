@@ -7,7 +7,7 @@
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"
             :index="index"
-            :barcodeText="`${barCode.barcode}-${barCode?.shps.id}`"
+            :barcodeText="`${barCode.barcode}<br>${barCode?.shps.id}`"
             :text="barCode?.shps?.sku?.label.substring(0, 90)"
         ></barcode>
       </div>
@@ -65,7 +65,7 @@ export default {
 <style>
 @media print {
   .barcode-page {
-    height: 100vh!important;
+    height: 100vh !important;
     page-break-after: always;
   }
 }

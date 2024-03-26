@@ -1,6 +1,6 @@
 <template>
   <div class="barcode-container">
-    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text"></div>
+    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="barcodeText"></div>
     <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      fontSize: 12
+      fontSize: 12,
     }
   },
   mounted() {
