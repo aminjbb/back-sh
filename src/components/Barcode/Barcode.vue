@@ -29,7 +29,7 @@ export default {
       fontOptions: 'bold',
       fontSize: 18,
       textMargin: 8,
-      height: 70
+      height: 45
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
