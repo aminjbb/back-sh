@@ -22,9 +22,6 @@ export default {
     }
   },
   mounted() {
-    if (this.text.length >= 30) {
-      this.fontSize = 6
-    }
     let settings = {
       format: this.format,
       textAlign: 'rif',
