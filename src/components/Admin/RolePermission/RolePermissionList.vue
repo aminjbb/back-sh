@@ -145,14 +145,14 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getRolePermissions();
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getRolePermissions()
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
     }
 }
 </script>
