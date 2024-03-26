@@ -43,7 +43,7 @@ export default {
 <style scoped>
 svg {
   width: 160px !important;
-  height: 50px!important;
+  height: 65px!important;
 }
 
 .barcode-container {
@@ -52,7 +52,7 @@ svg {
 
 .barcode-text {
   position: absolute;
-  top: 100px; /* Adjust this value according to your needs. */
+  top: 70px; /* Adjust this value according to your needs. */
   width: 100%;
   text-align: right;
 }
