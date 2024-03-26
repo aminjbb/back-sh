@@ -8,12 +8,6 @@
             :index="index"
             :text="barCode?.shps?.sku?.label.substring(0, 90)"
         ></barcode>
-        <div>
-          123
-        </div>
-<!--        <span style="font-size: 8px;font-weight: 800;margin-top:-2vh!important;position: absolute!important;">-->
-<!--                                                {{  barCode?.shps?.sku?.label.substring(0, 90)}}-->
-<!--        </span>-->
         <br>
       </v-col>
     </v-row>
