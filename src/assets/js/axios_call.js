@@ -114,7 +114,6 @@ export class AxiosCall {
                     data = response.data;
                 })
                 .catch((err) => {
-                    console.log(err.response.data)
                     if (err.response.data.message){
                         openToast(
                             this.store,
@@ -201,7 +200,7 @@ export class AxiosCall {
                             key,
                             "error"
                         );
-                       
+
                     }
                 });
         }
@@ -268,7 +267,7 @@ export class AxiosCall {
                         router.push('/login')
                     }
                     if (this.toast_error) {
-                        
+
                         openToast(
                             this.store,
                             this.toast_error_message,
