@@ -7,6 +7,7 @@
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"
             :index="index"
+            :barcodeText="`${barCode.barcode}-${barCode?.shps.id}`"
             :text="barCode?.shps?.sku?.label.substring(0, 90)"
         ></barcode>
       </div>

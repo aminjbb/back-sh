@@ -15,6 +15,7 @@ export default {
     format: String,
     index: Number,
     text: String,
+    barcodeText:String
   },
   data() {
     return {
@@ -29,7 +30,8 @@ export default {
       fontOptions: 'bold',
       fontSize: 18,
       textMargin: 8,
-      height: 45
+      height: 45,
+      text:this.barcodeText
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
