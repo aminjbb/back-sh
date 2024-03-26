@@ -143,7 +143,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.addPerPageRole(val)
+            this.addPerPage(val)
         },
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
