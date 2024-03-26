@@ -10,7 +10,6 @@
             :text="barCode?.shps?.sku?.label.substring(0, 90)"
         ></barcode>
       </div>
-      <div style="break-after: auto!important;"></div>
     </v-col>
   </v-row>
 </template>
