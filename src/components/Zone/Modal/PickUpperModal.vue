@@ -40,7 +40,7 @@
                 </v-col>
 
                 <v-col cols="6" class="text-right">
-                    <v-btn @click="close()" variant="text" height="40" rounded class="px-5 mt-1 mr-5">
+                    <v-btn @click="closeModal()" variant="text" height="40" rounded class="px-5 mt-1 mr-5">
                         انصراف
                     </v-btn>
                 </v-col>
