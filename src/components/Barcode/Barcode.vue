@@ -1,7 +1,6 @@
 <template>
   <div class="barcode-container">
-    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text"></div>
-    <div class="shps-text" :style="'font-size:'+fontSize+'px'" v-html="shps"></div>
+    <div class="barcode-text" :style="'font-size:'+fontSize+'px'" v-html="text + '<br> SHPS-' + shps"></div>
     <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
@@ -52,13 +51,6 @@ svg {
 .barcode-text {
   position: absolute;
   top: 65px; /* Adjust this value according to your needs. */
-  width: 100%;
-  text-align: right;
-}
-
-.shps-text {
-  position: absolute;
-  top: 79px; /* Adjust this value according to your needs. */
   width: 100%;
   text-align: right;
 }
