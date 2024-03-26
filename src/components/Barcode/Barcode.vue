@@ -43,7 +43,7 @@ export default {
 <style scoped>
 svg {
   width: 160px !important;
-  height: 100px!important;
+  height: 50px!important;
 }
 
 .barcode-container {
