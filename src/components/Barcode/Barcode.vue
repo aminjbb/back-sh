@@ -31,7 +31,7 @@ export default {
       fontSize: 18,
       textMargin: 8,
       height: 45,
-      text:this.barcodeText
+      text:this.barcodeValue
     };
     JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
