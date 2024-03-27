@@ -92,7 +92,7 @@
 
             <div
                 class="seller__add-sku-btn d-flex justify-center align-center pointer"
-                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps,item.placer_id)">
+                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps,item.placer_id,item.placement_id)">
               <v-icon size="15">
                 {{ submittedItemId === item.id || item.label_printed === 1 ? 'mdi-check' : 'mdi-plus' }}
               </v-icon>
@@ -355,7 +355,7 @@ export default {
      * sending data in save btn
      */
 
-    async submitShipmentsForm(itemId, shipmentId, shps, placerId) {
+    async submitShipmentsForm(itemId, shipmentId, shps, placerId,placementId) {
 
       this.loading = true;
       let formdata = new FormData();
@@ -365,6 +365,7 @@ export default {
 
       formdata.append('package_id', 1);
       formdata.append('initial_placer_id', placerId);
+      formdata.append('initial_placement_id', placementId);
 
       formdata.append('shps', shps);
       formdata.append(`shipment_id`, shipmentId);
