@@ -79,7 +79,7 @@
               :length="exitCapacityPageLength"
               rounded="circle"
               size="40"
-              :total-visible="4"
+              :total-visible="7"
               prev-icon="mdi-chevron-right"
               next-icon="mdi-chevron-left" />
         </v-card>
