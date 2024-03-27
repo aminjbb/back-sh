@@ -23,7 +23,14 @@ export class PanelFilter {
         this.order = 'created_at';
         this.order_type = 'desc';
         this.user_id = null;
-
+        this.phone_number = null;
+        this.card_number = null;
+        this.admin = null;
+        this.amount_to = null;
+        this.amount_from = null;
+        this.value_to = null;
+        this.value_from = null;
+        this.status = null;
     }
 
     query_maker() {
@@ -31,7 +38,31 @@ export class PanelFilter {
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
-
+        console.log(this.phone_number)
+        if (this.phone_number !== null) {
+            query += "phone_number=" + this.phone_number + "&";
+        }
+        if (this.card_number !== null) {
+            query += "card_number=" + this.card_number + "&";
+        }
+        if (this.admin !== null) {
+            query += "admin=" + this.admin + "&";
+        }
+        if (this.amount_to !== null) {
+            query += "amount_to=" + this.amount_to + "&";
+        }
+        if (this.amount_from !== null) {
+            query += "amount_from=" + this.amount_from + "&";
+        }
+        if (this.value_to !== null) {
+            query += "value_to=" + this.value_to + "&";
+        }
+        if (this.value_from !== null) {
+            query += "value_from=" + this.value_from + "&";
+        }
+        if (this.status !== null) {
+            query += "status=" + this.status + "&";
+        }
 
         if (this.page!== null) {
             query += "page=" + this.page + "&";
@@ -53,10 +84,57 @@ export class PanelFilter {
         if  (this.user_id) {
             query += "user_id=" + this.user_id + "&";
         }
-        else if (routeQuery.id) {
+        else if (routeQuery.user_id) {
             query += "user_id=" + routeQuery.user_id + "&";
         }
-
+        if  (this.phone_number) {
+            query += "phone_number=" + this.phone_number + "&";
+        }
+        else if (routeQuery.phone_number) {
+            query += "phone_number=" + routeQuery.phone_number + "&";
+        }
+        if  (this.card_number) {
+            query += "card_number=" + this.card_number + "&";
+        }
+        else if (routeQuery.card_number) {
+            query += "card_number=" + routeQuery.card_number + "&";
+        }
+        if  (this.admin) {
+            query += "admin=" + this.admin + "&";
+        }
+        else if (routeQuery.admin) {
+            query += "admin=" + routeQuery.admin + "&";
+        }
+        if  (this.amount_to) {
+            query += "amount_to=" + this.amount_to + "&";
+        }
+        else if (routeQuery.amount_to) {
+            query += "amount_to=" + routeQuery.amount_to + "&";
+        }
+        if  (this.amount_from) {
+            query += "amount_from=" + this.amount_from + "&";
+        }
+        else if (routeQuery.amount_from) {
+            query += "amount_from=" + routeQuery.amount_from + "&";
+        }
+        if  (this.value_to) {
+            query += "value_to=" + this.value_to + "&";
+        }
+        else if (routeQuery.value_to) {
+            query += "value_to=" + routeQuery.value_to + "&";
+        }
+        if  (this.value_from) {
+            query += "value_from=" + this.value_from + "&";
+        }
+        else if (routeQuery.value_from) {
+            query += "value_from=" + routeQuery.value_from + "&";
+        }
+        if  (this.status) {
+            query += "status=" + this.status + "&";
+        }
+        else if (routeQuery.status) {
+            query += "status=" + routeQuery.status + "&";
+        }
 
         if (this.per_page){
             query += "per_page=" + this.per_page + "&";
