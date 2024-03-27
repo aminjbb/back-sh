@@ -40,7 +40,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print-initial/barcode/${this.$route.params.shipmentId}?shps=${this.$route.params.shpsId}&package_id=${this.$route.params.packageId}&placer_id=${this.$route.params.placerId}`
+      AxiosMethod.end_point = `shipment/print-initial/barcode/${this.$route.params.shipmentId}?shps=${this.$route.params.shpsId}&package_id=${this.$route.params.packageId}&placer_id=${this.$route.params.placerId}&placement_id=${this.$route.params.placementId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.detail = data.data

@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id"/>
+    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id" :placementId="currentItem.placement_id"/>
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
                             :shipmentId="shipmentId"/>
   </div>
