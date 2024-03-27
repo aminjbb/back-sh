@@ -4,7 +4,7 @@
           <Table
               class="flex-grow-1"
               :header="header"
-              :items="zoneList.data"
+              :items="zoneList"
               :page="page"
               :perPage="dataTableLength"
               :loading="loading"
@@ -21,14 +21,6 @@
   
                   <v-col cols="6" class="d-flex justify-center">
                       <div class="text-center">
-                          <v-pagination
-                              v-model="page"
-                              :length="pageLength"
-                              rounded="circle"
-                              size="40"
-                              :total-visible="4"
-                              prev-icon="mdi-chevron-right"
-                              next-icon="mdi-chevron-left" />
                       </div>
                   </v-col>
   

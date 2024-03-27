@@ -50,6 +50,7 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new UserPanelFilter()
     const walletFilter = new userWalletFilter()
+
     async function getUsers (filter) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'user/crud/index'
@@ -64,6 +65,7 @@ export default function setup() {
         else {
         }
     };
+
     async function getUserAddress (id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `user/crud/get/address/${id}`
@@ -76,6 +78,7 @@ export default function setup() {
         else {
         }
     };
+
     async function getUser () {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `user/crud/get/${route.params.userId}`
@@ -88,10 +91,12 @@ export default function setup() {
         else {
         }
     };
+
     async function getUserList (query) {
         let paramsQuery = null
         loading.value = true
         if (query){
+            if (query.query.page)   page.value = parseInt(query.query?.page)
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)
@@ -110,6 +115,7 @@ export default function setup() {
             } , 2000)
         }
     };
+
     async function getTransactionList (query) {
         let paramsQuery = null
         loading.value = true
@@ -137,18 +143,21 @@ export default function setup() {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push(route.path+ filter.params_generator(route.query))
+        router.push(route.path+ filter.query_maker(route.query))
     }
+    
     function addPaginationWallet(page){
         walletFilter.page = page
         walletFilter.per_page = dataTableLength.value
         router.push(route.path+ walletFilter.params_generator(route.query))
     }
+
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
         router.push(route.path+ filter.params_generator(route.query))
     }
+
     watch(page, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true

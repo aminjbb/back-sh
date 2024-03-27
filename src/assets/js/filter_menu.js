@@ -28,6 +28,8 @@ export class PanelFilter {
         this.image = null;
         this.icon = null;
         this.menu = null;
+        this.createdAtFrom = null;
+        this.createdAtTo = null;
     }
 
     query_maker() {
@@ -66,6 +68,12 @@ export class PanelFilter {
         }
         if (this.menu!== null) {
             query += "menu_id=" + this.menu + "&";
+        }
+        if (this.createdAtFrom!== null) {
+            query += "created_at_from_date=" + this.createdAtFrom + "&";
+        }
+        if (this.createdAtTo!== null) {
+            query += "created_at_to_date=" + this.createdAtTo + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -143,8 +151,18 @@ export class PanelFilter {
         else if (this.menu) {
             query += "menu_id=" + this.menu + "&";
         }
-
-
+        if (routeQuery.created_at_from_date) {
+            query += "created_at_from_date=" + routeQuery.created_at_from_date + "&";
+        }
+        else if (this.createdAtFrom) {
+            query += "created_at_from_date=" + this.createdAtFrom + "&";
+        }
+        if (routeQuery.created_at_to_date) {
+            query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
+        }
+        else if (this.createdAtTo) {
+            query += "created_at_to_date=" + this.createdAtTo + "&";
+        }
         return query.substring(0, query.length - 1);
     }
 }

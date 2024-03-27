@@ -1,4 +1,4 @@
-import {ref} from 'vue';
+import {ref, watch} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 import {useRouter, useRoute} from 'vue-router'
@@ -7,8 +7,12 @@ export default function setup() {
     const rolePermissions = ref([]);
     const rolePermission = ref({});
     const allRolePermission = ref({});
+    const page = ref(1);
+    const pageLength = ref(1);
+    const dataTableLength = ref(25);
     const cookies = useCookies()
     const route = useRoute()
+    const router = useRouter()
     const header = ref([
         {name: 'ردیف', show: true},
         {name: 'شناسه', show: true},
@@ -64,17 +68,33 @@ export default function setup() {
             rolePermission.value = data.data
         }
     };
+    function addPerPage(number){
+        filter.page = 1
+        filter.per_page = number
+        router.push('/role-permission/index'+ filter.params_generator(route.query))
+    }
+    function addPagination(page){
+        filter.page = page
+        filter.per_page = dataTableLength.value
+        router.push('/role-permission/index/'+ filter.params_generator(route.query))
 
+    }
+    watch(page, function(val) {
+        addPagination(val)
+    })
     return {
         getRolePermissions,
         header,
         loading,
+        page,
         rolePermissions,
         getRolePermission,
         rolePermission,
         allRolePermission,
-        getAllRolePermission
-
+        getAllRolePermission,
+        pageLength,
+        dataTableLength,
+        addPerPage
     }
 }
 

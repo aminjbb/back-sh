@@ -57,7 +57,7 @@
                             :length="pageLength"
                             rounded="circle"
                             size="40"
-                            :total-visible="4"
+                            :total-visible="7"
                             prev-icon="mdi-chevron-right"
                             next-icon="mdi-chevron-left" />
                     </div>
@@ -143,16 +143,19 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.addPerPageRole(val)
+            this.addPerPage(val)
         },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getRolePermissions();
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getRolePermissions()
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
+      $route(){
+        this.getRolePermissions()
+      }
     }
 }
 </script>

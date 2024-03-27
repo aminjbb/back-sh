@@ -17,6 +17,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه سفارش', show: true , value:'id', order: false},
+        { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
@@ -30,19 +31,20 @@ export default function setup() {
 
     const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
-        {name:'نام مشتری' , type:'text', value:'user_id'},
+        {name:'شماره سفارش' , type:'text', value:'order_number'},
+        {name:'نام مشتری' , type:'select', value:'creator_id'},
         {name:'وضعیت سفارش' , type:'select', value:'status'},
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
         {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
-        {name:'کد معرف' , type:'text', value:'identification_code'},
-        {name:'شناسه بانکی' , type:'text', value:'bank_id'},
-        {name:'تاریخ ثبت سفارش' , type:'date', value:'submit_date'},
-        {name:'تاریخ ارسال سفارش' , type:'date', value:'receive_date'},
-        {name:'استان' , type:'select', value:'state_id'},
-        {name:'شهر' , type:'select', value:'city_id'},
-        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'lower_payment'},
-        {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'highest_payment'},
+       //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
+        {name:'استان' , type:'select', value:'receive_state_id'},
+        {name:'شهر' , type:'select', value:'receive_city_id'},
+        {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
     ];
 
     const shpsModalHeader =ref([

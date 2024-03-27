@@ -24,16 +24,16 @@
                     </span>
                 </div>
 
-                <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="item.label && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                        {{ item.label }}
                     </span>
                 </div>
 
                 <div v-if="header[2].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.first_name">
-                            {{ item.first_name }}  {{ item.last_name }}
+                        <template v-if="item.name">
+                            {{ item.name }}
                         </template>
                         <template v-else>
                             -
@@ -54,15 +54,24 @@
                                 <div class="ma-3 pointer d--rtl" @click="openPickUpperModal(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-distribute-vertical-top</v-icon>
                                     <span class="mr-2 text-grey-darken-1 t14300">
-                                       ناحیه بندی
+                                       ویرایش ناحیه
                                     </span>
                                 </div>
                             </v-list-item-title>
+                          <v-list-item-title>
+                            <div class="ma-3 pointer d--rtl" @click="openEditAdminModal(item.id)">
+                              <v-icon class="text-grey-darken-1">mdi-account</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                       ویرایش پیکاپر
+                                    </span>
+                            </div>
+                          </v-list-item-title>
                         </v-list>
                     </v-menu>
                 </div>
 
-                <ModalPickUpper :ref="`pickUpper${item.id}`" :id="item.id" :name="`${item.first_name} ${item.last_name}`" :rowList="rowList"/>
+                <ModalPickUpper :ref="`pickUpper${item.id}`" :id="item.id" :rowList="rowList"/>
+                <ModalUpdateAdmin :ref="`updateAdminZone${item.id}`" :id="item.id" :rowList="rowList"/>
             </div>
         </div>
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -86,10 +95,8 @@ import {
 } from "@/assets/js/functions";
 
 import ModalPickUpper from '@/components/Zone/Modal/PickUpperModal.vue'
+import ModalUpdateAdmin from '@/components/Zone/Modal/ModalUpdateAdmin.vue'
 
-import {
-    openModal
-} from "@/assets/js/functions_seller";
 export default {
 
     props: {
@@ -172,7 +179,8 @@ export default {
     },
 
     components: {
-        ModalPickUpper
+        ModalPickUpper,
+        ModalUpdateAdmin
     },
 
     computed: {
@@ -198,13 +206,8 @@ export default {
         openPickUpperModal(id){
             this.$refs[`pickUpper${id}`][0].openModal();
         },
-
-        /**
-         * Open print barcode modal
-         * @param {*} id
-         */
-        printBarcode(id) {
-            openModal(this.$store, 'set_printModal', id, true)
+        openEditAdminModal(id){
+            this.$refs[`updateAdminZone${id}`][0].openModal();
         },
 
         /**

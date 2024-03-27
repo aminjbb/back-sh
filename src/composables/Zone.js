@@ -13,18 +13,15 @@ export default function setup() {
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
-
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه کاربری', show: true , value:'id', order: false},
-        { name: 'نام پیک آپر', show: true, value:'name' , order: false},
+        { name: 'نام', show: true , value:'id', order: false},
+        { name: 'نام انگلیسی', show: true, value:'name' , order: false},
     ]);
-
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
-
     async function getZoneList(query) {
         loading.value = true
         let paramsQuery = null
@@ -36,19 +33,13 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `warehouse/zone/staff${paramsQuery}`
+        AxiosMethod.end_point = `warehouse/zone/index${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             zoneList.value = data.data
             loading.value = false
-           setTimeout(()=>{
-               isFilter.value =false
-               isFilterPage.value = false
-           } , 2000)
         }
     };
-
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number

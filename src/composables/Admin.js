@@ -72,6 +72,7 @@ export default function setup() {
         let paramsQuery = null
         loading.value = true
         if (query){
+            if (query.query.page)   page.value = parseInt(query.query?.page)
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)
@@ -93,13 +94,13 @@ export default function setup() {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-       router.push('/admin/index/'+ filter.params_generator(route.query))
+       router.push('/admin/index/'+ filter.query_maker(route.query))
 
     }
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number
-        router.push('/admin/index'+ filter.params_generator(route.query))
+        router.push('/admin/index'+ filter.query_maker(route.query))
     }
     onBeforeRouteUpdate(async (to, from) => {
 

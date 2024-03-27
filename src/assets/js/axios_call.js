@@ -3,6 +3,7 @@ import { openToast } from "@/assets/js/functions";
 import qs from "qs";
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
+import {useStore} from 'vuex'
 // var FormData = require('form-data');
 
 export class AxiosCall {
@@ -13,7 +14,7 @@ export class AxiosCall {
         this.using_auth = false;
         this.cookies = null;
         this.token = ''
-        this.store = null;
+        this.store = new useStore();
         this.toast_success = false;
         this.toast_success_message = null;
         this.toast_error = false;
@@ -53,11 +54,20 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
-                    openToast(
-                        this.store,
-                        'تو فرایند آپلود به مشکلی خوردیم',
-                        "error"
-                    );
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
+                    }
+                    else{
+                        openToast(
+                            this.store,
+                            'تو فرایند آپلود به مشکلی خوردیم',
+                            "error"
+                        );
+                    }
                 });
         } else {
             await axios
@@ -73,11 +83,21 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
-                    openToast(
-                        this.store,
-                        'تو فرایند آپلود به مشکلی خوردیم',
-                        "error"
-                    );
+
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
+                    }
+                    else{
+                        openToast(
+                            this.store,
+                            'تو فرایند آپلود به مشکلی خوردیم',
+                            "error"
+                        );
+                    }
                 });
         }
         return data;
@@ -114,7 +134,6 @@ export class AxiosCall {
                     data = response.data;
                 })
                 .catch((err) => {
-                    console.log(err.response.data)
                     if (err.response.data.message){
                         openToast(
                             this.store,
@@ -124,6 +143,13 @@ export class AxiosCall {
                     }
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
                     }
                     if (err.response.status == 422) {
 
@@ -193,6 +219,13 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
+                    }
                     if (err.response.status == 442) {
                         const details = err.response.data.details
                         const key = Object.keys(details)
@@ -201,7 +234,7 @@ export class AxiosCall {
                             key,
                             "error"
                         );
-                       
+
                     }
                 });
         }
@@ -268,7 +301,7 @@ export class AxiosCall {
                         router.push('/login')
                     }
                     if (this.toast_error) {
-                        
+
                         openToast(
                             this.store,
                             this.toast_error_message,
@@ -304,6 +337,7 @@ export class AxiosCall {
                     },
                 })
                 .then((response) => {
+
                     if (this.toast_success) {
                         openToast(
                             this.store,
@@ -316,6 +350,14 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
                     }
                     if (this.toast_error) {
                         openToast(
@@ -341,6 +383,13 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
                     }
                     if (this.toast_error) {
                         openToast(
@@ -387,6 +436,13 @@ export class AxiosCall {
                     if (err.response.status == 401) {
                         router.push('/login')
                     }
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
+                    }
                     if (this.toast_error) {
                         openToast(this.store, err.response.data.message, "error")
                     }
@@ -406,6 +462,13 @@ export class AxiosCall {
                 .catch((err) => {
                     if (err.response.status == 401) {
                         router.push('/login')
+                    }
+                    else if (err.response.status == 403){
+                        openToast(
+                            this.store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
                     }
                     if (this.toast_error) {
                         openToast(

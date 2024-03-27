@@ -47,7 +47,6 @@
 import UserForm from "@/components/User/UserForm.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToGregorian, openToast} from "@/assets/js/functions";
-
 export default {
   data() {
     return {

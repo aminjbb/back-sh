@@ -45,6 +45,7 @@ export default function setup() {
         loading.value = true
         let paramsQuery = null
         if (query){
+            if (query.query.page) page.value = parseInt(query.query.page)
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)

@@ -27,7 +27,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="menu/index" :filterField="filterField" />
+            <ModalTableFilter path="promotion-page/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -60,7 +60,7 @@
                   :length="pageLength"
                   rounded="circle"
                   size="40"
-                  :total-visible="4"
+                  :total-visible="7"
                   prev-icon="mdi-chevron-right"
                   next-icon="mdi-chevron-left" />
             </div>

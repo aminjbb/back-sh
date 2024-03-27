@@ -1,7 +1,18 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-<!--    <v-card height="200" class="ma-5 br-12 stretch-card-header-90">-->
-<!--    </v-card>-->
+    <v-card height="100" class="ma-5 br-12 d-flex align-center px-10">
+      <v-row justify="start" align="center">
+        <v-col cols="6">
+          <v-text-field placeholder="نام انبار دار" variant="outlined" v-model="adminName"/>
+
+        </v-col>
+        <v-col cols="2">
+          <v-btn @click="filterData()" color="primary500">
+            جستوجو
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <InitialTable
@@ -68,8 +79,8 @@ export default {
       filteredCargoData: [],
       closePackageLoading: false,
       shipmentShpsListFilterd: [],
-      barcodeShps: null
-
+      barcodeShps: null,
+      adminName:null
     }
   },
 
@@ -108,7 +119,7 @@ export default {
   },
 
   watch: {
-    barcodeShps(value) {
+    adminName(value) {
       if (value === '' || !value) {
         this.shipmentShpsListFilterd = this.shpsList.shps_list
       }
@@ -143,23 +154,24 @@ export default {
     initial() {
       this.getShpsList(1, this.$store);
     },
-    // async filterShps() {
-    //   if (this.barcodeShps && this.barcodeShps !== "") {
-    //     const filterData = this.shipmentShpsListFilterd.find(element => {
-    //       return element.sku.barcode == this.barcodeShps
-    //     })
-    //
-    //     if (filterData) {
-    //       this.shipmentShpsListFilterd = []
-    //
-    //       this.shipmentShpsListFilterd.push(filterData)
-    //     } else {
-    //       openToast(this.$store, 'شناسه کالا وجود ندارد')
-    //     }
-    //   } else {
-    //     this.shipmentShpsListFilterd = this.shipmentShpsList
-    //   }
-    // },
+    async filterData() {
+      if (this.adminName && this.adminName !== "" && this.adminName != null) {
+        const searchTermRegex = new RegExp(this.adminName, 'g');
+        const filterData = this.shipmentShpsListFilterd.filter(element => {
+          return searchTermRegex.test(element.admin_name)
+        })
+
+        if (filterData) {
+          this.shipmentShpsListFilterd = []
+
+          this.shipmentShpsListFilterd =filterData
+        } else {
+          openToast(this.$store, 'نام انباردار وجود ندارد')
+        }
+      } else {
+        this.shipmentShpsListFilterd =this.shpsList.shps_list
+      }
+    },
     // scanPackageId(){
     //   const packageSplit = this.scanPackage.split('-')
     //   let PackageScan = ''

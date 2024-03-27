@@ -27,7 +27,7 @@
             @keyup.enter.prevent="goTo('count')"
             ref="sku"
             variant="solo"
-            hint="sku را اسکن کنید"
+            hint="کالا را اسکن کنید"
             v-model="skuBarcode"
         />
       </v-col>
@@ -63,15 +63,13 @@ export default {
       shelfBarcode: null,
       skuBarcode: null,
       count: null,
-      loading: false
+      loading: false,
     }
   },
   methods: {
     goTo(field) {
       if (field === 'sku') this.$refs.sku.focus()
-
       if (field === 'count') this.$refs.count.focus()
-
     },
     async submit() {
       try {
@@ -109,7 +107,7 @@ export default {
         this.skuBarcode = null
         this.count = 0
       }
-    }
+    },
   }
 }
 </script>
