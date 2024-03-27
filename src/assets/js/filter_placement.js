@@ -27,8 +27,8 @@ export class PanelFilter {
         this.id = null;
         this.row_number_from = null;
         this.row_number_to = null;
-        this.shelf_number_from = null;
-        this.shelf_number_to = null;
+        this.placement_number_from = null;
+        this.placement_number_to = null;
         this.step_number_from = null;
         this.step_number_to = null;
     }
@@ -68,12 +68,12 @@ export class PanelFilter {
             query += "row_number_to=" + this.row_number_to + "&";
         }
 
-        if (this.shelf_number_from!== null) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
+        if (this.placement_number_from!== null) {
+            query += "placement_number_from=" + this.placement_number_from + "&";
         }
 
-        if (this.shelf_number_to!== null) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        if (this.placement_number_to!== null) {
+            query += "placement_number_to=" + this.placement_number_to + "&";
         }
 
         if (this.step_number_from!== null) {
@@ -139,18 +139,18 @@ export class PanelFilter {
             query += "row_number_to=" + this.row_number_to + "&";
         }
 
-        if (routeQuery.shelf_number_from) {
-            query += "shelf_number_from=" + routeQuery.shelf_number_from + "&";
+        if (routeQuery.placement_number_from) {
+            query += "placement_number_from=" + routeQuery.placement_number_from + "&";
         }
-        else if (this.shelf_number_from) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
+        else if (this.placement_number_from) {
+            query += "placement_number_from=" + this.placement_number_from + "&";
         }
 
-        if (routeQuery.shelf_number_to) {
-            query += "shelf_number_to=" + routeQuery.shelf_number_to + "&";
+        if (routeQuery.placement_number_to) {
+            query += "placement_number_to=" + routeQuery.placement_number_to + "&";
         }
-        else if (this.shelf_number_to) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        else if (this.placement_number_to) {
+            query += "placement_number_to=" + this.placement_number_to + "&";
         }
 
         if (routeQuery.step_number_from) {
@@ -221,18 +221,18 @@ export class PanelFilter {
             query += "row_number_to=" + this.row_number_to + "&";
         }
 
-        if (routeQuery.shelf_number_from) {
-            query += "shelf_number_from=" + routeQuery.shelf_number_from + "&";
+        if (routeQuery.placement_number_from) {
+            query += "placement_number_from=" + routeQuery.placement_number_from + "&";
         }
-        else if (this.shelf_number_from) {
-            query += "shelf_number_from=" + this.shelf_number_from + "&";
+        else if (this.placement_number_from) {
+            query += "placement_number_from=" + this.placement_number_from + "&";
         }
 
-        if (routeQuery.shelf_number_to) {
-            query += "shelf_number_to=" + routeQuery.shelf_number_to + "&";
+        if (routeQuery.placement_number_to) {
+            query += "placement_number_to=" + routeQuery.placement_number_to + "&";
         }
-        else if (this.shelf_number_to) {
-            query += "shelf_number_to=" + this.shelf_number_to + "&";
+        else if (this.placement_number_to) {
+            query += "placement_number_to=" + this.placement_number_to + "&";
         }
 
         if (routeQuery.step_number_from) {
