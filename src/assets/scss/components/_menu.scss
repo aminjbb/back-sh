@@ -39,6 +39,10 @@
             .v-list-item__content {
                 color: #E91E63;
             }
+
+            .v-list-item__prepend > .v-icon{
+                margin-left: 23px !important;
+            }
         }
 
         &:hover {
