@@ -94,12 +94,9 @@ export default function setup() {
 
     async function getUserList (query) {
         let paramsQuery = null
-        if (query){
-            if (query.query.page)   page.value = parseInt(query.query?.page)
-
-        }
         loading.value = true
         if (query){
+            if (query.query.page)   page.value = parseInt(query.query?.page)
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)

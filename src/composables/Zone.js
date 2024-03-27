@@ -13,18 +13,15 @@ export default function setup() {
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
-
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام', show: true , value:'id', order: false},
         { name: 'نام انگلیسی', show: true, value:'name' , order: false},
     ]);
-
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
-
     async function getZoneList(query) {
         loading.value = true
         let paramsQuery = null
@@ -43,7 +40,6 @@ export default function setup() {
             loading.value = false
         }
     };
-
     function addPerPage(number){
         filter.page = 1
         filter.per_page =number

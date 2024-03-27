@@ -27,7 +27,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="menu/index" :filterField="filterField" />
+            <ModalTableFilter path="promotion-page/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
