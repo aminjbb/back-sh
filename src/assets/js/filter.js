@@ -39,6 +39,7 @@ export class PanelFilter {
         this.model =null;
         this.vehicle_type = null;
         this.license = null;
+        this.user_id = null;
         this.shps_count_from = null;
         this.shps_count_to = null;
     }
@@ -68,6 +69,9 @@ export class PanelFilter {
         }
         if (this.group!== null) {
             query += "group=" + this.group + "&";
+        }
+        if (this.user_id!== null) {
+            query += "user_id=" + this.user_id + "&";
         }
         if (this.created_at_to_date) {
             query += "created_at_to_date=" + this.created_at_to_date + "&";
@@ -272,11 +276,18 @@ export class PanelFilter {
             query += "shps_count_from=" + this.shps_count_from + "&";
         }
 
-            if (routeQuery.shps_count_to) {
+        if (routeQuery.shps_count_to) {
             query += "shps_count_to=" + routeQuery.shps_count_to + "&";
         }
         else if (this.shps_count_to) {
             query += "shps_count_to=" + this.shps_count_to + "&";
+        }
+
+        if (routeQuery.user_id) {
+            query += "user_id=" + routeQuery.user_id + "&";
+        }
+        else if (this.user_id && this.user_id !== null) {
+            query += "user_id=" + this.user_id + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -388,6 +399,13 @@ export class PanelFilter {
         }
         else if (this.shps_count_to) {
             query += "shps_count_to=" + this.shps_count_to + "&";
+        }
+
+        if (routeQuery.user_id) {
+            query += "user_id=" + routeQuery.user_id + "&";
+        }
+        else if (this.user_id) {
+            query += "user_id=" + this.user_id + "&";
         }
 
         return query.substring(0, query.length - 1);
