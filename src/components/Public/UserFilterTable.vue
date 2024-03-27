@@ -188,6 +188,7 @@ export default {
     setFilter() {
 
       const filter = new UserPanelFilter()
+      filter.page = 1;
       if (this.firstName) {
         filter.firstName = this.firstName
       }
@@ -208,11 +209,11 @@ export default {
       else {
         filter.phoneNumber = null
       }
-      filter.page = 1;
+
       if(this.$route.query.per_page){
         filter.per_page = this.$route.query.per_page;
       }
-      this.$router.push('/' + this.path + '/' + filter.query_maker());
+      this.$router.push('/' + this.path + '/' + filter.query_maker(this.$route.query));
       this.dialog = false;
     },
 
