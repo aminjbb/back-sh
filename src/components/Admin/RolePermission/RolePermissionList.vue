@@ -153,6 +153,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getRolePermissions()
+      }
     }
 }
 </script>
