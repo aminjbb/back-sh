@@ -28,11 +28,25 @@
                 </span>
             </v-list-item>
 
+            <v-list-item
+                v-for="([title, to, icon], index) in groupsFunction"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon>{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
+            </v-list-item>
+
             <v-list-group value="Admins">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>
-                            <v-icon>mdi-account-multiple</v-icon>
+                            <v-icon size="large">mdi-account-box-outline</v-icon>
                         </template>
 
                         <span class="t14500">
@@ -58,6 +72,20 @@
                     </span>
                 </v-list-item>
             </v-list-group>
+
+            <v-list-item
+                v-for="([title, to, icon], index) in users"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon size="large">{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
+            </v-list-item>
 
             <v-list-group value="Products">
                 <template v-slot:activator="{ props }">
@@ -90,84 +118,6 @@
                 </v-list-item>
             </v-list-group>
 
-            <v-list-item
-                v-for="([title, to, icon], index) in menuOption"
-                :key="index"
-                active-class="bg-active"
-                :to="to">
-                <template v-slot:prepend>
-                    <v-icon>{{icon}}</v-icon>
-                </template>
-
-                <span class="t14500">
-                    {{title}}
-                </span>
-            </v-list-item>
-
-
-
-            <v-list-group value="warehouse">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-package-variant</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            انبار
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in warehouse"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
-            <v-list-group value="marketing">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-chart-line</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            مارکتینگ
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in marketing"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
             <v-list-group value="commerce">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
@@ -200,21 +150,21 @@
 
             </v-list-group>
 
-            <v-list-group value="setting">
+            <v-list-group value="marketing">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>
-                            <v-icon>mdi-cog</v-icon>
+                            <v-icon>mdi-chart-line</v-icon>
                         </template>
 
                         <span class="t14500">
-                            تنظیمات
+                            مارکتینگ
                         </span>
                     </v-list-item>
                 </template>
 
                 <v-list-item
-                    v-for="([title, to, icon], i) in setting"
+                    v-for="([title, to, icon], i) in marketing"
                     v-bind="props"
                     :key="i"
                     :value="title"
@@ -263,49 +213,49 @@
                 </v-list-item>
 
             </v-list-group>
-          <v-list-group value="bulk">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" active-class="bg-active">
-                <template v-slot:prepend>
-                  <v-icon>mdi-file-edit-outline</v-icon>
 
+            <v-list-group value="support">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-face-agent</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            پشتیبانی
+                        </span>
+                    </v-list-item>
                 </template>
 
-                <span class="t14500">
-                            ویرایش گروهی
-                        </span>
-              </v-list-item>
-            </template>
+                <v-list-item
+                    v-for="([title, to, icon], i) in support"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
 
-            <v-list-item
-                v-for="([title, to, icon], i) in bulkEdit"
-                v-bind="props"
-                :key="i"
-                :value="title"
-                :to="to"
-                active-class="bg-active"
-                style="padding-right:16px !important">
-              <template v-slot:prepend>
-                <v-icon size="x-small">{{icon}}</v-icon>
-              </template>
-
-              <span class="t14500">
+                    <span class="t14500">
                         {{title}}
                     </span>
-            </v-list-item>
+                </v-list-item>
 
-          </v-list-group>
+            </v-list-group>
 
-          <v-list-group value="withdraw">
+            <v-list-group value="withdraw">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-currency-usd</v-icon>
+                  <v-icon size="large">mdi-account-credit-card-outline</v-icon>
                 </template>
 
                 <span class="t14500">
-                            مالی
-                        </span>
+                    مالی
+                </span>
               </v-list-item>
             </template>
 
@@ -317,16 +267,141 @@
                 :to="to"
                 active-class="bg-active"
                 style="padding-right:16px !important">
-              <template v-slot:prepend>
-                <v-icon size="x-small">{{icon}}</v-icon>
-              </template>
+                <template v-slot:prepend>
+                    <v-icon size="x-small">{{icon}}</v-icon>
+                </template>
 
-              <span class="t14500">
-                        {{title}}
-                    </span>
+                <span class="t14500">
+                            {{title}}
+                        </span>
+                </v-list-item>
+            </v-list-group>
+
+            <v-list-item
+                v-for="([title, to, icon], index) in payment"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon size="large">{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
             </v-list-item>
 
-          </v-list-group>
+            <v-list-item
+                v-for="([title, to, icon], index) in sending"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon>{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
+            </v-list-item>
+
+            <v-list-group value="setting">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-cog-outline</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            تنظیمات
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in setting"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
+            <v-list-group value="warehouse">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-package-variant</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            انبار
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in warehouse"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
+            <v-list-group value="bulk">
+                <template v-slot:activator="{ props }">
+                <v-list-item v-bind="props" active-class="bg-active">
+                    <template v-slot:prepend>
+                    <v-icon>mdi-file-edit-outline</v-icon>
+
+                    </template>
+
+                    <span class="t14500">
+                                ویرایش گروهی
+                            </span>
+                </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in bulkEdit"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                <template v-slot:prepend>
+                    <v-icon size="x-small">{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                            {{title}}
+                        </span>
+                </v-list-item>
+
+            </v-list-group>
+
           <v-list-group value="message">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
@@ -358,6 +433,20 @@
             </v-list-item>
 
           </v-list-group>
+
+          <v-list-item
+                v-for="([title, to, icon], index) in chat"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon>{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
+            </v-list-item>
         </v-list>
 
     </v-navigation-drawer>
@@ -371,15 +460,23 @@ export default {
             drawer: true,
             rail: false,
             open: [],
-            menuOption: [
-                ['درخواست های خروجی', '/exports/index', 'mdi-export'],
-                ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
-
-                ['تیکت ها', '/ticket/index', 'mdi-forum'],
-                ['گفتگو', '/chat', 'mdi-chat'],
-                ['مدیریت مشتریان', '/user/index', 'mdi-account-group'],
-                ['پرداخت', '/pay/index', 'mdi-credit-card'],
-                ['ارسال', '/send/index', 'mdi-truck'],
+            sending: [
+                ['ارسال', '/send/index', 'mdi-truck-outline'],
+            ],
+            chat: [
+                ['گفتگو', '/chat', 'mdi-chat-outline'],
+            ],
+            support: [
+                ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            groupsFunction: [
+                ['عملیات گروهی', '/exports/index', 'mdi-export'],
+            ],
+            users: [
+                ['مدیریت کاربران', '/user/index', 'mdi-account-group-outline'],
+            ],
+            payment: [
+                ['پرداخت', '/pay/index', 'mdi-credit-card-outline'],
             ],
             products: [
                 ['محصولات', '/product/index', 'mdi-checkbox-blank-circle-outline'],
@@ -391,35 +488,33 @@ export default {
                 ['ویژگی ها', '/attributes/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             warehouse: [
-                ['لیست انبارها', '/warehouse/index', 'mdi-checkbox-blank-circle-outline'],
                 ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست انبارها', '/warehouse/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
-                ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله های آتی  ', '/up-coming/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
-                ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
-                ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
-                ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
-                ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
-                [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
+                ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
+                ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
                 [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
-                ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
-                ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ناحیه بندی انبار', '/zone/index', 'mdi-checkbox-blank-circle-outline'],
                 ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
-                
+                ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
-                ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
-                ['محموله‌ها ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],               
+                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],               
                 ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],            
+                ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
                 ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],
@@ -438,21 +533,21 @@ export default {
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
+                ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
-
             ],
             bulkEdit: [
-            ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
-          ],
+                ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
 
-             withdraw: [
-            ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
-          ],
-              message: [
-            ['پیام ها', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
-            ['ارتباط با ما', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
-          ]
+            withdraw: [
+                ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            message: [
+                ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پیام های سیستمی', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
+            ]
 
         }
     },
