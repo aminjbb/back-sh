@@ -461,7 +461,7 @@ export default {
             rail: false,
             open: [],
             sending: [
-                ['ارسال', '/send/index', 'mdi-truck-outline'],
+                // ['ارسال', '/send/index', 'mdi-truck-outline'],
             ],
             chat: [
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
@@ -476,7 +476,7 @@ export default {
                 ['مدیریت کاربران', '/user/index', 'mdi-account-group-outline'],
             ],
             payment: [
-                ['پرداخت', '/pay/index', 'mdi-credit-card-outline'],
+                // ['پرداخت', '/pay/index', 'mdi-credit-card-outline'],
             ],
             products: [
                 ['محصولات', '/product/index', 'mdi-checkbox-blank-circle-outline'],
