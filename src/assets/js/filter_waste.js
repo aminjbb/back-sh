@@ -94,10 +94,6 @@ export class PanelFilter {
             query += "creator_id=" + this.creator_id + "&";
         }
 
-        if (this.created_at!== null) {
-            query += "created_at=" + this.created_at + "&";
-        }
-
         return query.substring(0, query.length - 1);
     }
 

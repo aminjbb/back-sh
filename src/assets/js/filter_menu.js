@@ -155,7 +155,7 @@ export class PanelFilter {
             query += "created_at_from_date=" + routeQuery.created_at_from_date + "&";
         }
         else if (this.createdAtFrom) {
-            query += "created_at_from=" + this.createdAtFrom + "&";
+            query += "created_at_from_date=" + this.createdAtFrom + "&";
         }
         if (routeQuery.created_at_to_date) {
             query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
