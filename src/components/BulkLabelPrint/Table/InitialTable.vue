@@ -290,7 +290,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print-initial/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=1&placer_id=${shipment.placer_id}`
+      AxiosMethod.end_point = `shipment/print-initial/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=1&placer_id=${shipment.placer_id}&placement_id=${shipment.placement_id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const dialogForm = {
