@@ -97,9 +97,6 @@ import {
 import ModalPickUpper from '@/components/Zone/Modal/PickUpperModal.vue'
 import ModalUpdateAdmin from '@/components/Zone/Modal/ModalUpdateAdmin.vue'
 
-import {
-    openModal
-} from "@/assets/js/functions_seller";
 export default {
 
     props: {
@@ -211,14 +208,6 @@ export default {
         },
         openEditAdminModal(id){
             this.$refs[`updateAdminZone${id}`][0].openModal();
-        },
-
-        /**
-         * Open print barcode modal
-         * @param {*} id
-         */
-        printBarcode(id) {
-            openModal(this.$store, 'set_printModal', id, true)
         },
 
         /**
