@@ -94,6 +94,10 @@ export default function setup() {
 
     async function getUserList (query) {
         let paramsQuery = null
+        if (query){
+            if (query.query.page)   page.value = parseInt(query.query?.page)
+
+        }
         loading.value = true
         if (query){
             paramsQuery = filter.params_generator(query.query)
@@ -142,7 +146,7 @@ export default function setup() {
     function addPagination(page){
         filter.page = page
         filter.per_page = dataTableLength.value
-        router.push(route.path+ filter.params_generator(route.query))
+        router.push(route.path+ filter.query_maker(route.query))
     }
     
     function addPaginationWallet(page){

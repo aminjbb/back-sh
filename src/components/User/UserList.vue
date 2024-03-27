@@ -157,8 +157,8 @@ export default {
         }
       }
     },
-    $route(){
-      this.getUserList()
+    $route(to){
+      this.getUserList(to)
     }
   }
 }
