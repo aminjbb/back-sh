@@ -568,8 +568,8 @@ export default {
       } else if (this.$route.query.sku_id) {
         filter.sku_id = null
       }
-      if (this.customerModel) {
-        filter.user_id = this.customerModel
+      if (this.customerModel?.id) {
+        filter.user_id = this.customerModel?.id
       } else if (this.$route.query.user_id) {
         filter.user_id = null
       }

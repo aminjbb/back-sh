@@ -19,10 +19,10 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
-          :getShipmentRequestsList="getShipmentRequestsList"
+          :getWithdrawRequestList="getWithdrawRequestList"
           class="flex-grow-1"
           :header="header"
-          :items="ShipmentRequestsList.data"
+          :items="WithdrawRequestList.data"
           :page="page"
           :perPage="dataTableLength"
           activePath="page/crud/update/activation/"
@@ -77,7 +77,7 @@
 
 <script>
 import Table from '@/components/DepositRequest/Table/Table.vue'
-import ShipmentRequests from "@/composables/DepositRequest";
+import WithdrawRequests from "@/composables/DepositRequest";
 import ModalTableFilter from '@/components/DepositRequest/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
@@ -87,8 +87,8 @@ export default {
   setup(props) {
     const {
       pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
+      getWithdrawRequestList,
+      WithdrawRequestList,
       filterField,
       dataTableLength,
       page,
@@ -96,11 +96,11 @@ export default {
       addPagination,
       addPerPage,
       loading
-    } = ShipmentRequests();
+    } = WithdrawRequests();
     return {
       pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
+      getWithdrawRequestList,
+      WithdrawRequestList,
       filterField,
       dataTableLength,
       page,
@@ -139,13 +139,13 @@ export default {
 
     updateList(status){
       if(status === 'true'){
-        this.getShipmentRequestsList();
+        this.getWithdrawRequestList();
       }
     },
   },
 
   mounted() {
-    this.getShipmentRequestsList();
+    this.getWithdrawRequestList();
   },
 
   watch: {
@@ -166,7 +166,7 @@ export default {
       }
     },
     $route(){
-      this.getShipmentRequestsList();
+      this.getWithdrawRequestList();
 
     }
   }
