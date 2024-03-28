@@ -42,7 +42,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu>
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -191,7 +191,7 @@ export default {
             let headerLength = 0;
             if (this.header && this.header.length > 0) {
                 this.header.forEach(element => {
-                    if (element.show == true) {
+                    if (element.show) {
                         headerLength++;
                     }
                 });
