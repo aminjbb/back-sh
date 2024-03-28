@@ -25,11 +25,11 @@ export class PanelFilter {
         this.user_id = null;
         this.phone_number = null;
         this.card_number = null;
-        this.creator_id = null;
+        this.admin_id = null;
         this.amount_to = null;
         this.amount_from = null;
-        this.value_to = null;
-        this.value_from = null;
+        this.wallet_value_to = null;
+        this.wallet_value_from = null;
         this.status = null;
         this.created_at_to_date = null;
         this.created_at_from_date = null;
@@ -48,8 +48,8 @@ export class PanelFilter {
         if (this.card_number !== null) {
             query += "card_number=" + this.card_number + "&";
         }
-        if (this.creator_id !== null) {
-            query += "creator_id=" + this.creator_id + "&";
+        if (this.admin_id !== null) {
+            query += "admin_id=" + this.admin_id + "&";
         }
         if (this.amount_to !== null) {
             query += "amount_to=" + this.amount_to + "&";
@@ -57,11 +57,11 @@ export class PanelFilter {
         if (this.amount_from !== null) {
             query += "amount_from=" + this.amount_from + "&";
         }
-        if (this.value_to !== null) {
-            query += "value_to=" + this.value_to + "&";
+        if (this.wallet_value_to !== null) {
+            query += "wallet_value_to=" + this.wallet_value_to + "&";
         }
-        if (this.value_from !== null) {
-            query += "value_from=" + this.value_from + "&";
+        if (this.wallet_value_from !== null) {
+            query += "wallet_value_from=" + this.wallet_value_from + "&";
         }
         if (this.status !== null) {
             query += "status=" + this.status + "&";
@@ -96,11 +96,11 @@ export class PanelFilter {
         else if (routeQuery.user_id) {
             query += "user_id=" + routeQuery.user_id + "&";
         }
-        if (routeQuery.creator_id)  {
-            query += "creator_id=" + routeQuery.creator_id + "&";
+        if (routeQuery.admin_id)  {
+            query += "admin_id=" + routeQuery.admin_id + "&";
         }
-        else if  (this.creator_id){
-            query += "creator_id=" + this.creator_id + "&";
+        else if  (this.admin_id){
+            query += "admin_id=" + this.admin_id + "&";
         }
         if  (this.phone_number) {
             query += "phone_number=" + this.phone_number + "&";
@@ -144,17 +144,17 @@ export class PanelFilter {
         else if (routeQuery.amount_from) {
             query += "amount_from=" + routeQuery.amount_from + "&";
         }
-        if  (this.value_to) {
-            query += "value_to=" + this.value_to + "&";
+        if  (this.wallet_value_to) {
+            query += "wallet_value_to=" + this.wallet_value_to + "&";
         }
-        else if (routeQuery.value_to) {
-            query += "value_to=" + routeQuery.value_to + "&";
+        else if (routeQuery.wallet_value_to) {
+            query += "wallet_value_to=" + routeQuery.wallet_value_to + "&";
         }
-        if  (this.value_from) {
-            query += "value_from=" + this.value_from + "&";
+        if  (this.wallet_value_from) {
+            query += "wallet_value_from=" + this.wallet_value_from + "&";
         }
-        else if (routeQuery.value_from) {
-            query += "value_from=" + routeQuery.value_from + "&";
+        else if (routeQuery.wallet_value_from) {
+            query += "wallet_value_from=" + routeQuery.wallet_value_from + "&";
         }
         if  (this.status) {
             query += "status=" + this.status + "&";

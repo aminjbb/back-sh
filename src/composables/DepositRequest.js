@@ -35,8 +35,8 @@ export default function setup() {
         { name: 'نام ادمین', type:'auto-complete', value:'admin' , place:'نام ادمین'},
         { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
         { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
-        { name: 'حداقل موجودی کیف پول', type:'text', value:'value_from', place:'از '},
-        { name: 'حداکثر موجودی کیف پول ', type:'text', value:'value_to', place:' تا'},
+        { name: 'حداقل موجودی کیف پول', type:'text', value:'wallet_value_from', place:'از '},
+        { name: 'حداکثر موجودی کیف پول ', type:'text', value:'wallet_value_to', place:' تا'},
         { name: 'تاریخ درخواست', type:'date', value:'created_at', place:'از'},
         { name: ' وضعیت درخواست', type:'select', value:'status', place:'تا'},
     ];
