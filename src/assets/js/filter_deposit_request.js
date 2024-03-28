@@ -25,28 +25,31 @@ export class PanelFilter {
         this.user_id = null;
         this.phone_number = null;
         this.card_number = null;
-        this.admin = null;
+        this.creator_id = null;
         this.amount_to = null;
         this.amount_from = null;
         this.value_to = null;
         this.value_from = null;
         this.status = null;
+        this.created_at_to_date = null;
+        this.created_at_from_date = null;
     }
 
     query_maker() {
         let query = "?";
+
+
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
-        console.log(this.phone_number)
         if (this.phone_number !== null) {
             query += "phone_number=" + this.phone_number + "&";
         }
         if (this.card_number !== null) {
             query += "card_number=" + this.card_number + "&";
         }
-        if (this.admin !== null) {
-            query += "admin=" + this.admin + "&";
+        if (this.creator_id !== null) {
+            query += "creator_id=" + this.creator_id + "&";
         }
         if (this.amount_to !== null) {
             query += "amount_to=" + this.amount_to + "&";
@@ -62,6 +65,12 @@ export class PanelFilter {
         }
         if (this.status !== null) {
             query += "status=" + this.status + "&";
+        }
+        if (this.created_at_to_date) {
+            query += "created_at_to_date=" + this.created_at_to_date + "&";
+        }
+        if (this.created_at_from_date) {
+            query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
 
         if (this.page!== null) {
@@ -87,6 +96,12 @@ export class PanelFilter {
         else if (routeQuery.user_id) {
             query += "user_id=" + routeQuery.user_id + "&";
         }
+        if (routeQuery.creator_id)  {
+            query += "creator_id=" + routeQuery.creator_id + "&";
+        }
+        else if  (this.creator_id){
+            query += "creator_id=" + this.creator_id + "&";
+        }
         if  (this.phone_number) {
             query += "phone_number=" + this.phone_number + "&";
         }
@@ -104,6 +119,18 @@ export class PanelFilter {
         }
         else if (routeQuery.admin) {
             query += "admin=" + routeQuery.admin + "&";
+        }
+        if (routeQuery.created_at_to_date) {
+            query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
+        }
+        else if (this.created_at_to_date) {
+            query += "created_at_to_date=" + this.created_at_to_date + "&";
+        }
+        if (routeQuery.created_at_from_date) {
+            query += "created_at_from_date=" + routeQuery.created_at_from_date + "&";
+        }
+        else if (this.created_at_from_date) {
+            query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
         if  (this.amount_to) {
             query += "amount_to=" + this.amount_to + "&";

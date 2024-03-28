@@ -89,7 +89,7 @@
                       variant="outlined"
                       prepend-inner-icon-cb="mdi-map-marker"
                       rounded="lg"
-                      v-model="user_id"
+                      v-model="user"
                       :items="userList"
                       item-title="name"
                       item-value="value"
@@ -124,23 +124,19 @@
 
 
               <!-- Date fields -->
-              <template v-else-if="Filter.type === 'date'">
+              <template v-else-if="Filter.value === 'created_at'">
                 <v-col cols="4" class="mt-3">
                   <div class="t13300 text-right mb-1">{{ Filter.name }}</div>
 
-                  <v-text-field
-                      v-model="values[index].value"
-                      variant="outlined"
-                      :placeholder="Filter.name"
-                      :class="`start-input${Filter.value}`">
 
-                  </v-text-field>
                   <date-picker
+                      range
                       clearable
+                      class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
                       format="jYYYY-jMM-jDD"
                       display-format="jYYYY-jMM-jDD"
-                      :custom-input="`.start-input${Filter.value}`"
-                      v-model="values[index].value" />
+                      v-model="createdAtModel"
+                      variant="outlined" />
                 </v-col>
               </template>
             </template>
@@ -215,6 +211,7 @@ export default {
       userSearchList:[],
       filteredData: [],
       user:null,
+
       statusItems: [
         {
           label: 'در انتظار',
@@ -256,18 +253,18 @@ export default {
         return e
       }
     },
-    user_id() {
+
+    phone_number() {
       try {
-        const labelObject = this.values.find(element => element.name === 'user_id');
+        const labelObject = this.values.find(element => element.name === 'phone_number');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-
-    phone_number() {
+    status() {
       try {
-        const labelObject = this.values.find(element => element.name === 'phone_number');
+        const labelObject = this.values.find(element => element.name === 'status');
         return labelObject.value
       } catch (error) {
         return ''
@@ -281,14 +278,7 @@ export default {
         return ''
       }
     },
-    admin() {
-      try {
-        const labelObject = this.values.find(element => element.name === 'admin');
-        return labelObject.value
-      } catch (error) {
-        return ''
-      }
-    },
+
     amount_to() {
       try {
         const labelObject = this.values.find(element => element.name === 'amount_to');
@@ -337,23 +327,21 @@ export default {
         return []
       }
     },
-    created_at_from() {
-      try {
-        const splitDate = this.created_at[0].split('-')
-        return jalaliToGregorian(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
-      } catch (error) {
-        return ''
+    createdAt() {
+      if (this.createdAtModel) {
+        if (this.createdAtModel[0] && !this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+        } else if (this.createdAtModel[0] && this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          const splitDateUp = this.createdAtModel[1].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDateUp[0], splitDateUp[1], splitDateUp[2])
+        }
       }
+      return this.gregorianCreateDate;
     },
-    created_at_to() {
-      try {
-        const splitDate = this.created_at[1].split('-')
-        return jalaliToGregorian(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
-      } catch (error) {
-        return ''
-      }
-    },
-
   },
 
   methods: {
@@ -371,18 +359,24 @@ export default {
 
     setFilter() {
       const Filter = new PanelFilter()
-      if (this.user_id) {
-        Filter.user_id = this.user_id
+
+      if (this.user) {
+        Filter.user_id = this.user
       }
       else {
         Filter.user_id = null
       }
-      console.log(this.phone_number)
       if (this.phone_number) {
         Filter.phone_number = this.phone_number
       }
       else {
         Filter.phone_number = null
+      }
+      if (this.admin) {
+        Filter.creator_id = this.admin
+      }
+      else {
+        Filter.creator_id = null
       }
 
       if (this.card_number) {
@@ -391,7 +385,17 @@ export default {
       else {
         Filter.card_number = null
       }
+      if (this.createdAt && this.createdAt[0]) {
+        Filter.created_at_from_date = this.createdAt[0]
+      } else {
+        Filter.created_at_from_date = null
+      }
 
+      if (this.createdAt && this.createdAt[1]) {
+        Filter.created_at_to_date = this.createdAt[1]
+      } else {
+        Filter.created_at_to_date = null
+      }
       if (this.amount_to) {
         Filter.amount_to = this.amount_to
       }
@@ -417,6 +421,12 @@ export default {
       }
       else {
         Filter.value_from = null
+      }
+      if (this.statusModel) {
+        Filter.status = this.statusModel
+      }
+      else {
+        Filter.status = null
       }
 
       Filter.page = 1;

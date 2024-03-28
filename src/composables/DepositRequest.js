@@ -23,7 +23,7 @@ export default function setup() {
         { name: ' شماره کارت مشتری', show: true, value:'type' , order: false},
         { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
         { name: ' موجودی کیف پول', show: true, value:'created_at', order: false },
-        { name: ' تاریخ درخواست ', show: true, value:'updated_at', order: false },
+        { name: ' تاریخ درخواست ', show: true, value:'created_at', order: false },
         // { name: 'نام ادمین ', show: true, value:'updated_at', order: false },
         { name: 'وضعیت تراکنش', show: true, value:'is_active', order: false },
     ]);
