@@ -1,8 +1,8 @@
-import {ref, onMounted, watch} from 'vue';
+import {ref, watch} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 import {useRouter, useRoute} from 'vue-router'
-import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
+import { onBeforeRouteUpdate} from 'vue-router'
 import {PanelFilter} from '@/assets/js/filter.js'
 export default function setup() {
     const permissions = ref([]);

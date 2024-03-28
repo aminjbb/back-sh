@@ -5,17 +5,12 @@
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
       <Table
-          :getShipmentRequestsList="getShipmentRequestsList"
           class="flex-grow-1"
           :header="header"
-          :items="ShipmentRequestsList"
+          :items="contactUsList"
           :page="page"
           :perPage="dataTableLength"
-          activePath="page/crud/update/activation/"
-          :loading="loading"
-          updateUrl="page/csv/mass-update"
-
-          model="page" />
+          :loading="loading"/>
 
       <v-divider />
 
@@ -70,49 +65,21 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
-  setup(props) {
+  setup() {
     const {
-      pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      addPagination,
-      addPerPage,
-      loading
+      pageLength, contactUsList ,addPerPage, getContactUs,
+      dataTableLength, page, header, loading
     } = ContactUs();
     return {
-      pageLength,
-      getShipmentRequestsList,
-      ShipmentRequestsList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      addPagination,
-      addPerPage,
-      loading
+      pageLength, contactUsList ,addPerPage, getContactUs,
+      dataTableLength, page, header, loading
     };
   },
   data() {
     return {
-      mockData :  {
-        "id": 1,
-        "full_name": "ناشناس",
-        "subject": "suggestion",
-        "phone_number": null,
-        "email": null,
-        "description": "scsdcsdc",
-        "created_at": "2024-03-11T10:13:18.000000Z",
-        "updated_at": "2024-03-11T10:13:18.000000Z"
-      }
+
     }
-
-
   },
-
   components: {
     Table,
     ModalGroupAdd,
@@ -134,13 +101,13 @@ export default {
 
     updateList(status){
       if(status === 'true'){
-        this.getShipmentRequestsList();
+        this.getContactUs();
       }
     },
   },
 
   mounted() {
-    this.getShipmentRequestsList();
+    this.getContactUs();
   },
 
   watch: {
@@ -161,7 +128,7 @@ export default {
       }
     },
     $route(){
-      this.getShipmentRequestsList();
+      this.getContactUs();
 
     }
   }
