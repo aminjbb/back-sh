@@ -165,19 +165,19 @@ export default {
             }
         },
 
-        shelfNumberFrom() {
+        placementNumberFrom() {
             try {
-                const shelfNumberFromObject = this.values.find(element => element.name === 'shelf_number_from');
-                return shelfNumberFromObject.value
+                const placementNumberFromObject = this.values.find(element => element.name === 'placement_number_from');
+                return placementNumberFromObject.value
             } catch (error) {
                 return ''
             }
         },
 
-        shelfNumberTo() {
+        placementNumberTo() {
             try {
-                const shelfNumberToObject = this.values.find(element => element.name === 'shelf_number_to');
-                return shelfNumberToObject.value
+                const placementNumberToObject = this.values.find(element => element.name === 'placement_number_to');
+                return placementNumberToObject.value
             } catch (error) {
                 return ''
             }
@@ -220,11 +220,11 @@ export default {
 
     methods: {
         placeholder(value) {
-            if (value === 'row_number_from' || value === 'shelf_number_from' || value === 'step_number_from') {
+            if (value === 'row_number_from' || value === 'placement_number_from' || value === 'step_number_from') {
                 return 'از'
             }
 
-            else if(value === 'row_number_to' || value === 'shelf_number_to' || value === 'step_number_to') {
+            else if(value === 'row_number_to' || value === 'placement_number_to' || value === 'step_number_to') {
                 return 'تا'
             }
 
@@ -254,16 +254,16 @@ export default {
                 filter.row_number_to = null
             }
 
-            if (this.shelfNumberFrom) {
-                filter.shelf_number_from = this.shelfNumberFrom
-            } else if (this.$route.query.shelf_number_from) {
-                filter.shelf_number_from = null
+            if (this.placementNumberFrom) {
+                filter.placement_number_from = this.placementNumberFrom
+            } else if (this.$route.query.placement_number_from) {
+                filter.placement_number_from = null
             }
 
-            if (this.shelfNumberTo) {
-                filter.shelf_number_to = this.shelfNumberTo
-            } else if (this.$route.query.shelf_number_to) {
-                filter.shelf_number_to = null
+            if (this.placementNumberTo) {
+                filter.placement_number_to = this.placementNumberTo
+            } else if (this.$route.query.placement_number_to) {
+                filter.placement_number_to = null
             }
 
             if (this.stepNumberFrom) {
@@ -276,6 +276,12 @@ export default {
                 filter.step_number_to = this.stepNumberTo
             } else if (this.$route.query.step_number_to) {
                 filter.step_number_to = null
+            }
+
+            if (this.createdAt && this.createdAt[0]) {
+                filter.created_at_from_date = this.createdAt[0]
+            } else {
+                filter.created_at_from_date = null
             }
 
             if (this.createdAt && this.createdAt[1]) {
@@ -302,7 +308,7 @@ export default {
             this.filterField.forEach(el => {
                 const form = {
                     name: el.value,
-                    value: 'null'
+                    value: null
                 }
 
                 this.values.push(form)

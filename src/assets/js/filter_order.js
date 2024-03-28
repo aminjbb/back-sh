@@ -22,8 +22,10 @@ export class PanelFilter {
         this.order = 'created_at';
         this.order_type = 'desc';
         this.id = null;
+        this.order_id = null;
         this.orderNumber = null;
         this.creator_id = null;
+        this.user_id = null;
 
         this.status = null;
         this.payment_status = null;
@@ -56,12 +58,21 @@ export class PanelFilter {
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }
+
+        if (this.order_id !== null) {
+            query += "order_id=" + this.order_id + "&";
+        }
+
         if (this.orderNumber !== null) {
             query += "order_number=" + this.orderNumber + "&";
         }
 
         if (this.creator_id !== null) {
             query += "creator_id=" + this.creator_id + "&";
+        }
+
+        if (this.user_id !== null) {
+            query += "user_id=" + this.user_id + "&";
         }
 
         if (this.status !== null) {
@@ -156,6 +167,13 @@ export class PanelFilter {
         } else if (routeQuery.id) {
             query += "id=" + routeQuery.id + "&";
         }
+
+        if (this.order_id) {
+            query += "order_id=" + this.order_id + "&";
+        } else if (routeQuery.order_id) {
+            query += "order_id=" + routeQuery.order_id + "&";
+        }
+
         if (this.orderNumber) {
             query += "order_number=" + this.orderNumber + "&";
         } else if (routeQuery.order_number) {
@@ -166,6 +184,12 @@ export class PanelFilter {
             query += "creator_id=" + this.creator_id + "&";
         } else if (routeQuery.creator_id) {
             query += "creator_id=" + routeQuery.creator_id + "&";
+        }
+
+        if (this.user_id) {
+            query += "user_id=" + this.user_id + "&";
+        } else if (routeQuery.user_id) {
+            query += "user_id=" + routeQuery.user_id + "&";
         }
 
         if (this.status) {
@@ -290,11 +314,25 @@ export class PanelFilter {
         } else if (routeQuery.id) {
             query += "id=" + routeQuery.id + "&";
         }
+
+        if (this.order_id) {
+            query += "order_id=" + this.order_id + "&";
+        } else if (routeQuery.order_id) {
+            query += "order_id=" + routeQuery.order_id + "&";
+        }
+
         if (this.creator_id) {
             query += "creator_id=" + this.creator_id + "&";
         } else if (routeQuery.creator_id) {
             query += "creator_id=" + routeQuery.creator_id + "&";
         }
+
+        if (this.user_id) {
+            query += "user_id=" + this.user_id + "&";
+        } else if (routeQuery.user_id) {
+            query += "user_id=" + routeQuery.user_id + "&";
+        }
+
         if (this.status) {
             query += "status=" + this.status + "&";
         } else if (routeQuery.status) {
