@@ -57,9 +57,7 @@ export class PanelFilter {
         if (this.per_page !== null) {
             query += "per_page=" + this.per_page + "&";
         }
-        if (this.start_time !== null) {
-            query += "start_time=" + this.start_time + "&";
-        }
+
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
