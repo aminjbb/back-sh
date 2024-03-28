@@ -1,18 +1,5 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="100" class="ma-5 br-12 d-flex align-center px-10">
-      <v-row justify="start" align="center">
-        <v-col cols="6">
-          <v-text-field placeholder="نام انبار دار" variant="outlined" v-model="adminName"/>
-
-        </v-col>
-        <v-col cols="2">
-          <v-btn @click="filterData()" color="primary500">
-            جستوجو
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <InitialTable
@@ -29,17 +16,6 @@
       <v-divider/>
 
       <v-card-actions class="pb-3">
-        <!--        <v-row class="px-5 py-2" justify="end">-->
-        <!--          <v-btn-->
-        <!--              @click="packingData()"-->
-        <!--              color="primary500"-->
-        <!--              height="40"-->
-        <!--              rounded-->
-        <!--              variant="flat"-->
-        <!--              class="px-8 mt-2">-->
-        <!--            بستن بسته-->
-        <!--          </v-btn>-->
-        <!--        </v-row>-->
       </v-card-actions>
     </v-card>
   </div>
@@ -157,7 +133,7 @@ export default {
     async filterData() {
       if (this.adminName && this.adminName !== "" && this.adminName != null) {
         const searchTermRegex = new RegExp(this.adminName, 'g');
-        const filterData = this.shipmentShpsListFilterd.filter(element => {
+        const filterData = this.shpsList.shps_list.filter(element => {
           return searchTermRegex.test(element.admin_name)
         })
 
