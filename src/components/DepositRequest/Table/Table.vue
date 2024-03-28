@@ -224,7 +224,7 @@
 
     <DetailModalTest />
 
-    <ModalRejectWithdrawRequest :getShipmentRequestsList="getShipmentRequestsList"/>
+    <ModalRejectWithdrawRequest :getWithdrawRequestList="getWithdrawRequestList"/>
   </div>
 </template>
 
@@ -255,7 +255,7 @@ export default {
   },
 
   props: {
-    getShipmentRequestsList:{type:Function},
+    getWithdrawRequestList:{type:Function},
     /**
      * List Items for header
      */
@@ -424,7 +424,7 @@ export default {
 
       if (data.status === 'Success') {
 
-        this.getShipmentRequestsList()
+        this.getWithdrawRequestList()
 
         openToast(
             this.$store,
@@ -439,16 +439,7 @@ export default {
       }
     },
 
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
-    /**
-     * retailShipment detail modal
-     */
+
 
     async withdrawDetail(item) {
       const AxiosMethod = new AxiosCall()

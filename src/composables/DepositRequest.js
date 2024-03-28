@@ -6,8 +6,8 @@ import {PanelFilter} from "../assets/js/filter_deposit_request";
 
 
 export default function setup() {
-    const ShipmentRequestsList = ref([]);
-    const shipmentRequest = ref([])
+    const WithdrawRequestList = ref([]);
+    const WithdrawRequest = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -50,7 +50,7 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getShipmentRequestsList(query) {
+    async function getWithdrawRequestList(query) {
 
         let paramsQuery = null
         loading.value = true
@@ -65,8 +65,8 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            ShipmentRequestsList.value = data.data
-            shipmentRequest.value = data.data.id
+            WithdrawRequestList.value = data.data
+            WithdrawRequest.value = data.data.id
 
 
             loading.value = false
@@ -97,8 +97,8 @@ export default function setup() {
     })
 
     return {
-        pageLength, filterField, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
-        dataTableLength, page, header, loading, shipmentRequest
+        pageLength, filterField, WithdrawRequestList ,addPerPage, getWithdrawRequestList,
+        dataTableLength, page, header, loading, WithdrawRequest
     }
 }
 
