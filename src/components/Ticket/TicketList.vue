@@ -69,7 +69,7 @@
                                 :length="pageLength"
                                 rounded="circle"
                                 size="40"
-                                :total-visible="4"
+                                :total-visible="7"
                                 prev-icon="mdi-chevron-right"
                                 next-icon="mdi-chevron-left"
                             />
@@ -104,7 +104,7 @@
 import { ref } from 'vue'
 //components
 import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
+import ModalTableFilter from '@/components/Ticket/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
 import Echo from "laravel-echo";

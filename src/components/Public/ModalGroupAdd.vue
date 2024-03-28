@@ -195,13 +195,16 @@ export default {
      * Select file
      */
     selectFile() {
-      var input = document.createElement('input');
-      input.type = 'file';
-      input.onchange = e => {
+
+      let input = document.createElement('input')
+      input.setAttribute('type', 'file')
+      input.setAttribute('multiple', '')
+      input.addEventListener('change', e => {
         var file = e.target.files[0];
         this.uploadFile(file)
-      }
-      input.click();
+      })
+      input.click()
+
     }
   },
 }

@@ -166,6 +166,7 @@ import {
   AxiosCall
 } from "@/assets/js/axios_call";
 import Menu from '@/composables/Menu'
+import {convertDateToGregorian} from "@/assets/js/functions";
 export default {
   setup(){
     const {allMenu, getAllMenu } = new Menu()
@@ -265,6 +266,21 @@ export default {
   methods: {
     setFilter() {
       const filter = new PanelFilter()
+      console.log(this.createdAtModel)
+     if (this.createdAtModel){
+       if (this.createdAtModel[0]) {
+         const gDate = convertDateToGregorian(this.createdAtModel[0], '-' , false)
+         filter.createdAtFrom = gDate
+       } else if (this.$route.query.created_at_from) {
+         filter.createdAtTo = null
+       }
+       if (this.createdAtModel[1]) {
+         const gDate = convertDateToGregorian(this.createdAtModel[1], '-' , false)
+         filter.createdAtTo = gDate
+       } else if (this.$route.query.created_at_to) {
+         filter.createdAtTo = null
+       }
+     }
 
       if (this.label) {
         filter.label = this.label

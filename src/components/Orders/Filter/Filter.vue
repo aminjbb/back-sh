@@ -16,7 +16,7 @@
         v-model="dialog"
         width="1000">
         <v-card>
-            <header class="modal__header d-flex justify-center align-center">
+            <header class="modal__header d-flex justify-center align-center mt-3">
                 <span class="t16400 pa-6">
                     فیلتر پیشرفته
                 </span>
@@ -72,7 +72,7 @@
                                 v-debounce="searchUser" />
                         </v-col>
 
-                        <v-col v-if="filter.type === 'select' && filter.value !== 'creator_id'" :cols="filter.value == 'receive_state_id' || filter.value == 'receive_city_id' ? '6' : '4'">
+                        <v-col v-if="filter.type === 'select' && filter.value !== 'creator_id'" cols="4">
                             <div class="t13300 text-right mb-2">{{filter.name}}</div>
                             <v-select
                                 v-if="filter.value ==='status'"

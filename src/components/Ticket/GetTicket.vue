@@ -33,11 +33,18 @@
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> کاربر :</span>
-            <div class="pr-2 mt-2">{{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}</div>
+            <div class="pr-2 mt-2">
+              <template v-if="oneTicket.user.first_name">
+                {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
+              </template>
+              <template v-else>
+                بدون نام
+              </template>
+            </div>
           </div>
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> موبایل :</span>
-            <div class="pr-2 mt-2">{{ oneTicket.user.phone_number }}</div>
+            <div class="pr-2 mt-2 number-font">{{ oneTicket.user.phone_number }}</div>
           </div>
 
           <v-btn
@@ -60,12 +67,17 @@
                 min-height="100"
                 class="mb-10">
               <div class="d-flex justify-space-between pa-6">
-                            <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
-                                {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
-                            </span>
-                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
-                                {{ convertDate(oneTicket.created_at) }}
-                            </span>
+                  <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
+                    <template v-if="oneTicket.user.first_name">
+                      {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
+                    </template>
+                    <template v-else>
+                      بدون نام
+                    </template>
+                  </span>
+                  <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
+                      {{ convertDate(oneTicket.created_at) }}
+                  </span>
               </div>
 
               <v-divider color="black"/>
