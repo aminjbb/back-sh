@@ -102,15 +102,15 @@
                     hide-details
                     v-model="provinceModel"
                     @update:modelValue="getCities()" />
-                <v-autocomplete
-                    v-if="filter.value == 'city_id'"
-                    :items="cityList"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    hide-details
-                    :rules="rule"
-                    v-model="cityModel" />
+<!--                <v-autocomplete-->
+<!--                    v-if="filter.value == 'city_id'"-->
+<!--                    :items="cityList"-->
+<!--                    density="compact"-->
+<!--                    variant="outlined"-->
+<!--                    single-line-->
+<!--                    hide-details-->
+<!--                    :rules="rule"-->
+<!--                    v-model="cityModel" />-->
                 <v-autocomplete
                     v-if="filter.value == 'sku_id'"
                     :items="skuList"
@@ -292,6 +292,7 @@ export default {
 
       ],
       voucherType: null,
+      createdAtModel: null,
       voucherAmountType: null,
       voucherActive: null,
       sendingItem: null,
@@ -450,17 +451,33 @@ export default {
         return ''
       }
     },
-    start_time() {
+    start_time_from() {
       try {
-        const gregorianDate = convertDateToGregorian( this.start_time , '-' , false)
+        const gregorianDate = convertDateToGregorian( this.start_time[0] , '-' , false)
         return gregorianDate
       } catch (error) {
         return ''
       }
     },
-    end_time() {
+    start_time_to() {
       try {
-        const gregorianDate = convertDateToGregorian( this.end_time , '-' , false)
+        const gregorianDate = convertDateToGregorian( this.start_time[1] , '-' , false)
+        return gregorianDate
+      } catch (error) {
+        return ''
+      }
+    },
+    end_time_to() {
+      try {
+        const gregorianDate = convertDateToGregorian( this.end_time[1] , '-' , false)
+        return gregorianDate
+      } catch (error) {
+        return ''
+      }
+    },
+    end_time_from() {
+      try {
+        const gregorianDate = convertDateToGregorian( this.end_time[0] , '-' , false)
         return gregorianDate
       } catch (error) {
         return ''
@@ -470,6 +487,8 @@ export default {
   },
 
   methods: {
+
+
     async searchSku(e) {
       const filter = {
         per_page: 10,
@@ -583,13 +602,33 @@ export default {
       } else if (this.$route.query.discount_type) {
         filter.discount_type = null
       }
+      if(this.start_time_to) {
+        filter.start_time_to = this.start_time_to
+      } else if (this.$route.query.start_time_to) {
+        filter.start_time_to = null
+      }
+      if(this.start_time_from) {
+        filter.start_time_from = this.start_time_from
+      } else if (this.$route.query.start_time_from) {
+        filter.start_time_from = null
+      }
+      if(this.end_time_to) {
+        filter.end_time_to = this.end_time_to
+      } else if (this.$route.query.end_time_to) {
+        filter.end_time_to = null
+      }
+      if(this.end_time_from) {
+        filter.end_time_from = this.end_time_from
+      } else if (this.$route.query.end_time_from) {
+        filter.end_time_from = null
+      }
       if (this.sendingItem) {
         filter.sending_method = this.sendingItem
       } else if (this.$route.query.sending_method) {
         filter.sending_method = null
       }
-      if (this.state_id) {
-        filter.state_id = this.state_id
+      if (this.provinceModel) {
+        filter.state_id = this.provinceModel
       } else if (this.$route.query.state_id) {
         filter.state_id = null
       }
@@ -609,6 +648,23 @@ export default {
       this.dialog = false;
     },
 
+
+    async getCities() {
+      this.cities = []
+      this.cityModel = null
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `system/state/crud/get/${this.provinceModel}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.cities = data.data.cities
+      }
+    },
     removeAllFilters() {
       this.$router.push('/' + this.path);
       this.values = [];
