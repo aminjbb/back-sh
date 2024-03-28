@@ -92,7 +92,7 @@
 
             <div
                 class="seller__add-sku-btn d-flex justify-center align-center pointer"
-                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps,item.placer_id)">
+                @click="submitShipmentsForm(item.id , item.shipment_id , item.shps,item.placer_id,item.placement_id)">
               <v-icon size="15">
                 {{ submittedItemId === item.id || item.label_printed === 1 ? 'mdi-check' : 'mdi-plus' }}
               </v-icon>
@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id"/>
+    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id" :placementId="currentItem.placement_id"/>
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
                             :shipmentId="shipmentId"/>
   </div>
@@ -290,7 +290,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print-initial/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=1&placer_id=${shipment.placer_id}`
+      AxiosMethod.end_point = `shipment/print-initial/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=1&placer_id=${shipment.placer_id}&placement_id=${shipment.placement_id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         const dialogForm = {
@@ -355,7 +355,7 @@ export default {
      * sending data in save btn
      */
 
-    async submitShipmentsForm(itemId, shipmentId, shps, placerId) {
+    async submitShipmentsForm(itemId, shipmentId, shps, placerId,placementId) {
 
       this.loading = true;
       let formdata = new FormData();
@@ -365,6 +365,7 @@ export default {
 
       formdata.append('package_id', 1);
       formdata.append('initial_placer_id', placerId);
+      formdata.append('initial_placement_id', placementId);
 
       formdata.append('shps', shps);
       formdata.append(`shipment_id`, shipmentId);

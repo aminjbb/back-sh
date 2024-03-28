@@ -244,7 +244,7 @@ export default {
             this.filterField.forEach(el => {
                 const form = {
                     name: el.value,
-                    value: 'null'
+                    value: null
                 }
 
                 this.values.push(form)
