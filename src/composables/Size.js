@@ -7,7 +7,6 @@ export default function setup(posts) {
     const size = ref([]);
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
 
     const header = [

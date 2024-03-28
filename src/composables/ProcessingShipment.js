@@ -1,6 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
@@ -9,7 +8,6 @@ export default function setup() {
     const shipmentShpsList =ref([])
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([

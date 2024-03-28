@@ -1,5 +1,4 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref, watch } from 'vue';
 import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
@@ -108,7 +107,7 @@ export default function setup() {
 
         }
     };
-    async function getCargo(query) {
+    async function getCargo() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')

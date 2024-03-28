@@ -1,8 +1,7 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 import { useRouter, useRoute } from 'vue-router'
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import {UserPanelFilter} from "@/assets/js/filter_user";
 import {userWalletFilter} from "@/assets/js/wallet_filter";
 export default function setup() {

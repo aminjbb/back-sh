@@ -12,7 +12,6 @@ export default function setup() {
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
-
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه محموله', show: true , value:'id', order: false},

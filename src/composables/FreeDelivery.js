@@ -1,5 +1,4 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
@@ -72,8 +71,6 @@ export default function setup() {
         {name:'فعال سازی ' , type:'switch', value:'active'},
     ]);
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
     async function  getFreeDeliveryList(query) {
@@ -93,7 +90,7 @@ export default function setup() {
             freeDeliveryList.value = data.data.data
         }
     };
-    async function  getVoucher(query) {
+    async function  getVoucher() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -106,7 +103,7 @@ export default function setup() {
             voucher.value = data.data
         }
     };
-    async function  getSkuList(query) {
+    async function  getSkuList() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -119,7 +116,7 @@ export default function setup() {
             skuList.value = data.data.data
         }
     };
-    async function  getCustomerList(query) {
+    async function  getCustomerList() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
