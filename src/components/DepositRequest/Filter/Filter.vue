@@ -83,8 +83,24 @@
                       v-debounce="searchAdmin"
                       variant="outlined"
                   />
+                  <v-autocomplete
+                      v-if="Filter.value === 'user_id'"
+                      placeholder="شماره تلفن کاربر را وارد کنید"
+                      variant="outlined"
+                      prepend-inner-icon-cb="mdi-map-marker"
+                      rounded="lg"
+                      v-model="user"
+                      :items="userList"
+                      item-title="name"
+                      item-value="value"
+                      v-debounce="searchUser">
+
+                  </v-autocomplete>
                 </v-col>
+
               </template>
+
+
 
               <!-- Select fields -->
               <template v-else-if="Filter.type === 'select'">
@@ -106,24 +122,21 @@
                 </v-col>
               </template>
 
+
               <!-- Date fields -->
-              <template v-else-if="Filter.type === 'date'">
+              <template v-else-if="Filter.value === 'created_at'">
                 <v-col cols="4" class="mt-3">
                   <div class="t13300 text-right mb-1">{{ Filter.name }}</div>
 
-                  <v-text-field
-                      v-model="values[index].value"
-                      variant="outlined"
-                      :placeholder="Filter.name"
-                      :class="`start-input${Filter.value}`">
 
-                  </v-text-field>
                   <date-picker
+                      range
                       clearable
+                      class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
                       format="jYYYY-jMM-jDD"
                       display-format="jYYYY-jMM-jDD"
-                      :custom-input="`.start-input${Filter.value}`"
-                      v-model="values[index].value" />
+                      v-model="createdAtModel"
+                      variant="outlined" />
                 </v-col>
               </template>
             </template>
@@ -175,7 +188,7 @@ import { jalaliToGregorian } from '@/assets/js/functions'
 import Product from "@/composables/Product";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {AxiosCall} from "@/assets/js/axios_call";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment.js";
+import {PanelFilter} from "../../../assets/js/filter_deposit_request";
 
 export default {
   components: {  datePicker: VuePersianDatetimePicker,},
@@ -195,11 +208,14 @@ export default {
       active: false,
       values: [],
       originalData: [],
+      userSearchList:[],
       filteredData: [],
+      user:null,
+
       statusItems: [
         {
           label: 'در انتظار',
-          value: 'waiting',
+          value: 'pending',
         },
         {
           label: 'در حال بررسی',
@@ -222,57 +238,74 @@ export default {
   },
 
   computed: {
-    retail_id() {
+    userList(){
       try {
-        const labelObject = this.values.find(element => element.name === 'retail_id');
+        let users = []
+        this.userSearchList.forEach(user => {
+          const form = {
+            name: user?.first_name + ' ' +user?.last_name + '(' + user.phone_number + ')',
+            value: user
+          }
+          users.push(form)
+        })
+        return users
+      } catch (e) {
+        return e
+      }
+    },
+
+    phone_number() {
+      try {
+        const labelObject = this.values.find(element => element.name === 'phone_number');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    count_from() {
+    status() {
       try {
-        const labelObject = this.values.find(element => element.name === 'count_from');
+        const labelObject = this.values.find(element => element.name === 'status');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    count_to() {
+    card_number() {
       try {
-        const labelObject = this.values.find(element => element.name === 'count_to');
+        const labelObject = this.values.find(element => element.name === 'card_number');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    factor_id() {
+
+    amount_to() {
       try {
-        const labelObject = this.values.find(element => element.name === 'factor_id');
+        const labelObject = this.values.find(element => element.name === 'amount_to');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    number_from() {
+    amount_from() {
       try {
-        const labelObject = this.values.find(element => element.name === 'number_from');
+        const labelObject = this.values.find(element => element.name === 'amount_from');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    number_to() {
+    value_to() {
       try {
-        const labelObject = this.values.find(element => element.name === 'number_to');
+        const labelObject = this.values.find(element => element.name === 'value_to');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    created_at() {
+    value_from() {
       try {
-        const labelObject = this.values.find(element => element.name === 'created_at');
+        const labelObject = this.values.find(element => element.name === 'value_from');
         return labelObject.value
       } catch (error) {
         return ''
@@ -294,40 +327,51 @@ export default {
         return []
       }
     },
-    created_at_from() {
-      try {
-        const splitDate = this.created_at[0].split('-')
-        return jalaliToGregorian(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
-      } catch (error) {
-        return ''
+    createdAt() {
+      if (this.createdAtModel) {
+        if (this.createdAtModel[0] && !this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+        } else if (this.createdAtModel[0] && this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          const splitDateUp = this.createdAtModel[1].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDateUp[0], splitDateUp[1], splitDateUp[2])
+        }
       }
+      return this.gregorianCreateDate;
     },
-    created_at_to() {
-      try {
-        const splitDate = this.created_at[1].split('-')
-        return jalaliToGregorian(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))
-      } catch (error) {
-        return ''
-      }
-    },
-
   },
 
   methods: {
+    async searchUser(search) {
+      this.skuSearchList = []
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `user/crud/index?phone_number=${search}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.userSearchList = data.data.data
+      }
+    },
 
     setFilter() {
-      const Filter = new RetailShipmentFilter()
-      if (this.factor_id) {
-        Filter.factor_id = this.factor_id
-      }
+      const Filter = new PanelFilter()
 
-      if (this.retail_id) {
-        Filter.id = this.retail_id
+      if (this.user) {
+        Filter.user_id = this.user
       }
       else {
-        Filter.id = null
+        Filter.user_id = null
       }
-
+      if (this.phone_number) {
+        Filter.phone_number = this.phone_number
+      }
+      else {
+        Filter.phone_number = null
+      }
       if (this.admin) {
         Filter.creator_id = this.admin
       }
@@ -335,43 +379,48 @@ export default {
         Filter.creator_id = null
       }
 
-      if (this.count_from) {
-        Filter.shps_count_from = this.count_from
+      if (this.card_number) {
+        Filter.card_number = this.card_number
       }
       else {
-        Filter.shps_count_from = null
+        Filter.card_number = null
       }
-
-      if (this.count_to) {
-        Filter.shps_count_to = this.count_to
-      }
-      else {
-        Filter.shps_count_to = null
-      }
-
-      if (this.number_from) {
-        Filter.shps_variety_from = this.number_from
-      }
-      else {
-        Filter.shps_variety_from = null
-      }
-      if (this.number_to) {
-        Filter.shps_variety_to = this.number_to
-      }
-      else {
-        Filter.shps_variety_to = null
-      }
-      if (this.created_at_from) {
-        Filter.created_at_from_date = this.created_at_from
-      }
-      else {
+      if (this.createdAt && this.createdAt[0]) {
+        Filter.created_at_from_date = this.createdAt[0]
+      } else {
         Filter.created_at_from_date = null
       }
-      if (this.created_at_to) {
-        Filter.created_at_to_date = this.created_at_to
+
+      if (this.createdAt && this.createdAt[1]) {
+        Filter.created_at_to_date = this.createdAt[1]
+      } else {
+        Filter.created_at_to_date = null
+      }
+      if (this.amount_to) {
+        Filter.amount_to = this.amount_to
       }
       else {
-        Filter.created_at_to_date = null
+        Filter.amount_to = null
+      }
+
+      if (this.amount_from) {
+        Filter.amount_from = this.amount_from
+      }
+      else {
+        Filter.amount_from = null
+      }
+
+      if (this.value_to) {
+        Filter.value_to = this.value_to
+      }
+      else {
+        Filter.value_to = null
+      }
+      if (this.value_from) {
+        Filter.value_from = this.value_from
+      }
+      else {
+        Filter.value_from = null
       }
       if (this.statusModel) {
         Filter.status = this.statusModel

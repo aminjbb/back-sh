@@ -11,7 +11,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="shipment-requests/index" :filterField="filterField" />
+            <ModalTableFilter path="withdraw-request/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -78,7 +78,7 @@
 <script>
 import Table from '@/components/DepositRequest/Table/Table.vue'
 import ShipmentRequests from "@/composables/DepositRequest";
-import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
+import ModalTableFilter from '@/components/DepositRequest/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";

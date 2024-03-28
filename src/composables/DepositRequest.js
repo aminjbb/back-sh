@@ -2,7 +2,7 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
+import {PanelFilter} from "../assets/js/filter_deposit_request";
 
 
 export default function setup() {
@@ -23,28 +23,28 @@ export default function setup() {
         { name: ' شماره کارت مشتری', show: true, value:'type' , order: false},
         { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
         { name: ' موجودی کیف پول', show: true, value:'created_at', order: false },
-        { name: ' تاریخ درخواست ', show: true, value:'updated_at', order: false },
+        { name: ' تاریخ درخواست ', show: true, value:'created_at', order: false },
         // { name: 'نام ادمین ', show: true, value:'updated_at', order: false },
         { name: 'وضعیت تراکنش', show: true, value:'is_active', order: false },
     ]);
 
     const filterField = [
-        {name:'شماره تماس' , type:'text', value:'retail_id' , place:'شماره تماس'},
-        { name:'نام مشتری' , type: 'text', value:'count_from' , place:'نام مشتری'},
-        { name: 'شماره کارت مشتری', type:'number', value:'count_to' , place:'شماره کارت مشتری'},
-        { name: 'نام ادمین', type:'text', value:'factor_id' , place:'نام ادمین'},
-        { name: 'حداقل مبلغ درخواستی', type:'number', value:'number_from', place:'از'},
-        { name: 'حداکثر مبلغ درخواستی', type:'number', value:'number_to', place:'تا'},
-        { name: 'حداقل موجودی کیف پول', type:'number', value:'admin', place:'از '},
-        { name: 'حداکثر موجودی کیف پول ', type:'number', value:'created_at', place:' تا'},
-        { name: 'تاریخ درخواست', type:'date', value:'status', place:'از'},
+        {name:'شماره تماس' , type:'text', value:'phone_number' , place:'شماره تماس'},
+        { name:'نام مشتری' , type: 'auto-complete', value:'user_id' , place:'نام مشتری'},
+        { name: 'شماره کارت مشتری', type:'text', value:'card_number' , place:'شماره کارت مشتری'},
+        { name: 'نام ادمین', type:'auto-complete', value:'admin' , place:'نام ادمین'},
+        { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
+        { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
+        { name: 'حداقل موجودی کیف پول', type:'text', value:'value_from', place:'از '},
+        { name: 'حداکثر موجودی کیف پول ', type:'text', value:'value_to', place:' تا'},
+        { name: 'تاریخ درخواست', type:'date', value:'created_at', place:'از'},
         { name: ' وضعیت درخواست', type:'select', value:'status', place:'تا'},
     ];
 
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
+    const filter = new PanelFilter()
 
     /**
      * Get page list
