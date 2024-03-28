@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ShipmentRequests from "@/composables/DepositRequest.js";
+import WithdrawRequests from "@/composables/DepositRequest.js";
 import {
   convertDateToJalai
 } from "@/assets/js/functions";
@@ -55,7 +55,7 @@ export default {
 
 
       detail
-    } = ShipmentRequests();
+    } = WithdrawRequests();
 
     return {
 

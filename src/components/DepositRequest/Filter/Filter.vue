@@ -295,17 +295,17 @@ export default {
         return ''
       }
     },
-    value_to() {
+    wallet_value_to() {
       try {
-        const labelObject = this.values.find(element => element.name === 'value_to');
+        const labelObject = this.values.find(element => element.name === 'wallet_value_to');
         return labelObject.value
       } catch (error) {
         return ''
       }
     },
-    value_from() {
+    wallet_value_from() {
       try {
-        const labelObject = this.values.find(element => element.name === 'value_from');
+        const labelObject = this.values.find(element => element.name === 'wallet_value_from');
         return labelObject.value
       } catch (error) {
         return ''
@@ -360,8 +360,8 @@ export default {
     setFilter() {
       const Filter = new PanelFilter()
 
-      if (this.user) {
-        Filter.user_id = this.user
+      if (this.user?.id) {
+        Filter.user_id = this.user?.id
       }
       else {
         Filter.user_id = null
@@ -373,10 +373,10 @@ export default {
         Filter.phone_number = null
       }
       if (this.admin) {
-        Filter.creator_id = this.admin
+        Filter.admin_id = this.admin
       }
       else {
-        Filter.creator_id = null
+        Filter.admin_id = null
       }
 
       if (this.card_number) {
@@ -410,17 +410,17 @@ export default {
         Filter.amount_from = null
       }
 
-      if (this.value_to) {
-        Filter.value_to = this.value_to
+      if (this.wallet_value_to) {
+        Filter.wallet_value_to = this.wallet_value_to
       }
       else {
-        Filter.value_to = null
+        Filter.wallet_value_to = null
       }
-      if (this.value_from) {
-        Filter.value_from = this.value_from
+      if (this.wallet_value_from) {
+        Filter.wallet_value_from = this.wallet_value_from
       }
       else {
-        Filter.value_from = null
+        Filter.wallet_value_from = null
       }
       if (this.statusModel) {
         Filter.status = this.statusModel
