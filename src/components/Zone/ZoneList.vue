@@ -5,41 +5,20 @@
               class="flex-grow-1"
               :header="header"
               :items="zoneList"
-              :page="page"
-              :perPage="dataTableLength"
+              :page="1"
+              :perPage="25"
               :loading="loading"
-              :rowList="rowList"
-              @updateList="updateList"
-              deletePath="placement/crud/delete/"
-              model="placement" />
-  
+              :rowList="rowList"/>
           <v-divider />
   
           <v-card-actions class="pb-3">
               <v-row class="px-8">
                   <v-col cols="3" class="d-flex justify-start" />
-  
                   <v-col cols="6" class="d-flex justify-center">
                       <div class="text-center">
                       </div>
                   </v-col>
-  
                   <v-col cols="3" class="d-flex justify-end">
-                      <!-- <div
-                          align="center"
-                          id="rowSection"
-                          class="d-flex align-center">
-                          <span class="ml-5">
-                              تعداد سطر در هر صفحه
-                          </span>
-                          <span class="mt-2" id="row-selector">
-                              <v-select
-                                  v-model="dataTableLength"
-                                  class="t1330"
-                                  variant="outlined"
-                                  :items="[25,50,100]" />
-                          </span>
-                      </div> -->
                   </v-col>
               </v-row>
           </v-card-actions>
@@ -53,17 +32,9 @@
   import Placement from "@/composables/Placement";
   
   export default {
-      setup(props) {
+      setup() {
           const {
-              pageLength,
-              getZoneList,
-              zoneList,
-              dataTableLength,
-              page,
-              header,
-              addPagination,
-              addPerPage,
-              loading,
+            zoneList, getZoneList, header,loading
           } = Zone();
           const {
               getRowList,
@@ -71,17 +42,7 @@
           } = Placement();
 
           return {
-              pageLength,
-              getZoneList,
-              zoneList,
-              dataTableLength,
-              page,
-              header,
-              addPagination,
-              addPerPage,
-              loading,
-              getRowList,
-              rowList
+              zoneList, getZoneList, header,loading, getRowList, rowList
           };
       },
   
@@ -93,23 +54,12 @@
           changeHeaderShow(index, value) {
               this.header[index].show = value
           },
-  
-          updateList(status) {
-              if (status === 'true') {
-                  this.getPlacementList();
-              }
-          },
       },
   
       mounted() {
           this.getZoneList();
           this.getRowList();
       },
-  
-      watch: {
-          dataTableLength(val) {
-              this.getZoneList(val)
-          },
-      }
+
   }
   </script>
