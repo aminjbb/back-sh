@@ -8,7 +8,7 @@
             :format="'CODE128'"
             :index="index"
             :shps="barCode?.shps?.id"
-            :text="barCode?.shps?.sku?.label.substring(0, 90)"
+            :text="barCode?.shps?.sku?.label.substring(0, 45)"
         ></barcode>
       </div>
     </v-col>
