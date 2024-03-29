@@ -89,6 +89,7 @@ export default {
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth =true
+      AxiosMethod.toast_error = true
       AxiosMethod.token =this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {

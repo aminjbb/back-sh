@@ -1,7 +1,6 @@
-import {ref, onMounted, watch} from 'vue';
-import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
+import {ref} from 'vue';
 import {PanelFilter} from '@/assets/js/filter.js'
-import {useRouter, useRoute} from 'vue-router'
+import { useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 

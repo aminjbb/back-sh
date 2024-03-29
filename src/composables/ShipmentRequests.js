@@ -6,9 +6,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 
 export default function setup() {
-    const retailObject = ref([])
     const ShipmentRequestsList = ref([]);
-    const detail = ref([])
     const shipmentRequest = ref([])
     const dataTableLength = ref(25)
     const pageLength = ref(1)

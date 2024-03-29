@@ -175,7 +175,6 @@ import { jalaliToGregorian } from '@/assets/js/functions'
 import value from "@/composables/Export";
 import Product from "@/composables/Product";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import {SkuSellerPanelFilter} from "@/assets/js/filter_sku_to_seller";
 import {AxiosCall} from "@/assets/js/axios_call";
 import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 

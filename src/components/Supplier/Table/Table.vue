@@ -67,11 +67,16 @@
                 </div>
 
                 <div
-                    v-if="item.id && header[1].show"
+                    v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                       <template v-if="item.id">
+                            {{ item.id }}
+                       </template>
+                       <template v-else>
+                            -
+                       </template>
                     </span>
                 </div>
 
@@ -90,74 +95,114 @@
                 </div>
 
                 <div
-                    v-if="item.full_name && header[3].show"
+                    v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.full_name }}
+                        <template v-if="item.full_name">
+                            {{ item.full_name }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.shopping_name && header[4].show"
+                    v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.shopping_name }}
+                        <template v-if="item.shopping_name">
+                            {{ item.shopping_name }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.type && header[5].show"
+                    v-if="header[5].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ getType(item.type) }}
+                        <template v-if="item.type">
+                            {{ getType(item.type) }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.state.label && header[6].show"
+                    v-if="header[6].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.state.label }}
+                        <template v-if="item.state.label">
+                            {{ item.state.label }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.city.label && header[7].show"
+                    v-if="header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.city.label }}
+                        <template v-if="item.city.label">
+                            {{ item.city.label }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.phone && header[8].show"
+                    v-if="header[8].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone }}
+                        <template v-if="item.phone ">
+                            {{ item.phone  }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.payment_period && header[9].show"
+                    v-if="header[9].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.payment_period }} روز
+                        <template v-if="item.payment_period ">
+                            {{ item.payment_period }} روز
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
                 <div
-                    v-if="item.created_at_fa && header[9].show"
+                    v-if="header[9].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.created_at_fa }}
+                        <template v-if="item.created_at_fa ">
+                            {{ item.created_at_fa }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 

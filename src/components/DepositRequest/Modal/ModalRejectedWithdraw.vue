@@ -87,7 +87,7 @@ import {
 } from "@/assets/js/functions";
 export default {
   props: {
-    getShipmentRequestsList: {
+    getWithdrawRequestList: {
       type: Function
     },
   },
@@ -131,7 +131,7 @@ export default {
       if (data) {
         this.loading = false
         this.subject = ''
-        this.getShipmentRequestsList()
+        this.getWithdrawRequestList()
         this.close()
       } else {
         this.loading = false

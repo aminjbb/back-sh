@@ -1,5 +1,5 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { ref, watch } from 'vue';
+import { onBeforeRouteUpdate } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import { PanelFilter} from '@/assets/js/filter.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'

@@ -39,22 +39,20 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name: 'شناسه سفارش', type: 'text', value: 'id'},
         {name: 'شناسه مرجوعی', type: 'text', value: 'id'},
-        {name: 'نام مشتری', type: 'text', value: 'user_id'},
+        {name: 'شناسه سفارش', type: 'text', value: 'order_id'},
+        {name: 'نام مشتری', type: 'select', value: 'user_id'},
         {name: 'وضعیت مرجوعی', type: 'select', value: 'status'},
         {name: 'روش پرداخت', type: 'select', value: 'payment_method'},
         {name: 'بررسی درخواست', type: 'select', value: 'payment_method'},
-        {name: 'کد معرف', type: 'text', value: 'identification_code'},
-        {name: 'شناسه بانکی', type: 'text', value: 'bank_id'},
-        {name: 'تاریخ ثبت سفارش', type: 'date', value: 'submit_date'},
-        {name: 'تاریخ ارسال سفارش', type: 'date', value: 'receive_date'},
-        {name: 'استان', type: 'select', value: 'state_id'},
-        {name: 'شهر', type: 'select', value: 'city_id'},
-        {name: 'کمترین تعداد کالا', type: 'text', value: 'lower_payment'},
-        {name: 'بیشترین تعداد کالا', type: 'text', value: 'highest_payment'},
-        {name: 'کمترین مبلغ پرداختی ', type: 'text', value: 'lower_payment'},
-        {name: 'بیشترین مبلغ پرداختی ', type: 'text', value: 'highest_payment'},
+       // {name: 'کد معرف', type: 'text', value: 'identification_code'},
+       // {name: 'شناسه بانکی', type: 'text', value: 'bank_id'},
+       {name:'استان' , type:'select', value:'receive_state_id'},
+       {name:'شهر' , type:'select', value:'receive_city_id'},
+       {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
+       {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+       {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
+       {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
     ];
 
     /**

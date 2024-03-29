@@ -30,8 +30,10 @@ export class PanelFilter {
         this.voucher_type = null;
         this.discount_type = null;
         this.sending_method = null;
-        this.start_time = null;
-        this.end_time = null;
+        this.start_time_to = null;
+        this.start_time_from = null;
+        this.end_time_to = null;
+        this.end_time_from = null;
         this.is_active = null;
         this.discount_from = null;
         this.discount_to = null;
@@ -88,8 +90,17 @@ export class PanelFilter {
             query += "sending_method=" + this.sending_method + "&";
         }
 
-        if (this.start_time !== null) {
-            query += "end_time=" + this.end_time + "&";
+        if (this.end_time_from !== null) {
+            query += "end_time_from=" + this.end_time_from + "&";
+        }
+        if (this.end_time_to !== null) {
+            query += "end_time_to=" + this.end_time_to + "&";
+        }
+        if (this.start_time_to !== null) {
+            query += "start_time_to=" + this.start_time_to + "&";
+        }
+        if (this.start_time_from !== null) {
+            query += "start_time_from=" + this.start_time_from + "&";
         }
 
         if (this.is_active !== null) {
@@ -214,16 +225,26 @@ export class PanelFilter {
             query += "discount_to=" + this.discount_to + "&";
         }
 
-        if (routeQuery.start_time) {
-            query += "start_time=" + routeQuery.start_time + "&";
-        } else if (this.start_time) {
-            query += "start_time=" + this.start_time + "&";
+        if (routeQuery.start_time_to) {
+            query += "start_time_to=" + routeQuery.start_time_to + "&";
+        } else if (this.start_time_to) {
+            query += "start_time_to=" + this.start_time_to + "&";
+        }
+        if (routeQuery.start_time_from) {
+            query += "start_time_from=" + routeQuery.start_time_from + "&";
+        } else if (this.start_time_from) {
+            query += "start_time_from=" + this.start_time_from + "&";
         }
 
-        if (routeQuery.end_time) {
-            query += "receive_date=" + routeQuery.end_time + "&";
-        } else if (this.end_time) {
-            query += "receive_date=" + this.end_time + "&";
+        if (routeQuery.end_time_to) {
+            query += "end_time_to=" + routeQuery.end_time_to + "&";
+        } else if (this.end_time_to) {
+            query += "end_time_to=" + this.end_time_to + "&";
+        }
+        if (routeQuery.end_time_from) {
+            query += "end_time_from=" + routeQuery.end_time_from + "&";
+        } else if (this.end_time_from) {
+            query += "end_time_from=" + this.end_time_from + "&";
         }
 
         if (routeQuery.state_id) {
@@ -234,7 +255,7 @@ export class PanelFilter {
 
         if (routeQuery.order_count_from) {
             query += "order_count_from=" + routeQuery.order_count_from + "&";
-        } else if (this.city_id) {
+        } else if (this.order_count_from) {
             query += "order_count_from=" + this.order_count_from + "&";
         }
 

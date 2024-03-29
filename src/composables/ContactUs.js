@@ -6,8 +6,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 
 export default function setup() {
-    const ShipmentRequestsList = ref([]);
-    const shipmentRequest = ref([])
+    const contactUsList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -34,7 +33,7 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getShipmentRequestsList(query) {
+    async function getContactUs(query) {
 
         let paramsQuery = null
         loading.value = true
@@ -49,9 +48,7 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            ShipmentRequestsList.value = data.data
-
-
+            contactUsList.value = data.data
 
             loading.value = false
             setTimeout(()=>{
@@ -81,8 +78,8 @@ export default function setup() {
     })
 
     return {
-        pageLength, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
-        dataTableLength, page, header, loading, shipmentRequest
+        pageLength, contactUsList ,addPerPage, getContactUs,
+        dataTableLength, page, header, loading
     }
 }
 

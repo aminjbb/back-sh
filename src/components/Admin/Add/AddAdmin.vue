@@ -98,6 +98,7 @@ export default {
       formData.append('password_confirmation', this.$refs.AdminForm.form.repeatPassword)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
+      AxiosMethod.toast_error = true
       AxiosMethod.using_auth =true
       AxiosMethod.token =this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()

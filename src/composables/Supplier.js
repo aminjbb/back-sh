@@ -1,4 +1,4 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
@@ -7,7 +7,6 @@ import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 export default function setup() {
     const supplierList = ref([]);
     const allSuppliers = ref([]);
-    const supplier = ref({});
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
