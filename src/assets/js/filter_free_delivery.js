@@ -25,7 +25,11 @@ export class PanelFilter {
         this.sending_method = null;
         this.start_time = null;
         this.end_time = null;
-        this.is_active = null;
+        this.active = null;
+        this.start_time_to = null;
+        this.start_time_from = null;
+        this.end_time_to = null;
+        this.end_time_from = null;
 
     }
 
@@ -47,12 +51,21 @@ export class PanelFilter {
             query += "sending_method=" + this.sending_method + "&";
         }
 
-        if (this.start_time !== null) {
-            query += "end_time=" + this.end_time + "&";
+        if (this.end_time_from !== null) {
+            query += "end_time_from=" + this.end_time_from + "&";
+        }
+        if (this.end_time_to !== null) {
+            query += "end_time_to=" + this.end_time_to + "&";
+        }
+        if (this.start_time_to !== null) {
+            query += "start_time_to=" + this.start_time_to + "&";
+        }
+        if (this.start_time_from !== null) {
+            query += "start_time_from=" + this.start_time_from + "&";
         }
 
-        if (this.is_active !== null) {
-            query += "is_active=" + this.is_active + "&";
+        if (this.active !== null) {
+            query += "is_active=" + this.active + "&";
         }
 
 
@@ -98,30 +111,36 @@ export class PanelFilter {
         } else if (this.sending_method) {
             query += "sending_method=" + this.sending_method + "&";
         }
+        if (routeQuery.start_time_to) {
+            query += "start_time_to=" + routeQuery.start_time_to + "&";
+        } else if (this.start_time_to) {
+            query += "start_time_to=" + this.start_time_to + "&";
+        }
+        if (routeQuery.start_time_from) {
+            query += "start_time_from=" + routeQuery.start_time_from + "&";
+        } else if (this.start_time_from) {
+            query += "start_time_from=" + this.start_time_from + "&";
+        }
 
-        if (routeQuery.is_active) {
+        if (routeQuery.end_time_to) {
+            query += "end_time_to=" + routeQuery.end_time_to + "&";
+        } else if (this.end_time_to) {
+            query += "end_time_to=" + this.end_time_to + "&";
+        }
+        if (routeQuery.end_time_from) {
+            query += "end_time_from=" + routeQuery.end_time_from + "&";
+        } else if (this.end_time_from) {
+            query += "end_time_from=" + this.end_time_from + "&";
+        }
+
+        if (routeQuery.is_active)  {
             query += "is_active=" + routeQuery.is_active + "&";
-        } else if (this.is_active) {
-            query += "is_active=" + this.is_active + "&";
+        }
+        else if  (this.active){
+            query += "is_active=" + this.active + "&";
         }
 
-        if (routeQuery.discount_from) {
-            query += "discount_from=" + routeQuery.discount_from + "&";
-        } else if (this.discount_from) {
-            query += "discount_from=" + this.discount_from + "&";
-        }
 
-        if (routeQuery.start_time) {
-            query += "start_time=" + routeQuery.start_time + "&";
-        } else if (this.start_time) {
-            query += "start_time=" + this.start_time + "&";
-        }
-
-        if (routeQuery.end_time) {
-            query += "receive_date=" + routeQuery.end_time + "&";
-        } else if (this.end_time) {
-            query += "receive_date=" + this.end_time + "&";
-        }
 
 
 
@@ -158,11 +177,7 @@ export class PanelFilter {
         } else if (routeQuery.id) {
             query += "id=" + routeQuery.id + "&";
         }
-        if (this.user_id) {
-            query += "user_id=" + this.user_id + "&";
-        } else if (routeQuery.user_id) {
-            query += "user_id=" + routeQuery.user_id + "&";
-        }
+
         if (this.status) {
             query += "status=" + this.status + "&";
         } else if (routeQuery.status) {
@@ -170,26 +185,6 @@ export class PanelFilter {
         }
 
 
-
-        if (routeQuery.packed_status) {
-            query += "packed_status=" + routeQuery.packed_status + "&";
-        } else if (this.packed_status) {
-            query += "packed_status=" + this.packed_status + "&";
-        }
-
-
-
-        if (routeQuery.submit_date) {
-            query += "submit_date=" + routeQuery.submit_date + "&";
-        } else if (this.submit_date) {
-            query += "submit_date=" + this.submit_date + "&";
-        }
-
-        if (routeQuery.receive_date) {
-            query += "receive_date=" + routeQuery.receive_date + "&";
-        } else if (this.receive_date) {
-            query += "receive_date=" + this.receive_date + "&";
-        }
 
 
 
