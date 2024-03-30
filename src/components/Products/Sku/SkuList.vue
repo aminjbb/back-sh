@@ -138,7 +138,7 @@ export default {
         SkuModalTableFilter,
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
         const { allBrands, getAllBrands } = Brands();
         const { allColors, getAllColor } = Colors();
