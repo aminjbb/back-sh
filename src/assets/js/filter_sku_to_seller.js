@@ -24,8 +24,8 @@ export class SkuSellerPanelFilter {
         this.active = null;
         this.per_page = 25;
         this.page = 1;
-        this.order = 'created_at';
-        this.order_type = 'desc';
+        this.order = null;
+        this.order_type = null;
         this.base_discount_from = null;
         this.base_discount_to = null;
         this.marketing_discount_from = null;
@@ -37,7 +37,7 @@ export class SkuSellerPanelFilter {
         this.site_stock_from = null;
         this.site_stock_to = null;
         this.customer_price_from = null;
-        this.customer_price_top = null;
+        this.customer_price_to = null;
         this.marketing_discount_start_time = null;
         this.marketing_discount_end_time = null;
         this.base_discount_start_time = null;
@@ -46,94 +46,180 @@ export class SkuSellerPanelFilter {
         this.created_at_to_date = null;
     }
 
-    query_maker() {
-        let query = "?order=created_at&order_type=desc&";
-
+    query_maker(routeQuery) {
+        let query = "?";
+        if (this.id !== null) {
+            query += "id=" + this.id + "&";
+        }
+        else if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
+        }
         if (this.sku !== null) {
             query += "sku=" + this.sku + "&";
+        }
+        else if (routeQuery.sku) {
+            query += "sku=" + routeQuery.sku + "&";
         }
 
         if (this.active !== null) {
             query += "is_active=" + this.active + "&";
         }
+        else if (routeQuery.is_active) {
+            query += "is_active=" + routeQuery.is_active + "&";
+        }
 
         if (this.marketing_discount_start_time) {
             query += "marketing_discount_start_time=" + this.marketing_discount_start_time + "&";
+        }
+        else if (routeQuery.marketing_discount_start_time) {
+            query += "marketing_discount_start_time=" + routeQuery.marketing_discount_start_time + "&";
         }
 
         if (this.marketing_discount_end_time) {
             query += "marketing_discount_end_time=" + this.marketing_discount_end_time + "&";
         }
+        else if (routeQuery.marketing_discount_end_time) {
+            query += "marketing_discount_end_time=" + routeQuery.marketing_discount_end_time + "&";
+        }
 
         if (this.base_discount_start_time) {
             query += "base_discount_start_time=" + this.base_discount_start_time + "&";
+        }
+        else if (routeQuery.base_discount_start_time) {
+            query += "base_discount_start_time=" + routeQuery.base_discount_start_time + "&";
         }
 
         if (this.base_discount_end_time) {
             query += "base_discount_end_time=" + this.base_discount_end_time + "&";
         }
+        else if (routeQuery.base_discount_end_time) {
+            query += "base_discount_end_time=" + routeQuery.base_discount_end_time + "&";
+        }
 
         if (this.site_stock_from !== null) {
             query += "site_stock_from=" + this.site_stock_from + "&";
+        }
+        else if (routeQuery.site_stock_from) {
+            query += "site_stock_from=" + routeQuery.site_stock_from + "&";
         }
 
         if (this.site_stock_to !== null) {
             query += "site_stock_to=" + this.site_stock_to + "&";
         }
+        else if (routeQuery.site_stock_to) {
+            query += "site_stock_to=" + routeQuery.site_stock_to + "&";
+        }
 
         if (this.warehouse_stock_from !== null) {
             query += "warehouse_stock_from=" + this.warehouse_stock_from + "&";
+        }
+        else if (routeQuery.warehouse_stock_from) {
+            query += "warehouse_stock_from=" + routeQuery.warehouse_stock_from + "&";
         }
 
         if (this.warehouse_stock_to !== null) {
             query += "warehouse_stock_to=" + this.warehouse_stock_to + "&";
         }
+        else if (routeQuery.warehouse_stock_to) {
+            query += "warehouse_stock_to=" + routeQuery.warehouse_stock_to + "&";
+        }
 
         if (this.site_price_from !== null) {
             query += "site_price_from=" + this.site_price_from + "&";
+        }
+        else if (routeQuery.site_price_from) {
+            query += "site_price_from=" + routeQuery.site_price_from + "&";
         }
 
         if (this.site_price_to !== null) {
             query += "site_price_to=" + this.site_price_to + "&";
         }
+        else if (routeQuery.site_price_to) {
+            query += "site_price_to=" + routeQuery.site_price_to + "&";
+        }
 
         if (this.marketing_discount_from !== null) {
             query += "marketing_discount_from=" + this.marketing_discount_from + "&";
+        }
+        else if (routeQuery.marketing_discount_from) {
+            query += "marketing_discount_from=" + routeQuery.marketing_discount_from + "&";
         }
 
         if (this.marketing_discount_to !== null) {
             query += "marketing_discount_to=" + this.marketing_discount_to + "&";
         }
+        else if (routeQuery.marketing_discount_to) {
+            query += "marketing_discount_to=" + routeQuery.marketing_discount_to + "&";
+        }
 
         if (this.base_discount_from !== null) {
             query += "base_discount_from=" + this.base_discount_from + "&";
+        }
+        else if (routeQuery.base_discount_from) {
+            query += "base_discount_from=" + routeQuery.base_discount_from + "&";
         }
 
         if (this.base_discount_to !== null) {
             query += "base_discount_to=" + this.base_discount_to + "&";
         }
+        else if (routeQuery.base_discount_to) {
+            query += "base_discount_to=" + routeQuery.base_discount_to + "&";
+        }
 
         if (this.customer_price_from !== null) {
             query += "customer_price_from=" + this.customer_price_from + "&";
+        }
+        else if (routeQuery.customer_price_from) {
+            query += "customer_price_from=" + routeQuery.customer_price_from + "&";
         }
 
         if (this.customer_price_to !== null) {
             query += "customer_price_to=" + this.customer_price_to + "&";
         }
-
+        else if (routeQuery.customer_price_to) {
+            query += "customer_price_to=" + routeQuery.customer_price_to + "&";
+        }
         if (this.page) {
             query += "page=" + this.page + "&";
+        }
+        else if (routeQuery.page) {
+            query += "page=" + routeQuery.page + "&";
         }
 
         if (this.per_page) {
             query += "per_page=" + this.per_page + "&";
         }
+        else if (routeQuery.per_page) {
+            query += "per_page=" + routeQuery.per_page + "&";
+        }
+
+        if (this.order) {
+            query += "order=" + this.order + "&";
+        }
+
+        else if (routeQuery.order) {
+            query += "order=" + routeQuery.order + "&";
+        }
+
+         if (this.order_type) {
+            query += "order_type=" + this.order_type + "&";
+        }
+        else if (routeQuery.order_type) {
+            query += "order_type=" + routeQuery.order_type + "&";
+        }
+
 
         return query.substring(0, query.length - 1);
     }
 
     params_generator(routeQuery) {
         let query = "?";
+        if (this.id) {
+            query += "id=" + this.id + "&";
+        } else if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
+        }
+
         if (this.sku) {
             query += "sku=" + this.sku + "&";
         } else if (routeQuery.sku) {
@@ -245,11 +331,11 @@ export class SkuSellerPanelFilter {
         } else if (routeQuery.per_page) {
             query += "per_page=" + routeQuery.per_page + "&";
         }
-
-        if (this.page) {
-            query += "page=" + this.page + "&";
-        } else if (routeQuery.page) {
+        if (routeQuery.page) {
             query += "page=" + routeQuery.page + "&";
+        }
+         else if (this.page) {
+            query += "page=" + this.page + "&";
         }
 
         if (routeQuery.order) {

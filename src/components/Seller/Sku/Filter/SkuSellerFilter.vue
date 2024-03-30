@@ -288,6 +288,14 @@ export default {
   },
 
   computed: {
+    id() {
+      try {
+        const labelObject = this.values.find(element => element.name === 'id');
+        return labelObject.value
+      } catch (error) {
+        return ''
+      }
+    },
     label() {
       try {
         const labelObject = this.values.find(element => element.name === 'label');
@@ -435,6 +443,13 @@ export default {
 
     setFilter() {
       const filter = new SkuSellerPanelFilter()
+      filter.page = 1;
+      if (this.id) {
+        filter.id = this.id
+      }
+      else if (this.$route.query.id) {
+        filter.id = null
+      }
       if (this.label) {
         filter.sku = this.label
       }
@@ -554,11 +569,8 @@ export default {
         filter.base_discount_end_time = null
       }
 
-
-
-      filter.page = 1;
       filter.per_page = this.$route.query.per_page;
-      this.$router.push('/' + this.path + '/' + filter.query_maker());
+      this.$router.push('/' + this.path + '/' + filter.query_maker(this.$route.query));
       this.dialog = false;
     },
 

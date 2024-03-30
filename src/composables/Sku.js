@@ -47,6 +47,7 @@ export default function setup() {
     const skuGroupLoading =ref(false)
 
     const filterField = [
+        { name: 'شتاسه کالا', type: 'text', value: 'id' },
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
         { name: ' رنگ', type: 'auto-complete', value: 'color' },

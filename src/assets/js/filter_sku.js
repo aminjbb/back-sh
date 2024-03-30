@@ -38,66 +38,111 @@ export class SkuPanelFilter {
         this.product = null;
     }
 
-    query_maker() {
+    query_maker(routeQuery) {
         let query = "?order=created_at&order_type=desc&";
-
+        console.log(this.page)
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }
+        else if (routeQuery.id !== null) {
+            query += "id=" + routeQuery.id + "&";
+        }
         if (this.name !== null) {
             query += "name=" + this.name + "&";
+        }
+        else if (routeQuery.name ) {
+            query += "name=" + routeQuery.name + "&";
         }
 
         if (this.label !== null) {
             query += "label=" + this.label + "&";
         }
+        else if (routeQuery.label) {
+            query += "label=" + routeQuery.label + "&";
+        }
 
         if (this.active !== null) {
             query += "is_active=" + this.active + "&";
+        }
+        else if (routeQuery.is_active) {
+            query += "is_active=" + routeQuery.is_active + "&";
         }
 
         if (this.created_at_to_date) {
             query += "created_at_to_date=" + this.created_at_to_date + "&";
         }
+        else if (routeQuery.created_at_to_date) {
+            query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
+        }
 
         if (this.created_at_from_date) {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
+        }
+        else if (routeQuery.created_at_from_date) {
+            query += "created_at_from_date=" + routeQuery.created_at_from_date + "&";
         }
 
         if (this.updated_at_to_date) {
             query += "updated_at_to_date=" + this.updated_at_to_date + "&";
         }
+        else if (routeQuery.updated_at_to_date) {
+            query += "updated_at_to_date=" + routeQuery.updated_at_to_date + "&";
+        }
 
         if (this.updated_at_from_date) {
             query += "updated_at_from_date=" + this.updated_at_from_date + "&";
+        }
+        else if (routeQuery.updated_at_from_date) {
+            query += "updated_at_from_date=" + routeQuery.updated_at_from_date + "&";
         }
 
         if (this.sellable !== null) {
             query += "is_sellable=" + this.sellable + "&";
         }
+        else if (routeQuery.is_sellable) {
+            query += "is_sellable=" + routeQuery.is_sellable + "&";
+        }
 
         if (this.color) {
             query += "color_id=" + this.color + "&";
+        }
+        if (routeQuery.color_id) {
+            query += "color_id=" + routeQuery.color_id + "&";
         }
 
         if (this.brand) {
             query += "brand_id=" + this.brand + "&";
         }
+        else if (routeQuery.brand_id) {
+            query += "brand_id=" + routeQuery.brand_id + "&";
+        }
 
         if (this.category) {
             query += "category_id=" + this.category + "&";
+        }
+        else if (routeQuery.category) {
+            query += "category_id=" + routeQuery.category + "&";
         }
 
         if (this.product) {
             query += "product_id=" + this.product + "&";
         }
+        else if (routeQuery.product_id) {
+            query += "product_id=" + routeQuery.product_id + "&";
+        }
 
         if (this.sku_group) {
             query += "sku_group_id=" + this.sku_group + "&";
         }
+        else if (routeQuery.sku_group_id) {
+            query += "sku_group_id=" + routeQuery.sku_group_id + "&";
+        }
 
         if (this.page) {
             query += "page=" + this.page + "&";
+        }
+        if (routeQuery.page) {
+            query += "page=" + routeQuery.page + "&";
         }
 
         if (this.sort) {
@@ -107,16 +152,25 @@ export class SkuPanelFilter {
         if (this.per_page) {
             query += "per_page=" + this.per_page + "&";
         }
+        if (routeQuery.per_page) {
+            query += "per_page=" + routeQuery.per_page + "&";
+        }
 
         return query.substring(0, query.length - 1);
     }
 
     params_generator(routeQuery){
         let query = "?";
+        if (this.id ) {
+            query += "id=" + this.id + "&";
+        }
+        else if (routeQuery.id ){
+            query += "id=" + routeQuery.id + "&";
+        }
         if (this.name ) {
             query += "name=" + this.name + "&";
         }
-        else if (routeQuery.name ){
+        else if (routeQuery.name){
             query += "name=" + routeQuery.name + "&";
         }
 
