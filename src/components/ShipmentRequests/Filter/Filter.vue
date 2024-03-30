@@ -110,16 +110,17 @@
                 <template v-else-if="Filter.type === 'date'">
                   <v-col cols="4" class="mt-3">
                     <div class="t13300 text-right mb-1">{{ Filter.name }}</div>
-  
+
                     <v-text-field
                         v-model="values[index].value"
                         variant="outlined"
                         :placeholder="Filter.name"
                         :class="`start-input${Filter.value}`">
-  
+
                     </v-text-field>
                     <date-picker
                         clearable
+                        range
                         format="jYYYY-jMM-jDD"
                         display-format="jYYYY-jMM-jDD"
                         :custom-input="`.start-input${Filter.value}`"

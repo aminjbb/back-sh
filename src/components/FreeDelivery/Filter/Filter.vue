@@ -68,8 +68,10 @@
                     variant="outlined"
                     single-line
                     hide-details
-                    :items="voucherActives"
-                    v-model="voucherActive" />
+                    item-title="label"
+                    item-value="value"
+                    :items="activeFilter"
+                    v-model="activeModel" />
 
 
 
@@ -177,21 +179,22 @@ export default {
     return {
       dialog: false,
       values: [],
-      originalData: [],
-      filteredData: [],
+
+      activeModel: '',
 
 
-
-      voucherActives: [
+      activeFilter: [{
+        label: 'همه',
+        value: '',
+      },
         {
-          title: 'فعال',
-          value: '1'
+          label: 'فعال',
+          value: '1',
         },
         {
-          title: 'غیرفعال',
-          value: '0'
-        },
-
+          label: 'غیرفعال',
+          value: '0',
+        }
       ],
       sendingMethods: [
         {
@@ -213,68 +216,14 @@ export default {
         },
 
       ],
-      voucherType: null,
-      voucherAmountType: null,
-      voucherActive: null,
       sendingItem: null,
-      state_id:null,
       start_time:[],
       end_time:[],
-      provinceModel:null,
-      skuModel:null,
-      customerModel:null,
-      userSearchList:[],
-      skuSearchList:[]
     }
   },
 
   computed: {
-    skuList() {
-      try {
-        let sku = []
-        this.skuSearchList.forEach(permission => {
-          const form = {
-            name: permission.label + '(' + permission.id + ')',
-            id: permission.id
-          }
-          sku.push(form)
-        })
-        return sku
-      } catch (e) {
-        return []
-      }
-    },
-    userList(){
-      try {
-        let users = []
-        this.userSearchList.forEach(user => {
-          const form = {
-            name: user?.first_name + ' ' +user?.last_name + '(' + user.phone_number + ')',
-            value: user
-          }
-          users.push(form)
-        })
-        return users
-      } catch (e) {
-        return e
-      }
-    },
 
-    provinceList() {
-      try {
-        let provinceList = []
-        this.provinces.forEach(province => {
-          const form = {
-            title: province.label,
-            value: province.id
-          }
-          provinceList.push(form)
-        })
-        return provinceList
-      } catch (e) {
-        return []
-      }
-    },
 
     name() {
       try {
@@ -285,17 +234,33 @@ export default {
       }
     },
 
-    start_time() {
+    start_time_from() {
       try {
-        const gregorianDate = convertDateToGregorian( this.start_time , '-' , false)
+        const gregorianDate = convertDateToGregorian( this.start_time[0] , '-' , false)
         return gregorianDate
       } catch (error) {
         return ''
       }
     },
-    end_time() {
+    start_time_to() {
       try {
-        const gregorianDate = convertDateToGregorian( this.end_time , '-' , false)
+        const gregorianDate = convertDateToGregorian( this.start_time[1] , '-' , false)
+        return gregorianDate
+      } catch (error) {
+        return ''
+      }
+    },
+    end_time_to() {
+      try {
+        const gregorianDate = convertDateToGregorian( this.end_time[1] , '-' , false)
+        return gregorianDate
+      } catch (error) {
+        return ''
+      }
+    },
+    end_time_from() {
+      try {
+        const gregorianDate = convertDateToGregorian( this.end_time[0] , '-' , false)
         return gregorianDate
       } catch (error) {
         return ''
@@ -314,99 +279,41 @@ export default {
       } else if (this.$route.query.name) {
         filter.name = null
       }
-      if (this.code) {
-        filter.code = this.code
-      } else if (this.$route.query.code) {
-        filter.code = null
-      }
-      if (this.discount_from) {
-        filter.discount_from = this.discount_from
-      } else if (this.$route.query.discount_from) {
-        filter.discount_from = null
-      }
-      if (this.discount_to) {
-        filter.discount_to = this.discount_to
-      } else if (this.$route.query.discount_to) {
-        filter.discount_to = null
-      }
-      if (this.order_count_from) {
-        filter.order_count_from = this.order_count_from
-      } else if (this.$route.query.order_count_from) {
-        filter.order_count_from = null
-      }
-      if (this.order_count_to) {
-        filter.order_count_to = this.order_count_to
-      } else if (this.$route.query.order_count_to) {
-        filter.order_count_to = null
-      }
-      if (this.order_limit_from) {
-        filter.order_limit_from = this.order_limit_from
-      } else if (this.$route.query.order_limit_from) {
-        filter.order_limit_from = null
-      }
-      if (this.order_limit_to) {
-        filter.order_limit_to = this.order_limit_to
-      } else if (this.$route.query.order_limit_to) {
-        filter.order_limit_to = null
-      }
 
-      if (this.user_limit_from) {
-        filter.user_limit_from = this.user_limit_from
-      } else if (this.$route.query.user_limit_from) {
-        filter.user_limit_from = null
-      }
-
-      if (this.user_limit_to) {
-        filter.user_limit_to = this.user_limit_to
-      } else if (this.$route.query.user_limit_to) {
-        filter.user_limit_to = null
-      }
-
-      if (this.min_order_price_from) {
-        filter.min_order_price_from = this.min_order_price_from
-      } else if (this.$route.query.min_order_price_from) {
-        filter.min_order_price_from = null
-      }
-
-      if (this.min_order_price_to) {
-        filter.min_order_price_to = this.min_order_price_to
-      } else if (this.$route.query.min_order_price_to) {
-        filter.min_order_price_to = null
-      }
-      if (this.skuModel) {
-        filter.sku_id = this.skuModel
-      } else if (this.$route.query.sku_id) {
-        filter.sku_id = null
-      }
-      if (this.customerModel) {
-        filter.user_id = this.customerModel
-      } else if (this.$route.query.user_id) {
-        filter.user_id = null
-      }
-      if (this.voucherType) {
-        filter.voucher_type = this.voucherType
-      } else if (this.$route.query.voucher_type) {
-        filter.voucher_type = null
-      }
-      if (this.voucherAmountType) {
-        filter.discount_type = this.voucherAmountType
-      } else if (this.$route.query.discount_type) {
-        filter.discount_type = null
-      }
       if (this.sendingItem) {
         filter.sending_method = this.sendingItem
       } else if (this.$route.query.sending_method) {
         filter.sending_method = null
       }
-      if (this.state_id) {
-        filter.state_id = this.state_id
-      } else if (this.$route.query.state_id) {
-        filter.state_id = null
+      if(this.start_time_to) {
+        filter.start_time_to = this.start_time_to
+      } else if (this.$route.query.start_time_to) {
+        filter.start_time_to = null
       }
-      if (this.voucherActive) {
-        filter.is_active = this.is_active
+      if(this.start_time_from) {
+        filter.start_time_from = this.start_time_from
+      } else if (this.$route.query.start_time_from) {
+        filter.start_time_from = null
+      }
+
+      if(this.end_time_to) {
+        filter.end_time_to = this.end_time_to
+      } else if (this.$route.query.end_time_to) {
+        filter.end_time_to = null
+      }
+
+      if(this.end_time_from) {
+        filter.end_time_from = this.end_time_from
+      } else if (this.$route.query.end_time_from) {
+        filter.end_time_from = null
+      }
+
+      if (this.activeModel === '') {
+        filter.active = null
+      } else if (this.activeModel !== '') {
+        filter.active = this.activeModel
       } else if (this.$route.query.is_active) {
-        filter.is_active = null
+        filter.active = this.$route.query.is_active
       }
 
       filter.page = 1;

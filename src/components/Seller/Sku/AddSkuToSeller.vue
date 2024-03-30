@@ -268,7 +268,7 @@ export default {
       }
     },
     $route(to, from) {
-      this.getSkuSeller()
+      this.getSkuSeller(to)
     }
   }
 

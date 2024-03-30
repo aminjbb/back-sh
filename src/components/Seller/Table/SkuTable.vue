@@ -316,8 +316,8 @@ import {
     PanelFilter
 } from "@/assets/js/filter"
 import {
-    SkuPanelFilter
-} from "@/assets/js/filter_sku"
+  SkuSellerPanelFilter
+} from "@/assets/js/filter_sku_to_seller"
 import {
     openToast
 } from "@/assets/js/functions";
@@ -469,7 +469,7 @@ export default {
             sellable: [],
             filter: [],
             panelFilter: new PanelFilter(),
-            skuPanelFilter: new SkuPanelFilter(),
+            skuPanelFilter: new SkuSellerPanelFilter(),
             activeColumn: false,
         }
     },
@@ -609,10 +609,10 @@ export default {
 
                     if (this.model === 'sku') {
                         this.skuPanelFilter.order = index
-                        this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
+                        this.$router.push(this.$route.path + this.skuPanelFilter.query_maker(this.$route.query))
                     } else {
                         this.panelFilter.order = index
-                        this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+                        this.$router.push(this.$route.path + this.panelFilter.query_maker(this.$route.query))
                     }
 
                     this.ordering = {};
