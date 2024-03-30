@@ -434,22 +434,6 @@ export default {
     splitChar,
 
     /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
-
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
-    },
-
-    /**
      * Get row index in table
      * @param {*} index
      */
@@ -461,47 +445,6 @@ export default {
       } else {
         rowIndex = ((this.page - 1) * this.perPage) + index + 1
         return rowIndex
-      }
-    },
-
-    /**
-     * Set icon
-     * @param {*} status
-     */
-    setIcon(status) {
-      if (status === 1) {
-        return 'mdi-check-bold'
-      } else {
-        return 'mdi-close-thick'
-      }
-
-    },
-
-    /**
-     * Get persian name of method
-     * @param {*} method
-     */
-    getPaymentMethod(method) {
-      if (method === 'saman') {
-        return 'درگاه سامان'
-      } else if (method === 'wallet') {
-        return 'کیف پول'
-      } else if (method === 'snapp') {
-        return 'اسنپ پی'
-      }
-    },
-
-    /**
-     * Get persian name of payment status
-     * @param {*} method
-     */
-    getPaymentStatus(method) {
-      if (method === 'unsuccessful') {
-        return 'نا موفق'
-      } else if (method === 'contradictory') {
-        return 'دارای مغایرت'
-      } else if (method === 'successful') {
-        return 'موفق'
       }
     },
 

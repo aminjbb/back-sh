@@ -99,7 +99,7 @@
       }
     },
   
-    setup(props) {
+    setup() {
       const {
          headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
         ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField

@@ -40,8 +40,6 @@
 <script>
 import MenuForm from "@/components/Menu/MenuForm.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
-import Menu from "@/composables/Menu"
-
 export default {
 
   data() {

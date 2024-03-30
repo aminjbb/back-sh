@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="h-100 d-flex flex-column align-stretch data-sku">
         <v-card 
             min-height="70"
@@ -40,7 +40,6 @@
                             :filterField="filterField"
                             :brandsList="brandsList" 
                             :colorsList="colorsList"
-                            :volumesList="volumesList"
                             :categoriesList="categoriesList"
                             show-category
                         />
@@ -116,7 +115,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'

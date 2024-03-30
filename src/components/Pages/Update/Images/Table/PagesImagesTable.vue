@@ -128,18 +128,12 @@
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
     openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
-import {
-    el
-} from "vuetify/locale";
 export default {
     components: {
         ModalMassUpdate,

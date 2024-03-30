@@ -71,7 +71,6 @@
 </template>
 <script>
 import PartitionSliderFrom from "@/components/HomePage/Forms/PartitionSliderFrom.vue";
-import {convertDateToGregorian} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export  default {
   props:{

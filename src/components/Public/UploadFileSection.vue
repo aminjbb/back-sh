@@ -54,7 +54,6 @@ import { openToast } from "@/assets/js/functions";
 
 const emit = defineEmits(['files-dropped','getImage'])
 const cookies = useCookies()
-const positions = ref([])
 const imageId = ref(null)
 let file = ref(null)
 const files = ref([])

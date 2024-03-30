@@ -212,7 +212,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openInventoryManagementModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             مدیریت موجودی سایت
                                         </span>
@@ -222,7 +222,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openConsumerPriceModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             قیمت مصرف کننده
                                         </span>
@@ -232,7 +232,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openBasicDiscountModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف پایه
                                         </span>
@@ -242,7 +242,7 @@
 
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             تخفیف مارکتینگ
                                         </span>
@@ -251,7 +251,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
+                                    <div class="ma-5 pointer">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             محدودیت سفارش
                                         </span>
@@ -309,9 +309,6 @@ import {
 import {
     SkuPanelFilter
 } from "@/assets/js/filter_sku"
-import {
-    openToast
-} from "@/assets/js/functions";
 export default {
 
     props: {

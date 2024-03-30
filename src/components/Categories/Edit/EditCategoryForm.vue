@@ -134,7 +134,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const {allCategories, getAllCategories} = Categories();
         return {allCategories, getAllCategories};
     },

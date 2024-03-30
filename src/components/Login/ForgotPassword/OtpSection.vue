@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         <v-form ref="otp" v-model="valid" > 
             <div class="text-center">

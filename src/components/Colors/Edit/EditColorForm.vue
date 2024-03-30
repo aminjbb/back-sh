@@ -66,7 +66,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const { colorGroups, getGroupColor } = Colors();
         return { colorGroups, getGroupColor};
     },

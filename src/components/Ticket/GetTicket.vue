@@ -157,7 +157,6 @@ import {openToast} from "@/assets/js/functions";
 
 import Ticket from '@/composables/Ticket'
 import {gregorian_to_jalali} from "@/assets/js/functions";
-import {fa} from "vuetify/lib/locale/index.mjs";
 import {component as ckeditor} from '@mayasabha/ckeditor4-vue3'
 
 export default {

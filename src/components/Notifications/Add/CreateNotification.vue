@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div>
     <v-card min-height="70" class="ma-5 br-12">
         <div class="text-rigth pr-10 pt-6">
@@ -212,7 +212,7 @@ export default {
         ModalAddFile
     },
 
-    setup(props) {
+    setup() {
         const {
             admin,
             getAdmins
@@ -274,8 +274,7 @@ export default {
             fileUrl: null,
             title: null,
             priority: null,
-            admin: null,
-            priority: null,
+            admin: null
 
         },
         hasSchedule: false,

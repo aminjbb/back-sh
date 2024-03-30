@@ -72,15 +72,12 @@
 </template>
 
 <script>
-import {ref} from 'vue'
-
 import Stepper from '@/components/Public/Stepper.vue'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {convertDateToGregorian, openToast} from "@/assets/js/functions";
 import AddCrossDockStep1 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep1.vue'
 import AddCrossDockStep2 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep2.vue'
 import AddCrossDockStep3 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep3.vue'
-import {tr} from "vuetify/locale";
 export default {
   components: {
     Stepper,

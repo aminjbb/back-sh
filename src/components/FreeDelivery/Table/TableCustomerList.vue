@@ -10,7 +10,6 @@
         <template v-for="(head, index) in header">
           <div
               v-if="head.show"
-              @click="createOrdering(head.value, head.order)"
               class="text-center c-table__header__item t12500"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"

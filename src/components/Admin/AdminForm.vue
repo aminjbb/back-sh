@@ -156,7 +156,6 @@
   </div>
 </template>
 <script>
-import { watch } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
 import {convertDateToJalai} from "@/assets/js/functions";

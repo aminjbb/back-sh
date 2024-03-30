@@ -52,23 +52,5 @@ export default {
           
         }
     },
-
-    methods: {
-        /**
-         * Change password1 type
-         */
-        changePassword1Type() {
-            if (this.password1 == 'password') this.password1 = 'text'
-            else this.password1 = 'password'
-        },
-
-        /**
-         * Change password2 type
-         */
-        changePassword2Type() {
-            if (this.password2 == 'password') this.password2 = 'text'
-            else this.password2 = 'password'
-        },
-    },
 }
 </script>

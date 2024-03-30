@@ -327,7 +327,6 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 </script>
 
 <script>
-import {ref} from 'vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import {openConfirm} from "@/assets/js/functions";
 

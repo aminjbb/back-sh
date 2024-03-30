@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 
 import Stepper from '@/components/Public/Stepper.vue'
 
@@ -316,22 +315,7 @@ export default {
     }
   },
 
-
-  beforeMount() {
-
-  },
-
-
   computed: {
-    createSkuState(){
-      try {
-        return this.$route.name
-      }
-      catch (e)
-      {
-        return ''
-      }
-    },
     /**
      * create brand list for select
      */
@@ -368,34 +352,6 @@ export default {
         });
 
         return colors
-      } catch (error) {
-        return []
-      }
-    },
-
-    /**
-     * create attribute list for select
-     */
-    attributeList() {
-      try {
-        const attributes = []
-        this.attributes.data.forEach(element => {
-          const values = []
-          element.values.forEach(value => {
-            const form = {
-              title: value.value,
-              id: value.id
-            }
-            values.push(form)
-          });
-          const form = {
-            title: element.label,
-            id: element.id,
-            values: values
-          }
-          attributes.push(form)
-        });
-        return attributes
       } catch (error) {
         return []
       }
@@ -442,112 +398,7 @@ export default {
       } catch (error) {
         return []
       }
-    },
-
-    /**
-     * create height list for select
-     */
-    heightList() {
-      try {
-        const filterHeight = this.size.data.filter(el => el.name === 'height')
-        const height = []
-        filterHeight.forEach(element => {
-          const form = {
-            title: element.unit,
-            value: element.id
-          }
-
-          height.push(form)
-        });
-        return height
-      } catch (error) {
-        return []
-      }
-    },
-
-    /**
-     * create width list for select
-     */
-    widthList() {
-      try {
-        const filterHeight = this.size.data.filter(el => el.name === 'width')
-        const width = []
-        filterHeight.forEach(element => {
-          const form = {
-            title: element.unit,
-            value: element.id
-          }
-
-          width.push(form)
-        });
-        return width
-      } catch (error) {
-        return []
-      }
-    },
-    /**
-     * create length list for select
-     */
-
-    lengthList() {
-      try {
-        const filterHeight = this.size.data.filter(el => el.name === 'length')
-        const height = []
-        filterHeight.forEach(element => {
-          const form = {
-            title: element.unit,
-            value: element.id
-          }
-
-          height.push(form)
-        });
-        return height
-      } catch (error) {
-        return []
-      }
-    },
-
-    /**
-     * create weight list for select
-     */
-    weightList() {
-      try {
-        const filterHeight = this.size.data.filter(el => el.name === 'weight')
-        const height = []
-        filterHeight.forEach(element => {
-          const form = {
-            title: element.unit,
-            value: element.id
-          }
-
-          height.push(form)
-        });
-        return height
-      } catch (error) {
-        return []
-      }
-    },
-
-    /**
-     * create volume list for select
-     */
-    volumeUnitList() {
-      try {
-        const filterHeight = this.size.data.filter(el => el.name === 'volume')
-        const height = []
-        filterHeight.forEach(element => {
-          const form = {
-            title: element.unit,
-            value: element.id
-          }
-
-          height.push(form)
-        });
-        return height
-      } catch (error) {
-        return []
-      }
-    },
+    }
   },
 
   watch: {

@@ -46,7 +46,7 @@
 <script>
 import AdminForm from "@/components/Admin/AdminForm.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
-import {convertDateToGregorian, openToast} from "@/assets/js/functions";
+import {convertDateToGregorian} from "@/assets/js/functions";
 
 export default {
   data() {

@@ -40,7 +40,6 @@
 <script>
 import SpecialSaleForm from "@/components/HomePage/Forms/SpecialSaleForm.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
-import Menu from "@/composables/Menu"
 import {convertDateToGregorian} from "@/assets/js/functions";
 
 export default {

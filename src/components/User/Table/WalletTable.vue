@@ -163,13 +163,9 @@
 
 <script>
 import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
   PanelFilter
 } from "@/assets/js/filter"
 import {
-  openToast,
   openConfirm,
   convertDateToJalai,
   isOdd,
