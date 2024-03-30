@@ -266,7 +266,7 @@ export default {
   methods: {
     setFilter() {
       const filter = new PanelFilter()
-      console.log(this.createdAtModel)
+
      if (this.createdAtModel){
        if (this.createdAtModel[0]) {
          const gDate = convertDateToGregorian(this.createdAtModel[0], '-' , false)
