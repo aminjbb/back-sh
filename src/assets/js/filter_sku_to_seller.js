@@ -24,8 +24,8 @@ export class SkuSellerPanelFilter {
         this.active = null;
         this.per_page = 25;
         this.page = 1;
-        this.order = 'created_at';
-        this.order_type = 'desc';
+        this.order = null;
+        this.order_type = null;
         this.base_discount_from = null;
         this.base_discount_to = null;
         this.marketing_discount_from = null;
@@ -47,9 +47,7 @@ export class SkuSellerPanelFilter {
     }
 
     query_maker(routeQuery) {
-        console.log(routeQuery)
-        let query = "?order=created_at&order_type=desc&";
-
+        let query = "?";
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }
@@ -181,7 +179,6 @@ export class SkuSellerPanelFilter {
         else if (routeQuery.customer_price_to) {
             query += "customer_price_to=" + routeQuery.customer_price_to + "&";
         }
-        console.log(this.page , 'this.page')
         if (this.page) {
             query += "page=" + this.page + "&";
         }
@@ -195,6 +192,22 @@ export class SkuSellerPanelFilter {
         else if (routeQuery.per_page) {
             query += "per_page=" + routeQuery.per_page + "&";
         }
+
+        if (this.order) {
+            query += "order=" + this.order + "&";
+        }
+
+        else if (routeQuery.order) {
+            query += "order=" + routeQuery.order + "&";
+        }
+
+         if (this.order_type) {
+            query += "order_type=" + this.order_type + "&";
+        }
+        else if (routeQuery.order_type) {
+            query += "order_type=" + routeQuery.order_type + "&";
+        }
+
 
         return query.substring(0, query.length - 1);
     }

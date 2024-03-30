@@ -46,12 +46,12 @@ export default function setup(posts) {
         { name: 'شناسه کالا', show: true, value: 'id', order:false },
         { name: 'شناسه shps', show: true, value: 'unique_code', order:false },
         { name:'نام کالا' , show:true ,  value:'label', order:true},
-        { name: 'موجودی انبار', show: true, value: 'sku_quntity', order:false },
-        { name: 'موجودی سایت', show: true, value: 'category', order:true },
-        { name: ' قیمت مصرف کننده', show: true, value: 'brand', order:true },
-        { name: ' تخفیف پایه', show: true, value: 'volume', order:false },
-        { name: 'تخفیف مارکتینگ', show: true , value:'is_active', order:false},
-        { name: 'قیمت فروش', show: true , value:'is_active', order:false},
+        { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:false },
+        { name: 'موجودی سایت', show: true, value: 'site_stock', order:true },
+        { name: ' قیمت مصرف کننده', show: true, value: 'customer_price', order:true },
+        { name: ' تخفیف پایه', show: true, value: 'base_discount', order:true },
+        { name: 'تخفیف مارکتینگ', show: true , value:'marketing_discount', order:true},
+        { name: 'قیمت فروش', show: true , value:'site_price', order:true},
         { name: 'وضعیت', show: true , value:'is_active', order:false},
     ]
     );
@@ -186,7 +186,13 @@ export default function setup(posts) {
             }
             paramsQuery = skuSellerFilter.params_generator(query.query)
         }
-        else  paramsQuery = skuSellerFilter.params_generator(route.query)
+        else {
+            if (route.query.page){
+                isFilter.value= true
+                skuSellerPage.value = parseInt(route.query.page)
+            }
+            paramsQuery = skuSellerFilter.params_generator(route.query)
+        }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -196,6 +202,7 @@ export default function setup(posts) {
             pageLength.value =data.data.last_page
             sellerSku.value = data.data
             loading.value = false
+            isFilter.value = false
         }
     };
     
@@ -282,7 +289,6 @@ export default function setup(posts) {
     function addSkuPerPage(number){
         skuFilter.page = 1
         skuFilter.per_page =number
-        console.log( skuFilter.per_page)
         router.push(route.path + skuFilter.params_generator(route.query))
     }
     function addSkuSellerPagination(page){
