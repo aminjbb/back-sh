@@ -542,7 +542,8 @@ export default {
 
       filter.page = 1;
       filter.per_page = this.$route.query.per_page;
-      this.$router.push('/' + this.path + '/' + filter.query_maker());
+      console.log(this.$route.query)
+      this.$router.push('/' + this.path + '/' + filter.query_maker(this.$route.query));
       this.dialog = false;
     },
 

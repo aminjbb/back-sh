@@ -97,6 +97,7 @@ export default function setup(posts) {
         { name: 'بازده پرداخت', type:'text', value:'payment_period'},
     ];
     const filterFieldSku = [
+        { name: 'شناسه shps', type: 'text', value: 'id' },
         { name: 'نام کالا', type: 'text', value: 'label' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },
         { name: 'موجودی انبار(تا)', type: 'text', value: 'warehouse_stock_to' },
@@ -179,6 +180,10 @@ export default function setup(posts) {
         loading.value = true
         let paramsQuery = null
         if (query){
+            if (query.query.page){
+                isFilter.value= true
+                skuSellerPage.value = parseInt(query.query.page)
+            }
             paramsQuery = skuSellerFilter.params_generator(query.query)
         }
         else  paramsQuery = skuSellerFilter.params_generator(route.query)
@@ -283,7 +288,7 @@ export default function setup(posts) {
     function addSkuSellerPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
-        router.push(route.path + skuSellerFilter.params_generator(route.query))
+        router.push(route.path + skuSellerFilter.query_maker(route.query))
     }
     function addSkuSellerPerPage(number){
         skuSellerFilter.page = 1
