@@ -60,7 +60,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 
 /** components */
 import Table from '@/components/Public/Table.vue'

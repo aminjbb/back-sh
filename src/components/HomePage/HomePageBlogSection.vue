@@ -110,7 +110,7 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 export default {
-    setup(props) {
+    setup() {
         const {
             blogHeader,
             getHomeSection,

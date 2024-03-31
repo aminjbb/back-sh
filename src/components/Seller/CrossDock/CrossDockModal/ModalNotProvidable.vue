@@ -81,7 +81,7 @@
 <script>
 import {AxiosCall} from "@/assets/js/axios_call";
 import Warehouse from "@/composables/Warehouse"
-import {convertDateToJalai, openToast} from "@/assets/js/functions";
+import {convertDateToJalai} from "@/assets/js/functions";
 export  default {
   setup(){
     const {getWarehouseList ,  warehouseList} = new Warehouse()

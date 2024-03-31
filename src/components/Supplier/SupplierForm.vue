@@ -376,21 +376,6 @@ export default {
             } catch (e) {
                 return []
             }
-        },
-        rolePermissionList() {
-            try {
-                let rolePermissions = []
-                this.allRolePermission.forEach(rolePermission => {
-                    const form = {
-                        name: rolePermission.label,
-                        id: rolePermission.id
-                    }
-                    rolePermissions.push(form)
-                })
-                return rolePermissions
-            } catch (e) {
-
-            }
         }
     },
     mounted() {

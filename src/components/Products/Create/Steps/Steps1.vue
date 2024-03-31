@@ -88,7 +88,7 @@
                     clearable
                     :disabled="skuGroupDetailBrand"
                     variant="outlined"
-                    @update:modelValue="saveCreateFromModel(index);addBadge(labels.brand,'brand')"
+                    @update:modelValue="saveCreateFromModel();addBadge(labels.brand,'brand')"
                 />
               </v-col>
 
@@ -126,7 +126,7 @@
                     return-object
                     class="selected-attribute__values__input"
 
-                    @update:modelValue="saveCreateFromModel(index);addBadge(labels.color,'color')"
+                    @update:modelValue="saveCreateFromModel();addBadge(labels.color,'color')"
                 >
                   <template v-slot:chip="{ props, item }">
                       <v-chip v-bind="props">
@@ -446,7 +446,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 import Product from '@/composables/Product'
 import Sku from '@/composables/Sku'
 import Attributes from '@/composables/Attributes'

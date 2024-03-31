@@ -106,7 +106,6 @@ import {
 } from "@/assets/js/filter"
 
 import {
-    openConfirm,
     isOdd
 } from "@/assets/js/functions";
 

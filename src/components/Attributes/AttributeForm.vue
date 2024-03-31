@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form ref="addAttribute" v-model="valid">
+        <v-form ref="addAttribute">
             <v-row justify="center" align="center">
                 <v-col cols="12" md="2">
                     <div class="text-right my-5">
@@ -157,16 +157,6 @@ export default {
             }],
 
             fillter: false,
-        }
-    },
-
-    computed: {
-        attrValueLength() {
-            try {
-                return this.values.size + 1
-            } catch (error) {
-                return 1
-            }
         }
     },
 

@@ -79,7 +79,6 @@
     </div>
 </template>
 <script>
-import { watch } from 'vue'
 
 export default {
     props: {
@@ -118,9 +117,6 @@ export default {
          * Get image id
          * @param {*} id 
          */
-        getImageId(id) {
-            this.imgId = id
-        },
 
         /**
          * Set from

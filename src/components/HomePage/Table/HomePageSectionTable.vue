@@ -32,7 +32,6 @@
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
-                                @click="massUpdateModal()"
                                 variant="text"
                                 height="40"
                                 rounded
@@ -160,7 +159,6 @@ import {
 } from "@/assets/js/filter_supplier"
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-    openConfirm,
     isOdd,
     convertDateToJalai
 } from "@/assets/js/functions";

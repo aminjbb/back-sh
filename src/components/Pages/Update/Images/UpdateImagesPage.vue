@@ -31,7 +31,6 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 import {
-    convertDateToGregorian,
     openToast
 } from "@/assets/js/functions";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";

@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="h-100 d-flex flex-column align-stretch" >
         <v-card 
             height="70"
@@ -111,7 +111,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 //Components
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
@@ -130,7 +129,7 @@ export default {
         ModalExcelDownload
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
         return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading };
     },

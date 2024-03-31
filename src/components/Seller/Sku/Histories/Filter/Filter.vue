@@ -81,13 +81,10 @@
 
                             <v-autocomplete
                                 v-if="filter.value == 'state_id'"
-                                :items="provinceList"
                                 density="compact"
                                 variant="outlined"
                                 single-line
-                                :rules="rule"
-                                v-model="provinceModel"
-                                @update:modelValue="getCities()" />
+                                v-model="provinceModel"/>
 
                             <v-autocomplete
                                 v-if="filter.value == 'city_id'"
@@ -95,7 +92,6 @@
                                 density="compact"
                                 variant="outlined"
                                 single-line
-                                :rules="rule"
                                 v-model="cityModel" />
 
                             <v-select
@@ -160,12 +156,6 @@
 </template>
 
 <script>
-import {
-    SupplierPanelFilter
-} from '@/assets/js/filter_supplier.js'
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
 import {
     SkuSellerPanelFilter
 } from "@/assets/js/filter_sku_to_seller";

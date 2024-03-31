@@ -375,24 +375,6 @@
   
       addCondition(value){
         this.voucherForm.voucherCondition.add(value)
-      },
-      checkUserCondition(){
-        const object = this.voucherConditions.find(item => item.value === 'user_file')
-        if (!object){
-          this.voucherConditions.push(this.applyCustomer)
-        }
-        if (this.voucherForm.voucherType === 'peer_to_peer') {
-          const applyDiscounts = this.voucherConditions.find(item => item.value === 'user_file')
-          if (applyDiscounts) this.addCondition(applyDiscounts)
-        }
-        else  if (this.voucherForm.voucherType === 'group'){
-          const objectIndex = this.voucherConditions.findIndex(item => item.value === 'user_file')
-          if (objectIndex >-1) this.voucherConditions.splice(objectIndex , 1)
-        }
-        else{
-          const objectIndex = this.voucherForm.voucherCondition.findIndex(item => item.value === 'user_file')
-          if (objectIndex >-1) this.voucherForm.voucherCondition.splice(objectIndex , 1)
-        }
       }
     },
     computed: {

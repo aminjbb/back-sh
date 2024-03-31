@@ -84,7 +84,7 @@
                 :placeholder="filter.name"
             />
 
-            <v-icon @click="createdAtModel= [] ;gregorianCreateDate =[]">mdi-close</v-icon>
+            <v-icon>mdi-close</v-icon>
           </div>
         </v-col>
 

@@ -86,7 +86,7 @@ export default {
         FilterExport
     },
     
-    setup(props) {
+    setup() {
         const { date, pageLength, exports, getExports, dataTableLength, page, header, item, filterField ,loading} = Export();
         return { date, pageLength, exports, getExports, dataTableLength, page, header, item, filterField ,loading };
     },

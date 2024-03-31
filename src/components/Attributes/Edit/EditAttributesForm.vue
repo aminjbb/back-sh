@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="h-100vh">
         <v-card 
             class="ma-5 br-12 pa-10 position__relative" 

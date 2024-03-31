@@ -94,7 +94,7 @@ import {
     openToast
 } from "@/assets/js/functions";
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getSliderList,

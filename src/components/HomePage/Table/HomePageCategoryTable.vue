@@ -343,27 +343,6 @@ export default {
     },
 
     methods: {
-        sliderStatus(status) {
-            switch (status) {
-                case 'in_progress':
-                    return 'در حال انتشار'
-                case 'waiting':
-                    return 'در انتظار انتشار'
-                case 'expired':
-                    return 'اتمام انتشار'
-            }
-        },
-
-        sliderStatusClass(status) {
-            switch (status) {
-                case 'in_progress':
-                    return 'slider_status__progress'
-                case 'waiting':
-                    return 'slider_status__waiting'
-                case 'expired':
-                    return 'slider_status__expire'
-            }
-        },
 
         /**
          * Get row index in table

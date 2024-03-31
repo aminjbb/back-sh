@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-dialog v-model="orderLimitModal.dialog" width="468">
         <v-card>

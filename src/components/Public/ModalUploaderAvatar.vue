@@ -94,7 +94,6 @@ const router = useRouter()
 const route = useRoute()
 let loading = ref(false)
 let dialog = ref(false)
-const positionList = ref([]);
 const props = defineProps({
   getAvatar: Function,
 

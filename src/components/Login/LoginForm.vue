@@ -95,8 +95,6 @@
     </div>
 </template>
 <script>
-import { useStore } from "vuex";
-import { useCookies } from "vue3-cookies";
 //Mixin
 import { AxiosCall } from '@/assets/js/axios_call.js'
 

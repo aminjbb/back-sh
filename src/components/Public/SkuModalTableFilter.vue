@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="text-center c-modal-table-filter">
         <v-btn 
             @click="openModal()" 
@@ -244,7 +244,6 @@
 
 import { SkuPanelFilter } from '@/assets/js/filter_sku.js'
 import { jalaliToGregorian } from '@/assets/js/functions'
-import value from "@/composables/Export";
 import Product from "@/composables/Product";
 
 export default {

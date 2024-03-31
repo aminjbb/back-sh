@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div>
     <v-breadcrumbs :items="breadcrumbsItems">
         <template v-slot:divider>

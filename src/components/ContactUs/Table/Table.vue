@@ -124,9 +124,7 @@ import ModalShowDes from "@/components/ContactUs/Modal/ModalShowDes.vue";
 
 
 import {
-  openToast,
   convertDateToJalai,
-  openConfirm,
   isOdd
 } from "@/assets/js/functions";
 
@@ -261,16 +259,6 @@ export default {
      */
 
 
-
-
-
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
     /**
      * retailShipment detail modal
      */

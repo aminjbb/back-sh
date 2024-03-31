@@ -243,7 +243,6 @@ import ModalRejectWithdrawRequest from "@/components/DepositRequest/Modal/ModalR
 
 import {
   openToast,
-  openConfirm,
   isOdd
 } from "@/assets/js/functions";
 

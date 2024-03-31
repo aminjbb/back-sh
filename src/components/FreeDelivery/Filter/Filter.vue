@@ -90,10 +90,9 @@
                       class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
                       format="jYYYY-jMM-jDD"
                       display-format="jYYYY-jMM-jDD"
-                      v-model="submitAtModel"
                       variant="outlined" />
 
-                  <v-icon @click="submitAtModel= [] ;gregorianSubmitDate =[]">mdi-close</v-icon>
+                  <v-icon>mdi-close</v-icon>
                 </div>
               </v-col>
 
@@ -168,9 +167,6 @@
 import {
   PanelFilter
 } from '@/assets/js/filter_free_delivery.js'
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
 import {convertDateToGregorian} from "@/assets/js/functions";
 
 export default {

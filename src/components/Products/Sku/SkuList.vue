@@ -40,7 +40,6 @@
                             :filterField="filterField"
                             :brandsList="brandsList" 
                             :colorsList="colorsList"
-                            :volumesList="volumesList"
                             :categoriesList="categoriesList"
                             show-category
                         />
@@ -117,7 +116,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
