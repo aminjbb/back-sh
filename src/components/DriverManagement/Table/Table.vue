@@ -371,10 +371,6 @@
              * @param {*} id
              */
             removeItem(id) {
-                console.log("Removing item with ID:", id);
-                    console.log("Delete path:", this.deletePath + id);
-                    // openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
-
                     openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
         },

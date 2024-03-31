@@ -194,7 +194,6 @@ import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequest
 
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-    openToast,
     openConfirm,
     isOdd,
     convertDateToJalai
@@ -449,25 +448,6 @@ export default {
         returnTrueOrFalse(data) {
             if (data === 1) return true
             else return false
-        },
-
-        /**
-         * Change Active
-         * @param {*} index
-         * @param {*} item
-         */
-        async changeActive(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.activePath + item.id
-            if (this.active[index]) formdata.append('is_active', 1)
-            else formdata.append('is_active', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
         },
 
         /**

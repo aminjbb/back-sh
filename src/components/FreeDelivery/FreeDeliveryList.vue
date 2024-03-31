@@ -145,7 +145,6 @@
 
       },
       dataTableLength(val) {
-        console.log(val)
         this.addPerPage(val)
       },
     }

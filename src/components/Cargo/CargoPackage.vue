@@ -102,7 +102,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 //Components
 import Table from '@/components/Cargo/Table/PackageTable.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
@@ -134,7 +133,7 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const {
       getCargo , cargo ,packageHeader ,  getPackageCargo , packageCargo
     } = Cargo();
@@ -198,6 +197,7 @@ export default {
        this.luggageLoading = false
      }
     },
+
     async assignPackage(){
      try {
        this.loading = true
@@ -227,6 +227,7 @@ export default {
        this.packageId = ''
      }
     },
+
     scanPackageId(){
       if (this.packageScan.includes('-')) {
         const packageSplit = this.packageScan.split('-')
@@ -239,14 +240,6 @@ export default {
       }
       this.assignPackage()
     },
-    /**
-     * Change Header Status
-     * @param {*} index
-     * @param {*} value
-     */
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    }
   }
 }
 </script>

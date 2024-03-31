@@ -91,13 +91,13 @@ export default {
         skuType:null,
         values: [],
         attributeId: null,
-      index:null,
-      attribute:'',
+        index:null,
+        attribute:'',
         getAttributes: { type: Function },
-      getAttributeValues: { type: Function },
-      getAllAttributes:{
-        type:Function,
-      }
+        getAttributeValues: { type: Function },
+        getAllAttributes:{
+            type:Function,
+        }
     },
 
     data() {

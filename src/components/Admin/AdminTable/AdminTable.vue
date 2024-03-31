@@ -232,15 +232,8 @@ export default {
         },
 
         /**
-         * Edit endpoint for change filter
-         */
-        editPath: {
-            type: String,
-            default: ''
-        },
-      /**
-       * Edit endpoint for change ban
-       */
+        * Edit endpoint for change ban
+        */
         banPath: {
             type: String,
             default: ''

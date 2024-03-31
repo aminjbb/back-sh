@@ -151,18 +151,19 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-      confirmModal(val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          if (!val) {
-            this.getAdminList();
-            openToast(
-                this.$store,
-                'ادمین با موفقیت حذف شد',
-                "success"
-            );
-            localStorage.removeItem('deleteObject')
-          }
-        }
+
+        confirmModal(val) {
+            if (localStorage.getItem('deleteObject') === 'done') {
+            if (!val) {
+                this.getAdminList();
+                openToast(
+                    this.$store,
+                    'ادمین با موفقیت حذف شد',
+                    "success"
+                );
+                localStorage.removeItem('deleteObject')
+            }
+            }
       },
     }
 }

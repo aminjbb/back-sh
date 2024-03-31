@@ -136,14 +136,6 @@ export default {
         },
 
         /**
-         * Delete endpoint for change filter
-         */
-        deletePath: {
-            type: String,
-            default: ''
-        },
-
-        /**
          * Page on table
          */
         page: {
@@ -166,15 +158,6 @@ export default {
             type: Boolean,
             default: false
         },
-
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
-        },
-
     },
 
     data() {

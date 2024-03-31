@@ -75,8 +75,6 @@ export default {
 
   methods: {
     print() {
-      console.log(this.shipmentId);
-      // this.close()
       window.open(`${import.meta.env.VITE_API_SITEURL}processing-shipment/${this.shipmentId}/${this.shpsId}/${this.packageId}/${this.placerId}/${this.placementId}/initial-barcode-print`, '_blank');
 
     },

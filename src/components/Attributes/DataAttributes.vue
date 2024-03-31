@@ -110,8 +110,8 @@ export default {
             return this.$store.getters['get_confirmForm'].confirmModal
         }
     },
+    
     mounted() {
-
         this.getAttributes();
     },
 

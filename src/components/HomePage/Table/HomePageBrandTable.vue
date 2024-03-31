@@ -407,7 +407,6 @@ export default {
         
         async updateImage(index) {
             this.form[index].loading = true
-            console.log(this.form[index])
             const formData = new FormData()
             formData.append('homepage_section_id', this.$route.params.sectionId)
             formData.append('image_id', this.form[index].image)

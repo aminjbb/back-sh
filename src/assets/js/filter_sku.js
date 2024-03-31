@@ -40,7 +40,6 @@ export class SkuPanelFilter {
 
     query_maker(routeQuery) {
         let query = "?order=created_at&order_type=desc&";
-        console.log(this.page)
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }

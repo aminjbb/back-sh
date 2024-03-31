@@ -114,23 +114,23 @@ export default {
             this.attributeValuesForModal.push(form)
             this.values.add(element.value)
         },
-      /**
+        /**
          * Set values
          * @param {*} element
          */
-      setValuesFromSku(element) {
-        const form = {
-                id: element.id,
-                value: element.title
-            }
-        this.attributeValuesForModal.push(form)
+        setValuesFromSku(element) {
+            const form = {
+                    id: element.id,
+                    value: element.title
+                }
+            this.attributeValuesForModal.push(form)
             this.values.add(element.title)
         }
     },
 
     computed: {
         /**
-         * Get atts value length
+         * Get attrs value length
          */
         attrValueLength() {
             try {
@@ -171,6 +171,3 @@ export default {
     },
 }
 </script>
-<style lang="">
-    
-</style>

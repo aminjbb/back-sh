@@ -54,7 +54,9 @@ export default {
       loading: false,
     }
   },
+
   components: {AdminForm},
+
   methods:{
     convertPersianToEnglishNumber(input) {
       const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -112,6 +114,7 @@ export default {
       }
     }
   },
+  
   computed:{
     avatar(){
       return this.$store.getters['get_avatar']

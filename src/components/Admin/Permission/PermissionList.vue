@@ -101,6 +101,7 @@ export default {
             loading
         };
     },
+
     components: {
         ModalExcelDownload,
         ModalGroupAdd,
@@ -108,14 +109,15 @@ export default {
         ModalColumnFilter,
         Table
     },
+
     mounted() {
         this.getPermissions()
     },
+
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
         },
-
     },
 
     computed: {

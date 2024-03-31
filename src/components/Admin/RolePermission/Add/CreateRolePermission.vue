@@ -45,9 +45,11 @@ export default {
             loading: false,
         }
     },
+
     components: {
         RolePermissionForm
     },
+
     methods: {
         validate() {
             this.$refs.RolePermissionForm.$refs.addRole.validate()
@@ -55,6 +57,7 @@ export default {
                 if (this.$refs.RolePermissionForm.valid) this.createRole()
             }, 200)
         },
+
         async createRole() {
             this.loading = true
             let formData = new FormData();
@@ -75,6 +78,7 @@ export default {
                 this.loading = false
             }
         },
+
         async assignPermission(id) {
             this.loading = true
             let formData = new FormData();
@@ -97,6 +101,7 @@ export default {
             }
         },
     },
+    
     computed: {
         avatar() {
             return this.$store.getters['get_avatar']

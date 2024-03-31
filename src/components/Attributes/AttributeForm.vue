@@ -66,7 +66,7 @@
                         variant="outlined"
                         single-line
                         label="نوع ویژگی"
-                        :items="fillters"
+                        :items="filters"
                         v-model="form.fillterable"
                     />
                 </v-col>
@@ -147,7 +147,7 @@ export default {
                 'text',
                 'drop down'
             ],
-            fillters: [{
+            filters: [{
                 name: 'دارد',
                 value: 1
             },
