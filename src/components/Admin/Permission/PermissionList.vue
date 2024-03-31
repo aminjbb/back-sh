@@ -77,7 +77,7 @@ import Permission from "@/composables/Permission";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             permissions,
@@ -101,6 +101,7 @@ export default {
             loading
         };
     },
+
     components: {
         ModalExcelDownload,
         ModalGroupAdd,
@@ -108,14 +109,15 @@ export default {
         ModalColumnFilter,
         Table
     },
+
     mounted() {
         this.getPermissions()
     },
+
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
         },
-
     },
 
     computed: {

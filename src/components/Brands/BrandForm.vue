@@ -121,6 +121,7 @@ export default {
         getLogoImage(image) {
             this.form.image_id = image.data.data.image_id
         },
+
         /**
          * Set form
          */
@@ -136,7 +137,6 @@ export default {
 
         async removeItem(id) {
             this.loading = true
-            var formdata = new FormData();
 
             const AxiosMethod = new AxiosCall()
             AxiosMethod.end_point = 'file-manager/direct/delete/image/' + id

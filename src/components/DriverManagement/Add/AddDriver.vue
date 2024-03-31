@@ -69,7 +69,6 @@
              * Submit form
              */
             async submitForm() {
-                console.log(this.$refs.DriverManagementForm.form);
                 this.loading = true
                 var formdata = new FormData();
                 const AxiosMethod = new AxiosCall()

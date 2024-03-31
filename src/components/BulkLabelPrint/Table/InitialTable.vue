@@ -155,7 +155,6 @@ import {
 
 import {
   openToast,
-  openConfirm,
   isOdd
 } from "@/assets/js/functions";
 import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
@@ -193,14 +192,6 @@ export default {
     height: {
       type: String,
       default: '500',
-    },
-
-    /**
-     * Delete endpoint for change filter
-     */
-    deletePath: {
-      type: String,
-      default: ''
     },
 
     /**
@@ -276,7 +267,7 @@ export default {
       }
     },
   },
-  watch: {},
+
   methods: {
     packageManagement(shipment) {
       this.shipmentId = shipment.shipment_id
@@ -302,11 +293,6 @@ export default {
         this.dialog = true
       }
     },
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
 
     /**
      * LostShpss modal
@@ -337,7 +323,6 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
       let data = await AxiosMethod.axios_get()
-      console.log('set_shps_s', item.sku.id)
       if (data) {
 
         const form = {

@@ -85,7 +85,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
@@ -101,7 +100,7 @@ export default {
         ModalExcelDownload
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading} = Attributes();
         return { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading};
     },
@@ -111,8 +110,8 @@ export default {
             return this.$store.getters['get_confirmForm'].confirmModal
         }
     },
+    
     mounted() {
-
         this.getAttributes();
     },
 

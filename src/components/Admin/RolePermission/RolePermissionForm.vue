@@ -133,7 +133,7 @@ export default {
     },
 
     watch: {
-        role(val) {
+        role() {
             this.setForm()
         }
     },

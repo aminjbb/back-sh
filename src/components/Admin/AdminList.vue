@@ -97,7 +97,7 @@ import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             adminList,
@@ -151,18 +151,19 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-      confirmModal(val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          if (!val) {
-            this.getAdminList();
-            openToast(
-                this.$store,
-                'ادمین با موفقیت حذف شد',
-                "success"
-            );
-            localStorage.removeItem('deleteObject')
-          }
-        }
+
+        confirmModal(val) {
+            if (localStorage.getItem('deleteObject') === 'done') {
+            if (!val) {
+                this.getAdminList();
+                openToast(
+                    this.$store,
+                    'ادمین با موفقیت حذف شد',
+                    "success"
+                );
+                localStorage.removeItem('deleteObject')
+            }
+            }
       },
     }
 }

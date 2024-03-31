@@ -73,7 +73,7 @@ import ActivePackage from "@/composables/ActivePackage";
 import ModalTableFilter from '@/components/ActivePackage/Filter/Filter.vue'
 
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getPackageList,

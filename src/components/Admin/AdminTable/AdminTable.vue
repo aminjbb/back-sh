@@ -201,7 +201,6 @@ import {
     PanelFilter
 } from "@/assets/js/filter"
 import {
-    openToast,
     openConfirm
 } from "@/assets/js/functions";
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
@@ -233,15 +232,8 @@ export default {
         },
 
         /**
-         * Edit endpoint for change filter
-         */
-        editPath: {
-            type: String,
-            default: ''
-        },
-      /**
-       * Edit endpoint for change ban
-       */
+        * Edit endpoint for change ban
+        */
         banPath: {
             type: String,
             default: ''
