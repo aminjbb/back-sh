@@ -98,7 +98,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'

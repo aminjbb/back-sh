@@ -59,7 +59,6 @@ import Stepper from '@/components/Public/Stepper.vue'
 
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {convertDateToGregorian, openToast} from "@/assets/js/functions";
-import { onMounted, onUnmounted } from 'vue'
 import LegalSellerStep1 from '@/components/Seller/Edit/LegalSeller/Steps/LegalSellerStep1.vue'
 import LegalSellerStep2 from '@/components/Seller/Edit/LegalSeller/Steps/LegalSellerStep2.vue'
 import LegalSellerStep3 from '@/components/Seller/Edit/LegalSeller/Steps/LegalSellerStep3.vue'
@@ -269,12 +268,6 @@ export default {
       } else {
         this.loading = false
       }
-    },
-    /**
-     * decrease step
-     */
-    decreaseStep() {
-      if (this.step > 1) --this.step
     },
 
     /**

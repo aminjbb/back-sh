@@ -4,7 +4,7 @@
 <script>
 import Export from '@/composables/Export'
 export default {
-    setup(props) {
+    setup() {
         const {getOneExports}  = Export()
         return {getOneExports}
     },

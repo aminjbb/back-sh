@@ -77,7 +77,6 @@
 
 
 <script>
-import {ref} from 'vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import Sku from '@/composables/Sku'
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";

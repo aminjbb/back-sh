@@ -75,7 +75,7 @@ import {
 } from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 export default {
-    setup(props) {
+    setup() {
         const {
             bannerHeader,
             getHomePageBanner,

@@ -156,7 +156,6 @@
 import { isOdd } from '@/assets/js/functions'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { PanelFilter } from  "@/assets/js/filter"
-import { openToast, openConfirm } from "@/assets/js/functions";
 export default {
 
     props: {
@@ -357,25 +356,6 @@ export default {
         returnTrueOrFalse(data) {
             if (data === 1) return true
             else return false
-        },
-
-        /**
-         * Change filter
-         * @param {*} index 
-         * @param {*} item 
-         */
-        async changeFilter(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.editPath + item.id
-            if (this.filter[index]) formdata.append('is_filterable', 1)
-            else formdata.append('is_filterable', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
         },
 
         /**

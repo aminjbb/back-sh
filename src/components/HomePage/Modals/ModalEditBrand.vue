@@ -62,7 +62,6 @@
 <script>
 import BrandForm from '@/components/HomePage/Forms/BrandForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
-import {convertDateToGregorian} from "@/assets/js/functions";
 export  default {
   components:{
     BrandForm

@@ -458,15 +458,6 @@ export default {
       this.dialog = false;
     },
 
-    DateFilter(value) {
-      if (value === 'created_at') {
-        this.createdAtModel = [];
-        this.gregorianCreateDate = [];
-      } else if (value === 'updated_at') {
-        this.updatedAtModel = [];
-        this.gregorianUpdateDate = [];
-      }
-    },
     async searchAdmin(e){
       const form = {
         first_name:e

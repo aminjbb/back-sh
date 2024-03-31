@@ -48,7 +48,7 @@
                                 </v-btn>
 
                                 <!-- Hidden file input -->
-                                <input type="file" ref="fileInput" style="display: none" @change="onFileChange" />
+                                <input type="file" ref="fileInput" style="display: none" />
                             </v-col>
                         </v-row>
                     </div>

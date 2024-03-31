@@ -2,8 +2,7 @@
 <div class="text-center">
     <v-dialog
         v-model="consumerPriceModal.dialog"
-        width="468"
-        @input="dialogToggle">
+        width="468">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">

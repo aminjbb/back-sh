@@ -109,7 +109,7 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 export default {
-    setup(props) {
+    setup() {
         const {
             bannerHeader,
             getHomeSection,

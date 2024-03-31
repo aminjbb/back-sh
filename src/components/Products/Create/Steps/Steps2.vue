@@ -144,7 +144,7 @@
                   variant="outlined"
                   :items="volumeUnitList"
                   :placeholder="lables.volume"
-                  @update:modelValue="saveCreateFromModel(index);"
+                  @update:modelValue="saveCreateFromModel();"
               />
             </v-col>
 
@@ -154,7 +154,7 @@
                   clearable
                   variant="outlined"
                   type="number"
-                  @update:modelValue="saveCreateFromModel(index)"
+                  @update:modelValue="saveCreateFromModel()"
               />
             </v-col>
           </v-row>

@@ -134,7 +134,6 @@ import {
 } from "@/assets/js/filter_supplier"
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
-    openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
@@ -375,24 +374,6 @@ export default {
             let data = await AxiosMethod.axios_post()
         },
 
-        /**
-         * Change be follow
-         * @param {*} index 
-         * @param {*} item 
-         */
-        async changeIsFollow(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'page/crud/update/follow/' + item.id
-            if (this.isFollow[index]) formdata.append('is_follow', 1)
-            else formdata.append('is_follow', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-        },
 
         /**
          * Return odd index

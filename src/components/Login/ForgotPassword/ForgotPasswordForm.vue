@@ -24,8 +24,7 @@
                         v-model="password"
                     >
                         <template v-slot:prepend-inner>
-                            <v-btn 
-                                @click="changePassword1Type()"
+                            <v-btn
                                 min-width="10"
                                 small
                                 variant="icon"
@@ -55,7 +54,6 @@
                     >
                         <template v-slot:prepend-inner>
                             <v-btn
-                                @click="changePassword2Type()"
                                 min-width="10"
                                 small
                                 variant="icon"

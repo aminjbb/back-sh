@@ -143,7 +143,6 @@
 </template>
 <script>
 
-import {convertDateToJalai} from "@/assets/js/functions";
 import Menu from "@/composables/Menu";
 export default {
   setup(){

@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="h-100 d-flex flex-column align-stretch">
         <v-card height="70" class="ma-5 br-12 stretch-card-header-70" >
             <v-row justify="center" align="center" class="px-10 py-5">

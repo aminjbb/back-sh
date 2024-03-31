@@ -77,12 +77,10 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 
 import Stepper from '@/components/Public/Stepper.vue'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {convertDateToGregorian, openToast} from "@/assets/js/functions";
-import { onMounted, onUnmounted } from 'vue'
 import LegalSellerStep1 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep1.vue'
 import LegalSellerStep2 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep2.vue'
 import LegalSellerStep3 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep3.vue'

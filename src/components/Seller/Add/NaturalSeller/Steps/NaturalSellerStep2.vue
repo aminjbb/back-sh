@@ -115,7 +115,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 import NeshanMap from "@neshan-maps-platform/vue3-openlayers";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {

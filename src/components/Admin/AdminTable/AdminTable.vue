@@ -326,65 +326,6 @@ export default {
         massUpdateModal() {
           this.$store.commit('set_massUpdateModal', true)
         },
-        getStatusColor(status) {
-            const color = '';
-
-            if (status == 'open') {
-                return 'green';
-            }
-            if (status == 'answered') {
-                return 'green';
-            }
-            if (status == 'resolved') {
-                return 'grey-lighten-1';
-            }
-            if (status == 'postponed') {
-                return 'red';
-            }
-
-            return '';
-        },
-
-        getStatusText(status) {
-            const text = '';
-
-            if (status == 'open') {
-                return 'باز';
-            }
-            if (status == 'answered') {
-                return 'پاسخ داده شده';
-            }
-            if (status == 'resolved') {
-                return 'بسته شده';
-            }
-            if (status == 'postponed') {
-                return 'متوقف شده';
-            }
-            if (status == 'seen') {
-                return 'دیده شده';
-            }
-
-            return 'نامعلوم';
-        },
-
-        getPriorityText(priority) {
-            const text = '';
-
-            if (priority == 'urgent') {
-                return 'ضروری';
-            }
-            if (priority == 'low') {
-                return 'پایین';
-            }
-            if (priority == 'high') {
-                return 'بالا';
-            }
-            if (priority == 'medium') {
-                return 'متوسط';
-            }
-
-            return 'معمولی';
-        },
 
         /**
          * Get row index in table

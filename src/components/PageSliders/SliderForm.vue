@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         <v-form ref="addSlider" v-model="valid">
             <v-row

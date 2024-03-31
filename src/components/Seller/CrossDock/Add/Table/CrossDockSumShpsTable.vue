@@ -66,14 +66,12 @@
 import {
   isOdd
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
   openConfirm
 } from '@/assets/js/functions'
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
   PanelFilter
 } from "@/assets/js/filter"
@@ -390,28 +388,6 @@ export default {
      */
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
-
-    /**
-     * Clipboard success msg
-     */
-    onCopy() {
-      openToast(
-          this.$store,
-          'متن  با موفقیت کپی شد.',
-          "success"
-      );
-    },
-
-    /**
-     * Clipboard error msg
-     */
-    onError() {
-      openToast(
-          this.$store,
-          'کپی متن با مشکل مواجه شد.',
-          "error"
-      );
     },
 
     updateList(status) {

@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="h-100 d-flex flex-column align-stretch">
         <v-card 
             height="70"

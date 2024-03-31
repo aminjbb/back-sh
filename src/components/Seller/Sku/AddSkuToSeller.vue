@@ -135,10 +135,6 @@ import {
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
-import Brands from "@/composables/Brands";
-import Colors from "@/composables/Colors";
-import Categories from "@/composables/Categories";
-import Sku from "@/composables/Sku";
 export default {
   setup(props) {
     const {
@@ -198,54 +194,7 @@ export default {
       } catch (e) {
         return []
       }
-    },
-    categoriesList() {
-      try {
-        const categories = []
-        this.allCategories.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id
-          }
-          categories.push(form)
-        });
-        return categories
-      } catch (error) {
-        return []
-      }
-    },
-
-    brandsList() {
-      try {
-        const brands = []
-        this.allBrands.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id
-          }
-          brands.push(form)
-        });
-        return brands
-      } catch (error) {
-        return []
-      }
-    },
-
-    colorsList() {
-      try {
-        const colors = []
-        this.allColors.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id,
-          }
-          colors.push(form)
-        });
-        return colors
-      } catch (error) {
-        return []
-      }
-    },
+    }
   },
 
   methods: {
