@@ -139,12 +139,9 @@ export default {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal
         },
-
-
     },
 
     mounted() {
-
         this.getColor();
     },
 

@@ -208,7 +208,7 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const {
       allSuppliers,
       getAllSuppliers

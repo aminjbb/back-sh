@@ -85,10 +85,6 @@
                           
             </div>
   
-          
-  
-           
-  
             <div
                 v-if="header[5].show"
                 class="c-table__contents__item"
@@ -97,9 +93,6 @@
                 <v-icon v-if="item.tipax" class="text-green" size="large">mdi-check</v-icon>
                 <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
             </div>
-  
-            
-  
   
             <div
                 v-if="header[9].show"
@@ -130,7 +123,6 @@
                           </template>
                       </span>
             </div>
-  
            
             <div
   
@@ -209,21 +201,13 @@
   import {
     PanelFilter
   } from "@/assets/js/filter"
-  
   import {
     openConfirm,
     isOdd,
     splitChar
   } from "@/assets/js/functions";
-  
-  
   import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
   import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-  
-  
-  import {
-    openModal
-  } from "@/assets/js/functions_seller";
   import {AxiosCall} from "@/assets/js/axios_call";
   
   export default {

@@ -82,8 +82,6 @@
     </v-card>
 </div>
 </template>
-
-    
     
 <script>
 import Table from '@/components/Factor/Table/Table.vue'
@@ -94,7 +92,7 @@ import {
     openToast
 } from "@/assets/js/functions";
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getFactorList,

@@ -73,7 +73,7 @@
 
                     </div>
                 </v-row>
-                <v-divider></v-divider>
+                <v-divider />
             </div>
 
         </div>
