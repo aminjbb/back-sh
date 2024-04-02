@@ -95,7 +95,6 @@ import {
 } from "@/assets/js/filter"
 
 import {
-    openConfirm,
     isOdd
 } from "@/assets/js/functions";
 import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
@@ -127,14 +126,6 @@ export default {
         },
 
         /**
-         * Delete endpoint for change filter
-         */
-        deletePath: {
-            type: String,
-            default: ''
-        },
-
-        /**
          * Page on table
          */
         page: {
@@ -156,14 +147,6 @@ export default {
         loading: {
             type: Boolean,
             default: false
-        },
-
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
         },
     },
 

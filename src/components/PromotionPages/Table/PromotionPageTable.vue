@@ -213,7 +213,6 @@
         </div>
       </div>
     </div>
-    <!--    <ModalMassUpdate :updateUrl="updateUrl" />-->
   </div>
 </template>
 
@@ -367,50 +366,36 @@ export default {
   },
 
   methods: {
-    // skuGroupPriorityChange : debounce(async function (id , index) {
-    //   var formdata = new FormData();
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.end_point =`page/promotion/${this.$route.params.promotionId}/sku_group/attach`
-    //   formdata.append('sku_group_id', id)
-    //   formdata.append('priority', this.priorities[index])
-    //   AxiosMethod.store = this.$store
-    //   AxiosMethod.form = formdata
-
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   let data = await AxiosMethod.axios_post()
-    // }, 1000),
-
     async saveSkuToPromotion(item, index ) {
-  const formData = new FormData();
-  const AxiosMethod = new AxiosCall();
-  AxiosMethod.using_auth = true;
-  AxiosMethod.store =  this.$store;
-  AxiosMethod.token = this.$cookies.get('adminToken');
-  AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/seller-sku/attach`;
-  formData.append('seller_sku_id', item.id);
-  formData.append('is_active', 1);
-  formData.append('priority', this.priorities[index]);
+    const formData = new FormData();
+    const AxiosMethod = new AxiosCall();
+    AxiosMethod.using_auth = true;
+    AxiosMethod.store =  this.$store;
+    AxiosMethod.token = this.$cookies.get('adminToken');
+    AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/seller-sku/attach`;
+    formData.append('seller_sku_id', item.id);
+    formData.append('is_active', 1);
+    formData.append('priority', this.priorities[index]);
 
 
 
-  AxiosMethod.form = formData;
+    AxiosMethod.form = formData;
 
-  let data = await AxiosMethod.axios_post();
-  if (data) {
-     
-    openToast(
-        this.$store,
-        'کد کالا با موفقیت افزوده شد.', 
-        "success"
-    );
-  }
-},
-
+    let data = await AxiosMethod.axios_post();
+    if (data) {
+      
+      openToast(
+          this.$store,
+          'کد کالا با موفقیت افزوده شد.', 
+          "success"
+      );
+    }
+  },
 
     changeValue(index , value){
       this.active[index] = value
     },
+
     /**
      * Mass update modal
      */
@@ -489,8 +474,6 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
     },
-
-
 
     /**
      * Return odd index

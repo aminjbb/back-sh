@@ -78,7 +78,7 @@
 
 <script setup>
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { ref, onMounted, onUnmounted, computed, watch, toRefs } from 'vue'
+import { ref, computed, toRefs } from 'vue'
 import { useCookies } from "vue3-cookies";
 import { openToast } from '@/assets/js/functions'
 import { useStore } from 'vuex'
@@ -173,10 +173,6 @@ function preventDefaults(e) {
 const avatar = computed(function () {
   return store.getters['get_avatar']
 });
-
-/**
- * Remove image
- */
 
 const events = ['dragenter', 'dragover', 'dragleave', 'drop']
 

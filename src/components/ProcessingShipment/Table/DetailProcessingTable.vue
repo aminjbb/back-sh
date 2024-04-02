@@ -147,7 +147,6 @@ import {
 } from "@/assets/js/filter_supplier"
 
 import {
-  openToast,
   openConfirm,
   isOdd, convertDateToJalai, splitChar
 } from "@/assets/js/functions";

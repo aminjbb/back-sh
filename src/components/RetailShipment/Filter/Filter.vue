@@ -172,7 +172,6 @@
 <script>
 
 import { jalaliToGregorian } from '@/assets/js/functions'
-import value from "@/composables/Export";
 import Product from "@/composables/Product";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {AxiosCall} from "@/assets/js/axios_call";

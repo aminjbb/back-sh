@@ -47,9 +47,6 @@
 
         <v-col cols="6">
           <v-row justify="end">
-            <!--            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="skuGroupHeader" />-->
-
-            <!--            <ModalTableFilter path="menu/index" :filterField="filterField" />-->
           </v-row>
         </v-col>
       </v-row>
@@ -121,7 +118,7 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
-  setup(props) {
+  setup() {
     const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}=new PromotionPage()
     return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}
   },
@@ -182,7 +179,6 @@ export default {
         this.loading = true
         const formData = new FormData()
         formData.append('seller_sku_id' , item.id)
-        // formData.append('type' , 'consignment')
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.store = this.$store

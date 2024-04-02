@@ -114,7 +114,7 @@ export default {
 
     }
   },
-  setup(props) {
+  setup() {
     const {
       cargoList,
       getCargoList,
@@ -155,9 +155,6 @@ export default {
     },
   },
   watch: {
-    savedOrderId(value){
-
-    },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -170,7 +167,6 @@ export default {
     },
   },
   methods: {
-
     async submitForm() {
       this.loading = true
       var formdata = new FormData();
@@ -185,12 +181,11 @@ export default {
       if (data) {
         this.loading = false
         this.$router.push('/order-packaging/index');
-
-
       } else {
         this.loading = false
       }
     },
+
     async contradictedOrder() {
       this.loading = true
       var formdata = new FormData();
@@ -211,6 +206,7 @@ export default {
         this.loading = false
       }
     },
+
     splitedNum() {
       if (this.orderId.includes('-')) {
         const orderSplit = this.orderId.split('-')
@@ -221,9 +217,6 @@ export default {
            this.orderListDetail.find(element => {
              this.Idshps = element.id.toString()
             const match = element.id.toString() === this.savedOrderId;
-
-
-
             return match;
           });
 

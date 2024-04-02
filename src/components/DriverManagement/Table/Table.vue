@@ -119,8 +119,6 @@
                         </span>
                     </div>
     
-                   
-    
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                         <v-menu :location="location">
                             <template v-slot:activator="{ props }">
@@ -130,12 +128,6 @@
                             </template>
     
                             <v-list class="c-table__more-options">
-                              
-    
-                               
-    
-                             
-    
                                 <v-list-item >
                                     <v-list-item-title>
                                         <div
@@ -172,21 +164,15 @@
                 </div>
             </div>
         </div>
-       
-       
     </div>
-    </template>
+</template>
     
-    <script>
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
+<script>
     import {
         SupplierPanelFilter
     } from "@/assets/js/filter_supplier"
     
     import {
-        openToast,
         openConfirm,
         isOdd
     } from "@/assets/js/functions";
@@ -194,10 +180,6 @@
         openModal
     } from "@/assets/js/functions_seller";
     export default {
-        components: {
-          
-        },
-    
         props: {
             /**
              * List Items for header
@@ -306,10 +288,6 @@
                 openModal(this.$store, 'set_showDetailsModal', id, true)
             },
     
-         
-          
-
-    
             /**
              * Get row index in table
              * @param {*} index
@@ -371,9 +349,9 @@
              * @param {*} id
              */
             removeItem(id) {
-                    openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
+                openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
             },
         },
     }
-    </script>
+</script>
     

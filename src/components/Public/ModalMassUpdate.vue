@@ -81,11 +81,6 @@ export default {
       if (data) {
         this.uploadFileLoading = false
         this.setFileUrl(data.data.data.url)
-        // openToast(
-        //     this.$store,
-        //    data.message,
-        //     "success"
-        // );
       }
       else {
         this.uploadFileLoading = false

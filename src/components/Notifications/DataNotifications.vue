@@ -83,9 +83,6 @@
 </template>
 
 <script>
-import {
-    ref
-} from 'vue'
 //Component
 import Table from '@/components/Notifications/Table/Table.vue'
 import ModalTableFilter from '@/components/Notifications/Filter/Filter.vue'
@@ -103,7 +100,7 @@ export default {
         ModalExcelDownload
     },
 
-    setup(props) {
+    setup() {
         const {
             pageLength,
             notifications,

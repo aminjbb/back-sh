@@ -46,7 +46,7 @@
 
 <script setup>
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {ref, onMounted, onUnmounted, computed, watch, toRefs} from 'vue'
+import {ref, onMounted, onUnmounted, computed, watch} from 'vue'
 import { useCookies } from "vue3-cookies";
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
@@ -98,9 +98,6 @@ function bytesToSize(bytes) {
 async function submitImage(index) {
 
     uploadLoading.value = true
-
-    //if (file.type && file.type.startsWith('image/')) {
-
         var formdata = new FormData();
         const AxiosMethod = new AxiosCall()
         formdata.append('file', file)
@@ -143,10 +140,6 @@ async function submitImage(index) {
                 "error"
             );
         }
-    /* } else {
-        openToast(store, 'آپلود فایل مورد نظر مجاز نیست' , 'error')
-        uploadLoading.value = false;
-    } */
 }
 
 /**
