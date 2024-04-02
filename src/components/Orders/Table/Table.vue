@@ -133,8 +133,19 @@
                         </template>
                     </span>
                 </div>
+              <div v-if="header[12].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13400 text-gray500 py-5 number-font">
+                        <template v-if="item.user.phone_number">
+                            {{ item.user.phone_number}}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+              </div>
 
-                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+
+              <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">

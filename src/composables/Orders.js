@@ -27,6 +27,7 @@ export default function setup() {
         { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
         { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
         { name: 'تاریخ ارسال سفارش', show: true, value:'receive_date', order: true },
+        { name: 'شماره موبایل', show: true, value:'phone_number', order: false },
     ]);
 
     const filterField = [
@@ -45,6 +46,8 @@ export default function setup() {
         {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
         {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
+
+
     ];
 
     const shpsModalHeader =ref([

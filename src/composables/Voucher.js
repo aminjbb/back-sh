@@ -37,6 +37,10 @@ export default function setup() {
         { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order: true},
         { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
     ]);
+    const headerPublicVoucherList = ref([
+        { name: 'ردیف', show: true, value: null , order: false},
+        { name: ' کد تخفیف', show: true, value: 'code', order: false},
+    ]);
     const headerCustomer =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
         { name: 'شناسه مشتری', show: true, value: 'id', order: true},
@@ -226,7 +230,7 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push(route.path + filter.query_maker())
     }
-    return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
+    return {headerShps , headerPublicVoucherList, headerCustomer , headerVouchers ,filterField , page , voucherList
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
         getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
         headerOrder}

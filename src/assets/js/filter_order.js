@@ -26,19 +26,18 @@ export class PanelFilter {
         this.orderNumber = null;
         this.creator_id = null;
         this.user_id = null;
-
         this.status = null;
         this.payment_status = null;
         this.payment_method = null;
         this.packed_status = null;
         this.packed_status = null;
+        this.phone_number = null;
         //this.identification_code = null;
        // this.bank_id = null;
         this.created_at_to_date = null;
         this.created_at_from_date = null;
         this.logistic_at_to_date = null;
         this.logistic_at_from_date = null;
-
         this.receive_state_id = null;
         this.receive_city_id = null;
         this.paid_price_from = null;
@@ -61,6 +60,9 @@ export class PanelFilter {
 
         if (this.order_id !== null) {
             query += "order_id=" + this.order_id + "&";
+        }
+        if (this.phone_number !== null) {
+            query += "phone_number=" + this.phone_number + "&";
         }
 
         if (this.orderNumber !== null) {
@@ -154,6 +156,11 @@ export class PanelFilter {
             query += "order=" + routeQuery.order + "&";
         } else if (this.order) {
             query += "order=" + this.order + "&";
+        }
+        if (routeQuery.phone_number) {
+            query += "phone_number=" + routeQuery.phone_number + "&";
+        } else if (this.phone_number) {
+            query += "phone_number=" + this.phone_number + "&";
         }
 
         if (routeQuery.order_type) {
