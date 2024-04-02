@@ -43,7 +43,7 @@
               class="c-table__contents__item justify-center"
               >
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.sku?.id }}
+                        {{ item.code }}
                     </span>
           </div>
 

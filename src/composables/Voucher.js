@@ -6,6 +6,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const voucherList = ref([]);
+    const voucherGroup = ref([]);
     const voucherDetail = ref(null);
     const voucher = ref([]);
     const dataTableLength = ref(25)
@@ -137,6 +138,19 @@ export default function setup() {
             voucher.value = data.data
         }
     };
+    async function  getVoucherGroup(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            voucherGroup.value = data.data.data
+        }
+    };
     async function  getVoucherCustomer(query) {
         let paramsQuery = null
         if (query){
@@ -232,7 +246,7 @@ export default function setup() {
     }
     return {headerShps , headerPublicVoucherList, headerCustomer , headerVouchers ,filterField , page , voucherList
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
-        getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
+        getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
         headerOrder}
 }
 
