@@ -94,19 +94,6 @@
                     </span>
                 </div>
 
-                <!-- <div
-                    v-if="(item.is_active  != undefined && checkActive )"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-                    class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
-                        <v-switch
-                            v-model="active[index]"
-                            inset
-                            color="success"
-                            @change="changeActive(index,item)" />
-                    </span>
-                </div> -->
-
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">

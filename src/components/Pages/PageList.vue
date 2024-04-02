@@ -82,7 +82,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getPageList,

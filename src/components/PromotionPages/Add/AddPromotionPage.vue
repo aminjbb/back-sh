@@ -29,8 +29,6 @@
 
             تایید
           </v-btn>
-
-
         </v-row>
       </footer>
     </v-card>

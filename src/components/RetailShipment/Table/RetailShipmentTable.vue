@@ -202,7 +202,6 @@ import {
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-    openToast,
     openConfirm,
     isOdd,
     convertDateToJalai

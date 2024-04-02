@@ -21,11 +21,6 @@
                             </template>
                               افزودن
                         </v-btn>
-
-<!--                        <ModalGroupAdd-->
-<!--                            getEndPoint="product/sku/csv/get/template"-->
-<!--                            uploadEndpoint="product/sku/csv/bulk"-->
-<!--                        />-->
                     </v-row>
                 </v-col>
                 <v-col cols="6">

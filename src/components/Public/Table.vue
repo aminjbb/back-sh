@@ -396,14 +396,6 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
-                                <!-- <v-list-item-title v-if="model === 'sku' || model === 'skuGroup' || model === 'product'">
-                                    <div class="ma-5 pointer" @click="$router.push(`${uploadImageUrl + item.id}`)">
-                                        <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            بارگذاری تصویر
-                                        </span>
-                                    </div>
-                                </v-list-item-title> -->
                             </v-list-item>
                         </v-list>
                     </v-menu>

@@ -36,8 +36,7 @@
 <script>
 import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
 import ProcessingShipment from '@/composables/ProcessingShipment'
-import {AxiosCall} from "@/assets/js/axios_call";
-import {convertDateToJalai, openToast} from "../../../assets/js/functions";
+import {convertDateToJalai} from "../../../assets/js/functions";
 
 export default {
   setup(){
