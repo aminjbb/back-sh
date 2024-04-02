@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 //Components
 import Table from '@/components/OrderPackaging/Table/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'

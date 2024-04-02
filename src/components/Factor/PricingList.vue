@@ -85,16 +85,6 @@
                     class="px-8 mt-1 ml-5">
                     بازگشت
                 </v-btn>
-
-<!--                <v-btn-->
-<!--                    @click="$router.push('/factor/index')"-->
-<!--                    color="primary500"-->
-<!--                    height="40"-->
-<!--                    :disabled="showSaveButton === true ? false : true"-->
-<!--                    rounded-->
-<!--                    class="px-8 mt-1">-->
-<!--                    ذخیره-->
-<!--                </v-btn>-->
             </v-row>
         </div>
     </v-card>
@@ -113,7 +103,7 @@ export default {
             showSaveButton: false,
         }
     },
-    setup(props) {
+    setup() {
         const {
             getPricingList,
             priceList,

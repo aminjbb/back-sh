@@ -104,7 +104,7 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 export default {
-    setup(props) {
+    setup() {
         const {
             getSkuSeller,
             sellerSku,
@@ -255,7 +255,7 @@ export default {
         }
       },
 
-        $route(to, from) {
+        $route() {
             this.getSkuSeller()
         }
     }

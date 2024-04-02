@@ -23,18 +23,11 @@
             <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="shps_file" :uploadEndpoint= "`admin/delivery-discount/attach/shps/${freeDeliveryId}`" />
           </v-row>
 
-
           <v-row justify="end"
                  align="center"
           >
             <ModalTableFilter path="admin/index" :filterField="[]"/>
           </v-row>
-
-
-
-
-
-
         </v-row>
       </v-card>
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
@@ -104,16 +97,17 @@
     },
 
     data() {
-
         return{
           freeDeliveryId:this.$route.params.freeDeliveryId,
       }
     },
+
     components: {
       Table,
       ModalTableFilter,
       ModalGroupAdd
     },
+    
     mounted() {
       this.getSkuList()
       this.getFreeDeliveryList()

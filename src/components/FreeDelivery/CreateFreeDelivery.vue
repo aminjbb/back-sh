@@ -121,9 +121,6 @@
           if (data) {
             this.$router.go(-1)
             this.loading = false
-            // openToast(this.$store,
-            //     'کد تخفیف موفقیت ایجاد شد.',
-            //     "success")
           } else {
             this.loading = false
             openToast(this.$store,

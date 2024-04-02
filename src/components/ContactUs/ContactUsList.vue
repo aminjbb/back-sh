@@ -1,59 +1,36 @@
 <template>
-  <div class="h-100 d-flex flex-column align-stretch seller">
-
+<div class="h-100 d-flex flex-column align-stretch seller">
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
-      <Table
-          class="flex-grow-1"
-          :header="header"
-          :items="contactUsList"
-          :page="page"
-          :perPage="dataTableLength"
-          :loading="loading"/>
+        <Table class="flex-grow-1" :header="header" :items="contactUsList" :page="page" :perPage="dataTableLength" :loading="loading" />
 
-      <v-divider />
+        <v-divider />
 
-      <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
-            <!--                        <ModalExcelDownload getEndPoint="cargo/csv/requested/cargo/export" />-->
-          </v-col>
+        <v-card-actions class="pb-3">
+            <v-row class="px-8">
+                <v-col cols="3" class="d-flex justify-start" />
 
-          <v-col cols="6" class="d-flex justify-center">
-            <div class="text-center">
-              <v-pagination
-                  v-model="page"
-                  :length="pageLength"
-                  rounded="circle"
-                  size="40"
-                  :total-visible="7"
-                  prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
-            </div>
-          </v-col>
+                <v-col cols="6" class="d-flex justify-center">
+                    <div class="text-center">
+                        <v-pagination v-model="page" :length="pageLength" rounded="circle" size="40" :total-visible="7" prev-icon="mdi-chevron-right" next-icon="mdi-chevron-left" />
+                    </div>
+                </v-col>
 
-          <v-col cols="3" class="d-flex justify-end">
-            <div
-                align="center"
-                id="rowSection"
-                class="d-flex align-center">
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
-              <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]" />
-                            </span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+                <v-col cols="3" class="d-flex justify-end">
+                    <div align="center" id="rowSection" class="d-flex align-center">
+                        <span class="ml-5">
+                            تعداد سطر در هر صفحه
+                        </span>
+                        <span class="mt-2" id="row-selector">
+                            <v-select v-model="dataTableLength" class="t1330" variant="outlined" :items="[25,50,100]" />
+                        </span>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card-actions>
     </v-card>
-  </div>
+</div>
 </template>
 
 <script>
@@ -63,74 +40,88 @@ import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import {
+    openToast
+} from "@/assets/js/functions";
 export default {
-  setup() {
-    const {
-      pageLength, contactUsList ,addPerPage, getContactUs,
-      dataTableLength, page, header, loading
-    } = ContactUs();
-    return {
-      pageLength, contactUsList ,addPerPage, getContactUs,
-      dataTableLength, page, header, loading
-    };
-  },
-  data() {
-    return {
-
-    }
-  },
-  components: {
-    Table,
-    ModalGroupAdd,
-    ModalTableFilter,
-    ModalColumnFilter,
-    ModalExcelDownload,
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
-  },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
+    setup() {
+        const {
+            pageLength,
+            contactUsList,
+            addPerPage,
+            getContactUs,
+            dataTableLength,
+            page,
+            header,
+            loading
+        } = ContactUs();
+        return {
+            pageLength,
+            contactUsList,
+            addPerPage,
+            getContactUs,
+            dataTableLength,
+            page,
+            header,
+            loading
+        };
     },
+    data() {
+        return {
 
-    updateList(status){
-      if(status === 'true'){
-        this.getContactUs();
-      }
-    },
-  },
-
-  mounted() {
-    this.getContactUs();
-  },
-
-  watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getPageList();
-          openToast(
-              this.$store,
-              'صفحه مورد نظر با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
         }
-      }
     },
-    $route(){
-      this.getContactUs();
+    components: {
+        Table,
+        ModalGroupAdd,
+        ModalTableFilter,
+        ModalColumnFilter,
+        ModalExcelDownload,
+    },
 
+    computed: {
+        confirmModal() {
+            return this.$store.getters['get_confirmForm'].confirmModal
+        }
+    },
+
+    methods: {
+        changeHeaderShow(index, value) {
+            this.header[index].show = value
+        },
+
+        updateList(status) {
+            if (status === 'true') {
+                this.getContactUs();
+            }
+        },
+    },
+
+    mounted() {
+        this.getContactUs();
+    },
+
+    watch: {
+        dataTableLength(val) {
+            this.addPerPage(val)
+        },
+        confirmModal(val) {
+            if (this.$cookies.get('deleteItem')) {
+                if (!val) {
+                    this.getPageList();
+                    openToast(
+                        this.$store,
+                        'صفحه مورد نظر با موفقیت حذف شد',
+                        "success"
+                    );
+                    this.$cookies.remove('deleteItem')
+                }
+            }
+        },
+        $route() {
+            this.getContactUs();
+
+        }
     }
-  }
 }
 </script>

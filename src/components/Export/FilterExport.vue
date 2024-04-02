@@ -81,8 +81,8 @@ export default {
          */
         changeDate(date) {
             const splitDate = date.split('-')
-            const finaldate = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
-            return finaldate
+            const finalDate = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+            return finalDate
         },
         
         /**

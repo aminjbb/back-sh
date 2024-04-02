@@ -41,8 +41,6 @@
                updateUrl="page/csv/mass-update"
                deletePath="driver/crud/delete/"
                model="page" />
-              
-
    
            <v-divider />
    
@@ -97,7 +95,7 @@
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
    import { openToast} from "@/assets/js/functions";
    export default {
-       setup(props) {
+       setup() {
            const {
                pageLength,
                getDriverList,
@@ -133,43 +131,42 @@
        },
    
        computed: {
-           confirmModal() {
-               return this.$store.getters['get_confirmForm'].confirmModal
-           }
+            confirmModal() {
+                return this.$store.getters['get_confirmForm'].confirmModal
+            }
        },
    
        methods: {
-           changeHeaderShow(index, value) {
-               this.header[index].show = value
-           },
-   
-          
+            changeHeaderShow(index, value) {
+                this.header[index].show = value
+            },
        },
    
        mounted() {
-        this.getDriverList();
+            this.getDriverList();
        },
    
        watch: {
-           dataTableLength(val) {
-               this.addPerPage(val)
-           },
-         confirmModal(val) {
-           if (localStorage.getItem('deleteObject') === 'done') {
-             if (!val) {
-               this.getDriverList();
-               openToast(
-                   this.$store,
-                   'محصول با موفقیت حذف شد',
-                   "success"
-               );
-               localStorage.removeItem('deleteObject')
-             }
-           }
-         },
+            dataTableLength(val) {
+                this.addPerPage(val)
+            },
+
+            confirmModal(val) {
+                if (localStorage.getItem('deleteObject') === 'done') {
+                    if (!val) {
+                    this.getDriverList();
+                    openToast(
+                        this.$store,
+                        'محصول با موفقیت حذف شد',
+                        "success"
+                    );
+                    localStorage.removeItem('deleteObject')
+                    }
+                }
+            },
+
            $route(){
                this.getDriverList();
-
            }
        }
    }

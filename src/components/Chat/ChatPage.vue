@@ -15,6 +15,7 @@
     </v-row>
   </div>
 </template>
+
 <script>
 //components
 import MessageList from '@/components/Chat/MessageList/MessageList.vue'
