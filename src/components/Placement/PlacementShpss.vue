@@ -72,7 +72,7 @@ export default {
         Table,
     },
 
-    setup(props) {
+    setup() {
         const {
             shpssHeader,
         } = Placement();

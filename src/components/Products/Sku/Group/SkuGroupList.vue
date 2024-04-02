@@ -114,7 +114,7 @@ export default {
         ModalTableFilter,
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, allSkuGroups, addPerPage, getAllSkuGroups, dataTableLength, page, skuGroupsHeader, item, filterField, skuGroupLoading } = Sku();
 
         return {

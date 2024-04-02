@@ -1,19 +1,13 @@
 <template>
 <div class="text-right">
-    <v-dialog
-        v-model="printModal.dialog"
-        width="468"
-        @input="dialogToggle">
+    <v-dialog v-model="printModal.dialog" width="468" @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
                     پرینت برچسب
                 </span>
 
-                <v-btn
-                    class="modal__header__btn"
-                    @click="close()"
-                    variant="icon">
+                <v-btn class="modal__header__btn" @click="close()" variant="icon">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </header>
@@ -22,57 +16,51 @@
                 <v-divider />
             </div>
 
-            <div
-                :id="`printableArea-${printModal.id}`"
-                class="d-flex justify-center align-center mt-5"
-                style="height: 180px;">
+            <div :id="`printableArea-${printModal.id}`" class="d-flex justify-center align-center mt-5" style="height: 180px;">
                 <div>
                     <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
                     <br />
-                  <div style="display: flex;justify-content: center;margin: 14px;">
-                    <div>
-                      <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
+                    <div style="display: flex;justify-content: center;margin: 14px;">
                         <div>
-                         <span class="t12400">
-                         شماره ردیف :
-                          <span class="t12400 text-gray600 number-font">
-                            {{ data?.row_number }}
-                          </span>
-                        </span>
+                            <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
+                                <div>
+                                    <span class="t12400">
+                                        شماره ردیف :
+                                        <span class="t12400 text-gray600 number-font">
+                                            {{ data?.row_number }}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="t12400">
+                                        شماره قفسه :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ data?.placement_number }}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-right  px-5 d-flex justify-space-between px-10">
+                                <div>
+                                    <span class="t12400">
+                                        شماره طبقه :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ data?.step_number }}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="t12400">
+                                        شماره شلف :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ data?.shelf_number }}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                        <span class="t12400">
-                         شماره قفسه  :
-                          <span class=" t12400 text-gray600 number-font">
-                            {{ data?.placement_number }}
-                          </span>
-                        </span>
-                        </div>
-                      </div>
-                      <div class="text-right  px-5 d-flex justify-space-between px-10">
-                        <div>
-                         <span class="t12400">
-                         شماره طبقه :
-                          <span class=" t12400 text-gray600 number-font">
-                             {{ data?.step_number }}
-                          </span>
-                        </span>
-                        </div>
-                        <div>
-                        <span class="t12400">
-                         شماره شلف   :
-                          <span class=" t12400 text-gray600 number-font">
-                           {{ data?.shelf_number }}
-                          </span>
-                        </span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                    <div
-                        v-if="data && data.barcode"
-                        class="number-font text-black t12500 mt-2"
-                        style="text-align:center">{{ data.barcode }}</div>
+                    <div v-if="data && data.barcode" class="number-font text-black t12500 mt-2" style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -80,30 +68,17 @@
                 <v-divider />
             </div>
 
-            <v-row
-                justify="space-between"
-                align="center"
-                class="pb-4 ma-0">
+            <v-row justify="space-between" align="center" class="pb-4 ma-0">
                 <v-col cols="6" class="">
                     <div class="text-left">
-                        <v-btn
-                            @click="print()"
-                            color="white"
-                            height="40"
-                            rounded
-                            class="px-5 mt-1 mr-5">
+                        <v-btn @click="print()" color="white" height="40" rounded class="px-5 mt-1 mr-5">
                             پرینت برچسب
                         </v-btn>
                     </div>
                 </v-col>
 
                 <v-col cols="6" class="text-right">
-                    <v-btn
-                        @click="close()"
-                        variant="text"
-                        height="40"
-                        rounded
-                        class="px-5 mt-1 mr-5">
+                    <v-btn @click="close()" variant="text" height="40" rounded class="px-5 mt-1 mr-5">
                         انصراف
                     </v-btn>
                 </v-col>
@@ -128,7 +103,7 @@ export default {
             dialog: false,
             data: null,
             stockModel: null,
-            url : import.meta.env.VITE_API_BASEURL2,
+            url: import.meta.env.VITE_API_BASEURL2,
         }
     },
 
@@ -170,30 +145,14 @@ export default {
             } else {}
         },
 
-      /**
-       * Print barcode
-       */
-      print() {
-        const printWindow = window.open('about:blank', '_blank');
-        printWindow.document.write(document.getElementById(`printableArea-${this.printModal.id}`).innerHTML)
-        printWindow.print();
-        // this.$nextTick(() => {
-        //   const printContent = document.createElement('div');
-        //   printContent.innerHTML ='<p>akbar</p>';
-        //   // printContent.innerHTML = document.getElementById(`printableArea-${this.printModal.id}`).innerHTML;
-        //   console.log(printContent , 'printContent')
-        //   // printWindow.document.title = "Print barcode";
-        //   //
-        //   // printWindow.document.body.appendChild(printContent);
-        //
-        //   // setTimeout(() => {
-        //   //   // printWindow.print();
-        //   //   printWindow.onafterprint = function () {
-        //   //     // printWindow.close();
-        //   //   };
-        //   // }, 2000);
-        // });
-      },
+        /**
+         * Print barcode
+         */
+        print() {
+            const printWindow = window.open('about:blank', '_blank');
+            printWindow.document.write(document.getElementById(`printableArea-${this.printModal.id}`).innerHTML)
+            printWindow.print();
+        },
     },
 
     created() {

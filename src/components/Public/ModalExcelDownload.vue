@@ -67,13 +67,6 @@
                         </span>
                     </v-btn>
                 </div>
-                <!-- <div class="text-center my-5 mb-10">
-                        <v-btn width="400" color="black" rounded>
-                            <span class="t14300" >
-                                چاپ فایل
-                            </span>
-                        </v-btn>
-                </div> -->
             </v-card>
         </v-dialog>
     </div>

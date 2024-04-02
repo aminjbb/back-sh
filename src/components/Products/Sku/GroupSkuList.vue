@@ -21,11 +21,6 @@
                             </template>
                               افزودن
                         </v-btn>
-
-<!--                        <ModalGroupAdd-->
-<!--                            getEndPoint="product/sku/csv/get/template"-->
-<!--                            uploadEndpoint="product/sku/csv/bulk"-->
-<!--                        />-->
                     </v-row>
                 </v-col>
                 <v-col cols="6">
@@ -135,7 +130,7 @@ export default {
         SkuModalTableFilter,
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
         const { allBrands, getAllBrands } = Brands();
         const { allColors, getAllColor } = Colors();

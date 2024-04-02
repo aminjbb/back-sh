@@ -86,7 +86,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
-  setup(props) {
+  setup() {
     const {
       filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
     } = RetailShipment();
@@ -127,7 +127,6 @@ export default {
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
-          // this.getHomeSection();
           openToast(
               this.$store,
               'محصول با موفقیت حذف شد',
