@@ -24,6 +24,7 @@ export class PanelFilter {
         this.page = 1;
         this.order = 'created_at';
         this.order_type = 'desc';
+        this.created_at =null;
     }
 
     query_maker() {
@@ -46,6 +47,10 @@ export class PanelFilter {
 
         if (this.created_at_from_date) {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
+        }
+
+        if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
         }
 
         return query.substring(0, query.length - 1);
@@ -89,6 +94,25 @@ export class PanelFilter {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
         }
 
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
+        }
+
+        if (routeQuery.order) {
+            query += "order=" + routeQuery.order + "&";
+        } else if (this.order) {
+            query += "order=" + this.order + "&";
+        }
+
+        if (routeQuery.order_type) {
+            query += "order_type=" + routeQuery.order_type + "&";
+        } else if (this.order_type) {
+            query += "order_type=" + this.order_type + "&";
+        }
+
         return query.substring(0, query.length - 1);
     }
     sort_query(routeQuery){
@@ -114,6 +138,18 @@ export class PanelFilter {
             query += "page=" + routeQuery.page + "&";
         }
 
+        if (this.order) {
+            query += "order=" + this.order + "&";
+        } else if (routeQuery.order) {
+            query += "order=" + routeQuery.order + "&";
+        }
+
+        if (this.order_type) {
+            query += "order_type=" + this.order_type + "&";
+        } else if (routeQuery.order_type) {
+            query += "order_type=" + routeQuery.order_type + "&";
+        }
+
         if (routeQuery.created_at_to_date) {
             query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
         }
@@ -126,6 +162,13 @@ export class PanelFilter {
         }
         else if (this.created_at_from_date) {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
+        }
+
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
         }
 
         return query.substring(0, query.length - 1);

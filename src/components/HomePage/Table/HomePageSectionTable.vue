@@ -93,7 +93,7 @@
                     v-if="item.updated_at && header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{convertDateToJalai(item.updated_at ,'-',true )  }}
                     </span>
 

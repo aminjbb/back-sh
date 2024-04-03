@@ -282,7 +282,6 @@ export default {
          * @param { boolean } order
          */
         createOrdering(index, order) {
-            console.log("🚀 ~ createOrdering ~ index:", index)
             if (order === true) {
                 if (index) {
                     if (this.order_type === 'desc') {
