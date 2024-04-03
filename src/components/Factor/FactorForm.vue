@@ -65,7 +65,7 @@ export default {
         factor: {},
     },
 
-    setup(props) {
+    setup() {
         const {
             allSuppliers,
             getAllSuppliers

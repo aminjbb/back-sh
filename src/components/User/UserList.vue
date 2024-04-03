@@ -23,10 +23,6 @@
               </template>
               ساخت کاربر
             </v-btn>
-<!--            <ModalGroupAdd-->
-<!--                getEndPoint="user/csv/get/template"-->
-<!--                uploadEndpoint="user/csv/bulk"-->
-<!--            />-->
           </v-row>
         </v-col>
 
@@ -116,7 +112,7 @@ import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 export default {
-  setup(props) {
+  setup() {
     const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,addPerPage} = User();
     return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , addPerPage};
   },
@@ -142,8 +138,6 @@ export default {
       return this.$store.getters['get_confirmForm'].confirmModal
     }
   },
-
-
 
   watch: {
     dataTableLength(val) {

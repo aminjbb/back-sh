@@ -112,7 +112,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 //Components
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
@@ -130,7 +129,7 @@ export default {
         ModalExcelDownload
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, filterField, color, getColor, addPerPage, dataTableLength, page, header, item,loading } = Colors();
         return { pageLength, filterField, color, getColor, addPerPage, dataTableLength, page, header, item,loading };
     },
@@ -140,12 +139,9 @@ export default {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal
         },
-
-
     },
 
     mounted() {
-
         this.getColor();
     },
 

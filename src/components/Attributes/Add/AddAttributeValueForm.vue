@@ -66,8 +66,6 @@
 </template>
 
 <script>
-import { AxiosCall } from '@/assets/js/axios_call.js'
-
 export default {
     props: {
         attributeId: null,
@@ -105,34 +103,6 @@ export default {
         },
 
         /**
-         * Create Attr value
-         * @param {*} value 
-         */
-        async createAttributeValues(value) {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'product/attribute/value/crud/create'
-
-            formdata.append('value', value)
-            formdata.append('attribute_id', this.attributeId)
-            AxiosMethod.form = formdata
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.toast_error = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.loading = false
-                this.value = ''
-                this.getAttributeDetail()
-            }
-            else {
-                this.loading = false
-            }
-        },
-
-        /**
          * Set values
          * @param {*} element 
          */
@@ -144,43 +114,23 @@ export default {
             this.attributeValuesForModal.push(form)
             this.values.add(element.value)
         },
-      /**
+        /**
          * Set values
          * @param {*} element
          */
-      setValuesFromSku(element) {
-        const form = {
-                id: element.id,
-                value: element.title
-            }
-        this.attributeValuesForModal.push(form)
+        setValuesFromSku(element) {
+            const form = {
+                    id: element.id,
+                    value: element.title
+                }
+            this.attributeValuesForModal.push(form)
             this.values.add(element.title)
-        },
-
-        /**
-         * Get attribute detail
-         */
-        async getAttributeDetail() {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'product/attribute/value/crud/get/' + this.attributeId
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                data.data.values.forEach(el => {
-                    this.setValues(el)
-                })
-            }
-            else {
-                this.loading = false
-            }
         }
     },
 
     computed: {
         /**
-         * Get atts value length
+         * Get attrs value length
          */
         attrValueLength() {
             try {
@@ -221,6 +171,3 @@ export default {
     },
 }
 </script>
-<style lang="">
-    
-</style>

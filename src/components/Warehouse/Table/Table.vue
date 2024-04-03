@@ -448,25 +448,6 @@ export default {
         },
 
         /**
-         * Change filter
-         * @param {*} index 
-         * @param {*} item 
-         */
-        async changeFilter(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.editPath + item.id
-            if (this.filter[index]) formdata.append('is_filterable', 1)
-            else formdata.append('is_filterable', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-        },
-
-        /**
          * Change Active
          * @param {*} index 
          * @param {*} item 

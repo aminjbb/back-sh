@@ -133,7 +133,7 @@ import {
 } from "@/assets/js/axios_call";
 
 export default {
-  setup(props) {
+  setup() {
     const {
       retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header ,headerShps
     } = RetailShipment();

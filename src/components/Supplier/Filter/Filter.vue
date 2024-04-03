@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center c-modal-table-filter">
     <v-btn
         @click="openModal()"
@@ -79,7 +79,6 @@
                                 density="compact"
                                 variant="outlined"
                                 single-line
-                                :rules="rule"
                                 v-model="provinceModel"
                                 @update:modelValue="getCities()" />
 
@@ -89,7 +88,6 @@
                                 density="compact"
                                 variant="outlined"
                                 single-line
-                                :rules="rule"
                                 v-model="cityModel" />
 
                             <v-select

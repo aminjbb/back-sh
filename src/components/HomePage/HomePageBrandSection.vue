@@ -70,7 +70,7 @@ import {
 } from "@/assets/js/functions";
 import ModalAddBrand from "@/components/HomePage/Modals/ModalAddBrand.vue";
 export default {
-    setup(props) {
+    setup() {
         const {
             brandHeader,
             getHomeBrand,

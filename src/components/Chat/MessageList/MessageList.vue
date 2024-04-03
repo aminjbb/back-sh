@@ -32,7 +32,7 @@
         </header>
 
         <div class="message-list__contents flex-grow-1 scroller" >
-          <div v-for="(message , index) in conversationMessages" :key="`message${message.id}`" ref="conversation" >
+          <div v-for="message in conversationMessages" :key="`message${message.id}`" ref="conversation" >
             <div class="message-list__body message-list__body--receiver" :ref="`chatMessage${message.id}`" v-if="!message.sent_from_me">
               <div class="message-list__body__content">
                 <div class="message-list__text pointer" v-if="message.parent" @click="scrollToElement(message.parent.id)">
@@ -221,7 +221,7 @@ export default {
           this.loading=false
         }
         
-        }
+      }
     },
 
     computed:{

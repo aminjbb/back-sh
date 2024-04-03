@@ -670,28 +670,6 @@ export default {
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
 
-        /**
-         * Clipboard success msg
-         */
-        onCopy() {
-            openToast(
-                this.$store,
-                'متن  با موفقیت کپی شد.',
-                "success"
-            );
-        },
-
-        /**
-         * Clipboard error msg
-         */
-        onError() {
-            openToast(
-                this.$store,
-                'کپی متن با مشکل مواجه شد.',
-                "error"
-            );
-        },
-
         updateList(status) {
             this.$emit('updateList', status);
         },

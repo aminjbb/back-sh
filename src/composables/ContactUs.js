@@ -2,7 +2,7 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
+import {PanelFilter} from "@/assets/js/filter";
 
 
 export default function setup() {
@@ -17,17 +17,17 @@ export default function setup() {
     // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: ' نام و نام خانوادگی', show: true , value:'label', order: false},
-        { name: '  شماره موبایل', show: true , value:'label', order: false},
-        { name: ' عنوان', show: true, value:'type' , order: false},
-        { name: ' تاریخ ایجاد', show: true, value:'type' , order: false},
+        { name: ' نام و نام خانوادگی', show: true , value:'full_name', order: false},
+        { name: '  شماره موبایل', show: true , value:'phone_number', order: false},
+        { name: ' عنوان', show: true, value:'subject' , order: false},
+        { name: ' تاریخ ایجاد', show: true, value:'created_at' , order: true},
 
     ]);
 
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
+    const filter = new PanelFilter()
 
     /**
      * Get page list

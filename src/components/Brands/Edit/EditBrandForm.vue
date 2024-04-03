@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="mh-100">
         <v-card 
             class="ma-5 br-12 position__relative" 
@@ -134,6 +134,3 @@ export default {
     }
 }
 </script>
-<style lang="">
-    
-</style>

@@ -40,7 +40,6 @@
     methods: {
   
       async getDetail(){
-        console.log("slm");
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')

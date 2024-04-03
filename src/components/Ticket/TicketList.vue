@@ -101,13 +101,11 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 //components
 import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
 import ModalTableFilter from '@/components/Ticket/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
-import Echo from "laravel-echo";
 
 export default {
     components: {
@@ -122,7 +120,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets } = Ticket();
         return { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets };
     },

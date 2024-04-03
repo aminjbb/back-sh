@@ -91,8 +91,6 @@
 </template>
 
 <script>
-
-
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -101,13 +99,8 @@ import {
 } from "@/assets/js/filter_supplier"
 
 import {
-  openToast,
-  openConfirm,
   isOdd
 } from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 
 export default {
   components: {},
@@ -171,8 +164,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-
   },
 
   data() {
@@ -187,14 +178,10 @@ export default {
       userInputs: [],
       loading: false,
       apiSuccess: {},
-
-
     }
   },
 
   computed: {
-
-
     /**
      * Get each items table based of header length
      */
@@ -212,8 +199,8 @@ export default {
       return 'auto';
     },
   },
-  watch: {
 
+  watch: {
     userInputs: {
       handler: 'checkAndPostApi',
       deep: true,
@@ -223,20 +210,16 @@ export default {
         this.userInputs.push(0)
       })
     }
-
   },
+
   methods: {
     orderDetailProp(value, value2) {
 
       const shpsOrderIndex = value.findIndex(shps=> shps.id == value2)
       ++this.userInputs[shpsOrderIndex]
     },
+
     /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
-    /**
-     * Open Basic Discount modal
      * translation
      */
     translateType(type) {
@@ -294,15 +277,6 @@ export default {
      * Get row index in table
      * @param {*} index
      */
-
-    /**
-     * LostShpss modal
-     */
-
-
-
-
-
     rowIndexTable(index) {
       let rowIndex = 0
       if (this.page === 1) {
@@ -356,12 +330,6 @@ export default {
       else return false
 
     },
-
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-
   },
   created() {
     this.items.forEach((item) => {

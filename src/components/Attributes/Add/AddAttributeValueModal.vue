@@ -86,19 +86,18 @@
 <script>
 import AddAttributeValueForm from '@/components/Attributes/Add/AddAttributeValueForm.vue'
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {tr} from "vuetify/locale";
 export default {
     props: {
         skuType:null,
         values: [],
         attributeId: null,
-      index:null,
-      attribute:'',
+        index:null,
+        attribute:'',
         getAttributes: { type: Function },
-      getAttributeValues: { type: Function },
-      getAllAttributes:{
-        type:Function,
-      }
+        getAttributeValues: { type: Function },
+        getAllAttributes:{
+            type:Function,
+        }
     },
 
     data() {

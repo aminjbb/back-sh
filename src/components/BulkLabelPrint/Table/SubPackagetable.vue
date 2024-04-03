@@ -138,8 +138,6 @@ import {
   openConfirm,
   isOdd
 } from "@/assets/js/functions";
-import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
-
 
 export default {
 
@@ -250,7 +248,7 @@ export default {
       return 'auto';
     },
   },
-  watch: {},
+
   methods: {
     packageManagement(){
       this.$store.commit('set_packageManagementModal' , true)
@@ -275,11 +273,6 @@ export default {
         this.dialog = true
       }
     },
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
 
     /**
      * LostShpss modal
@@ -311,7 +304,6 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
       let data = await AxiosMethod.axios_get()
-      console.log('set_shps_s', item.sku.id)
       if (data) {
 
         const form = {
@@ -426,10 +418,6 @@ export default {
      * @param {*} id
      */
     removeItem(id) {
-      console.log("Removing item with ID:", id);
-      console.log("Delete path:", this.deletePath + id);
-      // openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
-
       openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده", "delete", this.deletePath + id, true)
     },
   },

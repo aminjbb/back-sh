@@ -51,7 +51,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -130,11 +130,10 @@ import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+    PanelFilter
+} from "@/assets/js/filter_notification"
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {
-    openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
@@ -218,8 +217,8 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
+            panelFilter: new PanelFilter(),
         }
     },
 
@@ -314,7 +313,7 @@ export default {
                         this.order_type = 'desc'
                         this.panelFilter.order_type = 'desc'
                     }
-
+                    
                     this.panelFilter.order = index
                     this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
 
@@ -375,24 +374,6 @@ export default {
             let data = await AxiosMethod.axios_post()
         },
 
-        /**
-         * Change be follow
-         * @param {*} index 
-         * @param {*} item 
-         */
-        async changeIsFollow(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'page/crud/update/follow/' + item.id
-            if (this.isFollow[index]) formdata.append('is_follow', 1)
-            else formdata.append('is_follow', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-        },
 
         /**
          * Return odd index

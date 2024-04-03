@@ -84,7 +84,7 @@
                 :placeholder="filter.name"
             />
 
-            <v-icon @click="createdAtModel= [] ;gregorianCreateDate =[]">mdi-close</v-icon>
+            <v-icon>mdi-close</v-icon>
           </div>
         </v-col>
 
@@ -134,7 +134,6 @@
 <script>
 
 import {UserPanelFilter} from "@/assets/js/filter_user";
-import { jalaliToGregorian } from '@/assets/js/functions'
 import value from "@/composables/Export";
 export default {
   props: {

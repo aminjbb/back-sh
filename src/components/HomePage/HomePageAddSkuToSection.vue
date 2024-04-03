@@ -104,7 +104,7 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 export default {
-    setup(props) {
+    setup() {
         const {
             getSkuSeller,
             sellerSku,
@@ -191,7 +191,6 @@ export default {
         },
 
         updateList(status) {
-            console.log('3.skuList', status)
             if (status === 'true') {
                 this.getSkuSeller();
             }
@@ -256,7 +255,7 @@ export default {
         }
       },
 
-        $route(to, from) {
+        $route() {
             this.getSkuSeller()
         }
     }

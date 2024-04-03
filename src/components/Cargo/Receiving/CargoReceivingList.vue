@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 //Components
 import Table from '@/components/Cargo/Receiving/Table/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
@@ -96,7 +95,7 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const {
        getCargoReceivingList, cargoReceivingList, dataTableLength, cargoReceivingHeader
     } = Cargo();
@@ -151,7 +150,6 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data) {
           openToast(this.$store , 'کارگو با موفیت بسته شد')
-          // this.cargoReceivingList = []
           this.loading = false
           this.cargo = ''
         }

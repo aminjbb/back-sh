@@ -98,7 +98,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
@@ -115,7 +114,7 @@ export default {
         ModalTableFilter,
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, allSkuGroups, addPerPage, getAllSkuGroups, dataTableLength, page, skuGroupsHeader, item, filterField, skuGroupLoading } = Sku();
 
         return {

@@ -102,9 +102,5 @@ export default {
     Table,
     ModalTableFilter
   },
-  mounted() {
-    // this.getVoucherShps()
-    // this.getVoucherDetail()
-  }
 }
 </script>

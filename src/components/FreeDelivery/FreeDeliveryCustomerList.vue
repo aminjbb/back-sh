@@ -1,122 +1,113 @@
 <template>
-    <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-      <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
+<div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
+    <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
-          <div>
-            <span class="t14500">
-               عنوان:
-            </span>
-            <span class="t14500 text-gray500">
-               {{ voucherDetail?.name }}
-            </span>
-          </div>
+            <div>
+                <span class="t14500">
+                    عنوان:
+                </span>
+                <span class="t14500 text-gray500">
+                    {{ voucherDetail?.name }}
+                </span>
+            </div>
 
         </div>
-      </v-card>
-      <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
-        <v-row
-            justify="end"
-            align="center"
-            class="px-10 py-3">
+    </v-card>
+    <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
+        <v-row justify="end" align="center" class="px-10 py-3">
 
             <v-row class="mt-2">
-              <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="user_file" :uploadEndpoint= "`admin/delivery-discount/attach/user/${freeDeliveryId}`" />
+                <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="user_file" :uploadEndpoint="`admin/delivery-discount/attach/user/${freeDeliveryId}`" />
             </v-row>`
 
-
-<v-row justify="end"
-       align="center"
-       >
-  <ModalTableFilter path="admin/index" :filterField="[]"/>
-</v-row>
-
-
-
-
-
+            <v-row justify="end" align="center">
+                <ModalTableFilter path="admin/index" :filterField="[]" />
+            </v-row>
 
         </v-row>
-      </v-card>
-  
-      <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    </v-card>
 
-        <Table
-            class="flex-grow-1"
-            :header="headerCustomer"
-            :items="customerList"
-            :page="page"
-            :perPage="pageLength"
-            :loading="false"
-            model="customer"
-        />
-  
-        <v-divider/>
-  
+    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+
+        <Table class="flex-grow-1" :header="headerCustomer" :items="customerList" :page="page" :perPage="pageLength" :loading="false" model="customer" />
+
+        <v-divider />
+
         <v-card-actions class="pb-3">
-          <v-row class="pr-5">
-            <v-col cols="3">
-            </v-col>
-  
-            <v-col cols="6">
-              <div class="text-center">
-                <v-pagination
-                    v-model="page"
-                    :length="pageLength"
-                    rounded="circle"
-                    size="40"
-                    :total-visible="7"
-                    prev-icon="mdi-chevron-right"
-                    next-icon="mdi-chevron-left"/>
-              </div>
-            </v-col>
-  
-            <v-col cols="3">
-              <div
-                  align="center"
-                  id="rowSection"
-                  class="d-flex align-center">
-                          <span class="ml-5">
-                              تعداد سطر در هر صفحه
-                          </span>
-                <span class="mt-2" id="row-selector">
-                              <v-select
-                                  v-model="dataTableLength"
-                                  class="t1330"
-                                  variant="outlined"
-                                  :items="[25,50,100]"/>
-                          </span>
-              </div>
-            </v-col>
-          </v-row>
+            <v-row class="pr-5">
+                <v-col cols="3">
+                </v-col>
+
+                <v-col cols="6">
+                    <div class="text-center">
+                        <v-pagination v-model="page" :length="pageLength" rounded="circle" size="40" :total-visible="7" prev-icon="mdi-chevron-right" next-icon="mdi-chevron-left" />
+                    </div>
+                </v-col>
+
+                <v-col cols="3">
+                    <div align="center" id="rowSection" class="d-flex align-center">
+                        <span class="ml-5">
+                            تعداد سطر در هر صفحه
+                        </span>
+                        <span class="mt-2" id="row-selector">
+                            <v-select v-model="dataTableLength" class="t1330" variant="outlined" :items="[25,50,100]" />
+                        </span>
+                    </div>
+                </v-col>
+            </v-row>
         </v-card-actions>
-      </v-card>
-    </div>
-  </template>
-  <script>
-  import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-  import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
-  import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
-  import FreeDelivery from '@/composables/FreeDelivery'
-  export default {
-    data(){
-      return{
-        freeDeliveryId:this.$route.params.freeDeliveryId,
-      }
+    </v-card>
+</div>
+</template>
+
+  
+<script>
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
+import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import FreeDelivery from '@/composables/FreeDelivery'
+export default {
+    data() {
+        return {
+            freeDeliveryId: this.$route.params.freeDeliveryId,
+        }
     },
     setup() {
-      const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
-        pageLength,page , getVoucherDetail , voucherDetail,getCustomerList, customerList, getFreeDeliveryList} = new FreeDelivery()
-      return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
-        pageLength,page,getVoucherDetail , voucherDetail, getCustomerList, customerList, getFreeDeliveryList}
+        const {
+            headerCustomer,
+            getVoucherCustomer,
+            voucher,
+            dataTableLength,
+            pageLength,
+            page,
+            getVoucherDetail,
+            voucherDetail,
+            getCustomerList,
+            customerList,
+            getFreeDeliveryList
+        } = new FreeDelivery()
+        return {
+            headerCustomer,
+            getVoucherCustomer,
+            voucher,
+            dataTableLength,
+            pageLength,
+            page,
+            getVoucherDetail,
+            voucherDetail,
+            getCustomerList,
+            customerList,
+            getFreeDeliveryList
+        }
     },
     components: {
-      Table,
-      ModalTableFilter,
-      ModalGroupAdd
+        Table,
+        ModalTableFilter,
+        ModalGroupAdd
     },
     mounted() {
-      this.getCustomerList()
-      this.getFreeDeliveryList()
+        this.getCustomerList()
+        this.getFreeDeliveryList()
     }
-  }
-  </script>
+}
+</script>

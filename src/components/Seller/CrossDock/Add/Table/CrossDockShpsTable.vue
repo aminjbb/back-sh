@@ -14,13 +14,12 @@
           v-if="model === 'crossDockShps'"
           class="text-right c-table__header__item t12500 px-0"
           :style="{ width: itemsWidth, flex:`0 0 ${itemsWidth}`}">
-          <v-checkbox @change="selectAllShp(index  ,item)" v-model="allShps" color="success" />
+          <v-checkbox @change="selectAllShp()" v-model="allShps" color="success" />
       </div>
       <template v-for="(head, index) in header">
         <template v-if="head.value">
           <div
               v-if="head.show"
-              @click="createOrdering(head.value, head.order)"
               class="text-right c-table__header__item t12500 px-0"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
@@ -176,23 +175,13 @@ import {
   convertDateToJalai,
   isOdd
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
-import {
-  openConfirm
-} from '@/assets/js/functions'
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+
 import {
   PanelFilter
 } from "@/assets/js/filter"
 import {
   SkuPanelFilter
 } from "@/assets/js/filter_sku"
-import {
-  openToast
-} from "@/assets/js/functions";
 export default {
 
   components:{

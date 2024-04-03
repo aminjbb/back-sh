@@ -91,8 +91,10 @@
                     variant="outlined"
                     single-line
                     hide-details
-                    :items="voucherActives"
-                    v-model="voucherActive" />
+                    item-title="label"
+                    item-value="value"
+                    :items="activeFilter"
+                    v-model="activeModel" />
                 <v-autocomplete
                     v-if="filter.value == 'state_id'"
                     :items="provinceList"
@@ -147,10 +149,9 @@
                       class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
                       format="jYYYY-jMM-jDD"
                       display-format="jYYYY-jMM-jDD"
-                      v-model="submitAtModel"
                       variant="outlined" />
 
-                  <v-icon @click="submitAtModel= [] ;gregorianSubmitDate =[]">mdi-close</v-icon>
+                  <v-icon>mdi-close</v-icon>
                 </div>
               </v-col>
 
@@ -242,7 +243,7 @@ export default {
       values: [],
       originalData: [],
       filteredData: [],
-
+      activeModel: '',
       voucherTypes: [
         {
           title: 'عادی',
@@ -269,16 +270,18 @@ export default {
         },
 
       ],
-      voucherActives: [
+      activeFilter: [{
+        label: 'همه',
+        value: '',
+      },
         {
-          title: 'فعال',
-          value: '1'
+          label: 'فعال',
+          value: '1',
         },
         {
-          title: 'غیرفعال',
-          value: '0'
-        },
-
+          label: 'غیرفعال',
+          value: '0',
+        }
       ],
       sendingItems: [
         {
@@ -612,11 +615,13 @@ export default {
       } else if (this.$route.query.start_time_from) {
         filter.start_time_from = null
       }
+
       if(this.end_time_to) {
         filter.end_time_to = this.end_time_to
       } else if (this.$route.query.end_time_to) {
         filter.end_time_to = null
       }
+
       if(this.end_time_from) {
         filter.end_time_from = this.end_time_from
       } else if (this.$route.query.end_time_from) {
@@ -632,11 +637,14 @@ export default {
       } else if (this.$route.query.state_id) {
         filter.state_id = null
       }
-      if (this.voucherActive) {
-        filter.is_active = this.is_active
+      if (this.activeModel === '') {
+        filter.active = null
+      } else if (this.activeModel !== '') {
+        filter.active = this.activeModel
       } else if (this.$route.query.is_active) {
-        filter.is_active = null
+        filter.active = this.$route.query.is_active
       }
+
 
       filter.page = 1;
 

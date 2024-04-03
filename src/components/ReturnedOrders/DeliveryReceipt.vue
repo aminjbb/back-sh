@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" style="height:calc(100vh - 100px)">
     <h3 class="t14400 create-product__header">رسید ارسال</h3>
 
@@ -41,8 +41,7 @@
                     rounded
                     color="primary500"
                     variant="elevated"
-                    width="115"
-                    @click="submit()">
+                    width="115">
 
                     <span class="t12400">
                         تایید

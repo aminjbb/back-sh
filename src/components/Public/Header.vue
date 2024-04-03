@@ -11,8 +11,6 @@
           <UserDetail/>
         </template>
 
-        <!-- <v-app-bar-title>Photos</v-app-bar-title> -->
-
         <template v-slot:append>
             <Breadcrumb/>
         </template>

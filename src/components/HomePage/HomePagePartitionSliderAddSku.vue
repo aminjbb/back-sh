@@ -193,32 +193,11 @@ export default {
     },
 
     methods: {
-        async editSection() {
-            this.editLoading = true
-            let formData = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `page/home/section/crud/update/${this.$route.params.sectionId}`
-
-            formData.append('label', this.title)
-            AxiosMethod.form = formData
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.editLoading = false
-                this.dialog = false
-            } else {
-                this.editLoading = false
-            }
-
-        },
         changeHeaderShow(index, value) {
             this.headerSku[index].show = value
         },
 
         updateList(status) {
-            console.log('3.skuList', status)
             if (status === 'true') {
                 this.getSkuSeller();
             }

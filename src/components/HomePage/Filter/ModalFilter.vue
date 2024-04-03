@@ -84,7 +84,7 @@
             <div class="t13300 text-right mb-1">{{ filter.name }}</div>
 
             <div align="center" class="d-flex pb-5 align-center">
-              <v-icon @click="DateFilter(filter.value)">mdi-close</v-icon>
+              <v-icon>mdi-close</v-icon>
 
               <date-picker
                   v-if="filter.value === 'start_date'"
@@ -159,9 +159,7 @@ import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {
   HomePageFilter
 } from '@/assets/js/homePage_filter.js'
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
+
 import Menu from '@/composables/Menu'
 export default {
   components: { datePicker: VuePersianDatetimePicker,},

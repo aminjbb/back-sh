@@ -396,14 +396,6 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
-                                <!-- <v-list-item-title v-if="model === 'sku' || model === 'skuGroup' || model === 'product'">
-                                    <div class="ma-5 pointer" @click="$router.push(`${uploadImageUrl + item.id}`)">
-                                        <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            بارگذاری تصویر
-                                        </span>
-                                    </div>
-                                </v-list-item-title> -->
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -792,20 +784,6 @@ export default {
          * @param {*} index 
          * @param {*} id 
          */
-        async changeStatusSku(index, id) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-
-            if (this.skuStatus[index]) formdata.append('status', 'approved')
-            else formdata.append('status', 'rejected')
-            AxiosMethod.end_point = `product/sku/crud/switch/status/${id}`
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-        },
 
         /**
          * Return odd index

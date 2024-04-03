@@ -75,7 +75,7 @@ import Placement from "@/composables/Placement";
 import ModalTableFilter from '@/components/Placement/Filter/Filter.vue'
 
 export default {
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getPlacementList,

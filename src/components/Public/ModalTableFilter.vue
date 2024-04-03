@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="text-center c-modal-table-filter">
         <v-btn 
           @click="openModal()" 

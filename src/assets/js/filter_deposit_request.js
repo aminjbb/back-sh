@@ -33,6 +33,7 @@ export class PanelFilter {
         this.status = null;
         this.created_at_to_date = null;
         this.created_at_from_date = null;
+        this.created_at = null
     }
 
     query_maker() {
@@ -131,6 +132,12 @@ export class PanelFilter {
         }
         else if (this.created_at_from_date) {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
+        }
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
         }
         if  (this.amount_to) {
             query += "amount_to=" + this.amount_to + "&";

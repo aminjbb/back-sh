@@ -111,7 +111,6 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import Table from '@/components/Public/Table.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
@@ -127,7 +126,7 @@ export default {
         ModalExcelDownload
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading} = Product();
         return { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading};
     },

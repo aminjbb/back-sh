@@ -18,7 +18,6 @@
             </template>
             افزودن تکی
           </v-btn>
-<!--          <ModalGroupAdd getEndPoint="page/promotion/csv/get/template" uploadEndpoint="page/promotion/csv/bulk/sku_group" />-->
           </v-row>
 
         </v-col>
@@ -98,7 +97,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 export default {
-  setup(props) {
+  setup() {
    const { promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading }=new PromotionPage()
     return{promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading}
   },
@@ -115,8 +114,6 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     }
-    
-
   },
 
   methods: {

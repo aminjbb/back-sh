@@ -78,7 +78,7 @@
 
 <script setup>
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { ref, onMounted, onUnmounted, computed, watch, toRefs } from 'vue'
+import { ref, computed, toRefs } from 'vue'
 import { useCookies } from "vue3-cookies";
 import { openToast } from '@/assets/js/functions'
 import { useStore } from 'vuex'
@@ -94,7 +94,6 @@ const router = useRouter()
 const route = useRoute()
 let loading = ref(false)
 let dialog = ref(false)
-const positionList = ref([]);
 const props = defineProps({
   getAvatar: Function,
 
@@ -174,10 +173,6 @@ function preventDefaults(e) {
 const avatar = computed(function () {
   return store.getters['get_avatar']
 });
-
-/**
- * Remove image
- */
 
 const events = ['dragenter', 'dragover', 'dragleave', 'drop']
 

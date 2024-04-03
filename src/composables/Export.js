@@ -18,7 +18,7 @@ export default function setup() {
         {name:'ردیف' , show:true, value:null, order:false},
         {name:'شناسه' , show:true, value:'created_at', order:false},
         {name:'عنوان' , show:true, value:'model', order:false},
-        {name:' تاریخ ساخت' , show:true, value:'created_at', order:false},
+        {name:' تاریخ ساخت' , show:true, value:'created_at', order:true},
         {name:'دریافت خروجی' , show:true, value:'download', order:false},
     ];
 

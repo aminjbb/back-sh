@@ -38,10 +38,6 @@ import RolePermissionForm from "@/components/Admin/RolePermission/RolePermission
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
-import {
-    convertDateToGregorian,
-    openToast
-} from "@/assets/js/functions";
 import RolePermission from '@/composables/RolePermission'
 export default {
     setup() {
@@ -54,14 +50,17 @@ export default {
             rolePermission,
         }
     },
+
     data() {
         return {
             loading: false,
         }
     },
+
     components: {
         RolePermissionForm
     },
+
     methods: {
         validate() {
             this.$refs.RolePermissionForm.$refs.addRole.validate()
@@ -69,6 +68,7 @@ export default {
                 if (this.$refs.RolePermissionForm.valid) this.createRole()
             }, 200)
         },
+        
         async createRole() {
             this.loading = true
             let formData = new FormData();
@@ -89,6 +89,7 @@ export default {
                 this.loading = false
             }
         },
+
         async assignPermission(id) {
             this.loading = true
             let formData = new FormData();
@@ -111,11 +112,13 @@ export default {
             }
         },
     },
+
     computed: {
         avatar() {
             return this.$store.getters['get_avatar']
         }
     },
+
     mounted() {
         this.getRolePermission()
     }

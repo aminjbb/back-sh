@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div class="text-center c-modal-table-filter">
       <v-btn
           @click="openModal()"
@@ -266,7 +266,7 @@ export default {
   methods: {
     setFilter() {
       const filter = new PanelFilter()
-      console.log(this.createdAtModel)
+
      if (this.createdAtModel){
        if (this.createdAtModel[0]) {
          const gDate = convertDateToGregorian(this.createdAtModel[0], '-' , false)

@@ -1,9 +1,8 @@
-<template lang="">
+<template>
 <div class="text-center">
     <v-dialog
         v-model="basicDiscountModal.dialog"
-        width="908"
-        @input="dialogToggle">
+        width="908">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">

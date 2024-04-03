@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 import CreateProductFromStep1 from './Steps/Steps1.vue'
 import CreateProductFromStep2 from './Steps/Steps2.vue'
 import CreateProductFromStep3 from './Steps/Steps3.vue'
@@ -105,7 +104,7 @@ import Product from '@/composables/Product';
 import Sku from '@/composables/Sku';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
-import { onMounted, onUnmounted } from 'vue'
+import { onUnmounted } from 'vue'
 export default {
   setup() {
     onUnmounted(() =>  localStorage.removeItem('skuGroupDetail'))

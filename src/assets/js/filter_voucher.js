@@ -34,7 +34,7 @@ export class PanelFilter {
         this.start_time_from = null;
         this.end_time_to = null;
         this.end_time_from = null;
-        this.is_active = null;
+        this.active = null;
         this.discount_from = null;
         this.discount_to = null;
         this.order_count_from = null;
@@ -103,9 +103,10 @@ export class PanelFilter {
             query += "start_time_from=" + this.start_time_from + "&";
         }
 
-        if (this.is_active !== null) {
-            query += "is_active=" + this.is_active + "&";
+        if (this.active !== null) {
+            query += "is_active=" + this.active + "&";
         }
+
 
         if (this.discount_from !== null) {
             query += "discount_from=" + this.discount_from + "&";
@@ -207,10 +208,11 @@ export class PanelFilter {
             query += "sending_method=" + this.sending_method + "&";
         }
 
-        if (routeQuery.is_active) {
+        if (routeQuery.is_active)  {
             query += "is_active=" + routeQuery.is_active + "&";
-        } else if (this.is_active) {
-            query += "is_active=" + this.is_active + "&";
+        }
+        else if  (this.active){
+            query += "is_active=" + this.active + "&";
         }
 
         if (routeQuery.discount_from) {

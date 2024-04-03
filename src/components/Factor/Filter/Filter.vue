@@ -191,7 +191,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const {
             allSuppliers,
             getAllSuppliers
@@ -314,7 +314,6 @@ export default {
                 filter.supplier_id = this.$route.query.supplier_id
             }
             
-            console.log(this.supplierModel);
 
             if (this.creatorModel === '') {
                 filter.creator_id = null
@@ -324,7 +323,6 @@ export default {
                 filter.creator_id = this.$route.query.creator_id
             }
 
-            console.log(this.creatorModel);
 
             if (this.statusModel === '') {
                 filter.status = null

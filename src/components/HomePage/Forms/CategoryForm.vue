@@ -121,9 +121,7 @@ export default {
      * Set from
      */
     setForm() {
-      console.log(this.bannerObject , 'bannerObject')
       try {
-
         this.form.link = this.bannerObject.link
         this.form.title = this.bannerObject.label
         this.form.imageAlt = this.bannerObject.image_alt

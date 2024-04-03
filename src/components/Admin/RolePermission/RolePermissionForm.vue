@@ -68,9 +68,6 @@
 </template>
 
 <script>
-import {
-    watch
-} from 'vue'
 import Permission from '@/composables/Permission'
 export default {
     setup() {
@@ -133,7 +130,7 @@ export default {
     },
 
     watch: {
-        role(val) {
+        role() {
             this.setForm()
         }
     },

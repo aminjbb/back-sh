@@ -15,22 +15,10 @@
           </v-row>
         </v-col>
 
-        <v-col cols="6">
-          <v-row justify="end">
-<!--            <ModalColumnFilter-->
-<!--                :changeHeaderShow="changeHeaderShow"-->
-<!--                :header="header"-->
-<!--            />-->
-
-<!--            <ModalTableFilter-->
-<!--                path="categories/index"-->
-<!--                :filterField="filterField"-->
-<!--            />-->
-          </v-row>
-        </v-col>
-
+        <v-col cols="6" />
       </v-row>
     </v-card>
+
     <v-card
         class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
         height="580"
@@ -112,7 +100,7 @@ export default {
     CreateCargo
   },
 
-  setup(props) {
+  setup() {
     const {
       pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,loading
     } = Cargo();
@@ -152,16 +140,5 @@ export default {
     }
 
   },
-
-  methods: {
-    /**
-     * Change Header Status
-     * @param {*} index
-     * @param {*} value
-     */
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    }
-  }
 }
 </script>

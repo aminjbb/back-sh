@@ -22,8 +22,6 @@
   
           <v-col cols="6">
             <v-row justify="end" class="mt-0">
-              
-  
               <ModalTableFilter path="free-delivery/index" :filterField="indexFilterField" />
             </v-row>
           </v-col>
@@ -89,17 +87,9 @@
   import ModalTableFilter from'@/components/FreeDelivery/Filter/Filter.vue'
   import Table from '@/components/FreeDelivery/Table/Table.vue'
   import FreeDelivery from "@/composables/FreeDelivery";
-
-
   
   export default {
-    data() {
-      return {
-
-      }
-    },
-  
-    setup(props) {
+    setup() {
       const {
          headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
         ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField
@@ -145,7 +135,6 @@
 
       },
       dataTableLength(val) {
-        console.log(val)
         this.addPerPage(val)
       },
     }

@@ -53,23 +53,14 @@
             </v-row>
         </v-form>
     </div>
-    </template>
+</template>
     
-    <script>
-  
+<script>
     
     export default {
         props: {
             type: '',
             driver: {},
-        },
-    
-        setup(props) {
-            
-    
-            return {
-               
-            };
         },
     
         data() {
@@ -79,8 +70,6 @@
                 form: {
                     full_name: this.driver?.full_name || '',
                     phone_number: this.driver?.phone_number || '',
-                   
-                    
                 },
     
                 rule: [v => !!v || 'این فیلد الزامی است'],
@@ -109,10 +98,6 @@
             }
         },
     
-        computed: {
-           
-        },
-    
         methods: {
             /**
              * Set form
@@ -127,15 +112,10 @@
             },
         },
     
-        mounted() {
-           
-        },
-    
         watch: {
             driver(newVal) {
-        console.log("Driver prop in child component:", newVal);
-    }
-
+                console.log("Driver prop in child component:", newVal);
+            }
         }
     }
     </script>

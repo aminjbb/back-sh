@@ -102,11 +102,7 @@ import {
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
 
 import ActivationModal from "@/components/Public/ActivationModal.vue";
-import {
-  openToast,
-  openConfirm,
-  isOdd, convertDateToJalai
-} from "@/assets/js/functions";
+
 export default {
   components: {
     ModalRequestShipment,
@@ -144,14 +140,6 @@ export default {
     },
 
     /**
-     * Delete endpoint for change filter
-     */
-    deletePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
      * Page on table
      */
     page: {
@@ -173,14 +161,6 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    },
-
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
     },
 
   },
@@ -214,20 +194,6 @@ export default {
         return `${width}%`;
       }
       return 'auto';
-    },
-
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-          this.activeColumn = true;
-        } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
     },
   },
 

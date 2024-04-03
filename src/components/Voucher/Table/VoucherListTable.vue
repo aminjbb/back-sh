@@ -247,6 +247,14 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl" v-if="item.voucher_type === 'group'" @click="$router.push(`/voucher/${item.id}/list`)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">
+                      لیست کد های تخفیف
+                    </span>
+                  </div>
+                </v-list-item-title>
+                <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">
@@ -434,22 +442,6 @@ export default {
     splitChar,
 
     /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
-
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
-    },
-
-    /**
      * Get row index in table
      * @param {*} index
      */
@@ -461,47 +453,6 @@ export default {
       } else {
         rowIndex = ((this.page - 1) * this.perPage) + index + 1
         return rowIndex
-      }
-    },
-
-    /**
-     * Set icon
-     * @param {*} status
-     */
-    setIcon(status) {
-      if (status === 1) {
-        return 'mdi-check-bold'
-      } else {
-        return 'mdi-close-thick'
-      }
-
-    },
-
-    /**
-     * Get persian name of method
-     * @param {*} method
-     */
-    getPaymentMethod(method) {
-      if (method === 'saman') {
-        return 'درگاه سامان'
-      } else if (method === 'wallet') {
-        return 'کیف پول'
-      } else if (method === 'snapp') {
-        return 'اسنپ پی'
-      }
-    },
-
-    /**
-     * Get persian name of payment status
-     * @param {*} method
-     */
-    getPaymentStatus(method) {
-      if (method === 'unsuccessful') {
-        return 'نا موفق'
-      } else if (method === 'contradictory') {
-        return 'دارای مغایرت'
-      } else if (method === 'successful') {
-        return 'موفق'
       }
     },
 

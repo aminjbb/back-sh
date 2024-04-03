@@ -108,9 +108,6 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                // this.$refs.AddAttributeValueForm.values.forEach(element => {
-                //     this.createAttributeValues(element , data.data.id)
-                // });
                 this.loading = false
                 this.$router.push('/attributes/index')
             }
@@ -118,27 +115,6 @@ export default {
                 this.loading = false
             }
         },
-
-        // async createAttributeValues(value , id) {
-        //     var formdata = new FormData();
-        //     const AxiosMethod = new AxiosCall()
-        //     AxiosMethod.end_point = 'product/attribute/value/crud/create'
-        //     AxiosMethod.form = formdata
-        //     formdata.append('value', value)
-        //     formdata.append('attribute_id',id)
-        //     AxiosMethod.store = this.$store
-        //     AxiosMethod.using_auth = true
-        //     AxiosMethod.token = this.$cookies.get('adminToken')
-        //     let data = await AxiosMethod.axios_post()
-        //     if (data) {
-        //         this.loading = false
-        //         this.$router.push('/attributes')
-
-        //     }
-        //     else {
-        //         this.loading = false
-        //     }
-        // }
     },
 
     computed: {

@@ -32,7 +32,6 @@
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn
-                                @click="massUpdateModal()"
                                 variant="text"
                                 height="40"
                                 rounded
@@ -94,7 +93,7 @@
                     v-if="item.updated_at && header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14300 text-gray500 py-5 number-font">
                         {{convertDateToJalai(item.updated_at ,'-',true )  }}
                     </span>
 
@@ -160,7 +159,6 @@ import {
 } from "@/assets/js/filter_supplier"
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-    openConfirm,
     isOdd,
     convertDateToJalai
 } from "@/assets/js/functions";

@@ -226,12 +226,8 @@ import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPl
 
 import {
   openToast,
-  openConfirm,
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 
 export default {
   components: {
@@ -339,14 +335,9 @@ export default {
 
   },
 
-  watch: {
-    items(val) {
-
-    }
-  },
-
   methods: {
     convertDateToJalai,
+
     openRejectModal(item) {
       const form = {
         dialog: true,
@@ -354,6 +345,7 @@ export default {
       }
       this.$store.commit('set_modalRejectRequestShipment', form)
     },
+
     showDropDown(index) {
       const item = this.items[index];
       if (item.status === 'in_review') {
@@ -361,6 +353,7 @@ export default {
         itemDropdown.classList.toggle('active');
       }
     },
+
     translateType(type) {
       const translations = {
         'consignment': 'انبارش',
@@ -368,6 +361,7 @@ export default {
       };
       return translations[type] || type;
     },
+
     BgSelected(status) {
       if (status === 'in_review') {
         return '#EDE7F6';  // Light purple
@@ -494,11 +488,6 @@ export default {
         this.$store.commit('set_detailModalTestQrCode', form)
         const baseUrl = import.meta.env.VITE_API_BACKEND_URL
 
-        // if (data.data.barcode_image) {
-        //   data.data.barcode_image = baseUrl + data.data.barcode_image;
-        // }
-
-
       } else {
         console.error("Data not found");
       }
@@ -532,15 +521,6 @@ export default {
           object: data.data
         }
         this.$store.commit('set_detailModalTestQrCodeFull', form)
-        // const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-        //
-        // if (data.data.barcode_image) {
-        //   data.data.barcode_image = baseUrl + data.data.barcode_image;
-        // }
-        // if (data.data.shps.barcode_image) {
-        //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
-        // }
-
       } else {
         console.error("Data not found");
       }

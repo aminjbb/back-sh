@@ -51,7 +51,7 @@
              <div class="d-flex justify-center d--rtl">
                <div class=" navbar navbar__scroller"  @click="getnavbarItem()">
                 <div class=" d-flex justify-start" id="navbarItems">
-                  <v-card @click="setWorkDay(day)" v-for="(day , index) in  workDays" height="76" min-width="92" elevation="0" class="mx-3 br--8"
+                  <v-card @click="setWorkDay(day)" v-for="(day , index) in  workDays" :key="`workDay${index}`" height="76" min-width="92" elevation="0" class="mx-3 br--8"
                   :class="workDaysClass(day)">
                    <div class="text-center mt-2">
                     <span >
@@ -104,7 +104,6 @@
   </div>
 </template>
 <script>
-import BlogForm from '@/components/HomePage/Forms/BlogForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import Warehouse from "@/composables/Warehouse"
@@ -244,19 +243,12 @@ export  default {
     }
   },
   mounted() {
-
     this.searchWarehouse('')
   },
   watch:{
-    warehouse(val){
+    warehouse(){
       this.updateWorkDay()
     }
   }
 }
 </script>
-
-<style>
-
-
-
-</style>

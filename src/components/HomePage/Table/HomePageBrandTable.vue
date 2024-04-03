@@ -178,7 +178,6 @@ import {
     convertDateToJalai,
     isOdd
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
     openConfirm
 } from '@/assets/js/functions'
@@ -186,12 +185,6 @@ import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    SkuPanelFilter
-} from "@/assets/js/filter_sku"
 import {
     openToast
 } from "@/assets/js/functions";
@@ -414,7 +407,6 @@ export default {
         
         async updateImage(index) {
             this.form[index].loading = true
-            console.log(this.form[index])
             const formData = new FormData()
             formData.append('homepage_section_id', this.$route.params.sectionId)
             formData.append('image_id', this.form[index].image)

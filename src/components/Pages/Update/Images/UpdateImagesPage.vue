@@ -3,11 +3,6 @@
     <v-card class="ma-5 br-12 pb-15 flex-grow-1 pt-10 v-field" min-height="500">
         <div class="px-15 mb-5">
             <UploadFileSection @getImage="assignImage" />
-            <!--        <div class="d-flex align-center mt-5" v-if="specsFromModal.skuImage">-->
-            <!--          <span>IMG-{{ specsFromModal.skuImage }}</span>-->
-            <!--          <span class="mr-15"><v-icon color="error" @click="removeItem(specsFromModal.skuImage)">mdi-delete</v-icon></span>-->
-            <!--        </div>-->
-
         </div>
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch v-field pb-16">
             <Table
@@ -20,7 +15,6 @@
                 @updateList="updateList"
                 model="pageImage" />
         </v-card>
-
     </v-card>
 </div>
 </template>
@@ -31,7 +25,6 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 import {
-    convertDateToGregorian,
     openToast
 } from "@/assets/js/functions";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";

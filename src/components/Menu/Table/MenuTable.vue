@@ -181,7 +181,6 @@
             </div>
         </div>
     </div>
-    <!--    <ModalMassUpdate :updateUrl="updateUrl" />-->
 </div>
 </template>
 
@@ -195,7 +194,6 @@ import {
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
-    openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";

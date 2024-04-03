@@ -99,16 +99,6 @@ export default {
 
     methods: {
         /**
-         * increase step
-         */
-        increaseStep(status) {
-            if (this.step < 2) {
-                ++this.step;
-                this.status = status
-            }
-        },
-
-        /**
          * decrease step
          */
         decreaseStep() {

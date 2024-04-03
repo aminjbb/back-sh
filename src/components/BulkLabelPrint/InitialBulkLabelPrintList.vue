@@ -22,9 +22,7 @@
 </template>
 
 <script>
-import {
-  ref
-} from 'vue'
+
 //Components
 import InitialTable from '@/components/BulkLabelPrint/Table/InitialTable.vue'
 import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
@@ -148,20 +146,6 @@ export default {
         this.shipmentShpsListFilterd =this.shpsList.shps_list
       }
     },
-    // scanPackageId(){
-    //   const packageSplit = this.scanPackage.split('-')
-    //   let PackageScan = ''
-    //   if (packageSplit[1]){
-    //     this.packageId = packageSplit[1]
-    //     PackageScan = packageSplit[1]
-    //   }
-    //   else{
-    //     this.packageId = this.scanPackage
-    //     PackageScan = this.scanPackage
-    //   }
-    //   this.scanPackage = ''
-    //   this.getShpsList(PackageScan, this.$store);
-    // },
     async packingData() {
       try {
         let packageId = null

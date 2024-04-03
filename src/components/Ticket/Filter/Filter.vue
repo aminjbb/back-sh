@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="text-center c-modal-table-filter">
     <v-btn @click="openModal()" variant="outlined" rounded class="px-3 mt-1 mr-4">
         <template v-slot:prepend>

@@ -6,11 +6,11 @@
         reverse
         v-if="loading"/>
 
-    <header class="c-table__header d-flex justify-between">
+    <header class="c-table__header d-flex justify-space-evenly ">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
-            class="text-center c-table__header__item t12500"
+            class="text-center c-table__header__item t12500 ml-15"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -23,17 +23,20 @@
     </header>
 
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+      <div v-if="items && items.length > 0 && !loading" class="c-table__contents ">
         <div
             v-for="(item , index) in items"
             :key="index"
             :class="oddIndex(index) ? 'bg-gray90' : ''"
-            class="d-flex justify-between c-table__contents__row">
+            class="d-flex  c-table__contents__row "
+
+        >
           <div
               v-if="header[0].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+              class="c-table__contents__item justify-center "
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
+              >
+                    <span class="t14300 text-gray500 py-5 number-font ">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -41,40 +44,11 @@
           <div
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
+              >
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.sku?.id }}
+                        {{ item.code }}
                     </span>
-          </div>
-
-          <div
-              v-if=" header[2].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.sku?.label }}
-                    </span>
-          </div>
-
-          <div
-              v-if="header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font" v-if=" item.customer_price">
-                        {{ item.customer_price }}
-                    </span>
-                    <span class="t14300 text-gray500 py-5 number-font" v-else>
-                        ----
-                    </span>
-          </div>
-          <div
-              v-if=" header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.customer_price" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.customer_price }}
-                    </span>
-            <span v-else>----</span>
           </div>
 
         </div>

@@ -97,7 +97,7 @@ import {
 import ModalPartitionSlider from "@/components/HomePage/Modals/ModalPartitionSlider.vue";
 import ModalAddSectionForSlider from "@/components/HomePage/Modals/ModalAddSectionForSlider.vue";
 export default {
-    setup(props) {
+    setup() {
         const {
             bannerHeader,
             getHomeSection,

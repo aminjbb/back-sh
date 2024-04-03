@@ -44,7 +44,7 @@ export default function setup() {
         {name: 'نام مشتری', type: 'select', value: 'user_id'},
         {name: 'وضعیت مرجوعی', type: 'select', value: 'status'},
         {name: 'روش پرداخت', type: 'select', value: 'payment_method'},
-        {name: 'بررسی درخواست', type: 'select', value: 'payment_method'},
+        {name: 'بررسی درخواست', type: 'select', value: 'packed_status'},
        // {name: 'کد معرف', type: 'text', value: 'identification_code'},
        // {name: 'شناسه بانکی', type: 'text', value: 'bank_id'},
        {name:'استان' , type:'select', value:'receive_state_id'},

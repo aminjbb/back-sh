@@ -273,7 +273,7 @@ export default {
                 },
                 {
                     label: 'در انتظار پرداخت',
-                    value: 'failed'
+                    value: 'payment_in_progress'
                 }
             ],
             paymentStatusModel: null,
@@ -355,14 +355,15 @@ export default {
                 return ''
             }
         },
-      orderNumber() {
+      phone_number() {
             try {
-                const idObject = this.values.find(element => element.name === 'order_number');
+                const idObject = this.values.find(element => element.name === 'phone_number');
                 return idObject.value
             } catch (error) {
                 return ''
             }
         },
+
 
         paidPriceFrom() {
             try {
@@ -424,6 +425,11 @@ export default {
             } else if (this.$route.query.id) {
                 filter.id = null
             }
+          if (this.phone_number) {
+            filter.phone_number = this.phone_number
+          } else if (this.$route.query.phone_number) {
+            filter.phone_number = null
+          }
             if (this.orderNumber) {
                 filter.orderNumber = this.orderNumber
             } else if (this.$route.query.order_nmumber) {

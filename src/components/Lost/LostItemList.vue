@@ -81,12 +81,8 @@ export default {
     Table,
     ModalTableFilter,
   },
-  data(){
-    return{
-
-    }
-  },
-  setup(props) {
+  
+  setup() {
     const {
       pageLength,
       getWasteAndLostList,

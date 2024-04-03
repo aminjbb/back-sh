@@ -39,21 +39,22 @@
                       v-model="form.lastName"
                   />
               </v-col>
+
               <v-col cols="12" md="4">
-              <div class="text-right my-5">
-                      <span class="t14500">
-                         شماره موبایل
-                      </span>
-              </div>
-              <v-text-field
-                  density="compact"
-                  variant="outlined"
-                  single-line
-                  label="شماره موبایل"
-                  :rules="mobileRule"
-                  v-model="form.phoneNumber"
-              />
-            </v-col>
+                <div class="text-right my-5">
+                        <span class="t14500">
+                          شماره موبایل
+                        </span>
+                </div>
+                <v-text-field
+                    density="compact"
+                    variant="outlined"
+                    single-line
+                    label="شماره موبایل"
+                    :rules="mobileRule"
+                    v-model="form.phoneNumber"
+                />
+              </v-col>
 
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
@@ -71,6 +72,7 @@
                       :rules="emailRule"
                   />
               </v-col>
+
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
                       <span class="t14500">
@@ -87,9 +89,9 @@
                     v-model="form.rolePermission"
                     item-title="name"
                     item-value="id"
-
                 />
               </v-col>
+
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
                       <span class="t14500">
@@ -119,10 +121,11 @@
 
             <v-col cols="12" md="5">
               <div class="text-right my-5">
-                      <span class="t14500">
-                          گذر واژه
-                      </span>
+                  <span class="t14500">
+                      گذر واژه
+                  </span>
               </div>
+
               <v-text-field
                   label="گذر واژه"
                   single-line
@@ -134,6 +137,7 @@
                   v-model="form.password"
               />
             </v-col>
+
             <v-col cols="12" md="5">
               <div class="text-right my-5">
                       <span class="t14500">
@@ -156,7 +160,6 @@
   </div>
 </template>
 <script>
-import { watch } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
 import {convertDateToJalai} from "@/assets/js/functions";
@@ -172,9 +175,11 @@ export default {
       getAllRolePermission
     }
   },
+
   props: {
     admin:null
   },
+
   components: {
     datePicker: VuePersianDatetimePicker,
     ModalUploaderAvatar
@@ -235,7 +240,6 @@ export default {
      */
     setForm() {
       try {
-
         this.form.fistName = this.admin.first_name
         this.form.lastName = this.admin.last_name
         this.form.phoneNumber = this.admin.phone_number
@@ -247,10 +251,11 @@ export default {
     }
   },
   watch: {
-    admin(val) {
+    admin() {
       this.setForm()
     }
   },
+
   computed:{
     rolePermissionList(){
       try {
@@ -269,9 +274,9 @@ export default {
       }
     }
   },
+
   mounted() {
       this.getAllRolePermission()
-
   }
 }
 </script>

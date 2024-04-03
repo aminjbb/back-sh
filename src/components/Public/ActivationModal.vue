@@ -59,7 +59,6 @@
     </div>
 </template>
 <script>
-import { closeConfirm } from "@/assets/js/functions";
 import { AxiosCall } from '@/assets/js/axios_call.js'
 export default {
   props:{
