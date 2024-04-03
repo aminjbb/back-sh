@@ -19,6 +19,7 @@ export default function setup() {
         { name: 'شناسه سفارش', show: true , value:'id', order: false},
         { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
+        { name: 'شماره تماس', show: true, value:'phone_number' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
         { name: 'وضعیت پرداخت', show: true, value:'payment_status', order: false },
@@ -26,7 +27,7 @@ export default function setup() {
         { name: 'مبلغ پرداختی', show: true, value:'paid_price', order: false },
         { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
         { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
-        { name: 'تاریخ ارسال سفارش', show: true, value:'receive_date', order: true },
+        { name: 'تاریخ ارسال سفارش', show: true, value:'logistic_date', order: true },
     ]);
 
     const filterField = [
