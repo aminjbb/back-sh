@@ -22,22 +22,26 @@ export default function setup() {
         {
             name: 'شناسه',
             show: true,
-            value: 'id'
+            value: 'id',
+            order: false
         },
         {
             name: 'عنوان',
             show: true,
-            value: 'title'
+            value: 'title',
+            order: false
         },
         {
             name: 'مشاهده',
             show: true,
-            value: 'url'
+            value: 'url',
+            order: false
         },
         {
             name: 'تاریخ ایجاد',
             show: true,
-            value: 'created_at'
+            value: 'created_at',
+            order: true
         },
     ]);
 

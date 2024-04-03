@@ -38,6 +38,8 @@ export class PanelFilter {
         this.created_at_from_date = null;
         this.logistic_at_to_date = null;
         this.logistic_at_from_date = null;
+        this.submit_date = null;
+        this.logistic_date = null;
 
         this.receive_state_id = null;
         this.receive_city_id = null;
@@ -419,6 +421,18 @@ export class PanelFilter {
             query += "paid_price_to=" + routeQuery.paid_price_to + "&";
         } else if (this.paid_price_to) {
             query += "paid_price_to=" + this.paid_price_to + "&";
+        }
+
+        if (routeQuery.logistic_date) {
+            query += "logistic_date=" + routeQuery.logistic_date + "&";
+        } else if (this.logistic_date) {
+            query += "logistic_date=" + this.logistic_date + "&";
+        }
+
+        if (routeQuery.submit_date) {
+            query += "submit_date=" + routeQuery.submit_date + "&";
+        } else if (this.submit_date) {
+            query += "submit_date=" + this.submit_date + "&";
         }
 
         return query.substring(0, query.length - 1);

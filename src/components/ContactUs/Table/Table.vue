@@ -24,9 +24,14 @@
                     </span>
                 </div>
 
-                <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.full_name }}
+                        <template v-if="item.full_name">
+                            {{ item.full_name }}
+                        </template>
+                        <template v-else>
+                            ناشناس
+                        </template>
                     </span>
                 </div>
 
@@ -36,7 +41,7 @@
                             {{ item.phone_number }}
                         </template>
                         <template v-else>
-                            نامعلوم
+                            -
                         </template>
                     </span>
                 </div>
@@ -48,7 +53,7 @@
                             {{ translateType(item.subject) }}
                         </template>
                         <template v-else>
-                            نامعلوم
+                            -
                         </template>
                     </span>
                 </div>
@@ -60,7 +65,7 @@
 
                         </template>
                         <template v-else>
-                            نامعلوم
+                            -
                         </template>
                     </span>
                 </div>
@@ -86,7 +91,9 @@
 
 <script>
 import ModalShowDes from "@/components/ContactUs/Modal/ModalShowDes.vue";
-
+import {
+    PanelFilter
+} from "@/assets/js/filter"
 import {
     convertDateToJalai,
     isOdd
@@ -172,7 +179,7 @@ export default {
             isIndex: [],
             isFollow: [],
             activeColumn: false,
-
+            panelFilter: new PanelFilter(),
         }
     },
 
