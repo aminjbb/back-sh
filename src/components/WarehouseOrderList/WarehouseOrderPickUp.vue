@@ -81,7 +81,8 @@
             </v-card>
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center">
-                    <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
+<!--                <img src="@/assets/img/productImge.png" width="150" height="150" alt="">-->
+                              <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
               </div>
               <div class="text-center px-10 my-3">
               <span class="text-gray600">
@@ -139,6 +140,7 @@
           </v-btn>
         </div>
       </div>
+
     </div>
   </template>
 </template>
@@ -169,7 +171,6 @@ export default {
   mounted() {
     this.getPickUpShps()
   },
-
   methods: {
     scanQrCode() {
       this.pickUpshpss(this.shpssBarCode)
@@ -211,5 +212,6 @@ export default {
 <style>
 .scan_box {
   height: calc(100% - 330px);
+
 }
 </style>

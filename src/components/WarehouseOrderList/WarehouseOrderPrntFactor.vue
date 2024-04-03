@@ -228,7 +228,7 @@
 
 
       </v-row>
-      <v-row v-for="(item , index) in factorDetail?.shavaz?.data" :key="`factorDetail${index}`" justify="end" class="px-6 mt-0">
+      <v-row v-for="(item , index) in factorDetail?.shavaz?.data" justify="end" class="px-6 mt-0">
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box  d-flex justify-center align-center">
                   <span class="t11500">
@@ -327,6 +327,9 @@
           </div>
         </v-col>
 
+
+
+
       </v-row>
       <v-row justify="end" class="px-6 mt-0" >
 
@@ -349,8 +352,12 @@
                   </span>
           </div>
         </v-col>
+
+
+
+
       </v-row>
-      
+
       <div class="px-3">
         <div class="factor-footer">
           <div class="d-flex justify-space-between px-5 pt-2">

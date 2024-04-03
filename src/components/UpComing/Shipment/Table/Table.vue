@@ -143,16 +143,23 @@ import {
 } from "@/assets/js/functions";
 
 export default {
+
+
   props: {
     deleteFunction: {
       type: Function,
     },
-
     updateSkuUrl: {
       type: String,
       default: '',
     },
-
+    /**
+     * Update button url
+     */
+    updateUrl: {
+      type: String,
+      default: '',
+    },
     /**
      * Edit button url
      */
@@ -204,6 +211,22 @@ export default {
     },
 
     /**
+     * Edit endpoint for change filter
+     */
+    editPath: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Edit endpoint for change active
+     */
+    activePath: {
+      type: String,
+      default: ''
+    },
+
+    /**
      * Page on table
      */
     page: {
@@ -226,6 +249,11 @@ export default {
       type: Boolean,
       default: false
     },
+
+    uploadImageUrl: {
+      type: String,
+      default: ''
+    }
   },
 
   data() {
