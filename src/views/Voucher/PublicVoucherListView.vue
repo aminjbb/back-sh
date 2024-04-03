@@ -7,7 +7,7 @@ import PublicVoucherList from '@/components/Voucher/PublicVoucherList.vue'
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="h-100vh">
       <Header/>
       <PublicVoucherList/>
     </v-main>

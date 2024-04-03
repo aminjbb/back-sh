@@ -4,7 +4,7 @@
 
     <v-card height="120" class="ma-5 br-12 " max-height="120">
       <div class="d-flex br-12 pt-5 pb-2 align-center justify-lg-space-evenly t14500">اطلاعات تخفیف</div>
-      <v-divider> </v-divider>
+      <v-divider></v-divider>
 
       <div class="d-flex align-center pt-5 justify-lg-space-evenly">
         <div>
@@ -12,15 +12,15 @@
              عنوان:
           </span>
           <span class="t14500 text-gray500">
-             {{ voucherGroup?.name }}
+             {{ voucherDetail?.name }}
           </span>
         </div>
         <div>
           <span class="t14500">
              کد تخفیف:
           </span>
-          <span class="t14500 text-gray500" >
-             {{ voucherGroup.code }}
+          <span class="t14500 text-gray500">
+             {{ voucherDetail?.code }}
           </span>
         </div>
         <div class="d-flex">
@@ -28,7 +28,7 @@
              نوع تخفیف:
           </span>
           <div>
-            <span class="t14500 text-gray500" v-if="voucherGroup?.voucher_type === 'percent'">
+            <span class="t14500 text-gray500" v-if="voucherDetail?.voucher_type === 'percent'">
               درصدی
             </span>
             <span class="t14500 text-gray500" v-else>
@@ -40,10 +40,10 @@
           <span class="t14500">
              مقدار تخفیف:
           </span>
-          <span class="t14500 text-gray500 number-font"  v-if="voucherGroup?.discount_type === 'percent'">
+          <span class="t14500 text-gray500 number-font" v-if="voucherDetail?.discount_type === 'percent'">
               {{ voucherDetail?.discount }} %
-          </span> <span class="t14500 text-gray500 number-font"  v-else>
-              {{  voucherDetail?.discount  }} ریال
+          </span> <span class="t14500 text-gray500 number-font" v-else>
+              {{ voucherDetail?.discount }} ریال
           </span>
         </div>
       </div>
@@ -51,7 +51,7 @@
 
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      {{voucherGroup}}
+
       <Table
           class="flex-grow-1"
           :header="headerPublicVoucherList"
@@ -72,12 +72,17 @@
 <script>
 import Table from "@/components/Voucher/Table/PublicVoucherTable.vue";
 import Voucher from '@/composables/Voucher'
+
 export default {
   setup() {
-    const {headerShps , headerPublicVoucherList, getVoucherShps,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup } = new Voucher()
-    return {headerShps,getVoucherShps,voucher,dataTableLength ,headerPublicVoucherList,
-      pageLength,page,getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup }
+    const {
+      headerShps, headerPublicVoucherList, getVoucherShps, voucher, dataTableLength,
+      pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup
+    } = new Voucher()
+    return {
+      headerShps, getVoucherShps, voucher, dataTableLength, headerPublicVoucherList,
+      pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup
+    }
   },
   components: {
     Table,

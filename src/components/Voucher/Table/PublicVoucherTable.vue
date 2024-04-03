@@ -6,14 +6,14 @@
         reverse
         v-if="loading"/>
 
-    <header class="c-table__header d-flex justify-space-evenly">
+    <header class="c-table__header d-flex justify-space-evenly ml-15">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
-            class="text-center c-table__header__item t12500 "
+            class="text-center c-table__header__item t12500 ml-15"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
-           >
+            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           <v-icon v-if="head.order == true"/>
           {{ head.name }}
         </div>
@@ -23,17 +23,20 @@
     </header>
 
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
+      <div v-if="items && items.length > 0 && !loading" class="c-table__contents ">
         <div
             v-for="(item , index) in items"
             :key="index"
             :class="oddIndex(index) ? 'bg-gray90' : ''"
-            class="d-flex justify-between c-table__contents__row">
+            class="d-flex  c-table__contents__row "
+
+        >
           <div
               v-if="header[0].show"
-              class=""
+              class="c-table__contents__item justify-center "
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               >
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14300 text-gray500 py-5 number-font ">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -41,6 +44,7 @@
           <div
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
               >
                     <span class="t14300 text-gray500 py-5">
                         {{ item.code }}
