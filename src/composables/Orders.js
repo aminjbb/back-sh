@@ -52,6 +52,8 @@ export default function setup() {
         { name: 'شناسه کالا', show: true , value:'shps_id', order: false},
         { name: 'نام کالا', show: true, value:'shps_label' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'تعداد کالاهای کنسلی', show: true , value:'cancelled_count', order: false},
+        { name: 'تعداد کالاهای باقی‌مانده', show: true , value:'remained_count', order: false},
         { name: 'فروشگاه', show: true, value:'shopping_name', order: false },
         { name: 'قیمت کالا', show: true, value:'price', order: false },
         { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },

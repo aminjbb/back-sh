@@ -144,7 +144,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const {
             shpsModalHeader,
             discountModalHeader

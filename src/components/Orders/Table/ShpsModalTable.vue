@@ -12,7 +12,7 @@
                 :style="[
                     { width: itemsWidth, flex: `0 0 ${itemsWidth}` },
                     index === 0  ? { width: '7.5%', flex: '0 0 7.5%' } : {},
-                    index === 2 ? { width: '15.5%', flex: '0 0 15.5%',textAlign:'right !important' } : {},
+                    index === 2 ? { width: '10.5%', flex: '0 0 10.5%',textAlign:'right !important' } : {},
                 ]">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
@@ -48,8 +48,8 @@
 
                 <div
                     v-if="header[2].show"
-                    class="c-table__contents__item justify-center"
-                    style="padding: 3px; width: 17.5%; flex: 0 0 17.5%;">
+                    class="c-table__contents__item"
+                    style="padding: 3px; width: 10.5%; flex: 0 0 10.5%;">
                     <span class="t12500 text-gray500 py-3">
                         <template v-if="item.shps && item.shps.sku && item.shps.sku.label">
                             {{ item.shps.sku.label }}
@@ -80,6 +80,36 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500 text-gray500 py-3 number-font">
+                        <template v-if="item.cancelled_count">
+                            {{item.cancelled_count}}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div
+                    v-if="header[5].show"
+                    class="c-table__contents__item justify-center"
+                    style="padding:3px"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500 text-gray500 py-3 number-font">
+                        <template v-if="item.remained_count">
+                            {{item.remained_count}}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                <div
+                    v-if="header[6].show"
+                    class="c-table__contents__item justify-center"
+                    style="padding:3px"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3">
                         <template v-if="item.shps && item.shps.sku && item.shps.sku.seller && item.shps.sku.seller.shopping_name">
                             {{ item.shps.sku.seller.shopping_name }}
@@ -91,7 +121,7 @@
                 </div>
 
                 <div
-                    v-if="header[5].show"
+                    v-if="header[7].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -106,7 +136,7 @@
                 </div>
 
                 <div
-                    v-if="header[6].show"
+                    v-if="header[8].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -121,7 +151,7 @@
                 </div>
 
                 <div
-                    v-if="header[7].show"
+                    v-if="header[9].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -136,7 +166,7 @@
                 </div>
 
                 <div
-                    v-if="header[8].show"
+                    v-if="header[10].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -151,7 +181,7 @@
                 </div>
 
                 <div
-                    v-if="header[9].show"
+                    v-if="header[11].show"
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -167,7 +197,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </template>
 
