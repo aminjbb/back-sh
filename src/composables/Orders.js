@@ -27,7 +27,6 @@ export default function setup() {
         { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
         { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
         { name: 'تاریخ ارسال سفارش', show: true, value:'receive_date', order: true },
-        { name: 'شماره موبایل', show: true, value:'phone_number', order: false },
     ]);
 
     const filterField = [
@@ -38,7 +37,7 @@ export default function setup() {
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
         {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
-       //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'کد معرف' , type:'text', value:'identification_code'},
         //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
         {name:'استان' , type:'select', value:'receive_state_id'},
         {name:'شهر' , type:'select', value:'receive_city_id'},
@@ -46,8 +45,6 @@ export default function setup() {
         {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
         {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
-
-
     ];
 
     const shpsModalHeader =ref([
@@ -108,10 +105,10 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             orderList.value = data.data.data
             loading.value = false
-           setTimeout(()=>{
-               isFilter.value =false
-               isFilterPage.value = false
-           } , 2000)
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
         }
 
         else {
