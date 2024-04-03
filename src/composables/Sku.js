@@ -109,7 +109,7 @@ export default function setup() {
             sku.value = data.data
         }
     };
-    async function getShpssDetail(id,) {
+    async function getShpssDetail(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')

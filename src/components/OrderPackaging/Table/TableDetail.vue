@@ -20,11 +20,6 @@
           {{ head.name }}
         </div>
       </template>
-
-      <div class="text-center c-table__header__item t12500 text-black"
-           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        وضعیت
-      </div>
     </header>
 
     <div class="stretch-table">
@@ -32,7 +27,7 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
+            :class="packedStatus(items?.packing_status) ? 'bg-success' : ''"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -44,11 +39,11 @@
           </div>
 
           <div
-              v-if="item.id && header[1].show"
+              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item.shps.id }}
+                            {{ item.shps}}
                         </span>
           </div>
           <div
@@ -56,8 +51,8 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5">
-                            <template v-if="item.shps.sku.label">
-                                {{ item.shps.sku.label }}  
+                            <template v-if="item.sku_label">
+                                {{ item.sku_label }}
                             </template>
                             <template v-else>
                                 نامعلوم
@@ -70,48 +65,16 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            <template v-if="item.shps.sku.id">
-                                {{ item.shps.sku.id }}
+                            <template v-if="item.shpss_barcode">
+                                {{ item.shpss_barcode}}
                             </template>
                             <template v-else>
                                 نامعلوم
                             </template>
                         </span>
           </div>
-          <div
-              v-if=" header[4].show "
-              class="c-table__contents__item number-font justify-center t14300 text-gray500"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
-            {{ item.count }}
-
-          </div>
-
-          <div
-              v-if=" header[4].show "
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
 
-            <v-form @submit.prevent="orderDetailProp()">
-              <div>
-                <v-text-field
-                    :autofocus="true"
-                    variant="outlined"
-                    v-model="userInputs[index]"
-                />
-              </div>
-            </v-form>
-
-          </div>
-
-
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <div class="seller__add-sku-btn d-flex justify-center align-center px-6 py-6 ">
-              <v-icon v-if="apiSuccess[item.id]" class="">mdi-check</v-icon>
-              <v-icon v-else>mdi-plus</v-icon>
-            </div>
-          </div>
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -360,10 +323,12 @@ export default {
 
     /**
      * Return odd index
-     * @param {*} index
+     * @param {*} status
      */
-    oddIndex(index) {
-      return isOdd(index)
+    packedStatus(status) {
+      if (status== 'packed') return true
+      else return false
+
     },
   },
   created() {

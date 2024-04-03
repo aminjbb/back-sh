@@ -1776,16 +1776,17 @@ const router = createRouter({
             meta: {
                 name: 'انبار'
             },
-            children: [{
-                path: 'index',
-                name: 'order-packaging',
-                component: OrderPackagingListView,
-                meta: {
-                    name: ' بسته بندی سفارش ها '
-                }
-            },
+            children: [
+            //     {
+            //     path: 'index',
+            //     name: 'order-packaging',
+            //     component: OrderPackagingListView,
+            //     meta: {
+            //         name: ' بسته بندی سفارش ها '
+            //     }
+            // },
                 {
-                    path: 'detail-info/:orderId',
+                    path: 'index',
                     name: 'detail-info',
                     component: OrderDetailView,
                     meta: {

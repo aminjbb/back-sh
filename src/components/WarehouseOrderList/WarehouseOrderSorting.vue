@@ -4,7 +4,7 @@
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
         <span class="t20400">
-         جمع آوری کالا
+         سورتینگ
         </span>
       </div>
       <div class="pa-3">
@@ -124,7 +124,7 @@
             شناسه شلف را اسکن کنید.
             </span>
           </div>
-          <v-text-field @keyup.enter="sortingShps(qrCode,shelfBarcode)" :autofocus="true" v-model="shelfBarcode" variant="solo"></v-text-field>
+          <v-text-field @keyup.enter="sortingShps(qrCode)" :autofocus="true" v-model="shelfBarcode" variant="solo"></v-text-field>
         </div>
       </div>
 
@@ -143,14 +143,17 @@
             </span>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-white t18400">
-                  جایگذاری کالا با شناسه {{ skuDetail?.id }}
+            <span class="text-white t18400 d--rtl">
+                  جایگذاری کالا با بارکد
+              <span class=" d--ltr">
+              {{ qrCode }}
+            </span>
         در جایگاه سورتینگ {{ shelfBarcode }} با موفقیت انجام شد.
             </span>
           </div>
           <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
             <v-btn
-                @click="sortingDone = false"
+                @click="reScan()"
                 color="white"
                 height="40"
                 width="348"
@@ -168,20 +171,10 @@
 </template>
 <script>
 import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.vue'
-import Placement from '@/composables/Placement'
-import Sku from '@/composables/Sku'
 import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 
 export default {
-  setup() {
-    const {getPlacement, placement} = new Placement()
-    const {getShpssDetail, shpssDetail} = new Sku()
-    return {
-      getPlacement, placement,
-      getShpssDetail, shpssDetail
-    }
-  },
   data() {
     return {
       scanShps: true,
@@ -201,30 +194,34 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/item?barcode=${this.qrCode}`
+      AxiosMethod.end_point = `warehouse/order/sorting/get-item?barcode=${this.qrCode}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.shpssDetail = data.data
-        if (data.data.sorting_placement) this.sortingShps(data.data.barcode, data.data.sorting_placement)
       }
     },
-    async sortingShps(shpsBarcode, placement) {
+    async sortingShps(shpsBarcode) {
       const AxiosMethod = new AxiosCall()
       const formData = new FormData()
       formData.append('shps_s_barcode', shpsBarcode)
-      formData.append('placement_barcode', placement.barcode)
+      formData.append('placement_barcode', this.shelfBarcode)
+      AxiosMethod.form = formData
       AxiosMethod.using_auth = true
+      AxiosMethod.toast_error = true
+      AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/sort`
-      let data = await AxiosMethod.axios_get()
+      AxiosMethod.end_point = `warehouse/order/sorting/put-sort`
+      let data = await AxiosMethod.axios_post()
       if (data) {
-
-
+        this.shelfScan = false
+        this.sortingDone = true
       }
     },
-    checkCount() {
-      if (this.shpssDetail.shps_count < this.placeCount) ++this.placeCount
-      else this.placeCount = 0
+    reScan() {
+      this.sortingDone = false
+      this.shpssDetail = ''
+      this.qrCode = ''
+      this.shelfBarcode = ''
     }
   },
 

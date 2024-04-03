@@ -28,14 +28,36 @@
 
           class="flex-grow-1"
           deletePath="category/crud/delete/"
-          :header="cargoReceivingHeader"
+          :header="orderListHeader"
           :items="orderList"
-          :page="page"
+          :page="1"
           :perPage="dataTableLength"
           :loading="loading"
       />
 
       <v-divider/>
+      <v-card-actions class="pb-3">
+        <v-row class="pr-5">
+          <v-col cols="3">
+          </v-col>
+
+          <v-col cols="6">
+            <div class="text-center">
+              <v-pagination
+                  v-model="pageNumber"
+                  :length="pageLength"
+                  rounded="circle"
+                  size="40"
+                  :total-visible="7"
+                  prev-icon="mdi-chevron-right"
+                  next-icon="mdi-chevron-left" />
+            </div>
+          </v-col>
+
+          <v-col cols="3">
+          </v-col>
+        </v-row>
+      </v-card-actions>
 
 
     </v-card>
@@ -45,21 +67,12 @@
 <script>
 //Components
 import Table from '@/components/OrderPackaging/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
-import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 
 
 export default {
   components: {
     Table,
-    ModalTableFilter,
-    ModalColumnFilter,
-    ModalGroupAdd,
-    ModalExcelDownload,
-
   },
 
   data() {
@@ -78,31 +91,33 @@ export default {
       cargoList,
       getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
-      item,
+      orderListHeader,
       filterField,
       loading,
-      getShpsList,
+      getSortingOrder,
       orderList,
       getOrderListDetail,
-      barcodeNum
+      barcodeNum,
+      pageNumber,
+      pageLength
     } = OrderPackagingList();
     return {
       cargoList,
       getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
-      item,
+      orderListHeader,
       filterField,
       loading,
-      getShpsList,
+      getSortingOrder,
       orderList,
       getOrderListDetail,
-      barcodeNum
+      barcodeNum,
+      pageNumber,
+      pageLength
     };
   },
-  async mounted() {
-    await this.fetchCargoData();
+   mounted() {
+     this.getSortingOrder();
   },
 
   watch: {
@@ -114,15 +129,10 @@ export default {
 
       }
     },
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
   },
   methods: {
 
-    async fetchCargoData(newCargoId) {
-      this.getShpsList(newCargoId);
-    },
+
     updatePackageIdInStore() {
       this.$store.commit('set_packageId', this.cargoId);
     },
@@ -149,8 +159,8 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-    $route() {
-      this.fetchCargoData();
+    pageNumber(val){
+      this.getSortingOrder(val)
     }
   }
 }
