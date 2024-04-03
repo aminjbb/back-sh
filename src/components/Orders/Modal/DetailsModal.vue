@@ -2,17 +2,16 @@
 <div class="text-right">
     <v-dialog v-model="orderDetailsModal.dialog">
         <v-card class="pa-5 " >
-            <div class="accordion mb-5 scroller">
-                <header class="accordion__header" id="accordion-header-1" @click="openAccordion(1)">
-                    <span>
+            <v-expansion-panels class="accordion" variant="inset">
+                <v-expansion-panel>
+                    <v-expansion-panel-title class="accordion__header">
+                        <span>
                         اطلاعات کلی
                     </span>
+                    </v-expansion-panel-title>
 
-                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
-                </header>
-
-                <div class="accordion__content " id="accordion-content-1">
-                    <div class="simple-table-parent">
+                    <v-expansion-panel-text class="accordion__items__content">
+                        <div class="simple-table-parent">
                         <div class="simple-table ">
                             <v-row
                                 v-for="(item,index) in generalDetails"
@@ -23,20 +22,18 @@
                             </v-row>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
 
-            <div class="accordion mb-5 scroller">
-                <header class="accordion__header" id="accordion-header-2" @click="openAccordion(2)">
-                    <span>
+                <v-expansion-panel>
+                    <v-expansion-panel-title class="accordion__header">
+                        <span>
                         مشخصات گیرنده
                     </span>
+                    </v-expansion-panel-title>
 
-                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
-                </header>
-
-                <div class="accordion__content" id="accordion-content-2">
-                    <div class="simple-table-parent">
+                    <v-expansion-panel-text class="accordion__items__content">
+                        <div class="simple-table-parent">
                         <div class="simple-table">
                             <v-row
                                 v-for="(item,index) in userDetails"
@@ -47,20 +44,18 @@
                             </v-row>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
 
-            <div class="accordion mb-5 scroller">
-                <header class="accordion__header" id="accordion-header-3" @click="openAccordion(3)">
-                    <span>
+                <v-expansion-panel>
+                    <v-expansion-panel-title class="accordion__header">
+                        <span>
                         اطلاعات پرداخت
                     </span>
+                    </v-expansion-panel-title>
 
-                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
-                </header>
-
-                <div class="accordion__content" id="accordion-content-3">
-                    <div class="simple-table-parent">
+                    <v-expansion-panel-text class="accordion__items__content">
+                        <div class="simple-table-parent">
                         <div class="simple-table">
                             <v-row
                                 v-for="(item,index) in paymentDetails"
@@ -71,39 +66,35 @@
                             </v-row>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
 
-            <div class="accordion mb-5 scroller">
-                <header class="accordion__header" id="accordion-header-4" @click="openAccordion(4)">
-                    <span>
+                <v-expansion-panel>
+                    <v-expansion-panel-title class="accordion__header">
+                        <span>
                         تخفیف ها
                     </span>
+                    </v-expansion-panel-title>
 
-                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
-                </header>
+                    <v-expansion-panel-text class="accordion__items__content">
+                        <DiscountTable :items="discountDetails" :header="discountModalHeader" />
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
 
-                <div class="accordion__content" id="accordion-content-4">
-                    <DiscountTable :items="discountDetails" :header="discountModalHeader" />
-                </div>
-            </div>
-
-            <div class="accordion mb-5 scroller">
-                <header class="accordion__header" id="accordion-header-5" @click="openAccordion(5)">
-                    <span>
+                <v-expansion-panel>
+                    <v-expansion-panel-title class="accordion__header">
+                        <span>
                         جزئیات سفارش
                     </span>
+                    </v-expansion-panel-title>
 
-                    <v-icon class="accordion__header__btn" icon="mdi-chevron-down" />
-                </header>
-
-                <div class="accordion__content " id="accordion-content-5">
-                  <div class="flex-grow-1 d-flex flex-column align-stretch">
+                    <v-expansion-panel-text class="accordion__items__content">
+                        <div class="flex-grow-1 d-flex flex-column align-stretch">
                     <ShpsTable class="flex-grow-1" :items="shpsDetails" :header="shpsModalHeader" />
                   </div>
-
-                </div>
-            </div>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
+            </v-expansion-panels>
         </v-card>
     </v-dialog>
 </div>
@@ -249,6 +240,35 @@ export default {
                             value: data.data.sending_price ? data.data.sending_price : '-'
                         },
                     ]
+
+                    this.userDetails = [{
+                            label: 'نام مشتری ',
+                            value: data.data.user && data.data.user.first_name && data.data.user.last_name ? `${data.data.user.first_name} ${data.data.user.last_name}` : '-'
+                        },
+                        {
+                            label: 'استان',
+                            value: data.data.state && data.data.state.label ? data.data.state.label : '-'                        },
+                        {
+                            label: 'شهر',
+                            value: data.data.city && data.data.city.label ? data.data.state.label : '-'
+                        },
+                        {
+                            label: 'تلفن',
+                            value: data.data.receiver_phone ? data.data.receiver_phone : '-'
+                        },
+                        {
+                            label: 'موبایل',
+                            value: data.data.receiver_mobile ? data.data.receiver_mobile : '-'
+                        },
+                        {
+                            label: 'کد پستی',
+                            value:  data.data.receiver_postal_code ? data.data.receiver_postal_code : '-'
+                        },
+                        {
+                            label: 'آدرس',
+                            value: data.data.receiver_address ? data.data.receiver_address : '-'
+                        },
+                    ]
                 }
             }
         },
@@ -320,54 +340,6 @@ export default {
         },
 
         /**
-         * Get order 'User' details by order_id
-         */
-        async getUserDetails() {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall();
-            AxiosMethod.using_auth = true;
-            AxiosMethod.token = this.$cookies.get('adminToken');
-            AxiosMethod.end_point = `admin/order/crud/user/detail/${this.orderDetailsModal.id}`;
-            AxiosMethod.form = formdata;
-            AxiosMethod.store = this.$store;
-            let data = await AxiosMethod.axios_get();
-
-            if (data) {
-                if (data.data) {
-                    this.userDetails = [{
-                            label: 'نام مشتری ',
-                            value: data.data.first_name && data.data.last_name ? `${data.data.first_name} ${data.data.last_name}` : '-'
-                        },
-                        {
-                            label: 'استان',
-                            value: data.data.addresses && data.data.addresses[0] && data.data.addresses[0].state ? data.data.addresses[0].state.label : '-'
-                        },
-                        {
-                            label: 'شهر',
-                            value: data.data.addresses && data.data.addresses[0] && data.data.addresses[0].city ? data.data.addresses[0].city.label : '-'
-                        },
-                        {
-                            label: 'تلفن',
-                            value: data.data.phone_number ? data.data.phone_number : '-'
-                        },
-                        {
-                            label: 'موبایل',
-                            value: data.data.phone_number ? data.data.phone_number : '-'
-                        },
-                        {
-                            label: 'کد پستی',
-                            value: data.data.addresses && data.data.addresses[0] && data.data.addresses[0].postal_code ? data.data.addresses[0].postal_code : '-'
-                        },
-                        {
-                            label: 'آدرس',
-                            value: data.data.addresses && data.data.addresses[0] && data.data.addresses[0].address ? data.data.addresses[0].address : '-'
-                        },
-                    ]
-                }
-            }
-        },
-
-        /**
          * Get order 'Discount' details by order_id
          */
          async getDiscountDetails() {
@@ -391,7 +363,6 @@ export default {
             () => this.orderDetailsModal.dialog,
             (dialogState) => {
                 if (dialogState) {
-                    this.getUserDetails();
                     this.getShpsDetails();
                     this.getPaymentDetails();
                     this.getGeneralDetails();
@@ -402,3 +373,24 @@ export default {
     },
 }
 </script>
+
+<style>
+
+.v-expansion-panels--variant-inset > .v-expansion-panel--active{
+    max-width: 100% !important;
+}
+
+.v-expansion-panel-title--active > .v-expansion-panel-title__overlay{
+    background: #FCE4EC !important;
+    opacity: 1 !important;
+}
+
+.accordion__header span{
+    z-index: 1 !important;
+}
+
+.v-expansion-panel-title{
+    min-height: 56px !important;
+}
+
+</style>
