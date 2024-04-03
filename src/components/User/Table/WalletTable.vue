@@ -18,10 +18,7 @@
           <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
           {{head.name}}
         </div>
-
       </template>
-
-
     </header>
 
     <div class="stretch-table">
@@ -296,9 +293,6 @@ export default {
   methods: {
     splitChar,
     convertDateToJalai,
-    /**
-     * Mass update modal
-     */
 
     translateType(type) {
       const translations = {
@@ -308,15 +302,9 @@ export default {
         'return_order': ' مرجوعی سفارش',
         'other': ' سایر',
         'success': 'موفق ',
-
-
       };
       return translations[type] || type;
     },
-
-
-
-
 
     /**
      * Get row index in table
@@ -370,13 +358,6 @@ export default {
       if (data === 1) return true
       else return false
     },
-
-    /**
-     * Change filter
-     * @param {*} index
-     * @param {*} item
-     */
-
 
     /**
      * Return odd index

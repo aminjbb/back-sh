@@ -120,7 +120,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets } = Ticket();
         return { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets };
     },

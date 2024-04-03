@@ -74,36 +74,12 @@ import WarehouseInventory from "@/composables/WarehouseInventory";
 import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
 
 export default {
-    data() {
-        return {
-            /* mocketData: [{
-                    "id": 5,
-                    "shps_id": "134768",
-                    "shps_label": "سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر",
-                    "shps_count": 1200
-                },
-                {
-                    "id": 6,
-                    "shps_id": "134768",
-                    "shps_label": "سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر",
-                    "shps_count": 500
-                },
-                {
-                    "id": 7,
-                    "shps_id": "134768",
-                    "shps_label": "سرم روشن کننده پوست پرایم مدل C_Prime ظرفیت ۳۰ میلی لیتر",
-                    "shps_count": 222
-                }
-            ], */
-        }
-    },
-
     components: {
         Table,
         ModalTableFilter,
     },
 
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getWarehouseInventoryList,

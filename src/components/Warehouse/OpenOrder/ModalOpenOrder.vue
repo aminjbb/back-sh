@@ -102,15 +102,6 @@
 </template>
 
 <script>
-import {
-  openToast
-} from "@/assets/js/functions";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import Vehicle from '@/composables/Vehicle'
-import DriverManagement from '@/composables/DriverManagement'
-
 export default {
 
   props: {

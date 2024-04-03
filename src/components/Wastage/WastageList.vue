@@ -109,9 +109,7 @@
 </template>
 
 <script>
-import {
-  ref
-} from 'vue'
+
 //Components
 import Table from '@/components/Wastage/Table/Table.vue'
 import ModalTableFilter from '@/components/Wastage/Filter/Filter.vue'

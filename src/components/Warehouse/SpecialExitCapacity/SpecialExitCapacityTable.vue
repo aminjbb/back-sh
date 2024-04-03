@@ -70,7 +70,6 @@ import { AxiosCall } from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import { PanelFilter } from  "@/assets/js/filter"
 import { SkuPanelFilter } from  "@/assets/js/filter_sku"
-import { openToast } from "@/assets/js/functions";
 import ModalEditSpecialExitCapacity from "@/components/Warehouse/SpecialExitCapacity/ModalEditSpecialExitCapacity.vue";
 export default {
   components: {
@@ -97,10 +96,6 @@ export default {
     getWarehouseExitCapacityList: {
       type:Function
     },
-
-
-
-
   },
 
   data() {
@@ -109,8 +104,6 @@ export default {
       skuStatus: [],
       ordering: {},
       per_page: '25',
-      active: [],
-      sellable: [],
       filter: [],
       panelFilter: new PanelFilter(),
       skuPanelFilter: new SkuPanelFilter(),
@@ -134,20 +127,6 @@ export default {
         return `${width}%`;
       }
       return 'auto';
-    },
-
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
     },
   },
 
@@ -228,83 +207,6 @@ export default {
     returnTrueOrFalse(data) {
       if (data === 1) return true
       else return false
-    },
-
-    /**
-     * Change filter
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeFilter(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.editPath + item.id
-      if (this.filter[index]) formdata.append('is_filterable', 1)
-      else formdata.append('is_filterable', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
-
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
-
-    /**
-     * Change Sellable
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeSellable(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.sellablePath + item.id
-      if (this.sellable[index]) formdata.append('is_sellable', 1)
-      else formdata.append('is_sellable', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
-
-    /**
-     * Change SKU status
-     * @param {*} index
-     * @param {*} id
-     */
-    async changeStatusSku(index, id) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-
-      if (this.skuStatus[index]) formdata.append('status', 'approved')
-      else formdata.append('status', 'rejected')
-      AxiosMethod.end_point = `product/sku/crud/switch/status/${id}`
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
     },
 
     /**
