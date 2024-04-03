@@ -25,7 +25,7 @@ export default function setup() {
         {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
         {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
         {name:'سطح دسترسی' , show:true, value:'role', order:false},
-        {name:'تاریخ ساخت' , show:true, value:'email', order:true},
+        {name:'تاریخ ساخت' , show:true, value:'created_at', order:true},
         {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
         {name:'ایمیل' , show:true, value:'email', order:false},
         {name:'مسدود کردن' , show:true, value:'is_ban', order:false},

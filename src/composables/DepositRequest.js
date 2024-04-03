@@ -18,12 +18,12 @@ export default function setup() {
     // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: ' شناسه مشتری', show: true , value:'label', order: false},
-        { name: ' شماره مشتری', show: true , value:'label', order: false},
+        { name: ' شناسه مشتری', show: true , value:'id', order: true},
+        { name: ' شماره مشتری', show: true , value:'phone_number', order: false},
         { name: ' شماره کارت مشتری', show: true, value:'type' , order: false},
         { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
-        { name: ' موجودی کیف پول', show: true, value:'created_at', order: false },
-        { name: ' تاریخ درخواست ', show: true, value:'created_at', order: false },
+        { name: ' موجودی کیف پول', show: true, value:'value', order: false },
+        { name: ' تاریخ درخواست ', show: true, value:'created_at', order: true },
         // { name: 'نام ادمین ', show: true, value:'updated_at', order: false },
         { name: 'وضعیت تراکنش', show: true, value:'is_active', order: false },
     ]);
@@ -55,6 +55,7 @@ export default function setup() {
         let paramsQuery = null
         loading.value = true
         if (query){
+            if (query.query.page)   page.value = parseInt(query.query?.page)
             paramsQuery = filter.params_generator(query.query)
         }
         else  paramsQuery = filter.params_generator(route.query)

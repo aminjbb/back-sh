@@ -66,7 +66,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-            <ModalExcelDownload getEndPoint="page/csv/get/export" />
+            <ModalExcelDownload :getEndPoint="`voucher/crud/export/children/${voucherId}`" />
           </v-col>
 
 
@@ -81,6 +81,11 @@ import Voucher from '@/composables/Voucher';
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 
 export default {
+  data() {
+    return {
+      voucherId: this.$route.params.voucherId,
+    }
+  },
   setup() {
     const {
       headerShps, headerPublicVoucherList, getVoucherShps, voucher, dataTableLength,

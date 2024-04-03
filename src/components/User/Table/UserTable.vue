@@ -68,29 +68,38 @@
           </div>
 
           <div
-              v-if="item.first_name && header[1].show"
+              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.first_name }}
+            <span v-if="item.first_name" class="t14300 text-gray500 py-5">
+                       {{ item.first_name }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
           <div
-              v-if="item.last_name && header[2].show"
+              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.last_name }}
+                    <span v-if="item.last_name" class="t14300 text-gray500 py-5">
+                       {{ item.last_name }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
           <div
-              v-if="item.phone_number && header[3].show"
+              v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone_number }}
+                   <span v-if="item.phone_number" class="t14300 text-gray500 py-5 number-font">
+                       {{ item.phone_number }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
 
@@ -98,8 +107,12 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ convertDateToJalai(item.created_at , '-' , true) }}
+
+            <span v-if="item.created_at" class="t14300 text-gray500 number-font py-5">
+                      {{ convertDateToJalai(item.created_at , '-' , true) }}
+                    </span>
+            <span v-else class="t14300 text-gray500 py-5">
+                        ----
                     </span>
           </div>
           <div

@@ -99,7 +99,7 @@ import {
     jalaliToGregorian
 } from '@/assets/js/functions'
 
-import Product from "@/composables/Product";
+import DepositRequest from "@/composables/DepositRequest.js";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {
     AxiosCall
@@ -114,14 +114,16 @@ export default {
     },
     setup() {
         const {
-            product,
+            header,
             loading,
-            searchProduct
-        } = Product()
+          filterField
+
+        } = DepositRequest()
         return {
-            product,
+            header,
             loading,
-            searchProduct
+          filterField
+
         }
     },
     props: {
