@@ -215,8 +215,6 @@ import {
 } from "@/assets/js/functions";
 export default {
 
-
-
   props: {
     /**
      * List Items for header
@@ -272,15 +270,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
   },
 
   data() {

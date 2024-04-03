@@ -235,7 +235,7 @@ export default {
         }
     },
 
-    setup(props) {
+    setup() {
         const {
             allSuppliers,
             getAllSuppliers
@@ -409,8 +409,6 @@ export default {
             } else {
                 filter.created_at_to_date = null
             }
-
-            console.log(filter);
 
             filter.page = 1;
 

@@ -12,10 +12,8 @@
                     height="40"
                     rounded
                     class="px-8 mt-1">
-
                     تایید انبار
                 </v-btn>
-
             </v-row>
         </footer>
     </v-card>
@@ -28,7 +26,6 @@ import {
     AxiosCall
 } from "@/assets/js/axios_call";
 import {
-    convertDateToGregorian,
     openToast
 } from "@/assets/js/functions";
 
