@@ -22,8 +22,8 @@ export default function setup() {
         { name: ' پست پیشتاز', show: true, value: 'pishtaz', order: false},
         { name: ' پست', show: true, value: 'post', order: false},
         { name: 'تیپاکس', show: true, value: 'tpax', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'start-date', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'end-date', order: true},
+        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
+        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
         { name: 'استان', show: false, value: 'state', order: true},
         { name: 'وضعیت', show: true, value: 'is_active', order: false},
     ]);
