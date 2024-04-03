@@ -181,15 +181,16 @@ export default {
         const AxiosMethod = new AxiosCall()
         const formData = new FormData()
         formData.append('barcode', barcode)
-        formData.append('placement_id', this.pickUpShps?.placement.id)
         AxiosMethod.form = formData
         AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'admin/order/pick'
+        AxiosMethod.end_point = 'warehouse/order/pickup/get'
         let data = await AxiosMethod.axios_post()
         if (data) {
           this.loading = false
-
+          this.shpssBarCode = ''
           this.getPickUpShps()
         }
         else {

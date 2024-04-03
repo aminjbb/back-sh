@@ -37,7 +37,7 @@
                 نشانی شرکت : {{ factorDetail.address }}
               </div>
               <div class="t11500">
-                کد پستی : {{factorDetail.postal_code}}
+                کد پستی : {{ factorDetail.postal_code }}
               </div>
               <div class="t11500">
                 تلفن : {{ factorDetail.phone }}
@@ -93,7 +93,7 @@
           <div class="border-header-box">
             <div class="d-flex justify-space-between pt-1 px-2">
               <div class="t11500">
-                خریدار :  {{ factorUser.first_name }} {{ factorUser.last_name }}
+                خریدار : {{ factorUser.first_name }} {{ factorUser.last_name }}
               </div>
               <div class="t11500">
                 شماره اقتصادی/شماره ملی : {{ factorUser.national_code }}
@@ -106,7 +106,8 @@
               </div>
             </div>
             <div class="text-right t11500 pt-1 px-2">
-              نشانی : {{ factorDetail?.state?.label }} - {{ factorDetail?.city?.label }} - نبش خیابان بیست و یکم - پلاک ۲۳
+              نشانی : {{ factorDetail?.state?.label }} - {{ factorDetail?.city?.label }} - نبش خیابان بیست و یکم - پلاک
+              ۲۳
             </div>
             <div class="d-flex justify-space-between pt-1 px-2">
               <div class="t11500">
@@ -226,7 +227,6 @@
         </v-col>
 
 
-
       </v-row>
       <v-row v-for="(item , index) in factorDetail?.shavaz?.data" justify="end" class="px-6 mt-0">
         <v-col cols="1" class="px-0 pt-0">
@@ -275,14 +275,14 @@
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                   {{splitChar(item.discount) }}
+                   {{ splitChar(item.discount) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                  {{splitChar(item.total_price_after_discount) }}
+                  {{ splitChar(item.total_price_after_discount) }}
                   </span>
           </div>
         </v-col>
@@ -290,14 +290,14 @@
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                      {{splitChar(item.total_price_after_tax) }}
+                      {{ splitChar(item.total_price_after_tax) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
                   <span class="t11500 number-font">
-                    {{splitChar(item.total_price) }}
+                    {{ splitChar(item.total_price) }}
                   </span>
           </div>
         </v-col>
@@ -305,7 +305,7 @@
 
       </v-row>
       <!--sum-->
-      <v-row justify="end" class="px-6 mt-0" >
+      <v-row justify="end" class="px-6 mt-0">
 
         <v-col cols="6" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200">
@@ -322,16 +322,14 @@
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-center">
                   <span class="t11500 number-font">
-                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount)}}
+                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount) }}
                   </span>
           </div>
         </v-col>
-
-
 
 
       </v-row>
-      <v-row justify="end" class="px-6 mt-0" >
+      <v-row justify="end" class="px-6 mt-0">
 
         <v-col cols="6" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200">
@@ -348,12 +346,10 @@
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-center">
                   <span class="t11500 number-font">
-                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount)}}
+                   {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount) }}
                   </span>
           </div>
         </v-col>
-
-
 
 
       </v-row>
@@ -408,43 +404,42 @@
   </v-card>
 </template>
 <script>
-  import {AxiosCall} from "@/assets/js/axios_call";
+import {AxiosCall} from "@/assets/js/axios_call";
 
-  export default {
-      data(){
-        return{
-          factorDetail :null
-        }
-      },
+export default {
+  data() {
+    return {
+      factorDetail: null
+    }
+  },
 
-    methods:{
+  methods: {
 
-      async getOrderFactorDetail(){
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/print/factor/${this.$route.params.orderId}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          this.factorDetail = data.data
-          setTimeout(() => {
-            var myElement = document.getElementById('WarehouseOrderPrint');
-            window.print(myElement);
-          }, 1000);
-        }
+    async getOrderFactorDetail() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/print/factor/${this.$route.params.orderId}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.factorDetail = data.data
+        setTimeout(() => {
+          var myElement = document.getElementById('WarehouseOrderPrint');
+          window.print(myElement);
+        }, 1000);
       }
-    },
+    }
+  },
 
-    computed:{
+  computed: {
 
-      factorUser(){
-        try {
-          return this.factorDetail.user[0]
-        }
-        catch (e) {
-          return ''
-        }
+    factorUser() {
+      try {
+        return this.factorDetail.user[0]
+      } catch (e) {
+        return ''
       }
     }
   }
+}
 </script>

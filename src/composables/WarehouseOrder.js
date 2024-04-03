@@ -39,10 +39,10 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index`
+        AxiosMethod.end_point = `warehouse/order/sorting/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            // orders.value = data.data
+            orders.value = data.data
             loading.value = false
         }
 
@@ -54,7 +54,7 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/pickup`
+        AxiosMethod.end_point = `warehouse/order/pickup/my-tasks`
         let data = await AxiosMethod.axios_get()
         if (data) {
             loading.value = false

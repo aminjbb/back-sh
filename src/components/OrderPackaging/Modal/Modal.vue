@@ -193,34 +193,21 @@
                 getShpsList
             };
         },
-        components: {
-            
-        
-    
-        },
+
     
         methods: {
-
-
-
           print() {
-
             // this.close()
             window.open(`${ import.meta.env.VITE_API_SITEURL}order-packaging/${this.$route.params.orderId}/print`, '_blank');
 
           },
-
-    
-            close() {
+          close() {
                 const form = {
                     dialog: false,
                     object: ''
                 }
                 this.$store.commit('set_modalPrintOrder', form)
             },
-          
-
-    
         },
         watch: {
             'form.selectedItems': function(newVal, oldVal) {
