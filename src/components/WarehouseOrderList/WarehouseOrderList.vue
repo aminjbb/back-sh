@@ -37,18 +37,12 @@ import WarehouseOrder from "@/composables/WarehouseOrder";
 import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
 
 export default {
-  data() {
-    return {
-
-    }
-  },
-
   components: {
     Table,
     ModalTableFilter,
   },
 
-  setup(props) {
+  setup() {
     const {
       pageLength,filterField, orders ,addPerPage, getWarehouseOrders, dataTableLength, page, header,loading
     } = WarehouseOrder();

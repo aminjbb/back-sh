@@ -27,7 +27,7 @@
     </header>
 
     <div class="stretch-table">
-      <div v-if="items && items.length > 0 /* && !loading */" class="c-table__contents">
+      <div v-if="items && items.length > 0" class="c-table__contents">
         <div
             v-for="(item , index) in items"
             :key="index"
@@ -102,13 +102,6 @@ import ModalFactorPrint from '@/components/WarehouseOrderList/Modal/ModalFactorP
 import {
   PanelFilter
 } from "@/assets/js/filter"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
@@ -152,14 +145,6 @@ export default {
     },
 
     /**
-     * Delete endpoint for change filter
-     */
-    deletePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
      * Page on table
      */
     page: {
@@ -182,15 +167,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
   },
 
   computed: {

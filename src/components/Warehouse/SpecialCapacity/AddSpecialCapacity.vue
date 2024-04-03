@@ -85,11 +85,9 @@
   </v-form>
 </template>
 <script>
-import { watch } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
 import {convertDateToGregorian, convertDateToJalai, gregorian_to_jalali} from "@/assets/js/functions";
-import {da} from "vuetify/locale";
 import Warehouse from "@/composables/Warehouse";
 import SpecialCapacityTable from '@/components/Warehouse/SpecialCapacity/SpecialCapacityTable.vue'
 import Table from "@/components/Admin/AdminTable/AdminTable.vue";

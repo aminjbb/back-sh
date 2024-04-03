@@ -144,7 +144,6 @@ export default {
   },
 
   mounted() {
-    // this.getPlacement(this.$route.params.placementId)
     var element = document.body // You must specify element here.
     element.addEventListener('keydown', e => {
       if (e.key == 'Enter') this.scanQrCode()

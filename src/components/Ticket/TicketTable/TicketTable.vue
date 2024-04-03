@@ -154,7 +154,6 @@
 
 <script>
 import { isOdd } from '@/assets/js/functions'
-import { AxiosCall } from '@/assets/js/axios_call.js'
 import { PanelFilter } from  "@/assets/js/filter"
 export default {
 

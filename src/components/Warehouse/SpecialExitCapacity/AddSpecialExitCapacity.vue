@@ -93,9 +93,8 @@
 
 </template>
 <script>
-import { watch } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import {convertDateToGregorian, convertDateToJalai, gregorian_to_jalali} from "@/assets/js/functions";
+import {convertDateToGregorian, gregorian_to_jalali} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 import Table from '@/components/Warehouse/SpecialExitCapacity/SpecialExitCapacityTable.vue'
 import Warehouse from '@/composables/Warehouse'
