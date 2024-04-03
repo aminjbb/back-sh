@@ -242,6 +242,7 @@ import ConsignmentListView from "@/views/Seller/Consigment/ConsignmentListView.v
 import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
 import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 import DetailVoucherView from "@/views/Voucher/DetailVoucherView.vue";
+import PublicVoucherList from "@/views/Voucher/PublicVoucherListView.vue";
 import VoucherListView from "@/views/Voucher/VoucherListView.vue";
 import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView.vue";
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
@@ -1954,6 +1955,14 @@ const router = createRouter({
                     component: DetailVoucherView,
                     meta: {
                         name: 'جزئیات'
+                    }
+                },
+                {
+                    path: ':voucherId/list',
+                    name: 'PublicVoucherList',
+                    component: PublicVoucherList,
+                    meta: {
+                        name: 'کد تخفیف سیستمی'
                     }
                 },
                 {

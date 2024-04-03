@@ -38,7 +38,7 @@ export default function setup() {
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
         {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
-       //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'کد معرف' , type:'text', value:'identification_code'},
         //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
         {name:'استان' , type:'select', value:'receive_state_id'},
         {name:'شهر' , type:'select', value:'receive_city_id'},
@@ -106,10 +106,10 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             orderList.value = data.data.data
             loading.value = false
-           setTimeout(()=>{
-               isFilter.value =false
-               isFilterPage.value = false
-           } , 2000)
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
         }
 
         else {

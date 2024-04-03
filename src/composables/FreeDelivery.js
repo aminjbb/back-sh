@@ -48,7 +48,7 @@ export default function setup() {
         { name: 'نام مشتری', show: true, value: 'first_name', order: true},
         { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
         { name: ' شماره تماس مشتری', show: true, value: 'phone', order: false},
-        { name: 'چندمین سفارش', show: true, value: 'ord_count', order: false},
+        { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
         { name: 'تعداد ایتم', show: true, value: 'item_number', order: false},
         { name: 'مبلغ سفارش(ریال)', show: true, value: 'order_price', order: false},
         { name: 'تاریخ ثبت سفارش', show: true, value: 'order_date', order: false},
