@@ -153,14 +153,11 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `admin/order/print/label/${item.id}`
       let data = await AxiosMethod.axios_get()
-
       if (data) {
-
         const form = {
           dialog :true,
           object : data.data
         }
-
         this.$store.commit('set_modalPrintOrder' , form)
       }
     },
