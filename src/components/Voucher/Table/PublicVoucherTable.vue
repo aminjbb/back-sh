@@ -6,7 +6,7 @@
         reverse
         v-if="loading"/>
 
-    <header class="c-table__header d-flex justify-space-evenly ml-15">
+    <header class="c-table__header d-flex justify-space-evenly ">
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"

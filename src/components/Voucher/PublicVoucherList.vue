@@ -64,14 +64,21 @@
       <v-divider/>
 
       <v-card-actions class="pb-3">
+        <v-row class="px-8">
+          <v-col cols="3" class="d-flex justify-start">
+            <ModalExcelDownload getEndPoint="page/csv/get/export" />
+          </v-col>
 
+
+        </v-row>
       </v-card-actions>
     </v-card>
   </div>
 </template>
 <script>
 import Table from "@/components/Voucher/Table/PublicVoucherTable.vue";
-import Voucher from '@/composables/Voucher'
+import Voucher from '@/composables/Voucher';
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 
 export default {
   setup() {
@@ -86,7 +93,7 @@ export default {
   },
   components: {
     Table,
-
+    ModalExcelDownload,
   },
   mounted() {
     this.getVoucherShps()
