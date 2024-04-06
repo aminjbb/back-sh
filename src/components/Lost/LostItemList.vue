@@ -135,10 +135,7 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
-    page(val){
-      console.log(val)
-      this.addPagination(val)
-    },
+
 
   }
 }

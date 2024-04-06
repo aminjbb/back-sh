@@ -105,13 +105,10 @@ export class PanelFilter {
         else if  (routeQuery.per_page ) {
             query += "per_page=" + routeQuery.per_page + "&";
         }
-
-
-
-        else if  (this.page){
+        if  (this.page){
             query += "page=" + this.page + "&";
         }
-        if  (routeQuery.page){
+        else if  (routeQuery.page){
             query += "page=" + routeQuery.page + "&";
         }
 

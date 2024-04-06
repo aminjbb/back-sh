@@ -62,7 +62,6 @@ export default function setup() {
     const filter = new PanelFilter()
 
     async function getWasteAndLostList(query) {
-        console.log('hiiii')
         loading.value = true
         let paramsQuery = null
         if (query){
