@@ -48,7 +48,7 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            contactUsList.value = data.data
+            contactUsList.value = data.data.data
 
             loading.value = false
             setTimeout(()=>{
