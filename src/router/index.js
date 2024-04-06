@@ -1794,7 +1794,7 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: ':packageId/print',
+                    path: ':orderId/print',
                     name: 'PrintOrderPackagingListView',
                     component: PrintOrderPackagingListView,
                     meta: {
