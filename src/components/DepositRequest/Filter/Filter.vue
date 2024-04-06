@@ -158,7 +158,6 @@ export default {
             admin: '',
             admins: [],
             statusModel: '',
-
             createdAtModel: null,
             updatedAtModel: null,
             gregorianCreateDate: [],
