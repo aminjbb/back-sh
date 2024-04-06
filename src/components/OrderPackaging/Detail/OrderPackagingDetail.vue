@@ -50,7 +50,7 @@
         </v-row>
       </v-card-actions>
     </v-card>
-    <Modal/>
+    <Modal :orderId="orderId"/>
   </div>
 </template>
 
@@ -74,6 +74,7 @@ export default {
 
   data() {
     return {
+
       cargo: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
@@ -136,7 +137,7 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        console.log(data)
+        this.orderId = data?.data?.order?.id
         if (data?.data?.is_completed){
           this.getDetailModal(data?.data?.order)
         }
