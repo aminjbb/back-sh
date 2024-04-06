@@ -12,7 +12,7 @@
       <v-divider color="grey"/>
       <v-row align="center" class="pa-3">
         <v-col cols="6">
-          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="orderId" variant="outlined"></v-text-field>
+          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="3">
             <v-btn
@@ -74,7 +74,7 @@ export default {
 
   data() {
     return {
-
+      shpsItem:null,
       cargo: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
@@ -129,7 +129,7 @@ export default {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `warehouse/order/packaging/done/`
-      formdata.append('barcode' , this.orderId)
+      formdata.append('barcode' , this.shpsItem)
       AxiosMethod.form = formdata
       AxiosMethod.store = this.$store
       AxiosMethod.toast_error = true
