@@ -1,5 +1,5 @@
 <template>
-<div v-if="modalPrintOrderObject" class="pa-5" id="printableArea-cargo ">
+<div v-if="modalPrintOrderObject" class="pa-5" id="printableArea-order ">
     <div>
         <div class=" mt-10 d-flex justify-center ">
             <div class="border-nested-modal">
@@ -68,12 +68,17 @@
                     </div>
 
                 </div>
-                <div class="d-flex justify-center mt-4">
-                    <img src="@/assets/img/qrcode3.png" alt="shavaz image">
-                </div>
-                <div class="d-flex justify-center">
-                    <span>۱۲۳۴۵۶۶۴۳۳۹۹۵۸</span>
-                </div>
+              <div class="d-flex justify-center mt-4">
+                <barcode
+                    :barcodeValue="modalPrintOrderObject.logistic_barcode"
+                    :format="'CODE128'"
+                    :index="1"
+                    text=""
+                ></barcode>
+              </div>
+              <div class="d-flex justify-center">
+                <span>{{ modalPrintOrderObject.logistic_barcode }}</span>
+              </div>
             </div>
         </div>
     </div>
@@ -81,11 +86,11 @@
 </template>
 
 <script>
+import Barcode from "@/components/OrderPackaging/Barcode/OrderPackagingBarcode.vue";
 import OrderPackaging from "@/composables/OrderPackaging";
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import Table from "@/components/OrderPackaging/Table/Table.vue";
 
 export default {
 
@@ -124,7 +129,7 @@ export default {
     },
 
     components: {
-        Table
+      Barcode
     },
 
     mounted() {
@@ -136,14 +141,14 @@ export default {
             const AxiosMethod = new AxiosCall();
             AxiosMethod.using_auth = true;
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/print/label/${this.$route.params.packageId}`;
+            AxiosMethod.end_point = `admin/order/print/label/${this.$route.params.orderId}`;
             try {
                 let response = await AxiosMethod.axios_get();
                 if (response) {
                     this.modalPrintOrderObject = response.data
 
                     setTimeout(() => {
-                        let myElement = document.getElementById('printableArea-cargo');
+                        let myElement = document.getElementById('printableArea-order');
                         window.print(myElement);
                     }, 2000)
 
