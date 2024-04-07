@@ -56,7 +56,7 @@
                   <div class="t13300 text-right mb-1">{{ Filter.name }}</div>
 
                   <v-select v-if="Filter.value === 'status'" density="compact" variant="outlined" single-line item-title="label" item-value="value" :items="statusItems" v-model="statusModel" />
-                  <v-select v-if="Filter.value === 'charge_type'" density="compact" variant="outlined" single-line item-title="label" item-value="value" :items="transactionReason" v-model="transactionModal" />
+                  <v-select v-if="Filter.value === 'charge_type'" density="compact" variant="outlined" single-line item-title="label" item-value="value" :items="transactionReason" v-model="transactionModel" />
 
                 </v-col>
               </template>
@@ -121,7 +121,7 @@ export default {
       userSearchList: [],
       createdAtModel: null,
       statusModel: '',
-      transactionModal: '',
+      transactionModel: '',
       gregorianCreateDate: [],
       gregorianUpdateDate: [],
       statusItems: [{
@@ -196,6 +196,15 @@ export default {
         }
       }
       return this.gregorianCreateDate;
+    },
+
+    charge_type() {
+      try {
+        const labelObject = this.values.find(element => element.name === 'charge_type');
+        return labelObject.value
+      } catch (error) {
+        return ''
+      }
     },
     status() {
       try {
@@ -315,6 +324,11 @@ export default {
         filter.shvz_tracking_code = this.shvz_tracking_code
       } else {
         filter.shvz_tracking_code = null
+      }
+      if (this.transactionModel) {
+        filter.charge_type = this.transactionModel
+      } else {
+        filter.charge_type = null
       }
       if (this.refid) {
         filter.refid = this.refid

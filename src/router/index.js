@@ -1344,14 +1344,7 @@ const router = createRouter({
 
             ]
         },
-            // {
-            //     path: 'wallet',
-            //     name: 'walletUser',
-            //     component: UserWalletView,
-            //     meta: {
-            //         name: 'کیف پول'
-            //     }
-            // },
+
         {
             path: '/contact-us', // contact-us
             meta: {
