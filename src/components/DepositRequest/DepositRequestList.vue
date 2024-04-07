@@ -34,10 +34,13 @@
       <v-divider />
 
       <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start" />
 
-          <v-col cols="6" class="d-flex justify-center">
+        <v-row class="pr-5">
+          <v-col cols="3">
+            <ModalExcelDownload getEndPoint="finance/admin/transaction/crud/withdraw/export"/>
+          </v-col>
+
+          <v-col cols="6" >
             <div class="text-center">
               <v-pagination
                   v-model="page"

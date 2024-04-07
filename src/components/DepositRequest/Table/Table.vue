@@ -25,6 +25,11 @@
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
+              <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.id }}
+                    </span>
+              </div>
 
                 <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -74,7 +79,17 @@
                         </template>
                     </span>
                 </div>
-                <div v-if="header[5].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <div v-if="header[6].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.user.wallet.value ">
+                            {{ parseInt(item.user.wallet.value) + parseInt(item.amount )}}
+                        </template>
+                        <template v-else>
+                            نامعلوم
+                        </template>
+                    </span>
+              </div>
+              <div v-if="header[7].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
@@ -86,7 +101,7 @@
                     </span>
                 </div>
 
-                <div v-if="header[6].show" class="c-table__contents__item justify-center" :ref="`factor--${index}`" :style="{ width: itemsWidth, flex: `0 0 11%` }">
+                <div v-if="header[8].show" class="c-table__contents__item justify-center" :ref="`factor--${index}`" :style="{ width: itemsWidth, flex: `0 0 11%` }">
                     <template v-if="item.status">
 
                         <div v-if="item.status === 'pending'" class="factor-dropdown">
