@@ -2,10 +2,9 @@
   <div class="h-100 d-flex flex-column align-stretch seller">
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch pa-2 scroller" height="580">
 
-      <v-row justify="center" class="py-1">
-        <ModalRejectSorting :getWarehouseOrders="getWarehouseOrders" :order="order" v-for="(order,index) in orders"/>
+      <v-row justify="space-between" align class="pa-5 ma-0">
+        <ModalRejectSorting :getWarehouseOrders="getWarehouseOrders" :order="order" v-for="(order,index) in orders" :key="`order${index}`"/>
       </v-row>
-      <v-divider />
     </v-card>
 
   </div>
@@ -17,12 +16,6 @@ import WarehouseOrder from "@/composables/WarehouseOrder";
 import ModalRejectSorting from "@/components/WarehouseOrderList/Modal/ModalRejectSorting.vue";
 
 export default {
-  data() {
-    return {
-
-    }
-  },
-
   components: {
     Table,
     ModalRejectSorting
@@ -47,8 +40,6 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-
-
   },
 
   mounted() {
