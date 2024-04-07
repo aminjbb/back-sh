@@ -446,7 +446,7 @@ const router = createRouter({
                 name: 'notifications',
                 component: NotificationsView,
                 meta: {
-                    name: 'لیست پیام ها'
+                    name: 'پیام های سیستمی'
                 }
             },
                 {
@@ -462,7 +462,7 @@ const router = createRouter({
                     name: 'getNotifications',
                     component: GetNotificationsView,
                     meta: {
-                        name: 'پیام'
+                        name: 'پیام های سیستمی'
                     }
                 }
             ],
@@ -609,14 +609,14 @@ const router = createRouter({
         {
             path: '/ticket', // Notification routes
             meta: {
-                name: 'تیکت ها'
+                name: 'پشتیبانی'
             },
             children: [{
                 path: 'index',
                 name: 'TicketList',
                 component: TicketList,
                 meta: {
-                    name: 'لیست تیکت ها'
+                    name: 'تیکت ها'
                 }
             },
                 {
@@ -842,14 +842,14 @@ const router = createRouter({
         {
             path: '/Supplier', // Supplier routes
             meta: {
-                name: 'تامین کننده ها'
+                name: 'بازرگانی'
             },
             children: [{
                 path: 'index',
                 name: 'SupplierListView',
                 component: SupplierListView,
                 meta: {
-                    name: 'لیست تامین کننده ها'
+                    name: 'تامین کننده ها'
                 }
             },
                 {
@@ -874,7 +874,7 @@ const router = createRouter({
         {
             path: '/seller', // Seller routes
             meta: {
-                name: 'فروشندگان'
+                name: 'بازرگانی'
             },
             children: [{
                 path: 'index',
@@ -993,7 +993,7 @@ const router = createRouter({
         {
             path: '/page', // Pages routes
             meta: {
-                name: 'صفحه ها'
+                name: 'تنظیمات'
             },
             children: [{
                 path: 'index',
@@ -1064,7 +1064,7 @@ const router = createRouter({
         {
             path: '/menu', // Pages routes
             meta: {
-                name: 'منو ها'
+                name: 'تنظیمات'
             },
             children: [{
                 path: 'index',
@@ -1348,14 +1348,14 @@ const router = createRouter({
         {
             path: '/contact-us', // contact-us
             meta: {
-                name: ' ارتباط با ما'
+                name: 'پیام ها'
             },
             children: [{
                 path: 'index',
                 name: 'ContactUs',
                 component: ContactUsView,
                 meta: {
-                    name: 'ارتباط با ما '
+                    name: 'پیام های کاربران'
                 }
             },
             ]
@@ -1483,7 +1483,7 @@ const router = createRouter({
         {
             path: '/vehicle', // Vehicle routes
             meta: {
-                name: 'خودرو'
+                name: 'انبار'
             },
             children: [{
                 path: 'index',
@@ -1823,7 +1823,7 @@ const router = createRouter({
         },
         {
 
-            path: '/warehouse-orders', // print label bulk
+            path: '/warehouse-orders', // Warehouse orders
             meta: {
                 name: 'انبار'
             },
@@ -1832,7 +1832,7 @@ const router = createRouter({
                 name: 'WarehouseOrderListView',
                 component: WarehouseOrderListView,
                 meta: {
-                    name: 'سفارش ها'
+                    name: 'سفارش های سورتینگ'
                 }
             },
                 {
@@ -1840,7 +1840,7 @@ const router = createRouter({
                     name: 'WarehouseOrderFactorPrintView',
                     component: WarehouseOrderFactorPrintView,
                     meta: {
-                        name: 'سفارش ها'
+                        name: 'پرینت سفارش های سورتینگ'
                     }
                 },
                 {
@@ -1949,7 +1949,7 @@ const router = createRouter({
         {
             path: '/voucher', // Voucher route
             meta: {
-                name: 'کد تخفیف'
+                name: 'مارکتینگ'
             },
             children: [
                 {
@@ -2029,7 +2029,7 @@ const router = createRouter({
                     name: 'CreateFreeDeliveryView',
                     component: CreateFreeDeliveryView,
                     meta: {
-                        name: 'ساخت'
+                        name: 'ساخت تخفیف ارسال رایگان'
                     }
                 },
                 {
@@ -2037,7 +2037,7 @@ const router = createRouter({
                     name: 'FreeDeliverySkuListView',
                     component: FreeDeliverySkuListView,
                     meta: {
-                        name: 'ارسال رایگان'
+                        name: ' نمایش کالاهای تخفیف ارسال رایگان'
                     }
                 },
                 {
@@ -2045,7 +2045,7 @@ const router = createRouter({
                     name: 'FreeDeliveryCustomerListView',
                     component: FreeDeliveryCustomerListView,
                     meta: {
-                        name: 'ارسال رایگان'
+                        name: ' نمایش مشتریان تخفیف ارسال رایگان'
                     }
                 },
                 {
@@ -2053,7 +2053,7 @@ const router = createRouter({
                     name: 'FreeDeliveryOrderListView',
                     component: FreeDeliveryOrderListView,
                     meta: {
-                        name: 'ارسال رایگان'
+                        name: 'لیست سفارشات تخقیف ارسال رایگان'
                     }
                 },
 
@@ -2104,7 +2104,7 @@ const router = createRouter({
                 name: 'BulkEditView',
                 component: BulkEditView,
                 meta: {
-                    name: 'ویرایش گروهی '
+                    name: 'shps ویرایش گروهی '
                 }
             },
 
@@ -2114,7 +2114,7 @@ const router = createRouter({
         {
             path: '/system', // wastage
             meta: {
-                name: 'سیستم'
+                name: 'تنظیمات'
             },
             children: [{
                 path: 'index',
