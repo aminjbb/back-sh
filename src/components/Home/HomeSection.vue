@@ -11,7 +11,7 @@
                   <v-row align="center" class="mt-5">
                     <div>
                       <h2>روز</h2>
-                      <div class="d-flex align-end my-5">
+                      <div class="d-flex align-center my-5">
                         <span class="text-h6 number-font">{{ dashboardData?.order?.last_day_order }}</span>
                         <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
                       </div>
@@ -36,7 +36,7 @@
                   <v-row justify="space-between" align="center" class="mt-5">
                     <div>
                       <h2>ماه</h2>
-                      <div class="d-flex align-end my-5">
+                      <div class="d-flex align-center my-5">
                         <span class="text-h6 number-font">{{ dashboardData?.order?.last_month_order }}</span>
                         <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
                       </div>
@@ -62,7 +62,7 @@
                   <v-row justify="space-between" align="center" class="mt-5">
                     <div>
                       <h2>سال</h2>
-                      <div class="d-flex align-end my-5">
+                      <div class="d-flex align-center my-5">
                         <span class="text-h6 number-font">{{ dashboardData?.order?.last_year_order }}</span>
                         <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
                       </div>
@@ -204,8 +204,6 @@
                 </v-row>
               </v-col>
             </div>
-
-
           </v-card>
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
             <span class="text-gray600 t14500">خریدار</span>
@@ -236,8 +234,20 @@
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg" height="205">
             <span class="text-gray600 t14500">سود بازرگانی</span>
             <div class="d-flex justify-space-between align-center">
-              <v-col cols="12">
-                <BarChart v-if="showChart" :chart-data="dataChartBusinessProfit" :options="optionBusinessProfit" :height="145"/>
+              <v-col cols="8">
+                <v-row justify="start">
+                  <BarChart v-if="showChart" :chart-data="dataChartBusinessProfit" :options="optionBusinessProfit" :height="145"/>
+                </v-row>
+              </v-col>
+              <v-col cols="4">
+                <v-row align="start" justify="end" class="my-1">
+                    <span class="t14500 number-font">{{ splitChar(dashboardData?.profit?.month) }}</span>
+                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                </v-row>
+                <v-row align="start" justify="end" class="my-3">
+                    <span class="t14500 number-font">{{ splitChar(dashboardData?.profit?.day) }}</span>
+                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                </v-row>
               </v-col>
             </div>
           </v-card>
@@ -365,7 +375,7 @@ export default defineComponent({
           display: false
         }
       }
-    };
+    }
     const optionCurrentSale = {
       indexAxis: 'y',
       scales: {
@@ -388,7 +398,7 @@ export default defineComponent({
           display: false
         }
       }
-    };
+    }
     const optionLastMonth = {
       type: 'line',
       data: dataChartLastMonth,
@@ -421,10 +431,10 @@ export default defineComponent({
           },
         }
       },
-    };
+    }
 
     return { dashboardData, getDashboardData , showChart, dataChartCurrentSale, optionCurrentSale,
-      dataChartLastMonth, dataChartBusinessProfit, optionBusinessProfit, optionLastMonth};
+      dataChartLastMonth, dataChartBusinessProfit, optionBusinessProfit, optionLastMonth}
   },
 
   mounted() {

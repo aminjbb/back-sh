@@ -26,8 +26,8 @@ export default function setup() {
             {
                 label: 'ماه',
                 data: [],
-                borderColor: ['#E02D2D' , '#43A047'],
-                backgroundColor: ['#E02D2D' , '#43A047'],
+                borderColor: [],
+                backgroundColor: [],
                 axis: 'x',
             }
         ]
@@ -62,9 +62,13 @@ export default function setup() {
         if (data) {
             dashboardData.value = data.data
 
-            dataChartCurrentSale.datasets[0].data = [data?.data?.sale?.day, data?.data?.sale?.month]
+            dataChartCurrentSale.datasets[0].data = [data?.data?.sale?.month, data?.data?.sale?.day]
 
-            dataChartBusinessProfit.datasets[0].data = [data?.data?.profit?.day, data?.data?.profit?.month]
+            dataChartBusinessProfit.datasets[0].data = [data?.data?.profit?.month, data?.data?.profit?.day]
+            dataChartBusinessProfit.datasets[0].backgroundColor = dataChartBusinessProfit.datasets[0].data.map(value => {
+                return value < 0 ? '#E02D2D' : '#43A047'
+            })
+            dataChartBusinessProfit.datasets[0].borderColor = dataChartBusinessProfit.datasets[0].backgroundColor
 
             data?.data?.diagram?.forEach(sale=>{
                 dataChartLastMonth.labels?.push(sale?.persian_date)
