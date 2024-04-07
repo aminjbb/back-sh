@@ -38,40 +38,65 @@
           </div>
 
           <div
-              v-if="item.id && header[1].show"
+              v-if="item.order_number && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
                         {{ item.id }}
                     </span>
           </div>
-
           <div
-              v-if="item.first_name && header[2].show"
+              v-if="item.user && header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5">
-                        {{ item.first_name }}
+                        {{ item?.user?.first_name }}
+                    </span>
+          </div> <div
+              v-if="item.user && header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.user?.last_name }}
+                    </span>
+          </div><div
+              v-if="item.user && header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.user?.phone_number }}
+                    </span>
+          </div><div
+              v-if="item.order_number && header[5].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.order_number }}
+                    </span>
+          </div><div
+              v-if="item.details_count && header[6].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.details_count }}
+                    </span>
+          </div><div
+              v-if="item.total_price && header[7].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.total_price }}
+                    </span>
+          </div><div
+              v-if="item.created_at_fa && header[8].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5">
+                        {{ item?.created_at_fa }}
                     </span>
           </div>
 
-          <div
-              v-if="item.last_name && header[3].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.last_name }}
-                    </span>
-          </div>
-          <div
-              v-if=" header[4].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.phone_number" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.phone_number }}
-                    </span>
-            <span v-else>----</span>
-          </div>
+
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">

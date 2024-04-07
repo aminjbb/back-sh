@@ -115,28 +115,28 @@ import Table from "@/components/Voucher/Table/VoucherOrderTable.vue";
 import Voucher from '@/composables/Voucher'
 export default {
   setup() {
-    const {headerOrder ,getVoucherCustomer,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer} = new Voucher()
-    return {headerOrder,getVoucherCustomer,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer}
+    const {headerOrder ,getVoucherOrder,voucher , dataTableLength ,
+      pageLength,page , getVoucherDetail , voucherDetail , addPaginationOrder , addPerPageOrder} = new Voucher()
+    return {headerOrder,getVoucherOrder,voucher,dataTableLength ,
+      pageLength,page,getVoucherDetail , voucherDetail , addPaginationOrder , addPerPageOrder}
   },
   components: {
     Table,
   },
   mounted() {
-    this.getVoucherCustomer()
+    this.getVoucherOrder()
     this.getVoucherDetail()
   },
 
   watch:{
     dataTableLength(val){
-      this.addPerPageCustomer(val)
+      this.addPerPageOrder(val)
     },
     $route(to){
-      this.getVoucherCustomer(to)
+      this.getVoucherOrder(to)
     },
     page(val){
-      this.addPaginationCustomer(val)
+      this.addPaginationOrder(val)
     }
   }
 }
