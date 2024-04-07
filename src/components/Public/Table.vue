@@ -120,7 +120,7 @@
                         </template>
 
                         <template v-else>
-                            <span class="t14300 text-gray500 py-5">
+                            <span class="t14300 text-gray500 py-5 number-font">
                                 {{ item.name }}
                             </span>
                         </template>
@@ -148,7 +148,7 @@
                             </button>
                         </template>
                         <template v-else>
-                            <span class="text-gray500 py-5 t14300">
+                            <span class="text-gray500 py-5 t14300 number-font">
                                 <v-icon
                                     v-if="model === 'color'"
                                     icon="mdi-circle"
