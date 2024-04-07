@@ -18,11 +18,13 @@ export default function setup() {
     // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
+        { name: ' شناسه ', show: true , value:'id', order: true},
         { name: ' شناسه مشتری', show: true , value:'id', order: true},
         { name: ' شماره مشتری', show: true , value:'phone_number', order: false},
-        { name: ' شماره کارت مشتری', show: true, value:'type' , order: false},
+        { name: ' شماره شبا مشتری', show: true, value:'type' , order: false},
         { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
-        { name: ' موجودی کیف پول', show: true, value:'value', order: false },
+        { name: ' موجودی قابل برداشت', show: true, value:'value', order: false },
+        { name: ' موجودی  کل', show: true, value:'value', order: false },
         { name: ' تاریخ درخواست ', show: true, value:'created_at', order: true },
         // { name: 'نام ادمین ', show: true, value:'updated_at', order: false },
         { name: 'وضعیت تراکنش', show: true, value:'is_active', order: false },
@@ -30,8 +32,9 @@ export default function setup() {
 
     const filterField = [
         {name:'شماره تماس' , type:'text', value:'phone_number' , place:'شماره تماس'},
+        {name:' شناسه' , type:'text', value:'id' , place:'شناسه'},
         { name:'نام مشتری' , type: 'auto-complete', value:'user_id' , place:'نام مشتری'},
-        { name: 'شماره کارت مشتری', type:'text', value:'card_number' , place:'شماره کارت مشتری'},
+        { name: 'شماره شبا مشتری', type:'text', value:'card_number' , place:'شماره شبا مشتری'},
         { name: 'نام ادمین', type:'auto-complete', value:'admin' , place:'نام ادمین'},
         { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
         { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
