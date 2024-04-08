@@ -270,18 +270,19 @@ export default {
           originalData: [],
           filteredData: [],
           activeFilter: [
-              {
-                  label: 'همه',
-                  value: '',
-              },
-              {
-                  label: 'فعال',
-                  value: '1',
-              },
-              {
-                  label: 'غیرفعال',
-                  value: '0',
-              },
+            {
+              label: 'همه',
+              value: '',
+            },
+            {
+              label: 'فعال',
+              value: '1',
+            },
+            {
+              label: 'غیرفعال',
+              value: '0',
+            },
+
           ],
           sellableFilter: [
               {
@@ -507,15 +508,14 @@ export default {
           filter.updated_at_to_date = null
       }
 
-      if (this.sellableModal === '') {
-          filter.sellable = null
+
+      if (this.sellableModal) {
+        filter.sellable = this.sellableModal
+      } else if (this.$route.query.sellable){
+        filter.sellable = null
       }
-      else if (this.sellableModal !== '') {
-          filter.sellable = this.sellableModal
-      }
-      else if (this.$route.query.is_sellable) {
-          filter.sellable = this.$route.query.is_sellable
-      }
+
+
 
       if (this.color) {
           filter.color = this.color
@@ -549,6 +549,8 @@ export default {
     removeAllFilters() {
         this.$router.push('/' + this.path);
         this.values = [];
+      this.sellableModal= '',
+          this.activeModel = '',
 
       this.filterField.forEach(el => {
           const form = {

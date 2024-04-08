@@ -138,12 +138,12 @@ export class SkuPanelFilter {
             query += "sku_group_id=" + routeQuery.sku_group_id + "&";
         }
 
-        if (this.page) {
-            query += "page=" + this.page + "&";
-        }
-        if (routeQuery.page) {
-            query += "page=" + routeQuery.page + "&";
-        }
+        // if (this.page) {
+        //     query += "page=" + this.page + "&";
+        // }
+        // if (routeQuery.page) {
+        //     query += "page=" + routeQuery.page + "&";
+        // }
 
         if (this.sort) {
             query += "sort=" + this.sort + "&";
