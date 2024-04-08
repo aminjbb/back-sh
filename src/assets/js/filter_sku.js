@@ -64,8 +64,8 @@ export class SkuPanelFilter {
         if (this.active !== null) {
             query += "is_active=" + this.active + "&";
         }
-        else if (routeQuery.is_active) {
-            query += "is_active=" + routeQuery.is_active + "&";
+        else if (routeQuery.active) {
+            query += "is_active=" + routeQuery.active + "&";
         }
 
         if (this.created_at_to_date) {
@@ -99,22 +99,22 @@ export class SkuPanelFilter {
         if (this.sellable !== null) {
             query += "is_sellable=" + this.sellable + "&";
         }
-        else if (routeQuery.is_sellable) {
-            query += "is_sellable=" + routeQuery.is_sellable + "&";
+        else if (routeQuery.sellable) {
+            query += "is_sellable=" + routeQuery.sellable + "&";
         }
 
         if (this.color) {
             query += "color_id=" + this.color + "&";
         }
-        if (routeQuery.color_id) {
-            query += "color_id=" + routeQuery.color_id + "&";
+        if (routeQuery.color) {
+            query += "color_id=" + routeQuery.color + "&";
         }
 
         if (this.brand) {
             query += "brand_id=" + this.brand + "&";
         }
-        else if (routeQuery.brand_id) {
-            query += "brand_id=" + routeQuery.brand_id + "&";
+        else if (routeQuery.brand) {
+            query += "brand_id=" + routeQuery.brand + "&";
         }
 
         if (this.category) {
@@ -127,15 +127,15 @@ export class SkuPanelFilter {
         if (this.product) {
             query += "product_id=" + this.product + "&";
         }
-        else if (routeQuery.product_id) {
-            query += "product_id=" + routeQuery.product_id + "&";
+        else if (routeQuery.product) {
+            query += "product_id=" + routeQuery.product + "&";
         }
 
         if (this.sku_group) {
             query += "sku_group_id=" + this.sku_group + "&";
         }
-        else if (routeQuery.sku_group_id) {
-            query += "sku_group_id=" + routeQuery.sku_group_id + "&";
+        else if (routeQuery.sku_group) {
+            query += "sku_group_id=" + routeQuery.sku_group + "&";
         }
 
         // if (this.page) {
@@ -151,10 +151,16 @@ export class SkuPanelFilter {
 
         if (this.per_page) {
             query += "per_page=" + this.per_page + "&";
-        }
-        if (routeQuery.per_page) {
+        } else if (routeQuery.per_page) {
             query += "per_page=" + routeQuery.per_page + "&";
         }
+
+        if (this.page) {
+            query += "page=" + this.page + "&";
+        } else if (routeQuery.page) {
+            query += "page=" + routeQuery.page + "&";
+        }
+
 
         return query.substring(0, query.length - 1);
     }
