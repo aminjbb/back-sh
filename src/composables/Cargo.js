@@ -25,7 +25,7 @@ export default function setup() {
         {name:'شماره موبایل راننده' , show:true, value:'is_active', order: false},
         {name:'تعداد بسته' , show:true, value:'is_active', order: false},
         {name:'تاریخ ساخت' , show:true, value:'is_active', order: false},
-        {name:'تاریخ ویرایش' , show:true, value:'is_active', order: true},
+        {name:'تاریخ ویرایش' , show:true, value:'order_by', order: true},
         {name:'وضعیت' , show:true, value:'is_active', order: false},
     ]);
 
