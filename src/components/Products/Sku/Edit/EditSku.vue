@@ -13,19 +13,17 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
 import EditSkuForm from '@/components/Products/Sku/Edit/EditSkuForm.vue'
 import Sku from '@/composables/Sku';
 import Size from "@/composables/Size";
 import CreateProductFromStep2 from "@/components/Products/Create/Steps/Steps2.vue";
-import {AxiosCall} from "@/assets/js/axios_call";
 export default {
     components: {
       CreateProductFromStep2,
       EditSkuForm
     },
 
-    setup(props) {
+    setup() {
         const {  sku, getSkue } = Sku();
       const {size, getSize} = Size()
         return { sku, getSkue , size, getSize, };
@@ -81,10 +79,10 @@ export default {
           return []
         }
       },
+      
       /**
        * create length list for select
        */
-
       lengthList() {
         try {
           const filterHeight = this.size.data.filter(el => el.name === 'length')
@@ -143,8 +141,5 @@ export default {
       },
     },
 
-  methods:{
-
-  }
 }
 </script>

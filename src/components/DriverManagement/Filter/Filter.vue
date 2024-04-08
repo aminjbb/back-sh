@@ -51,15 +51,9 @@
                                 :name="filter.value"
                                 v-model="values[index].value" />
                         </v-col>
-
-                        
-
-                       
                     </template>
                 </v-row>
             </div>
-
-          
           
           <div class="d--rtl">
             <v-row
@@ -67,7 +61,6 @@
                 align="center"
                 class="px-10"
             >
-            
             </v-row>
           </div>
   
@@ -115,11 +108,11 @@
   import Product from "@/composables/Product";
   import {DriverFilter} from "@/assets/js/filter_driver.js"; 
   export default {
-    components: { },
     setup(){
       const {product, loading, searchProduct } = Product()
       return {product, loading, searchProduct}
     },
+
     props: {
       filterField: [],
       path: '',
@@ -131,11 +124,7 @@
         dialog: false,
         active: false,
         values: [],
-        
         filteredData: [],
-      
-       
-  
         createdAtModel: null,
         updatedAtModel: null,
         gregorianCreateDate: [],

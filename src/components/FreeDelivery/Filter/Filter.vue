@@ -72,10 +72,6 @@
                     item-value="value"
                     :items="activeFilter"
                     v-model="activeModel" />
-
-
-
-
               </v-col>
 
               <v-col
@@ -121,7 +117,6 @@
 
                 </div>
               </v-col>
-
             </template>
           </v-row>
         </div>
@@ -179,10 +174,7 @@ export default {
     return {
       dialog: false,
       values: [],
-
       activeModel: '',
-
-
       activeFilter: [{
         label: 'همه',
         value: '',
@@ -223,8 +215,6 @@ export default {
   },
 
   computed: {
-
-
     name() {
       try {
         const idObject = this.values.find(element => element.name === 'name');

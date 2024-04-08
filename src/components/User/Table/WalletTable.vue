@@ -18,10 +18,7 @@
           <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
           {{head.name}}
         </div>
-
       </template>
-
-
     </header>
 
     <div class="stretch-table">
@@ -44,8 +41,8 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.user.phone_number" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.user.phone_number }}
+                    <span v-if="item?.user?.phone_number" class="t14300 text-gray500 py-5 number-font">
+                        {{ item?.user?.phone_number }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -57,8 +54,8 @@
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.user.first_name" class="t14300 text-gray500 py-5">
-                        {{ item.user.first_name }} {{ item.user.last_name }}
+                    <span v-if="item?.user?.first_name" class="t14300 text-gray500 py-5">
+                        {{ item?.user?.first_name }} {{ item?.user?.last_name }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -69,9 +66,11 @@
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.refid" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.refid }}
-                    </span>
+
+            <button v-if="item.refid" type="button" v-clipboard:copy="item.refid" v-clipboard:success="onCopy" v-clipboard:error="onError" class=" text-right">
+              <span class="text-gray500 t14300 text-right"> {{ item.refid.substring(0,15) }}</span>
+            </button>
+
             <span v-else class="t14300 text-gray500 py-5">
                         ----
                     </span>
@@ -104,7 +103,7 @@
               v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.type == 'withdraw'" class="t14300 text-error py-5">
+                    <span v-if="item.type == 'withdraw'" class="t14300 text-error py-5 number-font">
                         - {{splitChar(item.amount ) }}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
@@ -162,6 +161,9 @@
 </template>
 
 <script>
+import {
+  openToast
+} from "@/assets/js/functions";
 import {
   PanelFilter
 } from "@/assets/js/filter"
@@ -296,9 +298,6 @@ export default {
   methods: {
     splitChar,
     convertDateToJalai,
-    /**
-     * Mass update modal
-     */
 
     translateType(type) {
       const translations = {
@@ -308,15 +307,34 @@ export default {
         'return_order': ' مرجوعی سفارش',
         'other': ' سایر',
         'success': 'موفق ',
-
+        'waiting': 'در انتظار',
+        'failed': 'ناموفق',
+        'cancel': 'کنسل شده',
 
       };
       return translations[type] || type;
     },
 
-
-
-
+    /**
+     * Clipboard success msg
+     */
+    onCopy() {
+      openToast(
+          this.$store,
+          'متن  با موفقیت کپی شد.',
+          "success"
+      );
+    },
+    /**
+     * Clipboard error msg
+     */
+    onError() {
+      openToast(
+          this.$store,
+          'کپی متن با مشکل مواجه شد.',
+          "error"
+      );
+    },
 
     /**
      * Get row index in table
@@ -370,13 +388,6 @@ export default {
       if (data === 1) return true
       else return false
     },
-
-    /**
-     * Change filter
-     * @param {*} index
-     * @param {*} item
-     */
-
 
     /**
      * Return odd index

@@ -401,7 +401,11 @@ a,
 .v-select__selection-text,
 .v-overlay__content,
 span.v-autocomplete__selection-text,
-.text-clamp span {
+.text-clamp span,
+.vpd-day-text,
+.vpd-month-label span,
+.vpd-date span,
+.vpd-year-label span {
   font-family: IRANSansNum !important;
 }
 

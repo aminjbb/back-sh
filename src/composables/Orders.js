@@ -19,6 +19,7 @@ export default function setup() {
         { name: 'شناسه سفارش', show: true , value:'id', order: false},
         { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
+        { name: 'شماره تماس', show: true, value:'phone_number' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
         { name: 'وضعیت پرداخت', show: true, value:'payment_status', order: false },
@@ -26,7 +27,7 @@ export default function setup() {
         { name: 'مبلغ پرداختی', show: true, value:'paid_price', order: false },
         { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
         { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
-        { name: 'تاریخ ارسال سفارش', show: true, value:'receive_date', order: true },
+        { name: 'تاریخ ارسال سفارش', show: true, value:'logistic_date', order: true },
     ]);
 
     const filterField = [
@@ -37,7 +38,7 @@ export default function setup() {
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
         {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
-       //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'کد معرف' , type:'text', value:'identification_code'},
         //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
         {name:'استان' , type:'select', value:'receive_state_id'},
         {name:'شهر' , type:'select', value:'receive_city_id'},
@@ -52,6 +53,8 @@ export default function setup() {
         { name: 'شناسه کالا', show: true , value:'shps_id', order: false},
         { name: 'نام کالا', show: true, value:'shps_label' , order: false},
         { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'تعداد کالاهای کنسلی', show: true , value:'cancelled_count', order: false},
+        { name: 'تعداد کالاهای باقی‌مانده', show: true , value:'remained_count', order: false},
         { name: 'فروشگاه', show: true, value:'shopping_name', order: false },
         { name: 'قیمت کالا', show: true, value:'price', order: false },
         { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },
@@ -103,10 +106,10 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             orderList.value = data.data.data
             loading.value = false
-           setTimeout(()=>{
-               isFilter.value =false
-               isFilterPage.value = false
-           } , 2000)
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
         }
 
         else {

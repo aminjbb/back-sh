@@ -177,7 +177,7 @@ export default {
         Table,
     },
 
-    setup(props) {
+    setup() {
         const {
             getWasteAndLostList,
             itemList,

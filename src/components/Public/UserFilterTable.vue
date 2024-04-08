@@ -134,7 +134,6 @@
 <script>
 
 import {UserPanelFilter} from "@/assets/js/filter_user";
-import { jalaliToGregorian } from '@/assets/js/functions'
 import value from "@/composables/Export";
 export default {
   props: {

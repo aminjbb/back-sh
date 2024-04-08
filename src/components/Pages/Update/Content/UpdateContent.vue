@@ -4,7 +4,6 @@
         class="ma-5 br-12 pb-15 flex-grow-1"
         min-height="600"
     >
-
       <ContentForm
           :page="pageSingle"
           ref="ContentForm"
@@ -22,11 +21,8 @@
               rounded
               class="px-8 mt-1"
           >
-
             تایید
           </v-btn>
-
-
         </v-row>
       </footer>
     </v-card>
@@ -36,7 +32,7 @@
 <script>
 import ContentForm from "@/components/Pages/Update/Content/ContentForm.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
-import {convertDateToGregorian, openToast} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import Page from "@/composables/Page";
 
 export default {

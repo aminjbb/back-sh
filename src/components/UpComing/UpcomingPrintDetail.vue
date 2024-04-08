@@ -78,20 +78,15 @@ export default {
       AxiosMethod.end_point = `shipment/detail/${this.$route.params.shipmentId}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-
         this.retailObject =data.data
         console.log(this.retailObject)
-        // if (data.data.barcode_image) {
-        //   data.data.barcode_image = baseUrl + data.data.barcode_image;
-        // }
-
 
       } else {
         console.error("Data not found");
       }
     },
+    
     convertDateToJalai,
-
   },
 
   computed: {

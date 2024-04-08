@@ -26,7 +26,7 @@
     </header>
 
     <div class="stretch-table">
-        <div v-if="items && items.length > 0 /* && !loading */" class="c-table__contents">
+        <div v-if="items && items.length > 0" class="c-table__contents">
             <div
                 v-for="(item , index) in items"
                 :key="index"

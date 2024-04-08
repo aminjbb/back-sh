@@ -10,32 +10,26 @@
             </span>
       </header>
       <v-divider color="grey"/>
-      <div class="d-flex justify-center mx-16 mt-4 ">
-        <div class="text-right my-3 mx-15">
-                    <span class="t13400 color-grey">
-                     {{ orderListDetail.id}}   شناسه سفارش :
-                        
-                    </span>
-        </div>
-        <div class="text-right my-3 mx-15">
-                    <span class="t13400 color-grey">
-                      روش ارسال :  {{ orderListDetail.sending_method }}
-                      <span class="t13400 color-grey">                      
-                      </span>
-                    </span>
-        </div>
-        <v-form >
-          <v-form @submit.prevent="splitedNum" >
-            <div>
-              <v-text-field
-
-                  variant="outlined"
-                  v-model="orderId"
-                  />
-            </div>
-          </v-form>
-        </v-form>
-      </div>
+      <v-row align="center" class="pa-3">
+        <v-col cols="6">
+          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="3">
+            <v-btn
+                @click="orderItemPack()"
+                color="primary500"
+                height="40"
+                rounded
+                class="px-8 mt-1">
+              تایید
+            </v-btn>
+        </v-col>
+        <v-col cols="3">
+            <span class="t13400 color-grey">
+<!--                     {{ orderDetail.id }}   شناسه سفارش :-->
+            </span>
+        </v-col>
+      </v-row>
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
@@ -44,52 +38,29 @@
           ref="oredrDetailFunc"
           class="flex-grow-1"
           :header="detailInfo"
-          :items="orderListDetail"
+          :items="orderDetail"
           :loading="loading"
-          @updateList="updateList"
-          @all-comparisons-successful="handleComparisonChange"
           deletePath="report/crud/delete/"
       />
 
       <v-divider/>
       <v-card-actions class="pb-3">
         <v-row class="px-5 py-2" justify="end">
-          <v-btn
-
-              height="40"
-              rounded
-              variant="flat"
-              class="px-8 mt-2"
-              @click="contradictedOrder"
-
-          >
-            گزارش مغایرت
-          </v-btn>
-          <v-btn
-
-              color="primary500"
-
-              height="40"
-              rounded
-              variant="flat"
-              class="px-8 mt-2"
-              :class="{'gray-button': !allComparisonsSuccessful}"
-              @click="submitForm"
-              >
-
-            اتمام بسته بندی
-          </v-btn>
+         <ModalRejectOrder/>
         </v-row>
       </v-card-actions>
     </v-card>
-
+    <Modal :orderId="orderId"/>
   </div>
 </template>
 
 <script>
 import {ref} from 'vue'
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
+import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
+import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
+
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -97,24 +68,20 @@ import {
 export default {
   components: {
     Table,
+    ModalRejectOrder,
+    Modal
   },
 
   data() {
     return {
+      shpsItem:null,
       cargo: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      allCargoData: [],
-      filteredCargoData: [],
-      allComparisonsSuccessful: false,
-      userInputs: {},
       orderId: null,
-      extractedId:[],
-      savedOrderId:null,
-
-
+      orderDetail:[]
     }
   },
-  setup(props) {
+  setup() {
     const {
       cargoList,
       getCargoList,
@@ -154,99 +121,49 @@ export default {
       return this.$store.getters['get_confirmForm'].confirmModal;
     },
   },
-  watch: {
-    savedOrderId(value){
 
-    },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.$cookies.remove('deleteItem')
-        }
-      }
-    },
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
-  },
   methods: {
 
-    async submitForm() {
+    async orderItemPack() {
       this.loading = true
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `admin/order/complete/${this.$route.params.orderId}}`
+      AxiosMethod.end_point = `warehouse/order/packaging/done/`
+      formdata.append('barcode' , this.shpsItem)
       AxiosMethod.form = formdata
-
       AxiosMethod.store = this.$store
+      AxiosMethod.toast_error = true
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.loading = false
-        this.$router.push('/order-packaging/index');
-
-
-      } else {
-        this.loading = false
-      }
-    },
-    async contradictedOrder() {
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `admin/order/contradicted/${this.$route.params.orderId}`
-      AxiosMethod.form = formdata
-      formdata.append('is_contradicted', 1)
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-        this.$router.push('/order-packaging/index');
-
-
-      } else {
-        this.loading = false
-      }
-    },
-    splitedNum() {
-      if (this.orderId.includes('-')) {
-        const orderSplit = this.orderId.split('-')
-        if (orderSplit[1]) {
-          this.orderId = orderSplit[1]
-          this.savedOrderId = orderSplit[1]
-
-           this.orderListDetail.find(element => {
-             this.Idshps = element.id.toString()
-            const match = element.id.toString() === this.savedOrderId;
-
-
-
-            return match;
-          });
-
-          this.$refs.oredrDetailFunc.orderDetailProp(this.orderListDetail,  this.savedOrderId )
+        this.orderId = data?.data?.order?.id
+        if (data?.data?.is_completed){
+          this.getDetailModal(data?.data?.order)
         }
-
+        this.orderDetail = data?.data?.order_items
+        this.loading = false
+      } else {
+        this.loading = false
+      }
+    },
+    async getDetailModal(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/print/label/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+        this.$store.commit('set_modalPrintOrder' , form)
       }
     },
 
-    updateList(value) {
-      if (value === 'true') {
-        this.getOrderListDetail();
-      }
-    },
-
-    handleComparisonChange(allSuccessful) {
-      this.allComparisonsSuccessful = allSuccessful;
-    },
-
   },
-  mounted() {
-    this.getOrderListDetail(this.$route.params.orderId);
-  },
+
 }
 </script>
   

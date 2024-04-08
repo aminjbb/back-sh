@@ -8,7 +8,7 @@
 
 
         <v-col cols="12">
-          <v-row justify="end p-5">
+          <v-row justify="end pa-3">
             <ModalTableFilter path="lost/index" :filterField="filterField" />
           </v-row>
         </v-col>
@@ -81,12 +81,8 @@ export default {
     Table,
     ModalTableFilter,
   },
-  data(){
-    return{
-
-    }
-  },
-  setup(props) {
+  
+  setup() {
     const {
       pageLength,
       getWasteAndLostList,
@@ -139,10 +135,7 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
-    page(val){
-      console.log(val)
-      this.addPagination(val)
-    },
+
 
   }
 }

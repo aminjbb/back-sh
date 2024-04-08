@@ -33,11 +33,13 @@ export class PanelFilter {
         this.packed_status = null;
         this.packed_status = null;
         //this.identification_code = null;
-       // this.bank_id = null;
+        // this.bank_id = null;
         this.created_at_to_date = null;
         this.created_at_from_date = null;
         this.logistic_at_to_date = null;
         this.logistic_at_from_date = null;
+        this.submit_date = null;
+        this.logistic_date = null;
 
         this.receive_state_id = null;
         this.receive_city_id = null;
@@ -54,7 +56,7 @@ export class PanelFilter {
         if (this.per_page !== null) {
             query += "per_page=" + this.per_page + "&";
         }
-        
+
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }
@@ -91,9 +93,9 @@ export class PanelFilter {
             query += "packed_status=" + this.packed_status + "&";
         }
 
-       /*  if (this.identification_code !== null) {
-            query += "identification_code=" + this.identification_code + "&";
-        } */
+        /*  if (this.identification_code !== null) {
+             query += "identification_code=" + this.identification_code + "&";
+         } */
 
         // if (this.bank_id !== null) {
         //     query += "bank_id=" + this.bank_id + "&";
@@ -161,7 +163,7 @@ export class PanelFilter {
         } else if (this.order_type) {
             query += "order_type=" + this.order_type + "&";
         }
-        
+
         if (this.id) {
             query += "id=" + this.id + "&";
         } else if (routeQuery.id) {
@@ -216,17 +218,17 @@ export class PanelFilter {
             query += "packed_status=" + this.packed_status + "&";
         }
 
-       /*  if (routeQuery.identification_code) {
-            query += "identification_code=" + routeQuery.identification_code + "&";
-        } else if (this.identification_code) {
-            query += "identification_code=" + this.identification_code + "&";
-        }
+        /*  if (routeQuery.identification_code) {
+             query += "identification_code=" + routeQuery.identification_code + "&";
+         } else if (this.identification_code) {
+             query += "identification_code=" + this.identification_code + "&";
+         }
 
-        if (routeQuery.bank_id) {
-            query += "bank_id=" + routeQuery.bank_id + "&";
-        } else if (this.bank_id) {
-            query += "bank_id=" + this.bank_id + "&";
-        } */
+         if (routeQuery.bank_id) {
+             query += "bank_id=" + routeQuery.bank_id + "&";
+         } else if (this.bank_id) {
+             query += "bank_id=" + this.bank_id + "&";
+         } */
 
         if (routeQuery.created_at_to_date) {
             query += "created_at_to_date=" + routeQuery.created_at_to_date + "&";
@@ -419,6 +421,18 @@ export class PanelFilter {
             query += "paid_price_to=" + routeQuery.paid_price_to + "&";
         } else if (this.paid_price_to) {
             query += "paid_price_to=" + this.paid_price_to + "&";
+        }
+
+        if (routeQuery.logistic_date) {
+            query += "logistic_date=" + routeQuery.logistic_date + "&";
+        } else if (this.logistic_date) {
+            query += "logistic_date=" + this.logistic_date + "&";
+        }
+
+        if (routeQuery.submit_date) {
+            query += "submit_date=" + routeQuery.submit_date + "&";
+        } else if (this.submit_date) {
+            query += "submit_date=" + this.submit_date + "&";
         }
 
         return query.substring(0, query.length - 1);

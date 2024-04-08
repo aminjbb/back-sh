@@ -24,8 +24,8 @@
             />
 
             <ModalTableFilter
-                path="user/index"
-                :filterField="filterField"
+                path="wallet/index"
+                :filterFieldWallet="filterFieldWallet"
             />
           </v-row>
         </v-col>
@@ -98,16 +98,16 @@
 <script>
 import Table from '@/components/User/Table/WalletTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalTableFilter from "@/components/User/FilterWallet/Filter.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
 export default {
-  setup(props) {
-    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,
+  setup() {
+    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , filterFieldWallet,
       addPerPage, headerTransaction, getTransactionList, transactionList} = User();
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,
+    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , filterFieldWallet,
       addPerPage, headerTransaction, getTransactionList, transactionList};
   },
   components:{
@@ -123,7 +123,6 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-
   },
 
   computed: {
@@ -131,8 +130,6 @@ export default {
       return this.$store.getters['get_confirmForm'].confirmModal
     }
   },
-
-
 
   watch: {
     dataTableLength(val) {

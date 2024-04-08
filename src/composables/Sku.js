@@ -22,22 +22,22 @@ export default function setup() {
 
     const header = ref([
         { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه', show: true, value: 'id', order:false },
+        { name: 'شناسه', show: true, value: 'id', order:true },
         { name:'نام انگلیسی' , show:true , value:'name', order:true},
         { name:'نام فارسی' , show:true ,  value:'label', order:true},
         { name: 'گروه', show: true, value: 'sku_group', order:false },
-        { name: 'دسته‌بندی', show: true, value: 'category', order:true },
-        { name: ' برند', show: true, value: 'brand', order:true },
+        { name: 'دسته‌بندی', show: true, value: 'category', order:false },
+        { name: ' برند', show: true, value: 'brand', order:false },
         { name: ' اندازه', show: true, value: 'volume', order:false },
         { name: ' رنگ', show: true, value: 'color', order:false },
         { name: 'فعال سازی', show: true , value:'is_active', order:false},
         { name: 'قابل فروش', show: true , value:'is_sellable', order:false},
-        { name: 'محصول', show: true , value:'product', order:true},
+        { name: 'محصول', show: true , value:'product', order:false},
     ]);
 
     const skuGroupsHeader = ref([
         { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه', show: true, value: 'id', order:false },
+        { name: 'شناسه', show: true, value: 'id', order:true },
         { name:'نام انگلیسی' , show:true , value:'name', order:true},
         { name:'نام فارسی' , show:true ,  value:'label', order:true},
         { name:'ساخت کالا' , show:true ,  value:'create_sku', order:false},
@@ -109,7 +109,7 @@ export default function setup() {
             sku.value = data.data
         }
     };
-    async function getShpssDetail(id,) {
+    async function getShpssDetail(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')

@@ -25,7 +25,7 @@
         </template>
         <template v-else>
           <v-row>
-            <v-col v-for="(shps, index) in shpsList" cols="4" :key="`open_order${shps.shps}`">
+            <v-col v-for="shps in shpsList" cols="4" :key="`open_order${shps.shps}`">
               <v-card @click="openOrderModal(shps.shps , shps?.barcode)" min-height="250" max-height="400" rounded >
                 <div class="pa-2">
                   <v-icon :color="shps.done ? 'success':'warning'">mdi-circle</v-icon>

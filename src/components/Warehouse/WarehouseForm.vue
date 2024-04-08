@@ -156,7 +156,7 @@
                     <div>
                         <div
                             class="mt-2"
-                            v-for="(day , index) in days "
+                            v-for="day in days "
                             :key="`day${day.label}`">
                             <v-text-field
                                 :disabled="!day.active"
@@ -209,13 +209,7 @@ import {
 } from 'vue'
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import ModalUploaderAvatar from '@/components/Public/ModalUploaderAvatar.vue'
-import {
-    convertDateToJalai
-} from "@/assets/js/functions";
 import NeshanMap from "@neshan-maps-platform/vue3-openlayers"
-import {
-    da
-} from "vuetify/locale";
 export default {
 
     props: {
@@ -343,7 +337,7 @@ export default {
     },
 
     methods: {
-        markersIconCallback(point) {
+        markersIconCallback() {
             setTimeout(() => {
                 this.form.latLong.latitude = this.$refs.myMap.state.reverseResult.mapCoords[1]
                 this.form.latLong.longitude = this.$refs.myMap.state.reverseResult.mapCoords[0]
@@ -402,10 +396,11 @@ export default {
         }
     },
     watch: {
-        warehouse(val) {
+        warehouse() {
             this.setForm()
         },
-        workDays(val) {
+        
+        workDays() {
             this.setWorkDays()
         }
     },

@@ -23,14 +23,18 @@
             </v-icon>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-        <span class="text-black t20400">
-        شناسه شلف را اسکن کنید.
-        </span>
+            <span class="text-black t20400">
+            شناسه شلف را اسکن کنید.
+            </span>
+          </div>
+
+          <div class=" mt-8 d-flex justify-center px-10 text-center">
+            <v-text-field @keyup.enter="shelfScanBarcode()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
           </div>
         </div>
         <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
           <v-btn
-              @click="sortingDone = true"
+              @click="shelfScanBarcode()"
               color="primary500"
               height="40"
               width="348"
@@ -58,13 +62,13 @@
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
             <span class="text-white t18400">
-                 سفارش از جایگاه سورتینگ با شناسه شلف ۱۲۳۴۵۶
+                 سفارش از جایگاه سورتینگ با شناسه شلف {{ shelfBarcode }}
                   با موفقیت تخلیه شد.
             </span>
           </div>
           <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
             <v-btn
-                @click="sortingDone = false"
+                @click="goToStep1()"
                 color="white"
                 height="40"
                 width="348"
@@ -122,87 +126,49 @@ import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
 
 export default {
-  setup() {
-    const {getPlacement, placement} = new Placement()
-    const {getShpssDetail, shpssDetail} = new Sku()
-    return {
-      getPlacement, placement,
-      getShpssDetail, shpssDetail
-    }
-  },
+
   data() {
     return {
-      scanShps: true,
-      qrCode: '',
-      shpssBarCode: '',
-      isPlacement: false,
-      shpssDetail: '',
       shelfScan: false,
       sortingDone: false,
-      errorScan:true
+      errorScan:false,
+      shelfBarcode:''
     }
-  },
-
-  mounted() {
-    // this.getPlacement(this.$route.params.placementId)
-    var element = document.body // You must specify element here.
-    element.addEventListener('keydown', e => {
-      if (e.key == 'Enter') this.scanQrCode()
-      else this.qrCode += e.key
-    });
   },
 
   methods: {
-    scanQrCode() {
-      this.shpssBarCode = this.qrCode
-      this.qrCode = ''
-      this.getShpssDetail(this.shpssBarCode)
+    goToStep1(){
+      this.sortingDone = false
+      this.shelfBarcode = ''
+    },
+    shelfScanBarcode() {
+      this.unloadSorting()
+    },
+    async unloadSorting() {
+     try {
+       const formData = new FormData()
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       AxiosMethod.end_point = `warehouse/order/sorting/unload?barcode=${this.shelfBarcode}`
+       AxiosMethod.toast_error = true
+       AxiosMethod.store = this.$store
+       let data = await AxiosMethod.axios_get()
+       if (data) {
+         this.sortingDone = true
+       }
+     }catch (e) {
+       this.errorScan = true
+     }
     },
 
-    async getShpssDetail(qrCode) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/item?barcode=${qrCode}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpssDetail = data.data
-        if (data.data.sorting_placement) this.sortingShps(data.data.barcode, data.data.sorting_placement)
-      }
-    },
-    async sortingShps(shpsBarcode, placement) {
-      const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      formData.append('shps_s_barcode', shpsBarcode)
-      formData.append('placement_barcode', placement.barcode)
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/sort`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpssDetail = data.data
-        if (data.data.placement) this.sortingShps()
-      }
-    },
-    checkCount() {
-      if (this.shpssDetail.shps_count < this.placeCount) ++this.placeCount
-      else this.placeCount = 0
-    }
   },
 
   components: {
     HandheldDrawer,
     LocatingToast
   },
-  computed: {
-    skuDetail() {
-      try {
-        return this.shpssDetail.shps.sku?.sku
-      } catch (e) {
 
-      }
-    }
-  }
 }
 </script>
 

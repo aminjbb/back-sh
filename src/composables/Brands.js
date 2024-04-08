@@ -17,10 +17,10 @@ export default function setup() {
 
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه', show: true , value:'created_at', order: true},
+        { name: 'شناسه', show: true , value:'id', order: true},
         { name: 'نام انگلیسی', show: true, value:'name' , order: true},
         { name: 'نام فارسی', show: true , value:'label', order: true},
-        { name: 'فعال سازی ', show: true, value:'is_active', order: true },
+        { name: 'فعال سازی ', show: true, value:'is_active', order: false },
     ]);
 
     const filterField = [

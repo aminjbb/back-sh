@@ -86,7 +86,6 @@ import {
   convertDateToJalai
 } from "@/assets/js/functions";
 import ProcessingShipment from "@/composables/ProcessingShipment";
-import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   setup() {
@@ -102,11 +101,9 @@ export default {
   methods: {
 
     print() {
-
-      // this.close()
       window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${this.retailObject.id}/print`, '_blank');
-
     },
+    
     convertDateToJalai,
 
     close() {

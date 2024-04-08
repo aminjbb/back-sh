@@ -6,6 +6,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const voucherList = ref([]);
+    const voucherGroup = ref([]);
     const voucherDetail = ref(null);
     const voucher = ref([]);
     const dataTableLength = ref(25)
@@ -36,6 +37,10 @@ export default function setup() {
         { name: 'نام کالا', show: true, value: 'label', order: true},
         { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order: true},
         { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
+    ]);
+    const headerPublicVoucherList = ref([
+        { name: 'ردیف', show: true, value: null , order: false},
+        { name: ' کد تخفیف', show: true, value: 'code', order: false},
     ]);
     const headerCustomer =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
@@ -133,6 +138,19 @@ export default function setup() {
             voucher.value = data.data
         }
     };
+    async function  getVoucherGroup(query) {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            voucherGroup.value = data.data.data
+        }
+    };
     async function  getVoucherCustomer(query) {
         let paramsQuery = null
         if (query){
@@ -143,6 +161,24 @@ export default function setup() {
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}${paramsQuery}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            voucher.value = data.data
+        }
+    };
+
+    async function  getVoucherOrder(query) {
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `voucher/get/orders/${route.params.voucherId}${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -207,6 +243,24 @@ export default function setup() {
         router.push(route.path+ filter.query_maker())
 
     }
+    function addPerPageOrder(number){
+        const filter = new PanelFilter()
+        if (route.query.name) {
+            filter.name =route.query.name
+        }
+        if (route.query.label) {
+            filter.label =route.query.label
+        }
+
+        if (route.query.id) {
+            filter.id =route.query.id
+        }
+        filter.page = 1;
+        page = 1;
+        filter.per_page = number
+        router.push(route.path+ filter.query_maker())
+
+    }
 
     function addPaginationCustomer(page){
         const filter = new PanelFilter()
@@ -226,9 +280,27 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push(route.path + filter.query_maker())
     }
-    return {headerShps , headerCustomer , headerVouchers ,filterField , page , voucherList
+    function addPaginationOrder(page){
+        const filter = new PanelFilter()
+        if (route.query.name) {
+            filter.name =route.query.name
+        }
+        if (route.query.label) {
+            filter.label =route.query.label
+        }
+        if (route.query.active) {
+            filter.active =route.query.active
+        }
+        if (route.query.id) {
+            filter.id =route.query.id
+        }
+        filter.page = page
+        filter.per_page = dataTableLength.value
+        router.push(route.path + filter.query_maker())
+    }
+    return {headerShps , headerPublicVoucherList, headerCustomer , headerVouchers ,filterField , page , voucherList
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
-        getVoucherDetail , voucherDetail, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
-        headerOrder}
+        getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
+        headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder}
 }
 

@@ -97,7 +97,7 @@ export default {
         ModalColumnFilter,
     },
 
-    setup(props) {
+    setup() {
         const {
             pageLength,
             getWasteAndLostList,

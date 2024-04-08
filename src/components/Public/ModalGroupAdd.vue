@@ -114,11 +114,6 @@ export default {
       if (data) {
         this.templateLoading = false
         window.open(data.data);
-        // openToast(
-        //     this.$store,
-        //    data.message,
-        //     "success"
-        // );
       } else {
         this.templateLoading = false
       }

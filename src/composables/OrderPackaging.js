@@ -9,10 +9,11 @@ export default function setup() {
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
+    const pageNumber = ref(1)
     const barcodeNum = ref([])
     const extractedIds = ref(null)
 
-    const cargoReceivingHeader = ref([
+    const orderListHeader = ref([
         {name: 'ردیف', show: true, value: null, order: false},
         {name: ' شناسه سفارش', show: true, value: 'id', order: false},
         {name: ' نام خریدار', show: true, value: 'name', order: false},
@@ -22,11 +23,10 @@ export default function setup() {
 
     const detailInfo = ref([
         {name: 'ردیف', show: true, value: null, order: false},
-        {name: ' شناسه shps', show: true, value: 'id', order: false},
+        {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
         {name: ' نام کالا ', show: true, value: 'name', order: false},
-        {name: '  شناسه کالا', show: true, value: 'id', order: false},
-        {name: '  تعداد در سفارش ', show: true, value: 'number', order: false},
-        {name: 'تعداد اسکن شده ', show: true, value: 'number', order: false},
+        {name: '  بارکد کالا', show: true, value: 'barcode', order: false},
+
     ]);
     const item = []
     const loading = ref(false)
@@ -63,14 +63,14 @@ export default function setup() {
         }
     }
 
-    async function getShpsList(packageId = null) {
+    async function getSortingOrder(page = null) {
         loading.value = true;
-        let params = packageId ? {id: packageId} : {};
+        let params = page ? {page: page} : {};
         let paramsQuery = filter.params_generator(params);
         const AxiosMethod = new AxiosCall();
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`;
+        AxiosMethod.end_point = `warehouse/order/packaging/index${paramsQuery}`;
         try {
             let response = await AxiosMethod.axios_get();
             loading.value = false;
@@ -86,22 +86,23 @@ export default function setup() {
                 });
             }
         } catch (error) {
-            console.error("Error in API call:", error);
             loading.value = false;
         }
     }
     return {
-        getShpsList,
+        getSortingOrder,
         dataTableLength,
         item,
         orderList,
         orderListDetail,
         getOrderListDetail,
         loading,
-        cargoReceivingHeader,
+        orderListHeader,
         detailInfo,
         barcodeNum,
-        extractedIds
+        extractedIds,
+        pageNumber,
+        pageLength
     }
 }
 

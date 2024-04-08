@@ -56,7 +56,7 @@
                     <y-row>
                         <div class="example pa-15 ">
                             <v-row>
-                                <v-col cols="6" v-for="(item, index) in images" class="image-uploader__item">
+                                <v-col cols="6" v-for="(item, index) in images" :key="`image${index}`" class="image-uploader__item">
                                     <div class="d-flex justify-center align-center w-100 image-uploader__item__image">
                                         <span class="image-uploader__delete-icon d-flex justify-center align-center">
                                             <v-icon @click="removeItem(item.id)" size="large" color="red-accent-4">mdi-delete</v-icon>

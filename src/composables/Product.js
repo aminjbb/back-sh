@@ -20,7 +20,7 @@ export default function setup() {
         {name: 'نام فارسی', show: true, value: 'label', order: true},
         {name: ' ساخت کالا', show: true, order: false},
         {name: ' کالا ها', show: true, order: false},
-        {name: 'فعال سازی ', show: true, value: 'is_active', order: true},
+        {name: 'فعال سازی ', show: true, value: 'is_active', order: false},
        
     ]);
 

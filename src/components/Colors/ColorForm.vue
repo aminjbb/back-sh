@@ -136,7 +136,7 @@ export default {
     },
 
     watch: {
-        color(val) {
+        color() {
             this.setForm()
         }
     }

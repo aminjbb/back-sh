@@ -543,6 +543,7 @@ export default {
 
             withdraw: [
                 ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
+              [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             message: [
                 ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],

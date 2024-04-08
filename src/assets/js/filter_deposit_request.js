@@ -22,6 +22,7 @@ export class PanelFilter {
         this.page = 1;
         this.order = 'created_at';
         this.order_type = 'desc';
+        this.id = null;
         this.user_id = null;
         this.phone_number = null;
         this.card_number = null;
@@ -33,12 +34,15 @@ export class PanelFilter {
         this.status = null;
         this.created_at_to_date = null;
         this.created_at_from_date = null;
+        this.created_at = null
     }
 
     query_maker() {
         let query = "?";
 
-
+        if (this.id !== null) {
+            query += "id=" + this.id + "&";
+        }
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
@@ -90,6 +94,13 @@ export class PanelFilter {
     params_generator(routeQuery){
         let query = "?";
 
+        if  (this.id) {
+            query += "id=" + this.id + "&";
+        }
+        else if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
+        }
+
         if  (this.user_id) {
             query += "user_id=" + this.user_id + "&";
         }
@@ -131,6 +142,12 @@ export class PanelFilter {
         }
         else if (this.created_at_from_date) {
             query += "created_at_from_date=" + this.created_at_from_date + "&";
+        }
+        if (routeQuery.created_at) {
+            query += "created_at=" + routeQuery.created_at + "&";
+        }
+        else if (this.created_at) {
+            query += "created_at=" + this.created_at + "&";
         }
         if  (this.amount_to) {
             query += "amount_to=" + this.amount_to + "&";

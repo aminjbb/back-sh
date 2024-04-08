@@ -26,7 +26,6 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -274,13 +273,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    /**
-     * Return odd index
-     * @param {*} index
-     */
-    oddIndex(index) {
-      return isOdd(index)
-    },
   },
 }
 </script>

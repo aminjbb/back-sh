@@ -83,7 +83,7 @@
           <v-icon>mdi-minus</v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="12" v-for="(counter , index) in attributeCounts" :key="counter">
+      <v-col cols="12" v-for="counter in attributeCounts" :key="counter">
         <v-row>
           <v-col cols="6">
             <v-autocomplete
@@ -127,7 +127,7 @@ import {openConfirm} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  setup(props) {
+  setup() {
     const {allCategories, getAllCategories} = Categories();
     return {allCategories, getAllCategories};
   },
@@ -250,20 +250,16 @@ export default {
 
         this.product.attributes.forEach((attribute, index) => {
           this.getAttributeValues(attribute.attribute_id, index,'edit')
-          // this.form.selectedAttributes.push([])
           this.form.selectedAttributes[index] = {
             attribute_id: attribute.attribute_id,
             attribute_value_ids: []
           }
           this.product.attribute_values.forEach((attributeValue, index2) => {
             if (this.form.selectedAttributes[index].attribute_id === attributeValue.attribute_id) {
-              // this.form.selectedAttributes[index].attribute_value_ids.push([])
               this.form.selectedAttributes[index].attribute_value_ids[index2] = attributeValue.attribute_value_id
             }
           })
         })
-        console.log('salam')
-        console.log(this.form.selectedAttributes)
         if (this.product.is_active) this.form.active = true
         else this.form.active = false
 

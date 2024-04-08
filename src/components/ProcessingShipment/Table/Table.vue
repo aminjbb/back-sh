@@ -163,20 +163,12 @@
 import {
   isOdd
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
   openConfirm
 } from '@/assets/js/functions'
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-import {
-  SkuPanelFilter
-} from "@/assets/js/filter_sku"
 import {
   openToast
 } from "@/assets/js/functions";
