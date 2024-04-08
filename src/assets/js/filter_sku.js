@@ -43,9 +43,10 @@ export class SkuPanelFilter {
         if (this.id !== null) {
             query += "id=" + this.id + "&";
         }
-        else if (routeQuery.id !== null) {
+        else if (routeQuery?.id) {
             query += "id=" + routeQuery.id + "&";
         }
+
         if (this.name !== null) {
             query += "name=" + this.name + "&";
         }
