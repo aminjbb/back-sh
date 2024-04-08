@@ -1,207 +1,440 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
-      <div  class="home-info-box scroller">
-        <v-row justify="center" class="pa-10">
-          <v-col md="6" cols="12">
-            <v-card class="ma-5 br-12" min-height="250">
-              <div class="text-center my-5"> <span class="text-gray500 t14500">سفارش ها</span></div>
-              <div><v-divider></v-divider></div>
-              <v-row>
+    <div class="home-info-box scroller">
+      <div class="mt-5">
+        <span class="text-gray600 t14500 mx-8">تعداد سفارش </span>
+        <div class="d-flex justify-space-between">
+          <v-col cols="4">
+            <v-card class="ma-5 px-10 py-3 flex-grow-1 rounded-lg">
+              <div class="d-flex justify-space-between align-center">
+                <v-col cols="6">
+                  <v-row align="center" class="mt-5">
+                    <div>
+                      <h2>روز</h2>
+                      <div class="d-flex align-center my-5">
+                        <span class="text-h6 number-font">{{ dashboardData?.order?.last_day_order }}</span>
+                        <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
+                      </div>
+                    </div>
 
-                <v-col cols="12">
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">میزان کل سفارش : </span>
-                    <span class="text-primary500 t14500 number-font">{{splitChar(dashboardData?.order?.total_order)}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">میزان سفارش ماه گذشته : </span>
-                    <span class="text-primary500 t14500 number-font">{{splitChar(dashboardData?.order?.last_month_order)}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">میزان سفارش هفته گذشته : </span>
-                    <span class="text-primary500 t14500 number-font">{{splitChar(dashboardData?.order?.last_week_order)}}</span>
-                  </v-row>
-                  <v-row justify="space-between" class="px-10 mt-8">
-                    <span class="text-gray500 t14300"> سفارش روز گذشته : </span>
-                    <span class="text-primary300 t14500 number-font">{{dashboardData?.order?.last_day_order}}</span>
                   </v-row>
                 </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-          <v-col md="6" cols="12">
-            <v-card class="ma-5 br-12" min-height="250">
-              <div class="text-center my-5"> <span class="text-gray500 t14500">کاربران </span></div>
-              <div><v-divider></v-divider></div>
-              <v-row>
 
-                <v-col cols="12">
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد کل کاربران : </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.user?.total_user}}</span>
+                <v-col cols="6">
+                  <v-row justify="end" align="center">
+                    <img src="@/assets/img/order-box.svg" alt="order-box">
                   </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد کاربران ماه گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.user?.last_month_user}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد کاربران هفته گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.user?.last_week_user}}</span>
-                  </v-row>
-                  <v-row justify="space-between" class="px-10 mt-8">
-                    <span class="text-gray500 t14300">تعداد کاربران روز گذشته: </span>
-                    <span class="text-primary300 t14500 number-font">{{dashboardData?.user?.last_day_user}}</span>
-                  </v-row>
-
                 </v-col>
-              </v-row>
+              </div>
             </v-card>
           </v-col>
-          <v-col md="6" cols="12">
-            <v-card class="ma-5 br-12" min-height="250">
-              <div class="text-center my-5"> <span class="text-gray500 t14500">سبد خرید ها</span></div>
-              <div><v-divider></v-divider></div>
-              <v-row>
 
-                <v-col cols="12">
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد کل سبد خرید : </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.basket?.total_basket}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد سبد خرید ماه گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.basket?.last_month_basket}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد سبد خرید هفته گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.basket?.last_week_basket}}</span>
-                  </v-row>
-                  <v-row justify="space-between" class="px-10 mt-8">
-                    <span class="text-gray500 t14300">تعداد سبد خرید روز گذشته: </span>
-                    <span class="text-primary300 t14500 number-font">{{dashboardData?.basket?.last_day_basket}}</span>
-                  </v-row>
+          <v-col cols="4">
+            <v-card class="ma-5 px-10 py-3 flex-grow-1 rounded-lg">
+              <div class="d-flex justify-space-between align-center">
+                <v-col cols="6">
+                  <v-row justify="space-between" align="center" class="mt-5">
+                    <div>
+                      <h2>ماه</h2>
+                      <div class="d-flex align-center my-5">
+                        <span class="text-h6 number-font">{{ dashboardData?.order?.last_month_order }}</span>
+                        <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
+                      </div>
+                    </div>
 
+                  </v-row>
                 </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-          <v-col md="6" cols="12">
-            <v-card class="ma-5 br-12" min-height="250">
-              <div class="text-center my-5"> <span class="text-gray500 t14500">تیکت ها</span></div>
-              <div><v-divider></v-divider></div>
-              <v-row>
 
-                <v-col cols="12">
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد کل تیکت ها : </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.ticket?.total_ticket}}</span>
+                <v-col cols="6">
+                  <v-row justify="end" align="center">
+                    <img src="@/assets/img/resived-box.svg" alt="resived-box">
                   </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعداد تیکت های ماه گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.ticket?.last_month_ticket}}</span>
-                  </v-row>
-                  <v-row justify="space-between" align="center" class="px-10 mt-5">
-                    <span class="text-gray500 t14300">تعدادتیکت های هفته گذشته: </span>
-                    <span class="text-primary500 t14500 number-font">{{dashboardData?.ticket?.last_week_ticket}}</span>
-                  </v-row>
-                  <v-row justify="space-between" class="px-10 mt-8">
-                    <span class="text-gray500 t14300">تعداد تیکت های روز گذشته: </span>
-                    <span class="text-primary300 t14500 number-font">{{dashboardData?.ticket?.last_day_ticket}}</span>
-                  </v-row>
-
                 </v-col>
-              </v-row>
+              </div>
+
             </v-card>
           </v-col>
-          <v-col  cols="12">
 
-            <BarChart v-if="showChart" :chartData="chartData" :options="options" />
+          <v-col cols="4">
+            <v-card class="ma-5 px-10 py-3 flex-grow-1 rounded-lg">
+              <div class="d-flex justify-space-between align-center">
+                <v-col cols="6">
+                  <v-row justify="space-between" align="center" class="mt-5">
+                    <div>
+                      <h2>سال</h2>
+                      <div class="d-flex align-center my-5">
+                        <span class="text-h6 number-font">{{ dashboardData?.order?.last_year_order }}</span>
+                        <span class="text-h8 text-gray500 t14300 pr-1">سفارش </span>
+                      </div>
+                    </div>
 
+                  </v-row>
+                </v-col>
+
+                <v-col cols="6">
+                  <v-row justify="end" align="center">
+                    <img src="@/assets/img/shopping-box.svg" alt="shopping-box">
+                  </v-row>
+                </v-col>
+              </div>
+
+            </v-card>
           </v-col>
-        </v-row>
+
+        </div>
       </div>
 
-    </v-card>
-  </section>
+      <div class="d-flex justify-space-between">
+        <v-col cols="6">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg" height="203">
+            <span class="text-gray600 t14500">فروش جاری</span>
+            <v-col cols="12">
+              <BarChart v-if="showChart" :chart-data="dataChartCurrentSale" :options="optionCurrentSale" :height="145"/>
+            </v-col>
+          </v-card>
+        </v-col>
 
+        <v-col cols="6">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">درگاه</span>
+            <div class="d-flex justify-space-between align-center">
+              <v-col cols="6">
+                <v-row justify="space-between" align="center" class="my-3">
+                  <span class="text-gray500 t14300">تعداد کاربر: </span>
+                  <div class="d-flex justify-start">
+                    <span class="t14500 number-font">{{ dashboardData?.payment_in_progress?.user_count }}</span>
+                    <span class="text-gray500 t14300 pr-2">کاربر</span>
+                  </div>
+                </v-row>
+                <v-row justify="space-between" align="center" class="my-3">
+                  <span class="text-gray500 t14300">تعداد آیتم: </span>
+                  <div  class="d-flex justify-start">
+                    <span class="t14500 number-font">{{ dashboardData?.payment_in_progress?.item_count }}</span>
+                    <span class="text-gray500 t14300 pr-2">آیتم</span>
+                  </div>
+                </v-row>
+                <v-row justify="space-between" align="center">
+                  <span class="text-gray500 t14300">ارزش سفارشات: </span>
+                  <div  class="d-flex justify-start">
+                    <span class="t14500 number-font">{{ splitChar(dashboardData?.payment_in_progress?.order_value) }}</span>
+                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                  </div>
+                </v-row>
+              </v-col>
+
+              <v-col cols="6">
+                <v-row justify="end" align="center">
+                  <img src="@/assets/img/wallet.svg" alt="wallet">
+                </v-row>
+              </v-col>
+            </div>
+          </v-card>
+        </v-col>
+      </div>
+
+      <div class="d-flex justify-space-between">
+        <v-col cols="6" class="d-flex justify-space-between">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">موجودی</span>
+            <v-col cols="12">
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">انبار: </span>
+                <div class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ dashboardData?.stock?.warehouse }}</span>
+                  <span class="text-gray500 t14300 pr-2">آیتم</span>
+                </div>
+              </v-row>
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">سایت: </span>
+                <div  class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ dashboardData?.stock?.site }}</span>
+                  <span class="text-gray500 t14300 pr-2">آیتم</span>
+                </div>
+              </v-row>
+            </v-col>
+          </v-card>
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">ارزش انبار</span>
+            <v-col cols="12">
+              <v-row justify="end" align="center" class="my-3">
+                <span class="t14500 number-font">{{ splitChar(dashboardData?.warehouse?.value) }}</span>
+              </v-row>
+              <v-row justify="end" align="center" class="my-3">
+                <span class="text-gray500 t14300">تومان</span>
+              </v-row>
+            </v-col>
+          </v-card>
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">خروج انبار</span>
+            <v-col cols="12">
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">روز: </span>
+                <div class="d-flex justify-start">
+                  <span class="t14500 number-font">{{dashboardData?.warehouse?.exit?.day}}</span>
+                  <span class="text-gray500 t14300 pr-2">سفارش</span>
+                </div>
+              </v-row>
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">ماه: </span>
+                <div  class="d-flex justify-start">
+                  <span class="t14500 number-font">{{dashboardData?.warehouse?.exit?.month}}</span>
+                  <span class="text-gray500 t14300 pr-2">سفارش</span>
+                </div>
+              </v-row>
+            </v-col>
+          </v-card>
+        </v-col>
+
+        <v-col cols="6" class="d-flex justify-space-between flex-grow-1">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">کاربر فعال</span>
+            <div class="d-flex justify-space-between align-center">
+              <v-col cols="7">
+                <v-row align="start">
+                  <span class="t14500 number-font">{{ dashboardData?.user?.active }}</span>
+                </v-row>
+                <v-row align="start">
+                  <span class="text-gray500 t14300">کاربر</span>
+                </v-row>
+              </v-col>
+
+              <v-col cols="4">
+                <v-row justify="end" align="center">
+                  <img src="@/assets/img/male.svg" alt="male">
+                </v-row>
+              </v-col>
+            </div>
+          </v-card>
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">خریدار</span>
+            <div class="d-flex justify-space-between align-center">
+              <v-col cols="7">
+                <v-row align="start">
+                  <span class="t14500 number-font">{{ dashboardData?.user?.with_orders }}</span>
+                </v-row>
+                <v-row align="start">
+                  <span class="text-gray500 t14300">کاربر</span>
+                </v-row>
+              </v-col>
+
+              <v-col cols="4">
+                <v-row justify="end" align="center">
+                  <img src="@/assets/img/female.svg" alt="female">
+                </v-row>
+              </v-col>
+            </div>
+
+
+          </v-card>
+        </v-col>
+      </div>
+
+      <div class="d-flex justify-space-between">
+        <v-col cols="6">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg" height="205">
+            <span class="text-gray600 t14500">سود بازرگانی</span>
+            <div class="d-flex justify-space-between align-center">
+              <v-col cols="8">
+                <v-row justify="start">
+                  <BarChart v-if="showChart" :chart-data="dataChartBusinessProfit" :options="optionBusinessProfit" :height="145"/>
+                </v-row>
+              </v-col>
+              <v-col cols="4">
+                <v-row align="start" justify="end" class="my-1">
+                    <span class="t14500 number-font">{{ splitChar(dashboardData?.profit?.month) }}</span>
+                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                </v-row>
+                <v-row align="start" justify="end" class="my-3">
+                    <span class="t14500 number-font">{{ splitChar(dashboardData?.profit?.day) }}</span>
+                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                </v-row>
+              </v-col>
+            </div>
+          </v-card>
+        </v-col>
+
+        <v-col cols="6" class="d-flex justify-space-between">
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">تخفیف پایه</span>
+            <v-col cols="12">
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">روز: </span>
+                <div class="d-flex justify-start">
+                  <span class="t14500 number-font">{{splitChar(dashboardData?.discount?.base?.day)}}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">ماه: </span>
+                <div  class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ splitChar(dashboardData?.discount?.base?.month) }}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+            </v-col>
+          </v-card>
+
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">تخفیف مارکتینگ</span>
+            <v-col cols="12">
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">روز: </span>
+                <div class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ splitChar(dashboardData?.discount?.marketing?.day) }}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">ماه: </span>
+                <div  class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ splitChar(dashboardData?.discount?.marketing?.month) }}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+            </v-col>
+          </v-card>
+
+          <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
+            <span class="text-gray600 t14500">کد تخفیف</span>
+            <v-col cols="12">
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">روز: </span>
+                <div class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ splitChar(dashboardData?.discount?.voucher?.day) }}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+              <v-row justify="space-between" align="center" class="my-3">
+                <span class="text-gray500 t14300">ماه: </span>
+                <div  class="d-flex justify-start">
+                  <span class="t14500 number-font">{{ splitChar(dashboardData?.discount?.voucher?.month) }}</span>
+                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                </div>
+              </v-row>
+            </v-col>
+          </v-card>
+        </v-col>
+      </div>
+
+      <div>
+        <span class="text-gray600 t14500 mx-8">سفارشات ماه گذشته </span>
+        <v-col cols="12">
+          <v-card class="ma-5 px-10 py-5 flex-grow-1 rounded-lg">
+           <v-col cols="12">
+             <LineChart v-if="showChart" :chart-data="dataChartLastMonth" :options="optionLastMonth"/>
+           </v-col>
+          </v-card>
+        </v-col>
+      </div>
+    </div>
+  </section>
 </template>
+
 <script lang="ts">
 import {
   splitChar
 } from "@/assets/js/functions";
-import {defineComponent, ref} from 'vue';
-import { BarChart ,DoughnutChart } from 'vue-chart-3';
+import {defineComponent} from 'vue';
+import {BarChart, DoughnutChart, LineChart} from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
 import Public from '@/composables/Public'
 Chart.register(...registerables);
+
 export default defineComponent({
   name: 'Home',
-  components: { BarChart ,DoughnutChart },
+  components: {LineChart, BarChart ,DoughnutChart },
   setup() {
     const {
       dashboardData,
       getDashboardData,
-      chartData,
-      showChart
+      showChart,
+      dataChartCurrentSale,
+      dataChartBusinessProfit,
+      dataChartLastMonth
     } = new Public()
-    const options = {
+
+    const optionBusinessProfit = {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          grid: {
+            color: 'rgb(0, 0, 0, 0)'
+          },
+          ticks: { beginAtZero: true, maxRotation: 10 }
+        },
+        x: {
+          grid: {
+            color: 'rgb(0, 0, 0, 0)'
+          },
+          ticks: { beginAtZero: true }
+        }
+      },
       responsive: true,
       plugins: {
-        legend: {
-          position: 'top',
+        dataLabels: {
+          display: false
+        }
+      }
+    }
+    const optionCurrentSale = {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          grid: {
+            color: 'rgb(0, 0, 0, 0)'
+          },
+          ticks: { beginAtZero: true, maxRotation: 10 }
         },
-        title: {
-          display: true,
-          text: 'میزان فروش 10 روز گذشته',
-        },
+        x: {
+          grid: {
+            color: 'rgb(0, 0, 0, 0)'
+          },
+          ticks: { beginAtZero: true }
+        }
       },
-    };
-
-
-
-    const sellMonth = {
-      labels: [],
-      datasets: [
-        {
-          data: [15000000000, 18000000000],
-          backgroundColor: ['#E91E63', '#9c5788'],
+      responsive: true,
+      plugins: {
+        dataLabels: {
+          display: false
+        }
+      }
+    }
+    const optionLastMonth = {
+      type: 'line',
+      data: dataChartLastMonth,
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
         },
-      ],
-
-    };
-    const factorMonth = {
-      labels: [],
-      datasets: [
-        {
-          data: [125000, 12000],
-          backgroundColor: ['#E91E63', '#9c5788'],
+        stacked: false,
+        plugins: {
+          title: {
+            display: true,
+          }
         },
-      ],
+        scales: {
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
 
-    };
-    const totalMonth = {
-      labels: [],
-      datasets: [
-        {
-          data: [190200000000, 15000000000],
-          backgroundColor: ['#E91E63', '#9c5788'],
-        },
-      ],
+            grid: {
+              drawOnChartArea: false,
+            },
+          },
+        }
+      },
+    }
 
-    };
-    const factorTotalMonth = {
-      labels: [],
-      datasets: [
-        {
-          data: [2560, 2840],
-          backgroundColor: ['#E91E63', '#9c5788'],
-        },
-      ],
-
-    };
-    return { options ,sellMonth ,factorTotalMonth ,totalMonth ,factorMonth ,  dashboardData, getDashboardData
-      , chartData , showChart};
+    return { dashboardData, getDashboardData , showChart, dataChartCurrentSale, optionCurrentSale,
+      dataChartLastMonth, dataChartBusinessProfit, optionBusinessProfit, optionLastMonth}
   },
 
   mounted() {
@@ -211,6 +444,5 @@ export default defineComponent({
   methods:{
     splitChar
   }
-});
+})
 </script>
-
