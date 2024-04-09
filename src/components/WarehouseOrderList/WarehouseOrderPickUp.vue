@@ -138,6 +138,17 @@
               class="px-8 mt-5">
             بازگشت به داشبورد
           </v-btn>
+<!--          <v-btn-->
+<!--              color="white"-->
+<!--              height="40"-->
+<!--              width="348"-->
+<!--              rounded-->
+<!--              @click="$router.push('/locating/dashboard')"-->
+<!--              class="px-8 mt-5">-->
+<!--             <span class="t11500">-->
+<!--                محصولی برای جمع آوری وجود ندارد-->
+<!--             </span>-->
+<!--          </v-btn>-->
         </div>
       </div>
 

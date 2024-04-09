@@ -33,7 +33,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14300 text-black py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -42,7 +42,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14300 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>
@@ -50,7 +50,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14300 text-black py-5">
                             <template v-if="item.sku_label">
                                 {{ item.sku_label }}
                             </template>
@@ -64,7 +64,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14300 text-black py-5 number-font">
                             <template v-if="item.shpss_barcode">
                                 {{ item.shpss_barcode}}
                             </template>
