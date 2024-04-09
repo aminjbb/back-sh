@@ -85,9 +85,14 @@
                               <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
               </div>
               <div class="text-center px-10 my-3">
-              <span class="text-gray600">
-                {{ pickUpShps?.shps?.sku?.label }}
-              </span>
+                <span class="text-gray600">
+                  {{ pickUpShps?.shps?.sku?.label }}
+                </span>
+              </div>
+              <div class="text-center px-10 my-3">
+                <span class="text-gray600">
+                  {{ pickUpShps?.shps?.id }}
+                </span>
               </div>
             </v-card>
 
