@@ -73,6 +73,8 @@
       <v-card-actions class="pb-3">
         <v-row class="pr-5">
           <v-col cols="3">
+            <ModalExcelDownload :getEndPoint="`voucher/export/orders/${voucherId}`" />
+
           </v-col>
 
           <v-col cols="6">
@@ -113,7 +115,13 @@
 <script>
 import Table from "@/components/Voucher/Table/VoucherOrderTable.vue";
 import Voucher from '@/composables/Voucher'
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 export default {
+  data() {
+    return {
+      voucherId: this.$route.params.voucherId,
+    }
+  },
   setup() {
     const {headerOrder ,getVoucherOrder,voucher , dataTableLength ,
       pageLength,page , getVoucherDetail , voucherDetail , addPaginationOrder , addPerPageOrder} = new Voucher()
@@ -122,6 +130,7 @@ export default {
   },
   components: {
     Table,
+    ModalExcelDownload
   },
   mounted() {
     this.getVoucherOrder()

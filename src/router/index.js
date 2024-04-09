@@ -243,6 +243,7 @@ import AddOrderView from "@/views/CreateOrder/AddOrderView.vue";
 import CreateVoucherView from "@/views/Voucher/CreateVoucherView.vue";
 import DetailVoucherView from "@/views/Voucher/DetailVoucherView.vue";
 import PublicVoucherList from "@/views/Voucher/PublicVoucherListView.vue";
+import PeerToPeerVoucherListView from "@/views/Voucher/PeerToPeerVoucherListView.vue";
 import VoucherListView from "@/views/Voucher/VoucherListView.vue";
 import VoucherDetailCustomerView from "@/views/Voucher/VoucherDetailCustomerView.vue";
 import FreeDeliveryListView from "@/views/FreeDelivery/FreeDeliveryListView.vue";
@@ -1980,6 +1981,14 @@ const router = createRouter({
                     path: ':voucherId/list',
                     name: 'PublicVoucherList',
                     component: PublicVoucherList,
+                    meta: {
+                        name: 'کد تخفیف سیستمی'
+                    }
+                },
+                {
+                    path: ':voucherId/peer',
+                    name: 'PeerToPeerVoucherListView',
+                    component: PeerToPeerVoucherListView,
                     meta: {
                         name: 'کد تخفیف سیستمی'
                     }
