@@ -5,7 +5,7 @@
         color="purple"
     ></v-progress-circular>
   </div>
-  <template v-if="!pickUpIsNull && !pickUpDone">
+  <template v-if="!pickUpIsNull && !pickUpDone && !notFound">
     <v-card class="h-100">
       <div class="d-flex justify-space-between align-center">
         <div class="pa-3 d-flex">
@@ -85,17 +85,36 @@
                               <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
               </div>
               <div class="text-center px-10 my-3">
-              <span class="text-gray600">
-                {{ pickUpShps?.shps?.sku?.label }}
-              </span>
+                <span class="text-gray600">
+                  {{ pickUpShps?.shps?.sku?.label }}
+                </span>
+              </div>
+              <div class="text-center px-10 my-3">
+                <span class="text-gray600">
+                  {{ pickUpShps?.shps?.id }}
+                </span>
               </div>
             </v-card>
+
+            <div class="d-flex justify-center">
+              <v-btn
+                  color="primary500"
+                  height="40"
+                  width="348"
+                  rounded
+                  @click="notFound = true"
+                  class="px-8 mt-5">
+             <span class="t11500">
+                محصولی برای جمع آوری وجود ندارد
+             </span>
+              </v-btn>
+            </div>
           </div>
         </div>
       </div>
     </v-card>
   </template>
-  <template v-else-if="pickUpIsNull && !pickUpDone">
+  <template v-else-if="pickUpIsNull && !pickUpDone && !notFound">
     <div class="h-100 bg-warning d-flex  justify-center align-center">
       <div class=" d-flex justify-center my-3">
           <span class="t20400">
@@ -115,7 +134,7 @@
       </div>
     </div>
   </template>
-  <template v-else-if="pickUpIsNull && pickUpDone">
+  <template v-else-if="pickUpIsNull && pickUpDone && !notFound">
     <div class="h-100 bg-success d-flex  justify-center align-center">
       <div>
         <div class="d-flex justify-center">
@@ -138,21 +157,39 @@
               class="px-8 mt-5">
             بازگشت به داشبورد
           </v-btn>
-<!--          <v-btn-->
-<!--              color="white"-->
-<!--              height="40"-->
-<!--              width="348"-->
-<!--              rounded-->
-<!--              @click="$router.push('/locating/dashboard')"-->
-<!--              class="px-8 mt-5">-->
-<!--             <span class="t11500">-->
-<!--                محصولی برای جمع آوری وجود ندارد-->
-<!--             </span>-->
-<!--          </v-btn>-->
+
         </div>
       </div>
 
     </div>
+  </template>
+  <template v-else-if="!pickUpIsNull && !pickUpDone && notFound">
+    <div class="h-100 d-flex justify-center align-center">
+     <div class="w-100">
+       <div class="text-center mb-10">
+         شناسه شلف را اسکن کنید
+       </div>
+       <v-card class="mx-5 mb-1 br-15 pa-2" >
+         <v-text-field @keyup.enter="notFoundTask()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
+       </v-card>
+
+       <div class="d-flex justify-center">
+         <v-btn
+             color="primary500"
+             height="40"
+             width="348"
+             rounded
+             @click="notFoundTask"
+             class="px-8 mt-5">
+             <span class="t11500">
+                تایید
+             </span>
+         </v-btn>
+       </div>
+     </div>
+
+    </div>
+
   </template>
 </template>
 <script>
@@ -175,6 +212,8 @@ export default {
       shpssBarCode: '',
       placeCount: 0,
       pickUpDone: false,
+      notFound:false,
+      shelfBarcode:'',
 
     }
   },
@@ -202,6 +241,30 @@ export default {
         if (data) {
           this.loading = false
           this.shpssBarCode = ''
+          this.getPickUpShps()
+        }
+        else {
+          this.loading = false
+        }
+      }
+      catch (e) {
+        this.loading = false
+      }
+    },
+    async notFoundTask() {
+      try {
+        this.loading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = 'warehouse/order/pickup/not-found/'+this.shelfBarcode
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          this.loading = false
+          this.notFound = false
+          this.shelfBarcode = ''
           this.getPickUpShps()
         }
         else {
