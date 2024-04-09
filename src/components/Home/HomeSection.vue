@@ -306,7 +306,8 @@
         <v-col cols="12">
           <v-card class="ma-5 px-10 py-5 flex-grow-1 rounded-lg">
            <v-col cols="12">
-             <LineChart v-if="showChart" :chart-data="dataChartLastMonth" :options="optionLastMonth"/>
+<!--             <LineChart v-if="showChart" :chart-data="dataChartLastMonth" :options="optionLastMonth"/>-->
+             <LineChart v-if="showChart" :chart-data="optionLastMonth.data" :options="optionLastMonth"/>
            </v-col>
           </v-card>
         </v-col>
@@ -384,39 +385,87 @@ export default defineComponent({
         }
       }
     }
+    // const optionLastMonth = {
+    //   scales: {
+    //     x: {
+    //       display: true,
+    //       scaleLabel: {
+    //         display: true
+    //       }
+    //     },
+    //     y: {
+    //       type: 'linear',
+    //       display: true,
+    //       position: 'left',
+    //       id: 'left-y-axis',
+    //       scaleLabel: {
+    //         display: true
+    //       },
+    //       ticks: {
+    //         beginAtZero: true
+    //       }
+    //     },
+    //     y1: {
+    //       type: 'linear',
+    //       display: true,
+    //       position: 'right',
+    //       id: 'right-y-axis',
+    //       scaleLabel: {
+    //         display: true
+    //       },
+    //       ticks: {
+    //         beginAtZero: true
+    //       },
+    //       grid: {
+    //         drawOnChartArea: false,
+    //       },
+    //     }
+    //   }
+    // }
+
+
+
     const optionLastMonth = {
-      type: 'line',
-      data: dataChartLastMonth,
-      options: {
-        responsive: true,
-        interaction: {
-          mode: 'index',
-          intersect: false,
-        },
-        stacked: false,
-        plugins: {
-          title: {
-            display: true,
+     data:{
+       labels : ['test1', 'test2', 'test3'],
+     },
+      scales: {
+        x: {
+          display: true,
+          scaleLabel: {
+            display: true
           }
         },
-        scales: {
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          id: 'left-y-axis',
+          scaleLabel: {
+            display: true
           },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-
-            grid: {
-              drawOnChartArea: false,
-            },
+          ticks: {
+            beginAtZero: true
+          },
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          id: 'right-y-axis',
+          scaleLabel: {
+            display: true
+          },
+          ticks: {
+            beginAtZero: true
+          },
+          grid: {
+            drawOnChartArea: false,
           },
         }
-      },
-    }
+      }
+    };
+
 
     return { dashboardData, getDashboardData , showChart, dataChartCurrentSale, optionCurrentSale,
       dataChartLastMonth, dataChartBusinessProfit, optionBusinessProfit, optionLastMonth}
