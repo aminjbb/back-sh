@@ -393,4 +393,8 @@ export default {
     min-height: 56px !important;
 }
 
+.v-expansion-panels{
+    overflow-y: auto !important;
+}
+
 </style>
