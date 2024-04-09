@@ -37,6 +37,7 @@
                             <div class="t13300 text-right mb-1">{{ Filter.name }}</div>
 
                             <v-text-field variant="outlined" :placeholder="Filter.place" :name="Filter.value " v-model="values[index].value" />
+
                         </v-col>
 
                         <!-- Auto complete fields -->
@@ -158,7 +159,6 @@ export default {
             admin: '',
             admins: [],
             statusModel: '',
-
             createdAtModel: null,
             updatedAtModel: null,
             gregorianCreateDate: [],
@@ -182,6 +182,14 @@ export default {
                 return e
             }
         },
+      id() {
+        try {
+          const labelObject = this.values.find(element => element.name === 'id');
+          return labelObject.value
+        } catch (error) {
+          return ''
+        }
+      },
 
         phone_number() {
             try {
@@ -293,6 +301,11 @@ export default {
             } else {
                 Filter.user_id = null
             }
+          if (this.id) {
+            Filter.id = this.id
+          } else {
+            Filter.id = null
+          }
             if (this.phone_number) {
                 Filter.phone_number = this.phone_number
             } else {

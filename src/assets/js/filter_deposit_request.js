@@ -22,6 +22,7 @@ export class PanelFilter {
         this.page = 1;
         this.order = 'created_at';
         this.order_type = 'desc';
+        this.id = null;
         this.user_id = null;
         this.phone_number = null;
         this.card_number = null;
@@ -39,7 +40,9 @@ export class PanelFilter {
     query_maker() {
         let query = "?";
 
-
+        if (this.id !== null) {
+            query += "id=" + this.id + "&";
+        }
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
@@ -90,6 +93,13 @@ export class PanelFilter {
 
     params_generator(routeQuery){
         let query = "?";
+
+        if  (this.id) {
+            query += "id=" + this.id + "&";
+        }
+        else if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
+        }
 
         if  (this.user_id) {
             query += "user_id=" + this.user_id + "&";

@@ -12,7 +12,7 @@
       <v-divider color="grey"/>
       <v-row align="center" class="pa-3">
         <v-col cols="6">
-          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="orderId" variant="outlined"></v-text-field>
+          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="3">
             <v-btn
@@ -25,6 +25,7 @@
             </v-btn>
         </v-col>
         <v-col cols="3">
+
             <span class="t13400 color-grey">
 <!--                     {{ orderDetail.id }}   شناسه سفارش :-->
             </span>
@@ -64,6 +65,7 @@ import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
+import {openToast , closeToast} from "@/assets/js/functions";
 
 export default {
   components: {
@@ -74,7 +76,7 @@ export default {
 
   data() {
     return {
-
+      shpsItem:null,
       cargo: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
@@ -129,7 +131,7 @@ export default {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `warehouse/order/packaging/done/`
-      formdata.append('barcode' , this.orderId)
+      formdata.append('barcode' , this.shpsItem)
       AxiosMethod.form = formdata
       AxiosMethod.store = this.$store
       AxiosMethod.toast_error = true
@@ -139,6 +141,7 @@ export default {
       if (data) {
         this.orderId = data?.data?.order?.id
         if (data?.data?.is_completed){
+          openToast(this.$store , 'لطفا منتظر بمانید')
           this.getDetailModal(data?.data?.order)
         }
         this.orderDetail = data?.data?.order_items
@@ -154,6 +157,7 @@ export default {
       AxiosMethod.end_point = `admin/order/print/label/${item.id}`
       let data = await AxiosMethod.axios_get()
       if (data) {
+        closeToast(this.$store )
         const form = {
           dialog :true,
           object : data.data

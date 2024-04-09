@@ -15,13 +15,19 @@ function _query_items(items = [], name = "") {
     return query;
 }
 
-export class userWalletFilter {
+export class UserWalletFilter {
     constructor() {
-        this.firstName = null;
-        this.lastName = null;
-        this.brithDate = null;
-        this.email = null;
-        this.phoneNumber = null;
+        this.user_id = null;
+        this.status = null;
+        this.withdraw_amount_to = null;
+        this.withdraw_amount_from = null;
+        this.deposit_amount_from = null;
+        this.deposit_amount_to = null;
+        this.shvz_tracking_code = null;
+        this.refid = null;
+        this.created_at_from = null;
+        this.created_at_to = null;
+        this.charge_type = null;
         this.per_page = 25;
         this.page = 1;
         this.order = 'created_at';
@@ -36,25 +42,35 @@ export class userWalletFilter {
         if (this.user_id !== null) {
             query += "user_id=" + this.user_id + "&";
         }
-
-        if (this.firstName !== null) {
-            query += "first_name=" + this.firstName + "&";
+        if (this.status !== null) {
+            query += "status=" + this.status + "&";
         }
-
-        if (this.lastName !== null) {
-            query += "last_name=" + this.lastName + "&";
+        if (this.withdraw_amount_to !== null) {
+            query += "withdraw_amount_to=" + this.withdraw_amount_to + "&";
         }
-
-        if (this.brithDate !== null) {
-            query += "birth_date=" + this.brithDate + "&";
+        if (this.withdraw_amount_from !== null) {
+            query += "withdraw_amount_from=" + this.withdraw_amount_from + "&";
         }
-
-
-        if (this.email) {
-            query += "email=" + this.email + "&";
+        if (this.deposit_amount_from !== null) {
+            query += "deposit_amount_from=" + this.deposit_amount_from + "&";
         }
-        if (this.phoneNumber) {
-            query += "phone_number=" + this.phoneNumber + "&";
+        if (this.deposit_amount_to !== null) {
+            query += "deposit_amount_to=" + this.deposit_amount_to + "&";
+        }
+        if (this.refid !== null) {
+            query += "refid=" + this.refid + "&";
+        }
+        if (this.shvz_tracking_code !== null) {
+            query += "shvz_tracking_code=" + this.shvz_tracking_code + "&";
+        }
+        if (this.created_at_from !== null) {
+            query += "created_at_from=" + this.created_at_from + "&";
+        }
+        if (this.created_at_to !== null) {
+            query += "created_at_to=" + this.created_at_to + "&";
+        }
+        if (this.charge_type !== null) {
+            query += "charge_type=" + this.charge_type + "&";
         }
 
         if (this.page) {
@@ -77,38 +93,75 @@ export class userWalletFilter {
         else if (this.user_id ) {
             query += "user_id=" + this.user_id + "&";
         }
-        if (this.firstName ) {
-            query += "first_name=" + this.firstName + "&";
-        }
-        else if (routeQuery.first_name ){
-            query += "first_name=" + routeQuery.first_name + "&";
+        if (routeQuery.shvz_tracking_code ){
+            query += "shvz_tracking_code=" + routeQuery.shvz_tracking_code + "&";
         }
 
-        if  (this.lastName) {
-            query += "last_name=" + this.lastName + "&";
+        else if (this.shvz_tracking_code ) {
+            query += "shvz_tracking_code=" + this.shvz_tracking_code + "&";
         }
-        else if (routeQuery.last_name) {
-            query += "last_name=" + routeQuery.last_name + "&";
-        }
-        if  (this.brithDate) {
-            query += "birth_date=" + this.brithDate + "&";
-        }
-        else if (routeQuery.birth_date) {
-            query += "birth_date=" + routeQuery.birth_date + "&";
+        if (routeQuery.refid ){
+            query += "refid=" + routeQuery.refid + "&";
         }
 
-        if (routeQuery.email) {
-            query += "email=" + routeQuery.email + "&";
+        else if (this.refid ) {
+            query += "refid=" + this.refid + "&";
         }
-        else if (this.email) {
-            query += "email=" + this.email + "&";
+        if (routeQuery.deposit_amount_from ){
+            query += "deposit_amount_from=" + routeQuery.deposit_amount_from + "&";
         }
 
-        if (routeQuery.phone_number) {
-            query += "phone_number=" + routeQuery.phone_number + "&";
+        else if (this.deposit_amount_from ) {
+            query += "deposit_amount_from=" + this.deposit_amount_from + "&";
         }
-        else if (this.phoneNumber) {
-            query += "phone_number=" + this.phoneNumber + "&";
+        if (routeQuery.deposit_amount_to ){
+            query += "deposit_amount_to=" + routeQuery.deposit_amount_to + "&";
+        }
+
+        else if (this.deposit_amount_to ) {
+            query += "deposit_amount_to=" + this.deposit_amount_to + "&";
+        }
+        if (routeQuery.withdraw_amount_from ){
+            query += "withdraw_amount_from=" + routeQuery.withdraw_amount_from + "&";
+        }
+
+        else if (this.withdraw_amount_from ) {
+            query += "withdraw_amount_from=" + this.withdraw_amount_from + "&";
+        }
+        if (routeQuery.withdraw_amount_to ){
+            query += "withdraw_amount_to=" + routeQuery.withdraw_amount_to + "&";
+        }
+
+        else if (this.withdraw_amount_to ) {
+            query += "withdraw_amount_to=" + this.withdraw_amount_to + "&";
+        }
+        if (routeQuery.created_at_from ){
+            query += "created_at_from=" + routeQuery.created_at_from + "&";
+        }
+
+        else if (this.created_at_from ) {
+            query += "created_at_from=" + this.created_at_from + "&";
+        }
+        if (routeQuery.created_at_to ){
+            query += "created_at_to=" + routeQuery.created_at_to + "&";
+        }
+
+        else if (this.created_at_to ) {
+            query += "created_at_to=" + this.created_at_to + "&";
+        }
+        if (routeQuery.charge_type ){
+            query += "charge_type=" + routeQuery.charge_type + "&";
+        }
+
+        else if (this.charge_type ) {
+            query += "charge_type=" + this.charge_type + "&";
+        }
+        if (routeQuery.status ){
+            query += "status=" + routeQuery.status + "&";
+        }
+
+        else if (this.status ) {
+            query += "status=" + this.status + "&";
         }
 
 

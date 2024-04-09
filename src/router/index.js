@@ -1325,8 +1325,26 @@ const router = createRouter({
                     name: 'درخواست واریز '
                 }
             },
+
             ]
         },
+        {
+            path: '/wallet', // withdraw-request
+            meta: {
+                name: ' مالی'
+            },
+            children: [{
+                path: 'index',
+                name: 'walletUser',
+                component: UserWalletView,
+                meta: {
+                    name: 'تراکنش ها '
+                }
+            },
+
+            ]
+        },
+
         {
             path: '/contact-us', // contact-us
             meta: {
