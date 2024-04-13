@@ -39,16 +39,16 @@ export default function setup() {
             {
                 label: 'مبلغ سفارش',
                 data: [],
-                yAxisID: 'left-y-axis',
+                yAxisID: 'y',
                 borderColor:'rgba(215, 38, 133, 1)',
                 backgroundColor: 'rgba(252, 228, 236, 1)'
             },
             {
                 label: 'تعداد سفارش',
                 data: [],
-                yAxisID: 'right-y-axis',
+                yAxisID: 'y1',
                 borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 1)'
+                backgroundColor: 'rgba(227, 242, 253, 1)'
             }
         ]
     }
