@@ -18,50 +18,50 @@ export default function setup() {
 
     const header = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه کارگو' , show:true , value:'created_at', order: false},
-        {name:'نوع خودرو' , show:true , value:'name', order: false},
-        {name:'شماره پلاک' , show:true ,  value:'label', order: false},
-        {name:'نام راننده ' , show:true, value:'is_active', order: false},
-        {name:'شماره موبایل راننده' , show:true, value:'is_active', order: false},
-        {name:'تعداد بسته' , show:true, value:'is_active', order: false},
-        {name:'تاریخ ساخت' , show:true, value:'is_active', order: false},
-        {name:'تاریخ ویرایش' , show:true, value:'is_active', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'شناسه کارگو' , show:true , value:'id', order: false},
+        {name:'نوع خودرو' , show:true , value:'vehicle_type', order: false},
+        {name:'شماره پلاک' , show:true ,  value:'license', order: false},
+        {name:'نام راننده ' , show:true, value:'driver_name', order: false},
+        {name:'شماره موبایل راننده' , show:true, value:'phone_number', order: false},
+        {name:'تعداد بسته' , show:true, value:'package_count', order: false},
+        {name:'تاریخ ساخت' , show:true, value:'created_at_fa', order: false},
+        {name:'تاریخ ویرایش' , show:true, value:'updated_at_fa', order: true},
+        {name:'وضعیت' , show:true, value:'status', order: false},
     ]);
 
     const packageHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
+        {name:'شناسه بسته' , show:true , value:'id', order: false},
         // {name:'نوع بسته' , show:true , value:'name', order: false},
-        {name:'تعداد کالا' , show:true ,  value:'label', order: false},
-        {name:'وضعیت ' , show:true, value:'is_active', order: false},
+        {name:'تعداد کالا' , show:true ,  value:'shps_count', order: false},
+        {name:'وضعیت ' , show:true, value:'status', order: false},
     ]);
     const detailCargoHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        {name:'نوع بسته' , show:true , value:'name', order: false},
-        {name:'تعداد کالا' , show:true ,  value:'label', order: false},
+        {name:'شناسه بسته' , show:true , value:'id', order: false},
+        {name:'نوع بسته' , show:true , value:'type', order: false},
+        {name:'تعداد کالا' , show:true ,  value:'shps_count', order: false},
     ]);
 
     const cargoReceivingHeader = ref([
         {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
+        {name:'شناسه بسته' , show:true , value:'id', order: false},
         // {name:'نوع بسته' , show:true ,  value:'label', order: false},
-        {name:'تعداد آیتم ' , show:true, value:'is_active', order: false},
-        {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
-        {name:'وضعیت ' , show:true, value:'is_active', order: false},
+        {name:'تعداد آیتم ' , show:true, value:'shps_variety', order: false},
+        {name:'تعداد کالا ' , show:true, value:'shps_count', order: false},
+        {name:'وضعیت ' , show:true, value:'status', order: false},
     ]);
 
     const filterField = [
-        {name:'شناسه کارگو' , type:'text', value:'name'},
-        {name:'نوع خودرو' , type:'text', value:'label'},
-        {name:'شماره پلاک ' , type:'text', value:'active'},
-        { name:'نام راننده' , type: 'text', value:'created_at'},
-        { name:'تعداد بسته(از)' , type: 'text', value:'updated_at'},
-        { name:'تعداد بسته(تا)' , type: 'text', value:'updated_at'},
-        { name:'تاریخ ساخت' , type: 'text', value:'updated_at'},
-        { name:'تاریخ ویرایش' , type: 'date', value:'updated_at'},
-        { name:'وضعیت' , type: 'date', value:'updated_at'},
+        {name:'شناسه کارگو' , type:'text', value:'id'},
+        {name:'نوع خودرو' , type:'text', value:'vehicle_type'},
+        {name:'شماره پلاک ' , type:'text', value:'license'},
+        { name:'نام راننده' , type: 'text', value:'driver_name'},
+        { name:'تعداد بسته(از)' , type: 'text', value:'package_count'},
+        { name:'تعداد بسته(تا)' , type: 'text', value:'package_count'},
+        { name:'تاریخ ساخت' , type: 'text', value:'created_at_fa'},
+        { name:'تاریخ ویرایش' , type: 'date', value:'updated_at_fa'},
+        { name:'وضعیت' , type: 'date', value:'status'},
     ];
 
     const loading = ref(false)
