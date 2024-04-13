@@ -2,84 +2,223 @@
 <div v-if="modalPrintOrderObject" class="pa-5" id="printableArea-order ">
     <div>
         <div class=" mt-10 d-flex justify-center ">
-            <div class="border-nested-modal">
-                <div>
-                    <div class="d-flex justify-between">
-                        <span class=" number-font">
-                            <span>فرستنده: </span>
-                            {{modalPrintOrderObject.sender}}
+          <v-card height="199" width="277" class="rounded-0">
+            <v-row v-if="modalPrintOrderObject.sending_method === 'post'" justify="center" align="center"
+                   class="pa-3">
+              <v-col class="pa-0 ma-0" cols="3">
+                <v-card height="30" variant="outlined" color="black" class="rounded-0">
+
+                </v-card>
+              </v-col>
+
+              <v-col class="pa-0 ma-0" cols="6">
+                <v-card height="30" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center">
+                  <img src="@/assets/img/post-image.png" width="32" height="30" alt="post image">
+
+                </v-card>
+              </v-col>
+
+              <v-col class="pa-0 ma-0" cols="3">
+                <v-card height="30" variant="outlined" color="black" class="rounded-0">
+
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-card height="12" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center">
+                                      <span class="t8400">
+                                      </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-row justify="center" class="pa-3">
+                  <v-col cols="3" class="pa-0 ma-0">
+                    <v-card height="24" variant="outlined" color="black"
+                            class="rounded-0 d-flex justify-center align-center">
+                                              <span class="t8400">
+                                              </span>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="9">
+                    <v-row justify="center">
+                      <v-col cols="6" class="pa-0 ma-0">
+                        <v-card height="12" variant="outlined" color="black"
+                                class="rounded-0 d-flex justify-center align-center">
+                                              <span class="t8400">
+                                               {{ modalPrintOrderObject?.state?.label }}
+                                              </span>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="6" class="pa-0 ma-0">
+                        <v-card height="12" variant="outlined" color="black"
+                                class="rounded-0 d-flex justify-center align-center">
+                                              <span class="t8400">
+                                               {{ modalPrintOrderObject?.state?.label }}
+                                              </span>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="6" class="pa-0 ma-0">
+                        <v-card height="12" variant="outlined" color="black"
+                                class="rounded-0 d-flex justify-center align-center">
+                                              <span class="t8400">
+                                              </span>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="6" class="pa-0 ma-0">
+                        <v-card height="12" variant="outlined" color="black"
+                                class="rounded-0 d-flex justify-center align-center">
+                                              <span class="t8400">
+                                               {{ modalPrintOrderObject?.state?.label }}
+                                              </span>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-card height="75" variant="outlined" color="black" class="rounded-0 text-right px-1">
+                  <p>
+                    <span class="t8400">{{ modalPrintOrderObject.receiver_address }} : آدرس</span>
+                  </p>
+                  <p>
+                    <span class="t8400">  {{ modalPrintOrderObject.receiver_postal_code }} : کدپستی</span>
+                  </p>
+                </v-card>
+              </v-col>
+
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card height="12" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center">
+                                      <span class="t8400">
+                                         {{ modalPrintOrderObject?.order_factor_id }}
+                                      </span>
+                </v-card>
+              </v-col>
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card height="12" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center">
+                                      <span class="t8400">
+                                         کاربر عادی 1/1
+                                      </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-card height="12" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center d--rtl">
+                                      <span class="t8400 mx-1">
+                                          {{ modalPrintOrderObject.receiver_name }}
+                                      </span>
+
+                  <span class="t8400 mx-1">
+                                          {{ modalPrintOrderObject.receiver_mobile }}
+                                      </span>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" class="pa-0 ma-0">
+                <v-card height="35" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center pa-0">
+                  <barcode
+                      :barcodeValue="modalPrintOrderObject.logistic_barcode"
+                      :format="'CODE128'"
+                      :index="1"
+                      text=""
+                  >
+                  </barcode>
+                </v-card>
+              </v-col>
+            </v-row>
+
+            <v-row v-else justify="center" align="center" class="pa-3">
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-card height="114" variant="outlined" color="black" class="rounded-0">
+                  <v-row justify="center" class="pa-4">
+
+                    <v-col cols="4" class="pa-0">
+                      <img v-if="modalPrintOrderObject.sending_method === 'tipax'" src="@/assets/img/tpax-image.png"
+                           width="32" height="30" alt="post image">
+                      <img v-else-if="modalPrintOrderObject.sending_method === 'nafis'"
+                           src="@/assets/img/nafis-image.png" width="32" height="30" alt="post image">
+                    </v-col>
+                    <v-col cols="8" class="text-right pa-0">
+                      <p class="t8400">
+                        <span> {{ modalPrintOrderObject.state.label }} - </span>
+                        <span> {{ modalPrintOrderObject.city.label }} </span>
+                      </p>
+                      <p class="t8400">
+                        <span> {{ modalPrintOrderObject.receiver_address }} </span>
+                      </p>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="4">
+                <v-card height="22" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center">
+                      <span class="t8400">
+                        {{ modalPrintOrderObject?.weight }}
+                      </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="8">
+                <v-card height="22" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                        <span class="t12400" v-if="modalPrintOrderObject.sending_method === 'tipax'">
+                          تیپاکس
                         </span>
-                        <span class=" number-font">
-
-                            <span class="modal__content__title"> وزن بسته: </span>
-                            {{modalPrintOrderObject.weight}}
+                  <span class="t12400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
+                          نفیس
                         </span>
-                        <span>
-                            <img src="@/assets/img/nafis-image.png" alt="shavaz image">
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <span class=" d-flex justify-start">
-                        کد پستی:
-                        <span class=" number-font "> {{modalPrintOrderObject.receiver_postal_code}} </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="12">
+                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                           <span class="t8400 mx-1">
+                            {{ modalPrintOrderObject.receiver_name }}
+                           </span>
 
-                    </span>
-                </div>
-                <br />
-                <div class="d-flex justify-between">
-                    <span>گیرنده:
+                  <span class="t8400 mx-1">
+                            {{ modalPrintOrderObject.receiver_mobile }}
+                          </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="5">
+                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                           <span class="t8400 mx-1">
+                            1403/09/12, 11:23:23
+                           </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="3">
+                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                           <span class="t8400 mx-1">
+                          {{ modalPrintOrderObject.order_factor_id }}
+                           </span>
+                </v-card>
+              </v-col>
+              <v-col class="pa-0 ma-0" cols="4">
+                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                           <span class="t8400 mx-1">
+                         کاربر عادی 1/1
+                           </span>
+                </v-card>
+              </v-col>
+              <v-col cols="12" class="pa-0 ma-0">
+                <v-card height="40" variant="outlined" color="black"
+                        class="rounded-0 d-flex justify-center align-center pa-0">
+                  <barcode
+                      :barcodeValue="modalPrintOrderObject.logistic_barcode"
+                      :format="'CODE128'"
+                      :index="1"
+                      text=""
+                  >
+                  </barcode>
+                </v-card>
+              </v-col>
 
-                        <span class=" number-font "> {{modalPrintOrderObject.receiver_name}} </span>
-                    </span>
-                    <span>شماره تماس:
-                        <span class=" number-font "> {{modalPrintOrderObject.receiver_mobile}} </span>
-                    </span>
-                </div>
-                <br />
-                <div class="d-flex justify-start">
-                    <span>
-                        ادرس:
-
-                        <span class=" number-font "> {{modalPrintOrderObject.receiver_address}} </span>
-                    </span>
-                </div>
-
-                <div class="main-body-modal">
-                    <div class="d-flex justify-start">
-                        <span>ادرس: </span>
-                        <span class="t12500">
-                            {{modalPrintOrderObject.sender_address}}
-                        </span>
-
-                    </div>
-                    <br />
-                    <div class="d-flex justify-between">
-                        <span>
-
-                            شماره فاکتور:</span>
-                        <span class=" number-font "> {{modalPrintOrderObject.order_factor_id}} </span>
-                        <span>
-                            کد پستی:
-                            <span class=" number-font"> {{modalPrintOrderObject.sender_postal_code}} </span>
-
-                        </span>
-
-                    </div>
-
-                </div>
-              <div class="d-flex justify-center mt-4">
-                <barcode
-                    :barcodeValue="modalPrintOrderObject.logistic_barcode"
-                    :format="'CODE128'"
-                    :index="1"
-                    text=""
-                ></barcode>
-              </div>
-              <div class="d-flex justify-center">
-                <span>{{ modalPrintOrderObject.logistic_barcode }}</span>
-              </div>
-            </div>
+            </v-row>
+          </v-card>
         </div>
     </div>
 </div>
