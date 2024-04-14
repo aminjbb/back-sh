@@ -144,8 +144,8 @@
                     </v-col>
                     <v-col cols="8" class="text-right pa-0">
                       <p class="t8400">
-                        <span> {{ modalPrintOrderObject.state.label }} - </span>
-                        <span> {{ modalPrintOrderObject.city.label }} </span>
+                        <span> {{ modalPrintOrderObject?.state?.label }} - </span>
+                        <span> {{ modalPrintOrderObject?.city?.label }} </span>
                       </p>
                       <p class="t8400">
                         <span> {{ modalPrintOrderObject.receiver_address }} </span>
@@ -173,7 +173,7 @@
                 </v-card>
               </v-col>
               <v-col class="pa-0 ma-0" cols="12">
-                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center d--rtl">
                            <span class="t8400 mx-1">
                             {{ modalPrintOrderObject.receiver_name }}
                            </span>
@@ -186,7 +186,7 @@
               <v-col class="pa-0 ma-0" cols="5">
                 <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
-                            1403/09/12, 11:23:23
+                            {{modalPrintOrderObject?.date}}
                            </span>
                 </v-card>
               </v-col>
@@ -216,9 +216,9 @@
                   </barcode>
                 </v-card>
               </v-col>
-
             </v-row>
           </v-card>
+
         </div>
     </div>
 </div>
