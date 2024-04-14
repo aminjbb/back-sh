@@ -1,11 +1,14 @@
 import { ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
+import { UserPanelFilter } from '@/assets/js/filter_free_delivery_user.js'
 import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const freeDeliveryList = ref([]);
+    const detailData =ref([])
+    const orderList = ref([])
     const voucher = ref(null);
     const skuList = ref(null);
     const customerList = ref(null)
@@ -63,15 +66,29 @@ export default function setup() {
 
     ]);
 
-    const filterField =ref( [
-        {name:'شناسه' , type:'text', value:'id'},
-        {name:'نام انگلیسی' , type:'text', value:'name'},
-        {name:'گروه' , type:'text', value:'group'},
-        {name:'نام فارسی' , type:'text', value:'label'},
-        {name:'فعال سازی ' , type:'switch', value:'active'},
+    const filterFieldCustomer =ref( [
+        {name:'شناسه کاربر' , type:'text', value:'id'},
+        {name:'نام کاربر' , type:'text', value:'first_name'},
+        {name:'نام خانوادگی کاربر' , type:'text', value:'last_name'},
+        {name:'شماره تماس' , type:'text', value:'phone_number'},
+
+    ]);
+    const filterFieldShps =ref( [
+        {name:'شناسه کالا' , type:'text', value:'id'},
+        {name:'نام کالا' , type:'text', value:'name'},
+        {name:'قیمت مصرف کننده' , type:'text', value:'group'},
+        {name:'قیمت فروش' , type:'text', value:'label'},
+    ]);
+    const filterFieldCOrderList =ref( [
+        {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'شماره تماس کاربر' , type:'text', value:'name'},
+        {name:'نام کاربر' , type:'text', value:'group'},
+        {name:'نام خانوادگی کاربر' , type:'text', value:'label'},
+
     ]);
     const loading = ref(false)
     const filter = new PanelFilter()
+    const UserFilter = new UserPanelFilter()
 
     async function  getFreeDeliveryList(query) {
         loading.value = true
@@ -88,6 +105,18 @@ export default function setup() {
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             freeDeliveryList.value = data.data.data
+        }
+    };
+    async function  getDetail(query) {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/delivery-discount/crud/get/${route.params.freeDeliveryId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            detailData.value = data.data
         }
     };
     async function  getVoucher() {
@@ -116,17 +145,37 @@ export default function setup() {
             skuList.value = data.data.data
         }
     };
-    async function  getCustomerList() {
+    async function  getCustomerList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = UserFilter.params_generator(query.query)
+        }
+        else  paramsQuery = UserFilter.params_generator(route.query)
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/delivery-discount/get/users/${route.params.freeDeliveryId}`
+        AxiosMethod.end_point = `admin/delivery-discount/get/users/${route.params.freeDeliveryId}${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
           customerList.value = data.data.data
+        }
+    };
+
+    async function  geOrderList() {
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/delivery-discount/get/orders/${route.params.freeDeliveryId}`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
+            orderList.value = data.data.data
         }
     };
 
@@ -172,7 +221,7 @@ export default function setup() {
         addPagination(val)
     })
 
-    return {headerShps , headerCustomer  , headerFreeDelivery,filterField , page , freeDeliveryList , headerOrderList , addPerPage
-    ,dataTableLength ,pageLength , getVoucher , getSkuList, voucher , getFreeDeliveryList, indexFilterField, getCustomerList, customerList, skuList}
+    return {headerShps , headerCustomer  , headerFreeDelivery,filterFieldCustomer , filterFieldShps, filterFieldCOrderList, page , freeDeliveryList , getDetail, detailData, headerOrderList , addPerPage
+    ,dataTableLength ,pageLength , getVoucher , getSkuList, voucher , getFreeDeliveryList, indexFilterField, getCustomerList, customerList, skuList, geOrderList, orderList}
 }
 

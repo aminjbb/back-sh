@@ -2,14 +2,24 @@
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
+
             <div>
                 <span class="t14500">
                     عنوان:
                 </span>
                 <span class="t14500 text-gray500">
-                    {{ voucherDetail?.name }}
+                    {{ detailData?.name }}
                 </span>
             </div>
+          <div>
+
+                <span class="t14500">
+                    روش ارسال:
+                </span>
+
+            <span class="t14500 text-gray500">
+             {{ setKeyPost(detailData?.post) }} {{setKeyTipax(detailData?.tipax)}} {{setKeyNafis(detailData?.nafis)}} {{setKeyPishtaz(detailData?.pishtaz)}}</span>
+          </div>
 
         </div>
     </v-card>
@@ -18,10 +28,11 @@
 
             <v-row class="mt-2">
                 <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="user_file" :uploadEndpoint="`admin/delivery-discount/attach/user/${freeDeliveryId}`" />
-            </v-row>`
+            </v-row>
 
             <v-row justify="end" align="center">
-                <ModalTableFilter path="admin/index" :filterField="[]" />
+                <ModalTableFilter :path="`free-delivery/${$route.params.freeDeliveryId}/customer`" :filterFieldCustomer="filterFieldCustomer" />
+
             </v-row>
 
         </v-row>
@@ -64,7 +75,7 @@
 <script>
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterUser.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 export default {
     data() {
@@ -74,6 +85,8 @@ export default {
     },
     setup() {
         const {
+          getDetail,
+          detailData,
             headerCustomer,
             getVoucherCustomer,
             voucher,
@@ -84,9 +97,31 @@ export default {
             voucherDetail,
             getCustomerList,
             customerList,
-            getFreeDeliveryList
+            getFreeDeliveryList,
+            freeDeliveryList,
+          filterFieldCustomer
         } = new FreeDelivery()
+
+      function setKeyPost (post)
+      {  if (post === true) {
+        return 'پست '  }
+         }
+      function setKeyNafis (nafis)
+      {  if (nafis === true) {
+        return 'نفیس '  }
+      }
+      function setKeyPishtaz (pishtaz)
+      {  if (pishtaz === true) {
+        return 'پیشتاز '  }
+      }
+      function setKeyTipax ( tipax)
+      {
+        if (tipax === true)
+        {    return 'تیپاکس'
+        }    }
         return {
+          getDetail,
+          detailData,
             headerCustomer,
             getVoucherCustomer,
             voucher,
@@ -97,7 +132,13 @@ export default {
             voucherDetail,
             getCustomerList,
             customerList,
-            getFreeDeliveryList
+            getFreeDeliveryList,
+          filterFieldCustomer,
+          setKeyPost,
+          setKeyTipax,
+          setKeyNafis,
+          setKeyPishtaz,
+          freeDeliveryList
         }
     },
     components: {
@@ -108,6 +149,16 @@ export default {
     mounted() {
         this.getCustomerList()
         this.getFreeDeliveryList()
+        this.getDetail()
+
+
+
+    },
+  watch:{
+    $route(){
+      this.getCustomerList()
     }
+  }
+
 }
 </script>

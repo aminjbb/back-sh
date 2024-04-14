@@ -60,16 +60,17 @@
                 v-if=" header[3].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span class="t14300 text-gray500 py-5 number-font">
-                          {{ item.phone_number }}
+                      <span v-if="item.customer_price" class="t14300 text-gray500 py-5 number-font">
+                          {{ item.customer_price }}
                       </span>
+              <span v-else>----</span>
             </div>
             <div
                 v-if=" header[4].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
-                          {{ item.role?.label }}
+                      <span v-if="item.shopping_price" class="t14300 text-gray500 py-5 number-font">
+                          {{ item.shopping_price }}
                       </span>
               <span v-else>----</span>
             </div>

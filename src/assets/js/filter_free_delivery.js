@@ -30,6 +30,10 @@ export class PanelFilter {
         this.start_time_from = null;
         this.end_time_to = null;
         this.end_time_from = null;
+        this.id = null;
+        this.first_name = null;
+        this.last_name = null;
+        this.phone_number =null;
 
     }
 
@@ -43,6 +47,19 @@ export class PanelFilter {
             query += "per_page=" + this.per_page + "&";
         }
 
+        if (this.first_name !== null) {
+            query += "first_name=" + this.first_name + "&";
+        }
+        if (this.last_name !== null) {
+            query += "last_name=" + this.last_name + "&";
+        }
+
+        if (this.id !== null) {
+            query += "id=" + this.id + "&";
+        }
+        if (this.phone_number !== null) {
+            query += "phone_number=" + this.phone_number + "&";
+        }
         if (this.name !== null) {
             query += "name=" + this.name + "&";
         }
@@ -93,7 +110,27 @@ export class PanelFilter {
         } else if (this.order) {
             query += "order=" + this.order + "&";
         }
+        if (routeQuery.phone_number) {
+            query += "phone_number=" + routeQuery.phone_number + "&";
+        } else if (this.phone_number) {
+            query += "phone_number=" + this.phone_number + "&";
+        }
 
+        if (this.first_name) {
+            query += "first_name=" + this.first_name + "&";
+        } else if (routeQuery.first_name) {
+            query += "first_name=" + routeQuery.first_name + "&";
+        }
+        if (this.last_name) {
+            query += "last_name=" + this.last_name + "&";
+        } else if (routeQuery.last_name) {
+            query += "last_name=" + routeQuery.last_name + "&";
+        }
+        if (routeQuery.id) {
+            query += "id=" + routeQuery.id + "&";
+        } else if (this.id) {
+            query += "id=" + this.id + "&";
+        }
         if (routeQuery.order_type) {
             query += "order_type=" + routeQuery.order_type + "&";
         } else if (this.order_type) {
