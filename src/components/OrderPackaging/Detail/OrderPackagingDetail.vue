@@ -16,7 +16,7 @@
         </v-col>
         <v-col cols="3">
             <v-btn
-                @click="orderItemPack()"
+                @click="getDetailModal()"
                 color="primary500"
                 height="40"
                 rounded
@@ -154,7 +154,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/print/label/${item.id}`
+      AxiosMethod.end_point = `admin/order/print/label/1`
       let data = await AxiosMethod.axios_get()
       if (data) {
         closeToast(this.$store )
