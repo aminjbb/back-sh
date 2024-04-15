@@ -25,7 +25,7 @@
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
-              <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
@@ -39,8 +39,8 @@
 
                 <div v-if="header[2].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.user.phone_number">
-                            {{ item.user.phone_number }}
+                        <template v-if="item?.user?.first_name && item?.user?.last_name">
+                            {{ item?.user?.first_name }} {{ item?.user?.last_name }}
                         </template>
                         <template v-else>
                             نامعلوم
@@ -49,6 +49,17 @@
                 </div>
 
                 <div v-if="header[3].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.user.phone_number">
+                            {{ item.user.phone_number }}
+                        </template>
+                        <template v-else>
+                            نامعلوم
+                        </template>
+                    </span>
+              </div>
+
+                <div v-if="header[4].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13300 text-gray500 py-5 number-font">
                         <template v-if="item.card_number">
                             {{ item.card_number }}
@@ -59,7 +70,7 @@
                     </span>
                 </div>
 
-                <div v-if="header[4].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[5].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.amount">
                             {{ item.amount }}
@@ -69,7 +80,7 @@
                         </template>
                     </span>
                 </div>
-                <div v-if="header[5].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[6].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.user.wallet.value ">
                             {{ item.user.wallet.value }}
@@ -79,7 +90,7 @@
                         </template>
                     </span>
                 </div>
-              <div v-if="header[6].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[7].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.user.wallet.value ">
                             {{ parseInt(item.user.wallet.value) + parseInt(item.amount )}}
@@ -89,7 +100,7 @@
                         </template>
                     </span>
               </div>
-              <div v-if="header[7].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[8].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
@@ -99,9 +110,20 @@
                             نامعلوم
                         </template>
                     </span>
-                </div>
+              </div>
+                <div v-if="header[9].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.updated_at_fa">
+                            {{ item.updated_at_fa }}
+                        </template>
 
-                <div v-if="header[8].show" class="c-table__contents__item justify-center" :ref="`factor--${index}`" :style="{ width: itemsWidth, flex: `0 0 11%` }">
+                        <template v-else>
+                            نامعلوم
+                        </template>
+                    </span>
+              </div>
+
+                <div v-if="header[10].show" class="c-table__contents__item justify-center" :ref="`factor--${index}`" :style="{ width: itemsWidth, flex: `0 0 11%` }">
                     <template v-if="item.status">
 
                         <div v-if="item.status === 'pending'" class="factor-dropdown">
@@ -131,7 +153,7 @@
                     </template>
                 </div>
 
-                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
+                <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-start">
                     <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
