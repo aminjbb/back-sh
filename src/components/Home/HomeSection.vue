@@ -385,37 +385,35 @@ export default defineComponent({
       }
     }
     const optionLastMonth = {
-      type: 'line',
-      data: dataChartLastMonth,
-      options: {
-        responsive: true,
-        interaction: {
-          mode: 'index',
-          intersect: false,
-        },
-        stacked: false,
-        plugins: {
-          title: {
-            display: true,
+      scales: {
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          id: 'left-y-axis',
+          scaleLabel: {
+            display: true
+          },
+          ticks: {
+            beginAtZero: true
           }
         },
-        scales: {
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          id: 'right-y-axis',
+          scaleLabel: {
+            display: true
           },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-
-            grid: {
-              drawOnChartArea: false,
-            },
+          ticks: {
+            beginAtZero: true
+          },
+          grid: {
+            drawOnChartArea: false,
           },
         }
-      },
+      }
     }
 
     return { dashboardData, getDashboardData , showChart, dataChartCurrentSale, optionCurrentSale,
