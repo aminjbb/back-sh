@@ -127,16 +127,13 @@
                 </div>
             </div>
         </div>
-       
-        <Modal/>
-     
+
     </div>
     </template>
     
     <script>
  
- import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
- 
+
 
     import {
         AxiosCall
@@ -155,8 +152,7 @@
     } from "@/assets/js/functions_seller";
     export default {
         components: {
-            Modal
-  
+
         },
     
         props: {
