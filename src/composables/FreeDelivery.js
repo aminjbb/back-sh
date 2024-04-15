@@ -4,6 +4,7 @@ import { UserPanelFilter } from '@/assets/js/filter_free_delivery_user.js'
 import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
+import {OrderListPanelFilter} from '@/assets/js/filter_free_delivery_order_list.js'
 
 export default function setup() {
     const freeDeliveryList = ref([]);
@@ -81,14 +82,20 @@ export default function setup() {
     ]);
     const filterFieldCOrderList =ref( [
         {name:'شناسه سفارش' , type:'text', value:'id'},
-        {name:'شماره تماس کاربر' , type:'text', value:'name'},
-        {name:'نام کاربر' , type:'text', value:'group'},
-        {name:'نام خانوادگی کاربر' , type:'text', value:'label'},
+        {name:'شماره مشتری' , type:'auto-complete', value:'user_id'},
+        {name:'کمترین تعداد آیتم' , type:'text', value:'details_count_from'},
+        {name:'بیشترین تعداد آیتم' , type:'text', value:'details_count_to'},
+        {name:'کمترین مبلغ سفارش' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ سفارش' , type:'text', value:'paid_price_to'},
+        {name:'تاریخ ثبت سفارش ' , type:'date', value:'created_at'},
+
+
 
     ]);
     const loading = ref(false)
     const filter = new PanelFilter()
     const UserFilter = new UserPanelFilter()
+    const OrderFilter = new OrderListPanelFilter()
 
     async function  getFreeDeliveryList(query) {
         loading.value = true
@@ -165,12 +172,17 @@ export default function setup() {
         }
     };
 
-    async function  geOrderList() {
-
+    async function  geOrderList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = OrderFilter.params_generator(query.query)
+        }
+        else  paramsQuery = OrderFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/delivery-discount/get/orders/${route.params.freeDeliveryId}`
+        AxiosMethod.end_point = `admin/delivery-discount/get/orders/${route.params.freeDeliveryId}${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {

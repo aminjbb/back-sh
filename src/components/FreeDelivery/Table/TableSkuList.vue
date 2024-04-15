@@ -21,7 +21,7 @@
         </template>
   
       </header>
-  
+
       <div class="stretch-table">
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
           <div
@@ -60,8 +60,8 @@
                 v-if=" header[3].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.customer_price" class="t14300 text-gray500 py-5 number-font">
-                          {{ item.customer_price }}
+                      <span v-if="item?.customer_price" class="t14300 text-gray500 py-5 number-font">
+                          {{ item?.customer_price }}
                       </span>
               <span v-else>----</span>
             </div>
@@ -69,8 +69,8 @@
                 v-if=" header[4].show"
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.shopping_price" class="t14300 text-gray500 py-5 number-font">
-                          {{ item.buying_price }}
+                      <span v-if="item?.buying_price" class="t14300 text-gray500 py-5 number-font">
+                          {{ item?.buying_price }}
                       </span>
               <span v-else>----</span>
             </div>

@@ -33,7 +33,7 @@
         <v-col cols="6">
           <v-row justify="end">
 
-            <ModalTableFilter path="admin/index" :filterField="[]"/>
+            <ModalTableFilter :path="`free-delivery/${$route.params.freeDeliveryId}/orderList`" :filterFieldCOrderList="filterFieldCOrderList "/>
           </v-row>
         </v-col>
       </v-row>
@@ -93,11 +93,11 @@
 </template>
 <script>
 import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterOrderList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 export default {
   setup() {
-    const { getVoucherShps,voucher , dataTableLength ,headerOrderList, geOrderList, orderList, getDetail,
+    const { getVoucherShps,voucher , dataTableLength ,headerOrderList, geOrderList, orderList, getDetail, filterFieldCOrderList,
       detailData,
       pageLength,page , getVoucherDetail , voucherDetail} = new FreeDelivery()
     function setKeyPost (post)
@@ -117,13 +117,14 @@ export default {
       if (tipax === true)
       {    return 'تیپاکس'
       }    }
-    return {getVoucherShps,voucher,dataTableLength , headerOrderList , geOrderList, orderList,
+    return {getVoucherShps,voucher,dataTableLength , headerOrderList , geOrderList, orderList, filterFieldCOrderList,
       pageLength,page,getVoucherDetail , voucherDetail, getDetail,
       detailData,  setKeyTipax, setKeyNafis, setKeyPishtaz, setKeyPost}
   },
 
   data() {
-    return {
+    return{
+      freeDeliveryId:this.$route.params.freeDeliveryId,
 
     }
   },
