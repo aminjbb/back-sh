@@ -248,7 +248,11 @@ export default {
                 {
                     label: 'تحویل داده شده',
                     value: 'received'
-                }
+                },
+              {
+                label: 'انقضای سفارش',
+                value: 'payment_out_date'
+              }
             ],
             statusModel: null,
             paymentMethods: [
@@ -274,7 +278,11 @@ export default {
                 {
                     label: 'در انتظار پرداخت',
                     value: 'payment_in_progress'
-                }
+                },
+              {
+                label: 'انقضای پرداخت',
+                value: 'payment_out_date'
+              }
             ],
             paymentStatusModel: null,
             packedStatus: [{
