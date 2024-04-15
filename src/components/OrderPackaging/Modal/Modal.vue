@@ -20,7 +20,7 @@
         <div class=" px-5">
           <div>
             <div class=" mt-10 d-flex justify-center ">
-              <v-card height="199" width="277" class="rounded-0">
+              <v-card height="199" width="227" class="rounded-0">
                 <v-row v-if="modalPrintOrderObject.sending_method === 'post'" justify="center" align="center"
                        class="pa-3">
                   <v-col class="pa-0 ma-0" cols="3">
@@ -32,7 +32,7 @@
                   <v-col class="pa-0 ma-0" cols="6">
                     <v-card height="30" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center">
-                      <img src="@/assets/img/post-image.png" width="32" height="30" alt="post image">
+                      <img src="@/assets/img/newPost-image.png" width="32" height="30" alt="post image">
 
                     </v-card>
                   </v-col>
@@ -63,8 +63,8 @@
                           <v-col cols="6" class="pa-0 ma-0">
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400">
-                                               {{ modalPrintOrderObject?.state?.label }}
+                                              <span class="t8400 d--rtl">
+                                               گرم {{ modalPrintOrderObject?.weight }}
                                               </span>
                             </v-card>
                           </v-col>
@@ -87,7 +87,7 @@
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
                                               <span class="t8400">
-                                               {{ modalPrintOrderObject?.state?.label }}
+                                               {{ modalPrintOrderObject?.date }}
                                               </span>
                             </v-card>
                           </v-col>
