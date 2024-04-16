@@ -39,19 +39,19 @@ export default function setup() {
             {
                 label: 'مبلغ سفارش',
                 data: [],
-                borderColor: '#D72685',
-                backgroundColor: '#D72685',
                 yAxisID: 'y',
+                borderColor:'rgba(215, 38, 133, 1)',
+                backgroundColor: 'rgba(252, 228, 236, 1)'
             },
             {
                 label: 'تعداد سفارش',
                 data: [],
-                borderColor: '#2196F3',
-                backgroundColor: '#2196F3',
                 yAxisID: 'y1',
-            },
-        ],
-    };
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(227, 242, 253, 1)'
+            }
+        ]
+    }
 
     async function getDashboardData(query) {
         const AxiosMethod = new AxiosCall()

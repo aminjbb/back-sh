@@ -23,11 +23,11 @@ export default {
     let settings = {
       format: this.format,
       textAlign: 'rif',
-      textPosition: 'top',
+      textPosition: 'bottom',
       fontOptions: 'bold',
-      fontSize: 18,
-      textMargin: 8,
-      height: 45,
+      fontSize: 10,
+      textMargin: 1,
+      height: 35,
     };
     JsBarcode("#barcode", this.barcodeValue, settings);
   }

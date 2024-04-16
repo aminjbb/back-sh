@@ -76,7 +76,9 @@
                 <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.status">
-                            {{getOrderStatus(item.status) }}
+                          <span class="t10400">
+                               {{getOrderStatus(item.status) }}
+                          </span>
                         </template>
                         <template v-else>
                             -
@@ -324,6 +326,10 @@ export default {
         {
           text: 'در انتظار پرداخت',
           value: 'payment_in_progress'
+        },
+        {
+          text: 'انقضای سفارش',
+          value: 'payment_out_date'
         }
       ],
     }
@@ -440,6 +446,9 @@ export default {
         return 'نا موفق'
       } else if (method === 'contradictory') {
         return 'دارای مغایرت'
+      }
+      else if (method === 'payment_out_date') {
+        return 'انقضای پرداخت'
       } else if (method === 'successful') {
         return 'موفق'
       }
