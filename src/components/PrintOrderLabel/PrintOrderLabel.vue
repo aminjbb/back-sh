@@ -108,7 +108,7 @@ export default {
       AxiosMethod.toast_error = true
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
+      let data = await AxiosMethod.axios_get()
       if (data) {
         this.orderDetail = data?.data?.order?.details
         this.orderId =data?.data?.order?.id
