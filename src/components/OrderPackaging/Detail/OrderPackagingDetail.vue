@@ -146,6 +146,7 @@ export default {
         }
         this.orderDetail = data?.data?.order_items
         this.loading = false
+        setTimeout(()=>{this.shpsItem = ''},1000)
       } else {
         this.loading = false
       }
