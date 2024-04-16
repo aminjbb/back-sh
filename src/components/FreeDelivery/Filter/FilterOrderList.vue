@@ -133,6 +133,8 @@ export default {
       values: [],
       userSearchList: [],
       createdAtModel: null,
+      gregorianCreateDate: [],
+      gregorianUpdateDate: [],
 
     }
   },
@@ -192,9 +194,17 @@ export default {
         return ''
       }
     },
-    phone_number() {
+    details_count_from() {
       try {
-        const idObject = this.values.find(element => element.name === 'phone_number');
+        const idObject = this.values.find(element => element.name === 'details_count_from');
+        return idObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+    details_count_to() {
+      try {
+        const idObject = this.values.find(element => element.name === 'details_count_to');
         return idObject.value
       } catch (error) {
         return ''
@@ -255,14 +265,24 @@ export default {
         filter.paid_price_to = null
       }
       if (this.createdAt && this.createdAt[0]) {
-        filter.created_at_from = this.createdAt[0]
+        filter.submit_date_from_date = this.createdAt[0]
       } else {
-        filter.created_at_from = null
+        filter.submit_date_from_date = null
       }
       if (this.createdAt && this.createdAt[1]) {
-        filter.created_at_to = this.createdAt[1]
+        filter.submit_date_to_date = this.createdAt[1]
       } else {
-        filter.created_at_to = null
+        filter.submit_date_to_date = null
+      }
+      if (this.details_count_from && this.details_count_from) {
+        filter.details_count_from = this.details_count_from
+      } else {
+        filter.details_count_from = null
+      }
+      if (this.details_count_to && this.details_count_to) {
+        filter.details_count_to = this.details_count_to
+      } else {
+        filter.details_count_to = null
       }
 
 
@@ -279,8 +299,7 @@ export default {
     removeAllFilters() {
       this.$router.push('/' + this.path);
       this.values = [];
-      this.statusModel = null;
-      this.typeModel = null;
+
       this.filterFieldCOrderList.forEach(el => {
         const form = {
           name: el.value,

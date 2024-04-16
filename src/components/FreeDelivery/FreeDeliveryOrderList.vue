@@ -138,6 +138,11 @@ export default {
   mounted() {
     this.geOrderList()
     this.getDetail()
+  },
+  watch:{
+    $route(){
+      this.geOrderList()
+    }
   }
 }
 </script>
