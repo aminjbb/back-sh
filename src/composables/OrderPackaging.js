@@ -28,6 +28,12 @@ export default function setup() {
         {name: '  بارکد کالا', show: true, value: 'barcode', order: false},
 
     ]);
+
+    const printLabelHeader = ref([
+        {name: 'ردیف', show: true, value: null, order: false},
+        {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
+
+    ]);
     const item = []
     const loading = ref(false)
     const filter = new PanelFilter()
@@ -102,7 +108,8 @@ export default function setup() {
         barcodeNum,
         extractedIds,
         pageNumber,
-        pageLength
+        pageLength,
+        printLabelHeader
     }
 }
 

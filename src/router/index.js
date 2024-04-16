@@ -272,6 +272,7 @@ import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLab
 
 /* Zone */
 import ZoneListView from '../views/Zone/ZoneListView.vue'
+import PrintOrderLabelView from "@/views/PrintOrderLabel/PrintOrderLabelView.vue";
 
 
 const router = createRouter({
@@ -1809,6 +1810,15 @@ const router = createRouter({
                     component: OrderDetailView,
                     meta: {
                         name: ' بسته بندی سفارش ها'
+                    }
+                },
+
+                {
+                    path: 'print-order-label',
+                    name: 'print-order-label',
+                    component: PrintOrderLabelView,
+                    meta: {
+                        name: 'پرینت بارکد سفارش'
                     }
                 },
                 {

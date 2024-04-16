@@ -212,7 +212,7 @@
                     <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
                           {{ modalPrintOrderObject.order_factor_id }}
-                           </span>
+                           </span>cd
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="4">
