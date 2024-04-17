@@ -146,7 +146,6 @@ import {
 import Orders from "@/composables/Orders";
 import ShpsTable from '@/components/Orders/Table/ShpsModalTable.vue'
 import DiscountTable from '@/components/Orders/Table/DiscountModalTable.vue'
-import {ref} from "vue";
 
 export default {
 
@@ -194,23 +193,8 @@ export default {
 
   methods: {
     close() {
+      this.shipingDetails=[]
       closeModal(this.$store, 'set_orderDetailsModal')
-    },
-
-    openAccordion(id) {
-      const accordionHeader = document.getElementById(`accordion-header-${id}`);
-
-      accordionHeader.classList.toggle("is-open");
-      accordionHeader.children[1].classList.toggle("mdi-chevron-down");
-      accordionHeader.children[1].classList.toggle("mdi-chevron-up");
-
-      let content = accordionHeader.nextElementSibling;
-
-      if (content.style.maxHeight) {
-        content.style.maxHeight = null;
-      } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-      }
     },
 
     /**
