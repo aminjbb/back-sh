@@ -193,6 +193,7 @@ export default {
 
   methods: {
     close() {
+      this.shipingDetails=[]
       closeModal(this.$store, 'set_orderDetailsModal')
     },
 
