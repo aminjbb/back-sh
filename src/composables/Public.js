@@ -11,7 +11,7 @@ export default function setup() {
         labels: [ 'ماه', 'روز'],
         datasets: [
             {
-                label: 'ماه',
+                label: 'کل',
                 data: [],
                 borderColor: ['#673AB7' , '#D72685'],
                 backgroundColor: ['#673AB7' , '#D72685'],
@@ -24,7 +24,7 @@ export default function setup() {
         labels: ['ماه', 'روز'],
         datasets: [
             {
-                label: 'ماه',
+                label: 'کل',
                 data: [],
                 borderColor: [],
                 backgroundColor: [],
