@@ -1,8 +1,8 @@
 <template>
-<div v-if="modalPrintOrderObject" class="pa-5" id="printableArea-order ">
+<div v-if="modalPrintOrderObject" class="" id="printableArea-order ">
     <div>
-        <div class=" mt-10 d-flex justify-center ">
-          <v-card height="199" width="227" class="rounded-0 d--ltr">
+        <div class="  d-flex justify-center ">
+          <v-card height="240" width="282" class="rounded-0 d--ltr">
             <v-row v-if="modalPrintOrderObject.sending_method === 'post'" justify="center" align="center"
                    class="pa-3 ">
               <v-col class="pa-0 ma-0" cols="3">
@@ -80,10 +80,10 @@
               <v-col class="pa-0 ma-0" cols="12">
                 <v-card height="75" variant="outlined" color="black" class="rounded-0 text-right px-1">
                   <p>
-                    <span class="t8400">{{ modalPrintOrderObject.receiver_address }} : آدرس</span>
+                    <span class="t10600">{{ modalPrintOrderObject.receiver_address }} : آدرس</span>
                   </p>
                   <p>
-                    <span class="t8400">  {{ modalPrintOrderObject.receiver_postal_code }} : کدپستی</span>
+                    <span class="t10400">  {{ modalPrintOrderObject.receiver_postal_code }} : کدپستی</span>
                   </p>
                 </v-card>
               </v-col>
@@ -105,20 +105,20 @@
                 </v-card>
               </v-col>
               <v-col class="pa-0 ma-0" cols="12">
-                <v-card height="12" variant="outlined" color="black"
+                <v-card height="22" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center d--rtl">
-                                      <span class="t8400 mx-1">
+                                      <span class="t10600 mx-1">
                                           {{ modalPrintOrderObject.receiver_name }}
                                       </span>
 
-                  <span class="t8400 mx-1">
+                  <span class="t10600 mx-1">
                                           {{ modalPrintOrderObject.receiver_mobile }}
                                       </span>
                 </v-card>
               </v-col>
 
               <v-col cols="12" class="pa-0 ma-0">
-                <v-card height="35" variant="outlined" color="black"
+                <v-card height="65" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center pa-0">
                   <barcode
                       :barcodeValue="modalPrintOrderObject.logistic_barcode"
@@ -147,7 +147,7 @@
                         <span> {{ modalPrintOrderObject?.state?.label }} - </span>
                         <span> {{ modalPrintOrderObject?.city?.label }} </span>
                       </p>
-                      <p class="t8400">
+                      <p class="t10600">
                         <span> {{ modalPrintOrderObject.receiver_address }} </span>
                       </p>
                     </v-col>
@@ -173,12 +173,12 @@
                 </v-card>
               </v-col>
               <v-col class="pa-0 ma-0" cols="12">
-                <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center d--rtl">
-                           <span class="t8400 mx-1">
+                <v-card height="22" variant="outlined" color="black" class="rounded-0 d-flex justify-center d--rtl">
+                           <span class="t10600 mx-1">
                             {{ modalPrintOrderObject.receiver_name }}
                            </span>
 
-                  <span class="t8400 mx-1">
+                  <span class="t10600 mx-1">
                             {{ modalPrintOrderObject.receiver_mobile }}
                           </span>
                 </v-card>
@@ -205,7 +205,7 @@
                 </v-card>
               </v-col>
               <v-col cols="12" class="pa-0 ma-0">
-                <v-card height="40" variant="outlined" color="black"
+                <v-card height="70" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center pa-0">
                   <barcode
                       :barcodeValue="modalPrintOrderObject.logistic_barcode"
