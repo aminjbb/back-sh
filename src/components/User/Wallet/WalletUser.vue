@@ -10,7 +10,7 @@
           class="px-10 py-5"
       >
         <v-col cols="6">
-          <v-row justify="start">
+          <v-row v-if="$route.query.user_id" justify="start">
 
            <IncreseWalletModal :getTransactionList="getTransactionList"/>
           </v-row>
