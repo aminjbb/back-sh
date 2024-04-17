@@ -19,7 +19,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: ' شناسه ', show: true , value:'id', order: true},
-        { name: ' شناسه مشتری', show: true , value:'id', order: true},
+        { name: ' شناسه مشتری', show: true , value:'user_id', order: true},
         { name: ' نام مشتری', show: true , value:'name', order: false},
         { name: ' شماره مشتری', show: true , value:'phone_number', order: false},
         { name: ' شماره شبا مشتری', show: true, value:'type' , order: false},

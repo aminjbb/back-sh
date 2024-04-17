@@ -42,7 +42,7 @@
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
-                        {{ item.id }}
+                        {{ item.shps.id }}
                     </span>
                 </div>
 

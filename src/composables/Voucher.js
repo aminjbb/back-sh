@@ -147,7 +147,7 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            voucher.value = data.data
+            voucher.value = data.data.data
         }
     };
     async function  getVoucherGroup(query) {
