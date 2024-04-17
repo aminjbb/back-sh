@@ -17,8 +17,13 @@
                     روش ارسال:
                 </span>
 
-          <span class="t14500 text-gray500">
-             {{ setKeyPost(detailData?.post) }} {{setKeyTipax(detailData?.tipax)}} {{setKeyNafis(detailData?.nafis)}} {{setKeyPishtaz(detailData?.pishtaz)}}</span>
+          <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+          &nbsp
+          <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+          &nbsp
+          <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+          &nbsp
+          <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
         </div>
 
       </div>
@@ -100,26 +105,10 @@ export default {
     const { getVoucherShps,voucher , dataTableLength ,headerOrderList, geOrderList, orderList, getDetail, filterFieldCOrderList,
       detailData,
       pageLength,page , getVoucherDetail , voucherDetail} = new FreeDelivery()
-    function setKeyPost (post)
-    {  if (post === true) {
-      return 'پست '  }
-    }
-    function setKeyNafis (nafis)
-    {  if (nafis === true) {
-      return 'نفیس '  }
-    }
-    function setKeyPishtaz (pishtaz)
-    {  if (pishtaz === true) {
-      return 'پیشتاز '  }
-    }
-    function setKeyTipax ( tipax)
-    {
-      if (tipax === true)
-      {    return 'تیپاکس'
-      }    }
+
     return {getVoucherShps,voucher,dataTableLength , headerOrderList , geOrderList, orderList, filterFieldCOrderList,
       pageLength,page,getVoucherDetail , voucherDetail, getDetail,
-      detailData,  setKeyTipax, setKeyNafis, setKeyPishtaz, setKeyPost}
+      detailData}
   },
 
   data() {

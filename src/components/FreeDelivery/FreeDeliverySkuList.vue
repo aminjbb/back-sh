@@ -16,9 +16,14 @@
                 <span class="t14500">
                     روش ارسال:
                 </span>
+                <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+                 &nbsp
+                <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+                 &nbsp
+                <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+                 &nbsp
+                <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
 
-            <span class="t14500 text-gray500">
-             {{ setKeyPost(detailData?.post) }} {{setKeyTipax(detailData?.tipax)}} {{setKeyNafis(detailData?.nafis)}} {{setKeyPishtaz(detailData?.pishtaz)}}</span>
           </div>
 
         </div>
@@ -103,26 +108,10 @@
       const {headerShps ,voucher , dataTableLength ,  getDetail,
         detailData,
         pageLength,page , getVoucherDetail , voucherDetail ,skuList, getSkuList, getFreeDeliveryList,filterFieldShps} = new FreeDelivery()
-      function setKeyPost (post)
-      {  if (post === true) {
-        return 'پست '  }
-      }
-      function setKeyNafis (nafis)
-      {  if (nafis === true) {
-        return 'نفیس '  }
-      }
-      function setKeyPishtaz (pishtaz)
-      {  if (pishtaz === true) {
-        return 'پیشتاز '  }
-      }
-      function setKeyTipax ( tipax)
-      {
-        if (tipax === true)
-        {    return 'تیپاکس'
-        }    }
-      return {headerShps,voucher,dataTableLength ,setKeyPost, getDetail,
+
+      return {headerShps,voucher,dataTableLength , getDetail,
         detailData,
-        setKeyTipax, setKeyNafis, setKeyPishtaz, pageLength,page,getVoucherDetail , voucherDetail, skuList, getSkuList, getFreeDeliveryList, filterFieldShps}
+        pageLength,page,getVoucherDetail , voucherDetail, skuList, getSkuList, getFreeDeliveryList, filterFieldShps}
     },
 
     data() {
