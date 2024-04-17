@@ -25,7 +25,7 @@ export default {
       textAlign: 'rif',
       textPosition: 'bottom',
       fontOptions: 'bold',
-      fontSize: 10,
+      fontSize: 16,
       textMargin: 1,
       height: 35,
     };
