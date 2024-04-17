@@ -37,7 +37,7 @@
                 </div>
 
                 <div v-if="header[3].show" class="c-table__contents__item " style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <v-icon v-if="item.pishtaz" class="text-green" size="x-small">mdi-check</v-icon>
+                    <v-icon v-if="item.pishtaz" class="text-green" size="large">mdi-check</v-icon>
                     <v-icon v-else class="text-red" size="large">mdi-close</v-icon>
                 </div>
 

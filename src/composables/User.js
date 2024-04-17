@@ -48,7 +48,7 @@ export default function setup() {
         { name:'حداکثر برداشت از کیف پول', type: 'text', value:'withdraw_amount_to'},
         { name:'حداکثر شارژ کیف پول', type: 'text', value:'deposit_amount_to'},
         { name:'حداقل شارژ کیف پول', type: 'text', value:'deposit_amount_from'},
-        { name:'تاریخ تراکنش', type: 'date', value:'created_at'},
+        // { name:'تاریخ تراکنش', type: 'date', value:'created_at'},
         { name:' شماره ارجاع', type: 'text', value:'refid'},
         { name: 'کد رهگیری', type:'text', value:'shvz_tracking_code'},
         { name: ' وضعیت تراکنش', type:'select', value:'status'},

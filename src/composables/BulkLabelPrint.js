@@ -94,19 +94,13 @@ export default function setup() {
         let data = await AxiosMethod.axios_get();
         console.log("API Response:", data);
         if (data && data.data) {
-            console.log("API Response:", data.data);
-            console.log("shipment_id:", data.data.shipment_id);
-            console.log("shps:", data.data.shps);
-            console.log("package_id:", data.data.package_id);
-    
-            // Commit the values to Vuex
             this.$store.commit('setShipmentData', {
                 shipment_id: data.data.shipment_id,
                 shps: data.data.shps,
                 package_id: data.data.package_id
             });
     
-            // Continue with setting up your form
+
             const form = {
                 dialog: true,
                 object: data.data

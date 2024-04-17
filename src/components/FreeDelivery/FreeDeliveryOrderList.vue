@@ -2,13 +2,23 @@
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
       <div class="d-flex align-center justify-lg-space-evenly">
+
         <div>
-            <span class="t14500">
-               عنوان:
-            </span>
+                <span class="t14500">
+                    عنوان:
+                </span>
           <span class="t14500 text-gray500">
-               {{ voucherDetail?.name }}
-            </span>
+                    {{ detailData?.name }}
+                </span>
+        </div>
+        <div>
+
+                <span class="t14500">
+                    روش ارسال:
+                </span>
+
+          <span class="t14500 text-gray500">
+             {{ setKeyPost(detailData?.post) }} {{setKeyTipax(detailData?.tipax)}} {{setKeyNafis(detailData?.nafis)}} {{setKeyPishtaz(detailData?.pishtaz)}}</span>
         </div>
 
       </div>
@@ -23,7 +33,7 @@
         <v-col cols="6">
           <v-row justify="end">
 
-            <ModalTableFilter path="admin/index" :filterField="[]"/>
+            <ModalTableFilter :path="`free-delivery/${$route.params.freeDeliveryId}/orderList`" :filterFieldCOrderList="filterFieldCOrderList "/>
           </v-row>
         </v-col>
       </v-row>
@@ -33,7 +43,7 @@
       <Table
           class="flex-grow-1"
           :header="headerOrderList"
-          :items="mockSkuList"
+          :items="orderList"
           :page="page"
           :perPage="pageLength"
           :loading="false"
@@ -83,24 +93,56 @@
 </template>
 <script>
 import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterOrderList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 export default {
   setup() {
-    const { getVoucherShps,voucher , dataTableLength ,headerOrderList,
+    const { getVoucherShps,voucher , dataTableLength ,headerOrderList, geOrderList, orderList, getDetail, filterFieldCOrderList,
+      detailData,
       pageLength,page , getVoucherDetail , voucherDetail} = new FreeDelivery()
-    return {getVoucherShps,voucher,dataTableLength , headerOrderList ,
-      pageLength,page,getVoucherDetail , voucherDetail}
+    function setKeyPost (post)
+    {  if (post === true) {
+      return 'پست '  }
+    }
+    function setKeyNafis (nafis)
+    {  if (nafis === true) {
+      return 'نفیس '  }
+    }
+    function setKeyPishtaz (pishtaz)
+    {  if (pishtaz === true) {
+      return 'پیشتاز '  }
+    }
+    function setKeyTipax ( tipax)
+    {
+      if (tipax === true)
+      {    return 'تیپاکس'
+      }    }
+    return {getVoucherShps,voucher,dataTableLength , headerOrderList , geOrderList, orderList, filterFieldCOrderList,
+      pageLength,page,getVoucherDetail , voucherDetail, getDetail,
+      detailData,  setKeyTipax, setKeyNafis, setKeyPishtaz, setKeyPost}
   },
 
   data() {
-    return {
-      mockSkuList:[]
+    return{
+      freeDeliveryId:this.$route.params.freeDeliveryId,
+
     }
+  },
+  methods:{
+
   },
   components: {
     Table,
     ModalTableFilter
   },
+  mounted() {
+    this.geOrderList()
+    this.getDetail()
+  },
+  watch:{
+    $route(){
+      this.geOrderList()
+    }
+  }
 }
 </script>

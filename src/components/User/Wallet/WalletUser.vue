@@ -24,7 +24,8 @@
             />
 
             <ModalTableFilter
-                path="wallet/index"
+
+                :path="`wallet/index`"
                 :filterFieldWallet="filterFieldWallet"
             />
           </v-row>
@@ -116,8 +117,14 @@ export default {
     ModalTableFilter, ModalColumnFilter,
     Table,IncreseWalletModal
   },
+  data() {
+    return {
+      userId: this.$route.params.userId,
+    }
+  },
   mounted() {
     this.getTransactionList()
+    this.getUsers()
   },
   methods: {
     changeHeaderShow(index, value) {
