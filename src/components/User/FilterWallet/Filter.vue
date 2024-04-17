@@ -292,7 +292,11 @@ export default {
       filter.page = 1;
       if (this.user ?.id) {
         filter.user_id = this.user ?.id
-      } else {
+      }
+      else if (this.$route.query.user_id){
+        filter.user_id = this.$route.query.user_id
+      }
+      else {
         filter.user_id = null
       }
       if (this.statusModel) {
