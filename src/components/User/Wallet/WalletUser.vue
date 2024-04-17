@@ -10,7 +10,7 @@
           class="px-10 py-5"
       >
         <v-col cols="6">
-          <v-row justify="start">
+          <v-row v-if="$route.query.user_id" justify="start">
 
            <IncreseWalletModal :getTransactionList="getTransactionList"/>
           </v-row>
@@ -61,7 +61,7 @@
             <div class="text-center" >
               <v-pagination
                   v-model="page"
-                  :length="pageLength"
+                  :length="pageLengthWallet"
                   rounded="circle"
                   size="40"
                   :total-visible="7"
@@ -106,9 +106,9 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
 export default {
   setup() {
-    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , filterFieldWallet,
+    const {pageLength, users, getUsers , dataTableLength , pageLengthWallet, page  , header , userList , getUserList , filterField , filterFieldWallet,
       addPerPage, headerTransaction, getTransactionList, transactionList} = User();
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , filterFieldWallet,
+    return {pageLength, users, getUsers , dataTableLength , pageLengthWallet, page  , header , userList , getUserList , filterField , filterFieldWallet,
       addPerPage, headerTransaction, getTransactionList, transactionList};
   },
   components:{
