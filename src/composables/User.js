@@ -13,6 +13,7 @@ export default function setup() {
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
+    const pageLengthWallet =ref(1)
     const header = ref([
         {name:'ردیف' , show:true, value:null, order:false},
         {name:'نام' , show:true, value:'first_name', order:false},
@@ -141,7 +142,7 @@ export default function setup() {
         AxiosMethod.end_point = `finance/admin/transaction/crud/index/${paramsQuery}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = data.data.last_page
+            pageLengthWallet.value = data.data.last_page
             transactionList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
@@ -173,8 +174,8 @@ export default function setup() {
     watch(page, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true
-            if (route.name === 'walletUser') addPaginationWallet(val)
-            else addPagination(val)
+            addPaginationWallet(val)
+
 
 
         }
@@ -182,7 +183,7 @@ export default function setup() {
 
 
 
-    return {pageLength, users, getUsers ,
+    return {pageLength, pageLengthWallet,  users, getUsers ,
         dataTableLength , page  , header , userList ,
         getUserList , filterField , filterFieldWallet, user , getUser , addPerPage,
         getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList,

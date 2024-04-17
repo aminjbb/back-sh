@@ -171,12 +171,12 @@ export class UserWalletFilter {
         else if (routeQuery.per_page ) {
             query += "per_page=" + routeQuery.per_page + "&";
         }
-
-        if  (this.page){
-            query += "page=" + this.page + "&";
-        }
-        else if (routeQuery.page){
+        if (routeQuery.page){
             query += "page=" + routeQuery.page + "&";
+        }
+        else if  (this.page){
+
+            query += "page=" + this.page + "&";
         }
 
         if (routeQuery.order) {
