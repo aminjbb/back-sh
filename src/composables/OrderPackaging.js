@@ -23,9 +23,13 @@ export default function setup() {
 
     const detailInfo = ref([
         {name: 'ردیف', show: true, value: null, order: false},
+        {name: ' نام متصدی', show: true, value: 'admin_name', order: false},
+        {name: ' شناسه سورتینگ', show: true, value: 'sorting_placement', order: false},
+        {name: 'وضعیت بسته بندی', show: true, value: 'packing_status', order: false},
         {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
         {name: ' نام کالا ', show: true, value: 'name', order: false},
         {name: '  بارکد کالا', show: true, value: 'barcode', order: false},
+        {name: 'تصویر', show: true, value: 'image_url', order: false},
 
     ]);
 

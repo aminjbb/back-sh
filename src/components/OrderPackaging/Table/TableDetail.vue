@@ -43,11 +43,35 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-black py-5 number-font">
+                            {{ item.admin_name}}
+                        </span>
+          </div>
+          <div
+              v-if=" header[2].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-black py-5 number-font">
+                            {{ item.sorting_placement}}
+                        </span>
+          </div>
+          <div
+              v-if=" header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-black py-5 number-font">
+                            {{ item.packing_status}}
+                        </span>
+          </div>
+          <div
+              v-if=" header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>
           <div
-              v-if="header[2].show"
+              v-if="header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-black py-5">
@@ -61,7 +85,7 @@
           </div>
 
           <div
-              v-if="header[3].show"
+              v-if="header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <span class="t14300 text-black py-5 number-font">
@@ -71,6 +95,14 @@
                             <template v-else>
                                 نامعلوم
                             </template>
+                        </span>
+          </div>
+          <div
+              v-if="header[7].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                        <span class="t14300 text-black py-5 number-font">
+                           <img width="70" height="70" :src="item?.sku_image?.image_url">
                         </span>
           </div>
 
