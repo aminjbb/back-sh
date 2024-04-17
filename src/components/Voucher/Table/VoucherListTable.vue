@@ -255,6 +255,14 @@
                   </div>
                 </v-list-item-title>
                 <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl" v-if="item.voucher_type === 'peer_to_peer'" @click="$router.push(`/voucher/${item.id}/peer`)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">
+                      لیست کد های تخفیف
+                    </span>
+                  </div>
+                </v-list-item-title>
+                <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">

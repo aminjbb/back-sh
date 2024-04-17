@@ -42,6 +42,13 @@ export default function setup() {
         { name: 'ردیف', show: true, value: null , order: false},
         { name: ' کد تخفیف', show: true, value: 'code', order: false},
     ]);
+    const headerPeerToPeerVoucherList = ref([
+        { name: 'ردیف', show: true, value: null , order: false},
+        { name: ' کد تخفیف', show: true, value: 'code', order: false},
+        { name: ' شماره تماس کاربر', show: true, value: 'phone_number', order: false},
+        { name: ' نام کاربر', show: true, value: 'first_name', order: false},
+        { name: ' نام خانوادگی کاربر', show: true, value: 'last_name', order: false},
+    ]);
     const headerCustomer =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
         { name: 'شناسه مشتری', show: true, value: 'id', order: true},
@@ -92,6 +99,11 @@ export default function setup() {
         {name:'نام فارسی' , type:'text', value:'label'},
         {name:'فعال سازی ' , type:'switch', value:'active'},
     ]);
+    const filterFieldPeerToPeer =ref( [
+        {name:'کد تخفیف ' , type:'text', value:'code'},
+        {name:'نام مشتری' , type:'auto-complete', value:'user_id'},
+
+    ]);
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -135,15 +147,20 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
-            voucher.value = data.data
+            voucher.value = data.data.data
         }
     };
     async function  getVoucherGroup(query) {
-
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}`
+        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}${paramsQuery}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -298,7 +315,7 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push(route.path + filter.query_maker())
     }
-    return {headerShps , headerPublicVoucherList, headerCustomer , headerVouchers ,filterField , page , voucherList
+    return {headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers ,filterField , page , voucherList, filterFieldPeerToPeer
     ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,addPagination,
         getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPage , addPerPageCustomer , addPaginationCustomer,
         headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder}
