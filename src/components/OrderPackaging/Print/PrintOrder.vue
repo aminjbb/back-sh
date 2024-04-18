@@ -28,7 +28,7 @@
                 <v-card height="12" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center">
                                       <span class="t8400">
-                                           سلامت آوران یزدان نفیس
+                                          فروشگاه اینترنتی شاواز
                                       </span>
                 </v-card>
               </v-col>
