@@ -6,7 +6,7 @@
             <v-row v-if="modalPrintOrderObject.sending_method === 'post'" justify="center" align="center"
                    class="pa-3 ">
               <v-col class="pa-0 ma-0" cols="3">
-                <v-card height="30" variant="outlined" color="black" class="rounded-0">
+                <v-card height="30" variant="outlined" color="black" class="rounded-0 text-center">
 
                 </v-card>
               </v-col>
@@ -28,6 +28,7 @@
                 <v-card height="12" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center">
                                       <span class="t8400">
+                                           سلامت آوران یزدان نفیس
                                       </span>
                 </v-card>
               </v-col>
