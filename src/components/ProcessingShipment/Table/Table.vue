@@ -101,7 +101,8 @@
           <div
 
               class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0.1 0 ${itemsWidth}` }"
+          style="width: 100px">
               <div class="t14300 text-gray500 py-5 number-font w-100">
                 <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
               </div>
