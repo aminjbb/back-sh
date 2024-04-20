@@ -62,14 +62,7 @@
                        {{ item.sku_label }}
                     </span>
           </div>
-          <div
 
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex:  `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item?.shopping_name }}
-                    </span>
-          </div>
 
           <div
 
@@ -130,7 +123,7 @@
           </div>
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item justify-start px-0"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span>
                 <img :src="item?.image?.image_url" width="70" height="70">

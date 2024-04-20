@@ -24,7 +24,6 @@ export default function setup() {
     const headerShps =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: 'نام تامین کننده', show: true , value:'shopping_name', order: false},
         { name: 'تعداد درخواستی', show: true, value:'number' , order: false},
         { name: 'تلورانس پایین', show: true , value:'low_tolerance', order: false},
         { name: 'تلورانس بالا', show: true, value:'high_tolerance', order: false },
