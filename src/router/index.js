@@ -274,6 +274,7 @@ import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLab
 /* Zone */
 import ZoneListView from '../views/Zone/ZoneListView.vue'
 import PrintOrderLabelView from "@/views/PrintOrderLabel/PrintOrderLabelView.vue";
+import ManualOrderListView from "@/views/ManualOrder/ManualOrderListView.vue";
 
 
 const router = createRouter({
@@ -1922,6 +1923,14 @@ const router = createRouter({
                     component: AddOrderView,
                     meta: {
                         name: 'ساخت سفارش'
+                    }
+                },
+                {
+                    path: 'manual-order-list',
+                    name: 'AddManualOrderView',
+                    component: ManualOrderListView,
+                    meta: {
+                        name: 'سفارش های اپراتوری'
                     }
                 },
             ],
