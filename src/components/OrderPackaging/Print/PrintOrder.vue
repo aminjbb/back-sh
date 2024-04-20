@@ -168,8 +168,8 @@
                         <span class="t12400" v-if="modalPrintOrderObject.sending_method === 'tipax'">
                           تیپاکس
                         </span>
-                  <span class="t12400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
-                          نفیس
+                        <span class="t12400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
+                           {{ modalPrintOrderObject?.branch_title }}
                         </span>
                 </v-card>
               </v-col>
