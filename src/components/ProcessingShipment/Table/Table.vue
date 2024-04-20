@@ -114,11 +114,20 @@
                 <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].price" variant="outlined"/>
               </div>
           </div>
+
           <div
               v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
+          </div>
+          <div
+
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <span>
+                <img :src="item?.image?.image_url" width="70" height="70">
+              </span>
           </div>
           <div
               v-if="  form[index] && model === 'shavaz'"
