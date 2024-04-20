@@ -30,7 +30,7 @@ export default function setup() {
         { name: 'تعداد باقیمانده', show: true, value:'high_tolerance', order: false },
         { name: 'تعداد تایید شده', show: true, value:'high_tolerance', order: false },
         { name: 'بارکد کالا', show: true, value:'high_tolerance', order: false },
-        { name: 'عکس', show: true, value:'high_tolerance', order: false },
+        { name: 'عکس', show: true, value:'image_url', order: false },
         { name: 'ذخیره', show: true, value:'high_tolerance', order: false },
     ]);
     const headerShpsSellerUpcoming =ref([
