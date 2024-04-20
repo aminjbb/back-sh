@@ -110,13 +110,9 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_get()
       if (data) {
+        this.loading = false
         this.orderDetail = data?.data?.order?.details
-        this.orderId =data?.data?.order?.id
-        const form = {
-          dialog :true,
-          object : data.data?.label
-        }
-        this.$store.commit('set_modalPrintOrder' , form)
+        window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
       } else {
         this.loading = false
       }
