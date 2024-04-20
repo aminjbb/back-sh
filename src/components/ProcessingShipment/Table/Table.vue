@@ -62,6 +62,14 @@
                        {{ item.sku_label }}
                     </span>
           </div>
+          <div
+
+              class="c-table__contents__item text-right"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                       {{ item?.shopping_name }}
+                    </span>
+          </div>
 
 
           <div
