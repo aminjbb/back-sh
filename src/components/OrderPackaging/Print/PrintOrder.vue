@@ -165,10 +165,10 @@
               </v-col>
               <v-col class="pa-0 ma-0" cols="8">
                 <v-card height="22" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                        <span class="t12400" v-if="modalPrintOrderObject.sending_method === 'tipax'">
+                        <span class="t12600" v-if="modalPrintOrderObject.sending_method === 'tipax'">
                           تیپاکس
                         </span>
-                        <span class="t12400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
+                        <span class="t12600" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
                            {{ modalPrintOrderObject?.branch_title }}
                         </span>
                 </v-card>
