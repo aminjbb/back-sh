@@ -181,29 +181,13 @@ export default {
       if (data) {
         this.orderId = data?.data?.order?.id
         if (data?.data?.is_completed) {
-          openToast(this.$store, 'لطفا منتظر بمانید')
-          this.getDetailModal(data?.data?.order)
+          window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
         }
         this.orderDetail = data?.data?.order_items
         this.loading = false
         setTimeout(()=>{this.shpsItem = ''},1000)
       } else {
         this.loading = false
-      }
-    },
-    async getDetailModal(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/print/label/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        closeToast(this.$store)
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_modalPrintOrder', form)
       }
     },
 
