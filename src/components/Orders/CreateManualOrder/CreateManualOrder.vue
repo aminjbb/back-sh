@@ -8,9 +8,7 @@
       <template v-if="step === 2">
         <NaturalSellerStep2 ref="step2"/>
       </template>
-      <template v-if="step === 3">
-        <NaturalSellerStep3 ref="step3"/>
-      </template>
+
 
 
 

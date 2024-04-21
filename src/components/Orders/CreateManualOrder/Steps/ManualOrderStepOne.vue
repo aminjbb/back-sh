@@ -15,7 +15,6 @@
         >
           <div class="text-right my-2">
                         <span class="t12500">
-
                             {{ labels.orderId }}
                         </span>
           </div>
@@ -34,8 +33,7 @@
         >
           <div class="text-right my-2">
                         <span class="t12500">
-
-                            {{ labels.description }}
+                             {{ labels.mobile }}
                         </span>
           </div>
 
@@ -50,118 +48,88 @@
             cols="12"
             class="brands-list"
         >
+          <div v-if="objData.length > 0" >
+            <div class="bg-deep-purple-accent-2 mt-2 pa-6 rounded-lg" v-for="(item , index) in objData" :key="index">
+              <div class="mb-5">{{ item.userAddress }}</div>
+              <div class="d-flex justify-between">
+              <div class="d-flex">
+                  <span >
+                 شماره تماس:
+               </span>
+                <span>
+                   <div>{{ item.postalCode }}</div>
 
+               </span>
+              </div>
+                <div class="d-flex">
+                  <span >
+                کد پستی:
+               </span>
+                  <span>
+                  <div>{{ item.phoneNumber }}</div>
+               </span>
+                </div>
+                <div class="d-flex">
+                  <span >
+                گیرنده :
+               </span>
+                  <span>
+                  <div>{{ item.receiver }}</div>
+               </span>
+                </div>
+              </div>
 
-
-          <div class="bg-deep-purple-accent-2 mt-5 pa-10" >
-            <div>hello wrld</div>
-            <div>not</div>
+            </div>
           </div>
-        </v-col>
-        <v-col
-            cols="6"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
+          <div class="d-flex"  >
+          <v-col
+              cols="6"
+              class="brands-list"
+          >
+            <div class=" my-4">
+                        <span class="t12500">
+                          {{ labels.description }}
+                        </span>
+            </div>
+
+            <v-text-field
+                v-model="form.description"
+                variant="outlined"
+                placeholder=""
+            />
+          </v-col>
+
+
+            <v-col class=" my-6"
+              cols="6"
+              >
+              <div class="text-right ">
                         <span class="t12500">
 
-                            {{ labels.mobile }}
+                            {{ labels.sendingMethod }}
                         </span>
-          </div>
-
-          <v-text-field
-              v-model="form.mobile"
-              :rules="mobileRule"
-              variant="outlined"
-              placeholder=""
-          />
-        </v-col>
-        <v-col
-            cols="6"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
-                        <span class="t12500">
-
-                            {{ labels.email }}
-                        </span>
-          </div>
-
-          <v-text-field
-              v-model="form.email"
-              :rules="emailRule"
-              variant="outlined"
-              placeholder=""
-          />
-        </v-col>
-        <v-col
-            cols="6"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
-                        <span class="t12500">
-
-                            {{ labels.nationalCode }}
-                        </span>
-          </div>
-
-          <v-text-field
-              v-model="form.nationalCode"
-              :rules="nationalCodeRule"
-              variant="outlined"
-              placeholder=""
-          />
-        </v-col>
-        <v-col
-            cols="6"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
-                        <span class="t12500">
-
-                            {{ labels.certificateNumber }}
-                        </span>
-          </div>
-
-          <v-text-field
-              v-model="form.certificateNumber"
-              :rules="rule"
-              variant="outlined"
-              placeholder=""
-          />
-        </v-col>
-        <v-col
-            cols="12"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
-                        <span class="t12500">
-
-                            {{ labels.nationalCard }}
-                        </span>
-          </div>
-
-          <UploadFileSection @getImage="getNationalCard"/>
-          <div class="d-flex align-center mt-5" v-for="(image , index) in form.nationalCard">
-            <span>IMG-{{image}}</span>
-            <span class="mr-15"><v-icon color="error">mdi-delete</v-icon></span>
-          </div>
-        </v-col>
-        <v-col
-            cols="12"
-            class="brands-list"
-        >
-          <div class="text-right my-2">
-                        <span class="t12500">
-
-                            {{ labels.certificate }}
-                        </span>
-          </div>
-
-          <UploadFileSection @getImage="getCertificateImage"/>
-          <div class="d-flex align-center mt-5" v-if="form.certificate">
-            <span>IMG-{{ form.certificate }}</span>
-            <span class="mr-15"><v-icon color="error">mdi-delete</v-icon></span>
+              </div>
+           <div class="d-flex  ">
+             <v-checkbox
+                 class="t11500"
+                 v-model="tets"
+                 label="John"
+                 value="John"
+             ></v-checkbox>
+             <v-checkbox
+                 class="t11500"
+                 v-model="test"
+                 label="Jacob"
+                 value="Jacob"
+             ></v-checkbox>
+             <v-checkbox
+                 class="t11500"
+                 v-model="test"
+                 label="Jacob"
+                 value="Jacob"
+             ></v-checkbox>
+           </div>
+            </v-col>
           </div>
         </v-col>
       </v-row>
@@ -172,8 +140,9 @@
 
 <script>
 import UploadFileSection from '@/components/Public/UploadFileSection.vue'
+
 export default {
-  components:{
+  components: {
     UploadFileSection
   },
   setup() {
@@ -181,6 +150,26 @@ export default {
   },
 
   data: () => ({
+    objData: [
+      {
+        userAddress: "تهران، بزرگراه باکری جنوب کوی ارم خیابان شهیدمحسن یعقوبی(بهار جنوبی) نبش کوچه شهید اکبر اصغر زاده پلاک 18",
+        postalCode: "1111111111 ",
+        phoneNumber: "0912111111",
+        receiver: "ایدین",
+      },
+      {
+        userAddress: "تهران، سهروردی 18",
+        postalCode: "2222222222 ",
+        phoneNumber: "09121222222",
+        receiver: "ایدین2",
+      },
+      {
+        userAddress: "تهران، بهار 18",
+        postalCode: "333333333 ",
+        phoneNumber: "0912333333",
+        receiver: "ایدین3",
+      }
+    ],
 
     labels: {
       userAddress: "تهران، بزرگراه باکری جنوب کوی ارم خیابان شهیدمحسن یعقوبی(بهار جنوبی) نبش کوچه شهید اکبر اصغر زاده پلاک 18",
@@ -198,18 +187,20 @@ export default {
       certificate: 'تصویر صفحه اول شناسنامه',
 
     },
-    form:{
-      fullName:null,
-      shopName:'',
-      logo:null,
-      mobile:null,
-      email:null,
-      nationalCode :null,
-      certificateNumber:null,
-      certificate:null,
-      nationalCard:[]
+    form: {
+      fullName: null,
+      shopName: '',
+      logo: null,
+      mobile: null,
+      orderId: null,
+      description: null,
+      email: null,
+      nationalCode: null,
+      certificateNumber: null,
+      certificate: null,
+      nationalCard: []
     },
-    valid:true,
+    valid: true,
     rule: [v => !!v || 'این فیلد الزامی است'],
     persianRule: [
       (v) => !!v || "این فیلد الزامی است",
@@ -254,28 +245,28 @@ export default {
 
     // get state create sku
     state: {
-      type :String,
-      default :''
+      type: String,
+      default: ''
     },
 
-    getAllAttributes:{
-      type:Function,
+    getAllAttributes: {
+      type: Function,
     }
   },
 
-  methods:{
-    getLogoImage(image){
+  methods: {
+    getLogoImage(image) {
       this.form.logo = image.data.data.image_id
     },
-    getNationalCard(image){
+    getNationalCard(image) {
       this.form.nationalCard.push(image.data.data.file_id)
     },
-    getCertificateImage(image){
+    getCertificateImage(image) {
       this.form.certificate = image.data.data.file_id
     }
   },
   mounted() {
-    if (this.$store.getters['get_naturalSellerStep1'] != null){
+    if (this.$store.getters['get_naturalSellerStep1'] != null) {
       this.form = this.$store.getters['get_naturalSellerStep1']
     }
   }
