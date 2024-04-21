@@ -188,9 +188,10 @@ export default {
           sku :{
             label:element.sku
           },
-          id:element.shps
+          id:element.shps,
+
         }
-        this.assignSku(object)
+        this.assignSku(object , element.count , element?.max_tolerance , element?.min_tolerance)
       })
     },
     changeHeaderShow(index, value) {
@@ -198,7 +199,6 @@ export default {
     },
 
     updateList(status) {
-      console.log('3.skuList', status)
       if (status === 'true') {
         this.getSkuSeller();
       }
@@ -251,13 +251,12 @@ export default {
         this.loading = false
       }
     },
-    async assignSku(shps) {
-      console.log(shps)
+    async assignSku(shps , count , max , min) {
      const form = {
         shps : shps,
-        maxTolerance :'100',
-        minTolerance :'0',
-        count:'0'
+        maxTolerance :max,
+        minTolerance :min,
+        count:count
       }
       this.$refs.retailShipmentShps.form.push(form)
       this.shpsList.push(shps)
