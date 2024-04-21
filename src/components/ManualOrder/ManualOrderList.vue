@@ -62,7 +62,8 @@ export default {
       pageLength,
       loading,
       manualOrderList,
-      filterField
+      filterField,
+      getManualOrderList
     } = ManualOrders()
 
     return {
@@ -72,7 +73,8 @@ export default {
       pageLength,
       loading,
       manualOrderList,
-      filterField
+      filterField,
+      getManualOrderList
     };
   },
   components: {ModalTableFilter, ModalColumnFilter, Table },
@@ -81,7 +83,11 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-  }
+  },
+
+  mounted() {
+    this.getManualOrderList()
+  },
 }
 </script>
 

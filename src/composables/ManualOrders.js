@@ -1,4 +1,6 @@
 import {ref} from "vue";
+import {AxiosCall} from "@/assets/js/axios_call";
+import {PanelFilter} from "@/assets/js/filter_order";
 
 export default function setup() {
    const header =ref( [
@@ -37,10 +39,47 @@ export default function setup() {
     ]
 
    const page = ref(1)
-    const dataTableLength = ref(25)
-    const pageLength = ref(1)
-    const loading = ref(false)
-    const manualOrderList = ref([])
+   const dataTableLength = ref(25)
+   const pageLength = ref(1)
+   const loading = ref(false)
+   const manualOrderList = ref([])
+   const isFilterPage =ref(false)
+   const isFilter =ref(false)
 
-    return {header, filterField, page, dataTableLength, pageLength, loading, manualOrderList}
+    async function getManualOrderList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+
+        else  paramsQuery = filter.params_generator(route.query)
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            manualOrderList.value = data.data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    }
+
+    return {
+       header,
+        filterField,
+        page,
+        dataTableLength,
+        pageLength,
+        loading,
+        manualOrderList,
+        getManualOrderList
+   }
 }
