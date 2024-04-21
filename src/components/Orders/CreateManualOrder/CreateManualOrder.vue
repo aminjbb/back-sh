@@ -6,7 +6,7 @@
         <ManualOrderStepOne ref="step1"/>
       </template>
       <template v-if="step === 2">
-        <NaturalSellerStep2 ref="step2"/>
+        <ManualOrderStepTwo ref="step2"/>
       </template>
 
 
@@ -78,13 +78,13 @@ import Stepper from '@/components/Public/Stepper.vue'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
 import ManualOrderStepOne from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepOne.vue'
-import NaturalSellerStep2 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep2.vue'
+import ManualOrderStepTwo from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepTwo.vue'
 import NaturalSellerStep3 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep3.vue'
 export default {
 
   components: {
     ManualOrderStepOne,
-    NaturalSellerStep2,
+    ManualOrderStepTwo,
     NaturalSellerStep3,
     Stepper
   },
@@ -95,7 +95,6 @@ export default {
     steps:[
       'اطلاعات سفارش',
       'انتخاب محصول',
-      'اطلاعات پرداخت'
     ]
 
   }),
@@ -110,8 +109,6 @@ export default {
         this.step1Validation()
       }if (this.step === 2){
         this.step2Validation()
-      }if (this.step === 3){
-        this.step3Validation()
       }
     },
     step1Validation(){
@@ -147,20 +144,7 @@ export default {
         }
       },200)
     },
-    step3Validation(){
-      this.$refs.step3.$refs.createSeller3.validate()
-      setTimeout(()=>{
-        if (this.$refs.step3.form.contract === null){
-          openToast( this.$store,
-              'فایل قرارداد الزامی است',
-              "error")
-        }
-        else if (this.$refs.step3.valid){
-          this.$store.commit('set_naturalSellerStep3' , this.$refs.step3.form)
-          this.createSeller()
-        }
-      },200)
-    },
+
     /**
      * decrease step
      */
