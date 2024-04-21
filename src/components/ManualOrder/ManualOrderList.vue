@@ -23,9 +23,9 @@
 
         <v-col cols="6">
           <v-row justify="end" class="mt-0">
-<!--            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />-->
+            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-<!--            <ModalTableFilter path="orders/index" :filterField="filterField" />-->
+            <ModalTableFilter path="orders/manual-order-list" :filterField="filterField"/>
           </v-row>
         </v-col>
       </v-row>
@@ -48,11 +48,10 @@
 </template>
 
 <script>
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalTableFilter from '@/components/ManualOrder/Filter/ModalTableFilter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vue";
 import ManualOrders from "@/composables/ManualOrders";
-
 
 export default {
   setup() {
@@ -62,7 +61,8 @@ export default {
       dataTableLength,
       pageLength,
       loading,
-      manualOrderList
+      manualOrderList,
+      filterField
     } = ManualOrders()
 
     return {
@@ -71,10 +71,17 @@ export default {
       dataTableLength,
       pageLength,
       loading,
-      manualOrderList
+      manualOrderList,
+      filterField
     };
   },
-  components: { Table }
+  components: {ModalTableFilter, ModalColumnFilter, Table },
+
+  methods:{
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
+  }
 }
 </script>
 

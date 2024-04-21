@@ -14,11 +14,33 @@ export default function setup() {
        { name: 'روش ارسال', show: true, value:'shipping_method', order: false },
        { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
     ])
+
+   const filterField = [
+        {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'نام کاربر' , type:'text', value:'creator_id'},
+        {name:'شماره کاربر' , type:'text', value:'phone_number'},
+        {name:'وضعیت سفارش' , type:'select', value:'status'},
+        {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
+        {name:'روش پرداخت' , type:'select', value:'payment_method'},
+        {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
+        {name:'روش ارسال' , type: 'select', value:'shipping_method'},
+        {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'استان' , type:'select', value:'receive_state_id'},
+        {name:'شهر' , type:'select', value:'receive_city_id'},
+        {name:'کد معرف' , type:'text', value:'identification_code'},
+        {name:'شناسه بانکی' , type:'text', value:'bank_id'},
+        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
+        {name:'کمترین مبلغ تخفیف ' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ تخفیف ' , type:'text', value:'paid_price_to'},
+    ]
+
    const page = ref(1)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const loading = ref(false)
     const manualOrderList = ref([])
 
-    return {header, page, dataTableLength, pageLength, loading, manualOrderList}
+    return {header, filterField, page, dataTableLength, pageLength, loading, manualOrderList}
 }
