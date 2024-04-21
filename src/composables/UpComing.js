@@ -21,6 +21,7 @@ export default function setup() {
         { name: ' تعداد آیتم', show: true , value:'id', order: false},
         { name: 'تنوع آیتم', show: true, value:'created_at', order: false },
         { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
+        { name: 'نام تامین کننده', show: true , value:'shopping_name', order: false},
         { name: 'نام سازنده', show: true, value:'is_index', order: false },
         { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
         { name: 'وضعیت', show: true, value:'is_active', order: false },
