@@ -27,7 +27,9 @@ export default {
       fontOptions: 'bold',
       fontSize: 24,
       textMargin: 1,
-      height: 85,
+      width: 4,
+      height: 100
+
     };
     JsBarcode("#barcode", this.barcodeValue, settings);
   }
@@ -37,11 +39,13 @@ export default {
 
 <style scoped>
 svg {
-  width: 160px !important;
+  width: 90% !important;
   height: 65px!important;
 }
 
 .barcode-container {
+  display: flex;
+  justify-content: center;
   position: relative;
 }
 
