@@ -42,7 +42,17 @@ export default function setup() {
    const dataTableLength = ref(25)
    const pageLength = ref(1)
    const loading = ref(false)
-   const manualOrderList = ref([])
+   const manualOrderList = ref([
+       {
+           id:10,
+           order_number: "52219210",
+           user:{
+                first_name: 'یسرا',
+                last_name: 'فیلی',
+                phone_number:'09391202557'
+           }
+       }
+   ])
    const isFilterPage =ref(false)
    const isFilter =ref(false)
 
@@ -63,7 +73,59 @@ export default function setup() {
 
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            manualOrderList.value = data.data.data
+            // manualOrderList.value = data.data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    }
+
+    async function getOrderList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+
+        else  paramsQuery = filter.params_generator(route.query)
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            // manualOrderList.value = data.data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    }
+
+    async function getShpsList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+
+        else  paramsQuery = filter.params_generator(route.query)
+
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        let data = await AxiosMethod.axios_get()
+
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            // manualOrderList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -80,6 +142,8 @@ export default function setup() {
         pageLength,
         loading,
         manualOrderList,
-        getManualOrderList
+        getManualOrderList,
+        getOrderList,
+        getShpsList
    }
 }

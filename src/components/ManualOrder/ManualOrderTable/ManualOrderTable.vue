@@ -125,27 +125,27 @@
                     </span>
           </div>
 
-          <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font text-center">
-                        <template v-if="item.submit_date_fa">
-                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
+<!--          <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">-->
+<!--                    <span class="t13400 text-gray500 py-5 number-font text-center">-->
+<!--                        <template v-if="item.submit_date_fa">-->
+<!--                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}-->
+<!--                        </template>-->
+<!--                        <template v-else>-->
+<!--                            - -->
+<!--                        </template>-->
+<!--                    </span>-->
+<!--          </div>-->
 
-          <div v-if="header[12].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font text-center">
-                        <template v-if="item.logistic_date_fa">
-                            {{ item.logistic_date_fa }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
+<!--          <div v-if="header[12].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">-->
+<!--                    <span class="t13400 text-gray500 py-5 number-font text-center">-->
+<!--                        <template v-if="item.logistic_date_fa">-->
+<!--                            {{ item.logistic_date_fa }}-->
+<!--                        </template>-->
+<!--                        <template v-else>-->
+<!--                            - -->
+<!--                        </template>-->
+<!--                    </span>-->
+<!--          </div>-->
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
@@ -159,27 +159,21 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش جزئیات
-                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/edit`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.id}/edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        ویرایش اطلاعات گیرنده
-                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش سفارش</span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش فاکتور مالی
-                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">نمایش فاکتور مالی</span>
                   </div>
                 </v-list-item-title>
               </v-list>

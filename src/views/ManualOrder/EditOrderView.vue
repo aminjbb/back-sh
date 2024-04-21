@@ -1,7 +1,7 @@
 <script setup>
-import Header from "@/components/Public/Header.vue";
 import DashboardLayout from "@/components/Layouts/DashboardLayout.vue";
-import ManualOrderList from "@/components/ManualOrder/ManualOrderList.vue";
+import Header from "@/components/Public/Header.vue";
+import EditOrder from "@/components/ManualOrder/EditOrder/EditOrder.vue";
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import ManualOrderList from "@/components/ManualOrder/ManualOrderList.vue";
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-    <ManualOrderList/>
+      <EditOrder/>
     </v-main>
   </v-layout>
 </template>
