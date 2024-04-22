@@ -14,6 +14,8 @@ export default function setup() {
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
+    const manualOrderListGet = ref([])
+
 
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -151,6 +153,33 @@ export default function setup() {
         else {
         }
     };
+    async function getManualOrderListGet(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/get/${route.params.orderId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            manualOrderListGet.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+        else {
+        }
+    };
+
+
 
     function addPerPage(number){
         filter.page = 1
@@ -181,5 +210,5 @@ export default function setup() {
         }
     })
 
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader , getManualOrderList, manualOrderHeader, manualOrderList}
+    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList, manualOrderHeader, manualOrderList}
 }
