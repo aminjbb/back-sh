@@ -136,9 +136,9 @@
               v-if="header[4].show"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
-            <template v-if="item.site_stock">
+            <template v-if=" item?.shps?.site_stock">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item?.site_stock}}
+                            {{ item?.shps?.site_stock}}
                         </span>
 
             </template>
@@ -247,12 +247,7 @@
       </div>
     </div>
 
-    <ModalMassUpdate :updateUrl="updateUrl" />
-    <OrderLimitModal @updateList="updateList" />
-    <InventoryManagementModal @updateList="updateList" />
-    <ConsumerPriceModal @updateList="updateList" />
-    <BasicDiscountModal @updateList="updateList" />
-    <MarketingDiscountModal @updateList="updateList" />
+
   </div>
 </template>
 
@@ -260,7 +255,7 @@
 import {
   isOdd, splitChar
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
+
 import {
   openConfirm
 } from '@/assets/js/functions'
@@ -288,7 +283,6 @@ import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscount
 export default {
   components: {
     ModalMassUpdate,
-    AddAttributeValueModal,
     OrderLimitModal,
     InventoryManagementModal,
     ConsumerPriceModal,

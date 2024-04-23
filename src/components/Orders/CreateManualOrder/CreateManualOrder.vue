@@ -51,7 +51,7 @@
                 @click="increaseStep()"
             >
               <span
-                  v-if="step < 3"
+                  v-if="step < 2"
                   class="t14300"
               >
                 تایید و ادامه
@@ -74,7 +74,7 @@
 <script>
 
 import Stepper from '@/components/Public/Stepper.vue'
-
+import Orders from "@/composables/Orders";
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
 import ManualOrderStepOne from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepOne.vue'
@@ -98,6 +98,21 @@ export default {
     ]
 
   }),
+  setup() {
+    const {
+
+      manualOrderListGet,
+      getManualOrderListGet,
+
+    } = new Orders;
+
+    return {
+
+      manualOrderListGet,
+      getManualOrderListGet,
+
+    }
+  },
 
   methods: {
 
@@ -114,23 +129,23 @@ export default {
     step1Validation(){
       this.$refs.step1.$refs.createSeller1.validate()
       setTimeout(()=>{
-        if (this.$refs.step1.form.logo === null){
+        if (this.$refs.step1.form.orderId === null){
           openToast( this.$store,
-              'لوگو فروشگاه الزامی است',
+              'شماره سفارش الزامی است',
               "error")
         }
-        else if (this.$refs.step1.form.nationalCard.length <1){
+        else if (this.$refs.step1.form.user === null){
           openToast( this.$store,
-              'عکس کارت ملی الزامی است',
+              'شماره تماس الزامی است',
               "error")
         }
-        else if (this.$refs.step1.form.certificate === null){
+        else if (this.$refs.step1.form.description === null){
           openToast( this.$store,
-              'عکس شناسنامه الزامی است',
+              'توضیحات  الزامی است',
               "error")
         }
         else if(this.$refs.step1.valid){
-          this.$store.commit('set_naturalSellerStep1' , this.$refs.step1.form)
+          this.$store.commit('set_manualOrderStep1' , this.$refs.step1.form)
           this.step ++
         }
       },200)
@@ -139,8 +154,8 @@ export default {
       this.$refs.step2.$refs.createSeller2.validate()
       setTimeout(()=>{
         if (this.$refs.step2.valid){
-          this.$store.commit('set_naturalSellerStep2' , this.$refs.step2.form)
-          this.step ++
+          this.$store.commit('set_manualOrderStep2' , this.$refs.step2.form)
+          this.createSeller()
         }
       },200)
     },
@@ -164,8 +179,8 @@ export default {
      * create sku
      */
     async createSeller() {
-      const form1 = this.$store.getters['get_naturalSellerStep1']
-      const form2 = this.$store.getters['get_naturalSellerStep2']
+      const form1 = this.$store.getters['get_manualOrderStep1']
+      const form2 = this.$store.getters['get_manualOrderStep2']
       const form3 = this.$store.getters['get_naturalSellerStep3']
       this.loading = true
       let formData =  new FormData()
@@ -234,28 +249,32 @@ export default {
       }
     },
     /**
-     * create formData for sku group labels
+     * create formData for manual order
      */
-    skuGroupsLabels(){
+    shpsCreatingForm(){
       var formData = new FormData()
-      this.$refs.skuForm3.skuGroupsLabels.forEach((skuGroup , index)=>{
-        formData.append(`sku_groups[${index}][id]` ,skuGroup.id )
-        formData.append(`sku_groups[${index}][label]` ,skuGroup.value )
+      this.$refs.skuForm3.shpsCreatingForm.forEach((manualOrderListGet , index)=>{
+        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.user_id )
+        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.shps_count )
       })
-      this.updateSkuGroupLabels(formData)
+      formData.append(`user_id` , this.$refs.skuForm3.form.user )
+      formData.append(`address_id` , this.manualOrderListGet.address_id )
+      formData.append(`sending_method` , this.manualOrderListGet.sending_method )
+      formData.append(`parent_id` , this.manualOrderListGet.id )
+      formData.append(`description` , this.manualOrderListGet.description )
+
+      this.createManualOrder(formData)
     },
 
-    /**
-     * update sku group labels
-     */
-    async updateSkuGroupLabels(formData) {
+
+    async createManualOrder(formData) {
       this.loading = true
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.toast_success = false
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'product/sku/group/crud/update/multi'
+      AxiosMethod.end_point = 'admin/order/crud/create'
       AxiosMethod.form = formData
 
       let data = await AxiosMethod.axios_post()
@@ -298,89 +317,12 @@ export default {
   },
 
   computed: {
-    /**
-     * create brand list for select
-     */
-    brandList() {
-      try {
-        const brands = []
-        this.allBrands.data.forEach(element => {
-          const form = {
-            title: element.label,
-            value: element.id
-          }
-          brands.push(form)
-        });
-        return brands
-      } catch (error) {
-        return []
-      }
-    },
 
-    /**
-     * create color list for select
-     */
-    colorList() {
-      try {
-        const colors = []
-        this.allColors.data.forEach(element => {
-          const form = {
-            label: element.label,
-            name: element.id,
-            value: element.value,
-            group: element.group
-          }
-          colors.push(form)
-        });
+  },
+  mounted() {
 
-        return colors
-      } catch (error) {
-        return []
-      }
-    },
+    this.getManualOrderListGet()
 
-    /**
-     * create operator list for select
-     */
-    operatorList() {
-      try {
-        const operator = []
-        const nullForm = {
-          label: 'هیچکدام',
-          name: 'none',
-        }
-        operator.push(nullForm)
-        this.operator.data.forEach(element => {
-          const form = {
-            label: element.phrase,
-            name: element.id,
-          }
-          operator.push(form)
-        });
-        return operator
-      } catch (error) {
-        return []
-      }
-    },
-
-    /**
-     * create volume list for select
-     */
-    volumeList() {
-      try {
-        const volume = []
-        this.volume.data.forEach(element => {
-          const form = {
-            label: element.label,
-            value: element.id
-          }
-          volume.push(form)
-        });
-        return volume
-      } catch (error) {
-        return []
-      }
-    }
   },
 
   watch: {

@@ -7,44 +7,42 @@
           align="center"
           class="px-10 py-5">
         <v-col cols="6">
-          <v-row justify="start">
-            <v-autocomplete
-                placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
-                variant="outlined"
-                prepend-inner-icon-cb="mdi-map-marker"
-                rounded="lg"
-                :items="skuList"
-                item-title="name"
-                item-value="id"
-                v-debounce="searchSku">
-
-              <template v-slot:item="item">
-                <v-list-item>
-                  <v-row justify="center">
-
-                    <v-col cols="4">
-
-                      <div @click="assignSkuToSeller(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
-                        <v-icon>mdi-plus</v-icon>
-                      </div>
-
-                    </v-col>
-                    <v-col cols="8">
-                      <text-clamp
-                          :text='item?.props?.title'
-                          :max-lines='1'
-                          autoResize
-                          location="start"
-                          class="text-gray500 t14300 text-right" />
-                    </v-col>
-                  </v-row>
-                </v-list-item>
-              </template>
-            </v-autocomplete>
 
 
+          <v-autocomplete
+              placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
+              variant="outlined"
+              prepend-inner-icon-cb="mdi-map-marker"
+              rounded="lg"
+              v-model="shps"
+              :items="skuList"
+              item-title="name"
+              item-value="value"
+              v-debounce="searchSku">
 
-          </v-row>
+            <template v-slot:item="item">
+              <v-list-item>
+                <v-row justify="center">
+
+                  <v-col cols="4">
+
+                    <div @click="assignSku(manualOrderList)" class="seller__add-sku-btn d-flex justify-center align-center">
+                      <v-icon>mdi-plus</v-icon>
+                    </div>
+
+                  </v-col>
+                  <v-col cols="8">
+                    <text-clamp
+                        :text='item?.props?.title'
+                        :max-lines='1'
+                        autoResize
+                        location="start"
+                        class="text-gray500 t14300 text-right" />
+                  </v-col>
+                </v-row>
+              </v-list-item>
+            </template>
+          </v-autocomplete>
         </v-col>
 
 
@@ -72,7 +70,7 @@
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
-          model="sku" />
+          model="shps" />
 
       <v-divider />
 
@@ -131,57 +129,46 @@ import {
 export default {
   setup(props) {
     const {
-      getSkuSeller , sellerSku,headerSku,
+      getSkuSeller ,
      dataSkuTableLength,addSkuSellerPerPage,pageLength , skuSellerPage,
     } = Seller();
     const {
       manualOrderHeader,
       getManualOrderList,
+      getManualOrderListGet,
+      manualOrderListGet,
       manualOrderList
     } = new Orders
     return {
-      getSkuSeller , sellerSku,headerSku,addSkuSellerPerPage , pageLength,  skuSellerPage,
-     dataSkuTableLength, manualOrderHeader, getManualOrderList, manualOrderList
+      getSkuSeller ,addSkuSellerPerPage , pageLength,  skuSellerPage,
+     dataSkuTableLength, manualOrderHeader, getManualOrderList, manualOrderList, getManualOrderListGet , manualOrderListGet
     };
   },
 
   data(){
     return{
-      skuSearchList:[]
+      skuSearchList:[],
+      shpsList:[],
+      shps :null,
     }
   },
 
   components: {
     Table,
-
   },
 
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-    skuGroupList() {
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value: skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      } catch (e) {
-        return []
-      }
-    },
+
     skuList() {
       try {
         let sku = []
-        this.skuSearchList.forEach(permission => {
+        this.skuSearchList.forEach(skuSearch => {
           const form = {
-            name: permission.label + '(' + permission.id + ')',
-            id: permission.id
+            name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
+            value: skuSearch
           }
           sku.push(form)
         })
@@ -189,12 +176,61 @@ export default {
       } catch (e) {
         return []
       }
-    }
+    },
   },
 
   methods: {
+    shpsCreatingForm(){
+      var formData = new FormData()
+      this.$refs.shpsForm2.shpsCreatingForm.forEach((manualOrderListGet , index)=>{
+        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.user_id )
+        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.shps_count )
+      })
+      formData.append(`user_id` , this.$refs.shpsForm2.form.user )
+      formData.append(`address_id` , this.manualOrderListGet.address_id )
+      formData.append(`sending_method` , this.manualOrderListGet.sending_method )
+      formData.append(`parent_id` , this.manualOrderListGet.id )
+      formData.append(`description` , this.manualOrderListGet.description )
+
+      this.createManualOrder(formData)
+    },
+
+
+    async createManualOrder(formData) {
+      this.loading = true
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.toast_success = false
+      AxiosMethod.store = this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'admin/order/crud/create'
+      AxiosMethod.form = formData
+
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        await  this.approvedSku()
+        this.step = 1
+      } else {
+        this.loading = false
+      }
+    },
+    async assignSku(manualOrderList) {
+
+      const form = {
+        count: 1,
+        shps:{
+          site_stock: manualOrderList.shps?.site_stock
+        },
+        site_price: manualOrderList.site_stock,
+
+      }
+      console.log(manualOrderList , 'hiiiiiiiii', form)
+      this.manualOrderList.push(form)
+      console.log(form)
+
+    },
     changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
+      this.manualOrderHeader[index].show = value
     },
 
     updateList(status) {
@@ -203,16 +239,12 @@ export default {
       }
     },
 
-    async searchSku(e) {
-      const filter = {
-        per_page: 10,
-        q: e
-      }
+    async searchSku(search) {
+      this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.form = filter
-      AxiosMethod.end_point = `product/sku/crud/index/`
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.skuSearchList = data.data.data
@@ -225,7 +257,7 @@ export default {
   },
 
   mounted() {
-    this.getSkuSeller();
+
     this.getManualOrderList();
   },
 

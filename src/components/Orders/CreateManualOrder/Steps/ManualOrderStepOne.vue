@@ -194,14 +194,14 @@
 </template>
 
 <script>
-import UploadFileSection from '@/components/Public/UploadFileSection.vue'
+
 import Orders from "@/composables/Orders";
 import User from "@/composables/User";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {
-    UploadFileSection
+
   },
   setup() {
     const {
@@ -225,45 +225,16 @@ export default {
   },
 
   data: () => ({
-    objData: [
-      {
-        userAddress: "تهران، بزرگراه باکری جنوب کوی ارم خیابان شهیدمحسن یعقوبی(بهار جنوبی) نبش کوچه شهید اکبر اصغر زاده پلاک 18",
-        postalCode: "1111111111 ",
-        phoneNumber: "0912111111",
-        receiver: "ایدین",
-      },
-      {
-        userAddress: "تهران، سهروردی 18",
-        postalCode: "2222222222 ",
-        phoneNumber: "09121222222",
-        receiver: "ایدین2",
-      },
-      {
-        userAddress: "تهران، بهار 18",
-        postalCode: "333333333 ",
-        phoneNumber: "0912333333",
-        receiver: "ایدین3",
-      }
-    ],
+
     address:null,
     sendingMethod:null,
     user:null,
     userSearchList:[],
     labels: {
-      userAddress: "تهران، بزرگراه باکری جنوب کوی ارم خیابان شهیدمحسن یعقوبی(بهار جنوبی) نبش کوچه شهید اکبر اصغر زاده پلاک 18",
-      postalCode: "کد پستی ",
       phoneNumber: "شماره تماس",
-      receiver: "گیرنده",
       orderId: 'شماره سفارش',
       description: 'توضیحات *',
       sendingMethod: 'روش ارسال :',
-      mobile: 'تلفن همراه',
-      email: 'ایمیل',
-      nationalCode: 'کد ملی',
-      certificateNumber: 'شماره شناسنامه',
-      nationalCard: 'تصویر پشت و رو کارت ملی',
-      certificate: 'تصویر صفحه اول شناسنامه',
-
     },
     form: {
       id: null,
@@ -272,9 +243,6 @@ export default {
       userAddress: [],
       orderId: null,
       description: null,
-
-
-
     },
     valid: true,
     rule: [v => !!v || 'این فیلد الزامی است'],
@@ -291,43 +259,17 @@ export default {
               v
           ) || "شماره موبایل معتبر نیست",
     ],
-    emailRule: [
-      (v) => !!v || "این فیلد الزامی است",
-      (v) =>
-          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-              v
-          ) || " ایمیل معتبر نیست",
-    ],
-    nationalCodeRule: [
-      (v) => !!v || "این فیلد الزامی است",
-      (v) => /^[0-9]{10}$/.test(v) || "کد ملی معتبر وارد کنید",
-    ],
+
   }),
 
   props: {
-    // array of brand
-    brandList: [],
-
-    // array of color
-    colorList: [],
-
-    // array of attribute
-    attributeList: [],
-
-    // array of operator
-    operatorList: [],
-    // array of volume
-    volumeList: [],
-
     // get state create sku
     state: {
       type: String,
       default: ''
     },
 
-    getAllAttributes: {
-      type: Function,
-    }
+
   },
 
   methods: {
@@ -342,15 +284,6 @@ export default {
         this.userSearchList = data.data.data
       }
     },
-    getLogoImage(image) {
-      this.form.logo = image.data.data.image_id
-    },
-    getNationalCard(image) {
-      this.form.nationalCard.push(image.data.data.file_id)
-    },
-    getCertificateImage(image) {
-      this.form.certificate = image.data.data.file_id
-    }
   },
   mounted() {
     if (this.$store.getters['get_naturalSellerStep1'] != null) {
@@ -378,7 +311,7 @@ export default {
   },
   watch: {
     user(val){
-      this.getUserAddress(val.id)
+      this.getUserAddress(val?.id)
     }
   },
 }
