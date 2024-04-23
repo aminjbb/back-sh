@@ -7,7 +7,7 @@
 
     <v-list density="compact" nav>
       <v-list-item prepend-icon="mdi-view-dashboard-outline" href="/locating/dashboard" title="داشبورد"  value="home"></v-list-item>
-      <v-list-item prepend-icon="mdi-elevator-down" href="/locating/initilize" title="جایگذاری اولیه"  value="initilize"></v-list-item>
+<!--      <v-list-item prepend-icon="mdi-elevator-down" href="/locating/initilize" title="جایگذاری اولیه"  value="initilize"></v-list-item>-->
       <v-list-item prepend-icon="mdi-archive-outline" href="/locating/index" title="جایگذاری بسته" value="locating"></v-list-item>
       <v-list-item prepend-icon="mdi-bookshelf" href="/locating/package/shps-list" title="جایگذاری محصولات" value="package"></v-list-item>
       <v-list-item prepend-icon="mdi-bookshelf" href="/locating/singular-locating" title="جایگداری تکی" value="singular-locating"></v-list-item>
