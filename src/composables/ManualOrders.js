@@ -1,6 +1,8 @@
 import {ref} from "vue";
 import {AxiosCall} from "@/assets/js/axios_call";
 import {PanelFilter} from "@/assets/js/filter_order";
+import {useRoute} from "vue-router";
+import {useCookies} from "vue3-cookies";
 
 export default function setup() {
    const header =ref( [
@@ -47,29 +49,22 @@ export default function setup() {
         {name:'کمترین مبلغ تخفیف ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ تخفیف ' , type:'text', value:'paid_price_to'},
     ]
+    const route = useRoute()
+    const cookies = useCookies()
 
-   const page = ref(1)
+    const page = ref(1)
    const dataTableLength = ref(25)
    const pageLength = ref(1)
    const loading = ref(false)
-   const manualOrderList = ref([
-       {
-           id:10,
-           order_number: "52219210",
-           user:{
-                first_name: 'یسرا',
-                last_name: 'فیلی',
-                phone_number:'09391202557'
-           }
-       }
-   ])
+   const manualOrderList = ref([])
     const shpsProductList = ref([])
    const isFilterPage =ref(false)
    const isFilter =ref(false)
-
+    const filter = new PanelFilter()
     async function getManualOrderList(query) {
         loading.value = true
         let paramsQuery = null
+        filter.is_admin_order = 1
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }
@@ -84,7 +79,7 @@ export default function setup() {
 
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            // manualOrderList.value = data.data.data
+            manualOrderList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false

@@ -83,6 +83,11 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+    updateList(status) {
+      if (status === 'true') {
+        this.getManualOrderList();
+      }
+    },
   },
 
   mounted() {
