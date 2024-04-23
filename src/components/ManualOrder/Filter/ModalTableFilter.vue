@@ -232,6 +232,9 @@
 
 <script>
 import {ref} from "vue";
+import {AxiosCall} from "@/assets/js/axios_call";
+import {PanelFilter} from "@/assets/js/filter_order";
+import {jalaliToGregorian} from "@/assets/js/functions";
 
 export default {
   props: {
@@ -334,7 +337,7 @@ export default {
     const gregorianCreateDate = ref([])
 
     const logisticAtModel = ref(null)
-    const  gregorianLogisticDate = ref([])
+    const gregorianLogisticDate = ref([])
 
     function openModal() {
      dialog.value = true
@@ -343,9 +346,8 @@ export default {
     function closeModal() {
       dialog.value = false
     }
-    function setFilter(){}
 
-    return {
+     return {
       dialog,
       statusList,
       statusModel,
@@ -364,8 +366,7 @@ export default {
       logisticAtModel,
       gregorianLogisticDate,
       openModal,
-      closeModal,
-      setFilter
+      closeModal
     }
   },
 
@@ -376,7 +377,259 @@ export default {
     }
   },
 
+  computed: {
+    cityList() {
+      try {
+        let cityList = []
+        this.cities.forEach(city => {
+          const form = {
+            title: city.label,
+            value: city.id
+          }
+          cityList.push(form)
+        })
+        return cityList
+      } catch (e) {
+        return []
+      }
+    },
+
+    provinceList() {
+      try {
+        let provinceList = []
+        this.provinces.forEach(province => {
+          const form = {
+            title: province.label,
+            value: province.id
+          }
+          provinceList.push(form)
+        })
+        return provinceList
+      } catch (e) {
+        return []
+      }
+    },
+
+    id() {
+      try {
+        const idObject = this.values.find(element => element.name === 'id');
+        return idObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+
+    phone_number() {
+      try {
+        const idObject = this.values.find(element => element.name === 'phone_number');
+        return idObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+
+    orderNumber() {
+      try {
+        const idObject = this.values.find(element => element.name === 'order_number');
+        return idObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+
+    paidPriceFrom() {
+      try {
+        const paidPriceFromObject = this.values.find(element => element.name === 'paid_price_from');
+        return paidPriceFromObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+
+    paidPriceTo() {
+      try {
+        const paidPriceToObject = this.values.find(element => element.name === 'paid_price_to');
+        return paidPriceToObject.value
+      } catch (error) {
+        return ''
+      }
+    },
+
+    createdAt() {
+      if (this.createdAtModel) {
+        if (this.createdAtModel[0] && !this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+        } else if (this.createdAtModel[0] && this.createdAtModel[1]) {
+          const splitDate = this.createdAtModel[0].split('-')
+          const splitDateUp = this.createdAtModel[1].split('-')
+          this.gregorianCreateDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianCreateDate[1] = jalaliToGregorian(splitDateUp[0], splitDateUp[1], splitDateUp[2])
+        }
+      }
+      return this.gregorianCreateDate;
+    },
+
+    logisticAt() {
+      if (this.logisticAtModel) {
+        if (this.logisticAtModel[0] && !this.logisticAtModel[1]) {
+          const splitDate = this.logisticAtModel[0].split('-')
+          this.gregorianLogisticDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianLogisticDate[1] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+        } else if (this.logisticAtModel[0] && this.logisticAtModel[1]) {
+          const splitDate = this.logisticAtModel[0].split('-')
+          const splitDateUp = this.logisticAtModel[1].split('-')
+          this.gregorianLogisticDate[0] = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2])
+          this.gregorianLogisticDate[1] = jalaliToGregorian(splitDateUp[0], splitDateUp[1], splitDateUp[2])
+        }
+      }
+      return this.gregorianLogisticDate;
+    }
+  },
+
   methods: {
+    setFilter() {
+      const filter = new PanelFilter()
+
+      if (this.id) {
+        filter.id = this.id
+      } else if (this.$route.query.id) {
+        filter.id = null
+      }
+
+      if (this.phone_number) {
+        filter.phone_number = this.phone_number
+      } else if (this.$route.query.phone_number) {
+        filter.phone_number = null
+      }
+
+      if (this.orderNumber) {
+        filter.orderNumber = this.orderNumber
+      } else if (this.$route.query.order_nmumber) {
+        filter.orderNumber = null
+      }
+
+      if (this.userModal && this.userModal.id) {
+        filter.creator_id = this.userModal.id
+      } else if (this.$route.query.id) {
+        filter.creator_id = null
+      }
+
+      if (this.statusModel) {
+        filter.status = this.statusModel
+      } else if (this.$route.query.status) {
+        filter.status = null
+      }
+
+      if (this.paymentMethodModel) {
+        filter.payment_method = this.paymentMethodModel
+      } else if (this.$route.query.payment_method) {
+        filter.payment_method = null
+      }
+
+      if (this.paymentStatusModel) {
+        filter.payment_status = this.paymentStatusModel
+      } else if (this.$route.query.payment_status){
+        filter.payment_status = null
+      }
+
+      if (this.packedStatusModel) {
+        filter.packed_status = this.packedStatusModel
+      } else {
+        filter.packed_status = null
+      }
+
+      if (this.paidPriceTo) {
+        filter.paid_price_to = this.paidPriceTo
+      } else {
+        filter.paid_price_to = null
+      }
+
+      if (this.paidPriceFrom) {
+        filter.paid_price_from = this.paidPriceFrom
+      } else {
+        filter.paid_price_from = null
+      }
+
+      if (this.city) {
+        filter.receive_city_id = this.city
+      } else {
+        filter.receive_city_id = null
+      }
+
+      if (this.province) {
+        filter.receive_state_id = this.province
+      } else {
+        filter.receive_state_id = null
+      }
+
+      if (this.createdAt && this.createdAt[0]) {
+        filter.created_at_from_date = this.createdAt[0]
+      } else {
+        filter.created_at_from_date = null
+      }
+
+      if (this.createdAt && this.createdAt[1]) {
+        filter.created_at_to_date = this.createdAt[1]
+      } else {
+        filter.created_at_to_date = null
+      }
+
+      if (this.logisticAt && this.logisticAt[0]) {
+        filter.logistic_at_from_date = this.logisticAt[0]
+      } else {
+        filter.logistic_at_from_date = null
+      }
+
+      if (this.logisticAt && this.logisticAt[1]) {
+        filter.logistic_at_to_date = this.logisticAt[1]
+      } else {
+        filter.logistic_at_to_date = null
+      }
+
+      filter.page = 1;
+
+      if (this.$route.query.per_page) {
+        filter.per_page = this.$route.query.per_page;
+      }
+
+      this.$router.push('/' + this.path + '/' + filter.query_maker());
+      this.dialog = false;
+    },
+
+    async getCities() {
+      this.cities = []
+      this.cityModel = null
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `system/state/crud/get/${this.province}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.cities = data.data.cities
+      }
+    },
+
+    async getProvince() {
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `system/state/crud/index`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.provinces = data.data.data
+      }
+    },
+
     removeAllFilters() {
       this.$router.push('/' + this.path);
 
@@ -400,6 +653,7 @@ export default {
       })
     },
   },
+
   mounted() {
     this.filterField.forEach(el => {
       const form = {
@@ -407,7 +661,9 @@ export default {
         value: ''
       }
       this.values.push(form)
-    });
+    })
+
+    this.getProvince()
   }
 }
 

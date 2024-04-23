@@ -363,7 +363,8 @@ export default {
                 return ''
             }
         },
-      phone_number() {
+
+        phone_number() {
             try {
                 const idObject = this.values.find(element => element.name === 'phone_number');
                 return idObject.value
@@ -372,6 +373,14 @@ export default {
             }
         },
 
+        orderNumber() {
+        try {
+          const idObject = this.values.find(element => element.name === 'order_number');
+          return idObject.value
+        } catch (error) {
+          return ''
+        }
+      },
 
         paidPriceFrom() {
             try {
@@ -427,7 +436,6 @@ export default {
     methods: {
         setFilter() {
             const filter = new PanelFilter()
-
             if (this.id) {
                 filter.id = this.id
             } else if (this.$route.query.id) {
@@ -438,9 +446,10 @@ export default {
           } else if (this.$route.query.phone_number) {
             filter.phone_number = null
           }
+
             if (this.orderNumber) {
                 filter.orderNumber = this.orderNumber
-            } else if (this.$route.query.order_nmumber) {
+            } else if (this.$route.query.order_number) {
                 filter.orderNumber = null
             }
 

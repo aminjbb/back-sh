@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {AxiosCall} from "@/assets/js/axios_call";
 import {PanelFilter} from "@/assets/js/filter_order";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useCookies} from "vue3-cookies";
 
 export default function setup() {
@@ -27,8 +27,6 @@ export default function setup() {
        { name: 'موجودی سایت', show: true, value:'price' , order: false},
        { name: 'تعداد کالا', show: true, value:'price' , order: false},
     ])
-
-
    const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
         {name:'نام کاربر' , type:'text', value:'creator_id'},
@@ -49,18 +47,23 @@ export default function setup() {
         {name:'کمترین مبلغ تخفیف ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ تخفیف ' , type:'text', value:'paid_price_to'},
     ]
+
     const route = useRoute()
+    const router = useRouter()
     const cookies = useCookies()
+    const filter = new PanelFilter()
+
+    const manualOrderList = ref([])
+    const shpsProductList = ref([])
 
     const page = ref(1)
-   const dataTableLength = ref(25)
-   const pageLength = ref(1)
-   const loading = ref(false)
-   const manualOrderList = ref([])
-    const shpsProductList = ref([])
-   const isFilterPage =ref(false)
-   const isFilter =ref(false)
-    const filter = new PanelFilter()
+    const pageLength = ref(1)
+    const dataTableLength = ref(25)
+
+    const loading = ref(false)
+    const isFilterPage =ref(false)
+    const isFilter =ref(false)
+
     async function getManualOrderList(query) {
         loading.value = true
         let paramsQuery = null
@@ -86,6 +89,12 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
+    }
+
+    function addPerPage(number){
+        filter.page = 1
+        filter.per_page =number
+        router.push('/orders/manual-order-list'+ filter.params_generator(route.query))
     }
 
     async function getOrderList(query) {
@@ -149,6 +158,7 @@ export default function setup() {
         loading,
         manualOrderList,
         headerSelectProduct,
+        addPerPage,
         getManualOrderList,
         getOrderList,
         getShpsList
