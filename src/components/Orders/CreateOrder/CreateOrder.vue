@@ -1,11 +1,72 @@
 <template>
   <div class="create-product flex-column d-flex vh-100">
+    <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
+    <template v-if="step === 2">
+      <v-card class="ma-5 br-12" height="80">
+        <v-row justify="start" align="center">
+          <v-col cols="6">
+            <v-autocomplete
+                placeholder="نام کالا یا شناسه shps را جستجو نمایید"
+                variant="outlined"
+                prepend-inner-icon-cb="mdi-map-marker"
+                rounded="lg"
+                class="mt-4 mx-5"
+                :items="skuList"
+                item-title="name"
+                item-value="value"
+                v-debounce="searchSku">
+
+              <template v-slot:item="item">
+                <v-list-item>
+                  <v-row justify="center">
+
+                    <v-col cols="4">
+
+                      <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                        <v-icon>mdi-plus</v-icon>
+                      </div>
+
+                    </v-col>
+                    <v-col cols="8">
+                      <text-clamp
+                          :text='item?.props?.title'
+                          :max-lines='1'
+                          autoResize
+                          location="start"
+                          class="text-gray500 t14300 text-right" />
+                    </v-col>
+                  </v-row>
+                </v-list-item>
+              </template>
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </v-card>
+    </template>
+
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
-      <CreateOrderForm ref="CreateOrderForm" />
+      <template v-if="step === 1">
+        <CreateOrderForm ref="CreateOrderForm" />
+        <CreateManualOrderStep1/>
+      </template>
+
+      <template v-if="step === 2">
+        <CreateManualOrderStep2 />
+      </template>
 
       <footer class="create-warehouse__actions">
-        <v-row justify="end" class="pl-10 pt-5">
+        <v-row justify="space-between" class="px-10 pt-10">
           <v-btn
+              variant="outlined"
+              :loading="loading"
+              @click="validate()"
+              height="40"
+              rounded
+              class="px-8 mt-1">
+            بازگشت
+          </v-btn>
+          <v-btn
+              variant="elevated"
               :loading="loading"
               @click="validate()"
               color="primary500"
@@ -15,7 +76,6 @@
 
             تایید
           </v-btn>
-
         </v-row>
       </footer>
     </v-card>
@@ -24,6 +84,8 @@
 
 <script>
 import CreateOrderForm from "@/components/Orders/CreateOrder/CreateOrderForm.vue";
+import CreateManualOrderStep1 from "@/components/ManualOrder/CreateManualOrder/CreateManualOrderStep1.vue"
+import CreateManualOrderStep2 from "@/components/ManualOrder/CreateManualOrder/CreateManualOrderStep2.vue"
 import {
   AxiosCall
 } from "@/assets/js/axios_call";
@@ -31,15 +93,24 @@ import {
   convertDateToGregorian,
   openToast
 } from "@/assets/js/functions";
+import Stepper from "@/components/Public/Stepper.vue";
 
 export default {
   data() {
     return {
       loading: false,
+      steps:[
+        'اطلاعات سفارش',
+        'انتخاب محصول'
+      ],
+      step: 1,
     }
   },
   components: {
-    CreateOrderForm
+    Stepper,
+    CreateOrderForm,
+    CreateManualOrderStep1,
+    CreateManualOrderStep2
   },
   methods: {
     validate() {
@@ -112,6 +183,10 @@ export default {
             'ایجاد سفارش با مشکل مواجه شد',
             "error")
       }
+    },
+
+    changeStep(step) {
+      this.step = step
     },
 
   },

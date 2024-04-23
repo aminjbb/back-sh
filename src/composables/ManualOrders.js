@@ -16,6 +16,16 @@ export default function setup() {
        { name: 'روش ارسال', show: true, value:'shipping_method', order: false },
        { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
     ])
+   const headerSelectProduct =ref( [
+       { name: 'ردیف', show: true , value:null, order:false},
+       { name: 'تصویر کالا', show: true , value:'image', order: false},
+       { name: 'نام کالا', show: true, value:'product_name' , order: false},
+       { name: 'قیمت مصرف کننده', show: true, value:'price' , order: false},
+       { name: 'قیمت فروش', show: true, value:'price' , order: false},
+       { name: 'موجودی سایت', show: true, value:'price' , order: false},
+       { name: 'تعداد کالا', show: true, value:'price' , order: false},
+    ])
+
 
    const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
@@ -53,6 +63,7 @@ export default function setup() {
            }
        }
    ])
+    const shpsProductList = ref([])
    const isFilterPage =ref(false)
    const isFilter =ref(false)
 
@@ -142,6 +153,7 @@ export default function setup() {
         pageLength,
         loading,
         manualOrderList,
+        headerSelectProduct,
         getManualOrderList,
         getOrderList,
         getShpsList

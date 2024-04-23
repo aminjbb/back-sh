@@ -31,7 +31,6 @@ export class PanelFilter {
         this.payment_status = null;
         this.payment_method = null;
         this.packed_status = null;
-        this.packed_status = null;
         //this.identification_code = null;
         // this.bank_id = null;
         this.created_at_to_date = null;
