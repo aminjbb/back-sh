@@ -45,215 +45,205 @@
 
 
 
-<!--  <v-form-->
-<!--      ref="addOrder"-->
-<!--      class="create-product__info-form scroller"-->
-<!--      v-model="valid">-->
-<!--&lt;!&ndash;    <v-row justify="center" align="center">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;      <v-col cols="12">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <div class="text-center">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;          <span class="t14500">ساخت سفارش</span>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;      </v-col>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-col cols="8">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="text-right my-5">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="t14500 text-gray600">&ndash;&gt;-->
-<!--&lt;!&ndash;                    انتخاب محصول&ndash;&gt;-->
-<!--&lt;!&ndash;                </span>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+  <v-form
+      ref="addOrder"
+      class="create-product__info-form scroller"
+      v-model="valid">
+    <v-row justify="center" align="center">
+      <v-col cols="8">
+        <v-autocomplete
+            placeholder="نام کالا یا شماره SKU را جستجو نمایید"
+            variant="outlined"
+            prepend-inner-icon-cb="mdi-map-marker"
+            rounded="lg"
+            :items="skuList"
+            item-title="name"
+            item-value="value"
+            v-debounce="searchSku">
 
-<!--&lt;!&ndash;        <v-autocomplete&ndash;&gt;-->
-<!--&lt;!&ndash;            placeholder="نام کالا یا شماره SKU را جستجو نمایید"&ndash;&gt;-->
-<!--&lt;!&ndash;            variant="outlined"&ndash;&gt;-->
-<!--&lt;!&ndash;            prepend-inner-icon-cb="mdi-map-marker"&ndash;&gt;-->
-<!--&lt;!&ndash;            rounded="lg"&ndash;&gt;-->
-<!--&lt;!&ndash;            :items="skuList"&ndash;&gt;-->
-<!--&lt;!&ndash;            item-title="name"&ndash;&gt;-->
-<!--&lt;!&ndash;            item-value="value"&ndash;&gt;-->
-<!--&lt;!&ndash;            v-debounce="searchSku">&ndash;&gt;-->
+          <template v-slot:item="item">
+            <v-list-item>
+              <v-row justify="center">
 
-<!--&lt;!&ndash;          <template v-slot:item="item">&ndash;&gt;-->
-<!--&lt;!&ndash;            <v-list-item>&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-row justify="center">&ndash;&gt;-->
+                <v-col cols="4">
 
-<!--&lt;!&ndash;                <v-col cols="4">&ndash;&gt;-->
+                  <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                    <v-icon>mdi-plus</v-icon>
+                  </div>
 
-<!--&lt;!&ndash;                  <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <v-icon>mdi-plus</v-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+                </v-col>
+                <v-col cols="8">
+                  <text-clamp
+                      :text='item?.props?.title'
+                      :max-lines='1'
+                      autoResize
+                      location="start"
+                      class="text-gray500 t14300 text-right" />
+                </v-col>
+              </v-row>
+            </v-list-item>
+          </template>
+        </v-autocomplete>
+      </v-col>
+    </v-row>
 
-<!--&lt;!&ndash;                </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;                <v-col cols="8">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <text-clamp&ndash;&gt;-->
-<!--&lt;!&ndash;                      :text='item?.props?.title'&ndash;&gt;-->
-<!--&lt;!&ndash;                      :max-lines='1'&ndash;&gt;-->
-<!--&lt;!&ndash;                      autoResize&ndash;&gt;-->
-<!--&lt;!&ndash;                      location="start"&ndash;&gt;-->
-<!--&lt;!&ndash;                      class="text-gray500 t14300 text-right" />&ndash;&gt;-->
-<!--&lt;!&ndash;                </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;              </v-row>&ndash;&gt;-->
-<!--&lt;!&ndash;            </v-list-item>&ndash;&gt;-->
-<!--&lt;!&ndash;          </template>&ndash;&gt;-->
-<!--&lt;!&ndash;        </v-autocomplete>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;    </v-row>&ndash;&gt;-->
-<!--&lt;!&ndash;    <v-row justify="center" align="center">&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-col cols="6" v-for="(shps , index) in shpsList">&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-card min-height="150" class="d-flex align-center px-5">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <img width="100" src="@/assets/img/productImge.png">&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="t12500 text-gray600">&ndash;&gt;-->
-<!--&lt;!&ndash;              {{shps?.shps?.sku.label}}&ndash;&gt;-->
-<!--&lt;!&ndash;            </span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="px-5">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div><span>تعداد</span></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div>&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-text-field v-model="shpsList[index].count" type="number" variant="outlined"></v-text-field>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </v-card>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;    </v-row>&ndash;&gt;-->
+    <v-row justify="center" align="center">
+      <v-col cols="6" v-for="(shps , index) in shpsList">
+        <v-card min-height="150" class="d-flex align-center px-5">
+          <div>
+            <img width="100" src="@/assets/img/productImge.png">
+          </div>
+          <div>
+            <span class="t12500 text-gray600">
+              {{shps?.shps?.sku.label}}
+            </span>
+          </div>
+          <div class="px-5">
+            <div><span>تعداد</span></div>
+            <div>
+              <v-text-field v-model="shpsList[index].count" type="number" variant="outlined"></v-text-field>
+            </div>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
 
-<!--&lt;!&ndash;    <v-row justify="center" class="mt-10">&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="text-center mb-5">&ndash;&gt;-->
-<!--&lt;!&ndash;        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;          کاربر و آدرس&ndash;&gt;-->
-<!--&lt;!&ndash;        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-divider></v-divider>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-col cols="8">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="text-right my-5">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="t14500 text-gray600">&ndash;&gt;-->
-<!--&lt;!&ndash;                    انتخاب کاربر&ndash;&gt;-->
-<!--&lt;!&ndash;                </span>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-autocomplete&ndash;&gt;-->
-<!--&lt;!&ndash;            placeholder="شماره تلفن کاربر را وارد کنید"&ndash;&gt;-->
-<!--&lt;!&ndash;            variant="outlined"&ndash;&gt;-->
-<!--&lt;!&ndash;            prepend-inner-icon-cb="mdi-map-marker"&ndash;&gt;-->
-<!--&lt;!&ndash;            rounded="lg"&ndash;&gt;-->
-<!--&lt;!&ndash;            v-model="user"&ndash;&gt;-->
-<!--&lt;!&ndash;            :items="userList"&ndash;&gt;-->
-<!--&lt;!&ndash;            item-title="name"&ndash;&gt;-->
-<!--&lt;!&ndash;            item-value="value"&ndash;&gt;-->
-<!--&lt;!&ndash;            v-debounce="searchUser">&ndash;&gt;-->
+    <v-row justify="center" class="mt-10">
+      <div class="text-center mb-5">
+        <span class="t12500">
+          کاربر و آدرس
+        </span>
+      </div>
+      <v-divider></v-divider>
+      <v-col cols="8">
+        <div class="text-right my-5">
+                <span class="t14500 text-gray600">
+                    انتخاب کاربر
+                </span>
+        </div>
+        <v-autocomplete
+            placeholder="شماره تلفن کاربر را وارد کنید"
+            variant="outlined"
+            prepend-inner-icon-cb="mdi-map-marker"
+            rounded="lg"
+            v-model="user"
+            :items="userList"
+            item-title="name"
+            item-value="value"
+            v-debounce="searchUser">
 
-<!--&lt;!&ndash;        </v-autocomplete>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-col>&ndash;&gt;-->
+        </v-autocomplete>
+      </v-col>
 
-<!--&lt;!&ndash;    </v-row>&ndash;&gt;-->
+    </v-row>
 
-<!--&lt;!&ndash;    <v-row>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-item-group v-model="address" selected-class="bg-primary500">&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-container>&ndash;&gt;-->
-<!--&lt;!&ndash;          <v-row>&ndash;&gt;-->
+    <v-row>
+      <v-item-group v-model="address" selected-class="bg-primary500">
+        <v-container>
+          <v-row>
 
-<!--&lt;!&ndash;            <v-col&ndash;&gt;-->
-<!--&lt;!&ndash;                v-for="(address , index) in userAddress"&ndash;&gt;-->
-<!--&lt;!&ndash;                :key="address.id"&ndash;&gt;-->
-<!--&lt;!&ndash;                cols="12"&ndash;&gt;-->
-<!--&lt;!&ndash;            >&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-item :value="address.id" v-slot="{ isSelected, selectedClass, toggle }">&ndash;&gt;-->
-<!--&lt;!&ndash;                <v-card&ndash;&gt;-->
-<!--&lt;!&ndash;                    :class="['d-flex align-center justify-lg-space-evenly px-10', selectedClass]"&ndash;&gt;-->
-<!--&lt;!&ndash;                    dark&ndash;&gt;-->
-<!--&lt;!&ndash;                    height="200"&ndash;&gt;-->
-<!--&lt;!&ndash;                    class="d&#45;&#45;rtl"&ndash;&gt;-->
-<!--&lt;!&ndash;                    min-width="400"&ndash;&gt;-->
-<!--&lt;!&ndash;                    @click="toggle"&ndash;&gt;-->
-<!--&lt;!&ndash;                >&ndash;&gt;-->
-<!--&lt;!&ndash;                  <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                          آدرس :&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                         {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                          کد پستی :&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                       {{ address?.postal_code }}&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                          شماره تماس گیرنده :&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                       {{ address?.phone_number }}&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                          نام و نام خانواگی گیرنده :&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="text-right mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;                       {{ address?.first_name }} {{ address?.last_name }}&ndash;&gt;-->
-<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                </v-card>&ndash;&gt;-->
-<!--&lt;!&ndash;              </v-item>&ndash;&gt;-->
-<!--&lt;!&ndash;            </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;          </v-row>&ndash;&gt;-->
-<!--&lt;!&ndash;        </v-container>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-item-group>&ndash;&gt;-->
-<!--&lt;!&ndash;    </v-row>&ndash;&gt;-->
+            <v-col
+                v-for="(address , index) in userAddress"
+                :key="address.id"
+                cols="12"
+            >
+              <v-item :value="address.id" v-slot="{ isSelected, selectedClass, toggle }">
+                <v-card
+                    :class="['d-flex align-center justify-lg-space-evenly px-10', selectedClass]"
+                    dark
+                    height="200"
+                    class="d--rtl"
+                    min-width="400"
+                    @click="toggle"
+                >
+                  <div>
+                    <div class="text-right">
+                        <span class="t12500">
+                          آدرس :
+                        </span>
+                    </div>
+                    <div class="text-right mt-4">
+                        <span class="t12500">
+                         {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
+                        </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-right">
+                        <span class="t12500">
+                          کد پستی :
+                        </span>
+                    </div>
+                    <div class="text-right mt-4">
+                        <span class="t12500">
+                       {{ address?.postal_code }}
+                        </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-right">
+                        <span class="t12500">
+                          شماره تماس گیرنده :
+                        </span>
+                    </div>
+                    <div class="text-right mt-4">
+                        <span class="t12500">
+                       {{ address?.phone_number }}
+                        </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-right">
+                        <span class="t12500">
+                          نام و نام خانواگی گیرنده :
+                        </span>
+                    </div>
+                    <div class="text-right mt-4">
+                        <span class="t12500">
+                       {{ address?.first_name }} {{ address?.last_name }}
+                        </span>
+                    </div>
+                  </div>
+                </v-card>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-item-group>
+    </v-row>
 
-<!--&lt;!&ndash;    <v-row justify="center" class="mt-10">&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="text-center mb-5">&ndash;&gt;-->
-<!--&lt;!&ndash;        <span class="t12500">&ndash;&gt;-->
-<!--&lt;!&ndash;         روش ارسال&ndash;&gt;-->
-<!--&lt;!&ndash;        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-divider></v-divider>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-col cols="8">&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-radio-group&ndash;&gt;-->
-<!--&lt;!&ndash;            v-model="sendingMethod"&ndash;&gt;-->
-<!--&lt;!&ndash;            inline&ndash;&gt;-->
-<!--&lt;!&ndash;        >&ndash;&gt;-->
-<!--&lt;!&ndash;          <v-radio&ndash;&gt;-->
-<!--&lt;!&ndash;              label="پست"&ndash;&gt;-->
-<!--&lt;!&ndash;              value="post"&ndash;&gt;-->
-<!--&lt;!&ndash;              class="mx-2"&ndash;&gt;-->
-<!--&lt;!&ndash;          ></v-radio>&ndash;&gt;-->
-<!--&lt;!&ndash;          <v-radio&ndash;&gt;-->
-<!--&lt;!&ndash;              label="نفیس اکپرس"&ndash;&gt;-->
-<!--&lt;!&ndash;              value="nafis"&ndash;&gt;-->
-<!--&lt;!&ndash;              class="mx-2"&ndash;&gt;-->
-<!--&lt;!&ndash;          ></v-radio>&ndash;&gt;-->
-<!--&lt;!&ndash;          <v-radio&ndash;&gt;-->
-<!--&lt;!&ndash;              label="تیپاکس"&ndash;&gt;-->
-<!--&lt;!&ndash;              value="tipax"&ndash;&gt;-->
-<!--&lt;!&ndash;              class="mx-2"&ndash;&gt;-->
-<!--&lt;!&ndash;          ></v-radio>&ndash;&gt;-->
-<!--&lt;!&ndash;        </v-radio-group>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-col>&ndash;&gt;-->
+    <v-row justify="center" class="mt-10">
+      <div class="text-center mb-5">
+        <span class="t12500">
+         روش ارسال
+        </span>
+      </div>
+      <v-divider></v-divider>
+      <v-col cols="8">
+        <v-radio-group
+            v-model="sendingMethod"
+            inline
+        >
+          <v-radio
+              label="پست"
+              value="post"
+              class="mx-2"
+          ></v-radio>
+          <v-radio
+              label="نفیس اکپرس"
+              value="nafis"
+              class="mx-2"
+          ></v-radio>
+          <v-radio
+              label="تیپاکس"
+              value="tipax"
+              class="mx-2"
+          ></v-radio>
+        </v-radio-group>
+      </v-col>
 
-<!--&lt;!&ndash;    </v-row>&ndash;&gt;-->
-<!--  </v-form>-->
+    </v-row>
+  </v-form>
 </template>
 
 
@@ -295,7 +285,6 @@ export default {
   },
 
   methods: {
-
     async searchUser(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
@@ -319,6 +308,7 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
+
     async assignSku(shps) {
       const form = {
         shps : shps,
@@ -329,6 +319,7 @@ export default {
 
     },
   },
+
   computed:{
     skuList() {
       try {
@@ -345,6 +336,7 @@ export default {
         return []
       }
     },
+
     userList(){
       try {
         let users = []
@@ -361,6 +353,7 @@ export default {
       }
     }
   },
+
   watch: {
     user(val){
       this.getUserAddress(val.id)

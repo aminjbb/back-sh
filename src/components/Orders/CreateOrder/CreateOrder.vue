@@ -46,7 +46,6 @@
 
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
-        <CreateOrderForm ref="CreateOrderForm" />
         <CreateManualOrderStep1/>
       </template>
 
