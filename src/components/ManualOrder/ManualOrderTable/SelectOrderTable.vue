@@ -14,7 +14,6 @@
         عملیات
       </div>
     </header>
-
     <div class="stretch-table">
       <div v-if="items && items.length > 0/*  && !loading */ " class="c-table__contents">
         <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
@@ -24,15 +23,14 @@
                     </span>
           </div>
 
-          <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
-                    </span>
+          <div v-if="header[1].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <img :src="item.image" width="48" height="48">
           </div>
+
           <div v-if="header[2].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        <template v-if="item.order_number">
-                          {{ item.order_number }}
+                        <template v-if="item.label">
+                          {{ item.label }}
                         </template>
                         <template v-else>
                           -
@@ -41,9 +39,9 @@
           </div>
 
           <div v-if="header[3].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.user && item.user.first_name && item.user.last_name">
-                            {{ item.user.first_name }} {{ item.user.last_name }}
+                    <span class="t13400 text-gray500 py-5 number-font">
+                        <template v-if="item.customerPrice">
+                            {{ item.customerPrice}}
                         </template>
                         <template v-else>
                             -
@@ -53,8 +51,8 @@
 
           <div v-if="header[4].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.user && item.user.phone_number">
-                            {{ item.user.phone_number }}
+                        <template v-if="item.sitePrice">
+                            {{ item.sitePrice }}
                         </template>
                         <template v-else>
                             -
@@ -64,8 +62,8 @@
 
           <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.shps_count">
-                            {{ item.shps_count }}
+                        <template v-if="item.siteStock">
+                            {{ item.siteStock }}
                         </template>
                         <template v-else>
                             -
@@ -73,79 +71,9 @@
                     </span>
           </div>
 
-          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.status">
-                          <span class="t10400">
-                               {{getOrderStatus(item.status) }}
-                          </span>
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
+          <div v-if=" header[6].show" class="c-table__contents__item number-font text-right" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <v-text-field v-model="item.count"  variant="outlined"/>
           </div>
-
-          <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.payment_status">
-                            {{ getPaymentStatus(item.payment_status) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-          <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.payment_method">
-                            {{ getPaymentMethod(item.payment_method) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-          <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.paid_price">
-                            {{ splitChar(item.paid_price) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-          <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <v-icon :icon="setIcon(item.packed_status)" :color="item.packed_status === 1 ? 'green' : 'red'" />
-                    </span>
-          </div>
-
-<!--          <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">-->
-<!--                    <span class="t13400 text-gray500 py-5 number-font text-center">-->
-<!--                        <template v-if="item.submit_date_fa">-->
-<!--                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}-->
-<!--                        </template>-->
-<!--                        <template v-else>-->
-<!--                            - -->
-<!--                        </template>-->
-<!--                    </span>-->
-<!--          </div>-->
-
-<!--          <div v-if="header[12].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">-->
-<!--                    <span class="t13400 text-gray500 py-5 number-font text-center">-->
-<!--                        <template v-if="item.logistic_date_fa">-->
-<!--                            {{ item.logistic_date_fa }}-->
-<!--                        </template>-->
-<!--                        <template v-else>-->
-<!--                            - -->
-<!--                        </template>-->
-<!--                    </span>-->
-<!--          </div>-->
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
@@ -159,21 +87,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
-                  </div>
-                </v-list-item-title>
-
-                <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.id}/edit`)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش سفارش</span>
-                  </div>
-                </v-list-item-title>
-
-                <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش فاکتور مالی</span>
+                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list>
@@ -189,6 +103,7 @@
         </div>
       </div>
     </div>
+    {{items}}
   </div>
 </template>
 
@@ -286,43 +201,7 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       activeColumn: false,
-      orderStatus: [{
-        text: 'پرداخت شده',
-        value: 'paid'
-      },
-        {
-          text: 'پیش پردازش',
-          value: 'pre_progress'
-        },
-        {
-          text: 'در حال ارسال',
-          value: 'sending'
-        },
-        {
-          text: 'در حال پردازش',
-          value: 'processing'
-        },
-        {
-          text: 'لغو شده',
-          value: 'cancelled'
-        },
-        {
-          text: 'تحویل شده',
-          value: 'received'
-        },
-        {
-          text: 'مرجوعی',
-          value: 'returned'
-        },
-        {
-          text: 'در انتظار پرداخت',
-          value: 'payment_in_progress'
-        },
-        {
-          text: 'انقضای سفارش',
-          value: 'payment_out_date'
-        }
-      ],
+      form: []
     }
   },
 
@@ -351,24 +230,7 @@ export default {
   },
 
   methods: {
-    splitTime(date) {
-      try {
-        const dateSplit = date.split(' ')
-        return dateSplit[1]
-      } catch (e) {
-
-      }
-    },
     splitChar,
-    /**
-     * return persian order status
-     * @param {*} status
-     */
-    getOrderStatus(status) {
-      const persianStatus = this.orderStatus.find(orderStatus => orderStatus.value === status)
-      if (persianStatus) return persianStatus.text
-
-    },
 
     /**
      * Open details modal
@@ -376,14 +238,6 @@ export default {
      */
     showDetails(id) {
       openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
-
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
     },
 
     /**
@@ -398,50 +252,6 @@ export default {
       } else {
         rowIndex = ((this.page - 1) * this.perPage) + index + 1
         return rowIndex
-      }
-    },
-
-    /**
-     * Set icon
-     * @param {*} status
-     */
-    setIcon(status) {
-      if (status === 1) {
-        return 'mdi-check-bold'
-      } else {
-        return 'mdi-close-thick'
-      }
-
-    },
-
-    /**
-     * Get persian name of method
-     * @param {*} method
-     */
-    getPaymentMethod(method) {
-      if (method === 'saman') {
-        return 'درگاه سامان'
-      } else if (method === 'wallet') {
-        return 'کیف پول'
-      } else if (method === 'snapp') {
-        return 'اسنپ پی'
-      }
-    },
-
-    /**
-     * Get persian name of payment status
-     * @param {*} method
-     */
-    getPaymentStatus(method) {
-      if (method === 'unsuccessful') {
-        return 'نا موفق'
-      } else if (method === 'contradictory') {
-        return 'دارای مغایرت'
-      }
-      else if (method === 'payment_out_date') {
-        return 'انقضای پرداخت'
-      } else if (method === 'successful') {
-        return 'موفق'
       }
     },
 
