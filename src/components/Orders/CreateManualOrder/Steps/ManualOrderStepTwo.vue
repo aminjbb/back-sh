@@ -14,7 +14,6 @@
               variant="outlined"
               prepend-inner-icon-cb="mdi-map-marker"
               rounded="lg"
-              v-model="shps"
               :items="skuList"
               item-title="name"
               item-value="value"
@@ -26,7 +25,7 @@
 
                   <v-col cols="4">
 
-                    <div @click="assignSku(manualOrderList)" class="seller__add-sku-btn d-flex justify-center align-center">
+                    <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
                       <v-icon>mdi-plus</v-icon>
                     </div>
 
@@ -70,7 +69,7 @@
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
-          model="shps" />
+           />
 
       <v-divider />
 
@@ -149,7 +148,8 @@ export default {
     return{
       skuSearchList:[],
       shpsList:[],
-      shps :null,
+      shps:[]
+
     }
   },
 
@@ -214,21 +214,76 @@ export default {
         this.loading = false
       }
     },
-    async assignSku(manualOrderList) {
 
+
+    assignSku(item) {
+      console.log(item, "aaa")
       const form = {
-        count: 1,
-        shps:{
-          site_stock: manualOrderList.shps?.site_stock
-        },
-        site_price: manualOrderList.site_stock,
+                customer_price: item?.customer_price,
+                shps:{
+                  id: item?.shps?.id,
+                  site_stock: item?.shps?.id,
+                  sku:{
+                         id: item?.shps?.sku?.id,
+                      image_url:item?.shps?.sku?.image_url ,
+                      label: item?.shps?.sku?.label,
+                                }
+                },
+                count: item?.count,
+                site_stock: item?.shps?.site_stock,
 
-      }
-      console.log(manualOrderList , 'hiiiiiiiii', form)
-      this.manualOrderList.push(form)
-      console.log(form)
-
+              }
+      this.manualOrderList.push(form);
+      console.log(this.manualOrderList, "fff")
+      // if (this.shps) {
+      //   const newItem = {
+      //     customer_price: this.shps.customer_price ,
+      //     shps: {
+      //       id: this.shps.id,
+      //       site_stock: this.shps.site_stock,
+      //       sku: {
+      //         id: this.shps.sku.id,
+      //         image_url: this.shps.sku.image_url,
+      //         label: this.shps.sku.label,
+      //       }
+      //     },
+      //     count: 1,
+      //     site_stock: this.shps.site_stock,
+      //   };
+      //     this.manualOrderList.push(newItem);
+      //   console.log( this.manualOrderList, "fffff")
+      // }
     },
+
+
+
+    // async assignSku1() {
+    //
+    //   this.manualOrderList.forEach(manualOrder =>{
+    //   const form = {
+    //     customer_price: manualOrder.customer_price,
+    //     shps:{
+    //       id: manualOrder.shps.id,
+    //       site_stock: manualOrder.shps.id,
+    //       sku:{
+    //              id: manualOrder.shps.sku.id,
+    //           image_url:manualOrder.shps.sku.image_url ,
+    //           label: manualOrder.shps.sku.label,
+    //                     }
+    //     },
+    //     count: manualOrder.count,
+    //     site_stock: manualOrder.shps?.site_stock,
+    //
+    //
+    //   }
+    //   console.log(this.manualOrderList , 'hiiiiiiiii', form)
+    //  this.manualOrderList.push(form)
+    // })
+    //
+    //
+    //
+    //
+    // },
     changeHeaderShow(index, value) {
       this.manualOrderHeader[index].show = value
     },
