@@ -25,7 +25,8 @@
 
                   <v-col cols="4">
 
-                    <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                    <div @click="assignSku(item.props.value)"
+                         class="seller__add-sku-btn d-flex justify-center align-center">
                       <v-icon>mdi-plus</v-icon>
                     </div>
 
@@ -36,7 +37,7 @@
                         :max-lines='1'
                         autoResize
                         location="start"
-                        class="text-gray500 t14300 text-right" />
+                        class="text-gray500 t14300 text-right"/>
                   </v-col>
                 </v-row>
               </v-list-item>
@@ -47,7 +48,6 @@
 
         <v-col cols="6">
           <v-row justify="end">
-
 
 
           </v-row>
@@ -69,9 +69,9 @@
           :loading="loading"
           @updateList="updateList"
           updateUrl="seller/csv/mass-update"
-           />
+      />
 
-      <v-divider />
+      <v-divider/>
 
       <v-card-actions class="pb-3">
         <v-row class="px-8">
@@ -88,7 +88,7 @@
                   size="40"
                   :total-visible="7"
                   prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
+                  next-icon="mdi-chevron-left"/>
             </div>
           </v-col>
 
@@ -105,7 +105,7 @@
                                 v-model="dataSkuTableLength"
                                 class="t1330"
                                 variant="outlined"
-                                :items="[25,50,100]" />
+                                :items="[25,50,100]"/>
                         </span>
             </div>
           </v-col>
@@ -125,11 +125,12 @@ import {
 import {
   AxiosCall
 } from "@/assets/js/axios_call";
+
 export default {
   setup(props) {
     const {
-      getSkuSeller ,
-     dataSkuTableLength,addSkuSellerPerPage,pageLength , skuSellerPage,
+      getSkuSeller,
+      dataSkuTableLength, addSkuSellerPerPage, pageLength, skuSellerPage,
     } = Seller();
     const {
       manualOrderHeader,
@@ -139,16 +140,24 @@ export default {
       manualOrderList
     } = new Orders
     return {
-      getSkuSeller ,addSkuSellerPerPage , pageLength,  skuSellerPage,
-     dataSkuTableLength, manualOrderHeader, getManualOrderList, manualOrderList, getManualOrderListGet , manualOrderListGet
+      getSkuSeller,
+      addSkuSellerPerPage,
+      pageLength,
+      skuSellerPage,
+      dataSkuTableLength,
+      manualOrderHeader,
+      getManualOrderList,
+      manualOrderList,
+      getManualOrderListGet,
+      manualOrderListGet
     };
   },
 
-  data(){
-    return{
-      skuSearchList:[],
-      shpsList:[],
-      shps:[]
+  data() {
+    return {
+      skuSearchList: [],
+      shpsList: [],
+      shps: []
 
     }
   },
@@ -180,17 +189,17 @@ export default {
   },
 
   methods: {
-    shpsCreatingForm(){
+    shpsCreatingForm() {
       var formData = new FormData()
-      this.$refs.shpsForm2.shpsCreatingForm.forEach((manualOrderListGet , index)=>{
-        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.user_id )
-        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.shps_count )
+      this.$refs.shpsForm2.shpsCreatingForm.forEach((manualOrderListGet, index) => {
+        formData.append(`shps_list[${index}][shps]`, manualOrderListGet.user_id)
+        formData.append(`shps_list[${index}][count]`, manualOrderListGet.shps_count)
       })
-      formData.append(`user_id` , this.$refs.shpsForm2.form.user )
-      formData.append(`address_id` , this.manualOrderListGet.address_id )
-      formData.append(`sending_method` , this.manualOrderListGet.sending_method )
-      formData.append(`parent_id` , this.manualOrderListGet.id )
-      formData.append(`description` , this.manualOrderListGet.description )
+      formData.append(`user_id`, this.$refs.shpsForm2.form.user)
+      formData.append(`address_id`, this.manualOrderListGet.address_id)
+      formData.append(`sending_method`, this.manualOrderListGet.sending_method)
+      formData.append(`parent_id`, this.manualOrderListGet.id)
+      formData.append(`description`, this.manualOrderListGet.description)
 
       this.createManualOrder(formData)
     },
@@ -208,7 +217,7 @@ export default {
 
       let data = await AxiosMethod.axios_post()
       if (data) {
-        await  this.approvedSku()
+        await this.approvedSku()
         this.step = 1
       } else {
         this.loading = false
@@ -219,42 +228,25 @@ export default {
     assignSku(item) {
       console.log(item, "aaa")
       const form = {
-                customer_price: item?.customer_price,
-                shps:{
-                  id: item?.shps?.id,
-                  site_stock: item?.shps?.id,
-                  sku:{
-                         id: item?.shps?.sku?.id,
-                      image_url:item?.shps?.sku?.image_url ,
-                      label: item?.shps?.sku?.label,
-                                }
-                },
-                count: item?.count,
-                site_stock: item?.shps?.site_stock,
-
-              }
+        base_discount: item?.base_discount,
+        cancelled_count: 0,
+        count: 1,
+        site_price:item?.site_price,
+        customer_price: item?.customer_price,
+        remained_count: 1,
+        shps:{
+          id: item?.id,
+          site_stock:item?.site_stock,
+          sku:{
+            label: item?.sku?.label,
+            image_url:item?.sku?.image?.image_url
+          }
+        }
+      }
       this.manualOrderList.push(form);
       console.log(this.manualOrderList, "fff")
-      // if (this.shps) {
-      //   const newItem = {
-      //     customer_price: this.shps.customer_price ,
-      //     shps: {
-      //       id: this.shps.id,
-      //       site_stock: this.shps.site_stock,
-      //       sku: {
-      //         id: this.shps.sku.id,
-      //         image_url: this.shps.sku.image_url,
-      //         label: this.shps.sku.label,
-      //       }
-      //     },
-      //     count: 1,
-      //     site_stock: this.shps.site_stock,
-      //   };
-      //     this.manualOrderList.push(newItem);
-      //   console.log( this.manualOrderList, "fffff")
-      // }
-    },
 
+    },
 
 
     // async assignSku1() {

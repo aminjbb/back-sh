@@ -81,7 +81,7 @@
               v-if="header[2].show"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
-            <template v-if="item.customer_price">
+            <template v-if="item?.shps?.sku">
                         <span class="t14300 text-gray500 py-5 number-font">
                            {{ item?.shps?.sku?.label }}
                         </span>
@@ -107,7 +107,7 @@
             </template>
             <template v-else>
                         <span class="t14300 text-gray500 py-5 number-font">
-                            -
+                            0
                         </span>
 
             </template>
@@ -126,7 +126,7 @@
             </template>
             <template v-else>
                         <span class="t14300 text-gray500 py-5 number-font">
-                            -
+                            0
                         </span>
 
             </template>
@@ -144,7 +144,7 @@
             </template>
             <template v-else>
                         <span class="t14300 text-gray500 py-5 number-font">
-                            -
+                            0
                         </span>
 
             </template>
