@@ -19,6 +19,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true, value:null, order:false},
         { name: 'شماره', show: true, value:'ticket_number', order: false},
+        { name: 'شناسه', show: true, value:'id', order: false},
         { name: 'عنوان', show: true, value:'label', order: false},
         { name: 'اولویت', show: true, value:'priority', order: false},
         { name: 'وضعیت', show: true, value:'status', order: false},
