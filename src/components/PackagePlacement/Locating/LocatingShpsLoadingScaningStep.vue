@@ -3,7 +3,7 @@
     <div>
       <v-row>
         <v-col>
-          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual"  v-model="type"></v-switch>
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="type"></v-switch>
         </v-col>
       </v-row>
       <div class="d-flex justify-center">
@@ -16,7 +16,8 @@
         <span class="text-black t20400">
             {{ scanTitle }}
           <!--            <v-text-field v-model="objectId" :autofocus="true"  @keyup.enter="qrCodeScan()"></v-text-field>-->
-            <v-text-field v-if="type === 'automate'" v-model="objectId" :autofocus="true" @input="qrCodeScan()"></v-text-field>
+            <v-text-field v-if="type === 'automate'" v-model="objectId" :autofocus="true"
+                          @input="qrCodeScan()"></v-text-field>
             <v-text-field v-else v-model="objectId" :autofocus="true" @keyup.enter="qrCodeScan()"></v-text-field>
         </span>
       </div>
@@ -46,13 +47,16 @@ export default {
 
   methods: {
     qrCodeScan() {
-      console.log('slam')
-      // const finalObject = this.objectId.split('-')
-      // this.qrCode = ''
-      // if (this.state === 'packageSphpsList') {
-      //   this.packageScan(this.objectId , finalObject[1])
-      // }
-      // else if (this.state === 'scanShelf') this.$router.push(`/locating/${this.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
+      let self = this
+      window.setTimeout(function(){
+        const finalObject = self.objectId.split('-')
+        self.qrCode = ''
+        if (self.state === 'packageSphpsList') {
+          self.packageScan(self.objectId, finalObject[1])
+        } else if (self.state === 'scanShelf') self.$router.push(`/locating/${self.packageId}/shps-list/locating-shelf/${finalObject[1]}`)
+      },50)
+      // console.log('slam')
+
     },
 
     async packageScan(barcode, objectId) {
