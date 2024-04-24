@@ -47,7 +47,7 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray-darken-1 py-5 number-font">
+                    <span class="t13300 text-gray-darken-1 py-5 d--ltr">
                         <template v-if="item.code">
                             #{{ item.code }}
                         </template>
