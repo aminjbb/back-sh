@@ -12,30 +12,55 @@
       </template>
 
       <template v-if="step === 2">
-        <CreateManualOrderStep2 />
+        <CreateManualOrderStep2 @shpsListUpdated="handlerShpsListUpdated"/>
       </template>
 
-      <footer class="create-warehouse__actions">
-        <v-row justify="space-between" class="px-10 pt-10">
-          <v-btn
-              variant="outlined"
-              :loading="loading"
-              @click="validate()"
-              height="40"
-              rounded
-              class="px-8 mt-1">
-          </v-btn>
-          <v-btn
-              variant="elevated"
-              :loading="loading"
-              @click="validate()"
-              color="primary500"
-              height="40"
-              rounded
-              class="px-8 mt-1">
-            <span v-if="step===1">تایید و ادامه</span>
-            <span v-else>تایید</span>
-          </v-btn>
+      <footer class="create-product__actions ">
+        <v-row justify="space-between" class="px-8 pt-8">
+          <div>
+            <v-btn
+                v-if="step > 1"
+                rounded
+                variant="outlined"
+                width="115"
+                @click="decreaseStep()">
+              <span class="t14300">
+                  بازگشت
+              </span>
+            </v-btn>
+            <v-btn
+                v-else
+                rounded
+                variant="outlined"
+                width="115"
+                @click="$router.go(-1)"
+            >
+              <span class="t14300">
+                 بازگشت
+              </span>
+            </v-btn>
+          </div>
+          <div>
+            <v-btn
+                :loading="loading"
+                rounded
+                color="primary400"
+                variant="elevated"
+                width="115"
+                @click="increaseStep()">
+              <span
+                  v-if="step < 3"
+                  class="t14300">
+                تایید و ادامه
+              </span>
+
+              <span
+                  v-else
+                  class="t14300">
+                تایید و ثبت
+              </span>
+            </v-btn>
+          </div>
         </v-row>
       </footer>
     </v-card>
@@ -67,6 +92,10 @@ export default {
       descriptionEmit:false,
       sendingMethodEmit:false,
       getAddressEmit: false,
+      updatedShpsList: [],
+      useId:null,
+      addressId:null,
+      sendMethod: null
     }
   },
 
@@ -78,7 +107,46 @@ export default {
   },
 
   methods: {
+    decreaseStep() {
+      if (this.step > 1) {
+        --this.step
+      }
+    },
+    increaseStep() {
+      if (this.step === 1){
+        this.step1Validation()
+      }if (this.step === 2){
+        this.step2Validation()
+      }
+    },
+
+    step1Validation(){
+      if(this.getAddressEmit && this.sendingMethodEmit && this.descriptionEmit && this.selectedUserEmit) {
+        this.step++
+      }
+      else {
+        if(this.selectedUserEmit===false) {
+          openToast( this.$store,'کاربر انتخاب نشده است' , 'error')
+        }
+        else if (this.getAddressEmit===false) {
+          openToast( this.$store, 'آدرس انتخاب نشده است' , 'error')
+        }
+        else if (this.descriptionEmit===false ) {
+          openToast( this.$store,'توضیحات لازم است' , 'error')
+        }
+        else if (this.sendingMethodEmit===false) {
+          openToast( this.$store,'روش ارسال انتخاب نشده است' , 'error')
+        }
+      }
+    },
+    step2Validation(){
+      if (this.updatedShpsList.length>0) {
+       this.createOrder()
+      }
+    },
+
     selectedUser(user){
+      this.useId= user
       if(user && user !== null && user !== ''){
         this.selectedUserEmit = true
       }
@@ -95,6 +163,7 @@ export default {
       }
     },
     sendingMethod(val){
+      this.sendMethod = val
       if(val && val !== null && val !== ''){
         this.sendingMethodEmit = true
       }
@@ -103,6 +172,7 @@ export default {
       }
     },
     getAddress(address){
+      this.addressId = address
       if(address && address !== null && address !== ''){
         this.getAddressEmit = true
       }
@@ -111,43 +181,30 @@ export default {
       }
     },
 
-    validate() {
-      if(this.getAddressEmit && this.sendingMethodEmit && this.descriptionEmit && this.selectedUserEmit) {
-        this.step++
-      }
-      else {
-        if(this.selectedUserEmit===false) {
-          openToast( this.$store,'کاربر انتخاب نشده است' , 'error')
-        }
-        else if (this.descriptionEmit===false ) {
-          openToast( this.$store,'توضیحات لازم است' , 'error')
-        }
-       else if (this.sendingMethodEmit===false) {
-          openToast( this.$store,'روش ارسال انتخاب نشده است' , 'error')
-        }
-         else if (this.getAddressEmit===false) {
-          openToast( this.$store, 'آدرس انتخاب نشده است' , 'error')
-        }
-      }
+    handlerShpsListUpdated(updatedShpsList){
+      this.updatedShpsList = updatedShpsList
+      this.$emit('updateShpsListToParent', updatedShpsList)
     },
+
 
     async createOrder() {
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'admin/order/crud/create'
-      this.$refs.CreateOrderForm.shpsList.forEach((shps, index) => {
-        formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
-        formData.append(`shps_list[${index}][count]`, shps?.count)
+      this.updatedShpsList.forEach((shps,index)=>{
+          formData.append(`shps_list[${index}][shps]`, shps?.id)
+          formData.append(`shps_list[${index}][count]`, shps?.count)
       })
-      formData.append('user_id', this.$refs.CreateOrderForm.user.id)
-      formData.append('address_id', this.$refs.CreateOrderForm.address)
-      formData.append('sending_method', this.$refs.CreateOrderForm.sendingMethod)
+      formData.append('user_id', this.useId.id)
+      formData.append('address_id', this.addressId)
+      formData.append('sending_method', this.sendMethod)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
+      console.log('dataaaaaa', data)
       if (data) {
         this.loading = false
         openToast(this.$store,

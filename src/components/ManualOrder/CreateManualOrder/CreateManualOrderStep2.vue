@@ -20,10 +20,9 @@
               <template v-slot:item="item">
                 <v-list-item>
                   <v-row justify="center">
-
                     <v-col cols="4">
                       <div
-                          @click="assignSku(item.item.title, item.item.raw.image, item.item.raw.customerPrice, item.item.raw.sitePrice, item.item.raw.siteStock)"
+                          @click="assignSku(item.item.raw.id, item.item.title, item.item.raw.image, item.item.raw.customerPrice, item.item.raw.sitePrice, item.item.raw.siteStock)"
                           class="seller__add-sku-btn d-flex justify-center align-center">
                         <v-icon>mdi-plus</v-icon>
                       </div>
@@ -46,7 +45,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="br-12 d-flex flex-column align-stretch" height="560">
+    <v-card class="br-12 d-flex flex-column align-stretch" height="600">
       <Table
           class="flex-grow-1"
           :header="headerSelectProduct"
@@ -63,25 +62,12 @@
       <v-divider />
 
       <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-end">
-            <div class="">جمع :</div>
-            <div
-                align="center"
-                id="rowSection"
-                class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
-              <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataSkuTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
-            </div>
-          </v-col>
+        <v-row justify="start" class="px-8">
+          <v-col cols="5">جمع</v-col>
+          <v-col cols="1">285687000</v-col>
+          <v-col cols="1">285687000</v-col>
+          <v-col cols="1">285687000</v-col>
+          <v-col cols="1">285687000</v-col>
         </v-row>
       </v-card-actions>
     </v-card>
@@ -189,9 +175,10 @@ export default {
       }
     },
 
-    async assignSku(title, image, customerPrice, sitePrice, siteStock) {
+    async assignSku(id, label, image, customerPrice, sitePrice, siteStock) {
       const form = {
-        label : title,
+        id: id,
+        label : label,
         count:1,
         image: image,
         customerPrice: customerPrice,
@@ -199,6 +186,7 @@ export default {
         siteStock: siteStock,
       }
       this.shpsList.push(form)
+      this.$emit('shpsListUpdated', this.shpsList)
     }
   }
 }

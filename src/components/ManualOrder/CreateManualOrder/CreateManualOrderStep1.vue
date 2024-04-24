@@ -25,7 +25,10 @@
         </v-col>
 
         <v-col cols="1" align-self="end">
-          <v-btn color="primary500" rounded>ذخیره</v-btn>
+          <v-btn
+              rounded
+              color="primary400"
+              variant="elevated">ذخیره</v-btn>
         </v-col>
 
         <v-col cols="5">
@@ -188,45 +191,10 @@ export default {
       if (data) {
         this.userSearchList = data.data.data
       }
-    },
-
-    // async searchSku(search) {
-    //   this.skuSearchList = []
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   AxiosMethod.end_point = `seller/sku/search?q=${search}`
-    //   let data = await AxiosMethod.axios_get()
-    //   if (data) {
-    //     this.skuSearchList = data.data.data
-    //   }
-    // },
-    //
-    // async assignSku(shps) {
-    //   const form = {
-    //     shps : shps,
-    //     count:1
-    //   }
-    //   this.shpsList.push(form)
-    // },
+    }
   },
-  computed:{
-    // skuList() {
-    //   try {
-    //     let sku = []
-    //     this.skuSearchList.forEach(skuSearch => {
-    //       const form = {
-    //         name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
-    //         value: skuSearch
-    //       }
-    //       sku.push(form)
-    //     })
-    //     return sku
-    //   } catch (e) {
-    //     return []
-    //   }
-    // },
 
+  computed:{
     userList(){
       try {
         let users = []
