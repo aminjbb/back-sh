@@ -72,6 +72,6 @@ app.use(VueClipboard, {
     appendToBody: true,
 })
 app.component('DatePicker', Vue3PersianDatetimePicker)
-app.directive('debounce', vue3Debounce({ lock: true , defaultTime: '2000ms',}))
+app.directive('debounce', vue3Debounce({ lock: true , defaultTime: '1000ms',}))
 
 app.mount('#app')

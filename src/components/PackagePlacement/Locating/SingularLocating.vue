@@ -8,18 +8,26 @@
   <template v-if="!shpsScan && !pickUpDone && !shelfScan">
     <div class="h-100 d-flex align-center justify-center">
       <div>
+        <div class="d-flex justify-center px-10">
+          <v-radio-group v-model="autoSend" inline @update:model-value="dialog = true">
+            <v-radio label="اتوماتیک" :value="true"></v-radio>
+            <v-radio label="دستی" :value="false"></v-radio>
+          </v-radio-group>
+        </div>
         <div class="d-flex justify-center">
           <v-icon color="black" size="30">
             mdi-barcode-scan
           </v-icon>
         </div>
+
         <div class=" mt-8 d-flex justify-center px-10 text-center">
           <span class="text-black t20400">
           شناسه کالا را اسکن کنید.
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend" v-debounce="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-else @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
         </div>
       </div>
     </div>
@@ -133,6 +141,12 @@
             mdi-barcode-scan
           </v-icon>
         </div>
+        <div>
+          <v-radio-group v-model="autoSend" inline @update:model-value="dialog = true">
+            <v-radio label="اتوماتیک" :value="true"></v-radio>
+            <v-radio label="دستی" :value="false"></v-radio>
+          </v-radio-group>
+        </div>
         <div class=" mt-8 d-flex justify-center px-10 text-center">
           <span class="text-black t20400">
          شناسه شلف را اسکن کنید.
@@ -200,7 +214,8 @@ export default {
       shelfScan: false,
       shpssSingeLocate: null,
       placementBarcode: null,
-      placementSplitId: null
+      placementSplitId: null,
+      autoSend:true
     }
   },
 
@@ -256,18 +271,20 @@ export default {
     },
     async shpsDetail() {
       try {
-        this.loading = true
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'shps/item/detail?barcode=' + this.shpssSingeLocate
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          this.pickUpShps = data.data
-          this.shpsScan = true
-          this.loading = false
-        } else {
-          this.loading = false
+        if (this.shpssSingeLocate){
+          this.loading = true
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = 'shps/item/detail?barcode=' + this.shpssSingeLocate
+          let data = await AxiosMethod.axios_get()
+          if (data) {
+            this.pickUpShps = data.data
+            this.shpsScan = true
+            this.loading = false
+          } else {
+            this.loading = false
+          }
         }
       } catch (e) {
         this.loading = false
