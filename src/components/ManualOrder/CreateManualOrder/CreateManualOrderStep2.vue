@@ -199,7 +199,7 @@ export default {
     },
 
     getTotal(property) {
-      return this.shpsList.reduce((total, item)=> total+item[property], 0)
+      return this.shpsList.reduce((total, item)=>parseInt(item[property])+total, 0)
     }
   }
 }
