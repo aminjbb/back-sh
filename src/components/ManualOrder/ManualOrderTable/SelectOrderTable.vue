@@ -4,8 +4,7 @@
 
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
-        <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12500 text-black" style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-          <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
+        <div v-if="head.show" class="text-center c-table__header__item t12500 text-black" style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           {{ head.name }}
         </div>
       </template>
@@ -85,7 +84,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
+                  <div class="ma-3 pointer d--rtl">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
                   </div>
@@ -103,27 +102,14 @@
         </div>
       </div>
     </div>
-    {{items}}
   </div>
 </template>
 
 <script>
 import {
-  PanelFilter
-} from "@/assets/js/filter_order.js"
-
-import {
-  openConfirm,
   isOdd,
   splitChar
 } from "@/assets/js/functions";
-
-import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
-import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 
 export default {
 
@@ -152,14 +138,6 @@ export default {
     },
 
     /**
-     * Delete endpoint for change filter
-     */
-    deletePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
      * Page on table
      */
     page: {
@@ -181,33 +159,13 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    },
-
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
+    }
   },
 
   data() {
     return {
-      order_type: "desc",
-      ordering: {},
-      per_page: '25',
-      filter: [],
-      panelFilter: new PanelFilter(),
-      activeColumn: false,
-      form: []
+      per_page: '25'
     }
-  },
-
-  components: {
-    DetailsModal,
-    FactorModal
   },
 
   computed: {
@@ -233,14 +191,6 @@ export default {
     splitChar,
 
     /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
-
-    /**
      * Get row index in table
      * @param {*} index
      */
@@ -256,57 +206,11 @@ export default {
     },
 
     /**
-     * Create ordering
-     * @param {*} index
-     * @param { boolean } order
-     */
-    createOrdering(index, order) {
-      if (order === true) {
-        if (index) {
-          if (this.order_type === 'desc') {
-            this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
-          } else {
-            this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
-          }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-          this.ordering = {};
-          this.ordering[index] = !this.ordering[index];
-        }
-      }
-    },
-
-    /**
-     * Get icon
-     * @param {*} column
-     */
-    getIcon(column) {
-      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
-
-    /**
      * Return odd index
      * @param {*} index
      */
     oddIndex(index) {
       return isOdd(index)
-    },
-
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
     },
 
     /**

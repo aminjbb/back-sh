@@ -63,11 +63,13 @@
 
       <v-card-actions class="pb-3">
         <v-row justify="start" class="px-8">
-          <v-col cols="5">جمع</v-col>
-          <v-col cols="1">285687000</v-col>
-          <v-col cols="1">285687000</v-col>
-          <v-col cols="1">285687000</v-col>
-          <v-col cols="1">285687000</v-col>
+          <v-col cols="5">
+            <span class="text-center">جمع:</span>
+          </v-col>
+          <v-col cols="1" class="text-center number-font">{{getTotal('customerPrice')}}</v-col>
+          <v-col cols="1" class="text-center number-font">{{getTotal('sitePrice')}}</v-col>
+          <v-col cols="2" class="text-center number-font">{{getTotal('siteStock')}}</v-col>
+          <v-col cols="2" class="text-center number-font">{{getTotal('count')}}</v-col>
         </v-row>
       </v-card-actions>
     </v-card>
@@ -86,6 +88,7 @@ import {
   AxiosCall
 } from "@/assets/js/axios_call";
 import ManualOrders from "@/composables/ManualOrders";
+import {th} from "vuetify/locale";
 
 export default {
   setup(props) {
@@ -179,7 +182,7 @@ export default {
       const form = {
         id: id,
         label : label,
-        count:1,
+        count:0,
         image: image,
         customerPrice: customerPrice,
         sitePrice: sitePrice,
@@ -187,6 +190,10 @@ export default {
       }
       this.shpsList.push(form)
       this.$emit('shpsListUpdated', this.shpsList)
+    },
+
+    getTotal(property) {
+      return this.shpsList.reduce((total, item)=> total+item[property], 0)
     }
   }
 }
