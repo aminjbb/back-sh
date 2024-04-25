@@ -95,7 +95,8 @@ export default {
       updatedShpsList: [],
       useId:null,
       addressId:null,
-      sendMethod: null
+      sendMethod: null,
+      descriptionData: null
     }
   },
 
@@ -155,6 +156,7 @@ export default {
       }
     },
     description(desc){
+      this.descriptionData = desc
       if(desc && desc !== null && desc !== ''){
         this.descriptionEmit = true
       }
@@ -199,12 +201,12 @@ export default {
       formData.append('user_id', this.useId.id)
       formData.append('address_id', this.addressId)
       formData.append('sending_method', this.sendMethod)
+      formData.append('description', this.descriptionData)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
-      console.log('dataaaaaa', data)
       if (data) {
         this.loading = false
         openToast(this.$store,

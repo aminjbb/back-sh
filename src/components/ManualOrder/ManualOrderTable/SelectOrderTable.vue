@@ -84,8 +84,8 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+                  <div class="ma-3 pointer d--rtl"  @click="removeItem(item.id)">
+                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
                   </div>
                 </v-list-item-title>
@@ -107,9 +107,10 @@
 
 <script>
 import {
-  isOdd,
+  isOdd, openConfirm,
   splitChar
 } from "@/assets/js/functions";
+import {th} from "vuetify/locale";
 
 export default {
 
@@ -220,6 +221,14 @@ export default {
     updateList(status) {
       this.$emit('updateList', status);
     },
+
+    removeItem (id) {
+      const index = this.items.findIndex(item=> item.id === id)
+      if (index !== -1) {
+        this.items.splice(index,1)
+      }
+
+    }
   },
 }
 </script>

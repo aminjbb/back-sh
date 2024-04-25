@@ -166,6 +166,12 @@ export default {
   },
 
   methods: {
+    updateList(status) {
+      if (status === 'true') {
+        this.shpsList();
+      }
+    },
+
     async searchSku(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
