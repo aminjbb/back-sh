@@ -31,7 +31,6 @@ export class PanelFilter {
         this.payment_status = null;
         this.payment_method = null;
         this.packed_status = null;
-        this.packed_status = null;
         //this.identification_code = null;
         // this.bank_id = null;
         this.created_at_to_date = null;
@@ -45,6 +44,7 @@ export class PanelFilter {
         this.receive_city_id = null;
         this.paid_price_from = null;
         this.paid_price_to = null;
+        this.is_admin_order = null
     }
 
     query_maker() {
@@ -139,7 +139,12 @@ export class PanelFilter {
 
     params_generator(routeQuery) {
         let query = "?";
-
+        if (this.is_admin_order === 1){
+            query += "is_admin_order=1&";
+        }
+        else if (this.is_admin_order === 0){
+            query += "is_admin_order=0&";
+        }
         if (this.per_page) {
             query += "per_page=" + this.per_page + "&";
         } else if (routeQuery.per_page) {

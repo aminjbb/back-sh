@@ -2,7 +2,6 @@ import {
     createRouter,
     createWebHistory
 } from 'vue-router'
-
 /* Auth */
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Login/LoginView.vue'
@@ -225,6 +224,7 @@ import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
+import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
 
 
@@ -275,7 +275,8 @@ import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLab
 /* Zone */
 import ZoneListView from '../views/Zone/ZoneListView.vue'
 import PrintOrderLabelView from "@/views/PrintOrderLabel/PrintOrderLabelView.vue";
-import {useCookies} from "vue3-cookies";
+import ManualOrderListView from "@/views/ManualOrder/ManualOrderListView.vue";
+import EditOrderView from "@/views/ManualOrder/EditOrderView.vue";
 
 
 const router = createRouter({
@@ -1902,7 +1903,8 @@ const router = createRouter({
             meta: {
                 name: 'سفارش ها'
             },
-            children: [{
+            children: [
+            {
                 path: 'index',
                 name: 'OrderList',
                 component: OrderListView,
@@ -1919,6 +1921,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: 'user/:orderId/manual-order',
+                    name: 'ManualOrderView',
+                    component: ManualOrderView,
+                    meta: {
+                        name: 'لیست سفارش ها'
+                    }
+                },
+                {
                     path: 'create',
                     name: 'AddOrderView',
                     component: AddOrderView,
@@ -1926,6 +1936,22 @@ const router = createRouter({
                         name: 'ساخت سفارش'
                     }
                 },
+                {
+                    path: 'manual-order-list',
+                    name: 'AddManualOrderView',
+                    component: ManualOrderListView,
+                    meta: {
+                        name: 'سفارش های اپراتوری'
+                    },
+                },
+                {
+                    path: 'manual-order-list/:orderId/edit',
+                    name: 'EditOrderView',
+                    component: EditOrderView,
+                    meta: {
+                        name: 'ویرایش سفارش'
+                    }
+                }
             ],
         },
         {
@@ -2168,13 +2194,104 @@ const router = createRouter({
         },
     ]
 })
+const privateRoutes = [
+    'home',
+    'categories',
+    'addCategories',
+    'editCategory',
+    //brands
+    'brands',
+    'addBrand',
+    'editBrand',
+    //Color
+    'colors',
+    'addColor',
+    'editColor',
+    //attribute
+    'attribute',
+    'addAttribute',
+    'editAttribute',
+    //Export
+    'exportPage',
+    'getExport',
+    //notifications
+    'notifications',
+    'createNotifications',
+    //product
+    'createProduct',
+    'ProductView',
+    'AddProductView',
+    'uploadImageProduct',
+    'skuGroupList',
+    'productSkuGroupList',
+    'skuGroupUploadImage',
+    'skuList',
+    'createSku',
+    'uploadImageSku',
+    'groupSkuList',
+    'productSkuList',
+    'SkuEditView',
+    'createProduct',
+    'createProductSkuGroup',
+    'EditProductView',
+    //Ticket
+    'TicketList',
+    'createTicket',
+    'getTicket',
+    //chat
+    'chatPage',
+    //Admin
+    'AdminListView',
+    'createAdmin',
+    'editAdmin',
+    'UserListView',
+    'createUser',
+    'editUser',
+    //Permissions
+    'PermissionListView',
+    'RolePermissionListView',
+    'CreateRolePermissionView',
+    'EditRolePermissionView',
+    //Warehouse
+    'WarehouseListView',
+    'CreateWarehouseView',
+    'EditWarehouseView',
+    'SpecialCapacityView',
+    //Supplier
+    'SupplierListView',
+    'CreateSupplierView',
+    'EditSupplierView',
+    //Seller
+    'SellerListView',
+    'CreateSellerView',
+    'CreateNaturalSellerView',
+    'CreateLegalSellerView',
+    'EditNaturalSellerView',
+    'EditLegalSellerView',
+    'AddSkuSellerView',
+];
 router.beforeEach((to, from, next) => {
-    const cookies = useCookies()
-    if (to.name!= 'login') {
-        if (!cookies.cookies.get('adminToken')) {
+    if (privateRoutes.includes(to.name)) {
+        // redirect to login page with next url
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let str = decodedCookie.split('; ');
+        const result = {};
+        for (let i in str) {
+            const cur = str[i].split('=');
+            result[cur[0]] = cur[1];
+        }
+        if (!result.adminToken) {
             next('/login');
         }
+
     }
+
+    // // redirect to dashboard page if user is already logged in
+    // if (to.name === 'login') {
+    //   if (localStorage.getItem('accessToken')) {
+    //     next('/dashboard');
+    //   }
+    // }
 
     next();
 });

@@ -7,12 +7,15 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const orderList = ref([]);
+    const manualOrderList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
     const router = useRouter()
     const route = useRoute()
+    const manualOrderListGet = ref([])
+
 
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -62,6 +65,16 @@ export default function setup() {
         { name: 'کد تخفیف', show: true, value:'code', order: false },
         { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
     ]);
+    const manualOrderHeader =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'تصویر کالا', show: true , value:'shps_img', order: false},
+        { name: 'نام کالا', show: true, value:'shps_name' , order: false},
+        { name: 'قیمت مصرف کننده', show: true , value:'customer_price', order: false},
+        { name: 'قیمت فروش', show: true , value:'final_price', order: false},
+        { name: 'موجودی سایت', show: true , value:'site_count', order: false},
+        { name: 'تعداد کالا', show: true, value:'shps_count', order: false },
+
+    ]);
 
     const discountModalHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -93,6 +106,8 @@ export default function setup() {
     async function getOrderList(query) {
         loading.value = true
         let paramsQuery = null
+        filter.is_admin_order = 0
+
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }
@@ -115,6 +130,58 @@ export default function setup() {
         else {
         }
     };
+    async function getManualOrderList(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/shps/detail/${route.params.orderId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            manualOrderList.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+        else {
+        }
+    };
+    async function getManualOrderListGet(query) {
+        loading.value = true
+        let paramsQuery = null
+        if (query){
+            paramsQuery = filter.params_generator(query.query)
+        }
+        else  paramsQuery = filter.params_generator(route.query)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/crud/get/${route.params.orderId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            manualOrderListGet.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+
+        else {
+        }
+    };
+
+
 
     function addPerPage(number){
         filter.page = 1
@@ -145,5 +212,5 @@ export default function setup() {
         }
     })
 
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader}
+    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList, manualOrderHeader, manualOrderList}
 }

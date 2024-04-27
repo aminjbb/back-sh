@@ -21,6 +21,8 @@ export default createStore({
         massUpdateModal: false,
         adminNewChat: null,
         avatar: null,
+        manualOrderStep1: null,
+        manualOrderStep2: null,
         naturalSellerStep1: null,
         naturalSellerStep2: null,
         naturalSellerStep3: null,
@@ -324,6 +326,12 @@ export default createStore({
         set_naturalSellerStep1(state, obj) {
             state.naturalSellerStep1 = obj
         },
+        set_manualOrderStep1(state, obj) {
+            state.manualOrderStep1 = obj
+        },
+        set_manualOrderStep2(state, obj) {
+            state.manualOrderStep2 = obj
+        },
         set_avatar(state, avatar) {
             state.avatar = avatar
         },
@@ -603,6 +611,12 @@ export default createStore({
         },
         get_naturalSellerStep1(state) {
             return state.naturalSellerStep1
+        },
+        get_manualOrderStep1(state) {
+            return state.manualOrderStep1
+        },
+        get_manualOrderStep2(state) {
+            return state.manualOrderStep2
         },
         get_avatar(state) {
             return state.avatar
