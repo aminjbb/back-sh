@@ -2194,105 +2194,13 @@ const router = createRouter({
         },
     ]
 })
-const privateRoutes = [
-    'home',
-    'categories',
-    'addCategories',
-    'editCategory',
-    //brands
-    'brands',
-    'addBrand',
-    'editBrand',
-    //Color
-    'colors',
-    'addColor',
-    'editColor',
-    //attribute
-    'attribute',
-    'addAttribute',
-    'editAttribute',
-    //Export
-    'exportPage',
-    'getExport',
-    //notifications
-    'notifications',
-    'createNotifications',
-    //product
-    'createProduct',
-    'ProductView',
-    'AddProductView',
-    'uploadImageProduct',
-    'skuGroupList',
-    'productSkuGroupList',
-    'skuGroupUploadImage',
-    'skuList',
-    'createSku',
-    'uploadImageSku',
-    'groupSkuList',
-    'productSkuList',
-    'SkuEditView',
-    'createProduct',
-    'createProductSkuGroup',
-    'EditProductView',
-    //Ticket
-    'TicketList',
-    'createTicket',
-    'getTicket',
-    //chat
-    'chatPage',
-    //Admin
-    'AdminListView',
-    'createAdmin',
-    'editAdmin',
-    'UserListView',
-    'createUser',
-    'editUser',
-    //Permissions
-    'PermissionListView',
-    'RolePermissionListView',
-    'CreateRolePermissionView',
-    'EditRolePermissionView',
-    //Warehouse
-    'WarehouseListView',
-    'CreateWarehouseView',
-    'EditWarehouseView',
-    'SpecialCapacityView',
-    //Supplier
-    'SupplierListView',
-    'CreateSupplierView',
-    'EditSupplierView',
-    //Seller
-    'SellerListView',
-    'CreateSellerView',
-    'CreateNaturalSellerView',
-    'CreateLegalSellerView',
-    'EditNaturalSellerView',
-    'EditLegalSellerView',
-    'AddSkuSellerView',
-];
 router.beforeEach((to, from, next) => {
-    if (privateRoutes.includes(to.name)) {
-        // redirect to login page with next url
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let str = decodedCookie.split('; ');
-        const result = {};
-        for (let i in str) {
-            const cur = str[i].split('=');
-            result[cur[0]] = cur[1];
-        }
-        if (!result.adminToken) {
-            next('/login');
-        }
-
+    // redirect to dashboard page if user is already logged in
+    if (to.name === 'login') {
+      if (localStorage.getItem('accessToken')) {
+        next('/dashboard');
+      }
     }
-
-    // // redirect to dashboard page if user is already logged in
-    // if (to.name === 'login') {
-    //   if (localStorage.getItem('accessToken')) {
-    //     next('/dashboard');
-    //   }
-    // }
-
     next();
 });
 export default router
