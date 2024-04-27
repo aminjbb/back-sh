@@ -54,79 +54,52 @@
 
 
 
-        <v-row>
-          <v-item-group v-model="address" selected-class="bg-primary500">
-            <v-container>
-              <v-row>
+        <v-row justify="center">
+          <v-col cols="10">
+            <v-item-group v-model="address" selected-class="bg-primary500">
+              <v-col
+                  v-for="(address , index) in userAddress"
+                  :key="address.id"
+                  cols="12">
+                <v-item :value="address.id" v-slot="{ isSelected, selectedClass, toggle }">
+                  <v-card
+                      :class="['align-center justify-lg-space-evenly px-10', selectedClass]"
+                      dark
+                      height="120"
+                      class="d--rtl"
+                      min-width="400"
+                      @click="toggle">
+                    <v-row class="py-5">
+                      <v-col>
+                        <v-icon icon="mdi-checkbox-blank-circle-fill"/>
+                        <span class="t12500 text-right mt-4">
+                   {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
+              </span>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                      <v-col cols="4">
+                        <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
+                        <span class="mr-1">کد پستی :</span>
+                        <span class="t12500 text-right mt-4">{{ address?.postal_code }}</span>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
+                        <span class="mr-1">شماره تماس :</span>
+                        <span class="t12500 text-right mt-4"> {{ address?.phone_number }}</span>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
+                        <span class="mr-1">گیرنده :</span>
+                        <span class="t12500 text-right mt-4">{{ address?.first_name }} {{ address?.last_name }}</span>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-item>
+              </v-col>
+            </v-item-group>
+          </v-col>
 
-                <v-col
-                    v-for="(address , index) in userAddress"
-                    :key="address.id"
-                    cols="12"
-                >
-                  <v-item :value="address.id" v-slot="{ isSelected, selectedClass, toggle }">
-                    <v-card
-                        :class="['d-flex align-center justify-lg-space-evenly px-10', selectedClass]"
-                        dark
-                        height="200"
-                        class="d--rtl"
-                        min-width="400"
-                        @click="toggle"
-                    >
-                      <div>
-                        <div class="text-right">
-                        <span class="t12500">
-                          آدرس :
-                        </span>
-                        </div>
-                        <div class="text-right mt-4">
-                        <span class="t12500">
-                         {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
-                        </span>
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-right">
-                        <span class="t12500">
-                          کد پستی :
-                        </span>
-                        </div>
-                        <div class="text-right mt-4">
-                        <span class="t12500">
-                       {{ address?.postal_code }}
-                        </span>
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-right">
-                        <span class="t12500">
-                          شماره تماس گیرنده :
-                        </span>
-                        </div>
-                        <div class="text-right mt-4">
-                        <span class="t12500">
-                       {{ address?.phone_number }}
-                        </span>
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-right">
-                        <span class="t12500">
-                          نام و نام خانواگی گیرنده :
-                        </span>
-                        </div>
-                        <div class="text-right mt-4">
-                        <span class="t12500">
-                       {{ address?.first_name }} {{ address?.last_name }}
-                        </span>
-                        </div>
-                      </div>
-                    </v-card>
-                  </v-item>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-item-group>
         </v-row>
         <v-col
             cols="12"

@@ -254,14 +254,14 @@ export default {
     shpsCreatingForm(){
       var formData = new FormData()
       this.$refs.skuForm3.shpsCreatingForm.forEach((manualOrderListGet , index)=>{
-        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.user_id )
-        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.shps_count )
+        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.id )
+        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.count )
       })
       formData.append(`user_id` , this.$refs.skuForm3.form.user )
       formData.append(`address_id` , this.manualOrderListGet.address_id )
       formData.append(`sending_method` , this.manualOrderListGet.sending_method )
       formData.append(`parent_id` , this.manualOrderListGet.id )
-      formData.append(`description` , this.manualOrderListGet.description )
+      formData.append(`description` , this.$refs.skuForm3.form.description )
 
       this.createManualOrder(formData)
     },

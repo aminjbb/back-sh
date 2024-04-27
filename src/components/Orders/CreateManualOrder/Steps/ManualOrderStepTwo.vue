@@ -226,7 +226,7 @@ export default {
 
 
     assignSku(item) {
-      console.log(item, "aaa")
+      console.log(this.manualOrderList, "aaa")
       const form = {
         base_discount: item?.base_discount,
         cancelled_count: 0,
