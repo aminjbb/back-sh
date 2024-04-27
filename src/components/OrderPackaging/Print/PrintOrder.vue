@@ -289,6 +289,7 @@ export default {
 
                     setTimeout(() => {
                         let myElement = document.getElementById('printableArea-order');
+                        window.onafterprint = function() {window.close()};
                         window.print(myElement);
                     }, 2000)
 

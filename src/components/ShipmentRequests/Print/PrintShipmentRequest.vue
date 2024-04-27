@@ -107,6 +107,7 @@ export default {
         this.retailObject =data.data
         setTimeout(()=>{
           let myElement = document.getElementById('printableArea-cargo');
+          window.onafterprint = function() {window.close()};
           window.print(myElement);
         } , 2000)
       }
