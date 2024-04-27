@@ -106,6 +106,8 @@ export default function setup() {
     async function getOrderList(query) {
         loading.value = true
         let paramsQuery = null
+        filter.is_admin_order = 0
+
         if (query){
             paramsQuery = filter.params_generator(query.query)
         }

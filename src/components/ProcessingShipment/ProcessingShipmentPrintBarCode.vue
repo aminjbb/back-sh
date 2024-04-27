@@ -1,8 +1,7 @@
 <template>
-  <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
-    <v-col class="my-0 py-0" cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index"
-    >
-      <div class="barcode-page" style="height: 120px">
+  <div>
+    <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
+      <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index" class="text-center my-0 py-0">
         <barcode
             :barcodeValue="barCode.barcode"
             :format="'CODE128'"
@@ -10,10 +9,10 @@
             :shps="barCode?.shps?.id"
             :text="barCode?.shps?.sku?.label.substring(0, 45)"
         ></barcode>
-      </div>
-    </v-col>
-  </v-row>
-
+        <br>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>

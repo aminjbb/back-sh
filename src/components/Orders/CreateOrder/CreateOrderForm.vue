@@ -1,21 +1,56 @@
 <template>
+  <div class="">
+    <v-row justify="center" align="center">
+      <v-col cols="12">
+        <div class="text-center py-6">
+          <span class="t14500">اطلاعات سفارش</span>
+        </div>
+      </v-col>
+    </v-row>
+    <v-divider/>
+    <v-row justify="center" class="mt-10">
+      <v-col cols="4">
+        <div class="d-flex align-center text-right my-5">
+          <span class="t14500 text-gray600"> شماره سفارش </span>
+        </div>
+        <v-text-field
+            variant="outlined"
+            name="filter.value"
+            hide-details
+            v-model="userId" />
+      </v-col>
+      <v-col cols="1" align-self="end">
+        <v-btn color="primary500" rounded>ذخیره</v-btn>
+      </v-col>
+      <v-col cols="5">
+        <div class="d-flex align-center text-right my-5">
+          <span class="t14500 text-gray600"> کاربر</span>
+          <span class="t14500 text-red-accent-3 mr-1">*</span>
+        </div>
+        <v-autocomplete
+            variant="outlined"
+            prepend-inner-icon-cb="mdi-map-marker"
+            rounded="lg"
+            v-model="user"
+            :items="userList"
+            item-title="name"
+            item-value="value"
+            v-debounce="searchUser">
+        </v-autocomplete>
+      </v-col>
+    </v-row>
+  </div>
+
+
+
+
+
   <v-form
       ref="addOrder"
       class="create-product__info-form scroller"
       v-model="valid">
     <v-row justify="center" align="center">
-      <v-col cols="12">
-        <div class="text-center">
-          <span class="t14500">ساخت سفارش</span>
-        </div>
-      </v-col>
       <v-col cols="8">
-        <div class="text-right my-5">
-                <span class="t14500 text-gray600">
-                    انتخاب محصول
-                </span>
-        </div>
-
         <v-autocomplete
             placeholder="نام کالا یا شماره SKU را جستجو نمایید"
             variant="outlined"
@@ -51,6 +86,7 @@
         </v-autocomplete>
       </v-col>
     </v-row>
+
     <v-row justify="center" align="center">
       <v-col cols="6" v-for="(shps , index) in shpsList">
         <v-card min-height="150" class="d-flex align-center px-5">
@@ -228,6 +264,7 @@ export default {
       skuSearchList:[],
       shpsList:[],
       user:null,
+      userId: null,
       form: {
         name: '',
         type: [],
@@ -248,7 +285,6 @@ export default {
   },
 
   methods: {
-
     async searchUser(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
@@ -272,6 +308,7 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
+
     async assignSku(shps) {
       const form = {
         shps : shps,
@@ -282,6 +319,7 @@ export default {
 
     },
   },
+
   computed:{
     skuList() {
       try {
@@ -298,6 +336,7 @@ export default {
         return []
       }
     },
+
     userList(){
       try {
         let users = []
@@ -314,6 +353,7 @@ export default {
       }
     }
   },
+
   watch: {
     user(val){
       this.getUserAddress(val.id)

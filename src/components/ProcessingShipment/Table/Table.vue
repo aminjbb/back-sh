@@ -15,7 +15,7 @@
           <div
               v-if="head.show"
               @click="createOrdering(head.value, head.order)"
-              class="text-center c-table__header__item t12500 px-0"
+              class="text-right c-table__header__item t12500 px-0"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -25,7 +25,7 @@
         <template v-else>
           <div
               v-if="head.show"
-              class="text-center pointer c-table__header__item t12500"
+              class="text-right pointer c-table__header__item t12500"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             {{ head.name }}
@@ -66,7 +66,7 @@
 
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                        {{ item.shps_count }}
@@ -74,7 +74,7 @@
           </div>
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                 {{ item.min_tolerance }}
@@ -83,7 +83,7 @@
           </div>
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                 {{ item.max_tolerance }}
@@ -91,7 +91,7 @@
           </div>
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                {{ item.remained_count }}
@@ -100,7 +100,7 @@
 
           <div
 
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0.1 0 ${itemsWidth}` }"
           style="width: 100px">
               <div class="t14300 text-gray500 py-5 number-font w-100">
@@ -118,13 +118,13 @@
 
           <div
               v-if="  form[index] && model === 'shavaz'"
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
           </div>
           <div
 
-              class="c-table__contents__item justify-center px-0"
+              class="c-table__contents__item justify-start px-0"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span>
                 <img :src="item?.image?.image_url" width="70" height="70">
@@ -132,7 +132,7 @@
           </div>
           <div
               v-if="  form[index] && model === 'shavaz'"
-              class="c-table__contents__item justify-center"
+              class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
            <template v-if="item.is_packed === 0">

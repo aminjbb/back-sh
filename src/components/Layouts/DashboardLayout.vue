@@ -534,7 +534,7 @@ export default {
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
-                ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
+                ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
             ],
