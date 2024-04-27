@@ -193,7 +193,6 @@ export default {
 
   methods: {
     close() {
-      this.shipingDetails=[]
       closeModal(this.$store, 'set_orderDetailsModal')
     },
 
@@ -398,6 +397,7 @@ export default {
 
       if (data) {
         if (data.data) {
+          this.shipingDetails= []
           this.orderInfo = [
             {
               label: 'بارکد',

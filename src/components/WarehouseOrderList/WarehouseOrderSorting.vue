@@ -30,8 +30,8 @@
           <div class="mt-10 px-2">
             <v-text-field @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode" variant="solo"></v-text-field>
           </div>
-          <div >
-            <v-row justify="center" class="mt-5">
+          <div class="mt-15 pt-15">
+            <v-row justify="center pt-15 mt-15">
               <v-col cols="10">
                 <v-btn
                     @click="getShpssDetail()"

@@ -498,7 +498,7 @@ export default {
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
-                [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                // [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
                 ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
@@ -534,7 +534,7 @@ export default {
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
-                ['ساخت سفارش', '/orders/create', 'mdi-basket-outline'],
+                ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
                 ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
             ],
