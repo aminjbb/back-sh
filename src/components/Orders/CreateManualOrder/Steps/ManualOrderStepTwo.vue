@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 d-flex flex-column align-stretch sku-seller">
+  <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
 
       <v-row

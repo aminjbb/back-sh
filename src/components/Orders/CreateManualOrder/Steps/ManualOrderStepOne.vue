@@ -118,7 +118,7 @@
             </div>
 
             <v-text-field
-                v-model="form.description"
+                v-model="description"
                 :rule="persianRule"
                 variant="outlined"
                 placeholder=""
@@ -203,6 +203,8 @@ export default {
     sendingMethod:null,
     user:null,
     userSearchList:[],
+    description: null,
+    userId: null,
     labels: {
       phoneNumber: "شماره تماس",
       orderId: 'شماره سفارش',
@@ -259,8 +261,8 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.getters['get_naturalSellerStep1'] != null) {
-      this.form = this.$store.getters['get_naturalSellerStep1']
+    if (this.$store.getters['get_manualOrderStep1'] != null) {
+      this.form = this.$store.getters['get_manualOrderStep1']
     }
     this.getManualOrderListGet()
 
@@ -284,7 +286,20 @@ export default {
   },
   watch: {
     user(val){
+      this.$emit('selectedUser',val)
       this.getUserAddress(val?.id)
+    },
+
+    description(newVal){
+      this.$emit('description',newVal)
+    },
+
+    sendingMethod(newVal){
+      this.$emit('selectedSendingMethod',newVal)
+    },
+
+    address(newVal){
+      this.$emit('selectedAddress',newVal)
     }
   },
 }

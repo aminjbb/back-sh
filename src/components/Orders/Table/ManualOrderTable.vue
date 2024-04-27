@@ -156,7 +156,7 @@
               class="c-table__contents__item">
             <template v-if="item.count">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item?.count}}
+                             <v-text-field v-model="item.count"  variant="outlined"/>
                         </span>
 
             </template>
@@ -225,7 +225,7 @@
 
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.sku_id)">
+                    <div class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -616,8 +616,12 @@ export default {
      * Remove Item
      * @param {*} id
      */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+    removeItem (id) {
+      const index = this.items.findIndex(item=> item.id === id)
+      if (index !== -1) {
+        this.items.splice(index,1)
+      }
+
     },
 
     updateList(status) {

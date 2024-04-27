@@ -1,30 +1,31 @@
 <template>
-  <section class="create-product flex-column d-flex h-100">
+  <div class="create-product flex-column d-flex vh-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+
+    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
-        <ManualOrderStepOne ref="step1"/>
+        <ManualOrderStepOne
+            @selectedUser="selectedUser"
+            @description="description"
+            @selectedSendingMethod="sendingMethod"
+            @selectedAddress="getAddress"/>
       </template>
+
       <template v-if="step === 2">
-        <ManualOrderStepTwo ref="step2"/>
+        <ManualOrderStepTwo @shpsListUpdated="handlerShpsListUpdated"/>
       </template>
-
-
-
 
       <footer class="create-product__actions ">
         <v-row justify="space-between" class="px-8 pt-8">
-
           <div>
             <v-btn
                 v-if="step > 1"
                 rounded
                 variant="outlined"
                 width="115"
-                @click="decreaseStep()"
-            >
+                @click="decreaseStep()">
               <span class="t14300">
-                  مرحله قبلی
+                  بازگشت
               </span>
             </v-btn>
             <v-btn
@@ -40,27 +41,22 @@
             </v-btn>
           </div>
           <div>
-
-
             <v-btn
                 :loading="loading"
                 rounded
                 color="primary400"
                 variant="elevated"
                 width="115"
-                @click="increaseStep()"
-            >
+                @click="increaseStep()">
               <span
                   v-if="step < 2"
-                  class="t14300"
-              >
+                  class="t14300">
                 تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300"
-              >
+                  class="t14300">
                 تایید و ثبت
               </span>
             </v-btn>
@@ -68,7 +64,7 @@
         </v-row>
       </footer>
     </v-card>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -79,13 +75,13 @@ import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
 import ManualOrderStepOne from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepOne.vue'
 import ManualOrderStepTwo from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepTwo.vue'
-import NaturalSellerStep3 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep3.vue'
+
 export default {
 
   components: {
     ManualOrderStepOne,
     ManualOrderStepTwo,
-    NaturalSellerStep3,
+
     Stepper
   },
 
@@ -95,8 +91,17 @@ export default {
     steps:[
       'اطلاعات سفارش',
       'انتخاب محصول',
-    ]
+    ],
 
+    isSelectedUserEmit: false,
+    isDescriptionEmit:false,
+    isSendingMethodEmit:false,
+    isGetAddressEmit: false,
+    updatedShpsList: [],
+    useId:null,
+    addressId:null,
+    sendMethod: null,
+    descriptionData: null
   }),
   setup() {
     const {
@@ -116,9 +121,11 @@ export default {
 
   methods: {
 
-    /**
-     * increase step
-     */
+    decreaseStep() {
+      if (this.step > 1) {
+        --this.step
+      }
+    },
     increaseStep() {
       if (this.step === 1){
         this.step1Validation()
@@ -126,46 +133,108 @@ export default {
         this.step2Validation()
       }
     },
+
     step1Validation(){
-      this.$refs.step1.$refs.createSeller1.validate()
-      setTimeout(()=>{
-        if (this.$refs.step1.form.orderId === null){
-          openToast( this.$store,
-              'شماره سفارش الزامی است',
-              "error")
+      if(this.isGetAddressEmit && this.sendingMethodEmit && this.isDescriptionEmit && this.isSelectedUserEmit) {
+        this.step++
+      }
+      else {
+        if(this.isSelectedUserEmit===false) {
+          openToast( this.$store,'کاربر انتخاب نشده است' , 'error')
         }
-        else if (this.$refs.step1.form.user === null){
-          openToast( this.$store,
-              'شماره تماس الزامی است',
-              "error")
+        else if (this.isGetAddressEmit===false) {
+          openToast( this.$store, 'آدرس انتخاب نشده است' , 'error')
         }
-        else if (this.$refs.step1.form.description === null){
-          openToast( this.$store,
-              'توضیحات  الزامی است',
-              "error")
+        else if (this.isDescriptionEmit===false ) {
+          openToast( this.$store,'توضیحات لازم است' , 'error')
         }
-        else if(this.$refs.step1.valid){
-          this.$store.commit('set_manualOrderStep1' , this.$refs.step1.form)
-          this.step ++
+        else if (this.sendingMethodEmit===false) {
+          openToast( this.$store,'روش ارسال انتخاب نشده است' , 'error')
         }
-      },200)
+      }
     },
     step2Validation(){
-      this.$refs.step2.$refs.createSeller2.validate()
-      setTimeout(()=>{
-        if (this.$refs.step2.valid){
-          this.$store.commit('set_manualOrderStep2' , this.$refs.step2.form)
-          this.createSeller()
-        }
-      },200)
+
+        this.createOrder()
+
     },
 
-    /**
-     * decrease step
-     */
-    decreaseStep() {
-      if (this.step > 1) --this.step
+    selectedUser(user){
+      this.useId= user
+      if(user && user !== null && user !== ''){
+        this.isSelectedUserEmit = true
+      }
+      else {
+        this.isSelectedUserEmit = false
+      }
     },
+    description(desc){
+      this.descriptionData = desc
+      if(desc && desc !== null && desc !== ''){
+        this.isDescriptionEmit = true
+      }
+      else {
+        this.isDescriptionEmit = false
+      }
+    },
+    sendingMethod(val){
+      this.sendMethod = val
+      if(val && val !== null && val !== ''){
+        this.sendingMethodEmit = true
+      }
+      else {
+        this.sendingMethodEmit = false
+      }
+    },
+    getAddress(address){
+      this.addressId = address
+      if(address && address !== null && address !== ''){
+        this.isGetAddressEmit = true
+      }
+      else {
+        this.isGetAddressEmit = false
+      }
+    },
+
+    handlerShpsListUpdated(updatedShpsList){
+      this.updatedShpsList = updatedShpsList
+      this.$emit('updateShpsListToParent', updatedShpsList)
+    },
+
+
+    async createOrder() {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'admin/order/crud/create'
+      this.updatedShpsList.forEach((shps,index)=>{
+        formData.append(`shps_list[${index}][shps]`, shps?.id)
+        formData.append(`shps_list[${index}][count]`, shps?.count)
+      })
+      formData.append('user_id', this.useId.id)
+      formData.append('address_id', this.addressId)
+      formData.append('sending_method', this.sendMethod)
+      formData.append('description', this.descriptionData)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        openToast(this.$store,
+            'سفارش با موفقیت ایجاد شد.',
+            "success")
+      } else {
+        this.loading = false
+        openToast(this.$store,
+            'ایجاد سفارش با مشکل مواجه شد',
+            "error")
+      }
+    },
+
+
+
 
     /**
      *  change step from stepper button
@@ -175,145 +244,10 @@ export default {
       this.step = step
     },
 
-    /**
-     * create sku
-     */
-    async createSeller() {
-      const form1 = this.$store.getters['get_manualOrderStep1']
-      const form2 = this.$store.getters['get_manualOrderStep2']
-      const form3 = this.$store.getters['get_naturalSellerStep3']
-      this.loading = true
-      let formData =  new FormData()
-      formData.append('full_name',form1.fullName)
-      formData.append('type','genuine')
-      formData.append('shopping_name',form1.shopName)
-      formData.append('phone_number',form1.mobile)
-      formData.append('email',form1.email)
-      formData.append('identification_code',form1.nationalCode)
-      formData.append('birth_certificate_code',form1.certificateNumber)
-      form1.nationalCard.forEach((el , index)=>{
-        formData.append(`identification_cart_files[${index}]`,el)
-      })
-      formData.append('birth_certificate_file_id',form1.certificate)
-      formData.append('logo_image_id',form1.logo)
-      formData.append('city_id',form2.city)
-      formData.append('state_id',form2.province)
-      formData.append('postal_code',form2.postalCode)
-      formData.append('phone',form2.phoneNumber)
-      formData.append('address',form2.address)
-      formData.append('lat',form2.latLong.latitude)
-      formData.append('long',form2.latLong.longitude)
-      formData.append('account_number', form3.accountNumber)
-      formData.append('sheba_number',form3.shebaNumber)
-      formData.append('payment_type',form3.paymentType)
-      formData.append('payment_period',form3.paymentPeriod)
-      formData.append('contract_file_id',form3.contract)
-      formData.append('contract_status','associate')
-      formData.append('is_active',1)
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'seller/crud/create'
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
 
 
 
-        this.$router.push('/seller/index')
-      } else {
-        this.loading = false
-      }
-    },
 
-    /**
-     * get product`s skus
-     * @param productId
-     */
-    async getSkuProduct(productId) {
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `product/sku/group/crud/index?product_id=${productId}&per_page=10000`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const skuObject = JSON.stringify(data.data.data)
-        localStorage.setItem('skuObject', skuObject)
-        this.step = 3
-        this.$cookies.set('createProductStep', 3)
-      } else {
-      }
-    },
-    /**
-     * create formData for manual order
-     */
-    shpsCreatingForm(){
-      var formData = new FormData()
-      this.$refs.skuForm3.shpsCreatingForm.forEach((manualOrderListGet , index)=>{
-        formData.append(`shps_list[${index}][shps]` ,manualOrderListGet.id )
-        formData.append(`shps_list[${index}][count]` ,manualOrderListGet.count )
-      })
-      formData.append(`user_id` , this.$refs.skuForm3.form.user )
-      formData.append(`address_id` , this.manualOrderListGet.address_id )
-      formData.append(`sending_method` , this.manualOrderListGet.sending_method )
-      formData.append(`parent_id` , this.manualOrderListGet.id )
-      formData.append(`description` , this.$refs.skuForm3.form.description )
-
-      this.createManualOrder(formData)
-    },
-
-
-    async createManualOrder(formData) {
-      this.loading = true
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_success = false
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'admin/order/crud/create'
-      AxiosMethod.form = formData
-
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        await  this.approvedSku()
-        this.step = 1
-      } else {
-        this.loading = false
-      }
-    },
-
-    /**
-     * approve skus list
-     */
-
-    async approvedSku() {
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      this.$refs.skuForm3.skuesSelected.forEach((sku, index) => {
-        formdata.append(`sku_ids[]`, sku)
-      });
-      formdata.append('status', 'approved')
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_success = false
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'product/sku/crud/switch/multi/status'
-      AxiosMethod.form = formdata
-
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-        this.step = 1
-        localStorage.removeItem('skuObject')
-      } else {
-        this.loading = false
-      }
-    }
   },
 
   computed: {
