@@ -88,10 +88,10 @@ export default {
         'انتخاب محصول'
       ],
       step: 1,
-      selectedUserEmit: false,
-      descriptionEmit:false,
-      sendingMethodEmit:false,
-      getAddressEmit: false,
+      isSelectedUserEmit: false,
+      isDescriptionEmit:false,
+      isSendingMethodEmit:false,
+      isGetAddressEmit: false,
       updatedShpsList: [],
       useId:null,
       addressId:null,
@@ -122,17 +122,17 @@ export default {
     },
 
     step1Validation(){
-      if(this.getAddressEmit && this.sendingMethodEmit && this.descriptionEmit && this.selectedUserEmit) {
+      if(this.isGetAddressEmit && this.sendingMethodEmit && this.isDescriptionEmit && this.isSelectedUserEmit) {
         this.step++
       }
       else {
-        if(this.selectedUserEmit===false) {
+        if(this.isSelectedUserEmit===false) {
           openToast( this.$store,'کاربر انتخاب نشده است' , 'error')
         }
-        else if (this.getAddressEmit===false) {
+        else if (this.isGetAddressEmit===false) {
           openToast( this.$store, 'آدرس انتخاب نشده است' , 'error')
         }
-        else if (this.descriptionEmit===false ) {
+        else if (this.isDescriptionEmit===false ) {
           openToast( this.$store,'توضیحات لازم است' , 'error')
         }
         else if (this.sendingMethodEmit===false) {
@@ -149,19 +149,19 @@ export default {
     selectedUser(user){
       this.useId= user
       if(user && user !== null && user !== ''){
-        this.selectedUserEmit = true
+        this.isSelectedUserEmit = true
       }
       else {
-        this.selectedUserEmit = false
+        this.isSelectedUserEmit = false
       }
     },
     description(desc){
       this.descriptionData = desc
       if(desc && desc !== null && desc !== ''){
-        this.descriptionEmit = true
+        this.isDescriptionEmit = true
       }
       else {
-        this.descriptionEmit = false
+        this.isDescriptionEmit = false
       }
     },
     sendingMethod(val){
@@ -176,10 +176,10 @@ export default {
     getAddress(address){
       this.addressId = address
       if(address && address !== null && address !== ''){
-        this.getAddressEmit = true
+        this.isGetAddressEmit = true
       }
       else {
-        this.getAddressEmit = false
+        this.isGetAddressEmit = false
       }
     },
 
