@@ -425,6 +425,7 @@ export default {
         this.factorDetail = data.data
         setTimeout(() => {
           var myElement = document.getElementById('WarehouseOrderPrint');
+          window.onafterprint = function() {window.close()};
           window.print(myElement);
         }, 1000);
       }
