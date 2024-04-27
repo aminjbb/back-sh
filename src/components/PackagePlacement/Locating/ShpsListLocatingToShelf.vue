@@ -135,6 +135,7 @@ export default {
       error: true,
       qrCode: '',
       shpssBarCode: '',
+      lastShpssBarcode: null,
       placeCount: 0,
       toast: false,
       shpssDetail: null,
@@ -150,7 +151,8 @@ export default {
 
   methods: {
     scanQrCode() {
-      if (this.shpssBarCode && this.shpssBarCode.trim() !== '') {
+      if (this.shpssBarCode && this.shpssBarCode.trim() !== '' && this.lastShpssBarcode !== this.shpssBarCode) {
+        this.lastShpssBarcode = this.shpssBarCode
         if (!this.loading) this.locateShpssToPlace()
       }
     },
