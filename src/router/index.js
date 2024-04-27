@@ -225,6 +225,7 @@ import orderEditUser from "@/views/Orders/orderEditUser.vue";
 import OrderPackagingListView from "@/views/OrderPackaging/OrderPackagingListView.vue";
 import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
+import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
 
 
@@ -1914,6 +1915,14 @@ const router = createRouter({
                     path: 'user/:orderId/edit',
                     name: 'orderEditUser',
                     component: orderEditUser,
+                    meta: {
+                        name: 'لیست سفارش ها'
+                    }
+                },
+                {
+                    path: 'user/:orderId/manual-order',
+                    name: 'ManualOrderView',
+                    component: ManualOrderView,
                     meta: {
                         name: 'لیست سفارش ها'
                     }
