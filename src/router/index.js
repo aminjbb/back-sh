@@ -2168,6 +2168,7 @@ const router = createRouter({
         },
     ]
 })
+
 router.beforeEach((to, from, next) => {
     const cookies = useCookies()
     if (to.name!= 'login') {
