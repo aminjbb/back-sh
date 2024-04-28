@@ -387,9 +387,7 @@ export default {
       default: 1
     },
 
-    /**
-     * PerPage of data
-     */
+
     perPage: {
       type: Number,
       default: 1
@@ -442,19 +440,7 @@ export default {
       return 'auto';
     },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
+
   },
 
   watch: {
@@ -470,56 +456,6 @@ export default {
 
   methods: {
     splitChar,
-    /**
-     * Open order limit modal
-     * @param {*} id
-     */
-    openOrderLimitModal(id) {
-      openModal(this.$store, 'set_orderLimitModal', id, true)
-    },
-
-    /**
-     * Open inventory management modal
-     * @param {*} id
-     */
-    openInventoryManagementModal(id) {
-      openModal(this.$store, 'set_inventoryManagementModal', id, true)
-    },
-
-    /**
-     * Open consumer price modal
-     * @param {*} id
-     */
-    openConsumerPriceModal(id) {
-      openModal(this.$store, 'set_consumerPriceModal', id, true)
-    },
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
-    openBasicDiscountModal(id) {
-      openModal(this.$store, 'set_basicDiscountModal', id, true)
-    },
-
-    /**
-     * Open Marketing Discount modal
-     * @param {*} id
-     */
-    openMarketingDiscountModal(id) {
-      openModal(this.$store, 'set_marketingDiscountModal', id, true)
-    },
-    /**
-     * Mass update modal
-     */
-    massUpdateModal() {
-      this.$store.commit('set_massUpdateModal', true)
-    },
-
-    /**
-     * Get row index in table
-     * @param {*} index
-     */
     rowIndexTable(index) {
       let rowIndex = 0
       if (this.page === 1) {

@@ -43,7 +43,7 @@
                 variant="outlined"
                 prepend-inner-icon-cb="mdi-map-marker"
                 rounded="lg"
-                v-model="user"
+                v-model="form.userId"
                 :rules="rule"
                 :items="userList"
                 item-title="name"
@@ -56,7 +56,7 @@
 
         <v-row justify="center">
           <v-col cols="10">
-            <v-item-group v-model="address" selected-class="bg-primary500">
+            <v-item-group v-model="form.userAddress" selected-class="bg-primary500">
               <v-col
                   v-for="(address , index) in userAddress"
                   :key="address.id"
@@ -118,7 +118,7 @@
             </div>
 
             <v-text-field
-                v-model="description"
+                v-model="form.description"
                 :rule="persianRule"
                 variant="outlined"
                 placeholder=""
@@ -137,7 +137,7 @@
               </div>
               <v-col class="d-flex" cols="12">
                 <v-radio-group
-                    v-model="sendingMethod"
+                    v-model="form.sendingMethod"
                     inline
                 >
                   <v-radio
@@ -199,12 +199,9 @@ export default {
 
   data: () => ({
 
-    address:null,
-    sendingMethod:null,
+
     user:null,
     userSearchList:[],
-    description: null,
-    userId: null,
     labels: {
       phoneNumber: "شماره تماس",
       orderId: 'شماره سفارش',
@@ -213,11 +210,12 @@ export default {
     },
     form: {
       id: null,
+      userId:'',
       phoneNumber: null,
-      sending_method: [],
-      userAddress: [],
-      orderId: null,
-      description: null,
+      sendingMethod: [],
+      userAddress: '',
+      orderId: '',
+      description: '',
     },
     valid: true,
     rule: [v => !!v || 'این فیلد الزامی است'],
@@ -248,6 +246,25 @@ export default {
   },
 
   methods: {
+    setForm() {
+      try {
+        console.log(this.manualOrderListGet, "aydin")
+        this.form.userId = this.manualOrderListGet.full_name
+        this.form.orderId = this.manualOrderListGet.id
+        this.form.type = this.supplier.type
+        this.form.province = this.supplier.state_id
+        this.form.email = this.supplier.email
+        this.getCities()
+        this.form.city = this.supplier.city_id
+        this.form.phoneNumber = this.supplier.phone
+        this.form.mobileNumber = this.supplier.phone_number
+        this.form.accountNumber = this.supplier.account_number
+        this.form.shebaNumber = this.supplier.sheba_number
+        this.form.paymentPeriod = this.supplier.payment_period
+        this.form.paymentType = this.supplier.payment_type
+      } catch (error) {}
+    },
+
     async searchUser(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
@@ -285,6 +302,11 @@ export default {
     }
   },
   watch: {
+    watch: {
+      manualOrderListGet(val) {
+        this.setForm()
+      }
+    },
     user(val){
       this.$emit('selectedUser',val)
       this.getUserAddress(val?.id)

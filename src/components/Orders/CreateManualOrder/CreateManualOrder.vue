@@ -8,7 +8,11 @@
             @selectedUser="selectedUser"
             @description="description"
             @selectedSendingMethod="sendingMethod"
-            @selectedAddress="getAddress"/>
+            @selectedAddress="getAddress"
+            ref="ManualOrderStepOne"
+            :manualOrderList="manualOrderList"
+        />
+
       </template>
 
       <template v-if="step === 2">
@@ -49,7 +53,7 @@
                 width="115"
                 @click="increaseStep()">
               <span
-                  v-if="step < 2"
+                  v-if="step < 3"
                   class="t14300">
                 تایید و ادامه
               </span>
@@ -81,7 +85,6 @@ export default {
   components: {
     ManualOrderStepOne,
     ManualOrderStepTwo,
-
     Stepper
   },
 
@@ -108,11 +111,14 @@ export default {
 
       manualOrderListGet,
       getManualOrderListGet,
+      getManualOrderList,
+      manualOrderList,
 
     } = new Orders;
 
     return {
-
+      getManualOrderList,
+      manualOrderList,
       manualOrderListGet,
       getManualOrderListGet,
 
@@ -153,14 +159,20 @@ export default {
         }
       }
     },
-    step2Validation(){
 
-        this.createOrder()
+      step2Validation() {
+        this.$emit('shpsListUpdated', this.manualOrderList)
+        console.log(this.manualOrderList, "shps")
+        if (this.$refs.manualOrderList) {
+          this.createOrder()
+        }
+      },
 
-    },
 
     selectedUser(user){
+      // console.log(user, "salam")
       this.useId= user
+      console.log(this.useId, "aydin")
       if(user && user !== null && user !== ''){
         this.isSelectedUserEmit = true
       }
@@ -207,11 +219,12 @@ export default {
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'admin/order/crud/create'
+      console.log(this.updatedShpsList, "test2")
       this.updatedShpsList.forEach((shps,index)=>{
         formData.append(`shps_list[${index}][shps]`, shps?.id)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
-      formData.append('user_id', this.useId.id)
+      formData.append('user_id', this.$refs.SupplierForm.form.fullName)
       formData.append('address_id', this.addressId)
       formData.append('sending_method', this.sendMethod)
       formData.append('description', this.descriptionData)
@@ -256,6 +269,7 @@ export default {
   mounted() {
 
     this.getManualOrderListGet()
+    this.getManualOrderList()
 
   },
 
