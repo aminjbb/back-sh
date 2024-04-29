@@ -1,5 +1,5 @@
 <template>
-  <div class="create-product flex-column d-flex vh-100">
+  <div class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
 
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
@@ -10,7 +10,7 @@
             @selectedSendingMethod="sendingMethod"
             @selectedAddress="getAddress"
             ref="ManualOrderStepOne"
-            :manualOrderList="manualOrderList"
+            :orderdetail="orderdetail"
         />
 
       </template>
@@ -80,6 +80,8 @@ import {openToast} from "@/assets/js/functions";
 import ManualOrderStepOne from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepOne.vue'
 import ManualOrderStepTwo from '@/components/Orders/CreateManualOrder/Steps/ManualOrderStepTwo.vue'
 
+
+
 export default {
 
   components: {
@@ -89,6 +91,7 @@ export default {
   },
 
   data: () => ({
+    orderdetail: null,
     step: 1,
     loading: false,
     steps:[
@@ -126,6 +129,25 @@ export default {
   },
 
   methods: {
+    async getOrderDetail() {
+
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.$route.params.orderId}`
+
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+
+        this.orderdetail = data.data
+
+      }
+
+      else {
+      }
+    },
+
+
 
     decreaseStep() {
       if (this.step > 1) {
@@ -160,19 +182,18 @@ export default {
       }
     },
 
-      step2Validation() {
-        this.$emit('shpsListUpdated', this.manualOrderList)
-        console.log(this.manualOrderList, "shps")
-        if (this.$refs.manualOrderList) {
-          this.createOrder()
-        }
-      },
+    step2Validation() {
+      this.$emit('shpsListUpdated', this.manualOrderList)
+      console.log(this.manualOrderList, "shps")
+      if (this.$refs.manualOrderList) {
+        this.createOrder()
+      }
+    },
 
 
     selectedUser(user){
-      // console.log(user, "salam")
       this.useId= user
-      console.log(this.useId, "aydin")
+
       if(user && user !== null && user !== ''){
         this.isSelectedUserEmit = true
       }
@@ -224,10 +245,10 @@ export default {
         formData.append(`shps_list[${index}][shps]`, shps?.id)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
-      formData.append('user_id', this.$refs.SupplierForm.form.fullName)
-      formData.append('address_id', this.addressId)
-      formData.append('sending_method', this.sendMethod)
-      formData.append('description', this.descriptionData)
+      formData.append('user_id', this.$refs.ManualOrderStepOne.form.userId)
+      formData.append('address_id', this.$refs.ManualOrderStepOne.form.userAddress)
+      formData.append('sending_method', this.$refs.ManualOrderStepOne.form.sendingMethod)
+      formData.append('description', this.$refs.ManualOrderStepOne.form.description)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
@@ -270,6 +291,7 @@ export default {
 
     this.getManualOrderListGet()
     this.getManualOrderList()
+    this.getOrderDetail()
 
   },
 

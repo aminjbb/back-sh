@@ -2,7 +2,7 @@
   <div class="px-2 py-2 h-100">
     <v-form
         v-model="valid"
-        ref="createSeller1"
+        ref="manualOrder"
         class="create-product__info-form scroller"
     >
       <v-row
@@ -32,31 +32,31 @@
 
 
 
-          <v-col cols="6">
-            <div  class="text-right my-2">
+        <v-col cols="6">
+          <div  class="text-right my-2">
                 <span class="t14500 text-gray600">
                     {{ labels.phoneNumber }}
                 </span>
-            </div>
-            <v-autocomplete
-                placeholder="شماره تلفن کاربر را وارد کنید"
-                variant="outlined"
-                prepend-inner-icon-cb="mdi-map-marker"
-                rounded="lg"
-                v-model="form.userId"
-                :rules="rule"
-                :items="userList"
-                item-title="name"
-                item-value="value"
-                v-debounce="searchUser">
-            </v-autocomplete>
-          </v-col>
+          </div>
+          <v-autocomplete
+              placeholder="شماره تلفن کاربر را وارد کنید"
+              variant="outlined"
+              prepend-inner-icon-cb="mdi-map-marker"
+              rounded="lg"
+              v-model="user"
+              :rules="rule"
+              :items="userList"
+              item-title="name"
+              item-value="value"
+              v-debounce="searchUser">
+          </v-autocomplete>
+        </v-col>
 
 
 
         <v-row justify="center">
           <v-col cols="10">
-            <v-item-group v-model="form.userAddress" selected-class="bg-primary500">
+            <v-item-group v-model="address" selected-class="bg-primary500">
               <v-col
                   v-for="(address , index) in userAddress"
                   :key="address.id"
@@ -73,8 +73,8 @@
                       <v-col>
                         <v-icon icon="mdi-checkbox-blank-circle-fill"/>
                         <span class="t12500 text-right mt-4">
-                   {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
-              </span>
+                         {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
+                    </span>
                       </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -107,28 +107,28 @@
         >
 
           <div class="d-flex"  >
-          <v-col
-              cols="6"
-              class="brands-list"
-          >
-            <div class=" my-4">
+            <v-col
+                cols="6"
+                class="brands-list"
+            >
+              <div class=" my-4">
                         <span class="t12500">
                           {{ labels.description }}
                         </span>
-            </div>
+              </div>
 
-            <v-text-field
-                v-model="form.description"
-                :rule="persianRule"
-                variant="outlined"
-                placeholder=""
-            />
-          </v-col>
+              <v-text-field
+                  v-model="form.description"
+                  :rule="persianRule"
+                  variant="outlined"
+                  placeholder=""
+              />
+            </v-col>
 
 
             <v-col class=" my-6"
-              cols="8"
-              >
+                   cols="8"
+            >
               <div class="text-right ">
                         <span class="t12500">
 
@@ -167,7 +167,6 @@
 </template>
 
 <script>
-
 import Orders from "@/composables/Orders";
 import User from "@/composables/User";
 import {AxiosCall} from "@/assets/js/axios_call";
@@ -199,7 +198,7 @@ export default {
 
   data: () => ({
 
-
+    address:null,
     user:null,
     userSearchList:[],
     labels: {
@@ -236,6 +235,7 @@ export default {
   }),
 
   props: {
+    orderDetail: null,
     // get state create sku
     state: {
       type: String,
@@ -248,20 +248,11 @@ export default {
   methods: {
     setForm() {
       try {
-        console.log(this.manualOrderListGet, "aydin")
-        this.form.userId = this.manualOrderListGet.full_name
-        this.form.orderId = this.manualOrderListGet.id
-        this.form.type = this.supplier.type
-        this.form.province = this.supplier.state_id
-        this.form.email = this.supplier.email
-        this.getCities()
-        this.form.city = this.supplier.city_id
-        this.form.phoneNumber = this.supplier.phone
-        this.form.mobileNumber = this.supplier.phone_number
-        this.form.accountNumber = this.supplier.account_number
-        this.form.shebaNumber = this.supplier.sheba_number
-        this.form.paymentPeriod = this.supplier.payment_period
-        this.form.paymentType = this.supplier.payment_type
+        console.log(this.orderdetail, "aydin")
+        this.form.userId = this.orderdetail.id
+        this.form.orderId = this.orderdetail.id
+        this.form.sendingMethod = this.orderdetail.sending_method
+        this.form.description = this.orderdetail.description
       } catch (error) {}
     },
 
@@ -283,6 +274,7 @@ export default {
     }
     this.getManualOrderListGet()
 
+
   },
   computed:{
     userList(){
@@ -303,7 +295,7 @@ export default {
   },
   watch: {
     watch: {
-      manualOrderListGet(val) {
+      orderdetail(val) {
         this.setForm()
       }
     },
