@@ -4,19 +4,15 @@
 
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
-        <ManualOrderStepOne
-            @selectedUser="selectedUser"
-            @description="description"
-            @selectedSendingMethod="sendingMethod"
-            @selectedAddress="getAddress"
-            ref="ManualOrderStepOne"
-            :orderdetail="orderdetail"
+        <ManualOrderStepOne @sending="sending"
+            ref="step1"
+            :orderDetail="orderDetail"
         />
 
       </template>
 
       <template v-if="step === 2">
-        <ManualOrderStepTwo @shpsListUpdated="handlerShpsListUpdated"/>
+        <ManualOrderStepTwo ref="ManualOrderStepTwo"/>
       </template>
 
       <footer class="create-product__actions ">
@@ -53,14 +49,16 @@
                 width="115"
                 @click="increaseStep()">
               <span
-                  v-if="step < 3"
+                  v-if="step < 2"
                   class="t14300">
                 تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300">
+                  class="t14300"
+                  @click="sendingData()"
+              >
                 تایید و ثبت
               </span>
             </v-btn>
@@ -91,18 +89,14 @@ export default {
   },
 
   data: () => ({
-    orderdetail: null,
+    orderDetail: null,
     step: 1,
     loading: false,
     steps:[
       'اطلاعات سفارش',
       'انتخاب محصول',
     ],
-
-    isSelectedUserEmit: false,
-    isDescriptionEmit:false,
-    isSendingMethodEmit:false,
-    isGetAddressEmit: false,
+    userId: '',
     updatedShpsList: [],
     useId:null,
     addressId:null,
@@ -129,17 +123,25 @@ export default {
   },
 
   methods: {
+    sending(user){
+      this.userId = user
+
+    },
+    updatedShpsList(id){
+      this.updatedShpsList = id
+    },
+
     async getOrderDetail() {
 
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.$route.params.orderId}`
+      AxiosMethod.end_point = `admin/order/crud/get/${this.$route.params.orderId}`
 
       let data = await AxiosMethod.axios_get()
       if (data) {
 
-        this.orderdetail = data.data
+        this.orderDetail = data.data
 
       }
 
@@ -157,98 +159,48 @@ export default {
     increaseStep() {
       if (this.step === 1){
         this.step1Validation()
-      }if (this.step === 2){
-        this.step2Validation()
       }
     },
 
     step1Validation(){
-      if(this.isGetAddressEmit && this.sendingMethodEmit && this.isDescriptionEmit && this.isSelectedUserEmit) {
-        this.step++
-      }
-      else {
-        if(this.isSelectedUserEmit===false) {
-          openToast( this.$store,'کاربر انتخاب نشده است' , 'error')
+      this.$refs.step1.$refs.manualOrder1.validate()
+      setTimeout(()=>{
+
+        if (this.$refs.step1.form.description.length <1){
+          openToast( this.$store,
+              'توضیحات الزامی است',
+              "error")
         }
-        else if (this.isGetAddressEmit===false) {
-          openToast( this.$store, 'آدرس انتخاب نشده است' , 'error')
+        else if (this.$refs.step1.valid){
+          this.$store.commit('set_manualOrderStep1' , this.$refs.step1.form)
+          this.step ++
         }
-        else if (this.isDescriptionEmit===false ) {
-          openToast( this.$store,'توضیحات لازم است' , 'error')
-        }
-        else if (this.sendingMethodEmit===false) {
-          openToast( this.$store,'روش ارسال انتخاب نشده است' , 'error')
-        }
-      }
+      },200)
     },
 
-    step2Validation() {
-      this.$emit('shpsListUpdated', this.manualOrderList)
-      console.log(this.manualOrderList, "shps")
-      if (this.$refs.manualOrderList) {
-        this.createOrder()
-      }
+    sendingData(){
+      this.createOrder()
     },
 
 
-    selectedUser(user){
-      this.useId= user
 
-      if(user && user !== null && user !== ''){
-        this.isSelectedUserEmit = true
-      }
-      else {
-        this.isSelectedUserEmit = false
-      }
-    },
-    description(desc){
-      this.descriptionData = desc
-      if(desc && desc !== null && desc !== ''){
-        this.isDescriptionEmit = true
-      }
-      else {
-        this.isDescriptionEmit = false
-      }
-    },
-    sendingMethod(val){
-      this.sendMethod = val
-      if(val && val !== null && val !== ''){
-        this.sendingMethodEmit = true
-      }
-      else {
-        this.sendingMethodEmit = false
-      }
-    },
-    getAddress(address){
-      this.addressId = address
-      if(address && address !== null && address !== ''){
-        this.isGetAddressEmit = true
-      }
-      else {
-        this.isGetAddressEmit = false
-      }
-    },
-
-    handlerShpsListUpdated(updatedShpsList){
-      this.updatedShpsList = updatedShpsList
-      this.$emit('updateShpsListToParent', updatedShpsList)
-    },
 
 
     async createOrder() {
+      const form1 = this.$store.getters['get_manualOrderStep1']
+      const form2 = this.$store.getters['get_manualOrderStep2']
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'admin/order/crud/create'
-      console.log(this.updatedShpsList, "test2")
-      this.updatedShpsList.forEach((shps,index)=>{
-        formData.append(`shps_list[${index}][shps]`, shps?.id)
+      this.$refs.ManualOrderStepTwo.manualOrderList.forEach((shps,index)=>{
+        formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
-      formData.append('user_id', this.$refs.ManualOrderStepOne.form.userId)
-      formData.append('address_id', this.$refs.ManualOrderStepOne.form.userAddress)
-      formData.append('sending_method', this.$refs.ManualOrderStepOne.form.sendingMethod)
-      formData.append('description', this.$refs.ManualOrderStepOne.form.description)
+      formData.append('user_id', this.userId)
+      formData.append('address_id', form1?.userAddress)
+      formData.append('sending_method', form1?.sendingMethod)
+      formData.append('description', form1?.description)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true

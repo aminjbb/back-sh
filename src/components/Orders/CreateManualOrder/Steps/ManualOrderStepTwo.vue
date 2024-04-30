@@ -157,7 +157,8 @@ export default {
     return {
       skuSearchList: [],
       shpsList: [],
-      shps: []
+      shps: [],
+
 
     }
   },
@@ -210,7 +211,7 @@ export default {
         }
       }
       this.manualOrderList.push(form);
-      this.$emit('shpsListUpdated', this.manualOrderList)
+
 
     },
 

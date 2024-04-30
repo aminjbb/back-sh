@@ -2,7 +2,7 @@
   <div class="px-2 py-2 h-100">
     <v-form
         v-model="valid"
-        ref="manualOrder"
+        ref="manualOrder1"
         class="create-product__info-form scroller"
     >
       <v-row
@@ -56,7 +56,7 @@
 
         <v-row justify="center">
           <v-col cols="10">
-            <v-item-group v-model="address" selected-class="bg-primary500">
+            <v-item-group v-model="form.userAddress" selected-class="bg-primary500">
               <v-col
                   v-for="(address , index) in userAddress"
                   :key="address.id"
@@ -119,7 +119,7 @@
 
               <v-text-field
                   v-model="form.description"
-                  :rule="persianRule"
+                  :rule="rule"
                   variant="outlined"
                   placeholder=""
               />
@@ -133,6 +133,7 @@
                         <span class="t12500">
 
                             {{ labels.sendingMethod }}
+
                         </span>
               </div>
               <v-col class="d-flex" cols="12">
@@ -200,7 +201,10 @@ export default {
 
     address:null,
     user:null,
+    userId: null,
     userSearchList:[],
+    description: '',
+    sendingMethod: '',
     labels: {
       phoneNumber: "شماره تماس",
       orderId: 'شماره سفارش',
@@ -248,12 +252,17 @@ export default {
   methods: {
     setForm() {
       try {
-        console.log(this.orderdetail, "aydin")
-        this.form.userId = this.orderdetail.id
-        this.form.orderId = this.orderdetail.id
-        this.form.sendingMethod = this.orderdetail.sending_method
-        this.form.description = this.orderdetail.description
-      } catch (error) {}
+
+        this.user = this.orderDetail?.user?.id
+        this.searchUser(this.orderDetail?.user?.phone_number)
+
+        this.form.orderId = this.orderDetail.id
+        this.form.sendingMethod = this.orderDetail.sending_method
+        this.form.description = this.orderDetail.description
+      } catch (error) {
+
+
+      }
     },
 
     async searchUser(search) {
@@ -265,6 +274,9 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.userSearchList = data.data.data
+        this.userId = this.userSearchList[0].id
+        this.$emit("sending",this.userId)
+
       }
     },
   },
@@ -283,7 +295,7 @@ export default {
         this.userSearchList.forEach(user => {
           const form = {
             name: user?.first_name + ' ' +user?.last_name + '(' + user.phone_number + ')',
-            value: user
+            value: user.id
           }
           users.push(form)
         })
@@ -294,14 +306,13 @@ export default {
     }
   },
   watch: {
-    watch: {
-      orderdetail(val) {
+    orderDetail(newVal) {
         this.setForm()
-      }
+
     },
     user(val){
       this.$emit('selectedUser',val)
-      this.getUserAddress(val?.id)
+      this.getUserAddress(val)
     },
 
     description(newVal){
