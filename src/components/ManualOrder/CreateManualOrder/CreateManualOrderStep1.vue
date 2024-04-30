@@ -36,7 +36,6 @@
             <span class="t14500 text-gray600"> کاربر</span>
             <span class="t14500 text-red-accent-3 mr-1">*</span>
           </div>
-
           <v-autocomplete
               placeholder="شماره تلفن کاربر را وارد کنید"
               variant="outlined"
@@ -68,7 +67,6 @@
                     @click="toggle">
                   <v-row class="py-5">
                     <v-col>
-                      <v-icon icon="mdi-checkbox-blank-circle-fill"/>
                       <span class="t12500 text-right mt-4">
                          {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
                     </span>
@@ -76,17 +74,14 @@
                   </v-row>
                   <v-row justify="center" align="center">
                     <v-col cols="4">
-                      <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
                       <span class="mr-1">کد پستی :</span>
                       <span class="t12500 text-right mt-4">{{ address?.postal_code }}</span>
                     </v-col>
                     <v-col cols="4">
-                      <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
                       <span class="mr-1">شماره تماس :</span>
                       <span class="t12500 text-right mt-4"> {{ address?.phone_number }}</span>
                     </v-col>
                     <v-col cols="4">
-                      <v-icon size="x-small">mdi-checkbox-blank-circle-outline</v-icon>
                       <span class="mr-1">گیرنده :</span>
                       <span class="t12500 text-right mt-4">{{ address?.first_name }} {{ address?.last_name }}</span>
                     </v-col>
@@ -122,18 +117,11 @@
                   v-model="sendingMethod"
                   inline >
                 <v-radio
-                    label="پست"
-                    value="post"
-                    class=" t12500"></v-radio>
-                <v-radio
-                    label="نفیس اکپرس"
-                    value="nafis"
-                    class=" t12500"></v-radio>
-                <v-radio
-                    label="تیپاکس"
-                    value="tipax"
-                    class=" t12500"
-                ></v-radio>
+                    v-for="(send, index) in sendingMethodList"
+                    :key="index"
+                    :label="send.title"
+                    :value="send.name"
+                    class=" t12500"/>
               </v-radio-group>
             </v-col>
           </v-col>
@@ -148,35 +136,21 @@ import {AxiosCall} from "@/assets/js/axios_call";
 import User from '@/composables/User'
 export default {
   setup(){
-    const {  getUserAddress , userAddress } = new User()
-    return {  getUserAddress , userAddress }
+    const { getUserAddress , userAddress } = new User()
+    return { getUserAddress , userAddress }
   },
+
   data() {
     return {
       sendingMethod:null,
       address:null,
       userSearchList:[],
-      // skuSearchList:[],
-      // shpsList:[],
       user:null,
       userId: null,
       description: null,
-      form: {
-        name: '',
-        type: [],
-        marketCapacity: '',
-        RetailCapacity: '',
-        address: '',
-        postalCode: '',
-        phoneNumber: '',
-        latLong: {
-          latitude: 35.745669792668494,
-          longitude: 51.35438114404677
-        },
-      },
       rule: [v => !!v || 'این فیلد الزامی است'],
       valid: false,
-
+      sendingMethodList: []
     }
   },
 
@@ -190,6 +164,23 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.userSearchList = data.data.data
+      }
+    },
+
+    async getSendingMethods(addressId) {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'admin/order/sending-methods'
+      formData.append('user_id', this.user.id)
+      formData.append('address_id', addressId)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.sendingMethodList = data.data
       }
     }
   },
@@ -209,7 +200,7 @@ export default {
       } catch (e) {
         return e
       }
-    },
+    }
   },
 
   watch: {
@@ -227,13 +218,9 @@ export default {
     },
 
     address(newVal){
+      this.getSendingMethods(newVal)
       this.$emit('selectedAddress',newVal)
     }
-  },
-
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
