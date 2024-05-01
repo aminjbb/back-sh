@@ -56,7 +56,7 @@
 
         <v-row justify="center">
           <v-col cols="10">
-            <v-item-group v-model="form.userAddress"   selected-class="bg-primary500">
+            <v-item-group v-model="form.userAddress" selected-class="bg-primary500">
               <v-col
                   :rules="rule"
                   v-for="(address , index) in userAddress"
@@ -127,36 +127,21 @@
             </v-col>
 
 
-            <v-col class=" my-6"
-                   cols="8"
-            >
-              <div class="text-right ">
-                        <span class="t12500">
-
-                            {{ labels.sendingMethod }}
-
-                        </span>
+            <v-col class="my-6" cols="8">
+              <div class="text-right">
+                <span class="t12500">روش ارسال</span>
               </div>
+
               <v-col class="d-flex" cols="12">
                 <v-radio-group
                     v-model="form.sendingMethod"
-                    inline
-                >
+                    inline >
                   <v-radio
-                      label="پست"
-                      value="post"
-                      class=" t12500"
-                  ></v-radio>
-                  <v-radio
-                      label="نفیس اکپرس"
-                      value="nafis"
-                      class=" t12500"
-                  ></v-radio>
-                  <v-radio
-                      label="تیپاکس"
-                      value="tipax"
-                      class=" t12500"
-                  ></v-radio>
+                      v-for="(send, index) in sendingMethodList"
+                      :key="index"
+                      :label="send.title"
+                      :value="send.name"
+                      class=" t12500"/>
                 </v-radio-group>
               </v-col>
             </v-col>
@@ -199,7 +184,7 @@ export default {
   },
 
   data: () => ({
-    address:null,
+    sendingMethodList: '',
     user:null,
     userId: null,
     userSearchList:[],
@@ -250,6 +235,22 @@ export default {
   },
 
   methods: {
+    async getSendingMethods(addressId) {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'admin/order/sending-methods'
+      formData.append('user_id', this.user)
+      formData.append('address_id', addressId)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.sendingMethodList = data.data
+      }
+    },
     setForm() {
       try {
 
@@ -321,9 +322,10 @@ export default {
       this.$emit('selectedSendingMethod',newVal)
     },
 
-    address(newVal){
-      this.$emit('selectedAddress',newVal)
-    }
+    'form.userAddress': function (newVal, oldVal){
+      this.getSendingMethods(newVal)
+
+    },
   },
 }
 </script>

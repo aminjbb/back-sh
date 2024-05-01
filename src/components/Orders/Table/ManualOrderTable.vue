@@ -168,39 +168,7 @@
             </template>
 
           </div>
-<!--          <div-->
-<!--              v-if="header[7].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ item.base_discount }}-->
-<!--                        </span>-->
-<!--            </template>-->
 
-<!--          </div>-->
-<!--          <div-->
-<!--              v-if="header[8].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ item.marketing_discount }}-->
-<!--                        </span>-->
-<!--            </template>-->
-
-<!--          </div>-->
-<!--          <div-->
-<!--              v-if="header[8].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ splitChar(item.site_price) }}-->
-<!--                        </span>-->
-<!--            </template>-->
-
-<!--          </div>-->
           <div
               v-if="(item.is_active  != undefined )"
               :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
@@ -257,37 +225,16 @@ import {
 } from '@/assets/js/functions'
 
 import {
-  openConfirm
-} from '@/assets/js/functions'
-import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+
 import {
   PanelFilter
 } from "@/assets/js/filter"
-import {
-  SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller"
-import {
-  openToast
-} from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
-import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
-import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
-import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
-import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
-import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+
+
 export default {
   components: {
-    ModalMassUpdate,
-    OrderLimitModal,
-    InventoryManagementModal,
-    ConsumerPriceModal,
-    BasicDiscountModal,
-    MarketingDiscountModal,
   },
 
   props: {
@@ -298,10 +245,6 @@ export default {
       type: String,
       default: '',
     },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
 
     /**
      * List Items for header
@@ -365,21 +308,6 @@ export default {
     },
 
     /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
-
-    /**
      * Page on table
      */
     page: {
@@ -401,23 +329,18 @@ export default {
       default: false
     },
 
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
+
   },
 
   data() {
     return {
       order_type: "desc",
-      skuStatus: [],
       ordering: {},
       per_page: '25',
       active: [],
-      sellable: [],
       filter: [],
       panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuSellerPanelFilter(),
+
       activeColumn: false,
     }
   },
@@ -493,13 +416,7 @@ export default {
             }
           }
 
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order = index
-            this.$router.push(this.$route.path + this.skuPanelFilter.query_maker(this.$route.query))
-          } else {
-            this.panelFilter.order = index
-            this.$router.push(this.$route.path + this.panelFilter.query_maker(this.$route.query))
-          }
+
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
