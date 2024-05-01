@@ -109,7 +109,7 @@
             </v-card-actions>
         </v-card>
     </div>
-</template>\
+</template>
 
 <script>
 //components
