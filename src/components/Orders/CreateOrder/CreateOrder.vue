@@ -5,6 +5,7 @@
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
         <CreateManualOrderStep1
+            ref="formStep1"
             @selectedUser="selectedUser"
             @description="description"
             @selectedSendingMethod="sendingMethod"
@@ -71,13 +72,8 @@
 import CreateOrderForm from "@/components/Orders/CreateOrder/CreateOrderForm.vue";
 import CreateManualOrderStep1 from "@/components/ManualOrder/CreateManualOrder/CreateManualOrderStep1.vue"
 import CreateManualOrderStep2 from "@/components/ManualOrder/CreateManualOrder/CreateManualOrderStep2.vue"
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import { AxiosCall } from "@/assets/js/axios_call";
+import { openToast } from "@/assets/js/functions";
 import Stepper from "@/components/Public/Stepper.vue";
 export default {
   data() {
@@ -96,7 +92,8 @@ export default {
       useId:null,
       addressId:null,
       sendMethod: null,
-      descriptionData: null
+      descriptionData: null,
+      formStep1 : null
     }
   },
 
@@ -108,9 +105,22 @@ export default {
   },
 
   methods: {
+    changeStep(step) {
+      this.step = step
+    },
+
     decreaseStep() {
       if (this.step > 1) {
         --this.step
+        setTimeout(()=>{
+          this.$refs.formStep1.user = this.useId
+          this.$refs.formStep1.address = this.addressId
+          this.$refs.formStep1.description = this.descriptionData
+          this.$refs.formStep1.sendingMethod = this.sendMethod
+          this.$refs.formStep1.searchUser(this.useId.phone_number)
+          this.$refs.formStep1.getSendingMethods(this.addressId)
+        },1000)
+
       }
     },
     increaseStep() {
@@ -188,7 +198,6 @@ export default {
       this.$emit('updateShpsListToParent', updatedShpsList)
     },
 
-
     async createOrder() {
       this.loading = true
       let formData = new FormData();
@@ -212,18 +221,15 @@ export default {
         openToast(this.$store,
             'سفارش با موفقیت ایجاد شد.',
             "success")
+        this.$router.push('/orders/manual-order-list')
+
       } else {
         this.loading = false
         openToast(this.$store,
             'ایجاد سفارش با مشکل مواجه شد',
             "error")
       }
-    },
-
-    changeStep(step) {
-      this.step = step
-    },
-
-  },
+    }
+  }
 }
 </script>
