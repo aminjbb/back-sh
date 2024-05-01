@@ -56,8 +56,9 @@
 
         <v-row justify="center">
           <v-col cols="10">
-            <v-item-group v-model="form.userAddress" selected-class="bg-primary500">
+            <v-item-group v-model="form.userAddress"   selected-class="bg-primary500">
               <v-col
+                  :rules="rule"
                   v-for="(address , index) in userAddress"
                   :key="address.id"
                   cols="12">
@@ -119,7 +120,7 @@
 
               <v-text-field
                   v-model="form.description"
-                  :rule="rule"
+                  :rules="rule"
                   variant="outlined"
                   placeholder=""
               />
@@ -198,7 +199,6 @@ export default {
   },
 
   data: () => ({
-
     address:null,
     user:null,
     userId: null,
@@ -255,7 +255,6 @@ export default {
 
         this.user = this.orderDetail?.user?.id
         this.searchUser(this.orderDetail?.user?.phone_number)
-
         this.form.orderId = this.orderDetail.id
         this.form.sendingMethod = this.orderDetail.sending_method
         this.form.description = this.orderDetail.description
@@ -284,7 +283,6 @@ export default {
     if (this.$store.getters['get_manualOrderStep1'] != null) {
       this.form = this.$store.getters['get_manualOrderStep1']
     }
-    this.getManualOrderListGet()
 
 
   },

@@ -167,6 +167,7 @@ export default {
       setTimeout(()=>{
 
         if (this.$refs.step1.form.description.length <1){
+          console.log(this.$refs.step1.form.description, "testDescription")
           openToast( this.$store,
               'توضیحات الزامی است',
               "error")
