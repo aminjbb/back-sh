@@ -21,7 +21,7 @@
                 <v-col cols="9">
                     <div class="text-left pl-12">
                         <span class="t14500">
-                            خالی کردن سورتینگ
+                            ثبت مغایرت سورتینگ
                         </span>
                     </div>
                 </v-col>
@@ -32,7 +32,7 @@
 
             <div class="text-center pa-5">
                 <span class="t14500">
-                    از خالی کردن سورتینگ مطمئن هستید؟
+                    از ثبت مغایرت مطمئن هستید؟
                 </span>
             </div>
             <div class="mt-3 mb-8  px-5">
