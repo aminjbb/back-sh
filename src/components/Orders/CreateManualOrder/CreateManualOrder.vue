@@ -101,7 +101,7 @@ export default {
     useId:null,
     addressId:null,
     sendMethod: null,
-    descriptionData: null
+    descriptionData: null,
   }),
   setup() {
     const {
@@ -110,6 +110,7 @@ export default {
       getManualOrderListGet,
       getManualOrderList,
       manualOrderList,
+      orderList , getOrderList
 
     } = new Orders;
 
@@ -118,15 +119,17 @@ export default {
       manualOrderList,
       manualOrderListGet,
       getManualOrderListGet,
-
+      orderList , getOrderList
     }
   },
 
   methods: {
+
     sending(user){
       this.userId = user
 
     },
+
     updatedShpsList(id){
       this.updatedShpsList = id
     },
@@ -189,7 +192,7 @@ export default {
 
     async createOrder() {
       const form1 = this.$store.getters['get_manualOrderStep1']
-      const form2 = this.$store.getters['get_manualOrderStep2']
+      const orderDetail = this.orderDetail
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
@@ -198,6 +201,7 @@ export default {
         formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
+      formData.append('parent_id', orderDetail.id )
       formData.append('user_id', this.userId)
       formData.append('address_id', form1?.userAddress)
       formData.append('sending_method', form1?.sendingMethod)
@@ -206,7 +210,9 @@ export default {
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
       let data = await AxiosMethod.axios_post()
+
       if (data) {
         this.loading = false
         openToast(this.$store,
