@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 d-flex flex-column align-stretch sku-seller">
+  <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
 
       <v-row
@@ -73,44 +73,44 @@
 
       <v-divider/>
 
-      <v-card-actions class="pb-3">
-        <v-row class="px-8">
-          <v-col cols="3" class="d-flex justify-start">
+  <!--      <v-card-actions class="pb-3">-->
+  <!--        <v-row class="px-8">-->
+  <!--          <v-col cols="3" class="d-flex justify-start">-->
 
-          </v-col>
+  <!--          </v-col>-->
 
-          <v-col cols="6" class="d-flex justify-center">
-            <div class="text-center">
-              <v-pagination
-                  v-model="skuSellerPage"
-                  :length="pageLength"
-                  rounded="circle"
-                  size="40"
-                  :total-visible="7"
-                  prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left"/>
-            </div>
-          </v-col>
+  <!--          <v-col cols="6" class="d-flex justify-center">-->
+  <!--            <div class="text-center">-->
+  <!--              <v-pagination-->
+  <!--                  v-model="skuSellerPage"-->
+  <!--                  :length="pageLength"-->
+  <!--                  rounded="circle"-->
+  <!--                  size="40"-->
+  <!--                  :total-visible="7"-->
+  <!--                  prev-icon="mdi-chevron-right"-->
+  <!--                  next-icon="mdi-chevron-left"/>-->
+  <!--            </div>-->
+  <!--          </v-col>-->
 
-          <v-col cols="3" class="d-flex justify-end">
-            <div
-                align="center"
-                id="rowSection"
-                class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
-              <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataSkuTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]"/>
-                        </span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+  <!--          <v-col cols="3" class="d-flex justify-end">-->
+  <!--            <div-->
+  <!--                align="center"-->
+  <!--                id="rowSection"-->
+  <!--                class="d-flex align-center">-->
+  <!--                        <span class="ml-5">-->
+  <!--                            تعداد سطر در هر صفحه-->
+  <!--                        </span>-->
+  <!--              <span class="mt-2" id="row-selector">-->
+  <!--                            <v-select-->
+  <!--                                v-model="dataSkuTableLength"-->
+  <!--                                class="t1330"-->
+  <!--                                variant="outlined"-->
+  <!--                                :items="[25,50,100]"/>-->
+  <!--                        </span>-->
+  <!--            </div>-->
+  <!--          </v-col>-->
+  <!--        </v-row>-->
+  <!--      </v-card-actions>-->
     </v-card>
   </div>
 </template>
@@ -157,7 +157,8 @@ export default {
     return {
       skuSearchList: [],
       shpsList: [],
-      shps: []
+      shps: [],
+
 
     }
   },
@@ -189,44 +190,10 @@ export default {
   },
 
   methods: {
-    shpsCreatingForm() {
-      var formData = new FormData()
-      this.$refs.shpsForm2.shpsCreatingForm.forEach((manualOrderListGet, index) => {
-        formData.append(`shps_list[${index}][shps]`, manualOrderListGet.user_id)
-        formData.append(`shps_list[${index}][count]`, manualOrderListGet.shps_count)
-      })
-      formData.append(`user_id`, this.$refs.shpsForm2.form.user)
-      formData.append(`address_id`, this.manualOrderListGet.address_id)
-      formData.append(`sending_method`, this.manualOrderListGet.sending_method)
-      formData.append(`parent_id`, this.manualOrderListGet.id)
-      formData.append(`description`, this.manualOrderListGet.description)
 
-      this.createManualOrder(formData)
-    },
-
-
-    async createManualOrder(formData) {
-      this.loading = true
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_success = false
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = 'admin/order/crud/create'
-      AxiosMethod.form = formData
-
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        await this.approvedSku()
-        this.step = 1
-      } else {
-        this.loading = false
-      }
-    },
 
 
     assignSku(item) {
-      console.log(item, "aaa")
       const form = {
         base_discount: item?.base_discount,
         cancelled_count: 0,
@@ -244,45 +211,19 @@ export default {
         }
       }
       this.manualOrderList.push(form);
-      console.log(this.manualOrderList, "fff")
+
 
     },
 
 
-    // async assignSku1() {
-    //
-    //   this.manualOrderList.forEach(manualOrder =>{
-    //   const form = {
-    //     customer_price: manualOrder.customer_price,
-    //     shps:{
-    //       id: manualOrder.shps.id,
-    //       site_stock: manualOrder.shps.id,
-    //       sku:{
-    //              id: manualOrder.shps.sku.id,
-    //           image_url:manualOrder.shps.sku.image_url ,
-    //           label: manualOrder.shps.sku.label,
-    //                     }
-    //     },
-    //     count: manualOrder.count,
-    //     site_stock: manualOrder.shps?.site_stock,
-    //
-    //
-    //   }
-    //   console.log(this.manualOrderList , 'hiiiiiiiii', form)
-    //  this.manualOrderList.push(form)
-    // })
-    //
-    //
-    //
-    //
-    // },
+
     changeHeaderShow(index, value) {
       this.manualOrderHeader[index].show = value
     },
 
     updateList(status) {
       if (status === 'true') {
-        this.getSkuSeller();
+        this.shpsList();
       }
     },
 
