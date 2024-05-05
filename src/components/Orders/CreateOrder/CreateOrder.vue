@@ -225,9 +225,7 @@ export default {
 
       } else {
         this.loading = false
-        openToast(this.$store,
-            'ایجاد سفارش با مشکل مواجه شد',
-            "error")
+        openToast(this.$store, message, "error")
       }
     }
   }
