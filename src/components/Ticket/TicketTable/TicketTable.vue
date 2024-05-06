@@ -130,7 +130,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray-darken-1 py-5 number-font">
-                        {{ item.created_at_fa }}
+                        {{item.updated_at.split('T')[1].split('.')[0]}} {{ item.created_at_fa }}
                     </span>
                 </div>
 

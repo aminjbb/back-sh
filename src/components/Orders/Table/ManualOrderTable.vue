@@ -156,7 +156,7 @@
               class="c-table__contents__item">
             <template v-if="item.count">
                         <span class="t14300 text-gray500 py-5 number-font">
-                            {{ item?.count}}
+                             <v-text-field v-model="item.count"  variant="outlined"/>
                         </span>
 
             </template>
@@ -168,39 +168,7 @@
             </template>
 
           </div>
-<!--          <div-->
-<!--              v-if="header[7].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ item.base_discount }}-->
-<!--                        </span>-->
-<!--            </template>-->
 
-<!--          </div>-->
-<!--          <div-->
-<!--              v-if="header[8].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ item.marketing_discount }}-->
-<!--                        </span>-->
-<!--            </template>-->
-
-<!--          </div>-->
-<!--          <div-->
-<!--              v-if="header[8].show"-->
-<!--              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"-->
-<!--              class="c-table__contents__item">-->
-<!--            <template v-if="item.sku">-->
-<!--                        <span class="t14300 text-gray500 py-5 number-font">-->
-<!--                            {{ splitChar(item.site_price) }}-->
-<!--                        </span>-->
-<!--            </template>-->
-
-<!--          </div>-->
           <div
               v-if="(item.is_active  != undefined )"
               :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
@@ -225,7 +193,7 @@
 
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.sku_id)">
+                    <div class="ma-5 pointer" @click="removeItem(item.id)">
                       <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -257,37 +225,16 @@ import {
 } from '@/assets/js/functions'
 
 import {
-  openConfirm
-} from '@/assets/js/functions'
-import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+
 import {
   PanelFilter
 } from "@/assets/js/filter"
-import {
-  SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller"
-import {
-  openToast
-} from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
-import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
-import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
-import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
-import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
-import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+
+
 export default {
   components: {
-    ModalMassUpdate,
-    OrderLimitModal,
-    InventoryManagementModal,
-    ConsumerPriceModal,
-    BasicDiscountModal,
-    MarketingDiscountModal,
   },
 
   props: {
@@ -298,10 +245,6 @@ export default {
       type: String,
       default: '',
     },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
 
     /**
      * List Items for header
@@ -365,21 +308,6 @@ export default {
     },
 
     /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
-
-    /**
      * Page on table
      */
     page: {
@@ -387,9 +315,7 @@ export default {
       default: 1
     },
 
-    /**
-     * PerPage of data
-     */
+
     perPage: {
       type: Number,
       default: 1
@@ -403,23 +329,18 @@ export default {
       default: false
     },
 
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
+
   },
 
   data() {
     return {
       order_type: "desc",
-      skuStatus: [],
       ordering: {},
       per_page: '25',
       active: [],
-      sellable: [],
       filter: [],
       panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuSellerPanelFilter(),
+
       activeColumn: false,
     }
   },
@@ -442,19 +363,7 @@ export default {
       return 'auto';
     },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
+
   },
 
   watch: {
@@ -470,56 +379,6 @@ export default {
 
   methods: {
     splitChar,
-    /**
-     * Open order limit modal
-     * @param {*} id
-     */
-    openOrderLimitModal(id) {
-      openModal(this.$store, 'set_orderLimitModal', id, true)
-    },
-
-    /**
-     * Open inventory management modal
-     * @param {*} id
-     */
-    openInventoryManagementModal(id) {
-      openModal(this.$store, 'set_inventoryManagementModal', id, true)
-    },
-
-    /**
-     * Open consumer price modal
-     * @param {*} id
-     */
-    openConsumerPriceModal(id) {
-      openModal(this.$store, 'set_consumerPriceModal', id, true)
-    },
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
-    openBasicDiscountModal(id) {
-      openModal(this.$store, 'set_basicDiscountModal', id, true)
-    },
-
-    /**
-     * Open Marketing Discount modal
-     * @param {*} id
-     */
-    openMarketingDiscountModal(id) {
-      openModal(this.$store, 'set_marketingDiscountModal', id, true)
-    },
-    /**
-     * Mass update modal
-     */
-    massUpdateModal() {
-      this.$store.commit('set_massUpdateModal', true)
-    },
-
-    /**
-     * Get row index in table
-     * @param {*} index
-     */
     rowIndexTable(index) {
       let rowIndex = 0
       if (this.page === 1) {
@@ -557,13 +416,7 @@ export default {
             }
           }
 
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order = index
-            this.$router.push(this.$route.path + this.skuPanelFilter.query_maker(this.$route.query))
-          } else {
-            this.panelFilter.order = index
-            this.$router.push(this.$route.path + this.panelFilter.query_maker(this.$route.query))
-          }
+
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -616,8 +469,12 @@ export default {
      * Remove Item
      * @param {*} id
      */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+    removeItem (id) {
+      const index = this.items.findIndex(item=> item.id === id)
+      if (index !== -1) {
+        this.items.splice(index,1)
+      }
+
     },
 
     updateList(status) {
