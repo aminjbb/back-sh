@@ -23,6 +23,7 @@
               v-model="form.orderId"
               :rules="rule"
               variant="outlined"
+              readonly
               placeholder=""
           />
         </v-col>
@@ -44,6 +45,7 @@
               prepend-inner-icon-cb="mdi-map-marker"
               rounded="lg"
               v-model="user"
+              readonly
               :rules="rule"
               :items="userList"
               item-title="name"
