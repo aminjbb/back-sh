@@ -215,6 +215,7 @@ export default {
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
@@ -225,9 +226,6 @@ export default {
 
       } else {
         this.loading = false
-        openToast(this.$store,
-            'ایجاد سفارش با مشکل مواجه شد',
-            "error")
       }
     }
   }
