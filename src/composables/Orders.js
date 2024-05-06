@@ -23,7 +23,8 @@ export default function setup() {
         { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
         { name: 'شماره تماس', show: true, value:'phone_number' , order: false},
-        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'اسنپ پی', show: true, value:'snapp_transaction_id' , order: false},
+        { name: 'تعداد کالا', show: false , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
         { name: 'وضعیت پرداخت', show: true, value:'payment_status', order: false },
         { name: 'روش پرداخت', show: true, value:'payment_method', order: false },
@@ -35,6 +36,7 @@ export default function setup() {
 
     const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
         {name:'شماره سفارش' , type:'text', value:'order_number'},
         {name:'نام مشتری' , type:'select', value:'creator_id'},
         {name:'وضعیت سفارش' , type:'select', value:'status'},

@@ -257,7 +257,11 @@ export default {
             },
             {
               label: 'مبلغ پرداختی با اعتبار اسنپ پی',
-              value: data.data.paid_by_snapp ? data.data.paid_by_snapp : '-'
+              value: data.data.paid_price ? data.data.paid_price : '-'
+            },
+            {
+              label: 'کد پیگیری اسنپ پی',
+              value: data.data.snapp_transaction_id ? data.data.snapp_transaction_id : '-'
             },
             {
               label: 'هزینه ارسال',
