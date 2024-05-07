@@ -67,7 +67,7 @@
       <v-card class="mx-5 mb-1 br-15 pa-2" >
         <v-row justify="center">
           <v-col cols="6">
-            <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="scanQrCode"  v-model="shpssBarCode" variant="outlined" :autofocus="true"></v-text-field>
+            <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="scanQrCode"  v-model="shpssBarCode" variant="outlined" :autofocus="true"></v-text-field>
             <v-text-field v-else @keyup.enter="scanQrCode()" :autofocus="true" v-model="shpssBarCode" variant="outlined" ></v-text-field>
           </v-col>
           <v-col cols="6">
@@ -188,7 +188,7 @@
              </div>
            </v-col>
            <v-col cols="12">
-             <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+             <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
              <v-text-field v-else @keyup.enter="notFoundTask()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
            </v-col>
 

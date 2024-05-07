@@ -36,7 +36,7 @@
                 </div>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="shelfScanBarcode"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+                <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="shelfScanBarcode"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
                 <v-text-field v-else @keyup.enter="shelfScanBarcode()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
               </v-col>
 

@@ -23,7 +23,7 @@
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
           <v-text-field v-else @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
         </div>
       </div>
@@ -147,7 +147,7 @@
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
           <v-text-field v-else @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
         </div>
       </div>
