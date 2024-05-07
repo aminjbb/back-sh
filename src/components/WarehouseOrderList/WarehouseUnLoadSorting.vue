@@ -29,7 +29,18 @@
           </div>
 
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <v-text-field @keyup.enter="shelfScanBarcode()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
+            <v-row justify="center">
+              <v-col cols="12">
+                <div>
+                  <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+                </div>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="shelfScanBarcode"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+                <v-text-field v-else @keyup.enter="shelfScanBarcode()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
+              </v-col>
+
+            </v-row>
           </div>
         </div>
         <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
@@ -132,7 +143,8 @@ export default {
       shelfScan: false,
       sortingDone: false,
       errorScan:false,
-      shelfBarcode:''
+      shelfBarcode:'',
+      autoSend :'automate'
     }
   },
 
