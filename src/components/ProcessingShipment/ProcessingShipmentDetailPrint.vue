@@ -62,6 +62,7 @@ export default {
         this.dialog = true
         setTimeout(() => {
           var myElement = document.getElementById('printableArea-shipment');
+          window.onafterprint = function() {window.close()};
           window.print(myElement);
         }, 1000);
       }

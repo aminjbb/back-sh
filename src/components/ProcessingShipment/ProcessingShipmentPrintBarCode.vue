@@ -49,6 +49,7 @@ export default {
         setTimeout(() => {
           var myElement = document.getElementById('printableArea-shipmentBarcode');
           myElement.style.marginBottom = this.detail.length * 0.9 + 'mm'
+          window.onafterprint = function() {window.close()};
           window.print(myElement);
         }, 1000);
       }

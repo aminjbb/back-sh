@@ -8,13 +8,10 @@
   <template v-if="!shpsScan && !pickUpDone && !shelfScan">
     <div class="h-100 d-flex align-center justify-center">
       <div>
-        <div class="d-flex justify-center px-10">
-          <v-radio-group v-model="autoSend" inline @update:model-value="dialog = true">
-            <v-radio label="اتوماتیک" :value="true"></v-radio>
-            <v-radio label="دستی" :value="false"></v-radio>
-          </v-radio-group>
+        <div class="d-flex justify-center px-10 ma-5">
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
         </div>
-        <div class="d-flex justify-center">
+        <div class="d-flex justify-center ">
           <v-icon color="black" size="30">
             mdi-barcode-scan
           </v-icon>
@@ -26,7 +23,7 @@
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field v-if="autoSend" v-debounce="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
           <v-text-field v-else @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
         </div>
       </div>
@@ -142,10 +139,7 @@
           </v-icon>
         </div>
         <div>
-          <v-radio-group v-model="autoSend" inline @update:model-value="dialog = true">
-            <v-radio label="اتوماتیک" :value="true"></v-radio>
-            <v-radio label="دستی" :value="false"></v-radio>
-          </v-radio-group>
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
         </div>
         <div class=" mt-8 d-flex justify-center px-10 text-center">
           <span class="text-black t20400">
@@ -153,7 +147,8 @@
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field v-else @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
         </div>
       </div>
     </div>
@@ -215,7 +210,7 @@ export default {
       shpssSingeLocate: null,
       placementBarcode: null,
       placementSplitId: null,
-      autoSend:true
+      autoSend:'automate'
     }
   },
 

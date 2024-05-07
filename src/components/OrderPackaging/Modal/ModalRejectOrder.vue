@@ -1,6 +1,7 @@
 <template>
   <div class="text-center">
     <v-btn
+        v-if="accept"
         height="40"
         rounded
         variant="flat"
@@ -22,7 +23,7 @@
             </v-btn>
           </v-col>
           <v-col cols="9">
-            <div class="text-left pl-15">
+            <div class="text-left pl-15" >
                             <span class="t14500">
                               ثبت مغایرت
                             </span>
@@ -30,25 +31,26 @@
           </v-col>
         </v-row>
         <div class="mt-3 mb-8  px-5">
-          <v-divider />
+          <v-divider/>
         </div>
 
-        <div class="text-center pa-5" >
+        <div class="text-center pa-5">
                         <span class="t14500">
                             از ثبت عملیات مطمئن هستید؟
                         </span>
         </div>
         <div class="mt-3 mb-8  px-5">
-          <v-divider />
+          <v-divider/>
         </div>
 
         <div class="text-center pb-5">
-          <v-btn :loading="loading" color="primary500" @click="rejectOrder()" height="40" rounded class="px-5 mt-1 mr-15">
+          <v-btn :loading="loading" color="primary500" @click="rejectOrder()" height="40" rounded
+                 class="px-5 mt-1 mr-15">
                         <span>
                             تایید
                         </span>
           </v-btn>
-          <v-btn @click="close()"  variant="text" height="40" rounded class="px-5 mt-1 ml-15">
+          <v-btn @click="close()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
             انصراف
           </v-btn>
         </div>
@@ -57,43 +59,43 @@
   </div>
 </template>
 <script>
-import { closeConfirm } from "@/assets/js/functions";
-import { AxiosCall } from '@/assets/js/axios_call.js'
+import {closeConfirm} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+
 export default {
-  data(){
-    return{
-      loading:false,
-      dialog:false
+  props: {
+    orderId: null,
+    accept: null
+  },
+  data() {
+    return {
+      loading: false,
+      dialog: false
     }
   },
-
-
   methods: {
     close() {
       this.dialog = false
     },
-
     async rejectOrder() {
-     try {
-       this.loading= true
-       const AxiosMethod = new AxiosCall()
-       AxiosMethod.end_point = 'warehouse/order/packaging/reject/'
-       AxiosMethod.using_auth = true
-       AxiosMethod.toast_error = true
-       AxiosMethod.store = this.$store
-       AxiosMethod.token = this.$cookies.get('adminToken')
-       let data = await AxiosMethod.axios_get()
-       if (data) {
-         this.loading = false
-         this.close()
-       }
-       else{
-         this.loading = false
-       }
-     }
-     catch (e) {
-       this.loading = false
-     }
+      try {
+        this.loading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = 'warehouse/order/packaging/reject?order_id=' + this.orderId
+        AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+          this.loading = false
+          this.close()
+        } else {
+          this.loading = false
+        }
+      } catch (e) {
+        this.loading = false
+      }
 
     }
   }
