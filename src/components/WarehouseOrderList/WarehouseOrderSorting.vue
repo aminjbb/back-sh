@@ -36,7 +36,7 @@
                 </div>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="getShpssDetail"  v-model="qrCode" variant="outlined" :autofocus="true"></v-text-field>
+                <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="getShpssDetail"  v-model="qrCode" variant="outlined" :autofocus="true"></v-text-field>
                 <v-text-field v-else @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode" variant="outlined" ></v-text-field>
               </v-col>
 
@@ -143,7 +143,7 @@
               </div>
             </v-col>
             <v-col cols="12">
-              <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="sortingShps"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+              <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="sortingShps"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
               <v-text-field v-else @keyup.enter="sortingShps()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
             </v-col>
 
@@ -208,40 +208,67 @@ export default {
       shelfScan: false,
       sortingDone: false,
       shelfBarcode:'',
-      autoSend:'automate'
+      autoSend:'automate',
+      lastBarcode:null
     }
   },
 
 
   methods: {
     async getShpssDetail() {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `warehouse/order/sorting/get-item?barcode=${this.qrCode}`
-      AxiosMethod.toast_error = true
-      AxiosMethod.store = this.$store
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpssDetail = data.data
+      if (this.lastBarcode !== this.qrCode){
+        try {
+          this.lastBarcode = this.qrCode
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `warehouse/order/sorting/get-item?barcode=${this.qrCode}`
+          AxiosMethod.toast_error = true
+          AxiosMethod.store = this.$store
+          let data = await AxiosMethod.axios_get()
+          if (data) {
+            this.shpssDetail = data.data
+          }
+          else{
+            this.qrCode = ''
+          }
+        }
+        catch (e) {
+          this.qrCode = ''
+        }
+
       }
+
     },
     async sortingShps() {
-      const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      formData.append('shps_s_barcode', this.qrCode)
-      formData.append('placement_barcode', this.shelfBarcode)
-      AxiosMethod.form = formData
-      AxiosMethod.using_auth = true
-      AxiosMethod.toast_error = true
-      AxiosMethod.store = this.$store
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `warehouse/order/sorting/put-sort`
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.shelfScan = false
-        this.sortingDone = true
+      if (this.lastBarcode !== this.shelfBarcode){
+        try {
+          this.lastBarcode = this.shelfBarcode
+          const AxiosMethod = new AxiosCall()
+          const formData = new FormData()
+          formData.append('shps_s_barcode', this.qrCode)
+          formData.append('placement_barcode', this.shelfBarcode)
+          AxiosMethod.form = formData
+          AxiosMethod.using_auth = true
+          AxiosMethod.toast_error = true
+          AxiosMethod.store = this.$store
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `warehouse/order/sorting/put-sort`
+          let data = await AxiosMethod.axios_post()
+          if (data) {
+            this.shelfScan = false
+            this.sortingDone = true
+          }
+          else {
+            this.shelfBarcode = ''
+          }
+        }
+        catch (e) {
+          this.shelfBarcode = ''
+        }
+
       }
+
     },
     reScan() {
       this.sortingDone = false

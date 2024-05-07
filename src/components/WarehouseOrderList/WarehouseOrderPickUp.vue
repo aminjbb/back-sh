@@ -67,7 +67,7 @@
       <v-card class="mx-5 mb-1 br-15 pa-2" >
         <v-row justify="center">
           <v-col cols="6">
-            <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="scanQrCode"  v-model="shpssBarCode" variant="outlined" :autofocus="true"></v-text-field>
+            <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="scanQrCode"  v-model="shpssBarCode" variant="outlined" :autofocus="true"></v-text-field>
             <v-text-field v-else @keyup.enter="scanQrCode()" :autofocus="true" v-model="shpssBarCode" variant="outlined" ></v-text-field>
           </v-col>
           <v-col cols="6">
@@ -188,7 +188,7 @@
              </div>
            </v-col>
            <v-col cols="12">
-             <v-text-field v-if="autoSend === 'automate'" v-debounce:300ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+             <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
              <v-text-field v-else @keyup.enter="notFoundTask()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
            </v-col>
 
@@ -237,7 +237,8 @@ export default {
       pickUpDone: false,
       notFound:false,
       shelfBarcode:'',
-      autoSend:'automate'
+      autoSend:'automate',
+      lastBarcode:null
 
     }
   },
@@ -247,7 +248,11 @@ export default {
   },
   methods: {
     scanQrCode() {
-      this.pickUpshpss(this.shpssBarCode)
+      if (this.lastBarcode !== this.shpssBarCode){
+        this.lastBarcode = this.shpssBarCode
+        this.pickUpshpss(this.shpssBarCode)
+      }
+
     },
     async pickUpshpss(barcode) {
       try {
@@ -269,31 +274,37 @@ export default {
         }
         else {
           this.loading = false
+          this.shpssBarCode = ''
         }
       }
       catch (e) {
+        this.shpssBarCode = ''
         this.loading = false
       }
     },
     async notFoundTask() {
       try {
-        this.loading = true
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.toast_error = true
-        AxiosMethod.store = this.$store
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'warehouse/order/pickup/not-found/'+this.shelfBarcode
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          this.loading = false
-          this.notFound = false
-          this.shelfBarcode = ''
-          this.getPickUpShps()
+        if (this.lastBarcode !== this.shelfBarcode){
+          this.lastBarcode = this.shelfBarcode
+          this.loading = true
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.toast_error = true
+          AxiosMethod.store = this.$store
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = 'warehouse/order/pickup/not-found/'+this.shelfBarcode
+          let data = await AxiosMethod.axios_get()
+          if (data) {
+            this.loading = false
+            this.notFound = false
+            this.shelfBarcode = ''
+            this.getPickUpShps()
+          }
+          else {
+            this.loading = false
+          }
         }
-        else {
-          this.loading = false
-        }
+
       }
       catch (e) {
         this.loading = false

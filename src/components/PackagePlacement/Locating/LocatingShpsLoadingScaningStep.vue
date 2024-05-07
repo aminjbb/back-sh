@@ -10,7 +10,7 @@
         <span class="text-black t20400">
           {{ scanTitle }}
           <v-text-field v-if="type === 'automate'" v-model="objectId" :autofocus="true"
-                        v-debounce:300ms="qrCodeScan"></v-text-field>
+                        v-debounce:150ms="qrCodeScan"></v-text-field>
           <v-text-field v-else v-model="objectId" :autofocus="true" @keyup.enter="qrCodeScan"></v-text-field>
         </span>
       </div>

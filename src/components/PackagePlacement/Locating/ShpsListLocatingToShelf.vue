@@ -56,7 +56,7 @@
         <v-col></v-col>
       </v-row>
       <v-text-field v-if="type === 'automate'" v-model="shpssBarCode" :autofocus="true"
-                    v-debounce:300ms="scanQrCode"></v-text-field>
+                    v-debounce:150ms="scanQrCode"></v-text-field>
       <v-text-field v-else v-model="shpssBarCode" :autofocus="true" @keyup.enter="scanQrCode"></v-text-field>
       <!--      -->
       <!--      -->
