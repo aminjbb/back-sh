@@ -202,9 +202,9 @@
         </div>
     </div>
 
-    <ModalEditBanner />
-    <ModalEditCategory />
-    <ModalEditBlog />
+    <ModalEditBanner ref="ModalEditBanner" />
+    <ModalEditCategory ref="ModalEditCategory" />
+    <ModalEditBlog ref="ModalEditBlog"/>
 </div>
 </template>
 
@@ -418,13 +418,18 @@ export default {
 
     methods: {
         openEditModal(object) {
-            const form = {
-                dialog: true,
-                object: object
+            if (this.model == 'category') {
+              this.$refs.ModalEditCategory.dialog = true
+              this.$refs.ModalEditCategory.categoryObject = object
             }
-            if (this.model == 'category') this.$store.commit('set_homePageCategoryModal', form)
-            else if (this.model == 'blog') this.$store.commit('set_homeBlogModal', form)
-            else this.$store.commit('set_homePageBannerModal', form)
+            else if (this.model == 'blog'){
+              this.$refs.ModalEditBlog.dialog = true
+              this.$refs.ModalEditBlog.blogObject = object
+            }
+            else {
+              this.$refs.ModalEditBanner.dialog = true
+              this.$refs.ModalEditBanner.bannerObject = object
+            }
         },
 
         convertDateToJalai,

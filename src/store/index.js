@@ -285,10 +285,10 @@ export default createStore({
             state.modalRequestShipment.dialog = form.dialog
             state.modalRequestShipment.object = form.object
         },
-        set_homeBlogModal(state, form) {
-            state.homeBlogModal.dialog = form.dialog
-            state.homeBlogModal.object = form.object
-        },
+        // set_homeBlogModal(state, form) {
+        //     state.homeBlogModal.dialog = form.dialog
+        //     state.homeBlogModal.object = form.object
+        // },
         set_homePageBrandModal(state, form) {
             state.homePageBrandModal.dialog = form.dialog
             state.homePageBrandModal.object = form.object
@@ -297,14 +297,14 @@ export default createStore({
             state.homePageSectionForSliderModal.dialog = form.dialog
             state.homePageSectionForSliderModal.object = form.object
         },
-        set_homePageCategoryModal(state, form) {
-            state.homePageCategoryModal.dialog = form.dialog
-            state.homePageCategoryModal.object = form.object
-        },
-        set_homePageBannerModal(state, form) {
-            state.homePageBannerModal.dialog = form.dialog
-            state.homePageBannerModal.object = form.object
-        },
+        // set_homePageCategoryModal (state, form) {
+        //     state.homePageCategoryModal.dialog = form.dialog
+        //     state.homePageCategoryModal.object = form.object
+        // },
+        // set_homePageBannerModal(state, form) {
+        //     state.homePageBannerModal.dialog = form.dialog
+        //     state.homePageBannerModal.object = form.object
+        // },
         set_legalSellerStep4(state, obj) {
             state.legalSellerStep4 = obj
         },
