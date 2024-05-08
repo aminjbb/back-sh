@@ -1,6 +1,11 @@
 <template>
   <div class="text-right  ">
-
+    <div class="ma-3 pointer" @click="requestShipmentDetailShipmentDetail()">
+      <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+    </div>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
         <v-row
@@ -8,7 +13,7 @@
             align="center"
             class="">
           <v-col cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -159,7 +164,7 @@
               <v-col cols="3" class="d-flex justify-end mx-10">
                 <btn
                     class="mt-3 mr-2"
-                    @click="close()"
+                    @click="dialog = false"
                     style="cursor: pointer;">
                   انصراف
                 </btn>
@@ -176,7 +181,9 @@
 </template>
 
 <script>
-
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 import ShipmentRequests from "@/composables/ShipmentRequests";
 import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
 import {
@@ -212,13 +219,32 @@ export default {
 
 
   },
+  props: {
+    item : null
+  },
   data() {
-    return {}
+    return {
+      retailObject: null,
+      dialog: false
+    }
   },
 
   methods: {
 
+    async requestShipmentDetailShipmentDetail() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shipment/detail/${this.item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+      this.dialog = true
+      this.retailObject = data.data
 
+
+      }
+
+    },
     print() {
 
       // this.close()
@@ -240,12 +266,7 @@ export default {
   },
 
   computed: {
-    dialog() {
-      return this.$store.getters['get_detailModalTest']
-    },
-    retailObject() {
-      return this.$store.getters['get_detailModalTestObject']
-    },
+
 
   }
 }

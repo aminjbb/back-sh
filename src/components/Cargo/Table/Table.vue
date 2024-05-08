@@ -123,7 +123,7 @@
                 </div>
 
                 <div style="width: 7.09091%; flex: 0 0 7.09091%;" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                  <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -144,12 +144,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="getCargoDetail(item)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            پرینت بسته های کارگو
-                                        </span>
-                                    </div>
+                                  <ModalCargoDetail :item="item" />
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -178,7 +173,7 @@
             </div>
         </div>
     </div>
-    <ModalCargoDetail />
+
 
 </div>
 </template>
@@ -373,30 +368,8 @@ export default {
         /**
          * requestShipment modal
          */
-        requestShipment(item) {
-            const form = {
-                dialog: true,
-                object: item
-            }
-            this.$store.commit('set_modalRequestShipment', form)
-        },
-        /**
-         * retailShipment detail modal
-         */
-        async getCargoDetail(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `cargo/crud/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_ModalCargoDetail', form)
-            }
-        },
+
+
         /**
          * Get row index in table
          * @param {*} index

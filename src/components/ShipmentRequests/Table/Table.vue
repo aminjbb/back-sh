@@ -201,7 +201,7 @@
                 </div>
 
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -220,12 +220,7 @@
 <!--                                </v-list-item-title>-->
                                
                                     <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            نمایش جزئیات
-                                        </span>
-                                    </div>
+                                      <DetailModalTest :item="item" />
                                 
                                 </v-list-item-title>
 <!--                            <v-list-item-title>-->
@@ -254,10 +249,7 @@
             </div>
         </div>
         <MarketPlaceDetailModal/>
-        <DetailModalTestQrCodeFull/>
-        <DetailModalTestQrCode/>
-        <DetailModalTest />
-        <DetailsModal />
+
         <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
     </template>
@@ -288,10 +280,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
 } from "@/assets/js/functions_seller";
     export default {
         components: {
-                DetailsModal,
                 DetailModalTest,
-                DetailModalTestQrCode,
-                DetailModalTestQrCodeFull,
                 MarketPlaceDetailModal,
                 ModalRejectRequestShipment
 },
@@ -447,42 +436,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             }
            
         },
-        requestShipmentTest(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTest' , form)
-    },
-    requestShipmentMarketPlace(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_MarketPlaceDetailModal' , form)
-    },
-    requestShipmentTestQrCode(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTestQrCode' , form)
-    },
-    requestShipmentTestQrCodeFull(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTestQrCodeFull' , form)
-    },
-        /**
-         * Update list
-         * @param {*} status 
-         */
-        updateList(status) {
-            this.$emit('updateList', status);
-        },
-        
+
 
         async updateStatus(index, status, item) {
             var formdata = new FormData();
@@ -513,96 +467,11 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             }
         },
 
-        requestShipment(item) {
-              const form = {
-                dialog :true,
-                object : item
-              }
-              this.$store.commit('set_modalRequestShipment' , form)
-            },
-        /**
-         * retailShipment detail modal
-         */
 
-         async requestShipmentDetailShipmentDetail1(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/detail/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
-        }
-        this.$store.commit('set_detailModalTest' , form)
 
-      }
 
-    },
-    async requestShipmentDetailShipmentDetail2(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data && data.data) {
-                
-                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
 
-                if (data.data.barcode_image) {
-                data.data.barcode_image = baseUrl + data.data.barcode_image;
-            }
 
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_detailModalTestQrCode', form)
-            } else {
-            console.error("Data not found");
-        }
-        },
-        async requestShipmentDetailShipmentDetail4(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
-        }
-        this.$store.commit('set_marketPlaceDetailModal' , form)
-
-      }
-
-    },
-    async requestShipmentDetailShipmentDetail3(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data && data.data) {
-                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-                if (data.data.barcode_image) {
-                data.data.barcode_image = baseUrl + data.data.barcode_image;
-                  const form = {
-                    dialog: true,
-                    object: data.data
-                  }
-                  this.$store.commit('set_detailModalTestQrCodeFull', form)
-            }
-            // if (data.data.shps.barcode_image) {
-            //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
-            // }
-
-            } else {
-            console.error("Data not found");
-        }
-        },
 
             /**
              * Get row index in table

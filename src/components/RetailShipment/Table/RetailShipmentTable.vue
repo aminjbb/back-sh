@@ -111,7 +111,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -132,12 +132,7 @@
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipment(item)">
-                                        <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            درخواست ارسال
-                                        </span>
-                                    </div>
+                                  <ModalRequestShipment :item="item" :getRetailShipmentList="getRetailShipmentList"/>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
@@ -154,13 +149,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="retailShipmentDetail(item)">
-                                        <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            نمایش جزئیات
-                                        </span>
-
-                                    </div>
+                                    <ModalRetailShipmentDetail :item="item"/>
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
@@ -200,6 +189,7 @@ import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
+import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 import {
     openConfirm,
@@ -210,6 +200,7 @@ export default {
     components: {
         ModalRequestShipment,
         ActivationModal,
+      ModalRetailShipmentDetail
     },
 
     props: {
@@ -416,25 +407,7 @@ export default {
             }
             this.$store.commit('set_modalRequestShipment', form)
         },
-        /**
-         * retailShipment detail modal
-         */
-        async retailShipmentDetail(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/consignment/crud/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_modalRetailShipmentDetail', form)
 
-            }
-
-        },
         /**
          * Get row index in table
          * @param {*} index

@@ -1,11 +1,16 @@
 <template>
 <div class="text-right">
+  <div class="ma-5 pointer" @click="withdrawDetail(item)">
+    <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+    <span class="mr-2 text-grey-darken-1 t14300">
+                                            مشاهده دلیل رد </span>
+  </div>
     <v-dialog v-model="dialog" width="1060">
         <v-card>
             <div>
                 <v-row justify="space-between" align="center">
                     <v-col cols="2">
-                        <v-btn @click="close()" variant="icon">
+                        <v-btn @click="dialog = false" variant="icon">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </v-col>
@@ -34,6 +39,9 @@
 <script>
 import WithdrawRequests from "@/composables/DepositRequest.js";
 import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
+import {
     convertDateToJalai
 } from "@/assets/js/functions";
 
@@ -55,9 +63,31 @@ export default {
             detail
         };
     },
+  data() {
+    return {
+      dialog: false,
+      object:null
+    }
+  },
+  props:{
+      item: null
+  },
 
     methods: {
         convertDateToJalai,
+      async withdrawDetail() {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/get/${this.item.id}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+         this.retailObject = data.data
+         this.dialog = true
+
+        }
+
+      },
 
         close() {
             const form = {
@@ -69,12 +99,12 @@ export default {
     },
 
     computed: {
-        dialog() {
-            return this.$store.getters['get_depositDetail']
-        },
-        retailObject() {
-            return this.$store.getters['get_depositDetailObject']
-        },
+        // dialog() {
+        //     return this.$store.getters['get_depositDetail']
+        // },
+        // retailObject() {
+        //     return this.$store.getters['get_depositDetailObject']
+        // },
 
     }
 }

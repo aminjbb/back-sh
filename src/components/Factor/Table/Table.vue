@@ -158,7 +158,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -168,12 +168,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openShowDetailsModal(item.id)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            نمایش جزئیات
-                                        </span>
-                                    </div>
+                                  <DetailsModal :id="item.id"/>
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -234,7 +229,7 @@
         </div>
     </div>
     <ModalMassUpdate :updateUrl="updateUrl" />
-    <DetailsModal />
+
 </div>
 </template>
 
@@ -364,8 +359,11 @@ export default {
          * @param {*} id
          */
         openShowDetailsModal(id) {
-            openModal(this.$store, 'set_showDetailsModal', id, true)
+          this.$refs.detailModal.dialog = true
+          this.$refs.detailModal.id = id
         },
+
+
 
         factorSelectedTitle(status) {
             if (status === 'draft') {

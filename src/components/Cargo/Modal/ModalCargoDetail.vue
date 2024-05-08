@@ -1,5 +1,11 @@
 <template>
   <div class="text-right ">
+    <div class=" pointer" @click="getCargoDetail(item)">
+      <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                            پرینت بسته های کارگو
+                                        </span>
+    </div>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
         <v-row
@@ -7,7 +13,7 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -73,7 +79,9 @@
 <script>
 import Table from "@/components/Cargo/Table/DetailCargoPackageTable.vue";
 import Cargo from '@/composables/Cargo'
-
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 export default {
   setup(){
     const {detailCargoHeader} = new Cargo()
@@ -82,10 +90,30 @@ export default {
   components: {
     Table,
   },
+  props:{
+    item : null
+  },
+  data() {
+    return {
+      dialog: false,
+      object:null
+    }
+  },
 
   methods: {
+    async getCargoDetail(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `cargo/crud/get/${item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.object= data.data
+        this.dialog = true
+      }
+    },
     print() {
-      // this.close()
+
       window.open(`${ import.meta.env.VITE_API_SITEURL}cargo-management/${this.object.id}/print`, '_blank');
 
 
@@ -97,18 +125,7 @@ export default {
       }
       this.$store.commit('set_ModalCargoDetail', form)
     },
-    validate() {
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(() => {
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      }, 200)
-    },
-    searchWarehouse(e) {
-      const filter = {
-        name: e
-      }
-      this.getWarehouseList(filter)
-    },
+
 
   },
 
@@ -116,12 +133,7 @@ export default {
     basUrl(){
       return import.meta.env.VITE_API_BACKEND_URL
     },
-    dialog() {
-      return this.$store.getters['get_ModalCargoDetail']
-    },
-    object() {
-      return this.$store.getters['get_ModalCargoDetailObject']
-    },
+
   }
 }
 </script>

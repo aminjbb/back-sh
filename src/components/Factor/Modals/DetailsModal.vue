@@ -1,14 +1,22 @@
 <template>
 <div class="text-center">
+  <div  class="ml-16">
+    <div class=" pointer" @click="dialog = true">
+      <v-icon size="x-small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+    </div>
+  </div>
     <v-dialog
-        v-model="showDetailsModal.dialog"
+        v-model="dialog"
         width="1060"
         @input="dialogToggle">
         <v-card>
             <header class="modal__header modal__header--factor">
                 <v-btn
                     class="modal__header__btn"
-                    @click="close()"
+                    @click="dialog = false"
                     variant="icon">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -305,12 +313,17 @@ import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
 export default {
+  props:{
+    id:null
+  },
     data() {
         return {
             loading: false,
             rule: [v => !!v || 'این فیلد الزامی است'],
             factorData: null,
-            factorSkuData: null
+            factorSkuData: null,
+            dialog:false,
+
         }
     },
 
@@ -333,7 +346,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `factor/crud/get/${this.showDetailsModal?.id}`
+            AxiosMethod.end_point = `factor/crud/get/${this.id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 this.factorData = data.data;
@@ -344,7 +357,7 @@ export default {
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `factor/crud/detail/${this.showDetailsModal?.id}`
+            AxiosMethod.end_point = `factor/crud/detail/${this.id}`
             let data = await AxiosMethod.axios_get()
             if (data) {
                 this.factorSkuData = data.data;
@@ -364,7 +377,7 @@ export default {
 
     created() {
         this.$watch(
-            () => this.showDetailsModal.dialog,
+            () => this.dialog,
             (dialogState) => {
                 if (dialogState) {
                     this.getFactorDetails();

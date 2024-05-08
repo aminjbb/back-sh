@@ -127,7 +127,7 @@
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" class="text-gray500">
                   mdi-dots-vertical
@@ -136,10 +136,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
-                  </div>
+                  <DetailsModal :id="item.id"/>
                 </v-list-item-title>
 
                 <v-list-item-title>
@@ -150,10 +147,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش فاکتور مالی</span>
-                  </div>
+                  <FactorModal :id="item.id" />
                 </v-list-item-title>
               </v-list>
             </v-menu>
@@ -169,8 +163,8 @@
       </div>
     </div>
 
-    <DetailsModal />
-    <FactorModal />
+
+
   </div>
 </template>
 
