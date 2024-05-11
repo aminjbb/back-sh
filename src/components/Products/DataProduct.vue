@@ -38,10 +38,9 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <ModalTableFilter
-                            path="product/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="product/index"
+                          :filterField="filterField"/>
                     </v-row>
                 </v-col>
             </v-row>
@@ -117,8 +116,10 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Product from '@/composables/Product';
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,

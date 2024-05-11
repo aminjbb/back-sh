@@ -47,16 +47,16 @@ export default function setup() {
     const skuGroupLoading =ref(false)
 
     const filterField = [
-        { name: 'شتاسه کالا', type: 'text', value: 'id' },
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
-        { name: ' رنگ', type: 'auto-complete', value: 'color' },
-        { name: ' برند', type: 'auto-complete', value: 'brand' },
+        { name: 'شناسه کالا', type: 'text', value: 'id' },
         { name: ' دسته بندی', type: 'auto-complete', value: 'category' },
-        { name: 'فعال سازی ', type: 'select', value: 'active' },
-        { name: 'قابل فروش', type: 'select', value: 'sellable' },
+        { name: ' برند', type: 'auto-complete', value: 'brand' },
+        { name: ' رنگ', type: 'auto-complete', value: 'color' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
+        { name: 'فعال سازی ', type: 'select', value: 'active' },
+        { name: 'قابل فروش', type: 'select', value: 'sellable' },
     ];
 
     const item = []

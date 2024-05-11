@@ -38,10 +38,9 @@
                             :header="header"
                         />
 
-                        <ModalTableFilter
-                            path="categories/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="categories/index"
+                          :filterField="filterField"/>
                     </v-row>
                 </v-col>
      
@@ -119,9 +118,11 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,

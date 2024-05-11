@@ -37,10 +37,10 @@
                             :header="header"
                         />
 
-                        <ModalTableFilter
-                            path="color/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="color/index"
+                          :filterField="filterField"
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -119,9 +119,11 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Colors from '@/composables/Colors';
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,

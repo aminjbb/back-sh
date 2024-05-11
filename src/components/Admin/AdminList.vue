@@ -23,9 +23,8 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-
-                    <ModalTableFilter path="admin/index" :filterField="filterField" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <PanelFilter path="admin/index" :filterField="filterField"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -96,6 +95,7 @@ import Admin from "@/composables/Admin";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 export default {
     setup() {
         const {
@@ -124,6 +124,7 @@ export default {
         };
     },
     components: {
+      PanelFilter,
         ModalExcelDownload,
         ModalGroupAdd,
         ModalTableFilter,

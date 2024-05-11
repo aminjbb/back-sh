@@ -21,9 +21,9 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-
-                    <ModalTableFilter path="factor/index" :filterField="filterField" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                    <ModalTableFilter  path="factor/index" :filterField="filterField"/>
+                  <PanelFilter path="factor/index" :filterField="filterField"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -91,6 +91,7 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 export default {
     setup() {
         const {
@@ -120,6 +121,7 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,

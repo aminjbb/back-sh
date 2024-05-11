@@ -30,14 +30,14 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <SkuModalTableFilter 
-                            :path="`product/get/skus/index`" 
-                            :filterField="filterField"
-                            :brandsList="brandsList" 
-                            :colorsList="colorsList"
-                            :categoriesList="categoriesList"
-                            show-category
-                        />
+                      <PanelFilter
+                          :path="`product/get/skus/index`"
+                          :filterField="filterField"
+                          :brandsList="brandsList"
+                          :colorsList="colorsList"
+                          :categoriesList="categoriesList"
+                          show-category
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -121,9 +121,11 @@ import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalColumnFilter,

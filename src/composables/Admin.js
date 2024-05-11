@@ -35,7 +35,7 @@ export default function setup() {
         { name: 'نام', type:'text', value:'first_name'},
         { name: 'نام خانوادگی', type:'text', value:'last_name'},
         { name:'شماره موبایل', type: 'text', value:'phone_number'},
-        { name: 'ایمیل', type:'select', value:'email'},
+        // { name: 'ایمیل', type:'select', value:'email'},
     ];
 
     async function getAdmins ( query) {

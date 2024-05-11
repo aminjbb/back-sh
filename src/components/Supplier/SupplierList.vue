@@ -20,15 +20,18 @@
                     </v-btn>
 
                     <ModalGroupAdd getEndPoint="supplier/csv/get/template" uploadEndpoint="supplier/csv/bulk" />
-
                 </v-row>
             </v-col>
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter
+                      :changeHeaderShow="changeHeaderShow"
+                      :header="header" />
 
-                    <ModalTableFilter path="supplier/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="supplier/index"
+                      :filterField="filterField"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -103,6 +106,7 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 export default {
     setup(props) {
         const {
@@ -132,6 +136,7 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalTableFilter,

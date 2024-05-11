@@ -23,10 +23,9 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <ModalTableFilter 
-                            :path="`product/get/skugroups/index`" 
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          :path="`product/get/skugroups/index`"
+                          :filterField="filterField"/>
                     </v-row>
                 </v-col>
             </v-row>
@@ -104,9 +103,11 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Sku from '@/composables/Sku';
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalColumnFilter,

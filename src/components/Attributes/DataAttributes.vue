@@ -16,8 +16,14 @@
                 </v-col>
                 <v-col cols="6">
                     <v-row justify="end">
-                        <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header"/>
-                        <ModalTableFilter  path="attributes/index" :filterField="filterField"/>
+                      <ModalColumnFilter
+                          :changeHeaderShow="changeHeaderShow"
+                          :header="header"/>
+
+                      <PanelFilter
+                          path="attributes/index"
+                          :filterField="filterField"
+                      />
                     </v-row>
                 </v-col>
      
@@ -91,8 +97,10 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Attributes from '@/composables/Attributes';
+import PanelFilter from "@/panelFilter/PanelFilter.vue";
 export default {
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,
