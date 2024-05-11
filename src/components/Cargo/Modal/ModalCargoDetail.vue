@@ -64,7 +64,7 @@
             <v-col cols="3" class="d-flex justify-end mx-10">
               <btn
                   class="mt-3 mr-2"
-                  @click="close()"
+                  @click="dialog = false"
                   style="cursor: pointer;">
                 انصراف
               </btn>
@@ -117,13 +117,6 @@ export default {
       window.open(`${ import.meta.env.VITE_API_SITEURL}cargo-management/${this.object.id}/print`, '_blank');
 
 
-    },
-    close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_ModalCargoDetail', form)
     },
 
 

@@ -31,8 +31,7 @@ export default createStore({
         legalSellerStep3: null,
         legalSellerStep4: null,
         packageId: null,
-        reportType: null,
-        shps_s: null,
+
         shipmentId:null,
         shpsId:null,
         sendingMethod:null,
@@ -133,10 +132,7 @@ export default createStore({
             dialog: false,
             id: ''
         },
-        ModalCargoDetail: {
-            dialog: false,
-            object: ''
-        },
+
         bulkPrintLabel: {
             dialog: false,
             id: ''
@@ -209,13 +205,7 @@ export default createStore({
         set_shipmentId(state, shipmentId) {
             state.shipmentId = shipmentId;
         },
-       
-        set_shps_s(state, shps_s) {
-            state.shps_s = shps_s;
-        },
-        set_reportType(state, reportType) {
-            state.reportType = reportType;
-        },
+
 
         set_packageId(state, packageId) {
             state.packageId = packageId;
@@ -241,10 +231,7 @@ export default createStore({
             state.modalLostShpss.object = form.object
         },
 
-        set_ModalCargoDetail(state, form) {
-            state.ModalCargoDetail.dialog = form.dialog
-            state.ModalCargoDetail.object = form.object
-        },
+
         set_bulkPrintLabel(state, form) {
             state.bulkPrintLabel.dialog = form.dialog
             state.bulkPrintLabel.object = form.object
@@ -448,13 +435,8 @@ export default createStore({
         get_shipmentId(state) {
             return state.shipmentId;
         },
-        get_shps_s(state) {
-            return state.shps_s;
-        },
 
-        get_reportType(state) {
-            return state.reportType;
-        },
+
 
         get_packageId(state) {
             return state.packageId;
@@ -495,12 +477,7 @@ export default createStore({
         get_modalLostShpssObject(state) {
             return state.modalLostShpss.object
         },
-        get_ModalCargoDetail(state) {
-            return state.ModalCargoDetail.dialog
-        },
-        get_ModalCargoDetailObject(state) {
-            return state.ModalCargoDetail.object
-        },
+
         get_bulkPrintLabel(state) {
             return state.bulkPrintLabel.dialog
         },

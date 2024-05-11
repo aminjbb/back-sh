@@ -135,18 +135,18 @@
                                   <ModalRequestShipment :item="item" :getRetailShipmentList="getRetailShipmentList"/>
                                 </v-list-item-title>
                             </v-list-item>
-                            <v-list-item :disabled="checkPermission(item.status , PrintPermission)">
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer"  @click="retailShipmentDetail(item)">
-                                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            پرینت محموله
+<!--                            <v-list-item :disabled="checkPermission(item.status , PrintPermission)">-->
+<!--                                <v-list-item-title>-->
+<!--                                    <div class="ma-5 pointer"  @click="retailShipmentDetail(item)">-->
+<!--                                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
+<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
+<!--                                            پرینت محموله-->
 
-                                        </span>
+<!--                                        </span>-->
 
-                                    </div>
-                                </v-list-item-title>
-                            </v-list-item>
+<!--                                    </div>-->
+<!--                                </v-list-item-title>-->
+<!--                            </v-list-item>-->
                             <v-list-item>
                                 <v-list-item-title>
                                     <ModalRetailShipmentDetail :item="item"/>

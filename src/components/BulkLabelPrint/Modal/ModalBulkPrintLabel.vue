@@ -1,18 +1,13 @@
 <template>
   <div class="text-right ">
-    <v-btn
-        @click="getDetail()"
-        height="40"
-        rounded
-        variant="outlined"
-        class="px-8 mt-1">
-        <span>
-          <v-icon>
-            mdi-printer-outline
-          </v-icon>
-        </span>
-      پرینت
-    </v-btn>
+    <div
+        class="ma-5 pointer"
+        @click=getDetail()>
+      <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                              پرینت
+                      </span>
+    </div>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
         <v-row
@@ -66,9 +61,12 @@ export default {
     shipmentId: null,
     packageId: null,
     shpsId: null,
+
   },
   data() {
-    return {}
+    return {
+
+    }
   },
 
   methods: {
@@ -97,14 +95,9 @@ export default {
 
   },
 
+
   computed: {
 
-    detail() {
-      return this.$store.getters['get_bulkPrintLabelObject']
-    },
-    dialog() {
-      return this.$store.getters['get_bulkPrintLabel']
-    },
 
     basUrl() {
 

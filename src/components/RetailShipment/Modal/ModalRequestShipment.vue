@@ -92,16 +92,12 @@
               class="px-8 mt-1">
             تایید
           </v-btn>
-          <v-btn
-              @click="close()"
-              variant="text"
-              height="40"
-              rounded
-              class="px-5 mt-1"
-          >
-
+          <btn
+              class="mt-3 mr-2"
+              @click="dialog = false"
+              style="cursor: pointer;">
             انصراف
-          </v-btn>
+          </btn>
 
         </div>
       </v-card>

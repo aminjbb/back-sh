@@ -91,7 +91,7 @@
               height="40"
               rounded
               variant="outlined"
-              @click="close()"
+              @click="dialog = false"
               class="px-8 mt-1">
             انصراف
           </v-btn>
@@ -194,15 +194,6 @@ export default {
     print() {
       window.open(`${ import.meta.env.VITE_API_SITEURL}retail-shipment/${this.retailObject.id}/print`, '_blank');
     },
-
-    close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_modalRetailShipmentDetail', form)
-    },
-
 
   },
 
