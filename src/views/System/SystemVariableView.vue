@@ -7,7 +7,7 @@ import SystemVariableLsit from '@/components/System/SystemVariableLsit.vue'
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="vh-100">
       <Header />
       <SystemVariableLsit />
     </v-main>
