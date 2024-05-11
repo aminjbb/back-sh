@@ -2,17 +2,15 @@
 <div class="menu">
     <v-navigation-drawer
         v-model="drawer"
-        :rail="rail"
-        permanent
+        temporary
         location="right"
         color="gray">
         <v-row
             justify="start"
             align="center"
             class="pa-5 pt-8">
-            <img src="@/assets/img/openMenu.svg" @click.stop="rail = !rail" width="24" class="mb-5 ml-10" alt="shavaz image">
-
-            <img v-if="!rail" src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
+          <v-icon class="mb-5 ml-10" @click.stop="closeSideBar">mdi-close</v-icon>
+          <img src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
         </v-row>
 
         <v-list v-model:opened="open">
@@ -553,5 +551,11 @@ export default {
 
         }
     },
+
+  methods: {
+    closeSideBar() {
+      this.$emit('closeSidebar')
+    }
+  }
 }
 </script>

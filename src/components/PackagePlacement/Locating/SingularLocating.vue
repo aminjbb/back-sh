@@ -8,18 +8,23 @@
   <template v-if="!shpsScan && !pickUpDone && !shelfScan">
     <div class="h-100 d-flex align-center justify-center">
       <div>
-        <div class="d-flex justify-center">
+        <div class="d-flex justify-center px-10 ma-5">
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+        </div>
+        <div class="d-flex justify-center ">
           <v-icon color="black" size="30">
             mdi-barcode-scan
           </v-icon>
         </div>
+
         <div class=" mt-8 d-flex justify-center px-10 text-center">
           <span class="text-black t20400">
           شناسه کالا را اسکن کنید.
           </span>
         </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="shpsDetail" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
+          <v-text-field v-else @keyup.enter="shpsDetail()" v-model="shpssSingeLocate" variant="outlined" :autofocus="true"/>
         </div>
       </div>
     </div>
@@ -133,13 +138,18 @@
             mdi-barcode-scan
           </v-icon>
         </div>
+
         <div class=" mt-8 d-flex justify-center px-10 text-center">
           <span class="text-black t20400">
          شناسه شلف را اسکن کنید.
           </span>
         </div>
+        <div>
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+        </div>
         <div class=" mt-3 d-flex justify-center px-10 text-center">
-          <v-text-field @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="placementScan" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
+          <v-text-field v-else @keyup.enter="placementScan()" v-model="placementBarcode" variant="outlined" :autofocus="true"/>
         </div>
       </div>
     </div>
@@ -200,7 +210,9 @@ export default {
       shelfScan: false,
       shpssSingeLocate: null,
       placementBarcode: null,
-      placementSplitId: null
+      placementSplitId: null,
+      autoSend:'automate',
+      lastBarcode:null
     }
   },
 
@@ -215,14 +227,18 @@ export default {
     },
     async placementScan() {
       try {
-        const barcodeSplit = this.placementBarcode.split('-')
-        if (barcodeSplit[1]) {
-          this.placementSplitId = barcodeSplit[1]
-          await this.singularLocate(barcodeSplit[1])
-        } else {
-          this.placementSplitId = this.placementBarcode
-          await this.singularLocate(this.placementBarcode)
+        if (this.lastBarcode !== this.placementBarcode){
+          this.lastBarcode = this.placementBarcode
+          const barcodeSplit = this.placementBarcode.split('-')
+          if (barcodeSplit[1]) {
+            this.placementSplitId = barcodeSplit[1]
+            await this.singularLocate(barcodeSplit[1])
+          } else {
+            this.placementSplitId = this.placementBarcode
+            await this.singularLocate(this.placementBarcode)
+          }
         }
+
       } catch (e) {
 
       }
@@ -256,18 +272,24 @@ export default {
     },
     async shpsDetail() {
       try {
-        this.loading = true
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'shps/item/detail?barcode=' + this.shpssSingeLocate
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-          this.pickUpShps = data.data
-          this.shpsScan = true
-          this.loading = false
-        } else {
-          this.loading = false
+        if (this.shpssSingeLocate){
+          if ( this.lastBarcode !== this.shpssSingeLocate){
+            this.lastBarcode =this.shpssSingeLocate
+            this.loading = true
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = 'shps/item/detail?barcode=' + this.shpssSingeLocate
+            let data = await AxiosMethod.axios_get()
+            if (data) {
+              this.pickUpShps = data.data
+              this.shpsScan = true
+              this.loading = false
+            } else {
+              this.loading = false
+            }
+          }
+
         }
       } catch (e) {
         this.loading = false

@@ -57,7 +57,11 @@ export default {
           }
 
         })
-        if (this.$refs.CreateVoucherFrom.valid && !isFileNull) this.createVoucher()
+        if (this.$refs.CreateVoucherFrom.valid && !isFileNull){
+          this.createVoucher()
+
+        }
+
 
       }, 200)
 
@@ -94,11 +98,12 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
         if (data) {
-          this.$router.go(-1)
+
           this.loading = false
           openToast(this.$store,
               'کد تخفیف موفقیت ایجاد شد.',
               "success")
+          this.$router.push('/voucher/index')
         } else {
           this.loading = false
           openToast(this.$store,

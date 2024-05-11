@@ -367,6 +367,14 @@ export default {
         return ''
       }
     },
+    snapp_transaction_id() {
+      try {
+        const idObject = this.values.find(element => element.name === 'snapp_transaction_id');
+        return idObject.value
+      } catch (error) {
+        return ''
+      }
+    },
     phone_number() {
       try {
         const idObject = this.values.find(element => element.name === 'phone_number');
@@ -436,6 +444,12 @@ export default {
         filter.id = this.id
       } else if (this.$route.query.id) {
         filter.id = null
+      }
+
+      if (this.snapp_transaction_id) {
+        filter.snapp_transaction_id = this.snapp_transaction_id
+      } else if (this.$route.query.snapp_transaction_id) {
+        filter.snapp_transaction_id = null
       }
       if (this.phone_number) {
         filter.phone_number = this.phone_number

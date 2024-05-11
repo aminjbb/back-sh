@@ -31,7 +31,6 @@ export class PanelFilter {
         this.payment_status = null;
         this.payment_method = null;
         this.packed_status = null;
-        this.packed_status = null;
         //this.identification_code = null;
         // this.bank_id = null;
         this.created_at_to_date = null;
@@ -45,6 +44,8 @@ export class PanelFilter {
         this.receive_city_id = null;
         this.paid_price_from = null;
         this.paid_price_to = null;
+        this.is_admin_order = null
+        this.snapp_transaction_id = null
     }
 
     query_maker() {
@@ -59,6 +60,9 @@ export class PanelFilter {
 
         if (this.id !== null) {
             query += "id=" + this.id + "&";
+        }
+        if (this.snapp_transaction_id !== null) {
+            query += "snapp_transaction_id=" + this.snapp_transaction_id + "&";
         }
 
         if (this.order_id !== null) {
@@ -139,7 +143,12 @@ export class PanelFilter {
 
     params_generator(routeQuery) {
         let query = "?";
-
+        if (this.is_admin_order === 1){
+            query += "is_admin_order=1&";
+        }
+        else if (this.is_admin_order === 0){
+            query += "is_admin_order=0&";
+        }
         if (this.per_page) {
             query += "per_page=" + this.per_page + "&";
         } else if (routeQuery.per_page) {
@@ -168,6 +177,12 @@ export class PanelFilter {
             query += "id=" + this.id + "&";
         } else if (routeQuery.id) {
             query += "id=" + routeQuery.id + "&";
+        }
+
+        if (this.snapp_transaction_id) {
+            query += "snapp_transaction_id=" + this.snapp_transaction_id + "&";
+        } else if (routeQuery.snapp_transaction_id) {
+            query += "snapp_transaction_id=" + routeQuery.snapp_transaction_id + "&";
         }
 
         if (this.order_id) {

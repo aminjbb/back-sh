@@ -29,6 +29,7 @@
                         {{ item.id }}
                     </span>
           </div>
+
           <div v-if="header[2].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.order_number">
@@ -60,20 +61,9 @@
                             -
                         </template>
                     </span>
-                </div>
-          <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px"
-               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.snapp_transaction_id">
-                            {{ item.snapp_transaction_id }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
           </div>
-          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px"
-               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+          <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_count">
                             {{ item.shps_count }}
@@ -84,7 +74,7 @@
                     </span>
           </div>
 
-                <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.status">
                           <span class="t10400">
@@ -97,29 +87,7 @@
                     </span>
           </div>
 
-                <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.payment_status">
-                            {{ getPaymentStatus(item.payment_status) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-                <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
-                        <template v-if="item.payment_method">
-                            {{ getPaymentMethod(item.payment_method) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-                <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
                             {{ splitChar(item.paid_price) }}
@@ -130,16 +98,16 @@
                     </span>
           </div>
 
-                <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <v-icon :icon="setIcon(item.packed_status)" :color="item.packed_status === 1 ? 'green' : 'red'" />
                     </span>
           </div>
 
-                <div v-if="header[12].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font text-center">
-                        <template v-if="item.submit_date_fa">
-                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
+          <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13400 text-gray500 py-5">
+                        <template v-if="item.sending_method">
+                            {{ getSendingMethod(item.sending_method) }}
                         </template>
                         <template v-else>
                             -
@@ -147,10 +115,10 @@
                     </span>
           </div>
 
-                <div v-if="header[13].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font text-center">
-                        <template v-if="item.logistic_date_fa">
-                            {{ item.logistic_date_fa }}
+                        <template v-if="item.submit_date_fa">
+                            {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
                         </template>
                         <template v-else>
                             -
@@ -170,34 +138,21 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش جزئیات
-                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/edit`)">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.id}/edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        ویرایش اطلاعات گیرنده
-                                    </span>
-                  </div>
-                </v-list-item-title>
-                <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/user/${item.id}/manual-order`)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-ثبت سفارش اپراتوری                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش سفارش</span>
                   </div>
                 </v-list-item-title>
 
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش فاکتور مالی
-                                    </span>
+                    <span class="mr-2 text-grey-darken-1 t14300">نمایش فاکتور مالی</span>
                   </div>
                 </v-list-item-title>
               </v-list>
@@ -221,11 +176,10 @@
 
 <script>
 import {
-    PanelFilter
+  PanelFilter
 } from "@/assets/js/filter_order.js"
 
 import {
-  openConfirm,
   isOdd,
   splitChar
 } from "@/assets/js/functions";
@@ -313,7 +267,8 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       activeColumn: false,
-      orderStatus: [{
+      orderStatus: [
+          {
         text: 'پرداخت شده',
         value: 'paid'
       },
@@ -442,33 +397,19 @@ export default {
     },
 
     /**
-     * Get persian name of method
-     * @param {*} method
-     */
-    getPaymentMethod(method) {
-      if (method === 'saman') {
-        return 'درگاه سامان'
-      } else if (method === 'wallet') {
-        return 'کیف پول'
-      } else if (method === 'snapp') {
-        return 'اسنپ پی'
-      }
-    },
-
-    /**
      * Get persian name of payment status
      * @param {*} method
      */
-    getPaymentStatus(method) {
-      if (method === 'unsuccessful') {
-        return 'نا موفق'
-      } else if (method === 'contradictory') {
-        return 'دارای مغایرت'
+    getSendingMethod(method) {
+      if (method === 'post') {
+        return 'پست'
+      } else if (method === 'nafis') {
+        return 'نفیس اکپرس'
       }
-      else if (method === 'payment_out_date') {
-        return 'انقضای پرداخت'
-      } else if (method === 'successful') {
-        return 'موفق'
+      else if (method === 'pishtaz') {
+        return 'پست پیشتاز'
+      } else if (method === 'tipax') {
+        return 'تیپاکس'
       }
     },
 
@@ -505,25 +446,12 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
-
     /**
      * Return odd index
      * @param {*} index
      */
     oddIndex(index) {
       return isOdd(index)
-    },
-
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
     },
 
     /**
