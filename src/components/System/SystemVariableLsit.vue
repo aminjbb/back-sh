@@ -28,7 +28,14 @@
                         </v-col>
 
                         <v-col cols="2" class="d-flex justify-center number-font">
+                          <template v-if="systemItemValue.value === '*****'">هر ۱ دقیقه یکبار</template>
+                          <template v-else-if="systemItemValue.value === '****5/*'">هر ۵ دقیقه یکبار</template>
+                          <template v-else-if="systemItemValue.value === '****30/*'">هر ۳۰ دقیقه یکبار</template>
+                          <template v-else-if="systemItemValue.value === '****0'">هر ۱ ساعت یکبار</template>
+                          <template v-else-if="systemItemValue.value === '****6/*0'">هر ۶ ساعت بکیار</template>
+                          <template v-else>
                             {{splitChar(systemItemValue.value)}}
+                          </template>
                         </v-col>
 
                         <v-col cols="4" class="d-flex justify-center">
