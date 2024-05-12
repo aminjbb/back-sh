@@ -32,9 +32,9 @@
         </div>
 
         <div :id="`printableArea-${barcode}`">
-          <v-row justify="center" class="ma-5">
+          <div style="display: flex ; justify-content: center; align-items: center" class="ma-5">
 
-            <div class="text-center"  v-if="shpssDetail">
+            <div style="text-align: center" v-if="shpssDetail">
               <barcode
 
                   :barcodeValue="barcode"
@@ -49,7 +49,7 @@
                   {{shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)}}
               </span>
             </div>
-            <div v-else-if="placementDetail">
+            <div class="text-center" v-else-if="placementDetail">
               <barcode
                   :barcodeValue="barcode"
                   :format="'CODE128'"
@@ -97,7 +97,6 @@
                   </div>
                 </div>
               </div>
-              <div class="number-font text-black t12500 mt-2" style="text-align:center">{{barcode }}</div>
             </div>
 
             <barcode
@@ -109,7 +108,7 @@
             >
             </barcode>
 
-          </v-row>
+          </div>
         </div>
 
         <div class="mt-3 mb-3 px-5">
@@ -233,7 +232,7 @@ export default {
      */
     print() {
       const printWindow = window.open('about:blank', '_blank');
-      printWindow.document.write(document.getElementById(`printableArea-${this.data.id}`).innerHTML)
+      printWindow.document.write(document.getElementById(`printableArea-${this.barcode}`).innerHTML)
       printWindow.print();
     },
   }

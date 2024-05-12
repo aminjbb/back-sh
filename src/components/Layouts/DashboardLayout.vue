@@ -505,6 +505,7 @@ export default {
                 ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
                 [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت سفارش', '/order-packaging/print-order-label', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت پرچسب', '/print-label/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ناحیه بندی انبار', '/zone/index', 'mdi-checkbox-blank-circle-outline'],
                 ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
