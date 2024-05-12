@@ -189,7 +189,12 @@
 <!--                  </v-list-item-title>-->
                   <v-list-item-title>
 
-                    <ModalDetailUpComing :item="item"/>
+                    <div class=" pointer" @click="print(item)">
+                      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14300">
+                         پرینت محموله
+                      </span>
+                    </div>
                   </v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -207,7 +212,7 @@
         </div>
       </div>
     </div>
-    <DetailModalTestQrCodeFull/>
+
 
   </div>
 </template>
@@ -220,12 +225,8 @@ import {
   SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 
-import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
-import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import ModalDetailUpComing from "@/components/UpComing/ModalDetailUpComing.vue";
-import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
-import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
+
 
 import {
   openToast,
@@ -234,11 +235,6 @@ import {
 
 export default {
   components: {
-    DetailsModal,
-    DetailModalTest,
-    ModalDetailUpComing,
-    DetailModalTestQrCodeFull,
-    MarketPlaceDetailModal,
   },
 
   props: {
@@ -341,14 +337,8 @@ export default {
   methods: {
     convertDateToJalai,
 
-
-
-    showDropDown(index) {
-      const item = this.items[index];
-      if (item.status === 'in_review') {
-        const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
-        itemDropdown.classList.toggle('active');
-      }
+    print(retailObject) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${retailObject.id}/print`, '_blank');
     },
 
     translateType(type) {
@@ -371,102 +361,6 @@ export default {
       }
       return 'transparent';  // Default background
     },
-
-    factorSelectedTitle(status) {
-      if (status === 'in_review') {
-        return 'در حال بررسی '
-      }
-      if (status === 'approved') {
-        return '  تایید شده'
-      }
-      if (status === 'rejected') {
-        return '  رد شده '
-      }
-
-    },
-    // requestShipmentTest(item) {
-    //   const form = {
-    //     dialog: true,
-    //     object: item
-    //   }
-    //   this.$store.commit('set_detailModalTest', form)
-    // },
-
-    // requestShipmentTestQrCode(item) {
-    //   const form = {
-    //     dialog: true,
-    //     object: item
-    //   }
-    //   this.$store.commit('set_detailModalTestQrCode', form)
-    // },
-    // requestShipmentTestQrCodeFull(item) {
-    //   const form = {
-    //     dialog: true,
-    //     object: item
-    //   }
-    //   this.$store.commit('set_detailModalTestQrCodeFull', form)
-    // },
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
-
-
-    async updateStatus(index, status, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      formdata.append('status', status)
-      AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-
-      if (data.status === 'Success') {
-
-        this.getShipmentRequestsList()
-
-        openToast(
-            this.$store,
-            'وضعیت با موفقیت ویرایش شد.',
-            "success"
-        );
-      }
-    },
-
-    // requestShipment(item) {
-    //   const form = {
-    //     dialog: true,
-    //     object: item
-    //   }
-    //   this.$store.commit('set_modalRequestShipment', form)
-    // },
-
-
-    // async requestShipmentDetailShipmentDetail2(item) {
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   AxiosMethod.end_point = `shipment/detail/${item.id}`
-    //   let data = await AxiosMethod.axios_get()
-    //   if (data) {
-    //     const form = {
-    //       dialog: true,
-    //       object: data.data
-    //     }
-    //     this.$store.commit('set_detailModalTestQrCode', form)
-    //     const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-    //
-    //   } else {
-    //     console.error("Data not found");
-    //   }
-    // },
-
 
 
     /**
