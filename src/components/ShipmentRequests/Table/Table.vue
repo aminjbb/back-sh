@@ -201,7 +201,7 @@
                 </div>
 
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :close-on-content-click="false" :location="location">
+                    <v-menu  :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -210,28 +210,18 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-<!--                                <v-list-item-title>-->
-<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
-<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            پرینت برچسب-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                </v-list-item-title>-->
+
                                
                                     <v-list-item-title>
-                                      <DetailModalTest :item="item" />
+                                      <div class="ma-3 pointer" @click="print(item)">
+                                        <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+                                      </div>
                                 
                                 </v-list-item-title>
-<!--                            <v-list-item-title>-->
 
-<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">-->
-<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            پرینت محموله-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                </v-list-item-title>-->
                             </v-list-item>
                         </v-list>
 
@@ -265,19 +255,15 @@
 import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
 import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import DetailModalTestQrCode from "@/components/ShipmentRequests/Modal/DetailModalTestQrCode.vue";
-import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
 import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
 import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
 
     import {
         openToast,
-        openConfirm,
+
         isOdd
     } from "@/assets/js/functions";
-    import {
-    openModal
-} from "@/assets/js/functions_seller";
+
     export default {
         components: {
                 DetailModalTest,
@@ -382,14 +368,12 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
     
           
         },
-    
-        watch: {
-            items(val) {
 
-            }
-        },
-    
         methods: {
+
+          print(item) {
+            window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${item.id}/print-detail`, '_blank');
+          },
           openRejectModal(item){
             const form = {
               dialog :true,
