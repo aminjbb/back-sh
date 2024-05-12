@@ -158,16 +158,12 @@
         </div>
       </div>
     </div>
-
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
-    <ModalDamageReport/>
-    <ModalLostReport/>
   </div>
 </template>
 <script>
 
-import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
-import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+
 
 
 import {
@@ -188,11 +184,6 @@ import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageMan
 export default {
   components: {
     PackageManagementModal,
-    ModalLostReport,
-    ModalDamageReport,
-
-
-
   },
 
   props: {
@@ -270,11 +261,8 @@ export default {
       active: [],
       panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
-      fetchCargoData: [],
       paramsQuery: [],
       filter: [],
-      reportType: null,
-      shps_s: null,
       loading: false,
       shipments: [],
       isSubmitted: false,
@@ -317,15 +305,6 @@ export default {
       window.open(`${import.meta.env.VITE_API_SITEURL}processing-shipment/${shipment.shipment_id}/${shipment.shps}/${this.packageId}/barcode-print`, '_blank');
 
     },
-
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
-
-  
-
     /**
      * sending data in save btn
      */

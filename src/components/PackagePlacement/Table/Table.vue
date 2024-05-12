@@ -110,19 +110,15 @@
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
+
 
 import {
-  openToast,
   openConfirm,
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 export default {
   components: {
-    ModalCargoDetail,
+
   },
 
   props: {
