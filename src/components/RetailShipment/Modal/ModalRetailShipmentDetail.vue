@@ -1,12 +1,5 @@
 <template>
   <div class="text-right ">
-    <div class=" pointer" @click="retailShipmentDetail()">
-      <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">
-                                            نمایش جزئیات
-                                        </span>
-
-    </div>
 
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">

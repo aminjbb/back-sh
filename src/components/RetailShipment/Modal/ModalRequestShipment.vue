@@ -111,7 +111,7 @@ import Warehouse from "@/composables/Warehouse"
 import {convertDateToJalai, openToast} from "@/assets/js/functions";
 export  default {
   props:{
-    item: null,
+    id: null,
     /**
      * Get Retail Shipment Function
      */

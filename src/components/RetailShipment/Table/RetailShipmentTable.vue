@@ -132,24 +132,20 @@
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
                                 <v-list-item-title>
-                                  <ModalRequestShipment :item="item" :getRetailShipmentList="getRetailShipmentList"/>
+                                  <ModalRequestShipment :id="item.id" :getRetailShipmentList="getRetailShipmentList"/>
                                 </v-list-item-title>
                             </v-list-item>
-<!--                            <v-list-item :disabled="checkPermission(item.status , PrintPermission)">-->
-<!--                                <v-list-item-title>-->
-<!--                                    <div class="ma-5 pointer"  @click="retailShipmentDetail(item)">-->
-<!--                                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            پرینت محموله-->
 
-<!--                                        </span>-->
-
-<!--                                    </div>-->
-<!--                                </v-list-item-title>-->
-<!--                            </v-list-item>-->
                             <v-list-item>
                                 <v-list-item-title>
-                                    <ModalRetailShipmentDetail :item="item"/>
+                                  <div class=" pointer" @click="print(item)">
+                                    <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+
+                                  </div>
+
                                 </v-list-item-title>
                             </v-list-item>
                             <v-list-item :disabled="checkPermission(item.status , deleteAndShippingPermission)">
@@ -183,14 +179,10 @@
 </template>
 <script>
 import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
-import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
-import ActivationModal from "@/components/Public/ActivationModal.vue";
+
 import {
     openConfirm,
     isOdd,
@@ -199,8 +191,7 @@ import {
 export default {
     components: {
         ModalRequestShipment,
-        ActivationModal,
-      ModalRetailShipmentDetail
+
     },
 
     props: {
@@ -359,16 +350,7 @@ export default {
         /**
          * Check is_active is true or false for show in table
          */
-        checkActive() {
-            this.header.forEach(element => {
-                if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-                    this.activeColumn = true;
-                } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
+
     },
 
     watch: {
@@ -384,6 +366,9 @@ export default {
     },
 
     methods: {
+      print(retailObject) {
+        window.open(`${ import.meta.env.VITE_API_SITEURL}retail-shipment/${retailObject.id}/print`, '_blank');
+      },
         checkPermission(status, permissions) {
             const index = permissions.findIndex(p => p === status)
             if (index > -1) return true
@@ -394,19 +379,8 @@ export default {
             return persianStatus.label
         },
         convertDateToJalai,
-        changeValue(index, value) {
-            this.active[index] = value
-        },
-        /**
-         * requestShipment modal
-         */
-        requestShipment(item) {
-            const form = {
-                dialog: true,
-                object: item
-            }
-            this.$store.commit('set_modalRequestShipment', form)
-        },
+
+
 
         /**
          * Get row index in table
@@ -454,30 +428,6 @@ export default {
          */
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-        },
-
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
-
-        /**
-         * Change Active
-         * @param {*} index
-         * @param {*} item
-         */
-        async changeActive(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.activePath + item.id
-            if (this.active[index]) formdata.append('is_active', 1)
-            else formdata.append('is_active', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
         },
 
         /**
