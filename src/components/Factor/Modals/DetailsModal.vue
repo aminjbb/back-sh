@@ -289,7 +289,7 @@
 
                     <footer class="d--rtl d-flex justify-between align-center pa-3">
                         <v-btn
-                            :href="`/factor/print/${showDetailsModal?.id}`"
+                            :href="`/factor/print/${factorData?.id}`"
                             height="40"
                             rounded
                             variant="outlined"

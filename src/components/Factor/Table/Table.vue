@@ -158,7 +158,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :close-on-content-click="false" :location="location">
+                    <v-menu :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -168,7 +168,14 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                  <DetailsModal :id="item.id"/>
+                                  <div  class="ml-16">
+                                    <div class=" pointer" @click=print(item)>
+                                      <v-icon size="x-small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                      <span class="mr-2 text-grey-darken-1 t14300">
+                                            نمایش جزئیات
+                                        </span>
+                                    </div>
+                                  </div>
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -228,7 +235,7 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
+
 
 </div>
 </template>
@@ -240,23 +247,20 @@ import {
 import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import DetailsModal from "@/components/Factor/Modals/DetailsModal.vue";
+
 import {
     openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+
 export default {
     components: {
-        ModalMassUpdate,
-        DetailsModal
+
     },
 
     props: {
+
         /**
          * List Items for header
          */
@@ -354,16 +358,14 @@ export default {
     },
 
     methods: {
+      print(factorId) {
+        window.open(`${import.meta.env.VITE_API_SITEURL}factor/print/${factorId?.id}`, '_blank')
+      },
+
         /**
          * Open Basic Discount modal
          * @param {*} id
          */
-        openShowDetailsModal(id) {
-          this.$refs.detailModal.dialog = true
-          this.$refs.detailModal.id = id
-        },
-
-
 
         factorSelectedTitle(status) {
             if (status === 'draft') {
@@ -399,9 +401,6 @@ export default {
          * Open factor details modal
          * @param {*} id
          */
-        openBasicDiscountModal(id) {
-            openModal(this.$store, 'set_basicDiscountModal', id, true)
-        },
 
         showDropDown(index) {
             const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
@@ -447,12 +446,7 @@ export default {
             this.$emit('updateList', status);
         },
 
-        /**
-         * Mass update modal
-         */
-        massUpdateModal() {
-            this.$store.commit('set_massUpdateModal', true)
-        },
+
 
         /**
          * Get row index in table
