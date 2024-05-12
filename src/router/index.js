@@ -227,7 +227,6 @@ import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackag
 import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
 
-
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
 import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
@@ -277,6 +276,8 @@ import ZoneListView from '../views/Zone/ZoneListView.vue'
 import PrintOrderLabelView from "@/views/PrintOrderLabel/PrintOrderLabelView.vue";
 import ManualOrderListView from "@/views/ManualOrder/ManualOrderListView.vue";
 import EditOrderView from "@/views/ManualOrder/EditOrderView.vue";
+import PrintLabelView from "@/views/Warehouse/PrintLabelView.vue";
+import StockTakingView from "@/views/StockTaking/StockTakingView.vue";
 
 
 const router = createRouter({
@@ -810,6 +811,22 @@ const router = createRouter({
                 },
 
 
+            ],
+        },
+        {
+            path: '/print-label', // Warehouse routes
+            meta: {
+                name: 'انبار ها'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'PrintLabel',
+                    component: PrintLabelView,
+                    meta: {
+                        name: 'پرینت برچسب'
+                    }
+                },
             ],
         },
         {
@@ -1800,14 +1817,14 @@ const router = createRouter({
                 name: 'انبار'
             },
             children: [
-            //     {
-            //     path: 'index',
-            //     name: 'order-packaging',
-            //     component: OrderPackagingListView,
-            //     meta: {
-            //         name: ' بسته بندی سفارش ها '
-            //     }
-            // },
+                //     {
+                //     path: 'index',
+                //     name: 'order-packaging',
+                //     component: OrderPackagingListView,
+                //     meta: {
+                //         name: ' بسته بندی سفارش ها '
+                //     }
+                // },
                 {
                     path: 'index',
                     name: 'detail-info',
@@ -1899,19 +1916,35 @@ const router = createRouter({
             ],
         },
         {
+
+            path: '/stocktaking', // Warehouse orders
+            meta: {
+                name: 'انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'StockTakingView',
+                component: StockTakingView,
+                meta: {
+                    name: 'انبار گردانی'
+                }
+            },
+            ],
+        },
+        {
             path: '/orders', // Order route
             meta: {
                 name: 'سفارش ها'
             },
             children: [
-            {
-                path: 'index',
-                name: 'OrderList',
-                component: OrderListView,
-                meta: {
-                    name: 'لیست سفارش ها'
-                }
-            },
+                {
+                    path: 'index',
+                    name: 'OrderList',
+                    component: OrderListView,
+                    meta: {
+                        name: 'لیست سفارش ها'
+                    }
+                },
                 {
                     path: 'user/:orderId/edit',
                     name: 'orderEditUser',
@@ -2197,9 +2230,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // redirect to dashboard page if user is already logged in
     if (to.name === 'login') {
-      if (localStorage.getItem('accessToken')) {
-        next('/dashboard');
-      }
+        if (localStorage.getItem('accessToken')) {
+            next('/dashboard');
+        }
     }
     next();
 });
