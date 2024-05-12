@@ -179,14 +179,7 @@
                     </div>
 
                   </v-list-item-title>
-<!--                  <v-list-item-title>-->
-<!--                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
-<!--                      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                      <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                        پرینت برچسب-->
-<!--                      </span>-->
-<!--                    </div>-->
-<!--                  </v-list-item-title>-->
+
                   <v-list-item-title>
 
                     <div class=" pointer" @click="print(item)">

@@ -144,7 +144,12 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                  <ModalCargoDetail :item="item" />
+                                  <div class=" pointer" @click="print(item)">
+                                    <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                            پرینت بسته های کارگو
+                                        </span>
+                                  </div>
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -179,26 +184,21 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+
 import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
 
-import ActivationModal from "@/components/Public/ActivationModal.vue";
+
+
 import {
     openConfirm,
     isOdd,
     convertDateToJalai
 } from "@/assets/js/functions";
-import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 export default {
     components: {
-        ModalCargoDetail,
-        ModalRequestShipment,
-        ActivationModal,
+
     },
 
     props: {
@@ -298,9 +298,7 @@ export default {
     },
 
     computed: {
-        PrintPermission() {
-            return ['waiting', 'in_review']
-        },
+
         deleteAndShippingPermission() {
             return ['approved', 'sending_warehouse', 'received_by_warehouse',
                 'counting', 'approved_by_warehouse', 'sending_base_warehouse',
@@ -327,16 +325,6 @@ export default {
         /**
          * Check is_active is true or false for show in table
          */
-        checkActive() {
-            this.header.forEach(element => {
-                if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-                    this.activeColumn = true;
-                } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
     },
 
     watch: {
@@ -352,6 +340,13 @@ export default {
     },
 
     methods: {
+
+      print(object) {
+
+        window.open(`${ import.meta.env.VITE_API_SITEURL}cargo-management/${object.id}/print`, '_blank');
+
+
+      },
         checkPermission(status, permissions) {
             const index = permissions.findIndex(p => p === status)
             if (index > -1) return true
@@ -418,10 +413,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index
