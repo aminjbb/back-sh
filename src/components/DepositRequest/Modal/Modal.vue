@@ -41,9 +41,6 @@ import WithdrawRequests from "@/composables/DepositRequest.js";
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-    convertDateToJalai
-} from "@/assets/js/functions";
 
 export default {
     setup() {
@@ -74,7 +71,6 @@ export default {
   },
 
     methods: {
-        convertDateToJalai,
       async withdrawDetail() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -89,22 +85,10 @@ export default {
 
       },
 
-        close() {
-            const form = {
-                dialog: false,
-                object: ''
-            }
-            this.$store.commit('set_depositDetail', form)
-        },
+
     },
 
     computed: {
-        // dialog() {
-        //     return this.$store.getters['get_depositDetail']
-        // },
-        // retailObject() {
-        //     return this.$store.getters['get_depositDetailObject']
-        // },
 
     }
 }

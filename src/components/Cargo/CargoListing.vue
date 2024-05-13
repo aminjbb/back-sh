@@ -81,6 +81,8 @@
 <script>
 //Components
 import Table from '@/components/Cargo/Table/Table.vue'
+import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {openToast} from "@/assets/js/functions";
@@ -88,15 +90,17 @@ import {openToast} from "@/assets/js/functions";
 export default {
   components: {
     Table,
-    CreateCargo
+    CreateCargo,
+    ModalTableFilter,
+    ModalColumnFilter,
   },
 
   setup() {
     const {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item ,loading
+      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item ,loading, filterField
     } = Cargo();
     return {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item  ,loading
+      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item  ,loading, filterField
     };
   },
   mounted() {

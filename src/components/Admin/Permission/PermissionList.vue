@@ -72,7 +72,7 @@
 <script>
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-
+import ModalTableFilter from "@/components/Public/ModalTableFilter.vue";
 import Permission from "@/composables/Permission";
 
 
@@ -104,6 +104,7 @@ export default {
 
     components: {
         ModalColumnFilter,
+      ModalTableFilter,
         Table
     },
 

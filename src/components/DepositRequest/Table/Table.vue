@@ -225,10 +225,7 @@ export default {
          */
         items: [],
 
-        /**
-         * Model
-         */
-        model: '',
+
 
         /**
          * Height
@@ -238,13 +235,8 @@ export default {
             default: '500',
         },
 
-        /**
-         * Delete endpoint for change filter
-         */
-        deletePath: {
-            type: String,
-            default: ''
-        },
+
+
 
         /**
          * Page on table
@@ -279,10 +271,10 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            isIndex: [],
-            isFollow: [],
+
+
             panelFilter: new SupplierPanelFilter(),
-            activeColumn: false,
+
 
         }
     },

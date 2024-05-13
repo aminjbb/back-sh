@@ -89,6 +89,7 @@
 <script>
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import ModalTableFilter from "@/components/Public/ModalTableFilter.vue";
 import RolePermission from "@/composables/RolePermission";
 export default {
     setup() {
@@ -116,8 +117,9 @@ export default {
         };
     },
     components: {
+      ModalTableFilter,
 
-        ModalColumnFilter,
+      ModalColumnFilter,
         Table
     },
     mounted() {
