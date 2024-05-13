@@ -257,13 +257,7 @@ export default {
             default: false
         },
 
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
-        },
+
 
     },
 
@@ -290,10 +284,8 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            isIndex: [],
-            isFollow: [],
             panelFilter: new SupplierPanelFilter(),
-            activeColumn: false,
+
         }
     },
 
@@ -357,9 +349,6 @@ export default {
             return persianStatus.label
         },
         convertDateToJalai,
-        changeValue(index, value) {
-            this.active[index] = value
-        },
         /**
          * requestShipment modal
          */

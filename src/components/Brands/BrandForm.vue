@@ -113,7 +113,7 @@ export default {
                 (v) => !!v || "این فیلد الزامی است",
                 (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",
             ],
-            receivedImages: [],
+
         }
     },
 
