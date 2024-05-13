@@ -188,7 +188,8 @@ export default {
           sku :{
             label:element.sku
           },
-          id:element.shps
+          id:element.shps,
+          count:element.count
         }
         this.assignSku(object)
       })
@@ -252,12 +253,11 @@ export default {
       }
     },
     async assignSku(shps) {
-      console.log(shps)
      const form = {
         shps : shps,
-        maxTolerance :'100',
+        maxTolerance :'200',
         minTolerance :'0',
-        count:'0'
+        count:shps?.count
       }
       this.$refs.retailShipmentShps.form.push(form)
       this.shpsList.push(shps)

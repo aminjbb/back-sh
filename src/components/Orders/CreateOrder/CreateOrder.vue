@@ -151,8 +151,14 @@ export default {
       }
     },
     step2Validation(){
-      if (this.updatedShpsList.length>0) {
-       this.createOrder()
+      if (this.updatedShpsList.length >0) {
+        const zeroCountShpsList = this.updatedShpsList.find(shps => shps.count == 0)
+        if (zeroCountShpsList){
+          openToast( this.$store,'محصولی با تعداد صفر نمیتوانید وارد کنید' , 'error')
+        }
+        else {
+          this.createOrder()
+        }
       }
     },
 

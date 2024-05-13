@@ -325,7 +325,13 @@ export default {
     },
 
     'form.userAddress': function (newVal, oldVal){
-      this.getSendingMethods(newVal)
+      if (newVal){
+        this.getSendingMethods(newVal)
+      }
+      else{
+        this.sendingMethodList = []
+      }
+
 
     },
   },
