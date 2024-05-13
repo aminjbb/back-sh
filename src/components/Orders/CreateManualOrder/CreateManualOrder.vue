@@ -183,12 +183,14 @@ export default {
     },
 
     sendingData(){
-      this.createOrder()
+      const zeroCountShpsList = this.$refs.ManualOrderStepTwo.$refs.manualOrderTable.values.find(shps => shps.count == 0)
+      if (zeroCountShpsList){
+        openToast( this.$store,'محصولی با تعداد صفر نمیتوانید وارد کنید' , 'error')
+      }
+      else{
+        this.createOrder()
+      }
     },
-
-
-
-
 
     async createOrder() {
       const form1 = this.$store.getters['get_manualOrderStep1']
@@ -197,8 +199,8 @@ export default {
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'admin/order/crud/create'
-      this.$refs.ManualOrderStepTwo.manualOrderList.forEach((shps,index)=>{
-        formData.append(`shps_list[${index}][shps]`, shps?.shps?.id)
+      this.$refs.ManualOrderStepTwo.$refs.manualOrderTable.values.forEach((shps,index)=>{
+        formData.append(`shps_list[${index}][shps]`, shps?.shps)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
       formData.append('parent_id', orderDetail.id )
