@@ -133,7 +133,7 @@
 
           </div>
           <div
-              v-if="header[4].show"
+              v-if="header[5].show"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if=" item?.shps?.site_stock">
@@ -151,35 +151,12 @@
 
           </div>
           <div
-              v-if="header[4].show"
+              v-if="header[6].show"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
-              class="c-table__contents__item">
-            <template v-if="item.count">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                             <v-text-field v-model="item.count"  variant="outlined"/>
-                        </span>
-
-            </template>
-            <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            -
-                        </span>
-
-            </template>
-
-          </div>
-
-          <div
-              v-if="(item.is_active  != undefined )"
-              :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
-              class="c-table__contents__item">
-                    <span class="t14300 ">
-                        <v-switch
-                            v-model="active[index]"
-                            inset
-                            color="success"
-                            @change="changeActive(index,item)" />
-                    </span>
+              class="c-table__contents__item" >
+                        <div style="width: 100%;">
+                             <v-text-field v-model="values[index].count" variant="outlined"/>
+                        </div>
           </div>
             <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
             <v-menu :location="location">
@@ -193,7 +170,7 @@
 
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                    <div class="ma-5 pointer" @click="removeItem(index)">
                       <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -231,8 +208,6 @@ import {
 import {
   PanelFilter
 } from "@/assets/js/filter"
-
-
 export default {
   components: {
   },
@@ -340,7 +315,7 @@ export default {
       active: [],
       filter: [],
       panelFilter: new PanelFilter(),
-
+      values:[],
       activeColumn: false,
     }
   },
@@ -368,12 +343,7 @@ export default {
 
   watch: {
     items(val) {
-      this.active = []
-      val?.forEach(element => {
-        let active = false
-        if (element.is_active == 1) active = true
-        this.active.push(active)
-      });
+
     }
   },
 
@@ -467,13 +437,11 @@ export default {
 
     /**
      * Remove Item
-     * @param {*} id
+     * @param {*} index
      */
-    removeItem (id) {
-      const index = this.items.findIndex(item=> item.id === id)
-      if (index !== -1) {
-        this.items.splice(index,1)
-      }
+    removeItem (index) {
+
+      this.items.splice(index,1)
 
     },
 
