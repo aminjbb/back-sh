@@ -98,8 +98,6 @@
             }
 
           })
-
-
           formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
           if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
           this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {

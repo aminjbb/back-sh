@@ -127,14 +127,7 @@ export default {
   },
 
   watch:{
-    confirmModal(val){
-      if (!val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          this.form.imag= null
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
+
   }
 }
 </script>

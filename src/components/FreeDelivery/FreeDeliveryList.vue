@@ -107,15 +107,11 @@
     },
   
     computed: {
-      confirmModal() {
-        return this.$store.getters['get_confirmForm'].confirmModal
-      }
+
     },
   
     methods: {
-      changeHeaderShow(index, value) {
-        this.headerFreeDelivery[index].show = value
-      },
+
   
       updateList(status) {
         if (status === 'true') {
