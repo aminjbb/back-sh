@@ -23,7 +23,10 @@
         <v-col cols="6">
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-            <ModalTableFilter path="retail-shipment/index" :filterField="filterFieldAllRetail" />
+            <PanelFilter
+                path="retail-shipment/index"
+                :filterField="filterFieldAllRetail"
+                :statusItems="statusItems"/>
           </v-row>
         </v-col>
       </v-row>
@@ -97,17 +100,87 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup(props) {
+    const statusItems= [
+      {
+        label: 'در انتظار',
+        value: 'waiting',
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'in_review',
+      },
+      {
+        label: 'رد شده',
+        value: 'rejected',
+      },
+      {
+        label: 'تایید شده',
+        value: 'approved',
+      },
+      {
+        label: 'در حال ارسال به انبار',
+        value: 'sending_warehouse',
+      },
+      {
+        label: 'رسیده به انبار',
+        value: 'received_by_warehouse',
+      },
+      {
+        label: 'در حال شمارش',
+        value: 'counting',
+      },
+      {
+        label: 'تایید شده انبار',
+        value: 'approved_by_warehouse',
+      },
+      {
+        label: 'به سمت انبار اصلی',
+        value: 'sending_base_warehouse',
+      },
+      {
+        label: 'رسیده به انبار اصلی',
+        value: 'received_base_warehouse',
+      },
+      {
+        label: 'در حال جایگذاری',
+        value: 'locating',
+      },
+      {
+        label: 'موجود شده در انبار',
+        value: 'located',
+      }
+    ]
     const {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = RetailShipment();
     return {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength
+      ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      statusItems
     };
   },
 
   components: {
+    PanelFilter,
     ModalRetailShipmentDetail,
     Table,
     ModalGroupAdd,

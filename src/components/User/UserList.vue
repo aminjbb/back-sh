@@ -110,11 +110,33 @@ import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,addPerPage} = User();
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , addPerPage};
+    const {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField ,
+      addPerPage
+    } = User();
+    return {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField ,
+      addPerPage
+    };
   },
   components:{
     PanelFilter,

@@ -26,7 +26,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="promotion-page/index" :filterField="filterField" />
+            <PanelFilter path="promotion-page/index" :filterField="filterField" :statusItems="status"/>
           </v-row>
         </v-col>
       </v-row>
@@ -96,13 +96,29 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
+    const status = [
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
    const { promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading }=new PromotionPage()
-    return{promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading}
+    return{promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading, status}
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalTableFilter,
@@ -144,6 +160,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getPromotions()
+    }
     
   }
 }

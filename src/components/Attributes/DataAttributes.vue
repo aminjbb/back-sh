@@ -23,6 +23,7 @@
                       <PanelFilter
                           path="attributes/index"
                           :filterField="filterField"
+                          :typeItems="typeStatus"
                       />
                     </v-row>
                 </v-col>
@@ -70,8 +71,7 @@
                         <div 
                             align="center" 
                             id="rowSection" 
-                            class="d-flex align-center"
-                        >
+                            class="d-flex align-center">
                             <span class="ml-5">
                                 تعداد سطر در هر صفحه
                             </span>
@@ -80,8 +80,7 @@
                                 v-model="dataTableLength  "
                                 class="t1330"
                                 variant="outlined"
-                                :items="[25,50,100]"
-                                ></v-select>
+                                :items="[25,50,100]"/>
                             </span>
                         </div>
                     </v-col>
@@ -97,7 +96,8 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Attributes from '@/composables/Attributes';
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 export default {
     components: {
       PanelFilter,
@@ -109,8 +109,44 @@ export default {
     },
 
     setup() {
-        const { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading} = Attributes();
-        return { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading};
+      const typeStatus = ref([
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'عنوان',
+          value: 'title',
+        },
+        {
+          label: 'متن',
+          value: 'description',
+        }
+      ])
+        const {
+        pageLength,
+          attributes,
+          getAttributes,
+          addPerPage,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
+      } = Attributes();
+        return {
+          pageLength,
+          attributes,
+          getAttributes,
+          addPerPage,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading,
+          typeStatus};
     },
 
     computed: {
@@ -124,22 +160,24 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
+      confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
                 if (!val) {
-
-                    this.getAttributes();
+                  this.getAttributes();
                 }
                setTimeout(() => {
                 this.$cookies.remove('deleteItem')
                }, 1000);
             }
-
         },
 
       dataTableLength(val) {
-            this.addPerPage(val)
+        this.addPerPage(val)
         },
+
+      $route(){
+        this.getAttributes()
+      }
     },
     
     methods: {

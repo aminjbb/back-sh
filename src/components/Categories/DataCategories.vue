@@ -40,7 +40,9 @@
 
                       <PanelFilter
                           path="categories/index"
-                          :filterField="filterField"/>
+                          :filterField="filterField"
+                          :statusItems="activeStatus"
+                      />
                     </v-row>
                 </v-col>
      
@@ -118,7 +120,8 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
     components: {
@@ -131,8 +134,22 @@ export default {
     },
 
     setup() {
-        const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
-        return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading };
+      const activeStatus = ref([
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+      const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
+      return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading, activeStatus };
     },
 
     computed: {
@@ -155,10 +172,12 @@ export default {
           }
         }
       },
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
-
+      $route(){
+        this.getCategories()
+      }
     },
 
     methods: {

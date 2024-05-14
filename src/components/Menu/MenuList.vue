@@ -23,7 +23,12 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="menu/index" :filterField="filterField" />
+            <PanelFilter
+                path="menu/index"
+                :filterField="filterField"
+                :statusItems="status"
+                :statusHasOption="hasOption"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -92,17 +97,44 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
+    const status = [
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
+   const hasOption=[
+      {
+        label: 'دارد',
+        value: '1',
+      },
+      {
+        label: 'ندارد',
+        value: '0',
+      },
+    ]
+
     const {
       getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading
     } = new Menu();
     return {
-      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading
+      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading, status, hasOption
     };
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalTableFilter,
@@ -144,6 +176,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getMenus()
+    }
   }
 }
 </script>

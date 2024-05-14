@@ -11,7 +11,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="up-coming/index" :filterField="filterField" />
+            <PanelFilter path="up-coming/index" :filterField="filterField" :statusItems="statusItems"/>
           </v-row>
         </v-col>
       </v-row>
@@ -82,19 +82,43 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
+    const statusItems= [
+      {
+        label: 'در انتظار',
+        value: 'waiting',
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'in_review',
+      },
+      {
+        label: 'رد شده',
+        value: 'rejected',
+      }
+    ]
     const {
       pageLength, filterField,upComingList ,addPerPage, getUpComingList,
       dataTableLength, page, header, loading
     } = UpComing();
     return {
-      pageLength, filterField,upComingList ,addPerPage, getUpComingList,
-      dataTableLength, page, header, loading
+      pageLength,
+      filterField,
+      upComingList ,
+      addPerPage,
+      getUpComingList,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      statusItems
     };
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalTableFilter,

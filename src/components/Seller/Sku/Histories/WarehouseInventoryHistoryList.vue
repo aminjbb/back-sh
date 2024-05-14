@@ -14,6 +14,10 @@
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
             <ModalTableFilter path="seller/index" :filterField="filterField" />
+
+            <PanelFilter
+                path="seller/index"
+                :filterField="filterField"/>
           </v-row>
         </v-col>
       </v-row>
@@ -85,6 +89,7 @@ import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup(props) {
     const {
@@ -112,6 +117,7 @@ export default {
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalTableFilter,
     ModalColumnFilter,

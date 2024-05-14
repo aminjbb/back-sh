@@ -13,7 +13,10 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="vehicle/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="vehicle/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -85,6 +88,7 @@ import ModalCreateVehicle from '@/components/Vehicle/CreateModal/CreateModal.vue
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup(props) {
         const {
@@ -114,6 +118,7 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter,
@@ -143,10 +148,9 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
-
       confirmModal(val) {
         if (localStorage.getItem('deleteObject') === 'done') {
           if (!val) {
@@ -160,6 +164,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getVehicleList()
+      }
     }
 }
 </script>

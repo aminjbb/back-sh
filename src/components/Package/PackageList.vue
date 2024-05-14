@@ -11,7 +11,12 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalTableFilter path="package/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="package/index"
+                      :filterField="filterField"
+                      :typeItems="typeList"
+                      :statusItems="statusListPackage"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -76,10 +81,44 @@ import Table from '@/components/Package/Table/Table.vue'
 import Package from "@/composables/Package";
 import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
 import ModalCreatePackage from '@/components/Package/Modal/CreateModal.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
     
     setup(props) {
+      const typeList= [
+        {
+          label: 'پالت',
+          value: 'pallet'
+        },
+        {
+          label: 'بالک',
+          value: 'bulk'
+        },
+      ]
+      const statusListPackage = [
+        {
+          label: 'خالی',
+          value: 'empty'
+        },
+        {
+          label: 'لودینگ',
+          value: 'loading'
+        },
+        {
+          label: 'در حال بارگیری',
+          value: 'luggage'
+        },
+        {
+          label: 'انتقال به انبار اصلی',
+          value: 'sent_to_warehouse'
+        },
+        {
+          label: 'رسیده به انبار اصلی',
+          value: 'received_by_warehouse'
+        }
+      ]
+
         const {
             pageLength,
             getPackageList,
@@ -102,11 +141,14 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            typeList,
+            statusListPackage
         };
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalCreatePackage,
@@ -138,6 +180,9 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
+      $route(){
+        this.getPackageList()
+      }
     }
 }
 </script>

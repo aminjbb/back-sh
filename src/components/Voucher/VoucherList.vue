@@ -23,7 +23,14 @@
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerVouchers" />
 
-            <ModalTableFilter path="voucher/index" :filterField="indexFilterField" />
+            <PanelFilter
+                path="voucher/index"
+                :filterField="indexFilterField"
+                :typeItems="voucherTypes"
+                :statusItems="activeFilter"
+                :voucherAmountTypes="voucherAmountTypes"
+                :sendingItems="sendingItems"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -89,6 +96,7 @@ import Voucher from "@/composables/Voucher";
 import ModalTableFilter from '@/components/Voucher/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
@@ -98,17 +106,88 @@ export default {
   },
 
   setup(props) {
+    const voucherTypes= [
+      {
+        title: 'عادی',
+        value: 'regular'
+      },
+      {
+        title: 'گروهی',
+        value: 'group'
+      },
+      {
+        title: 'نظیر به نظیر',
+        value: 'peer_to_peer'
+      },
+
+    ]
+    const voucherAmountTypes= [
+      {
+        title: 'ریالی',
+        value: 'rial'
+      },
+      {
+        title: 'درصدی',
+        value: 'percent'
+      },
+
+    ]
+    const activeFilter= [
+      {
+        label: 'وضعیت',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
+    const sendingItems = [
+      {
+        title: 'پیش فرض',
+        value: 'default'
+      },
+      {
+        title: 'رایگان',
+        value: 'free'
+      }
+    ]
     const {
-      headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField , addPerPage,addPagination
+      headerVouchers,
+      filterField,
+      page,
+      voucherList
+      ,dataTableLength,
+      pageLength,
+      getVoucherList,
+      indexFilterField,
+      addPerPage,
+      addPagination
     } = Voucher();
     return {
-      headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField , addPerPage,addPagination
+      headerVouchers ,
+      filterField ,
+      page ,
+      voucherList,
+      dataTableLength ,
+      pageLength ,
+      getVoucherList ,
+      indexFilterField ,
+      addPerPage,
+      addPagination,
+      voucherTypes,
+      voucherAmountTypes,
+      activeFilter,
+      sendingItems
     };
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalTableFilter,
     ModalColumnFilter

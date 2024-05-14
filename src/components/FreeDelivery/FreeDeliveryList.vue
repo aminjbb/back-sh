@@ -22,7 +22,12 @@
   
           <v-col cols="6">
             <v-row justify="end" class="mt-0">
-              <ModalTableFilter path="free-delivery/index" :filterField="indexFilterField" />
+              <PanelFilter
+                  path="free-delivery/index"
+                  :filterField="indexFilterField"
+                  :sendingItems="sendingMethods"
+                  :statusItems="activeFilter"
+              />
             </v-row>
           </v-col>
         </v-row>
@@ -87,20 +92,57 @@
   import ModalTableFilter from'@/components/FreeDelivery/Filter/Filter.vue'
   import Table from '@/components/FreeDelivery/Table/Table.vue'
   import FreeDelivery from "@/composables/FreeDelivery";
+  import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
   
   export default {
     setup() {
+     const sendingMethods= [
+        {
+          title: ' نفیس اکسپرس',
+          value: 'nafis'
+        },
+
+        {
+          title: 'تیپاکس',
+          value: 'tipax'
+        },
+        {
+          title: 'پست پیشتاز ',
+          value: 'pishtaz'
+        },
+        {
+          title: 'پست ',
+          value: 'post'
+        },
+
+      ]
+      const activeFilter= [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ]
+
       const {
          headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
         ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField
       } = FreeDelivery();
       return {
          headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
-        ,dataTableLength ,pageLength , getFreeDeliveryList , indexFilterField
+        ,dataTableLength ,pageLength , getFreeDeliveryList , indexFilterField, sendingMethods, activeFilter
       };
     },
   
     components: {
+      PanelFilter,
       Table,
       ModalTableFilter,
     

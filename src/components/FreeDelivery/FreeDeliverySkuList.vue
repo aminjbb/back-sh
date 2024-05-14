@@ -2,30 +2,21 @@
     <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
       <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
-
           <div>
-                <span class="t14500">
-                    عنوان:
-                </span>
-            <span class="t14500 text-gray500">
-                    {{ detailData?.name }}
-                </span>
+             <span class="t14500">عنوان:</span>
+
+            <span class="t14500 text-gray500">{{ detailData?.name }}</span>
           </div>
           <div>
-
-                <span class="t14500">
-                    روش ارسال:
-                </span>
-                <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
-                 &nbsp
-                <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
-                 &nbsp
-                <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
-                 &nbsp
-                <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
-
+            <span class="t14500">روش ارسال:</span>
+            <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+            &nbsp
+            <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+            &nbsp
+            <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+            &nbsp
+            <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
           </div>
-
         </div>
       </v-card>
       <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
@@ -33,20 +24,23 @@
             justify="end"
             align="center"
             class="px-10 py-3">
-
           <v-row class="mt-2">
-            <ModalGroupAdd getEndPoint="admin/delivery-discount/crud/get/template" type="voucher" dataForm="shps_file" :uploadEndpoint= "`admin/delivery-discount/attach/shps/${freeDeliveryId}`" />
+            <ModalGroupAdd
+                getEndPoint="admin/delivery-discount/crud/get/template"
+                type="voucher"
+                dataForm="shps_file"
+                :uploadEndpoint= "`admin/delivery-discount/attach/shps/${freeDeliveryId}`" />
           </v-row>
 
           <v-row justify="end"
-                 align="center"
-          >
-            <ModalTableFilter :path="`free-delivery/${$route.params.freeDeliveryId}/shps`" :filterField="filterFieldShps"/>
+                 align="center">
+            <PanelFilter
+                :path="`free-delivery/${$route.params.freeDeliveryId}/shps`"
+                :filterField="filterFieldShps" />
           </v-row>
         </v-row>
       </v-card>
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-
         <Table
             class="flex-grow-1"
             :header="headerShps"
@@ -103,25 +97,50 @@
   import Table from "@/components/FreeDelivery/Table/TableSkuList.vue";
   import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterShps.vue";
   import FreeDelivery from '@/composables/FreeDelivery'
+  import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
   export default {
     setup() {
-      const {headerShps ,voucher , dataTableLength ,  getDetail,
+      const {
+        headerShps,
+        voucher,
+        dataTableLength,
+        getDetail,
         detailData,
-        pageLength,page , getVoucherDetail , voucherDetail ,skuList, getSkuList, getFreeDeliveryList,filterFieldShps} = new FreeDelivery()
+        pageLength,
+        page,
+        getVoucherDetail,
+        voucherDetail,
+        skuList,
+        getSkuList,
+        getFreeDeliveryList,
+        filterFieldShps
+      } = new FreeDelivery()
 
-      return {headerShps,voucher,dataTableLength , getDetail,
+      return {
+        headerShps,
+        voucher,
+        dataTableLength,
+        getDetail,
         detailData,
-        pageLength,page,getVoucherDetail , voucherDetail, skuList, getSkuList, getFreeDeliveryList, filterFieldShps}
+        pageLength,
+        page,
+        getVoucherDetail,
+        voucherDetail,
+        skuList,
+        getSkuList,
+        getFreeDeliveryList,
+        filterFieldShps
+      }
     },
 
     data() {
         return{
           freeDeliveryId:this.$route.params.freeDeliveryId,
-
       }
     },
 
     components: {
+      PanelFilter,
       Table,
       ModalTableFilter,
       ModalGroupAdd

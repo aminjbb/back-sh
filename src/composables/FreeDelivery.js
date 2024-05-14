@@ -88,33 +88,26 @@ export default function setup() {
         {name:'کمترین مبلغ سفارش' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ سفارش' , type:'text', value:'paid_price_to'},
         {name:'تاریخ ثبت سفارش ' , type:'date', value:'created_at'},
-
-
-
     ]);
     const loading = ref(false)
     const filter = new PanelFilter()
     const UserFilter = new UserPanelFilter()
     const OrderFilter = new OrderListPanelFilter()
 
-    async function  getFreeDeliveryList(query) {
+    async function  getFreeDeliveryList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/delivery-discount/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/delivery-discount/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             freeDeliveryList.value = data.data.data
         }
     };
-    async function  getDetail(query) {
+    async function  getDetail() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -127,7 +120,6 @@ export default function setup() {
         }
     };
     async function  getVoucher() {
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -140,7 +132,6 @@ export default function setup() {
         }
     };
     async function  getSkuList() {
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')

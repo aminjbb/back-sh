@@ -9,9 +9,18 @@
 
             <v-col cols="6">
                 <v-row justify="end" class="mt-0">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                    <ModalColumnFilter
+                        :changeHeaderShow="changeHeaderShow"
+                        :header="header" />
 
-                    <ModalTableFilter path="orders/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="orders/index"
+                      :filterField="filterField"
+                      :statusItems="status"
+                      :paymentStatuses="paymentStatus"
+                      :paymentMethods="paymentMethods"
+                      :packedStatus="packedStatus"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -76,15 +85,67 @@ import Table from '@/components/Orders/Table/Table.vue'
 import Orders from "@/composables/Orders";
 import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
-    data() {
-        return {
-
-        }
-    },
-
     setup(props) {
+      const status = [
+        {
+          label: 'پیش پردازش',
+          value: 'pre_progress'
+        },
+        {
+          label: 'ارسال شده',
+          value: 'sending'
+        },
+        {
+          label: 'تحویل داده شده',
+          value: 'received'
+        },
+        {
+          label: 'انقضای سفارش',
+          value: 'payment_out_date'
+        }
+      ]
+      const paymentStatus = [
+        {
+          label: 'پرداخت شده',
+          value: 'successful'
+        },
+        {
+          label: 'در انتظار پرداخت',
+          value: 'payment_in_progress'
+        },
+        {
+          label: 'انقضای پرداخت',
+          value: 'payment_out_date'
+        }
+      ]
+      const paymentMethods= [
+        {
+          label: 'کیف پول',
+          value: 'wallet'
+        },
+        {
+          label: 'آنلاین',
+          value: 'online'
+        },
+        {
+          label: 'اسنپ پی',
+          value: 'snap_pay'
+        }
+      ]
+      const packedStatus = [
+        {
+          label: 'بارگیری شده',
+          value: '1'
+        },
+        {
+          label: 'بارگیری نشده',
+          value: '0'
+        }
+      ]
+
         const {
             pageLength,
             getOrderList,
@@ -107,11 +168,16 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            status,
+            paymentStatus,
+            paymentMethods,
+            packedStatus
         };
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
         ModalColumnFilter
@@ -143,6 +209,9 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
+      $route(){
+        this.getOrderList()
+      }
     }
 }
 </script>

@@ -26,7 +26,7 @@ export default function setup() {
     const filterField = [
         {name:'نام انگلیسی' , type:'text', value:'name'},
         {name:'نام فارسی' , type:'text', value:'label'},
-        {name:'فعال سازی ' , type:'select', value:'active'},
+        {name:'فعال سازی ' , type:'select', value:'is_active'},
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
     ];
@@ -37,17 +37,12 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getCategories(query) {
+    async function getCategories() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-        
         const AxiosMethod = new AxiosCall()
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `category/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `category/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
@@ -88,15 +83,6 @@ export default function setup() {
     onMounted(function () {
         getCategories();
     });
-    
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getCategories(to)
-    })
 
     watch(page, function(val) {
         if (!isFilter.value){

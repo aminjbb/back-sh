@@ -12,17 +12,12 @@
         </v-col>
         <v-divider color="grey"/>
         <v-col cols="12" md="6" >
-          <div class="text-right  ">
-
-                        <span class="text-gray600 t14500">
-          اسکن سریال کالا
-                        </span>
-            <span class="text-error">
-                            *
-                        </span>
+          <div class="text-right">
+            <span class="text-gray600 t14500">اسکن سریال کالا</span>
+            <span class="text-error">*</span>
           </div>
           <div class="d-flex justify-between">
-            <div >
+            <div>
                  <v-text-field
                      class="shrink"
                   :autofocus="true"
@@ -30,24 +25,26 @@
                   :rules="rule"
                     style="width: 500px;"
                   v-model="shps_s"/>
-
-
             </div>
 
-            <div >
+            <div>
               <v-btn
                   @click="addShps()"
                   color="primary500"
                   height="40"
                   rounded
-                  variant="flat"
-              >ثبت             </v-btn>
+                  variant="flat">ثبت </v-btn>
 
             </div>
           </div>
         </v-col>
         <v-col cols="12" md="1" class="mt-3">
-          <ModalTableFilter path="wastage/index" :filterField="filterField" />
+          <PanelFilter
+              path="wastage/index"
+              :filterField="filterField"
+              :typeItems="typeList"
+              :shipmentTypeItems="shipmentTypes"
+          />
         </v-col>
       </v-row>
     </v-card>
@@ -109,7 +106,6 @@
 </template>
 
 <script>
-
 //Components
 import Table from '@/components/Wastage/Table/Table.vue'
 import ModalTableFilter from '@/components/Wastage/Filter/Filter.vue'
@@ -121,10 +117,11 @@ import {openToast} from "@/assets/js/functions";
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   components: {
+    PanelFilter,
     Table,
     ModalTableFilter,
     ModalColumnFilter,
@@ -146,6 +143,31 @@ export default {
   },
 
   setup() {
+    const typeList= [
+      {
+        label: 'پالت',
+        value: 'pallet'
+      },
+      {
+        label: 'بالک',
+        value: 'bulk'
+      },
+    ]
+    const shipmentTypes= [
+      {
+        label: 'کراس داک فروشندگان',
+        value: 'cross_dock_marketplace'
+      },
+      {
+        label: 'محموله های شاواز',
+        value: 'consignment_shavaz'
+      },
+      {
+        label: 'محموله های فروشندگان',
+        value: 'consignment_marketplace'
+      }
+    ]
+
     const {
       pageLength,
       getWasteAndLostList,
@@ -168,7 +190,9 @@ export default {
       header,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      typeList,
+      shipmentTypes
     };
   },
 
@@ -237,6 +261,10 @@ export default {
     },
     page(val){
       this.addPagination(val)
+    },
+
+    $route(){
+      this.getWasteAndLostList()
     }
   }
 }

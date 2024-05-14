@@ -8,7 +8,11 @@
             <v-col cols="6" />
 
             <v-col cols="6" class="d-flex justify-end ">
-                <ModalTableFilter path="active-package/index" :filterField="filterField" />
+              <PanelFilter
+                  path="active-package/index"
+                  :filterField="filterField"
+                  :typeItems="typeList"
+                  :statusItems="statusListPackage"/>
             </v-col>
         </v-row>
     </v-card>
@@ -71,9 +75,42 @@
 import Table from '@/components/ActivePackage/Table/Table.vue'
 import ActivePackage from "@/composables/ActivePackage";
 import ModalTableFilter from '@/components/ActivePackage/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
     setup() {
+      const typeList= [
+        {
+          label: 'پالت',
+          value: 'pallet'
+        },
+        {
+          label: 'بالک',
+          value: 'bulk'
+        },
+      ]
+      const statusListPackage = [
+        {
+          label: 'خالی',
+          value: 'empty'
+        },
+        {
+          label: 'لودینگ',
+          value: 'loading'
+        },
+        {
+          label: 'در حال بارگیری',
+          value: 'luggage'
+        },
+        {
+          label: 'انتقال به انبار اصلی',
+          value: 'sent_to_warehouse'
+        },
+        {
+          label: 'رسیده به انبار اصلی',
+          value: 'received_by_warehouse'
+        }
+      ]
         const {
             pageLength,
             getPackageList,
@@ -96,11 +133,14 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
-        };
+            loading,
+            typeList,
+            statusListPackage
+        }
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalTableFilter,
     },
@@ -108,7 +148,7 @@ export default {
     computed: {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal
-        },
+        }
     },
 
     methods: {
@@ -118,19 +158,23 @@ export default {
 
         updateList(status) {
             if (status === 'true') {
-                this.getPackageList();
+                this.getPackageList()
             }
-        },
+        }
     },
 
     mounted() {
-        this.getPackageList();
+      this.getPackageList()
     },
 
     watch: {
-        dataTableLength(val) {
-            this.getPackageList(val)
-        },
+      dataTableLength(val) {
+        this.getPackageList(val)
+      },
+
+      $route(){
+        this.getPackageList()
+      }
     }
 }
 </script>

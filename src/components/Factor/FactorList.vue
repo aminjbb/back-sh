@@ -22,8 +22,8 @@
             <v-col cols="6">
                 <v-row justify="end">
                   <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-                    <ModalTableFilter  path="factor/index" :filterField="filterField"/>
-                  <PanelFilter path="factor/index" :filterField="filterField"/>
+
+                  <PanelFilter path="factor/index" :filterField="filterField" :statusItems="status"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -91,10 +91,29 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import {
     openToast
 } from "@/assets/js/functions";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup() {
-        const {
+      const status= [
+        {
+          label: 'پیش نویس',
+          value: 'draft'
+        },
+        {
+          label: 'آماده سازی محموله',
+          value: 'cargo_preparing'
+        },
+        {
+          label: 'در انتظار قیمت گذاری',
+          value: 'pricing'
+        },
+        {
+          label: 'تمام شده',
+          value: 'done'
+        }
+      ]
+
+      const {
             pageLength,
             getFactorList,
             factorList,
@@ -116,7 +135,8 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            status
         };
     },
 
@@ -150,7 +170,7 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
       confirmModal(val) {
@@ -166,6 +186,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getFactorList()
+      }
     }
 }
 </script>

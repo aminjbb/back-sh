@@ -24,8 +24,14 @@
         <v-col cols="6">
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-
-            <ModalTableFilter path="orders/manual-order-list" :filterField="filterField"/>
+            <PanelFilter
+                path="orders/manual-order-list"
+                :filterField="filterField"
+                :statusItems="status"
+                :paymentStatuses="paymentStatus"
+                :paymentMethods="paymentMethods"
+                :packedStatus="packedStatus"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -92,11 +98,69 @@ import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vue";
 import ManualOrders from "@/composables/ManualOrders";
 import Orders from "@/composables/Orders";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
   setup() {
-    const {filterField} = Orders();
+    const status = [
+      {
+        label: 'پیش پردازش',
+        value: 'pre_progress'
+      },
+      {
+        label: 'ارسال شده',
+        value: 'sending'
+      },
+      {
+        label: 'تحویل داده شده',
+        value: 'received'
+      },
+      {
+        label: 'انقضای سفارش',
+        value: 'payment_out_date'
+      }
+    ]
+    const paymentStatus = [
+      {
+        label: 'پرداخت شده',
+        value: 'successful'
+      },
+      {
+        label: 'در انتظار پرداخت',
+        value: 'payment_in_progress'
+      },
+      {
+        label: 'انقضای پرداخت',
+        value: 'payment_out_date'
+      }
+    ]
+    const paymentMethods= [
+      {
+        label: 'کیف پول',
+        value: 'wallet'
+      },
+      {
+        label: 'آنلاین',
+        value: 'online'
+      },
+      {
+        label: 'اسنپ پی',
+        value: 'snap_pay'
+      }
+    ]
+    const packedStatus = [
+      {
+        label: 'بارگیری شده',
+        value: '1'
+      },
+      {
+        label: 'بارگیری نشده',
+        value: '0'
+      }
+    ]
 
+    const {filterField} = Orders();
     const {
       header,
       page,
@@ -117,11 +181,15 @@ export default {
       manualOrderList,
       filterField,
       getManualOrderList,
-      addPerPage
+      addPerPage,
+      status,
+      paymentStatus,
+      paymentMethods,
+      packedStatus
     }
   },
 
-  components: {ModalTableFilter, ModalColumnFilter, Table },
+  components: {PanelFilter, ModalTableFilter, ModalColumnFilter, Table },
 
   methods:{
     changeHeaderShow(index, value) {

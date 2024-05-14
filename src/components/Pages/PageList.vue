@@ -9,9 +9,9 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="page/index" :filterField="filterField" />
+                  <PanelFilter path="page/index" :filterField="filterField" :statusItems="status" :typeItems="pageTypeFilter"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -81,8 +81,41 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup() {
+      const status = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ]
+      const pageTypeFilter= [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'دسته بندی',
+          value: 'category',
+        },
+        {
+          label: 'برند',
+          value: 'brand',
+        },
+        {
+          label: 'کالاها',
+          value: 'sku',
+        },
+      ]
         const {
             pageLength,
             getPageList,
@@ -105,11 +138,14 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            pageTypeFilter,
+            status
         };
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalTableFilter,
@@ -140,10 +176,10 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
-        confirmModal(val) {
+      confirmModal(val) {
           if (localStorage.getItem('deleteObject')) {
             if (!val) {
               this.getPageList()
@@ -156,6 +192,9 @@ export default {
             }
           }
         },
+      $route(){
+        this.getPageList()
+      }
     }
 }
 </script>

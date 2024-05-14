@@ -10,8 +10,8 @@
                 <v-col cols="6">
                     <v-row justify="end">
                         <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-    
-                        <ModalTableFilter path="shipment-requests/index" :filterField="filterField" />
+
+                      <PanelFilter path="shipment-requests/index" :filterField="filterField" :statusItems="status"/>
                     </v-row>
                 </v-col>
             </v-row>
@@ -83,8 +83,23 @@
     import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
     import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
     import { openToast} from "@/assets/js/functions";
+    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
     export default {
         setup(props) {
+          const status= [
+            {
+              label: 'در انتظار',
+              value: 'waiting',
+            },
+            {
+              label: 'در حال بررسی',
+              value: 'in_review',
+            },
+            {
+              label: 'رد شده',
+              value: 'rejected',
+            }
+          ]
             const {
                 pageLength,
                 getShipmentRequestsList,
@@ -107,11 +122,13 @@
                 header,
                 addPagination,
                 addPerPage,
-                loading
+                loading,
+                status
             };
         },
     
         components: {
+          PanelFilter,
             Table,
             ModalGroupAdd,
             ModalTableFilter,

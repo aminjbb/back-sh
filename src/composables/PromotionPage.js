@@ -50,17 +50,13 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getPromotions(query) {
+    async function getPromotions() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/promotion/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `page/promotion/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -124,16 +120,6 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push('/promotion-page/index'+ filter.params_generator(route.query))
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getPromotions(to)
-    })
 
     watch(page, function(val) {
         if (!isFilter.value){

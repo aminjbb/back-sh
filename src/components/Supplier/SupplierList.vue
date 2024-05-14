@@ -31,7 +31,10 @@
 
                   <PanelFilter
                       path="supplier/index"
-                      :filterField="filterField"/>
+                      :filterField="filterField"
+                      :typeItems="supplierTypeFilter"
+                      :paymentType="paymentTypeFilter"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -106,9 +109,41 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
     openToast
 } from "@/assets/js/functions";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup(props) {
+      const supplierTypeFilter = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'حقوقی',
+          value: 'legal',
+        },
+        {
+          label: 'حقیقی',
+          value: 'genuine',
+        },
+      ]
+      const  paymentTypeFilter= [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'نقدی',
+          value: 'cash',
+        },
+        {
+          label: 'امانی',
+          value: 'safekeeping',
+        },
+        {
+          label: 'اعتباری',
+          value: 'credit',
+        }
+      ]
         const {
             pageLength,
             getSupplierList,
@@ -131,7 +166,9 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            supplierTypeFilter,
+            paymentTypeFilter
         };
     },
 
@@ -167,22 +204,26 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSupplierList();
-                    openToast(
-                        this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      dataTableLength(val) {
+        this.addPerPage(val)
+      },
+      confirmModal(val) {
+        if (this.$cookies.get('deleteItem')) {
+          if (!val) {
+            this.getSupplierList();
+            openToast(
+                this.$store,
+                'انبار با موفقیت حذف شد',
+                "success"
+            );
+            this.$cookies.remove('deleteItem')
+          }
+        }
+      },
+
+      $route(){
+        this.getSupplierList()
+      }
     }
 }
 </script>
