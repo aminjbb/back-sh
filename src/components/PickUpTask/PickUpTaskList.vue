@@ -5,9 +5,10 @@
       <Table
           class="flex-grow-1"
           :header="pickupHeader"
-          :items="pickUpTask.data"
+          :items="pickUpTask"
           :page="page"
-          :perPage="per_page"/>
+          :perPage="per_page"
+          @updateTable="updateTable"/>
 
       <v-divider />
 
@@ -75,6 +76,17 @@ export default {
       page:1
     }
     this.getPickUpTask(form)
+  },
+
+  methods:{
+    updateTable(){
+      this.pickUpTask =[]
+      const form = {
+        per_page: this.per_page,
+        page:this.page
+      }
+      this.getPickUpTask(form)
+    }
   },
   watch:{
     page(val){

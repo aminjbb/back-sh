@@ -26,7 +26,8 @@ export default function setup() {
     ];
     const pickupHeader = [
         {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسه' , show:true, value:'id', order: false},
+        {name:'شناسهshps' , show:true, value:'shps', order: false},
+        {name:'جایگاه' , show:true, value:'placement', order: false},
         {name:'وضعیت' , show:true, value:'status', order: false},
         {name:'اولویت' , show:true, value:'priority', order: false},
         {name:'ذخیره' , show:true, value:'save', order: false},
@@ -98,7 +99,7 @@ export default function setup() {
         AxiosMethod.end_point = `warehouse/order/pickup/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pickUpTask.value = data.data
+            pickUpTask.value = data.data.data
             pageLength.value = data.data.last_page
         }
     };
