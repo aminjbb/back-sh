@@ -174,6 +174,8 @@ export default {
             const splitShelf = this.shelfBarcode.split('-')
             openToast(this.$store , `در جایگاه ${splitShelf[1]} قرار گرفت`, 'success')
             this.shpssDetail = null
+            this.shelfBarcode = ''
+            this.qrCode = ''
           }
           else {
             this.shelfBarcode = ''
