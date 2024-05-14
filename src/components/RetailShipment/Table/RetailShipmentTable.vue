@@ -211,10 +211,6 @@ export default {
          */
         items: [],
 
-        /**
-         * Model
-         */
-        model: '',
 
         /**
          * Height
@@ -256,13 +252,6 @@ export default {
             default: false
         },
 
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
-        },
 
     },
 
@@ -321,9 +310,7 @@ export default {
     },
 
     computed: {
-        PrintPermission() {
-            return ['waiting', 'in_review']
-        },
+
         deleteAndShippingPermission() {
             return ['approved', 'sending_warehouse', 'received_by_warehouse',
                 'counting', 'approved_by_warehouse', 'sending_base_warehouse',

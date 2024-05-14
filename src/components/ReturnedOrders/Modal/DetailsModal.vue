@@ -262,22 +262,6 @@ export default {
             }
         },
 
-        /**
-         * Get Returned order 'returned Shps' details by order_id
-         */
-         async getShpsDetails() {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.returnedOrderDetailsModal.id}`
-            AxiosMethod.form = formdata;
-            AxiosMethod.store = this.$store
-            let data = await AxiosMethod.axios_get();
-            if (data) {
-                this.shpsDetails = data.data;
-            } else {}
-        },
         
     },
 

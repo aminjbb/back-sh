@@ -179,9 +179,7 @@ export default {
 
   methods: {
 
-    changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
-    },
+
 
     updateList(status) {
       if (status === 'true') {

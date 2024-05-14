@@ -197,9 +197,6 @@ export default {
         this.assignSku(object)
       })
     },
-    changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
-    },
 
     updateList(status) {
       console.log('3.skuList', status)
@@ -277,8 +274,7 @@ export default {
   },
 
   watch: {
-    dataSkuTableLength(val) {
-    },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
