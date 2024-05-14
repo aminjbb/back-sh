@@ -71,6 +71,26 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
+                      <span>
+                        {{item.turn}}
+                      </span>
+                    </div>
+          </div>
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
+                      <span>
+                        {{item.count}}
+                      </span>
+                    </div>
+          </div>
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
                       <v-text-field variant="outlined" v-model="form[index].priority"></v-text-field>
 
                     </div>
@@ -88,7 +108,7 @@
                     </span>
           </div>
           <div
-              v-if="header[4].show"
+              v-if="header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">

@@ -29,6 +29,8 @@ export default function setup() {
         {name:'شناسهshps' , show:true, value:'shps', order: false},
         {name:'جایگاه' , show:true, value:'placement', order: false},
         {name:'وضعیت' , show:true, value:'status', order: false},
+        {name:'شماره نوبت' , show:true, value:'turn', order: false},
+        {name:'تعداد' , show:true, value:'count', order: false},
         {name:'اولویت' , show:true, value:'priority', order: false},
         {name:'ذخیره' , show:true, value:'save', order: false},
         {name:'سفارشات' , show:true, value:'orders', order: false},
