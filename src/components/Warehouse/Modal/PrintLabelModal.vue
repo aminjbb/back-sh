@@ -32,9 +32,9 @@
         </div>
 
         <div :id="`printableArea-${barcode}`">
-          <v-row justify="center" class="ma-5">
+          <div style="display: flex ; justify-content: center; align-items: center" class="ma-5">
 
-            <div class="text-center"  v-if="shpssDetail">
+            <div style="text-align: center" v-if="shpssDetail">
               <barcode
 
                   :barcodeValue="barcode"
@@ -47,18 +47,58 @@
               </barcode>
               <span>
                   {{shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)}}
-                </span>
+              </span>
+            </div>
+            <div class="text-center" v-else-if="placementDetail">
+              <barcode
+                  :barcodeValue="barcode"
+                  :format="'CODE128'"
+                  :index="1"
+                  text=""
+              >
+              </barcode>
+              <div style="display: flex;justify-content: center;margin: 14px;">
+                <div>
+                  <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
+                    <div>
+                                    <span class="t12400">
+                                        شماره ردیف :
+                                        <span class="t12400 text-gray600 number-font">
+                                            {{ placementDetail?.row_number }}
+                                        </span>
+                                    </span>
+                    </div>
+                    <div>
+                                    <span class="t12400">
+                                        شماره قفسه :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ placementDetail?.placement_number }}
+                                        </span>
+                                    </span>
+                    </div>
+                  </div>
+                  <div class="text-right  px-5 d-flex justify-space-between px-10">
+                    <div>
+                                    <span class="t12400">
+                                        شماره طبقه :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ placementDetail?.step_number }}
+                                        </span>
+                                    </span>
+                    </div>
+                    <div>
+                                    <span class="t12400">
+                                        شماره شلف :
+                                        <span class=" t12400 text-gray600 number-font">
+                                            {{ placementDetail?.shelf_number }}
+                                        </span>
+                                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <barcode
-                v-else-if="placementDetail"
-                :barcodeValue="barcode"
-                :format="'CODE128'"
-                :index="1"
-                :shps="placementDetail?.shps?.id"
-                :text="placementDetail?.shps?.sku?.label.substring(0, 45)"
-            >
-            </barcode>
             <barcode
                 v-else
                 :barcodeValue="barcode"
@@ -68,7 +108,7 @@
             >
             </barcode>
 
-          </v-row>
+          </div>
         </div>
 
         <div class="mt-3 mb-3 px-5">
@@ -177,13 +217,12 @@ export default {
       const AxiosMethod = new AxiosCall();
       AxiosMethod.using_auth = true;
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/print/label/`;
+      AxiosMethod.end_point = `placement/crud/get-barcode?barcode=${this.barcode}`;
       AxiosMethod.store = this.$store
       AxiosMethod.toast_error = true
       const data = await AxiosMethod.axios_get()
       if (data) {
-        this.shpssDetail = data?.data
-
+        this.placementDetail = data?.data
         this.dialog = true
       }
     },
@@ -193,7 +232,7 @@ export default {
      */
     print() {
       const printWindow = window.open('about:blank', '_blank');
-      printWindow.document.write(document.getElementById(`printableArea-${this.data.id}`).innerHTML)
+      printWindow.document.write(document.getElementById(`printableArea-${this.barcode}`).innerHTML)
       printWindow.print();
     },
   }
