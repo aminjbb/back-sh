@@ -49,7 +49,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-5 number-font d--ltr">
+                    <div class="t14300 text-gray500 py-5 number-font d--ltrsho">
                         {{ item.placement?.row_number }} -
                         {{ item.placement?.placement_number }} -
                         {{item.placement?.step_number}} -
@@ -87,6 +87,14 @@
                      </v-btn>
                     </span>
           </div>
+          <div
+              v-if="header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                      <ModalOrdersShow :orders="item.orders"/>
+                    </span>
+          </div>
 
 
 
@@ -110,10 +118,7 @@ import {
   isOdd, openToast
 } from "@/assets/js/functions";
 
-
-import {
-  openModal
-} from "@/assets/js/functions_seller";
+import ModalOrdersShow from '@/components/PickUpTask/Modal/ModalOrdersShow.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
 
@@ -178,6 +183,7 @@ export default {
   },
 
   components: {
+    ModalOrdersShow
   },
 
 
