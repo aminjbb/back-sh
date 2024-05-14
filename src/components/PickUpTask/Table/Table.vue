@@ -42,8 +42,19 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.id }}
+                        {{ item.seller_sku_id }}
                     </span>
+          </div>
+          <div
+              v-if="item.id && header[1].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <div class="t14300 text-gray500 py-5 number-font d--ltr">
+                        {{ item.placement?.row_number }} -
+                        {{ item.placement?.placement_number }} -
+                        {{item.placement?.step_number}} -
+                        {{item.placement?.shelf_number}}
+                    </div>
           </div>
 
           <div
@@ -203,6 +214,7 @@ export default {
       AxiosMethod.end_point = `warehouse/order/pickup/change-priority`
       let data = await AxiosMethod.axios_post()
       if (data){
+        this.$emit('updateTable')
         openToast(this.$store , 'با موفقیت ویرایش شد' , 'success')
       }
 
@@ -247,12 +259,18 @@ export default {
 
   watch:{
     items(newVal){
-      newVal.forEach(element=>{
-        const form = {
-          priority: element.priority
-        }
-        this.form.push(form)
-      })
+      if (newVal.length){
+        newVal.forEach(element=>{
+          const form = {
+            priority: element.priority
+          }
+          this.form.push(form)
+        })
+      }
+      else{
+        this.form =[]
+      }
+
     }
   }
 }
