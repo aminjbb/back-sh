@@ -132,10 +132,6 @@ export default {
      */
     items: [],
 
-    /**
-     * Model
-     */
-    model: '',
 
     /**
      * Height
@@ -189,47 +185,6 @@ export default {
 
   data() {
     return {
-      statusItems: [
-        {
-          label: 'در انتظار',
-          value: 'waiting',
-        },
-        {
-          label: 'در حال بررسی',
-          value: 'in_review',
-        },
-        {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
-        },{
-          label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
-      ],
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -295,19 +250,8 @@ export default {
       else  return 'getStatus'
     },
     convertDateToJalai,
-    changeValue(index, value) {
-      this.active[index] = value
-    },
-    /**
-     * requestShipment modal
-     */
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
+
+
 
     /**
      * Get row index in table
@@ -357,29 +301,7 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
 
     /**
      * Return odd index

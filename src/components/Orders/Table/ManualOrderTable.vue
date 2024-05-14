@@ -214,14 +214,6 @@ export default {
 
   props: {
     /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-
-    /**
      * List Items for header
      */
     header: [],
@@ -232,15 +224,9 @@ export default {
     items: [],
 
     /**
-     * Delete Path
-     */
-    deletePath: '',
-
-    /**
      * Model
      */
     model: '',
-
     /**
      * Active checkbox
      */
@@ -266,13 +252,6 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
     /**
      * Edit endpoint for change active
@@ -316,7 +295,6 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       values:[],
-      activeColumn: false,
     }
   },
 
@@ -386,8 +364,6 @@ export default {
             }
           }
 
-
-
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
         }
@@ -403,29 +379,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
-
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item?.sku?.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
 
     /**
      * Return odd index
@@ -443,10 +396,6 @@ export default {
 
       this.items.splice(index,1)
 
-    },
-
-    updateList(status) {
-      this.$emit('updateList', status);
     },
   },
 }

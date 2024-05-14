@@ -93,7 +93,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
             addPerPage,
             loading
         } = Orders();
@@ -105,7 +104,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
             addPerPage,
             loading
         };
@@ -118,9 +116,7 @@ export default {
     },
 
     computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
+
     },
 
     methods: {

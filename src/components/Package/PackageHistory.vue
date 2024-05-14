@@ -66,9 +66,6 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
 
         /**
          * Get package

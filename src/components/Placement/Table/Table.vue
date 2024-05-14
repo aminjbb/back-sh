@@ -231,7 +231,6 @@ export default {
             per_page: '25',
             filter: [],
             panelFilter: new PanelFilter(),
-            activeColumn: false,
         }
     },
 
@@ -260,13 +259,6 @@ export default {
     },
 
     methods: {
-        /**
-         * Open print barcode modal
-         * @param {*} id
-         */
-        printBarcode(id) {
-            openModal(this.$store, 'set_printModal', id, true)
-        },
 
         /**
          * Get row index in table
@@ -316,10 +308,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index

@@ -84,8 +84,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = Placement();
         return {
@@ -96,8 +94,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         };
     },
@@ -114,9 +110,7 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
+
 
         updateList(status) {
             if (status === 'true') {

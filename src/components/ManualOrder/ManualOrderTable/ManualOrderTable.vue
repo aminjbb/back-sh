@@ -198,10 +198,6 @@ export default {
      */
     items: Array,
 
-    /**
-     * Model
-     */
-    model: String,
 
     /**
      * Height
@@ -260,7 +256,6 @@ export default {
       per_page: '25',
       filter: [],
       panelFilter: new PanelFilter(),
-      activeColumn: false,
       orderStatus: [
           {
         text: 'پرداخت شده',
@@ -346,21 +341,9 @@ export default {
 
     },
 
-    /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
 
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
-    },
+
+
 
     /**
      * Get row index in table
@@ -448,13 +431,7 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
+
   },
 }
 </script>

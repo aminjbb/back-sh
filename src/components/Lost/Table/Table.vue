@@ -228,10 +228,7 @@ export default {
      */
     items: [],
 
-    /**
-     * Model
-     */
-    model: '',
+
 
     /**
      * Height
@@ -290,7 +287,7 @@ export default {
       per_page: '25',
       filter: [],
       panelFilter: new PanelFilter(),
-      activeColumn: false,
+
 
     }
   },
@@ -315,14 +312,6 @@ export default {
   },
 
   methods: {
-    getReportType(type){
-      if(type === 'lost'){
-        return 'مفقودی'
-      }else{
-        return 'ضایعات'
-      }
-    },
-
 
     getPackageType(type){
       if(type === 'bulk'){
@@ -390,10 +379,7 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
+
 
     /**
      * Return odd index

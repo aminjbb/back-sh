@@ -177,14 +177,7 @@ export default {
   },
 
   methods: {
-    /**
-     * Change Header Status
-     * @param {*} index
-     * @param {*} value
-     */
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
 
     async addPackage() {
       try {

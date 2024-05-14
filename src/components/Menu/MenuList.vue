@@ -90,7 +90,7 @@ import Menu from "@/composables/Menu";
 import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+
 import { openToast} from "@/assets/js/functions";
 export default {
   setup() {
@@ -104,10 +104,8 @@ export default {
 
   components: {
     Table,
-    ModalGroupAdd,
     ModalTableFilter,
     ModalColumnFilter,
-    ModalExcelDownload,
   },
 
   computed: {

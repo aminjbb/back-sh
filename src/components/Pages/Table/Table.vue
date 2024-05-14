@@ -456,11 +456,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
-
         /**
          * Change Active
          * @param {*} index 
@@ -526,13 +521,6 @@ export default {
             return isOdd(index)
         },
 
-        /**
-         * Remove Item
-         * @param {*} id
-         */
-        removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-        },
     },
 }
 </script>

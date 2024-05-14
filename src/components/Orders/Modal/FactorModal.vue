@@ -141,9 +141,7 @@ export default {
     data() {
         return {
             dialog: false,
-            stockModel: null,
             generalDetails: null,
-            sellerDetails: [],
             userDetails: null,
             factorDetails: [],
             orderDetail:null
@@ -181,21 +179,6 @@ export default {
             closeModal(this.$store, 'set_orderFactorModal')
         },
 
-        openAccordion(id) {
-            const accordionHeader = document.getElementById(`accordion-header-${id}`);
-
-            accordionHeader.classList.toggle("is-open");
-            accordionHeader.children[1].classList.toggle("mdi-chevron-down");
-            accordionHeader.children[1].classList.toggle("mdi-chevron-up");
-
-            let content = accordionHeader.nextElementSibling;
-
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        },
 
         /**
          * Get order 'General' details by order_id
@@ -266,23 +249,6 @@ export default {
             if (data) {
               this.userDetails = data.data
             }
-        },
-
-        /**
-         * Get order 'Discount' details by order_id
-         */
-        async getDiscountDetails() {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.id}`
-            AxiosMethod.form = formdata;
-            AxiosMethod.store = this.$store
-            let data = await AxiosMethod.axios_get();
-            if (data) {
-                this.discountDetails = data.data;
-            } else {}
         },
 
     },
