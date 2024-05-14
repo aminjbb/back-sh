@@ -278,6 +278,7 @@ import ManualOrderListView from "@/views/ManualOrder/ManualOrderListView.vue";
 import EditOrderView from "@/views/ManualOrder/EditOrderView.vue";
 import PrintLabelView from "@/views/Warehouse/PrintLabelView.vue";
 import StockTakingView from "@/views/StockTaking/StockTakingView.vue";
+import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 
 
 const router = createRouter({
@@ -2219,6 +2220,23 @@ const router = createRouter({
                 component: ZoneListView,
                 meta: {
                     name: 'ناحیه بندی انبار '
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/pick-up-task', // Zone
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'PickUpTaskView',
+                component: PickUpTaskView,
+                meta: {
+                    name: 'برنامه پیک آپ '
                 }
             },
 

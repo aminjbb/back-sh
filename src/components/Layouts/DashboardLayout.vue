@@ -498,6 +498,7 @@ export default {
                 ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
                 ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
+                ['برنامه پیک آپ', '/pick-up-task/index', 'mdi-checkbox-blank-circle-outline'],
                 // [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
                 [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
