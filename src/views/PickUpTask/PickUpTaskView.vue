@@ -7,7 +7,7 @@ import PickUpTaskList from '@/components/PickUpTask/PickUpTaskList.vue'
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main>
+    <v-main class="h-100vh">
       <Header />
       <PickUpTaskList/>
     </v-main>
