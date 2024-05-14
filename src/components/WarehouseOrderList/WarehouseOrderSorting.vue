@@ -14,7 +14,7 @@
       </div>
     </div>
     <div >
-      <v-card class="ma-5 br-15" min-height="130">
+      <v-card class="ma-5 br-15" min-height="140">
         <div class="d-flex justify-center my-3">
             <span class="t16400">
               جایگاه کالا
@@ -41,194 +41,87 @@
           </div>
         </div>
         <div class="text-center" v-else>
-          <v-row justify="center" align="center">
+          <v-row justify="center" align="center" class="py-3">
             <v-col cols="6">
               <div>
                 <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
               </div>
             </v-col>
-            <v-col cols="6">
-              <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="sortingShps" v-model="shelfBarcode"
+            <v-col cols="10">
+              <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="getShpssDetail" v-model="qrCode"
                             variant="outlined" :autofocus="true"></v-text-field>
-              <v-text-field v-else @keyup.enter="sortingShps()" :autofocus="true" v-model="shelfBarcode"
+              <v-text-field v-else @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode"
                             variant="outlined"></v-text-field>
             </v-col>
 
           </v-row>
         </div>
-
       </v-card>
-      <div class="scan_box">
+      <div class="scan_box" v-if="shpssDetail">
         <div>
           <div class="px-5">
             <v-card class="mt-2 py-5">
               <div class="text-center my-2">
                   <span class="t16400">
-<!--                    {{ skuDetail?.brand?.label }}-->
-                    asdasdasd
+                    {{ skuDetail?.brand?.label }}
                   </span>
               </div>
               <div class="text-center px-10 my-3">
                   <span class="text-gray600">
-<!--                   {{ skuDetail?.label }}-->
-                    asdasdasd
+                   {{ skuDetail?.label }}
                   </span>
               </div>
             </v-card>
           </div>
         </div>
       </div>
-      <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
-        <v-btn
-            @click="shelfScan = true"
-            color="primary500"
-            height="40"
-            width="348"
-            variant="flat"
-            rounded
-            class="px-8 mt-2">
-          اسکن شناسه شلف
-        </v-btn>
+      <div class="scan_box" v-if="shpssDetail">
+        <div>
+          <div class="px-5">
+            <v-card class="mt-2 py-5">
+              <div class="d-flex justify-center my-3">
+            <span class="t16400">
+              اسکن شلف
+            </span>
+              </div>
+              <v-divider/>
+              <v-row justify="center" align="center" class="py-3">
+                <v-col cols="6">
+                  <div>
+                    <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSendShelf"></v-switch>
+                  </div>
+                </v-col>
+                <v-col cols="10">
+                  <v-text-field v-if="autoSendShelf === 'automate'" v-debounce:150ms="sortingShps" v-model="shelfBarcode"
+                                variant="outlined" :autofocus="true"></v-text-field>
+                  <v-text-field v-else @keyup.enter="sortingShps()" :autofocus="true" v-model="shelfBarcode"
+                                variant="outlined"></v-text-field>
+                </v-col>
+
+              </v-row>
+            </v-card>
+          </div>
+        </div>
       </div>
+
     </div>
-    <template>
-
-
-<!--      <div class="h-100 d-flex align-center justify-center" >-->
-<!--        <div>-->
-<!--          <div class="d-flex justify-center">-->
-<!--            <v-icon color="black" size="30">-->
-<!--              mdi-barcode-scan-->
-<!--            </v-icon>-->
-<!--          </div>-->
-<!--          <div class=" mt-8 d-flex justify-center px-10 text-center">-->
-<!--        <span class="text-black t20400">-->
-<!--         شناسه کالا را اسکن کنید.-->
-<!--        </span>-->
-<!--          </div>-->
-
-<!--          <div class="mt-10 px-2">-->
-<!--            <v-row justify="center">-->
-<!--              <v-col cols="6">-->
-<!--                <div>-->
-<!--                  <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>-->
-<!--                </div>-->
-<!--              </v-col>-->
-<!--              <v-col cols="12">-->
-<!--                <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="getShpssDetail"  v-model="qrCode" variant="outlined" :autofocus="true"></v-text-field>-->
-<!--                <v-text-field v-else @keyup.enter="getShpssDetail()" :autofocus="true" v-model="qrCode" variant="outlined" ></v-text-field>-->
-<!--              </v-col>-->
-
-<!--            </v-row>-->
-<!--          </div>-->
-<!--          <div class="mt-15 pt-15">-->
-<!--            <v-row justify="center pt-15 mt-15">-->
-<!--              <v-col cols="10">-->
-<!--                <v-btn-->
-<!--                    @click="getShpssDetail()"-->
-<!--                    color="primary500"-->
-<!--                    height="40"-->
-<!--                    width="348"-->
-<!--                    variant="flat"-->
-<!--                    rounded-->
-<!--                    class="px-8 mt-2">-->
-<!--                  تایید-->
-<!--                </v-btn>-->
-<!--              </v-col>-->
-
-<!--            </v-row>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-    </template>
-<!--    <template v-else-if="shelfScan && !sortingDone">-->
-<!--      <div class="h-100 d-flex align-center justify-center">-->
-<!--        <div>-->
-<!--          <div class="d-flex justify-center">-->
-<!--            <v-icon color="black" size="30">-->
-<!--              mdi-barcode-scan-->
-<!--            </v-icon>-->
-<!--          </div>-->
-<!--          <div class=" mt-8 d-flex justify-center px-10 text-center">-->
-<!--            <span class="text-black t20400">-->
-<!--            شناسه شلف را اسکن کنید.-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <v-row justify="center">-->
-<!--            <v-col cols="6">-->
-<!--              <div>-->
-<!--                <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>-->
-<!--              </div>-->
-<!--            </v-col>-->
-<!--            <v-col cols="12">-->
-<!--              <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="sortingShps"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>-->
-<!--              <v-text-field v-else @keyup.enter="sortingShps()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>-->
-<!--            </v-col>-->
-
-<!--          </v-row>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </template>-->
-<!--    <template v-else-if="!shelfScan && sortingDone">-->
-<!--      <div class="h-100 bg-success d-flex align-center justify-center">-->
-<!--        <div>-->
-<!--          <div class="d-flex justify-center">-->
-<!--            <v-icon color="white" size="30">-->
-<!--              mdi-check-circle-->
-<!--            </v-icon>-->
-<!--          </div>-->
-<!--          <div class=" mt-8 d-flex justify-center px-10 text-center">-->
-<!--            <span class="text-white t20400">-->
-<!--           جایگذاری با موفقیت انجام شد.-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div class=" mt-8 d-flex justify-center px-10 text-center">-->
-<!--            <span class="text-white t18400 d&#45;&#45;rtl">-->
-<!--                  جایگذاری کالا با بارکد-->
-<!--              <span class=" d&#45;&#45;ltr">-->
-<!--              {{ qrCode }}-->
-<!--            </span>-->
-<!--        در جایگاه سورتینگ {{ shelfBarcode }} با موفقیت انجام شد.-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">-->
-<!--            <v-btn-->
-<!--                @click="reScan()"-->
-<!--                color="white"-->
-<!--                height="40"-->
-<!--                width="348"-->
-<!--                variant="flat"-->
-<!--                rounded-->
-<!--                class="px-8 mt-2">-->
-<!--              اسکن کالای بعدی-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </template>-->
   </v-card>
 </template>
 <script>
 import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
+import {openToast} from "@/assets/js/functions";
 
 export default {
   data() {
     return {
       scanShps: true,
       qrCode: '',
-      shpssBarCode: '',
-      isPlacement: false,
       shpssDetail: null,
-      shelfScan: false,
-      sortingDone: false,
       shelfBarcode:'',
       autoSend:'automate',
+      autoSendShelf:'automate',
       lastBarcode:null
     }
   },
@@ -250,10 +143,12 @@ export default {
             this.shpssDetail = data.data
           }
           else{
+
             this.qrCode = ''
           }
         }
         catch (e) {
+
           this.qrCode = ''
         }
 
@@ -276,8 +171,9 @@ export default {
           AxiosMethod.end_point = `warehouse/order/sorting/put-sort`
           let data = await AxiosMethod.axios_post()
           if (data) {
-            this.shelfScan = false
-            this.sortingDone = true
+            const splitShelf = this.shelfBarcode.split('-')
+            openToast(this.$store , `در جایگاه ${splitShelf[1]} قرار گرفت`, 'success')
+            this.shpssDetail = null
           }
           else {
             this.shelfBarcode = ''
@@ -290,12 +186,7 @@ export default {
       }
 
     },
-    reScan() {
-      this.sortingDone = false
-      this.shpssDetail = ''
-      this.qrCode = ''
-      this.shelfBarcode = ''
-    }
+
   },
 
   components: {
