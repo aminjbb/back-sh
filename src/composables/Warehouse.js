@@ -31,6 +31,7 @@ export default function setup() {
         {name:'وضعیت' , show:true, value:'status', order: false},
         {name:'اولویت' , show:true, value:'priority', order: false},
         {name:'ذخیره' , show:true, value:'save', order: false},
+        {name:'سفارشات' , show:true, value:'orders', order: false},
 
     ];
     
