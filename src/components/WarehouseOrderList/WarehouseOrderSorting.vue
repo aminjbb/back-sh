@@ -14,6 +14,24 @@
       </div>
     </div>
     <div >
+      <div class="scan_box" >
+        <div>
+          <div class="px-5 ">
+            <v-card class="mt-2 py-5 " variant="outlined">
+              <div class="text-center my-2">
+                  <span class="t16400">
+                    {{ skuDetail?.brand?.label }}
+                  </span>
+              </div>
+              <div class="text-center px-10 my-3">
+                  <span class="text-gray600">
+                   {{ skuDetail?.label }}
+                  </span>
+              </div>
+            </v-card>
+          </div>
+        </div>
+      </div>
       <v-card class="ma-5 br-15" min-height="140">
         <div class="d-flex justify-center my-3">
             <span class="t16400">
@@ -57,24 +75,6 @@
           </v-row>
         </div>
       </v-card>
-      <div class="scan_box" v-if="shpssDetail">
-        <div>
-          <div class="px-5">
-            <v-card class="mt-2 py-5">
-              <div class="text-center my-2">
-                  <span class="t16400">
-                    {{ skuDetail?.brand?.label }}
-                  </span>
-              </div>
-              <div class="text-center px-10 my-3">
-                  <span class="text-gray600">
-                   {{ skuDetail?.label }}
-                  </span>
-              </div>
-            </v-card>
-          </div>
-        </div>
-      </div>
       <div class="scan_box" v-if="shpssDetail">
         <div>
           <div class="px-5">
