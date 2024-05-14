@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="print-page" >
     <v-row class="my-0 py-0" id="printableArea-shipmentBarcode" v-if="detail">
       <v-col cols="6" v-for="(barCode , index) in detail" :key="'shpss-list-barcode'+index" class="text-center my-0 py-0">
         <barcode
@@ -47,9 +47,10 @@ export default {
       if (data) {
         this.detail = data.data
         setTimeout(() => {
+          var printPage = document.getElementById('print-page');
           var myElement = document.getElementById('printableArea-shipmentBarcode');
-          myElement.style.marginBottom = this.detail.length * 0.9 + 'mm'
-          window.onafterprint = function() {window.close()};
+          printPage.style.marginBottom = this.detail.length * 6.2 + 'mm'
+          // window.onafterprint = function() {window.close()};
           window.print(myElement);
         }, 1000);
       }
@@ -65,7 +66,13 @@ export default {
   }
 }
 </script>
-<style>
-.custom-margin-bottom {
+<style >
+  .print-page {
+  width: 100%;
+}
+@media print {
+  .print-page{
+    width: 100%;
+  }
 }
 </style>

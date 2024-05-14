@@ -57,6 +57,7 @@
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          ref="manualOrderTable"
           class="flex-grow-1"
           :header="manualOrderHeader"
           :page="skuSellerPage"
@@ -72,45 +73,6 @@
       />
 
       <v-divider/>
-
-  <!--      <v-card-actions class="pb-3">-->
-  <!--        <v-row class="px-8">-->
-  <!--          <v-col cols="3" class="d-flex justify-start">-->
-
-  <!--          </v-col>-->
-
-  <!--          <v-col cols="6" class="d-flex justify-center">-->
-  <!--            <div class="text-center">-->
-  <!--              <v-pagination-->
-  <!--                  v-model="skuSellerPage"-->
-  <!--                  :length="pageLength"-->
-  <!--                  rounded="circle"-->
-  <!--                  size="40"-->
-  <!--                  :total-visible="7"-->
-  <!--                  prev-icon="mdi-chevron-right"-->
-  <!--                  next-icon="mdi-chevron-left"/>-->
-  <!--            </div>-->
-  <!--          </v-col>-->
-
-  <!--          <v-col cols="3" class="d-flex justify-end">-->
-  <!--            <div-->
-  <!--                align="center"-->
-  <!--                id="rowSection"-->
-  <!--                class="d-flex align-center">-->
-  <!--                        <span class="ml-5">-->
-  <!--                            تعداد سطر در هر صفحه-->
-  <!--                        </span>-->
-  <!--              <span class="mt-2" id="row-selector">-->
-  <!--                            <v-select-->
-  <!--                                v-model="dataSkuTableLength"-->
-  <!--                                class="t1330"-->
-  <!--                                variant="outlined"-->
-  <!--                                :items="[25,50,100]"/>-->
-  <!--                        </span>-->
-  <!--            </div>-->
-  <!--          </v-col>-->
-  <!--        </v-row>-->
-  <!--      </v-card-actions>-->
     </v-card>
   </div>
 </template>
@@ -134,7 +96,7 @@ export default {
     } = Seller();
     const {
       manualOrderHeader,
-      getManualOrderList,
+
       getManualOrderListGet,
       manualOrderListGet,
       manualOrderList
@@ -146,7 +108,6 @@ export default {
       skuSellerPage,
       dataSkuTableLength,
       manualOrderHeader,
-      getManualOrderList,
       manualOrderList,
       getManualOrderListGet,
       manualOrderListGet
@@ -210,9 +171,13 @@ export default {
           }
         }
       }
+
+      const formTable = {
+        shps: item?.id,
+        count : 1
+      }
+      this.$refs.manualOrderTable.values.push(formTable)
       this.manualOrderList.push(form);
-
-
     },
 
 
@@ -246,7 +211,6 @@ export default {
 
   mounted() {
 
-    this.getManualOrderList();
   },
 
   watch: {
