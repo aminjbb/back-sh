@@ -82,7 +82,7 @@ export default {
         formData.append('image_id' , this.$refs.SpecialSaleForm.form.image)
         formData.append('background_hex_code' , this.$refs.SpecialSaleForm.form.colorCode)
         formData.append('start_time' , `${startDate} ${splitStartDate[1]}:00`)
-        formData.append('end_time' , `${endDate} ${splitStartDate[1]}:00`)
+        formData.append('end_time' , `${endDate} ${splitEndDate[1]}:00`)
         AxiosMethod.form = formData
         AxiosMethod.store = this.$store
         AxiosMethod.using_auth =true
