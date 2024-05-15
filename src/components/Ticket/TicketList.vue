@@ -105,7 +105,6 @@
 <script>
 //components
 import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
-import ModalTableFilter from '@/components/Ticket/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
@@ -114,7 +113,6 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
     },
 

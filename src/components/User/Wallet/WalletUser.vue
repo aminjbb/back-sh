@@ -98,7 +98,6 @@
 <script>
 import Table from '@/components/User/Table/WalletTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/User/FilterWallet/Filter.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -145,7 +144,7 @@ export default {
     PanelFilter,
     ModalExcelDownload,
     ModalGroupAdd,
-    ModalTableFilter, ModalColumnFilter,
+    ModalColumnFilter,
     Table,IncreseWalletModal
   },
   data() {

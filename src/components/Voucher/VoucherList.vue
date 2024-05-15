@@ -72,16 +72,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -93,7 +93,6 @@
 <script>
 import Table from '@/components/Voucher/Table/VoucherListTable.vue'
 import Voucher from "@/composables/Voucher";
-import ModalTableFilter from '@/components/Voucher/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import {openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
@@ -189,7 +188,6 @@ export default {
   components: {
     PanelFilter,
     Table,
-    ModalTableFilter,
     ModalColumnFilter
   },
 
@@ -208,7 +206,7 @@ export default {
       if (status === 'true') {
         this.getVoucherList();
       }
-    },
+    }
   },
 
   mounted() {

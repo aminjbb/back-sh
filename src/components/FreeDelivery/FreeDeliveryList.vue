@@ -51,7 +51,6 @@
         <v-card-actions class="pb-3">
           <v-row class="px-8">
             <v-col cols="3" class="d-flex justify-start" />
-  
             <v-col cols="6" class="d-flex justify-center">
               <div class="text-center">
                 <v-pagination
@@ -70,16 +69,16 @@
                   align="center"
                   id="rowSection"
                   class="d-flex align-center">
-                          <span class="ml-5">
-                              تعداد سطر در هر صفحه
-                          </span>
+                <span class="ml-5">
+                  تعداد سطر در هر صفحه
+                </span>
                 <span class="mt-2" id="row-selector">
-                              <v-select
-                                  v-model="dataTableLength"
-                                  class="t1330"
-                                  variant="outlined"
-                                  :items="[25,50,100]" />
-                          </span>
+                  <v-select
+                      v-model="dataTableLength"
+                      class="t1330"
+                      variant="outlined"
+                      :items="[25,50,100]" />
+                </span>
               </div>
             </v-col>
           </v-row>
@@ -89,7 +88,6 @@
   </template>
   
   <script>
-  import ModalTableFilter from'@/components/FreeDelivery/Filter/Filter.vue'
   import Table from '@/components/FreeDelivery/Table/Table.vue'
   import FreeDelivery from "@/composables/FreeDelivery";
   import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
@@ -132,20 +130,34 @@
       ]
 
       const {
-         headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
-        ,dataTableLength ,pageLength ,getFreeDeliveryList, indexFilterField
+       headerFreeDelivery,
+        filterField ,
+        page ,
+        freeDeliveryList ,
+        addPerPage,
+        dataTableLength ,
+        pageLength ,
+        getFreeDeliveryList,
+        indexFilterField
       } = FreeDelivery();
       return {
-         headerFreeDelivery, filterField , page , freeDeliveryList , addPerPage
-        ,dataTableLength ,pageLength , getFreeDeliveryList , indexFilterField, sendingMethods, activeFilter
+        headerFreeDelivery,
+        filterField ,
+        page ,
+        freeDeliveryList ,
+        addPerPage,
+        dataTableLength ,
+        pageLength ,
+        getFreeDeliveryList ,
+        indexFilterField,
+        sendingMethods,
+        activeFilter
       };
     },
   
     components: {
       PanelFilter,
-      Table,
-      ModalTableFilter,
-    
+      Table
     },
   
     computed: {
@@ -168,13 +180,11 @@
   
     mounted() {
       this.getFreeDeliveryList()
-
     },
   
     watch: {
       $route(){
         this.getFreeDeliveryList()
-
       },
       dataTableLength(val) {
         this.addPerPage(val)

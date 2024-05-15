@@ -73,16 +73,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -93,7 +93,6 @@
 </template>
 
 <script>
-import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vue";
 import ManualOrders from "@/composables/ManualOrders";
@@ -189,7 +188,7 @@ export default {
     }
   },
 
-  components: {PanelFilter, ModalTableFilter, ModalColumnFilter, Table },
+  components: { PanelFilter, ModalColumnFilter, Table },
 
   methods:{
     changeHeaderShow(index, value) {

@@ -76,7 +76,6 @@
 <script>
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
-import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterUser.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
@@ -125,7 +124,6 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalGroupAdd
     },
 

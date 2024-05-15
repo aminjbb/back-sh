@@ -86,7 +86,6 @@
 <script>
 import Table from '@/components/Factor/Table/Table.vue'
 import Factor from "@/composables/Factor";
-import ModalTableFilter from '@/components/Factor/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import {
     openToast
@@ -137,14 +136,13 @@ export default {
             addPerPage,
             loading,
             status
-        };
+        }
     },
 
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
-        ModalColumnFilter,
+        ModalColumnFilter
     },
 
     computed: {

@@ -86,7 +86,6 @@
 </template>
 <script>
 import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
-import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterOrderList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
@@ -132,13 +131,14 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
-    ModalTableFilter
+    Table
   },
+
   mounted() {
     this.geOrderList()
     this.getDetail()
   },
+
   watch:{
     $route(){
       this.geOrderList()

@@ -82,12 +82,11 @@
 <script>
 import Table from '@/components/ReturnedOrders/Table/Table.vue'
 import ReturnedOrders from "@/composables/ReturnedOrders";
-import ModalTableFilter from '@/components/ReturnedOrders/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
-    setup(props) {
+    setup() {
       const status = [
         {
           label: 'پیش پردازش',
@@ -159,7 +158,6 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter
     },
 
@@ -178,7 +176,7 @@ export default {
             if (status === 'true') {
                 this.getReturnedOrderList();
             }
-        },
+        }
     },
 
     mounted() {
@@ -188,7 +186,8 @@ export default {
     watch: {
       dataTableLength(val) {
             this.getReturnedOrderList(val)
-        },
+      },
+
       $route(){
         this.getReturnedOrderList()
       }

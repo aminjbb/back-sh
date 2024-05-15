@@ -92,7 +92,6 @@
 <script>
 import Table from '@/components/Menu/Table/MenuTable.vue'
 import Menu from "@/composables/Menu";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -126,10 +125,32 @@ export default {
     ]
 
     const {
-      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading
+      getMenus ,
+      getMenu ,
+      menu ,
+      menus ,
+      pageLength,
+      filterField ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = new Menu();
     return {
-      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading, status, hasOption
+      getMenus ,
+      getMenu ,
+      menu ,
+      menus ,
+      pageLength,
+      filterField ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      status,
+      hasOption
     };
   },
 
@@ -137,7 +158,6 @@ export default {
     PanelFilter,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

@@ -56,7 +56,6 @@
           <v-row class="pr-5">
             <v-col cols="3">
             </v-col>
-  
             <v-col cols="6">
               <div class="text-center">
                 <v-pagination
@@ -75,16 +74,16 @@
                   align="center"
                   id="rowSection"
                   class="d-flex align-center">
-                          <span class="ml-5">
-                              تعداد سطر در هر صفحه
-                          </span>
+                <span class="ml-5">
+                  تعداد سطر در هر صفحه
+                </span>
                 <span class="mt-2" id="row-selector">
-                              <v-select
-                                  v-model="dataTableLength"
-                                  class="t1330"
-                                  variant="outlined"
-                                  :items="[25,50,100]"/>
-                          </span>
+                  <v-select
+                      v-model="dataTableLength"
+                      class="t1330"
+                      variant="outlined"
+                      :items="[25,50,100]"/>
+                </span>
               </div>
             </v-col>
           </v-row>
@@ -95,7 +94,6 @@
   <script>
   import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
   import Table from "@/components/FreeDelivery/Table/TableSkuList.vue";
-  import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterShps.vue";
   import FreeDelivery from '@/composables/FreeDelivery'
   import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
   export default {
@@ -142,7 +140,6 @@
     components: {
       PanelFilter,
       Table,
-      ModalTableFilter,
       ModalGroupAdd
     },
     

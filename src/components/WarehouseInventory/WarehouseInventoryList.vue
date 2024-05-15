@@ -73,15 +73,13 @@
 
 <script>
 import Table from '@/components/WarehouseInventory/Table/Table.vue'
-import WarehouseInventory from "@/composables/WarehouseInventory";
-import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import WarehouseInventory from "@/composables/WarehouseInventory"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 
 export default {
     components: {
       PanelFilter,
-        Table,
-        ModalTableFilter,
+        Table
     },
 
     setup() {

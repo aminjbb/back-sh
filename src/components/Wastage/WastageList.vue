@@ -108,7 +108,6 @@
 <script>
 //Components
 import Table from '@/components/Wastage/Table/Table.vue'
-import ModalTableFilter from '@/components/Wastage/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -123,11 +122,9 @@ export default {
   components: {
     PanelFilter,
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
-
   },
 
   data() {
@@ -138,7 +135,6 @@ export default {
       filteredCargoData: [],
       closePackageLoading :false,
       shps_s: null,
-
     }
   },
 

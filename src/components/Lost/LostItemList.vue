@@ -79,14 +79,12 @@
 <script>
 import Table from '@/components/Lost/Table/Table.vue'
 import Lost from "@/composables/Lost";
-import ModalTableFilter from '@/components/Lost/Filter/Filter.vue'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   components: {
     PanelFilter,
-    Table,
-    ModalTableFilter,
+    Table
   },
   
   setup() {
@@ -167,9 +165,7 @@ export default {
   watch: {
     dataTableLength(val) {
       this.addPerPage(val)
-    },
-
-
+    }
   }
 }
 </script>

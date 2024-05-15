@@ -101,15 +101,14 @@
 
 <script>
 import Table from '@/components/Seller/Table/Table.vue'
-import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import Seller from "@/composables/Seller"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
+import {openToast} from "@/assets/js/functions"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 export default {
-    setup(props) {
+    setup() {
       const sellerType = [
         {
           label: 'همه',
@@ -172,11 +171,10 @@ export default {
 
     components: {
       PanelFilter,
-        Table,
-        ModalGroupAdd,
-        ModalTableFilter,
-        ModalColumnFilter,
-        ModalExcelDownload,
+      Table,
+      ModalGroupAdd,
+      ModalColumnFilter,
+      ModalExcelDownload
     },
 
     computed: {

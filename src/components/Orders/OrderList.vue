@@ -83,7 +83,6 @@
 <script>
 import Table from '@/components/Orders/Table/Table.vue'
 import Orders from "@/composables/Orders";
-import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
@@ -179,7 +178,6 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter
     },
 

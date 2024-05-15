@@ -83,7 +83,6 @@
 <script>
 import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
-import ModalTableFilter from '@/components/RetailShipment/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -173,7 +172,6 @@ export default {
     ModalRetailShipmentDetail,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

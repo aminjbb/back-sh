@@ -56,16 +56,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+               <span class="ml-5">
+                 تعداد سطر در هر صفحه
+               </span>
               <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]" />
-                            </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -76,13 +76,12 @@
 
 <script>
 import Table from '@/components/UpComing/Table/Table.vue'
-import UpComing from "@/composables/UpComing";
-import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
+import UpComing from "@/composables/UpComing"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
+import { openToast} from "@/assets/js/functions"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 export default {
   setup() {
     const statusItems= [
@@ -100,8 +99,15 @@ export default {
       }
     ]
     const {
-      pageLength, filterField,upComingList ,addPerPage, getUpComingList,
-      dataTableLength, page, header, loading
+      pageLength,
+      filterField,
+      upComingList,
+      addPerPage,
+      getUpComingList,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = UpComing();
     return {
       pageLength,
@@ -114,14 +120,13 @@ export default {
       header,
       loading,
       statusItems
-    };
+    }
   },
 
   components: {
     PanelFilter,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

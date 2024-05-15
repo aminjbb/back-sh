@@ -91,7 +91,6 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -102,7 +101,6 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload

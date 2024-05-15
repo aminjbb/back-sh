@@ -11,7 +11,11 @@
                 <v-row justify="end">
                   <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                  <PanelFilter path="page/index" :filterField="filterField" :statusItems="status" :typeItems="pageTypeFilter"/>
+                  <PanelFilter
+                      path="page/index"
+                      :filterField="filterField"
+                      :statusItems="status"
+                      :typeItems="pageTypeFilter"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -76,7 +80,6 @@
 <script>
 import Table from '@/components/Pages/Table/Table.vue'
 import Page from "@/composables/Page";
-import ModalTableFilter from '@/components/Pages/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -148,7 +151,6 @@ export default {
       PanelFilter,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

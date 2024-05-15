@@ -94,16 +94,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]"/>
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"/>
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -113,19 +113,37 @@
 </template>
 <script>
 import Table from "@/components/Voucher/Table/VoucherDatailCustomerTable.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import Voucher from '@/composables/Voucher'
 export default {
   setup() {
-    const {headerCustomer ,getVoucherCustomer,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer} = new Voucher()
-    return {headerCustomer,getVoucherCustomer,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail , addPerPageCustomer , addPaginationCustomer}
+    const {
+      headerCustomer ,
+      getVoucherCustomer,
+      voucher ,
+      dataTableLength ,
+      pageLength,
+      page ,
+      getVoucherDetail ,
+      voucherDetail ,
+      addPerPageCustomer ,
+      addPaginationCustomer
+    } = new Voucher()
+    return {
+      headerCustomer,
+      getVoucherCustomer,
+      voucher,
+      dataTableLength ,
+      pageLength,
+      page,
+      getVoucherDetail ,
+      voucherDetail ,
+      addPerPageCustomer ,
+      addPaginationCustomer
+    }
   },
-  components: {
-    Table,
-    ModalTableFilter
-  },
+
+  components: {Table},
+
   mounted() {
     this.getVoucherCustomer()
     this.getVoucherDetail()

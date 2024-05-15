@@ -79,7 +79,6 @@
 <script>
 import Table from '@/components/Package/Table/Table.vue'
 import Package from "@/composables/Package";
-import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
 import ModalCreatePackage from '@/components/Package/Modal/CreateModal.vue'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
@@ -150,8 +149,7 @@ export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
-        ModalCreatePackage,
+        ModalCreatePackage
     },
 
     computed: {

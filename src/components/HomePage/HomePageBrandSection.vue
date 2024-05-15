@@ -61,13 +61,10 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePageBrandTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import ModalAddBrand from "@/components/HomePage/Modals/ModalAddBrand.vue";
 export default {
     setup() {
@@ -95,7 +92,6 @@ export default {
         ModalAddBrand,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

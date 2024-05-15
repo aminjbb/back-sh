@@ -94,7 +94,6 @@
 <script>
 import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
-import ModalTableFilter from '@/components/RetailShipment/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -102,7 +101,7 @@ import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
-  setup(props) {
+  setup() {
     const statusItems= [
       {
         label: 'در انتظار',
@@ -157,26 +156,25 @@ export default {
       filterFieldAllRetail,
       getRetailShipmentList,
       retailShipments,
-      pageLength ,
+      pageLength,
       addPerPage,
       dataTableLength,
       page,
       header,
       loading
-    } = RetailShipment();
+    } = RetailShipment()
     return {
       filterFieldAllRetail,
       getRetailShipmentList,
       retailShipments,
-      pageLength
-      ,
+      pageLength,
       addPerPage,
       dataTableLength,
       page,
       header,
       loading,
       statusItems
-    };
+    }
   },
 
   components: {
@@ -184,7 +182,6 @@ export default {
     ModalRetailShipmentDetail,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },
