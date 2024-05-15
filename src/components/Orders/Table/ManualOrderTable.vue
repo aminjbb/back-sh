@@ -360,40 +360,6 @@ export default {
       }
     },
 
-    /**
-     * Create ordering
-     * @param {*} index
-     * @param { boolean } order
-     */
-    createOrdering(index, order) {
-      if (order === true) {
-        if (index) {
-          if (this.order_type === 'desc') {
-            this.order_type = 'asc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'asc'
-            } else {
-              this.panelFilter.order_type = 'asc'
-            }
-          } else {
-            this.order_type = 'desc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'desc'
-            } else {
-              this.panelFilter.order_type = 'desc'
-            }
-          }
-
-
-
-          this.ordering = {};
-          this.ordering[index] = !this.ordering[index];
-        }
-      }
-
-    },
 
     /**
      * Get icon
@@ -406,25 +372,6 @@ export default {
     returnTrueOrFalse(data) {
       if (data === 1) return true
       else return false
-    },
-
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item?.sku?.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
     },
 
     /**
@@ -442,6 +389,7 @@ export default {
     removeItem (index) {
 
       this.items.splice(index,1)
+      this.values.splice(index,1)
 
     },
 
