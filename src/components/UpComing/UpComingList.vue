@@ -113,11 +113,7 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(status){
-      if(status === 'true'){
-        this.getShipmentRequestsList();
-      }
-    },
+
   },
 
   mounted() {

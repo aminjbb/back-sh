@@ -104,11 +104,11 @@ export default {
   },
   setup() {
     const {
-      headerShps, headerPublicVoucherList, getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
+     getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
     pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherList
     } = new Voucher()
     return {
-      headerShps, getVoucherShps, voucher, dataTableLength, headerPublicVoucherList, filterField , filterFieldPeerToPeer,
+      getVoucherShps, voucher, dataTableLength, filterField , filterFieldPeerToPeer,
       pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup ,headerPeerToPeerVoucherList
     }
   },

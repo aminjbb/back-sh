@@ -94,7 +94,6 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     } = Seller();
@@ -105,7 +104,6 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     };

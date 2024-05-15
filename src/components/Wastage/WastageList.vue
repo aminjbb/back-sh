@@ -135,13 +135,8 @@ export default {
 
   data() {
     return {
-      scanPackage:'',
       rule: [v => !!v || 'این فیلد الزامی است'],
-      allCargoData: [],
-      filteredCargoData: [],
-      closePackageLoading :false,
       shps_s: null,
-
     }
   },
 
@@ -179,9 +174,7 @@ export default {
   },
 
   methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
 
     async addShps() {
      try {

@@ -195,13 +195,6 @@ export default {
             default: '500',
         },
 
-        /**
-         * Edit endpoint for change filter
-         */
-        editPath: {
-            type: String,
-            default: ''
-        },
 
         /**
          * Page on table
@@ -364,11 +357,6 @@ export default {
          */
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-        },
-
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
         },
 
         /**

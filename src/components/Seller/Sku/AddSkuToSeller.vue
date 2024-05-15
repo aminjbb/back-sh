@@ -165,21 +165,7 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-    skuGroupList() {
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value: skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      } catch (e) {
-        return []
-      }
-    },
+
     skuList() {
       try {
         let sku = []

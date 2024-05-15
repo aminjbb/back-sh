@@ -296,13 +296,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 default: '500',
             },
     
-            /**
-             * Delete endpoint for change filter
-             */
-            deletePath: {
-                type: String,
-                default: ''
-            },
+
     
             /**
              * Page on table
@@ -327,9 +321,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 type: Boolean,
                 default: false
             },
-    
-          
-    
+
         },
     
         data() {
@@ -343,7 +335,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 isIndex: [],
                 isFollow: [],
                 panelFilter: new SupplierPanelFilter(),
-                activeColumn: false,
+
 
             }
         },
@@ -450,12 +442,6 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
               this.loading = true
             }
         },
-
-
-
-
-
-
 
             /**
              * Get row index in table

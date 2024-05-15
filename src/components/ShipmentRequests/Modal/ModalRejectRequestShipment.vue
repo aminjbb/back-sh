@@ -106,18 +106,7 @@ export default {
     },
 
     methods: {
-        setWorkDay(workday) {
-            if (workday.storage > 0) this.workDay = workday.date
-        },
-        workDaysClass(workday) {
-            if (workday.date === this.workDay) {
-                return 'retailShipment--work-days-card__active'
-            } else if (workday.storage === 0) {
-                return 'retailShipment--work-days-card__disable'
-            } else {
-                return 'retailShipment--work-days-card__free'
-            }
-        },
+
         convertDateToJalai,
       
         close() {

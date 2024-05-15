@@ -341,10 +341,6 @@ export default {
     },
 
 
-
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
   },
 }
 </script>

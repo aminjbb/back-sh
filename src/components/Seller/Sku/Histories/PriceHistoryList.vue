@@ -120,7 +120,6 @@ export default {
             dataTableLength,
             priceHistoryPage,
             headerPriceHistory,
-            addPagination,
             addPerPage,
             loading,
             getPriceHistory
@@ -132,7 +131,6 @@ export default {
             dataTableLength,
             priceHistoryPage,
             headerPriceHistory,
-            addPagination,
             addPerPage,
             loading,
             getPriceHistory,
@@ -149,9 +147,6 @@ export default {
     },
 
     computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
     },
 
     methods: {

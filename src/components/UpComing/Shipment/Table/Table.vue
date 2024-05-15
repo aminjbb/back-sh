@@ -146,24 +146,7 @@ export default {
 
 
   props: {
-    deleteFunction: {
-      type: Function,
-    },
-    updateSkuUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
+
 
     /**
      * List Items for header
@@ -210,21 +193,8 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
+
 
     /**
      * Page on table
@@ -250,10 +220,6 @@ export default {
       default: false
     },
 
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
   },
 
   data() {
@@ -282,19 +248,7 @@ export default {
       return 'auto';
     },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
+
   },
 
   watch: {
@@ -381,10 +335,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
     validate(item , index){
       if (this.form[index].count< item.min_tolerance || this.form[index].count > item.max_tolerance){
         const formData = {
@@ -440,40 +390,6 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
-
-    /**
-     * Clipboard success msg
-     */
-    onCopy() {
-      openToast(
-          this.$store,
-          'متن  با موفقیت کپی شد.',
-          "success"
-      );
-    },
-
-    /**
-     * Clipboard error msg
-     */
-    onError() {
-      openToast(
-          this.$store,
-          'کپی متن با مشکل مواجه شد.',
-          "error"
-      );
-    },
-
-    updateList(status) {
-      console.log('2.skuTable', status)
-      this.$emit('updateList', status);
-    },
   },
 
 }

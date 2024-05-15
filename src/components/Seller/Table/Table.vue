@@ -273,13 +273,7 @@ export default {
             default: ''
         },
 
-        /**
-         * Url for edit
-         */
-        editUrl: {
-            type: String,
-            default: ''
-        },
+
 
         /**
          * Url for update contract status
@@ -463,10 +457,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Change Active
@@ -537,13 +527,6 @@ export default {
             return isOdd(index)
         },
 
-        /**
-         * Remove Item
-         * @param {*} id
-         */
-        removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-        },
     },
 }
 </script>
