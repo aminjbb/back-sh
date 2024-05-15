@@ -4,7 +4,11 @@
 
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
-        <ManualOrderStepOne @sending="sending"
+        <ManualOrderStepOne
+            @sending="sending"
+            @selectAddress="selectAddress"
+            @selectDescription="selectDescription"
+            @selectedSendingMethod="selectedSendingMethod"
             ref="step1"
             :orderDetail="orderDetail"
         />
@@ -102,6 +106,9 @@ export default {
     addressId:null,
     sendMethod: null,
     descriptionData: null,
+    orderAddress:null,
+    orderDescription:null,
+    sendingMethod:null
   }),
   setup() {
     const {
@@ -124,10 +131,17 @@ export default {
   },
 
   methods: {
-
+    selectAddress(item){
+      this.orderAddress = item
+    },
+    selectDescription(item){
+      this.orderDescription = item
+    },
+    selectedSendingMethod(item){
+      this.sendingMethod = item
+    },
     sending(user){
       this.userId = user
-
     },
 
     updatedShpsList(id){
@@ -193,8 +207,6 @@ export default {
     },
 
     async createOrder() {
-      const form1 = this.$store.getters['get_manualOrderStep1']
-      const orderDetail = this.orderDetail
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
@@ -203,11 +215,11 @@ export default {
         formData.append(`shps_list[${index}][shps]`, shps?.shps)
         formData.append(`shps_list[${index}][count]`, shps?.count)
       })
-      formData.append('parent_id', orderDetail.id )
+      formData.append('parent_id', this.$route.params.orderId)
       formData.append('user_id', this.userId)
-      formData.append('address_id', form1?.userAddress)
-      formData.append('sending_method', form1?.sendingMethod)
-      formData.append('description', form1?.description)
+      formData.append('address_id', this.orderAddress)
+      formData.append('sending_method', this.sendingMethod)
+      formData.append('description', this.orderDescription)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
@@ -217,18 +229,13 @@ export default {
 
       if (data) {
         this.loading = false
-        openToast(this.$store,
-            'سفارش با موفقیت ایجاد شد.',
-            "success")
+
+        this.$router.go(-1)
       } else {
         this.loading = false
 
       }
     },
-
-
-
-
     /**
      *  change step from stepper button
      * @param{*} step
@@ -236,11 +243,6 @@ export default {
     changeStep(step) {
       this.step = step
     },
-
-
-
-
-
   },
 
   computed: {
@@ -254,13 +256,5 @@ export default {
 
   },
 
-  watch: {
-    /**
-     * cookie step
-     */
-    step(val) {
-      this.$cookies.set('createProductStep', val)
-    }
-  }
 }
 </script>
