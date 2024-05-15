@@ -26,7 +26,7 @@
                 :path="`wallet/index`"
                 :filterField="filterFieldWallet"
                 :statusItems="statusItems"
-                :typeItems="transactionReason"/>
+                :chargeType="transactionReason"/>
           </v-row>
         </v-col>
       </v-row>

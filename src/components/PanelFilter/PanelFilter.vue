@@ -325,6 +325,18 @@
                       v-model="values[index].value"
                   />
 
+                <!-- charge_type status -->
+                <v-select
+                    v-if="filter.value === 'charge_type'"
+                    density="compact"
+                    variant="outlined"
+                    single-line
+                    item-title="label"
+                    item-value="value"
+                    :items="chargeType"
+                    v-model="values[index].value"
+                />
+
                   <!-- supplier fields -->
                   <v-autocomplete
                       v-if="filter.value === 'supplier_id'"
@@ -534,6 +546,7 @@ export default {
     voucherAmountTypes: [],
     sendingItems: [],
     typeItems: [],
+    chargeType:[],
     shipmentTypeItems: [],
     brandsList:[],
     colorsList: [],

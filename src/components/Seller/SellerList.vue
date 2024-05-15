@@ -33,8 +33,8 @@
                   <PanelFilter
                       path="seller/index"
                       :filterField="filterField"
-                      :statusItems="sellerType"
-                      :typeItems="typePayment" />
+                      :typeItems="sellerType"
+                      :paymentType="typePayment" />
                 </v-row>
             </v-col>
         </v-row>
