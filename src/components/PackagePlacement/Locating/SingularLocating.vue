@@ -211,7 +211,7 @@ export default {
       shpssSingeLocate: null,
       placementBarcode: null,
       placementSplitId: null,
-      autoSend:'automate',
+      autoSend:'manual',
       lastBarcode:null
     }
   },
