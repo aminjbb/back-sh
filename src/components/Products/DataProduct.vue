@@ -40,7 +40,9 @@
 
                       <PanelFilter
                           path="product/index"
-                          :filterField="filterField"/>
+                          :filterField="filterField"
+                          :statusItems="activeStatus"
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -111,25 +113,61 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Product from '@/composables/Product';
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 export default {
     components: {
       PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload
     },
 
     setup() {
-        const { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading} = Product();
-        return { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading};
+      const activeStatus = ref([
+        {
+          label: 'وضعیت',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+        const {
+        pageLength,
+          product,
+          addPerPage,
+          getProduct,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField ,
+          loading
+      } = Product();
+        return {
+          pageLength,
+          product,
+          addPerPage,
+          getProduct,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField
+          ,loading,
+          activeStatus
+        };
     },
     computed: {
         confirmModal() {
@@ -146,25 +184,26 @@ export default {
     },
 
     mounted() {
-
         this.getProduct()
     },
 
     watch: {
         confirmModal(val) {
-          console.log(val , 'confirm')
             if (localStorage.getItem('deleteObject') == 'done') {
                 if (!val) {
                     this.getProduct()
                 }
               localStorage.removeItem('deleteObject')
             }
-
         },
 
         dataTableLength(val) {
             this.addPerPage(val)
         },
+
+      $route(){
+        this.getProduct()
+      }
     },
 
     methods: {

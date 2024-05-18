@@ -98,10 +98,10 @@ export default function setup(posts) {
     ];
     const filterFieldSku = [
         { name: 'شناسه shps', type: 'text', value: 'id' },
-        { name: 'نام کالا', type: 'text', value: 'label' },
+        { name: 'نام کالا', type: 'text', value: 'sku' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },
         { name: 'موجودی انبار(تا)', type: 'text', value: 'warehouse_stock_to' },
-        { name: 'وضعیت', type: 'select', value: 'active' },
+        { name: 'وضعیت', type: 'select', value: 'is_active' },
         { name: ' موجودی قابل فروش(از)', type: 'text', value: 'site_stock_from' },
         { name: ' موجودی قابل فروش(تا)', type: 'text', value: 'site_stock_to' },
         { name: 'کمترین تخفیف پایه(از)', type: 'text', value: 'base_discount_from' },
@@ -143,17 +143,13 @@ export default function setup(posts) {
     const skuFilter = new SkuPanelFilter()
     const skuSellerFilter =  new SkuSellerPanelFilter()
 
-    async function getSellerList(query) {
+    async function getSellerList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -166,7 +162,6 @@ export default function setup(posts) {
         }
     };
     async function getSeller(query) {
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -176,27 +171,13 @@ export default function setup(posts) {
             seller.value = data.data
         }
     };
-    async function getSkuSeller(query) {
+    async function getSkuSeller() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            if (query.query.page){
-                isFilter.value= true
-                skuSellerPage.value = parseInt(query.query.page)
-            }
-            paramsQuery = skuSellerFilter.params_generator(query.query)
-        }
-        else {
-            if (route.query.page){
-                isFilter.value= true
-                skuSellerPage.value = parseInt(route.query.page)
-            }
-            paramsQuery = skuSellerFilter.params_generator(route.query)
-        }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =data.data.last_page
@@ -317,17 +298,6 @@ export default function setup(posts) {
         skuSellerFilter.per_page = dataTableLength.value
         router.push(route.path + skuFilter.params_generator(route.query))
     }
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-
-        if (route.name === 'PriceHistoryView') await getPriceHistory(to)
-        if (route.name === 'AddSkuSellerView') await getSkuSeller(to)
-        else await getSellerList(to)
-    })
 
     watch(page, function(val) {
         if (!isFilter.value){

@@ -6,23 +6,14 @@
             <ModalPartitionSlider :getHomeSection="getHomeSection" :slider="slider" />
             <div class="d-flex px-15">
                 <div class="d-flex mx-5">
-                    <span>
-                        عنوان :
-                    </span>
-                    <span>
-                        {{ slider?.label }}
-                    </span>
+                    <span>عنوان :</span>
+                    <span>{{ slider?.label }}</span>
                 </div>
                 <div class="d-flex mx-5">
-                    <span>
-                        کد رنگ :
-                    </span>
-                    <span class="d--ltr">
-                        {{ slider?.background_hex_code }}
-                    </span>
+                    <span>کد رنگ :</span>
+                    <span class="d--ltr">{{ slider?.background_hex_code }}</span>
                 </div>
             </div>
-
         </div>
     </v-card>
     <v-card height="70" class="mx-5 my-2 br-12 stretch-card-header-70">
@@ -32,10 +23,6 @@
             class="px-10 py-4">
             <v-col cols="6">
                 <ModalAddSectionForSlider :getHomeSection="getHomeSection" :slider="slider" />
-            </v-col>
-
-            <v-col cols="6">
-
             </v-col>
         </v-row>
     </v-card>
@@ -87,13 +74,10 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePagePartitionTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import ModalPartitionSlider from "@/components/HomePage/Modals/ModalPartitionSlider.vue";
 import ModalAddSectionForSlider from "@/components/HomePage/Modals/ModalAddSectionForSlider.vue";
 export default {
@@ -129,7 +113,6 @@ export default {
         ModalPartitionSlider,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },
@@ -148,7 +131,6 @@ export default {
         changeHeaderShow(index, value) {
             this.bannerHeader[index].show = value
         },
-
     },
 
     mounted() {

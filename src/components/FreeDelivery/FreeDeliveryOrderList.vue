@@ -2,21 +2,12 @@
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
       <div class="d-flex align-center justify-lg-space-evenly">
-
         <div>
-                <span class="t14500">
-                    عنوان:
-                </span>
-          <span class="t14500 text-gray500">
-                    {{ detailData?.name }}
-                </span>
+          <span class="t14500">عنوان:</span>
+          <span class="t14500 text-gray500">{{ detailData?.name }}</span>
         </div>
         <div>
-
-                <span class="t14500">
-                    روش ارسال:
-                </span>
-
+          <span class="t14500">روش ارسال:</span>
           <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
           &nbsp
           <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
@@ -25,7 +16,6 @@
           &nbsp
           <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
         </div>
-
       </div>
     </v-card>
     <v-card height="70" class="mx-5 br-12" max-height="70">
@@ -33,14 +23,14 @@
           justify="end"
           align="center"
           class="px-10 py-5">
-
-
         <v-col cols="6">
           <v-row justify="end">
-
-            <ModalTableFilter :path="`free-delivery/${$route.params.freeDeliveryId}/orderList`" :filterFieldCOrderList="filterFieldCOrderList "/>
+            <PanelFilter
+                :path="`free-delivery/${$route.params.freeDeliveryId}/orderList`"
+                :filterField="filterFieldCOrderList" />
           </v-row>
         </v-col>
+
       </v-row>
     </v-card>
 
@@ -79,16 +69,14 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                          <span class="ml-5">
-                              تعداد سطر در هر صفحه
-                          </span>
+               <span class="ml-5">تعداد سطر در هر صفحه</span>
               <span class="mt-2" id="row-selector">
-                              <v-select
-                                  v-model="dataTableLength"
-                                  class="t1330"
-                                  variant="outlined"
-                                  :items="[25,50,100]"/>
-                          </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"/>
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -98,36 +86,59 @@
 </template>
 <script>
 import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
-import ModalTableFilter from "@/components/FreeDelivery/Filter/FilterOrderList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-    const { getVoucherShps,voucher , dataTableLength ,headerOrderList, geOrderList, orderList, getDetail, filterFieldCOrderList,
+    const {
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      headerOrderList,
+      geOrderList,
+      orderList,
+      getDetail,
+      filterFieldCOrderList,
       detailData,
-      pageLength,page , getVoucherDetail , voucherDetail} = new FreeDelivery()
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail
+    } = new FreeDelivery()
 
-    return {getVoucherShps,voucher,dataTableLength , headerOrderList , geOrderList, orderList, filterFieldCOrderList,
-      pageLength,page,getVoucherDetail , voucherDetail, getDetail,
-      detailData}
+    return {
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      headerOrderList,
+      geOrderList,
+      orderList,
+      filterFieldCOrderList,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail,
+      getDetail,
+      detailData
+    }
   },
 
   data() {
     return{
       freeDeliveryId:this.$route.params.freeDeliveryId,
-
     }
   },
-  methods:{
 
-  },
   components: {
-    Table,
-    ModalTableFilter
+    PanelFilter,
+    Table
   },
+
   mounted() {
     this.geOrderList()
     this.getDetail()
   },
+
   watch:{
     $route(){
       this.geOrderList()

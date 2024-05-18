@@ -22,9 +22,14 @@
             </v-col>
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                    <ModalColumnFilter
+                        :changeHeaderShow="changeHeaderShow"
+                        :header="header" />
 
-                    <ModalTableFilter path="notifications/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="notifications/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -85,16 +90,16 @@
 <script>
 //Component
 import Table from '@/components/Notifications/Table/Table.vue'
-import ModalTableFilter from '@/components/Notifications/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Notifications from '@/composables/Notifications';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload

@@ -36,6 +36,7 @@
                           :brandsList="brandsList"
                           :colorsList="colorsList"
                           :categoriesList="categoriesList"
+                          :statusItems="activeStatus"
                           show-category
                       />
                     </v-row>
@@ -112,7 +113,6 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -121,7 +121,8 @@ import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
     components: {
@@ -130,20 +131,57 @@ export default {
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
-        SkuModalTableFilter,
     },
 
     setup() {
-        const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
+      const activeStatus = ref([
+        {
+          label: 'وضعیت',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+        const {
+        pageLength,
+          skues,
+          addPerPage,
+          getSkues,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
+      } = Sku();
         const { allBrands, getAllBrands } = Brands();
         const { allColors, getAllColor } = Colors();
         const { allCategories, getAllCategories } = Categories();
 
-        return { 
-            allBrands, getAllBrands,
-            allColors, getAllColor,
-            allCategories, getAllCategories,
-            pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading
+        return {
+          activeStatus,
+          allBrands,
+          getAllBrands,
+          allColors,
+          getAllColor,
+          allCategories,
+          getAllCategories,
+          pageLength,
+          skues,
+          addPerPage,
+          getSkues,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
         };
     },
 
@@ -221,6 +259,10 @@ export default {
             localStorage.removeItem('deleteObject')
           }
         }
+      },
+
+      $route(){
+        this.getSkues()
       },
 
         dataTableLength(val) {

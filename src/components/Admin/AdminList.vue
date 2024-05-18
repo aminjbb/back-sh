@@ -24,6 +24,7 @@
             <v-col cols="6">
                 <v-row justify="end">
                   <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+
                   <PanelFilter path="admin/index" :filterField="filterField"/>
                 </v-row>
             </v-col>
@@ -90,12 +91,11 @@
 <script>
 import Table from '@/components/Admin/AdminTable/AdminTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import Admin from "@/composables/Admin";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
-import PanelFilter from "@/panelFilter/PanelFilter.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup() {
         const {
@@ -127,7 +127,6 @@ export default {
       PanelFilter,
         ModalExcelDownload,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         Table
     },
@@ -138,8 +137,7 @@ export default {
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
-        },
-
+        }
     },
 
     computed: {
@@ -149,11 +147,11 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
 
-        confirmModal(val) {
+      confirmModal(val) {
             if (localStorage.getItem('deleteObject') === 'done') {
             if (!val) {
                 this.getAdminList();
@@ -166,6 +164,10 @@ export default {
             }
             }
       },
+
+      $route(){
+        this.getAdminList()
+      }
     }
 }
 </script>

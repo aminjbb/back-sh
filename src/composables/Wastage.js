@@ -42,14 +42,14 @@ export default function setup() {
 
     const filterField = [
         { name: 'شناسه بسته', type:'text', value:'package_id'},
-        { name: 'نوع بسته', type:'select', value:'package_type'},
+        { name: 'نوع بسته', type:'select', value:'type_package'},
         { name:'نوع محموله', type: 'select', value:'shipment_type'},
         { name: 'نام فروشگاه', type:'text', value:'shopping_name'},
         { name: 'تامین کننده', type:'select', value:'supplier_id'},
         { name: 'سریال کالا', type:'text', value:'shps_s'},
         { name: 'نام کالا', type:'text', value:'sku_label'},
         { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
-        { name: 'تاریخ افزودن به لیست', type:'date', value:'date'},
+        { name: 'تاریخ افزودن به لیست', type:'date', value:'created_at'},
     ];
     const loading = ref(false)
     const isFilter =ref(false)
@@ -58,15 +58,11 @@ export default function setup() {
 
     async function getWasteAndLostList(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `report/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `report/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -93,16 +89,6 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push('/wastage/index'+ filter.params_generator(route.query))
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getWasteAndLostList(to)
-    })
 
     watch(page, function(val) {
         if (!isFilter.value){

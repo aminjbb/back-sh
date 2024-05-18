@@ -9,7 +9,10 @@
 
             <v-col cols="6" class="mt-3">
                 <v-row justify="end">
-                    <ModalTableFilter path="placement/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="placement/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -72,7 +75,7 @@
 <script>
 import Table from '@/components/Placement/Table/Table.vue'
 import Placement from "@/composables/Placement";
-import ModalTableFilter from '@/components/Placement/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
     setup() {
@@ -103,8 +106,8 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
     },
 
     computed: {
@@ -133,6 +136,9 @@ export default {
         dataTableLength(val) {
             this.getPlacementList(val)
         },
+      $route(){
+        this.getPlacementList()
+      }
     }
 }
 </script>

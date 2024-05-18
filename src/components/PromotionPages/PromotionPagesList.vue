@@ -26,7 +26,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="promotion-page/index" :filterField="filterField" />
+            <PanelFilter path="promotion-page/index" :filterField="filterField" :statusItems="status"/>
           </v-row>
         </v-col>
       </v-row>
@@ -50,7 +50,7 @@
       <v-card-actions class="pb-3">
         <v-row class="px-8">
           <v-col cols="3" class="d-flex justify-start">
-                        <ModalExcelDownload getEndPoint="page/promotion/csv/get/export"  />
+            <ModalExcelDownload getEndPoint="page/promotion/csv/get/export"  />
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
             <div class="text-center">
@@ -70,16 +70,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -89,23 +89,63 @@
 </template>
 
 <script>
-import Table from '@/components/PromotionPages/Table/PromotionPageTable.vue'
+import
+  Table from '@/components/PromotionPages/Table/PromotionPageTable.vue'
 import PromotionPage from "@/composables/PromotionPage";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-   const { promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading }=new PromotionPage()
-    return{promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading}
+    const status = [
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
+   const {
+     promotion ,
+     promotions ,
+     getPromotion ,
+     getPromotions,
+     pageLength,
+     filterField,
+     addPerPage,
+     dataTableLength,
+     page,
+     header,
+     loading
+    }=new PromotionPage()
+    return{
+      promotion,
+      promotions,
+      getPromotion,
+      getPromotions,
+      pageLength,
+      filterField,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      status
+    }
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },
@@ -119,8 +159,7 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
-    },
-
+    }
   },
 
   mounted() {
@@ -144,6 +183,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getPromotions()
+    }
     
   }
 }
