@@ -27,7 +27,7 @@ export default function setup() {
     const filterField = [
         {name: 'نام انگلیسی', type: 'text', value: 'name'},
         {name: 'نام فارسی', type: 'text', value: 'label'},
-        {name: 'فعال سازی ', type: 'select', value: 'active'},
+        {name: 'فعال سازی ', type: 'select', value: 'is_active'},
         {name: 'تاریخ ایجاد', type: 'date', value: 'created_at'},
         {name: 'تاریخ بروز‌رسانی', type: 'date', value: 'updated_at'},
     ];
@@ -40,13 +40,10 @@ export default function setup() {
 
     async function getProduct(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query) {
-            paramsQuery = filter.params_generator(query.query)
-        } else paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `product/crud/index${paramsQuery}`
+        AxiosMethod.form = {...route.query}
+        AxiosMethod.end_point = `product/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -124,15 +121,6 @@ export default function setup() {
         router.push('/product/index/' + filter.params_generator(route.query))
 
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value = true
-            page.value = 1
-            filter.page = 1
-        }
-        await getProduct(to)
-    })
 
     watch(page, function (val) {
         if (!isFilter.value) {

@@ -47,8 +47,8 @@ export default function setup() {
         {name: 'بررسی درخواست', type: 'select', value: 'packed_status'},
        // {name: 'کد معرف', type: 'text', value: 'identification_code'},
        // {name: 'شناسه بانکی', type: 'text', value: 'bank_id'},
-       {name:'استان' , type:'select', value:'receive_state_id'},
-       {name:'شهر' , type:'select', value:'receive_city_id'},
+       {name:'استان' , type:'select', value:'state_id'},
+       {name:'شهر' , type:'select', value:'city_id'},
        {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
@@ -115,16 +115,14 @@ export default function setup() {
     const isFilterPage = ref(false)
     const filter = new PanelFilter()
 
-    async function getReturnedOrderList(query) {
+    async function getReturnedOrderList() {
         loading.value = true
-        let paramsQuery = null
-        if (query) {
-            paramsQuery = filter.params_generator(query.query)
-        } else paramsQuery = filter.params_generator(route.query)
+
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/returned/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/returned/order/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -162,16 +160,6 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push('/returned-orders/index' + filter.params_generator(route.query))
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value = true
-            page.value = 1
-            filter.page = 1
-        }
-        await getReturnedOrderList(to)
-    })
 
     watch(page, function (val) {
         if (!isFilter.value) {

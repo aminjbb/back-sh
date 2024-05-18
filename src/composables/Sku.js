@@ -47,16 +47,16 @@ export default function setup() {
     const skuGroupLoading =ref(false)
 
     const filterField = [
-        { name: 'شتاسه کالا', type: 'text', value: 'id' },
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
-        { name: ' رنگ', type: 'auto-complete', value: 'color' },
-        { name: ' برند', type: 'auto-complete', value: 'brand' },
-        { name: ' دسته بندی', type: 'auto-complete', value: 'category' },
-        { name: 'فعال سازی ', type: 'select', value: 'active' },
-        { name: 'قابل فروش', type: 'select', value: 'sellable' },
+        { name: 'شناسه کالا', type: 'text', value: 'id' },
+        { name: ' دسته بندی', type: 'auto-complete', value: 'category_id' },
+        { name: ' برند', type: 'auto-complete', value: 'brand_id' },
+        { name: ' رنگ', type: 'auto-complete', value: 'color_id' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
+        { name: 'فعال سازی ', type: 'select', value: 'is_active' },
+        // { name: 'قابل فروش', type: 'select', value: 'sellable' },
     ];
 
     const item = []
@@ -65,26 +65,23 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new SkuPanelFilter()
 
-    async function getSkues(query) {
-        let paramsQuery = null
+    async function getSkues() {
         loading.value = true
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
 
         if(route.name === 'groupSkuList'){
-            AxiosMethod.end_point = `product/sku/crud/index/${paramsQuery}&sku_group_id=${route.params.skuGroupId}`
+            // AxiosMethod.end_point = `product/sku/crud/index/${paramsQuery}&sku_group_id=${route.params.skuGroupId}`
+            AxiosMethod.end_point = `product/sku/crud/index/`
         }
         else if(route.name === 'productSkuList'){
-            AxiosMethod.end_point = `product/sku/crud/index/${paramsQuery}&product_id=${route.params.productId}`
+            // AxiosMethod.end_point = `product/sku/crud/index/${paramsQuery}&product_id=${route.params.productId}`
+            AxiosMethod.end_point = `product/sku/crud/index/`
         }
         else{
-            AxiosMethod.end_point = `product/sku/crud/index/${paramsQuery}`
+            AxiosMethod.end_point = `product/sku/crud/index/`
         }
 
         let data = await AxiosMethod.axios_get()
@@ -148,25 +145,20 @@ export default function setup() {
         }
     };
 
-    async function getAllSkuGroups(query) {
-        let paramsQuery = null
+    async function getAllSkuGroups() {
         skuGroupLoading.value = true
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
         
 
         if(route.name === 'productSkuGroupList'){
-            AxiosMethod.end_point = `product/sku/group/crud/index/${paramsQuery}&product_id=${route.params.productId}`
+            // AxiosMethod.end_point = `product/sku/group/crud/index/${paramsQuery}&product_id=${route.params.productId}`
+            AxiosMethod.end_point = `product/sku/group/crud/index/`
         }
         else{
-            console.log(paramsQuery)
-            AxiosMethod.end_point = `product/sku/group/crud/index/${paramsQuery}`
+            AxiosMethod.end_point = `product/sku/group/crud/index/`
         }
 
         let data = await AxiosMethod.axios_get()
@@ -206,23 +198,6 @@ export default function setup() {
         filter.per_page = dataTableLength.value
         router.push(route.path + filter.params_generator(route.query))
     }
-
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-
-        if(route.name === 'groupSkuList' || route.name === 'productSkuList' || route.name === 'skuList'){
-            await getSkues(to)
-        }else if(route.name === 'productSkuGroupList' || route.name === 'skuGroupList'){
-            await getAllSkuGroups(to)
-        }
-        
-    })
 
     watch(page, function (val) {
         if (!isFilter.value){

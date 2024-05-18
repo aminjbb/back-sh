@@ -9,7 +9,10 @@
 
             <v-col cols="6" class="mt-3">
                 <v-row justify="end">
-                    <ModalTableFilter path="warehouse_inventory/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="warehouse_inventory/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -70,13 +73,13 @@
 
 <script>
 import Table from '@/components/WarehouseInventory/Table/Table.vue'
-import WarehouseInventory from "@/composables/WarehouseInventory";
-import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
+import WarehouseInventory from "@/composables/WarehouseInventory"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 
 export default {
     components: {
-        Table,
-        ModalTableFilter,
+      PanelFilter,
+        Table
     },
 
     setup() {
@@ -132,6 +135,9 @@ export default {
         dataTableLength(val) {
             this.getWarehouseInventoryList(val)
         },
+      $route(){
+        this.getWarehouseInventoryList()
+      }
     }
 }
 </script>

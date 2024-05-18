@@ -37,7 +37,7 @@ export default function setup() {
         {name:' شناسه' , type:'text', value:'id' , place:'شناسه'},
         { name:'نام مشتری' , type: 'auto-complete', value:'user_id' , place:'نام مشتری'},
         { name: 'شماره شبا مشتری', type:'text', value:'card_number' , place:'شماره شبا مشتری'},
-        { name: 'نام ادمین', type:'auto-complete', value:'admin' , place:'نام ادمین'},
+        { name: 'نام ادمین', type:'auto-complete', value:'admin_id' , place:'نام ادمین'},
         { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
         { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
         { name: 'حداقل موجودی کیف پول', type:'text', value:'wallet_value_from', place:'از '},
@@ -55,19 +55,13 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getWithdrawRequestList(query) {
-
-        let paramsQuery = null
+    async function getWithdrawRequestList() {
         loading.value = true
-        if (query){
-            if (query.query.page)   page.value = parseInt(query.query?.page)
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/index/${paramsQuery}`
+        AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page

@@ -38,10 +38,11 @@
                             :header="header"
                         />
 
-                        <ModalTableFilter
-                            path="categories/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="categories/index"
+                          :filterField="filterField"
+                          :statusItems="activeStatus"
+                      />
                     </v-row>
                 </v-col>
      
@@ -113,25 +114,40 @@
 <script>
 //Components
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload
     },
 
     setup() {
-        const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
-        return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading };
+      const activeStatus = ref([
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+      const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
+      return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading, activeStatus };
     },
 
     computed: {
@@ -154,10 +170,12 @@ export default {
           }
         }
       },
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
         },
-
+      $route(){
+        this.getCategories()
+      }
     },
 
     methods: {

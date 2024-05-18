@@ -64,20 +64,14 @@ export default function setup() {
     const isFilterPage =ref(false)
     const isFilter =ref(false)
 
-    async function getManualOrderList(query) {
+    async function getManualOrderList() {
         loading.value = true
-        let paramsQuery = null
-        filter.is_admin_order = 1
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-
-        else  paramsQuery = filter.params_generator(route.query)
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
 
         if (data) {

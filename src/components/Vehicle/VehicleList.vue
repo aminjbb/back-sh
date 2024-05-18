@@ -13,7 +13,10 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="vehicle/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="vehicle/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -78,13 +81,13 @@
 <script>
 import Table from '@/components/Vehicle/Table/Table.vue'
 import Vehicle from "@/composables/Vehicle";
-import ModalTableFilter from '@/components/Vehicle/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalCreateVehicle from '@/components/Vehicle/CreateModal/CreateModal.vue'
 
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup(props) {
         const {
@@ -114,8 +117,8 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalCreateVehicle,
     },
@@ -143,10 +146,9 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
+      dataTableLength(val) {
             this.addPerPage(val)
-        },
-
+      },
       confirmModal(val) {
         if (localStorage.getItem('deleteObject') === 'done') {
           if (!val) {
@@ -160,6 +162,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getVehicleList()
+      }
     }
 }
 </script>

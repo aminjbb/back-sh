@@ -11,9 +11,11 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="bannerHeader" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="bannerHeader" />
 
-                    <ModalTableFilter :path="`home-page/${$route.params.sectionId}/add/banner`" :filterField="filterBannerField" />
+                  <PanelFilter
+                      :path="`home-page/${$route.params.sectionId}/add/banner`"
+                      :filterField="filterBannerField" />
                 </v-row>
             </v-col>
         </v-row>
@@ -66,14 +68,12 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePageBannerTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/HomePage/Filter/ModalFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup() {
         const {
@@ -97,10 +97,10 @@ export default {
     },
 
     components: {
+      PanelFilter,
         ModalAddBanner,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

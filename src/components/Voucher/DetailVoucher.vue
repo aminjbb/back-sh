@@ -3,25 +3,15 @@
     <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
       <div class="d-flex align-center justify-lg-space-evenly">
         <div>
-          <span class="t14500">
-             عنوان:
-          </span>
-          <span class="t14500 text-gray500">
-             {{ voucherDetail?.name }}
-          </span>
+          <span class="t14500">عنوان:</span>
+          <span class="t14500 text-gray500">{{ voucherDetail?.name }}</span>
         </div>
         <div>
-          <span class="t14500">
-             کد تخفیف:
-          </span>
-          <span class="t14500 text-gray500" >
-             {{ voucherDetail?.code }}
-          </span>
+          <span class="t14500">کد تخفیف:</span>
+          <span class="t14500 text-gray500" >{{ voucherDetail?.code }}</span>
         </div>
         <div class="d-flex">
-          <span class="t14500">
-             نوع تخفیف:
-          </span>
+          <span class="t14500">نوع تخفیف:</span>
           <div>
             <span class="t14500 text-gray500" v-if="voucherDetail?.voucher_type === 'percent'">
               درصدی
@@ -32,12 +22,11 @@
           </div>
         </div>
         <div>
-          <span class="t14500">
-             مقدار تخفیف:
-          </span>
+          <span class="t14500">مقدار تخفیف:</span>
           <span class="t14500 text-gray500 number-font"  v-if="voucherDetail?.discount_type === 'percent'">
               {{ voucherDetail?.discount }} %
-          </span> <span class="t14500 text-gray500 number-font"  v-else>
+          </span>
+          <span class="t14500 text-gray500 number-font"  v-else>
               {{  voucherDetail?.discount  }} ریال
           </span>
         </div>
@@ -48,8 +37,6 @@
           justify="end"
           align="center"
           class="px-10 py-5">
-
-
         <v-col cols="6">
           <v-row justify="end">
 
@@ -79,19 +66,32 @@
 </template>
 <script>
 import Table from "@/components/Voucher/Table/VoucherDatailTable.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import Voucher from '@/composables/Voucher'
 export default {
   setup() {
-    const {headerShps ,getVoucherShps,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail} = new Voucher()
-    return {headerShps,getVoucherShps,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail}
+    const {
+      headerShps,
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail
+    } = new Voucher()
+    return {
+      headerShps,
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail
+    }
   },
-  components: {
-    Table,
-    ModalTableFilter
-  },
+  components: {Table},
+
   mounted() {
     this.getVoucherShps()
     this.getVoucherDetail()

@@ -27,7 +27,7 @@ export default function setup() {
     const filterField =  [
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
-        { name: 'نوع ', type: 'select', value: 'active' },
+        { name: 'نوع ', type: 'select', value: 'type' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
     ];
@@ -40,15 +40,11 @@ export default function setup() {
 
     async function getAttributes (query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `product/attribute/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `product/attribute/crud/index`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -112,15 +108,6 @@ export default function setup() {
        router.push('/attributes/index'+ filter.query_maker())
     }
 
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getAttributes(to)
-    })
-    
     watch(page, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true

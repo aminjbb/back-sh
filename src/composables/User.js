@@ -40,7 +40,7 @@ export default function setup() {
         { name: 'نام', type:'text', value:'first_name'},
         { name: 'نام خانوادگی', type:'text', value:'last_name'},
         { name:'شماره موبایل', type: 'text', value:'phone_number'},
-        { name: 'ایمیل', type:'select', value:'email'},
+        // { name: 'ایمیل', type:'select', value:'email'},
     ];
     const filterFieldWallet = [
 
@@ -105,18 +105,13 @@ export default function setup() {
         }
     };
 
-    async function getUserList (query) {
-        let paramsQuery = null
+    async function getUserList () {
         loading.value = true
-        if (query){
-            if (query.query.page)   page.value = parseInt(query.query?.page)
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        AxiosMethod.form = {...route.query}
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `user/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `user/crud/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -127,7 +122,7 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    };
+    }
 
     async function getTransactionList (query) {
         let paramsQuery = null

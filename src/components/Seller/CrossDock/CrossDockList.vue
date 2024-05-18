@@ -21,9 +21,14 @@
 
         <v-col cols="6">
           <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+            <ModalColumnFilter
+                :changeHeaderShow="changeHeaderShow"
+                :header="header" />
 
-            <ModalTableFilter :path="`seller/${$route.params.sellerId}/cross-dock/index`" :filterField="filterFieldAllRetail" />
+            <PanelFilter
+                :path="`seller/${$route.params.sellerId}/cross-dock/index`"
+                :filterField="filterFieldAllRetail"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -67,16 +72,17 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+               <span class="ml-5">
+                 تعداد سطر در هر صفحه
+               </span>
+
               <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]" />
-                            </span>
+                 <v-select
+                     v-model="dataTableLength"
+                     class="t1330"
+                     variant="outlined"
+                     :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -93,6 +99,7 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup(props) {
     const {
@@ -124,6 +131,7 @@ export default {
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalTableFilter,
@@ -172,7 +180,6 @@ export default {
     },
     $route(){
       this.getCrossDockListing();
-
     }
   }
 }
