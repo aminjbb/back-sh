@@ -608,10 +608,31 @@ export default {
       this.values.push(form)
     })
 
-    this.getProvince();
-    this.getAllSuppliers();
-    this.getAdmins();
-    this.getAllMenu()
+    if (this.path === 'menu/index') {
+      this.getAllMenu()
+    }
+
+    else if (
+        this.path === 'supplier/index' ||
+        this.path === 'seller/index' ||
+        this.path === 'voucher/index' ||
+        this.path === 'orders/manual-order-list' ||
+        this.path === 'orders/index' ||
+        this.path === 'returned-orders/index') {
+      this.getProvince()
+    }
+
+    else if (this.path === 'factor/index' ||
+        this.path === 'retail-shipment/index' ||
+        this.path === 'shipment-requests/index' ||
+        this.path === 'withdraw-request/index' ||
+        this.path === 'wastage/index' ||
+        this.path === 'lost/index') {
+      this.getAdmins()
+      if (this.path === 'wastage/index' || this.path === 'lost/index'|| this.path === 'factor/index') {
+        this.getAllSuppliers()
+      }
+    }
   },
 
   computed: {
