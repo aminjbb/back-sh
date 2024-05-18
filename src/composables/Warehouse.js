@@ -5,6 +5,7 @@ import {UserPanelFilter} from "@/assets/js/filter_user";
 import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 
 export default function setup() {
+    const pickUpTask = ref([]);
     const warehouseList = ref([]);
     const warehouseExitCapacityList = ref([]);
     const dataTableLength = ref(25)
@@ -22,6 +23,18 @@ export default function setup() {
         {name:'ظرفیت مارکت' , show:true, value:'market_storage_count', order: false},
         {name:'ظرفیت Retail' , show:true, value:'retail_storage_count', order: false},
         {name:'وضعیت' , show:true, value:'is_active', order: false},
+    ];
+    const pickupHeader = [
+        {name:'ردیف' , show:true, value:null, order: false},
+        {name:'شناسهshps' , show:true, value:'shps', order: false},
+        {name:'جایگاه' , show:true, value:'placement', order: false},
+        {name:'وضعیت' , show:true, value:'status', order: false},
+        {name:'شماره نوبت' , show:true, value:'turn', order: false},
+        {name:'تعداد' , show:true, value:'count', order: false},
+        {name:'اولویت' , show:true, value:'priority', order: false},
+        {name:'ذخیره' , show:true, value:'save', order: false},
+        {name:'سفارشات' , show:true, value:'orders', order: false},
+
     ];
     
     const SpecialCapacityHeader = [
@@ -81,6 +94,18 @@ export default function setup() {
             loading.value = false
         }
     };
+    async function getPickUpTask(form) {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.form = form
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `warehouse/order/pickup/index`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pickUpTask.value = data.data.data
+            pageLength.value = data.data.last_page
+        }
+    };
 
     function addPagination(page){
         filter.page = page
@@ -112,5 +137,5 @@ export default function setup() {
 
     return {pageLength, getWarehouseList, warehouseList, filterField, dataTableLength, page, header, addPagination,
         addPerPage,SpecialCapacityHeader, loading, getWarehouseExitCapacityList, warehouseExitCapacityList,
-        exitCapacityPageLength}
+        exitCapacityPageLength , pickupHeader , getPickUpTask ,pickUpTask}
 }

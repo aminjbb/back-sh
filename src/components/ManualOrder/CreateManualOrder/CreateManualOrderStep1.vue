@@ -26,7 +26,7 @@
 
         <v-col cols="1" align-self="end">
           <v-btn
-              :disabled="orderId"
+              :disabled="!orderId"
               @click="$router.push(`/orders/user/${orderId}/manual-order`)"
               rounded
               color="primary400"

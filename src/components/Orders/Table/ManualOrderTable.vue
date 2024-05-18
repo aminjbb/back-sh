@@ -380,6 +380,11 @@ export default {
     },
 
 
+    returnTrueOrFalse(data) {
+      if (data === 1) return true
+      else return false
+    },
+
     /**
      * Return odd index
      * @param {*} index
@@ -395,6 +400,7 @@ export default {
     removeItem (index) {
 
       this.items.splice(index,1)
+      this.values.splice(index,1)
 
     },
   },
