@@ -49,6 +49,7 @@
           this.detail = data.data
           setTimeout(() => {
             var myElement = document.getElementById('printableArea-shipmentBarcode');
+            window.onafterprint = function() {window.close()};
             window.print(myElement);
           }, 1000);
         }

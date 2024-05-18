@@ -21,11 +21,13 @@
               variant="outlined"
               name="filter.value"
               hide-details
-              v-model="userId" />
+              v-model="orderId" />
         </v-col>
 
         <v-col cols="1" align-self="end">
           <v-btn
+              :disabled="!orderId"
+              @click="$router.push(`/orders/user/${orderId}/manual-order`)"
               rounded
               color="primary400"
               variant="elevated">ذخیره</v-btn>
@@ -146,7 +148,7 @@ export default {
       address:null,
       userSearchList:[],
       user:null,
-      userId: null,
+      orderId: null,
       description: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
       valid: false,
@@ -218,8 +220,15 @@ export default {
     },
 
     address(newVal){
-      this.getSendingMethods(newVal)
-      this.$emit('selectedAddress',newVal)
+      if (newVal){
+        this.getSendingMethods(newVal)
+
+        this.$emit('selectedAddress',newVal)
+      }
+      else {
+        this.sendingMethodList = []
+      }
+
     }
   }
 }

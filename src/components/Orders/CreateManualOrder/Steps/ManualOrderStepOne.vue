@@ -28,11 +28,6 @@
           />
         </v-col>
 
-
-
-
-
-
         <v-col cols="6">
           <div  class="text-right my-2">
                 <span class="t14500 text-gray600">
@@ -190,8 +185,6 @@ export default {
     user:null,
     userId: null,
     userSearchList:[],
-    description: '',
-    sendingMethod: '',
     labels: {
       phoneNumber: "شماره تماس",
       orderId: 'شماره سفارش',
@@ -202,7 +195,7 @@ export default {
       id: null,
       userId:'',
       phoneNumber: null,
-      sendingMethod: [],
+      sendingMethod: null,
       userAddress: '',
       orderId: '',
       description: '',
@@ -282,13 +275,6 @@ export default {
       }
     },
   },
-  mounted() {
-    if (this.$store.getters['get_manualOrderStep1'] != null) {
-      this.form = this.$store.getters['get_manualOrderStep1']
-    }
-
-
-  },
   computed:{
     userList(){
       try {
@@ -325,8 +311,23 @@ export default {
     },
 
     'form.userAddress': function (newVal, oldVal){
-      this.getSendingMethods(newVal)
+      if (newVal){
+        this.$emit('selectAddress' , newVal)
+        this.getSendingMethods(newVal)
+      }
+      else{
+        this.sendingMethodList = []
+      }
 
+
+    },
+    'form.description': function (newVal, oldVal){
+      if (newVal){
+        this.$emit('selectDescription' , newVal)
+      }
+    },
+    'form.sendingMethod': function (newVal, oldVal){
+      this.$emit('selectedSendingMethod',newVal)
     },
   },
 }

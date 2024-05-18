@@ -48,7 +48,7 @@
       <v-divider/>
       <v-card-actions class="pb-3">
         <v-row class="px-5 py-2" justify="end">
-          <ModalRejectOrder/>
+          <ModalRejectOrder :orderId="orderId" :accept="accept"/>
         </v-row>
       </v-card-actions>
     </v-card>

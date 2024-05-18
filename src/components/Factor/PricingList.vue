@@ -1,6 +1,24 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+  <v-card
+      height="70"
+      class="ma-5 br-12 stretch-card-header-70"
+  >
+    <v-row
+        justify="start"
+        align="center"
+        class="px-10 py-5"
+    >
+      <v-col cols="2">
+        <ModalGroupAdd
+
+            getEndPoint="factor/csv/get/template"
+            :uploadEndpoint="`factor/csv/bulk/update/${$route.params.id}`"
+        />
+      </v-col>
+    </v-row>
+  </v-card>
+  <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
             class="flex-grow-1"
             :header="pricingHeader"
@@ -76,7 +94,10 @@
 
             <v-divider class="mb-5 mt-2" />
 
-            <v-row justify="end" class="px-8 w-100">
+            <v-row justify="space-between" class="px-8 w-100">
+              <v-col cols="3">
+                <ModalExcelDownload :getEndPoint="`factor/csv/get/shps/${$route.params.id}`" />
+              </v-col>
                 <v-btn
                     @click="$router.go(-1)"
                     variant="outlined"
@@ -97,6 +118,8 @@ import {
 } from "@/assets/js/functions";
 import Table from '@/components/Factor/Table/PricingTable.vue'
 import Factor from "@/composables/Factor";
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 export default {
     data() {
         return {
@@ -123,6 +146,8 @@ export default {
     },
 
     components: {
+      ModalGroupAdd,
+      ModalExcelDownload,
         Table,
     },
 

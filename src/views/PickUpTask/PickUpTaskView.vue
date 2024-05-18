@@ -1,15 +1,15 @@
 <script setup>
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import SystemVariableLsit from '@/components/System/SystemVariableLsit.vue'
+import PickUpTaskList from '@/components/PickUpTask/PickUpTaskList.vue'
 </script>
 
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main class="vh-100">
+    <v-main class="h-100vh">
       <Header />
-      <SystemVariableLsit />
+      <PickUpTaskList/>
     </v-main>
   </v-layout>
 </template>

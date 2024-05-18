@@ -67,12 +67,19 @@
                 </div>
 
                 <div
-                    v-if="item.label && header[1].show"
+                    v-if=" header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                   <template v-if="item.label != null">
+                      <span class="t14300 text-gray500 py-5" >
                         {{ item.label }}
                     </span>
+                   </template>
+                    <template  v-else>
+                        <span class="t14300 text-gray500 py-5">
+                        ---
+                    </span>
+                    </template>
                 </div>
 
                 <div
