@@ -296,32 +296,20 @@
       createOrdering(index, order) {
         if (order === true) {
           if (index) {
+            let query = this.$route.query
             if (this.order_type === 'desc') {
               this.order_type = 'asc'
-  
-              if (this.model === 'sku') {
-                this.skuPanelFilter.order_type = 'asc'
-              } else {
-                this.panelFilter.order_type = 'asc'
-              }
             } else {
               this.order_type = 'desc'
-  
-              if (this.model === 'sku') {
-                this.skuPanelFilter.order_type = 'desc'
-              } else {
-                this.panelFilter.order_type = 'desc'
+            }
+            this.$router.replace({
+              query: {
+                ...query,
+                order_type :this.order_type,
+                order :index
               }
-            }
-  
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order = index
-              this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-            } else {
-              this.panelFilter.order = index
-              this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-            }
-  
+            })
+
             this.ordering = {};
             this.ordering[index] = !this.ordering[index];
           }

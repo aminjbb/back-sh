@@ -588,36 +588,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-                if (index) {
-                    if (this.order_type === 'desc') {
-                        this.order_type = 'asc'
-
-                        if (this.model === 'sku') {
-                            this.skuPanelFilter.order_type = 'asc'
-                        } else {
-                            this.panelFilter.order_type = 'asc'
-                        }
-                    } else {
-                        this.order_type = 'desc'
-
-                        if (this.model === 'sku') {
-                            this.skuPanelFilter.order_type = 'desc'
-                        } else {
-                            this.panelFilter.order_type = 'desc'
-                        }
-                    }
-
-                    if (this.model === 'sku') {
-                        this.skuPanelFilter.order = index
-                        this.$router.push(this.$route.path + this.skuPanelFilter.query_maker(this.$route.query))
-                    } else {
-                        this.panelFilter.order = index
-                        this.$router.push(this.$route.path + this.panelFilter.query_maker(this.$route.query))
-                    }
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
+              if (index) {
+                let query = this.$route.query
+                if (this.order_type === 'desc') {
+                  this.order_type = 'asc'
+                } else {
+                  this.order_type = 'desc'
                 }
+                this.$router.replace({
+                  query: {
+                    ...query,
+                    order_type :this.order_type,
+                    order :index
+                  }
+                })
+
+                this.ordering = {};
+                this.ordering[index] = !this.ordering[index];
+              }
             }
 
         },
