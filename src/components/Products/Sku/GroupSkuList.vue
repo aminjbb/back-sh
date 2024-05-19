@@ -30,14 +30,14 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <SkuModalTableFilter 
-                            :path="`product/get/skus/index`" 
-                            :filterField="filterField"
-                            :brandsList="brandsList" 
-                            :colorsList="colorsList"
-                            :categoriesList="categoriesList"
-                            show-category
-                        />
+<!--                        <SkuModalTableFilter -->
+<!--                            :path="`product/get/skus/index`" -->
+<!--                            :filterField="filterField"-->
+<!--                            :brandsList="brandsList" -->
+<!--                            :colorsList="colorsList"-->
+<!--                            :categoriesList="categoriesList"-->
+<!--                            show-category-->
+<!--                        />-->
                     </v-row>
                 </v-col>
             </v-row>

@@ -23,10 +23,10 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <ModalTableFilter 
-                            :path="`product/get/skugroups/index`" 
-                            :filterField="filterField"
-                        />
+<!--                        <ModalTableFilter -->
+<!--                            :path="`product/get/skugroups/index`" -->
+<!--                            :filterField="filterField"-->
+<!--                        />-->
                     </v-row>
                 </v-col>
             </v-row>

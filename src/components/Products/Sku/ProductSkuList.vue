@@ -35,14 +35,14 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <SkuModalTableFilter 
-                            :path="`product/get/${$route.params.productId}/sku/index`" 
-                            :filterField="filterField"
-                            :brandsList="brandsList" 
-                            :colorsList="colorsList"
-                            :categoriesList="categoriesList"
-                            :disable-category = true
-                        />
+<!--                        <SkuModalTableFilter -->
+<!--                            :path="`product/get/${$route.params.productId}/sku/index`" -->
+<!--                            :filterField="filterField"-->
+<!--                            :brandsList="brandsList" -->
+<!--                            :colorsList="colorsList"-->
+<!--                            :categoriesList="categoriesList"-->
+<!--                            :disable-category = true-->
+<!--                        />-->
                     </v-row>
                 </v-col>
      

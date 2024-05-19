@@ -88,7 +88,6 @@
 <script>
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/Public/ModalTableFilter.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import RolePermission from "@/composables/RolePermission";
@@ -118,7 +117,6 @@ export default {
         };
     },
     components: {
-        ModalTableFilter,
         ModalExcelDownload,
         ModalGroupAdd,
         ModalColumnFilter,

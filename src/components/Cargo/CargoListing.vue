@@ -81,7 +81,6 @@
 <script>
 //Components
 import Table from '@/components/Cargo/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
@@ -91,7 +90,6 @@ export default {
   components: {
     Table,
     CreateCargo,
-    ModalTableFilter,
     ModalColumnFilter,
   },
 

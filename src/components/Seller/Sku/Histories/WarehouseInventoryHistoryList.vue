@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterField" />
+<!--            <ModalTableFilter path="seller/index" :filterField="filterField" />-->
 
             <PanelFilter
                 path="seller/index"

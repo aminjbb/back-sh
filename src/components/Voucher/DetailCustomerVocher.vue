@@ -53,7 +53,7 @@
         <v-col cols="6">
           <v-row justify="end">
 
-            <ModalTableFilter path="admin/index" :filterField="[]"/>
+<!--            <ModalTableFilter path="admin/index" :filterField="[]"/>-->
           </v-row>
         </v-col>
       </v-row>

@@ -113,58 +113,17 @@
 
 <script>
 import Table from '@/components/PromotionPages/Table/PromotionPageTable.vue'
-<<<<<<< HEAD
-import PromotionPage from "@/composables/PromotionPage"
-=======
 import PromotionPage from "@/composables/PromotionPage";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
->>>>>>> develop
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup() {
-<<<<<<< HEAD
     const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}=new PromotionPage()
     return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}
-=======
-    const {
-      getPromotionShpsList,
-      promotionShpsList,
-      pageLengthShpsList,
-      promotion ,
-      promotions ,
-      getPromotion ,
-      getPromotions,
-      pageLength,
-      filterField ,
-      addPerPage,
-      dataTableLength,
-      promotionPage,
-      header,
-      loading ,
-      skuGroupHeader
-    }=new PromotionPage()
 
-    return{
-      getPromotionShpsList,
-      promotionShpsList,
-      pageLengthShpsList,
-      promotion ,
-      promotions ,
-      getPromotion ,
-      getPromotions,
-      pageLength,
-      filterField ,
-      addPerPage,
-      dataTableLength,
-      promotionPage,
-      header,
-      loading ,
-      skuGroupHeader
-    }
->>>>>>> develop
   },
   data(){
     return{
@@ -174,10 +133,7 @@ export default {
   components: {
     Table,
     ModalGroupAdd,
-<<<<<<< HEAD
-=======
     ModalColumnFilter,
->>>>>>> develop
     ModalExcelDownload,
   },
 

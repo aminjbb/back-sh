@@ -85,7 +85,6 @@ import Table from '@/components/DepositRequest/Table/Table.vue'
 import WithdrawRequests from "@/composables/DepositRequest";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import ModalTableFilter from '@/components/DepositRequest/Filter/Filter.vue'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 
@@ -140,7 +139,6 @@ export default {
   components: {
     PanelFilter,
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },
