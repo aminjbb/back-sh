@@ -418,6 +418,7 @@ export default {
     watch:{
 
       items(val){
+        this.isBan =[]
         val.forEach(admin => {
           if (admin.is_ban === 1)  this.isBan.push(true)
           else this.isBan.push(false)

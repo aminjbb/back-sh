@@ -53,6 +53,7 @@
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
+          banPath="user/crud/update/ban/"
           editUrl="/user/edit/"
           deletePath="user/crud/delete/"
       />

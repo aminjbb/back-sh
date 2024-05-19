@@ -9,7 +9,6 @@
           :volumeList="volumeList"
           :brandList="brandList"
           :colorList="colorList"
-
           :operatorList="operatorList"
           ref="skuForm1"
           :state="createSkuState"
@@ -551,9 +550,9 @@ export default {
     this.getOperator(filterPerPag)
     this.getVolume(filterPerPag)
     this.getSize(filterPerPag)
-    if (this.$route.name === "createProduct"){
-      this.getOneProduct(this.$route.params.productId)
-    }
+    // if (this.$route.name === "createProduct"){
+    //   this.getOneProduct(this.$route.params.productId)
+    // }
     if ( this.$route.name === "createProductSkuGroup"){
       this.getOneProduct(this.$route.params.productId)
       this.getSkuGroup(this.$route.params.skuGroupId)
