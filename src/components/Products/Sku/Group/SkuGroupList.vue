@@ -108,6 +108,11 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table,
@@ -134,7 +139,6 @@ export default {
         const {
         pageLength,
           allSkuGroups,
-          addPerPage,
           getAllSkuGroups,
           dataTableLength,
           page,
@@ -147,7 +151,6 @@ export default {
         return {
           pageLength,
           allSkuGroups,
-          addPerPage,
           getAllSkuGroups,
           dataTableLength,
           page,
@@ -171,12 +174,11 @@ export default {
     },
 
     watch: {
-
       $route(){
         this.getAllSkuGroups()
       },
 
-        confirmModal(val) {
+      confirmModal(val) {
           if (this.$cookies.get('deleteItem')) {
             if (!val){
               this.getAllSkuGroups();
@@ -184,9 +186,33 @@ export default {
           }
         },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getAllSkuGroups()
+        }
+      }
     },
 
     methods: {

@@ -77,6 +77,11 @@ import ActivePackage from "@/composables/ActivePackage";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup() {
       const typeList= [
         {
@@ -118,8 +123,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = ActivePackage();
         return {
@@ -130,8 +133,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading,
             typeList,
             statusListPackage
@@ -166,8 +167,31 @@ export default {
     },
 
     watch: {
-      dataTableLength(val) {
-        this.getPackageList(val)
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getPackageList()
+        }
       },
 
       $route(){

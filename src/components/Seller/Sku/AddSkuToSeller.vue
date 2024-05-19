@@ -57,7 +57,10 @@
                   :filterField="filterFieldSku"
                   show-category
                   model="sellerSku"
-                  :statusItems="status"/>
+                  :statusItems="status"
+                  :page="skuPage"
+                  :perPage="addSkuSellerPerPage"
+              />
             </v-row>
           </v-col>
       </v-row>
@@ -180,7 +183,8 @@ export default {
 
   data(){
     return{
-      skuSearchList:[]
+      skuSearchList:[],
+      perPageFilter:false
     }
   },
 
@@ -283,8 +287,31 @@ export default {
   },
 
   watch: {
-    dataSkuTableLength(val) {
-      this.addSkuSellerPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getSkuSeller()
+      }
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {

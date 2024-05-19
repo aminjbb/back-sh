@@ -38,11 +38,25 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getAttributes (query) {
+    async function getAttributes () {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `product/attribute/crud/index`
 
@@ -90,31 +104,8 @@ export default function setup() {
         else {
             loading.value = false
         }
-    };
-
-    function addPerPage(number){
-
-        filter.page = 1;
-        page.value = 1;
-        filter.per_page = number
-        
-       router.push('/attributes/index'+ filter.query_maker())
     }
 
-    function addPagination(page){
-
-        filter.page = page
-        filter.per_page = dataTableLength.value
-       router.push('/attributes/index'+ filter.query_maker())
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength, attributes,addPerPage, getAttributes ,getAllAttributes, getProductAttributes , dataTableLength , page  , header , item , filterField , loading}
+    return {pageLength, attributes, getAttributes ,getAllAttributes, getProductAttributes , dataTableLength , page  , header , item , filterField , loading}
 }
 
