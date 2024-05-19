@@ -71,8 +71,23 @@ export default function setup() {
     async function getAdminList() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/crud/index/`
         let data = await AxiosMethod.axios_get()
@@ -86,26 +101,7 @@ export default function setup() {
             } , 2000)
         }
     };
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-       router.push('/admin/index/'+ filter.query_maker(route.query))
 
-    }
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/admin/index'+ filter.query_maker(route.query))
-    }
-
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength, admin, getAdmins , getAdminList, adminList, filterField, dataTableLength , page  , header ,addPagination , addPerPage , adminForEdit , getAdmin, loading}
+    return {pageLength, admin, getAdmins , getAdminList, adminList, filterField, dataTableLength , page  , header , adminForEdit , getAdmin, loading}
 }
 

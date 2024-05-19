@@ -30,6 +30,8 @@
                 :statusItems="activeFilter"
                 :voucherAmountTypes="voucherAmountTypes"
                 :sendingItems="sendingItems"
+                :page="page"
+                :perPage="dataTableLength"
             />
           </v-row>
         </v-col>
@@ -100,7 +102,7 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   data() {
     return {
-
+      perPageFilter:false
     }
   },
 
@@ -159,14 +161,12 @@ export default {
       headerVouchers,
       filterField,
       page,
-      voucherList
-      ,dataTableLength,
+      voucherList,
+      dataTableLength,
       pageLength,
       getVoucherList,
       indexFilterField,
-      addPerPage,
-      addPagination
-    } = Voucher();
+    } = Voucher()
     return {
       headerVouchers ,
       filterField ,
@@ -176,13 +176,11 @@ export default {
       pageLength ,
       getVoucherList ,
       indexFilterField ,
-      addPerPage,
-      addPagination,
       voucherTypes,
       voucherAmountTypes,
       activeFilter,
       sendingItems
-    };
+    }
   },
 
   components: {
@@ -227,15 +225,35 @@ export default {
         }
       }
     },
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
     $route(to){
       this.getVoucherList(to)
 
     },
-    page(val){
-     this.addPagination(val)
+    page(){
+      if (!this.perPageFilter){
+        this.getVoucherList()
+      }
     }
   }
 }

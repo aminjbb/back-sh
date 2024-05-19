@@ -112,6 +112,11 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table,
@@ -139,7 +144,6 @@ export default {
         pageLength,
           filterField,
           brand,
-          addPerPage,
           getBrands,
           dataTableLength,
           page,
@@ -151,7 +155,6 @@ export default {
           pageLength,
           filterField,
           brand,
-          addPerPage,
           getBrands,
           dataTableLength,
           page,
@@ -179,7 +182,7 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
+      confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
                 if (!val) {
                     this.getBrands();
@@ -188,12 +191,36 @@ export default {
             }
         },
 
-      dataTableLength(val) {
-        this.addPerPage(val)
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
       },
 
       $route(){
         this.getBrands()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getBrands()
+        }
       }
     }
 }

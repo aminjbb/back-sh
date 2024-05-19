@@ -42,6 +42,8 @@
                           path="product/index"
                           :filterField="filterField"
                           :statusItems="activeStatus"
+                          :page="page"
+                          :perPage="dataTableLength"
                       />
                     </v-row>
                 </v-col>
@@ -128,6 +130,12 @@ export default {
         ModalExcelDownload
     },
 
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
     setup() {
       const activeStatus = ref([
         {
@@ -146,7 +154,6 @@ export default {
         const {
         pageLength,
           product,
-          addPerPage,
           getProduct,
           dataTableLength,
           page,
@@ -158,7 +165,6 @@ export default {
         return {
           pageLength,
           product,
-          addPerPage,
           getProduct,
           dataTableLength,
           page,
@@ -197,12 +203,36 @@ export default {
             }
         },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
 
       $route(){
         this.getProduct()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getProduct()
+        }
       }
     },
 

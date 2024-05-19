@@ -101,6 +101,11 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
     const status = [
       {
@@ -168,7 +173,6 @@ export default {
       loading,
       manualOrderList,
       getManualOrderList,
-      addPerPage
     } = ManualOrders()
 
     return {
@@ -180,7 +184,6 @@ export default {
       manualOrderList,
       filterField,
       getManualOrderList,
-      addPerPage,
       status,
       paymentStatus,
       paymentMethods,
@@ -207,8 +210,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getManualOrderList()
+      }
     },
     $route(){
       this.getManualOrderList()

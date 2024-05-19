@@ -554,6 +554,8 @@ export default {
     skuGroupList:[],
     disableCategory: false,
     path: '',
+    page:Number,
+    perPage:Number
   },
 
   setup(){
@@ -780,7 +782,7 @@ export default {
 
   methods: {
     setFilter() {
-      let params = '?';
+      let params = '?'
       let fullPath = this.$route.path;
 
       this.values.forEach((el) => {

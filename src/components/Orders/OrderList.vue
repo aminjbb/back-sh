@@ -87,6 +87,11 @@ import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup(props) {
       const status = [
         {
@@ -153,8 +158,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = Orders();
         return {
@@ -165,8 +168,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading,
             status,
             paymentStatus,
@@ -204,9 +205,32 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getOrderList()
+        }
+      },
       $route(){
         this.getOrderList()
       }

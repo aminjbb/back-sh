@@ -50,8 +50,22 @@ export default function setup() {
         filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/upcoming/`
         let data = await AxiosMethod.axios_get()
@@ -64,29 +78,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/up-coming/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/up-coming/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {
-        pageLength, filterField,upComingList ,addPerPage, getUpComingList,
+        pageLength, filterField,upComingList, getUpComingList,
         dataTableLength, page, header, loading
     }
 }

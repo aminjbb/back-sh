@@ -27,7 +27,9 @@
           <v-row justify="end">
             <PanelFilter
                 :path="`free-delivery/${$route.params.freeDeliveryId}/orderList`"
-                :filterField="filterFieldCOrderList" />
+                :filterField="filterFieldCOrderList"
+                :page="page"
+                :perPage="dataTableLength"/>
           </v-row>
         </v-col>
 
@@ -126,6 +128,7 @@ export default {
   data() {
     return{
       freeDeliveryId:this.$route.params.freeDeliveryId,
+      perPageFilter:false
     }
   },
 
@@ -142,6 +145,32 @@ export default {
   watch:{
     $route(){
       this.geOrderList()
+    },
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.geOrderList()
+      }
     }
   }
 }

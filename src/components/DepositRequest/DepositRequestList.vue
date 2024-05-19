@@ -90,6 +90,11 @@ import { openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
     const status = [
       {
@@ -163,8 +168,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getWithdrawRequestList()
+      }
     },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {

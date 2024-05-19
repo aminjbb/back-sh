@@ -35,7 +35,10 @@
 
             <PanelFilter
                 path="user/index"
-                :filterField="filterField"/>
+                :filterField="filterField"
+                :page="page"
+                :perPage="dataTableLength"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -121,7 +124,6 @@ export default {
       userList ,
       getUserList ,
       filterField ,
-      addPerPage
     } = User();
     return {
       pageLength,
@@ -132,8 +134,7 @@ export default {
       header ,
       userList ,
       getUserList ,
-      filterField ,
-      addPerPage
+      filterField
     };
   },
   components:{
@@ -143,6 +144,13 @@ export default {
     ModalColumnFilter,
     Table
   },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
   mounted() {
     this.$store.commit('set_avatar' , null)
     this.getUserList()
@@ -160,9 +168,28 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -173,6 +200,12 @@ export default {
     },
     $route(to){
       this.getUserList(to)
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getUserList()
+      }
     }
   }
 }

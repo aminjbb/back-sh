@@ -68,8 +68,22 @@ export default function setup() {
     async function getSkues() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
 
         if(route.name === 'groupSkuList'){
@@ -148,8 +162,22 @@ export default function setup() {
     async function getAllSkuGroups() {
         skuGroupLoading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         
 
@@ -185,29 +213,9 @@ export default function setup() {
         if (data) {
             skuGroupDetail.value = data.data
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push(route.path + filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path + filter.params_generator(route.query))
-    }
-
-    watch(page, function (val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-
-    return { pageLength, skues, sku, getSkue, addPerPage, getSkues, allSkus, skuGroupLoading, getSkuGroups, skuGroups ,getSkuGroup, skuGroup,
+    return { pageLength, skues, sku, getSkue, getSkues, allSkus, skuGroupLoading, getSkuGroups, skuGroups ,getSkuGroup, skuGroup,
         getSkuGroupDetail, skuGroupDetail, dataTableLength, page, header, item, filterField, loading, skuGroupsHeader, getAllSkuGroups, allSkuGroups ,
         getShpssDetail ,shpssDetail}
 }

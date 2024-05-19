@@ -135,6 +135,7 @@ export default {
       filteredCargoData: [],
       closePackageLoading :false,
       shps_s: null,
+      perPageFilter:false
     }
   },
 
@@ -172,8 +173,6 @@ export default {
       dataTableLength,
       page,
       header,
-      addPagination,
-      addPerPage,
       loading,
     } = Wastage();
     return {
@@ -184,8 +183,6 @@ export default {
       dataTableLength,
       page,
       header,
-      addPagination,
-      addPerPage,
       loading,
       typeList,
       shipmentTypes
@@ -252,11 +249,31 @@ export default {
         }
       }
     },
-    dataTableLength(val) {
-      this.getWasteAndLostList(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    page(val){
-      this.addPagination(val)
+    page(){
+      if (!this.perPageFilter){
+        this.getWasteAndLostList()
+      }
     },
 
     $route(){

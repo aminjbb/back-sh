@@ -90,6 +90,11 @@ import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
     const status= [
       {
@@ -146,7 +151,6 @@ export default {
       getRetailShipmentList,
       retailShipments,
       pageLength,
-      addPerPage,
       dataTableLength,
       page,
       header,
@@ -158,7 +162,6 @@ export default {
       getRetailShipmentList,
       retailShipments,
       pageLength,
-      addPerPage,
       dataTableLength,
       page,
       header,
@@ -193,8 +196,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getRetailShipmentList()
+      }
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {

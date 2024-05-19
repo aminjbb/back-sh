@@ -146,8 +146,22 @@ export default function setup(posts) {
     async function getSellerList() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `seller/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -174,8 +188,22 @@ export default function setup(posts) {
     async function getSkuSeller() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+       if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index`
         let data = await AxiosMethod.axios_get()
@@ -255,23 +283,7 @@ export default function setup(posts) {
             } , 2000)
         }
     }
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/seller/index/'+ filter.params_generator(route.query))
 
-    }
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/seller/index'+ filter.params_generator(route.query))
-    }
-
-    function addSkuPerPage(number){
-        skuFilter.page = 1
-        skuFilter.per_page =number
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
     function addSkuSellerPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
@@ -283,11 +295,6 @@ export default function setup(posts) {
         router.push(route.path + skuSellerFilter.params_generator(route.query))
     }
 
-    function addSkuPagination(page){
-        skuFilter.page = page
-        skuFilter.per_page = dataTableLength.value
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
     function priceHistoryPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
@@ -299,18 +306,6 @@ export default function setup(posts) {
         router.push(route.path + skuFilter.params_generator(route.query))
     }
 
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-    watch(skuPage, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addSkuPagination(val)
-        }
-    })
     watch(priceHistoryPage, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true
@@ -332,8 +327,8 @@ export default function setup(posts) {
 
     return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
         getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
-        headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
+        headerWarehouseInventoryHistory,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
         getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
-        dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage ,
+        dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
         headerConsigment , addSkuSellerPerPage , skuSellerPage}
 }

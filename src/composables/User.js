@@ -108,8 +108,22 @@ export default function setup() {
     async function getUserList () {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `user/crud/index/`
         let data = await AxiosMethod.axios_get()
@@ -124,17 +138,27 @@ export default function setup() {
         }
     }
 
-    async function getTransactionList (query) {
-        let paramsQuery = null
+    async function getTransactionList () {
         loading.value = true
-        if (query){
-            paramsQuery = walletFilter.params_generator(query.query)
-        }
-        else  paramsQuery = walletFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `finance/admin/transaction/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `finance/admin/transaction/crud/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLengthWallet.value = data.data.last_page
@@ -145,43 +169,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    };
-
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path+ filter.query_maker(route.query))
-    }
-    
-    function addPaginationWallet(page){
-        walletFilter.page = page
-        walletFilter.per_page = dataTableLength.value
-        router.push(route.path+ walletFilter.params_generator(route.query))
     }
 
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push(route.path+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPaginationWallet(val)
-
-
-
-        }
-    })
-
-
-
-    return {pageLength, pageLengthWallet,  users, getUsers ,
-        dataTableLength , page  , header , userList ,
-        getUserList , filterField , filterFieldWallet, user , getUser , addPerPage,
-        getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList,
-        addPaginationWallet}
+    return {pageLength, pageLengthWallet,  users, getUsers , dataTableLength , page  , header , userList , getUserList ,
+        filterField , filterFieldWallet, user , getUser , getUserAddress , userAddress, headerTransaction,
+        getTransactionList, transactionList}
 }
 
