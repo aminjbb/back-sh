@@ -26,6 +26,7 @@ export default function setup() {
     const filterField = [
         {name:'نام انگلیسی' , type:'text', value:'name'},
         {name:'نام فارسی' , type:'text', value:'label'},
+        { name: 'شناسه دسته‌بندی', type: 'text', value: 'id' },
         {name:'فعال سازی ' , type:'select', value:'is_active'},
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},

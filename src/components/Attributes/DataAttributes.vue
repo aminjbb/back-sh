@@ -26,6 +26,7 @@
                 path="attributes/index"
                 :filterField="filterField"
                 :typeItems="typeStatus"
+                :statusItems="activeStatus"
             />
           </v-row>
         </v-col>
@@ -129,6 +130,20 @@ export default {
         value: 'description',
       }
     ])
+    const activeStatus = ref([
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ])
     const {
       pageLength,
       attributes,
@@ -150,7 +165,8 @@ export default {
       item,
       filterField,
       loading,
-      typeStatus
+      typeStatus,
+      activeStatus
     };
   },
 
