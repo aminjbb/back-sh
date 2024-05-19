@@ -32,7 +32,7 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerPriceHistory" />
 
-                    <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/price/${$route.params.skuId}`" :filterField="filterPriceHistory" />
+                    <PanelFilter :path="`seller/sku/${$route.params.sellerId}/history/price/${$route.params.skuId}`" :filterField="filterPriceHistory" />
                 </v-row>
             </v-col>
         </v-row>
@@ -99,9 +99,9 @@
 
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Seller from "@/composables/Seller";
 import Sku from "@/composables/Sku";
-import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/HistoryFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
@@ -141,7 +141,6 @@ export default {
 
     components: {
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

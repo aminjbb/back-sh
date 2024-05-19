@@ -172,8 +172,6 @@ export default {
     PanelFilter,
     ModalRetailShipmentDetail,
     Table,
-    ModalTableFilter,
-    ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
   },

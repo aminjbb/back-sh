@@ -40,7 +40,7 @@
         <v-col cols="6">
           <v-row justify="end">
 
-<!--            <ModalTableFilter path="admin/index" :filterField="[]"/>-->
+            <PanelFilter path="admin/index" :filterField="[]"/>
           </v-row>
         </v-col>
       </v-row>
@@ -66,6 +66,7 @@
 </template>
 <script>
 import Table from "@/components/Voucher/Table/VoucherDatailTable.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Voucher from '@/composables/Voucher'
 export default {
   setup() {

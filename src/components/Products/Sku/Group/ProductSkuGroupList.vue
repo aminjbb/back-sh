@@ -23,10 +23,10 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-<!--                        <ModalTableFilter -->
-<!--                            :path="`product/get/skugroups/index`" -->
-<!--                            :filterField="filterField"-->
-<!--                        />-->
+                        <PanelFilter 
+                            :path="`product/get/skugroups/index`"
+                            :filterField="filterField"
+                        />
                     </v-row>
                 </v-col>
             </v-row>
@@ -98,6 +98,7 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'

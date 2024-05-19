@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterFieldAllRetail" />
+            <PanelFilter path="seller/index" :filterField="filterFieldAllRetail" />
           </v-row>
         </v-col>
       </v-row>
@@ -80,7 +80,7 @@
 <script>
 import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
-import ModalTableFilter from '@/components/RetailShipment/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
@@ -96,7 +96,6 @@ export default {
 
   components: {
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

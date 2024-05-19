@@ -35,14 +35,14 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-<!--                        <SkuModalTableFilter -->
-<!--                            :path="`product/get/${$route.params.productId}/sku/index`" -->
-<!--                            :filterField="filterField"-->
-<!--                            :brandsList="brandsList" -->
-<!--                            :colorsList="colorsList"-->
-<!--                            :categoriesList="categoriesList"-->
-<!--                            :disable-category = true-->
-<!--                        />-->
+                        <PanelFilter
+                            :path="`product/get/${$route.params.productId}/sku/index`"
+                            :filterField="filterField"
+                            :brandsList="brandsList"
+                            :colorsList="colorsList"
+                            :categoriesList="categoriesList"
+                            :disable-category = true
+                        />
                     </v-row>
                 </v-col>
      
@@ -126,6 +126,7 @@ import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Sku from '@/composables/Sku';
 import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
 

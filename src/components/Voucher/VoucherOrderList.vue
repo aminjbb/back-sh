@@ -51,10 +51,10 @@
 
 
         <v-col cols="6">
-<!--          <v-row justify="end">-->
+          <v-row justify="end">
 
-<!--            <ModalTableFilter path="admin/index" :filterField="[]"/>-->
-<!--          </v-row>-->
+            <PanelFilter path="admin/index" :filterField="[]"/>
+          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -116,6 +116,8 @@
 import Table from "@/components/Voucher/Table/VoucherOrderTable.vue";
 import Voucher from '@/composables/Voucher'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 export default {
   data() {
     return {
