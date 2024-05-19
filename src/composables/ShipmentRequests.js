@@ -30,13 +30,13 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
-        { name:'تعداد آیتم' , type: 'text', value:'count_from' , place:'از'},
-        { name: 'تعداد آیتم', type:'text', value:'count_to' , place:'تا'},
+        {name:'شناسه محموله' , type:'text', value:'id' , place:'شناسه محموله'},
+        { name:'تعداد آیتم' , type: 'text', value:'shps_count_from' , place:'از'},
+        { name: 'تعداد آیتم', type:'text', value:'shps_count_to' , place:'تا'},
         { name: 'شناسه فاکتور', type:'text', value:'factor_id' , place:'شناسه فاکتور'},
-        { name: 'تنوع آیتم', type:'text', value:'number_from', place:'از'},
-        { name: 'تنوع آیتم', type:'text', value:'number_to', place:'تا'},
-        { name: 'نام سازنده', type:'auto-complete', value:'admin', place:'نام سازنده'},
+        { name: 'تنوع آیتم', type:'text', value:'shps_variety_from', place:'از'},
+        { name: 'تنوع آیتم', type:'text', value:'shps_variety_to', place:'تا'},
+        { name: 'نام سازنده', type:'auto-complete', value:'creator_id', place:'نام سازنده'},
         { name: 'تاریخ ارسال', type:'date', value:'created_at', place:'تاریخ ارسال'},
         { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
     ];
@@ -77,19 +77,27 @@ export default function setup() {
      * Get page list
      * @param {*} query 
      */
-    async function getShipmentRequestsList(query) {
-
-        let paramsQuery = null
+    async function getShipmentRequestsList() {
         filter.factor = route.params.factorId
-        loading.value = true
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `shipment/consignment/crud/requested/index/${paramsQuery}`
+        AxiosMethod.end_point = `shipment/consignment/crud/requested/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -103,29 +111,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
+         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList , getShipmentRequestsList,
         dataTableLength, page, header, loading, shipmentRequest
          }
 }

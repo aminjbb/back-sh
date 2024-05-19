@@ -33,10 +33,12 @@
                             :header="header"
                         />
 
-                        <ModalTableFilter
-                            path="ticket/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="ticket/index"
+                          :filterField="filterField"
+                          :statusItems="statusTicket"
+                          :priorityItems="priorityList"
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -103,26 +105,74 @@
 <script>
 //components
 import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
-import ModalTableFilter from '@/components/Ticket/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
     },
 
-    data() {
-        return {
-            
-        }
-    },
-
     setup() {
-        const { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets } = Ticket();
-        return { pageLength, filterField, addPerPage, dataTableLength, page, header, item ,loading, getTicketList, allTickets };
+      const statusTicket= [
+        {
+          label: 'همه وضعیت‌ها',
+          value: ''
+        },
+        {
+          label: 'باز',
+          value: 'open'
+        },
+        {
+          label: 'پاسخ داده شده',
+          value: 'answered'
+        },
+        {
+          label: 'بسته شده',
+          value: 'resolved'
+        },
+        {
+          label: 'متوقف شده',
+          value: 'postponed'
+        },
+        {
+          label: 'دیده شده',
+          value: 'seen'
+        }
+      ]
+      const priorityList= [
+        {
+          label: 'همه اولیوت‌ها',
+          value: ''
+        },
+        {
+          label: 'ضروری',
+          value: 'urgent'
+        },
+        {
+          label: 'پایین',
+          value: 'low'
+        },
+        {
+          label: 'بالا',
+          value: 'high'
+        },
+        {
+          label: 'متوسط',
+          value: 'medium'
+        }
+      ]
+
+      const { pageLength, filterField, dataTableLength, page, header, item ,loading, getTicketList, allTickets } = Ticket();
+        return { pageLength, filterField, dataTableLength, page, header, item ,loading, getTicketList, allTickets, statusTicket, priorityList };
     },
 
     mounted() {
@@ -147,9 +197,35 @@ export default {
     },
 
     watch: {
-      dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getTicketList()
+        }
+      },
+      $route(){
+        this.getTicketList()
+      }
     }
 }
 </script>

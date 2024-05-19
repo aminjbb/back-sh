@@ -9,7 +9,10 @@
 
             <v-col cols="6" class="mt-3">
                 <v-row justify="end">
-                    <ModalTableFilter path="placement/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="placement/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -72,9 +75,14 @@
 <script>
 import Table from '@/components/Placement/Table/Table.vue'
 import Placement from "@/composables/Placement";
-import ModalTableFilter from '@/components/Placement/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup() {
         const {
             pageLength,
@@ -99,8 +107,8 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
     },
 
     computed: {
@@ -124,9 +132,35 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.getPlacementList(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getPlacementList()
+        }
+      },
+      $route(){
+        this.getPlacementList()
+      }
     }
 }
 </script>

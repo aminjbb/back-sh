@@ -23,10 +23,11 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <ModalTableFilter 
-                            :path="`product/get/skugroups/index`" 
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          :path="`product/get/skugroups/index`"
+                          :filterField="filterField"
+                          :statusItems="activeStatus"
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -99,27 +100,67 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Sku from '@/composables/Sku';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalColumnFilter,
-        ModalExcelDownload,
-        ModalTableFilter,
+        ModalExcelDownload
     },
 
     setup() {
-        const { pageLength, allSkuGroups, addPerPage, getAllSkuGroups, dataTableLength, page, skuGroupsHeader, item, filterField, skuGroupLoading } = Sku();
+      const activeStatus = ref([
+        {
+          label: 'وضعیت',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+        const {
+        pageLength,
+          allSkuGroups,
+          getAllSkuGroups,
+          dataTableLength,
+          page,
+          skuGroupsHeader,
+          item,
+          filterField,
+          skuGroupLoading
+      } = Sku();
 
         return {
-            pageLength, allSkuGroups, addPerPage, getAllSkuGroups, dataTableLength, page, skuGroupsHeader, item, filterField, skuGroupLoading
+          pageLength,
+          allSkuGroups,
+          getAllSkuGroups,
+          dataTableLength,
+          page,
+          skuGroupsHeader,
+          item,
+          filterField,
+          skuGroupLoading,
+          activeStatus
         };
+
     },
 
     computed: {
@@ -133,7 +174,11 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
+      $route(){
+        this.getAllSkuGroups()
+      },
+
+      confirmModal(val) {
           if (this.$cookies.get('deleteItem')) {
             if (!val){
               this.getAllSkuGroups();
@@ -141,9 +186,33 @@ export default {
           }
         },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getAllSkuGroups()
+        }
+      }
     },
 
     methods: {

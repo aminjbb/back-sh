@@ -26,9 +26,15 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                    <ModalColumnFilter
+                        :changeHeaderShow="changeHeaderShow"
+                        :header="header" />
 
-                    <ModalTableFilter path="seller/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="seller/index"
+                      :filterField="filterField"
+                      :typeItems="sellerType"
+                      :paymentType="typePayment" />
                 </v-row>
             </v-col>
         </v-row>
@@ -95,14 +101,51 @@
 
 <script>
 import Table from '@/components/Seller/Table/Table.vue'
-import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import Seller from "@/composables/Seller"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
+import {openToast} from "@/assets/js/functions"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 export default {
-    setup(props) {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+    setup() {
+      const sellerType = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'حقوقی',
+          value: 'legal',
+        },
+        {
+          label: 'حقیقی',
+          value: 'genuine',
+        },
+      ]
+      const typePayment = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'نقدی',
+          value: 'cash',
+        },
+        {
+          label: 'امانی',
+          value: 'safekeeping',
+        },
+        {
+          label: 'اعتباری',
+          value: 'credit',
+        }
+      ]
         const {
             pageLength,
             getSellerList,
@@ -125,16 +168,18 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            sellerType,
+            typePayment
         };
     },
 
     components: {
-        Table,
-        ModalGroupAdd,
-        ModalTableFilter,
-        ModalColumnFilter,
-        ModalExcelDownload,
+      PanelFilter,
+      Table,
+      ModalGroupAdd,
+      ModalColumnFilter,
+      ModalExcelDownload
     },
 
     computed: {
@@ -168,10 +213,33 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getSellerList()
+        }
+      },
+      confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
                 if (!val) {
                     this.getSellerList();
@@ -184,6 +252,9 @@ export default {
                 }
             }
         },
+      $route(){
+        this.getSellerList()
+      }
     }
 }
 </script>

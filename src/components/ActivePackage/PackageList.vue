@@ -8,7 +8,11 @@
             <v-col cols="6" />
 
             <v-col cols="6" class="d-flex justify-end ">
-                <ModalTableFilter path="active-package/index" :filterField="filterField" />
+              <PanelFilter
+                  path="active-package/index"
+                  :filterField="filterField"
+                  :typeItems="typeList"
+                  :statusItems="statusListPackage"/>
             </v-col>
         </v-row>
     </v-card>
@@ -70,10 +74,47 @@
 <script>
 import Table from '@/components/ActivePackage/Table/Table.vue'
 import ActivePackage from "@/composables/ActivePackage";
-import ModalTableFilter from '@/components/ActivePackage/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup() {
+      const typeList= [
+        {
+          label: 'پالت',
+          value: 'pallet'
+        },
+        {
+          label: 'بالک',
+          value: 'bulk'
+        },
+      ]
+      const statusListPackage = [
+        {
+          label: 'خالی',
+          value: 'empty'
+        },
+        {
+          label: 'لودینگ',
+          value: 'loading'
+        },
+        {
+          label: 'در حال بارگیری',
+          value: 'luggage'
+        },
+        {
+          label: 'انتقال به انبار اصلی',
+          value: 'sent_to_warehouse'
+        },
+        {
+          label: 'رسیده به انبار اصلی',
+          value: 'received_by_warehouse'
+        }
+      ]
         const {
             pageLength,
             getPackageList,
@@ -82,8 +123,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = ActivePackage();
         return {
@@ -94,18 +133,23 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
-            loading
-        };
+            loading,
+            typeList,
+            statusListPackage
+        }
     },
 
     components: {
-        Table,
-        ModalTableFilter,
+      PanelFilter,
+      Table
     },
 
     computed: {
+
+        confirmModal() {
+            return this.$store.getters['get_confirmForm'].confirmModal
+        }
+
     },
 
     methods: {
@@ -113,19 +157,46 @@ export default {
 
         updateList(status) {
             if (status === 'true') {
-                this.getPackageList();
+                this.getPackageList()
             }
-        },
+        }
     },
 
     mounted() {
-        this.getPackageList();
+      this.getPackageList()
     },
 
     watch: {
-        dataTableLength(val) {
-            this.getPackageList(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getPackageList()
+        }
+      },
+
+      $route(){
+        this.getPackageList()
+      }
     }
 }
 </script>

@@ -21,9 +21,9 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="factor/index" :filterField="filterField" />
+                  <PanelFilter path="factor/index" :filterField="filterField" :statusItems="status"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -86,14 +86,39 @@
 <script>
 import Table from '@/components/Factor/Table/Table.vue'
 import Factor from "@/composables/Factor";
-import ModalTableFilter from '@/components/Factor/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
     setup() {
-        const {
+      const status= [
+        {
+          label: 'پیش نویس',
+          value: 'draft'
+        },
+        {
+          label: 'آماده سازی محموله',
+          value: 'cargo_preparing'
+        },
+        {
+          label: 'در انتظار قیمت گذاری',
+          value: 'pricing'
+        },
+        {
+          label: 'تمام شده',
+          value: 'done'
+        }
+      ]
+
+      const {
             pageLength,
             getFactorList,
             factorList,
@@ -101,8 +126,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = Factor();
         return {
@@ -113,16 +136,15 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
-            loading
-        };
+            loading,
+            status
+        }
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
-        ModalColumnFilter,
+        ModalColumnFilter
     },
 
     computed: {
@@ -148,9 +170,32 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getFactorList()
+        }
+      },
       confirmModal(val) {
         if (localStorage.getItem('deleteObject') === 'done') {
           if (!val) {
@@ -164,6 +209,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getFactorList()
+      }
     }
 }
 </script>

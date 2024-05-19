@@ -29,7 +29,6 @@
                         height="40"
                         rounded
                         class="px-8 mt-1">
-
                         تایید
                     </v-btn>
                 </v-row>
@@ -98,17 +97,12 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePageBannerTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import ModalAddBlog from "@/components/HomePage/Modals/ModalAddBlog.vue";
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
+import {AxiosCall} from "@/assets/js/axios_call";
 export default {
     setup() {
         const {
@@ -139,7 +133,6 @@ export default {
         ModalAddBlog,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },
@@ -177,9 +170,7 @@ export default {
             } else {
                 this.editLoading = false
             }
-
-        },
-
+        }
     },
 
     mounted() {

@@ -33,9 +33,11 @@
                 :header="header"
             />
 
-            <ModalTableFilter
+            <PanelFilter
                 path="user/index"
                 :filterField="filterField"
+                :page="page"
+                :perPage="dataTableLength"
             />
           </v-row>
         </v-col>
@@ -83,19 +85,18 @@
             <div
                 align="center"
                 id="rowSection"
-                class="d-flex align-center"
-            >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+                class="d-flex align-center">
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2"  id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -107,21 +108,49 @@
 <script>
 import Table from '@/components/User/Table/UserTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-    const {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField ,addPerPage} = User();
-    return {pageLength, users, getUsers , dataTableLength , page  , header , userList , getUserList , filterField , addPerPage};
+    const {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField ,
+    } = User();
+    return {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField
+    };
   },
   components:{
+    PanelFilter,
     ModalExcelDownload,
     ModalGroupAdd,
-    ModalTableFilter, ModalColumnFilter,
+    ModalColumnFilter,
     Table
   },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
   mounted() {
     this.$store.commit('set_avatar' , null)
     this.getUserList()
@@ -129,8 +158,7 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
-    },
-
+    }
   },
 
   computed: {
@@ -140,9 +168,28 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -153,6 +200,12 @@ export default {
     },
     $route(to){
       this.getUserList(to)
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getUserList()
+      }
     }
   }
 }

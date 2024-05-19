@@ -23,7 +23,16 @@
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerVouchers" />
 
-            <ModalTableFilter path="voucher/index" :filterField="indexFilterField" />
+            <PanelFilter
+                path="voucher/index"
+                :filterField="indexFilterField"
+                :typeItems="voucherTypes"
+                :statusItems="activeFilter"
+                :voucherAmountTypes="voucherAmountTypes"
+                :sendingItems="sendingItems"
+                :page="page"
+                :perPage="dataTableLength"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -65,16 +74,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -86,31 +95,97 @@
 <script>
 import Table from '@/components/Voucher/Table/VoucherListTable.vue'
 import Voucher from "@/composables/Voucher";
-import ModalTableFilter from '@/components/Voucher/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
     return {
-
+      perPageFilter:false
     }
   },
 
   setup(props) {
+    const voucherTypes= [
+      {
+        title: 'عادی',
+        value: 'regular'
+      },
+      {
+        title: 'گروهی',
+        value: 'group'
+      },
+      {
+        title: 'نظیر به نظیر',
+        value: 'peer_to_peer'
+      },
+
+    ]
+    const voucherAmountTypes= [
+      {
+        title: 'ریالی',
+        value: 'rial'
+      },
+      {
+        title: 'درصدی',
+        value: 'percent'
+      },
+
+    ]
+    const activeFilter= [
+      {
+        label: 'وضعیت',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
+    const sendingItems = [
+      {
+        title: 'پیش فرض',
+        value: 'default'
+      },
+      {
+        title: 'رایگان',
+        value: 'free'
+      }
+    ]
     const {
-      headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength ,getVoucherList , indexFilterField , addPerPage,addPagination
-    } = Voucher();
+      headerVouchers,
+      filterField,
+      page,
+      voucherList,
+      dataTableLength,
+      pageLength,
+      getVoucherList,
+      indexFilterField,
+    } = Voucher()
     return {
-      headerVouchers ,filterField , page , voucherList
-      ,dataTableLength ,pageLength , getVoucherList ,indexFilterField , addPerPage,addPagination
-    };
+      headerVouchers ,
+      filterField ,
+      page ,
+      voucherList,
+      dataTableLength ,
+      pageLength ,
+      getVoucherList ,
+      indexFilterField ,
+      voucherTypes,
+      voucherAmountTypes,
+      activeFilter,
+      sendingItems
+    }
   },
 
   components: {
+    PanelFilter,
     Table,
-    ModalTableFilter,
     ModalColumnFilter
   },
 
@@ -129,7 +204,7 @@ export default {
       if (status === 'true') {
         this.getVoucherList();
       }
-    },
+    }
   },
 
   mounted() {
@@ -150,15 +225,35 @@ export default {
         }
       }
     },
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
     $route(to){
       this.getVoucherList(to)
 
     },
-    page(val){
-     this.addPagination(val)
+    page(){
+      if (!this.perPageFilter){
+        this.getVoucherList()
+      }
     }
   }
 }

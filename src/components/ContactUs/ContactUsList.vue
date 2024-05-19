@@ -1,8 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch seller">
-
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-
         <Table
             class="flex-grow-1"
             :header="header"
@@ -16,7 +14,6 @@
         <v-card-actions class="pb-3">
             <v-row class="px-8">
                 <v-col cols="3" class="d-flex justify-start" />
-
                 <v-col cols="6" class="d-flex justify-center">
                     <div class="text-center">
                         <v-pagination
@@ -29,7 +26,6 @@
                             next-icon="mdi-chevron-left" />
                     </div>
                 </v-col>
-
                 <v-col cols="3" class="d-flex justify-end">
                     <div align="center" id="rowSection" class="d-flex align-center">
                         <span class="ml-5">
@@ -52,11 +48,10 @@
 
 <script>
 import Table from '@/components/ContactUs/Table/Table.vue'
-import ContactUs from "@/composables/ContactUs.js";
-
-import {
-    openToast
-} from "@/assets/js/functions";
+import ContactUs from "@/composables/ContactUs.js"
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
 export default {
     setup() {
         const {
@@ -80,13 +75,14 @@ export default {
             loading
         };
     },
-    data() {
-        return {
 
-        }
-    },
     components: {
         Table,
+
+        ModalGroupAdd,
+        ModalColumnFilter,
+        ModalExcelDownload,
+
     },
 
     computed: {

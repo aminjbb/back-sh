@@ -9,9 +9,13 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="page/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="page/index"
+                      :filterField="filterField"
+                      :statusItems="status"
+                      :typeItems="pageTypeFilter"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -76,13 +80,50 @@
 <script>
 import Table from '@/components/Pages/Table/Table.vue'
 import Page from "@/composables/Page";
-import ModalTableFilter from '@/components/Pages/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup() {
+      const status = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ]
+      const pageTypeFilter= [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'دسته بندی',
+          value: 'category',
+        },
+        {
+          label: 'برند',
+          value: 'brand',
+        },
+        {
+          label: 'کالاها',
+          value: 'sku',
+        },
+      ]
         const {
             pageLength,
             getPageList,
@@ -105,14 +146,16 @@ export default {
             header,
             addPagination,
             addPerPage,
-            loading
+            loading,
+            pageTypeFilter,
+            status
         };
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },
@@ -136,10 +179,33 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getPageList()
+        }
+      },
+      confirmModal(val) {
           if (localStorage.getItem('deleteObject')) {
             if (!val) {
               this.getPageList()
@@ -152,6 +218,9 @@ export default {
             }
           }
         },
+      $route(){
+        this.getPageList()
+      }
     }
 }
 </script>

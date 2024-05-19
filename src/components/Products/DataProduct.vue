@@ -38,10 +38,13 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <ModalTableFilter
-                            path="product/index"
-                            :filterField="filterField"
-                        />
+                      <PanelFilter
+                          path="product/index"
+                          :filterField="filterField"
+                          :statusItems="activeStatus"
+                          :page="page"
+                          :perPage="dataTableLength"
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -112,23 +115,65 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Product from '@/composables/Product';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 export default {
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload
     },
 
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
     setup() {
-        const { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading} = Product();
-        return { pageLength, product, addPerPage, getProduct, dataTableLength, page, header, item, filterField ,loading};
+      const activeStatus = ref([
+        {
+          label: 'وضعیت',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+        const {
+        pageLength,
+          product,
+          getProduct,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField ,
+          loading
+      } = Product();
+        return {
+          pageLength,
+          product,
+          getProduct,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField
+          ,loading,
+          activeStatus
+        };
     },
     computed: {
         confirmModal() {
@@ -145,25 +190,50 @@ export default {
     },
 
     mounted() {
-
         this.getProduct()
     },
 
     watch: {
         confirmModal(val) {
-          console.log(val , 'confirm')
             if (localStorage.getItem('deleteObject') == 'done') {
                 if (!val) {
                     this.getProduct()
                 }
               localStorage.removeItem('deleteObject')
             }
-
         },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      $route(){
+        this.getProduct()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getProduct()
+        }
+      }
     },
 
     methods: {

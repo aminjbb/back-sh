@@ -13,7 +13,10 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="vehicle/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="vehicle/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -78,14 +81,19 @@
 <script>
 import Table from '@/components/Vehicle/Table/Table.vue'
 import Vehicle from "@/composables/Vehicle";
-import ModalTableFilter from '@/components/Vehicle/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalCreateVehicle from '@/components/Vehicle/CreateModal/CreateModal.vue'
 
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup(props) {
         const {
             pageLength,
@@ -114,8 +122,8 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalCreateVehicle,
     },
@@ -143,10 +151,32 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getVehicleList()
+        }
+      },
       confirmModal(val) {
         if (localStorage.getItem('deleteObject') === 'done') {
           if (!val) {
@@ -160,6 +190,9 @@ export default {
           }
         }
       },
+      $route(){
+        this.getVehicleList()
+      }
     }
 }
 </script>

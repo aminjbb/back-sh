@@ -16,8 +16,15 @@
                 </v-col>
                 <v-col cols="6">
                     <v-row justify="end">
-                        <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header"/>
-                        <ModalTableFilter  path="attributes/index" :filterField="filterField"/>
+                      <ModalColumnFilter
+                          :changeHeaderShow="changeHeaderShow"
+                          :header="header"/>
+
+                      <PanelFilter
+                          path="attributes/index"
+                          :filterField="filterField"
+                          :typeItems="typeStatus"
+                      />
                     </v-row>
                 </v-col>
      
@@ -64,8 +71,7 @@
                         <div 
                             align="center" 
                             id="rowSection" 
-                            class="d-flex align-center"
-                        >
+                            class="d-flex align-center">
                             <span class="ml-5">
                                 تعداد سطر در هر صفحه
                             </span>
@@ -74,8 +80,7 @@
                                 v-model="dataTableLength  "
                                 class="t1330"
                                 variant="outlined"
-                                :items="[25,50,100]"
-                                ></v-select>
+                                :items="[25,50,100]"/>
                             </span>
                         </div>
                     </v-col>
@@ -86,23 +91,63 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Attributes from '@/composables/Attributes';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalGroupAdd,
         ModalExcelDownload
     },
 
     setup() {
-        const { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading} = Attributes();
-        return { pageLength, attributes, getAttributes, addPerPage, dataTableLength, page, header, item, filterField ,loading};
+      const typeStatus = ref([
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'عنوان',
+          value: 'title',
+        },
+        {
+          label: 'متن',
+          value: 'description',
+        }
+      ])
+        const {
+        pageLength,
+          attributes,
+          getAttributes,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
+      } = Attributes();
+        return {
+          pageLength,
+          attributes,
+          getAttributes,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading,
+          typeStatus};
     },
 
     computed: {
@@ -116,22 +161,48 @@ export default {
     },
 
     watch: {
-        confirmModal(val) {
+      confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
                 if (!val) {
-
-                    this.getAttributes();
+                  this.getAttributes();
                 }
                setTimeout(() => {
                 this.$cookies.remove('deleteItem')
                }, 1000);
             }
-
         },
 
-      dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getAttributes()
+        }
+      },
+
+      $route(){
+        this.getAttributes()
+      }
     },
     
     methods: {

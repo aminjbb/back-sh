@@ -21,9 +21,9 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="report/index" :filterField="filterField" />
+                  <PanelFilter path="report/index" :filterField="filterField"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -87,13 +87,14 @@
 <script>
 import Table from '@/components/WasteAndLost/Table/Table.vue'
 import WasteAndLost from "@/composables/WasteAndLost";
-import ModalTableFilter from '@/components/WasteAndLost/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
+
         ModalColumnFilter,
     },
 

@@ -23,9 +23,13 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <ModalTableFilter path="admin/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="admin/index"
+                      :filterField="filterField"
+                      :page="page"
+                      :perPage="dataTableLength"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -91,10 +95,12 @@
 <script>
 import Table from '@/components/Admin/AdminTable/AdminTable.vue'
 import ModalTableFilter from "@/components/Public/UserFilterTable.vue";
+import ModalGroupAdd from "@/Public/ModalGroupAdd";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Admin from "@/composables/Admin";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup() {
         const {
@@ -105,8 +111,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = Admin();
         return {
@@ -117,17 +121,25 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         };
     },
     components: {
-      ModalTableFilter,
+
+        ModalTableFilter,
         ModalExcelDownload,
+        PanelFilter,
+        ModalGroupAdd,
         ModalColumnFilter,
         Table
     },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
     mounted() {
         this.$store.commit('set_avatar', null)
         this.getAdminList()
@@ -135,8 +147,7 @@ export default {
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
-        },
-
+        }
     },
 
     computed: {
@@ -146,11 +157,29 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
 
-        confirmModal(val) {
+      confirmModal(val) {
             if (localStorage.getItem('deleteObject') === 'done') {
             if (!val) {
                 this.getAdminList();
@@ -163,6 +192,16 @@ export default {
             }
             }
       },
+
+      $route(){
+        this.getAdminList()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getAdminList()
+        }
+      }
     }
 }
 </script>

@@ -104,6 +104,10 @@
 <script>
 //Components
 import Table from '@/components/Cargo/Table/PackageTable.vue'
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
+import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {AxiosCall} from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
@@ -111,6 +115,10 @@ import {openToast} from "@/assets/js/functions";
 export default {
   components: {
     Table,
+    ModalColumnFilter,
+    ModalGroupAdd,
+    ModalExcelDownload,
+    CreateCargo
   },
 
   data(){

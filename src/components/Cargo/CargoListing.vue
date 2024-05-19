@@ -59,17 +59,17 @@
                 id="rowSection"
                 class="d-flex align-center"
             >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>

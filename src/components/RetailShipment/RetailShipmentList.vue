@@ -11,9 +11,14 @@
 
         <v-col cols="6">
           <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+            <ModalColumnFilter
+                :changeHeaderShow="changeHeaderShow"
+                :header="header" />
 
-            <ModalTableFilter path="retail-shipment/index" :filterField="filterFieldAllRetail" />
+            <PanelFilter
+                path="retail-shipment/index"
+                :filterField="filterFieldAllRetail"
+                :statusItems="status" />
           </v-row>
         </v-col>
       </v-row>
@@ -60,12 +65,12 @@
                             تعداد سطر در هر صفحه
                         </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                 <v-select
+                     v-model="dataTableLength"
+                     class="t1330"
+                     variant="outlined"
+                     :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -77,25 +82,98 @@
 <script>
 import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
-import ModalTableFilter from '@/components/RetailShipment/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
-  setup() {
-    const {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
-    } = RetailShipment();
+  data() {
     return {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
-    };
+      perPageFilter:false
+    }
+  },
+  setup() {
+    const status= [
+      {
+        label: 'در انتظار',
+        value: 'waiting',
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'in_review',
+      },
+      {
+        label: 'رد شده',
+        value: 'rejected',
+      },
+      {
+        label: 'تایید شده',
+        value: 'approved',
+      },
+      {
+        label: 'در حال ارسال به انبار',
+        value: 'sending_warehouse',
+      },
+      {
+        label: 'رسیده به انبار',
+        value: 'received_by_warehouse',
+      },
+      {
+        label: 'در حال شمارش',
+        value: 'counting',
+      },
+      {
+        label: 'تایید شده انبار',
+        value: 'approved_by_warehouse',
+      },
+      {
+        label: 'به سمت انبار اصلی',
+        value: 'sending_base_warehouse',
+      },
+      {
+        label: 'رسیده به انبار اصلی',
+        value: 'received_base_warehouse',
+      },
+      {
+        label: 'در حال جایگذاری',
+        value: 'locating',
+      },
+      {
+        label: 'موجود شده در انبار',
+        value: 'located',
+      },
+    ]
+    const {
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength,
+      dataTableLength,
+      page,
+      header,
+      loading
+    } = RetailShipment()
+
+    return {
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      status
+    }
   },
 
   components: {
+    PanelFilter,
     ModalRetailShipmentDetail,
     Table,
     ModalTableFilter,
+    ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
   },
@@ -109,8 +187,7 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
-    },
-
+    }
   },
 
   mounted() {
@@ -118,8 +195,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getRetailShipmentList()
+      }
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
@@ -135,7 +235,7 @@ export default {
       }
     },
     $route(){
-      this.getRetailShipmentList();
+      this.getRetailShipmentList()
     }
   }
 }

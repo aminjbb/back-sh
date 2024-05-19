@@ -64,20 +64,28 @@ export default function setup() {
     const isFilterPage =ref(false)
     const isFilter =ref(false)
 
-    async function getManualOrderList(query) {
+    async function getManualOrderList() {
         loading.value = true
-        let paramsQuery = null
-        filter.is_admin_order = 1
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-
-        else  paramsQuery = filter.params_generator(route.query)
 
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
 
         if (data) {
@@ -89,12 +97,6 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    }
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/orders/manual-order-list'+ filter.params_generator(route.query))
     }
 
     async function getOrderList(query) {
@@ -158,7 +160,6 @@ export default function setup() {
         loading,
         manualOrderList,
         headerSelectProduct,
-        addPerPage,
         getManualOrderList,
         getOrderList,
         getShpsList

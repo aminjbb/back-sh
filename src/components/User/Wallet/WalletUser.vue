@@ -11,7 +11,6 @@
       >
         <v-col cols="6">
           <v-row v-if="$route.query.user_id" justify="start">
-
            <IncreseWalletModal :getTransactionList="getTransactionList"/>
           </v-row>
         </v-col>
@@ -23,11 +22,11 @@
                 :header="header"
             />
 
-            <ModalTableFilter
-
+            <PanelFilter
                 :path="`wallet/index`"
-                :filterFieldWallet="filterFieldWallet"
-            />
+                :filterField="filterFieldWallet"
+                :statusItems="statusItems"
+                :chargeType="transactionReason"/>
           </v-row>
         </v-col>
       </v-row>
@@ -99,27 +98,99 @@
 <script>
 import Table from '@/components/User/Table/WalletTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/User/FilterWallet/Filter.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-    const {pageLength, users, getUsers , dataTableLength , pageLengthWallet, page  , header , userList , getUserList , filterField , filterFieldWallet,
-      addPerPage, headerTransaction, getTransactionList, transactionList} = User();
-    return {pageLength, users, getUsers , dataTableLength , pageLengthWallet, page  , header , userList , getUserList , filterField , filterFieldWallet,
-      addPerPage, headerTransaction, getTransactionList, transactionList};
+    const {
+      pageLength,
+      users,
+      getUsers,
+      dataTableLength,
+      pageLengthWallet,
+      page,
+      header,
+      userList,
+      getUserList,
+      filterField,
+      filterFieldWallet,
+      addPerPage,
+      headerTransaction,
+      getTransactionList,
+      transactionList
+    } = User()
+    return {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      pageLengthWallet,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField ,
+      filterFieldWallet,
+      addPerPage,
+      headerTransaction,
+      getTransactionList,
+      transactionList
+    }
   },
   components:{
+    PanelFilter,
     ModalExcelDownload,
     ModalGroupAdd,
-    ModalTableFilter, ModalColumnFilter,
+    ModalColumnFilter,
     Table,IncreseWalletModal
   },
   data() {
     return {
       userId: this.$route.params.userId,
+      statusItems: [
+        {
+          label: 'در انتظار',
+          value: 'waiting',
+        },
+        {
+          label: 'کنسل شده',
+          value: 'cancel',
+        },
+        {
+          label: '  ناموفق',
+          value: 'failed ',
+        },
+        {
+          label: 'موفق',
+          value: 'success  ',
+        }
+      ],
+      transactionReason: [
+        {
+          label: 'هزینه پستی',
+          value: 'post_cost',
+        },
+        {
+          label: 'انصراف از خرید',
+          value: ' cancel_order',
+        },
+        {
+          label: 'مغایرت',
+          value: 'difference_order',
+        },
+        {
+          label: 'سایر',
+          value: 'other',
+        },
+        {
+          label: 'مرجوعی سفارش',
+          value: 'return_order',
+        },
+      ],
+      perPageFilter:false
     }
   },
   mounted() {
@@ -139,8 +210,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getTransactionList()
+      }
     },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {

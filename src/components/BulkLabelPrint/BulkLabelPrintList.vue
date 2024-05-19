@@ -12,14 +12,9 @@
         </v-col>
         <v-divider color="grey"/>
         <v-col cols="12" md="6">
-          <div class="text-right  ">
-
-                        <span class="text-gray600 t14500">
-                            شناسه بسته
-                        </span>
-            <span class="text-error">
-                            *
-                        </span>
+          <div class="text-right ">
+            <span class="text-gray600 t14500">شناسه بسته</span>
+            <span class="text-error">*</span>
           </div>
           <div>
             <v-text-field
@@ -32,12 +27,8 @@
         </v-col>
         <v-col cols="3">
           <div class="text-right ">
-            <span class="text-gray600 t14500">
-             شناسه کالا
-            </span>
-            <span class="text-error">
-              *
-            </span>
+            <span class="text-gray600 t14500">شناسه کالا</span>
+            <span class="text-error">*</span>
           </div>
           <div>
             <v-text-field
@@ -95,25 +86,20 @@
 <script>
 //Components
 import Table from '@/components/BulkLabelPrint/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import BulkLabelPrintList from '@/composables/BulkLabelPrint';
 import {openToast} from "@/assets/js/functions";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 
 export default {
   components: {
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
-
   },
 
   data() {
@@ -126,7 +112,6 @@ export default {
       closePackageLoading :false,
       shipmentShpsListFilterd:[],
       barcodeShps:null
-
     }
   },
 
@@ -183,14 +168,12 @@ export default {
           this.getCategories()
           this.$cookies.remove('deleteItem')
         }
-
       }
     },
 
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
   },
 
   methods: {

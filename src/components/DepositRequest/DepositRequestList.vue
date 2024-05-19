@@ -11,7 +11,11 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="withdraw-request/index" :filterField="filterField" />
+            <PanelFilter
+                path="withdraw-request/index"
+                :filterField="filterField"
+                :statusItems="status"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -82,10 +86,30 @@ import WithdrawRequests from "@/composables/DepositRequest";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ModalTableFilter from '@/components/DepositRequest/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
+    const status = [
+      {
+        label: 'در انتظار',
+        value: 'waiting',
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'in_review',
+      },
+      {
+        label: 'رد شده',
+        value: 'rejected',
+      }
+    ]
     const {
       pageLength,
       getWithdrawRequestList,
@@ -108,11 +132,13 @@ export default {
       header,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      status
     };
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalTableFilter,
     ModalColumnFilter,
@@ -134,8 +160,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getWithdrawRequestList()
+      }
     },
 
     $route(){

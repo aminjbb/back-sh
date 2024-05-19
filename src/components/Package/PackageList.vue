@@ -11,7 +11,12 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalTableFilter path="package/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="package/index"
+                      :filterField="filterField"
+                      :typeItems="typeList"
+                      :statusItems="statusListPackage"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -74,12 +79,50 @@
 <script>
 import Table from '@/components/Package/Table/Table.vue'
 import Package from "@/composables/Package";
-import ModalTableFilter from '@/components/Package/Filter/Filter.vue'
 import ModalCreatePackage from '@/components/Package/Modal/CreateModal.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     
     setup(props) {
+      const typeList= [
+        {
+          label: 'پالت',
+          value: 'pallet'
+        },
+        {
+          label: 'بالک',
+          value: 'bulk'
+        },
+      ]
+      const statusListPackage = [
+        {
+          label: 'خالی',
+          value: 'empty'
+        },
+        {
+          label: 'لودینگ',
+          value: 'loading'
+        },
+        {
+          label: 'در حال بارگیری',
+          value: 'luggage'
+        },
+        {
+          label: 'انتقال به انبار اصلی',
+          value: 'sent_to_warehouse'
+        },
+        {
+          label: 'رسیده به انبار اصلی',
+          value: 'received_by_warehouse'
+        }
+      ]
+
         const {
             pageLength,
             getPackageList,
@@ -90,6 +133,7 @@ export default {
             header,
 
             addPerPage,
+
             loading
         } = Package();
         return {
@@ -101,14 +145,17 @@ export default {
             page,
             header,
             addPerPage,
-            loading
+            loading,
+            typeList,
+            statusListPackage
+
         };
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
-        ModalCreatePackage,
+        ModalCreatePackage
     },
 
     computed: {
@@ -131,9 +178,35 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getPackageList()
+        }
+      },
+      $route(){
+        this.getPackageList()
+      }
     }
 }
 </script>

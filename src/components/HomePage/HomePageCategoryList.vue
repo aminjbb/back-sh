@@ -48,7 +48,6 @@
             <v-col cols="6">
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="bannerHeader" />
-
                 </v-row>
             </v-col>
         </v-row>
@@ -101,7 +100,6 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePageBannerTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -110,9 +108,7 @@ import {
 } from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 import ModalAddCategory from "@/components/HomePage/Modals/ModalAddCategory.vue";
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
+import {AxiosCall} from "@/assets/js/axios_call";
 export default {
     setup() {
         const {
@@ -149,7 +145,6 @@ export default {
         ModalAddBanner,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

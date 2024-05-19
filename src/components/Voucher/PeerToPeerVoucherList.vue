@@ -54,12 +54,11 @@
           justify="end"
           align="center"
           class="px-10 py-5">
-
-
         <v-col cols="6">
           <v-row justify="end">
-
-            <ModalTableFilter :path="`voucher/${$route.params.voucherId}/peer`"  :filterFieldPeerToPeer="filterFieldPeerToPeer" />
+            <PanelFilter
+                :path="`voucher/${$route.params.voucherId}/peer`"
+                :filterField="filterFieldPeerToPeer" />
           </v-row>
         </v-col>
       </v-row>
@@ -83,8 +82,6 @@
           <v-col cols="3" class="d-flex justify-start">
             <ModalExcelDownload :getEndPoint="`voucher/crud/export/children/${voucherId}`" />
           </v-col>
-
-
         </v-row>
       </v-card-actions>
     </v-card>
@@ -94,7 +91,7 @@
 import Table from "@/components/Voucher/Table/PeerToPeerVoucherTable.vue";
 import Voucher from '@/composables/Voucher';
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import ModalTableFilter from "@/components/Voucher/Filter/FilterPeerToPeer.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
@@ -104,18 +101,51 @@ export default {
   },
   setup() {
     const {
+<<<<<<< HEAD
      getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
     pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherList
     } = new Voucher()
     return {
       getVoucherShps, voucher, dataTableLength, filterField , filterFieldPeerToPeer,
       pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup ,headerPeerToPeerVoucherList
+=======
+      headerShps,
+      headerPublicVoucherList,
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      filterField ,
+      filterFieldPeerToPeer,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail,
+      getVoucherGroup,
+      voucherGroup,
+      headerPeerToPeerVoucherList
+    } = new Voucher()
+    return {
+      headerShps,
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      headerPublicVoucherList,
+      filterField ,
+      filterFieldPeerToPeer,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail,
+      getVoucherGroup,
+      voucherGroup ,
+      headerPeerToPeerVoucherList
+>>>>>>> develop
     }
   },
   components: {
+    PanelFilter,
     Table,
-    ModalExcelDownload,
-    ModalTableFilter
+    ModalExcelDownload
   },
   mounted() {
     this.getVoucherShps()

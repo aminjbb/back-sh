@@ -10,8 +10,8 @@
                 <v-col cols="6">
                     <v-row justify="end">
                         <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-    
-                        <ModalTableFilter path="shipment-requests/index" :filterField="filterField" />
+
+                      <PanelFilter path="shipment-requests/index" :filterField="filterField" :statusItems="status"/>
                     </v-row>
                 </v-col>
             </v-row>
@@ -78,13 +78,32 @@
     <script>
     import Table from '@/components/ShipmentRequests/Table/Table.vue'
     import ShipmentRequests from "@/composables/ShipmentRequests";
-    import ModalTableFilter from '@/components/ShipmentRequests/Filter/Filter.vue'
     import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
     import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
     import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
     import { openToast} from "@/assets/js/functions";
+    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
     export default {
-        setup(props) {
+      data() {
+        return {
+          perPageFilter:false
+        }
+      },
+        setup() {
+          const status= [
+            {
+              label: 'در انتظار',
+              value: 'waiting',
+            },
+            {
+              label: 'در حال بررسی',
+              value: 'in_review',
+            },
+            {
+              label: 'رد شده',
+              value: 'rejected',
+            }
+          ]
             const {
                 pageLength,
                 getShipmentRequestsList,
@@ -107,14 +126,15 @@
                 header,
                 addPagination,
                 addPerPage,
-                loading
+                loading,
+                status
             };
         },
     
         components: {
+          PanelFilter,
             Table,
             ModalGroupAdd,
-            ModalTableFilter,
             ModalColumnFilter,
             ModalExcelDownload,
         },
@@ -137,9 +157,32 @@
         },
     
         watch: {
-            dataTableLength(val) {
-                this.addPerPage(val)
-            },
+          dataTableLength() {
+            this.perPageFilter = true
+            this.page = 1
+            let query = this.$route.query
+            if (query) {
+              this.$router.replace({
+                query: {
+                  ...query,
+                  per_page: this.dataTableLength,
+                }
+              })
+            }
+            else {
+              this.$router.push({
+                query: {
+                  per_page: this.dataTableLength,
+                }
+              })
+            }
+            this.perPageFilter = false
+          },
+          page(){
+            if (!this.perPageFilter){
+              this.getShipmentRequestsList()
+            }
+          },
             confirmModal(val) {
                 if (this.$cookies.get('deleteItem')) {
                     if (!val) {

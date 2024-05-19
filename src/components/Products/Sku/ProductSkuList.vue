@@ -120,7 +120,6 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -136,7 +135,6 @@ export default {
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
-        SkuModalTableFilter,
     },
 
     setup() {

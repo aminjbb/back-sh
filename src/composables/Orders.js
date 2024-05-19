@@ -38,7 +38,7 @@ export default function setup() {
         {name:'شناسه سفارش' , type:'text', value:'id'},
         {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
         {name:'شماره سفارش' , type:'text', value:'order_number'},
-        {name:'نام مشتری' , type:'select', value:'creator_id'},
+        {name:'نام مشتری' , type:'select', value:'user_id'},
         {name:'وضعیت سفارش' , type:'select', value:'status'},
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
@@ -105,19 +105,29 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getOrderList(query) {
+    async function getOrderList() {
         loading.value = true
-        let paramsQuery = null
         filter.is_admin_order = 0
 
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -181,38 +191,9 @@ export default function setup() {
 
         else {
         }
-    };
-
-
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/orders/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/orders/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getOrderList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList, manualOrderHeader, manualOrderList}
+    return {pageLength,filterField, orderList, getOrderList, dataTableLength, page, header,loading, shpsModalHeader,
+        discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList,
+        manualOrderHeader, manualOrderList}
 }
