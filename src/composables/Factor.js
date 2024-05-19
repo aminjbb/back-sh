@@ -62,8 +62,22 @@ export default function setup() {
         factorList.value = []
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `factor/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -109,27 +123,8 @@ export default function setup() {
 
         else {
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/factor/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/factor/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {templates, pageLength, filterField, factorList, addPerPage, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
+    return {templates, pageLength, filterField, factorList, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
 }
 

@@ -38,11 +38,25 @@ export default function setup() {
     const isFilterPage = ref(false)
     const filter = new PanelFilter()
 
-    async function getProduct(query) {
+    async function getProduct() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.end_point = `product/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -85,53 +99,9 @@ export default function setup() {
         }
     };
 
-    function addPerPage(number) {
-        if (route.query.name) {
-            filter.name = route.query.name
-        }
-        if (route.query.label) {
-            filter.label = route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id = route.query.id
-        }
-        filter.page = 1;
-        page.value = 1;
-        filter.per_page = number
-        router.push('/product/index/' + filter.params_generator(route.query))
-
-    }
-
-    function addPagination(page) {
-        if (route.query.name) {
-            filter.name = route.query.name
-        }
-        if (route.query.label) {
-            filter.label = route.query.label
-        }
-        if (route.query.active) {
-            filter.active = route.query.active
-        }
-        if (route.query.id) {
-            filter.id = route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/product/index/' + filter.params_generator(route.query))
-
-    }
-
-    watch(page, function (val) {
-        if (!isFilter.value) {
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
     return {
         pageLength,
         product,
-        addPerPage,
         getProduct,
         searchProduct,
         dataTableLength,
@@ -142,7 +112,6 @@ export default function setup() {
         loading,
         getOneProduct,
         oneProduct
-
     }
 }
 

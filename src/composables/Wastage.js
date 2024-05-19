@@ -56,11 +56,25 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getWasteAndLostList(query) {
+    async function getWasteAndLostList() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+       if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `report/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -76,27 +90,8 @@ export default function setup() {
 
         else {
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/wastage/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/wastage/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength, itemList ,addPerPage, getWasteAndLostList, dataTableLength, page, header,loading, createHeader ,filterField}
+    return {pageLength, itemList , getWasteAndLostList, dataTableLength, page, header,loading, createHeader ,filterField}
 }
 

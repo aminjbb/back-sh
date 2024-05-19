@@ -77,6 +77,11 @@ import WarehouseInventory from "@/composables/WarehouseInventory"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table
@@ -91,8 +96,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = WarehouseInventory();
         return {
@@ -103,8 +106,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         };
     },
@@ -132,9 +133,32 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.getWarehouseInventoryList(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getWarehouseInventoryList()
+        }
+      },
       $route(){
         this.getWarehouseInventoryList()
       }

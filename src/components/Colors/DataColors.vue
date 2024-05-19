@@ -123,6 +123,11 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table,
@@ -146,8 +151,8 @@ export default {
           value: '0',
         }
       ])
-        const { pageLength, filterField, color, getColor, addPerPage, dataTableLength, page, header, item,loading } = Colors();
-        return { pageLength, filterField, color, getColor, addPerPage, dataTableLength, page, header, item,loading, activeStatus };
+        const { pageLength, filterField, color, getColor, dataTableLength, page, header, item,loading } = Colors();
+        return { pageLength, filterField, color, getColor, dataTableLength, page, header, item,loading, activeStatus };
     },
 
 
@@ -182,9 +187,33 @@ export default {
             }
         },
 
-      dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getColor()
+        }
+      },
 
       $route(){
         this.getColor()

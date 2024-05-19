@@ -97,8 +97,22 @@ export default function setup() {
     async function  getFreeDeliveryList() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/delivery-discount/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -143,18 +157,27 @@ export default function setup() {
             skuList.value = data.data.data
         }
     };
-    async function  getCustomerList(query) {
+    async function  getCustomerList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = UserFilter.params_generator(query.query)
-        }
-        else  paramsQuery = UserFilter.params_generator(route.query)
-
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/delivery-discount/get/users/${route.params.freeDeliveryId}${paramsQuery}`
+        AxiosMethod.end_point = `admin/delivery-discount/get/users/${route.params.freeDeliveryId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
@@ -163,68 +186,37 @@ export default function setup() {
         }
     };
 
-    async function  geOrderList(query) {
+    async function  geOrderList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = OrderFilter.params_generator(query.query)
-        }
-        else  paramsQuery = OrderFilter.params_generator(route.query)
+
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/delivery-discount/get/orders/${route.params.freeDeliveryId}${paramsQuery}`
+        AxiosMethod.end_point = `admin/delivery-discount/get/orders/${route.params.freeDeliveryId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             orderList.value = data.data.data
         }
-    };
-
-    function addPerPage(number){
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push('/free-delivery/index'+ filter.query_maker())
-
     }
 
-    function addPagination(page){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/free-delivery/index'+ filter.query_maker())
-    }
-
-
-    watch(page, function(val) {
-        addPagination(val)
-    })
-
-    return {headerShps , headerCustomer  , headerFreeDelivery,filterFieldCustomer , filterFieldShps, filterFieldCOrderList, page , freeDeliveryList , getDetail, detailData, headerOrderList , addPerPage
+    return {headerShps , headerCustomer  , headerFreeDelivery,filterFieldCustomer , filterFieldShps, filterFieldCOrderList, page , freeDeliveryList , getDetail, detailData, headerOrderList
     ,dataTableLength ,pageLength , getVoucher , getSkuList, voucher , getFreeDeliveryList, indexFilterField, getCustomerList, customerList, skuList, geOrderList, orderList}
 }
 

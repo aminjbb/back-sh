@@ -40,7 +40,22 @@ export default function setup() {
     async function getCategories() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.form = {...route.query}
+        let query = route.query
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `category/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -67,30 +82,10 @@ export default function setup() {
         }
     };
 
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/categories/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/categories/index'+ filter.params_generator(route.query))
-    }
-
     onMounted(function () {
         getCategories();
-    });
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
     })
 
-    return { pageLength, categoreis, addPerPage, getCategories ,getAllCategories, allCategories, dataTableLength , page  , header , item , filterField ,loading}
+    return { pageLength, categoreis, getCategories ,getAllCategories, allCategories, dataTableLength , page  , header , item , filterField ,loading}
 }
 

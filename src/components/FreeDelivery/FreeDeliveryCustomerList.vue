@@ -31,7 +31,9 @@
             <v-row justify="end" align="center">
               <PanelFilter
                   :path="`free-delivery/${$route.params.freeDeliveryId}/customer`"
-                  :filterField="filterFieldCustomer" />
+                  :filterField="filterFieldCustomer"
+                  :page="page"
+                  :perPage="dataTableLength"/>
             </v-row>
         </v-row>
     </v-card>
@@ -81,7 +83,8 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     data() {
         return {
-            freeDeliveryId: this.$route.params.freeDeliveryId,
+          freeDeliveryId: this.$route.params.freeDeliveryId,
+          perPageFilter:false
         }
     },
     setup() {
@@ -136,6 +139,32 @@ export default {
   watch:{
     $route(){
       this.getCustomerList()
+    },
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getCustomerList()
+      }
     }
   }
 

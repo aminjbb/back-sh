@@ -68,8 +68,22 @@ export default function setup() {
         loading.value = true
 
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -83,12 +97,6 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    }
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/orders/manual-order-list'+ filter.params_generator(route.query))
     }
 
     async function getOrderList(query) {
@@ -152,7 +160,6 @@ export default function setup() {
         loading,
         manualOrderList,
         headerSelectProduct,
-        addPerPage,
         getManualOrderList,
         getOrderList,
         getShpsList

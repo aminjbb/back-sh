@@ -97,6 +97,11 @@ import Notifications from '@/composables/Notifications';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table,
@@ -109,7 +114,6 @@ export default {
         const {
             pageLength,
             notifications,
-            addPerPage,
             getNotifications,
             dataTableLength,
             page,
@@ -121,7 +125,6 @@ export default {
         return {
             pageLength,
             notifications,
-            addPerPage,
             getNotifications,
             dataTableLength,
             page,
@@ -149,9 +152,32 @@ export default {
             }
         },
 
-        dataTablelength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getNotifications()
+        }
+      }
     },
 
     methods: {

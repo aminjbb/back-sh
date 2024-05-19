@@ -123,6 +123,11 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
       PanelFilter,
         Table,
@@ -146,8 +151,8 @@ export default {
           value: '0',
         }
       ])
-      const { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading } = Categories();
-      return { pageLength, categoreis, getCategories, addPerPage, dataTableLength, page, header, item, filterField, loading, activeStatus };
+      const { pageLength, categoreis, getCategories, dataTableLength, page, header, item, filterField, loading } = Categories();
+      return { pageLength, categoreis, getCategories, dataTableLength, page, header, item, filterField, loading, activeStatus };
     },
 
     computed: {
@@ -170,11 +175,34 @@ export default {
           }
         }
       },
-      dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
       $route(){
         this.getCategories()
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getCategories()
+        }
       }
     },
 

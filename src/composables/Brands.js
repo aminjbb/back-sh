@@ -37,11 +37,25 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getBrands(query) {
+    async function getBrands() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `brand/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -74,25 +88,6 @@ export default function setup() {
         }
     };
 
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/brand/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/brand/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength,filterField, brand ,addPerPage, getBrands,getAllBrands, allBrands, dataTableLength, page, header, item,loading  }
+    return {pageLength,filterField, brand , getBrands,getAllBrands, allBrands, dataTableLength, page, header, item,loading  }
 }
 

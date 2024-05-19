@@ -43,8 +43,22 @@ export default function setup() {
     async function getColor() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `product/color/crud/index`
         let data = await AxiosMethod.axios_get()
@@ -91,27 +105,7 @@ export default function setup() {
             colorGroups.value = data.data
             loading.value = false
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/color/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/color/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function (val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return { pageLength, filterField, color, getColor, getGroupColor,getAllColor, allColors, colorGroups, addPerPage, dataTableLength, page, header, item , loading}
+    return { pageLength, filterField, color, getColor, getGroupColor,getAllColor, allColors, colorGroups, dataTableLength, page, header, item , loading}
 }
 

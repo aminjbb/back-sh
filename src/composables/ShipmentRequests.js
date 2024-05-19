@@ -80,8 +80,22 @@ export default function setup() {
     async function getShipmentRequestsList() {
         filter.factor = route.params.factorId
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
-        AxiosMethod.form = {...route.query}
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/consignment/crud/requested/index/`
         let data = await AxiosMethod.axios_get()
@@ -97,29 +111,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/shipment-requests/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList ,addPerPage, getShipmentRequestsList,
+         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList , getShipmentRequestsList,
         dataTableLength, page, header, loading, shipmentRequest
          }
 }
