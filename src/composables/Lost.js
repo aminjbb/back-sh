@@ -91,14 +91,6 @@ export default function setup() {
         }
     };
 
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getWasteAndLostList(to)
-    })
 
     return {pageLength, itemList , getWasteAndLostList, dataTableLength, page, header,loading, createHeader , filterField }
 }

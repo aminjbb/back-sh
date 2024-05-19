@@ -24,6 +24,7 @@
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerVouchers" />
 
             <PanelFilter
+                @resetPage="resetPage"
                 path="voucher/index"
                 :filterField="indexFilterField"
                 :typeItems="voucherTypes"
@@ -204,6 +205,14 @@ export default {
       if (status === 'true') {
         this.getVoucherList();
       }
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
     }
   },
 

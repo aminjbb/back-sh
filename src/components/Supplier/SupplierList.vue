@@ -30,6 +30,7 @@
                       :header="header" />
 
                   <PanelFilter
+                      @resetPage="resetPage"
                       path="supplier/index"
                       :filterField="filterField"
                       :typeItems="supplierTypeFilter"
@@ -196,6 +197,14 @@ export default {
                 this.getSupplierList();
             }
         },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
 
     mounted() {

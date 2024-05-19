@@ -23,6 +23,8 @@
             />
 
             <PanelFilter
+                @resetPage="resetPage"
+                :userId="$route.query.user_id"
                 :path="`wallet/index`"
                 :filterField="filterFieldWallet"
                 :statusItems="statusItems"
@@ -201,6 +203,13 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   computed: {

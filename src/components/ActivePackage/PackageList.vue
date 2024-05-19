@@ -9,6 +9,7 @@
 
             <v-col cols="6" class="d-flex justify-end ">
               <PanelFilter
+                  @resetPage="resetPage"
                   path="active-package/index"
                   :filterField="filterField"
                   :typeItems="typeList"
@@ -159,7 +160,15 @@ export default {
             if (status === 'true') {
                 this.getPackageList()
             }
-        }
+        },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
 
     mounted() {

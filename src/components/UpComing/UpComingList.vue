@@ -11,7 +11,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <PanelFilter path="up-coming/index" :filterField="filterField" :statusItems="statusItems"/>
+            <PanelFilter @resetPage="resetPage" path="up-coming/index" :filterField="filterField" :statusItems="statusItems"/>
           </v-row>
         </v-col>
       </v-row>
@@ -150,6 +150,14 @@ export default {
         this.getShipmentRequestsList();
       }
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {

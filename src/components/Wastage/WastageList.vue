@@ -40,6 +40,7 @@
         </v-col>
         <v-col cols="12" md="1" class="mt-3">
           <PanelFilter
+              @resetPage="resetPage"
               path="wastage/index"
               :filterField="filterField"
               :typeItems="typeList"
@@ -229,6 +230,14 @@ export default {
         this.getWasteAndLostList();
       }
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {

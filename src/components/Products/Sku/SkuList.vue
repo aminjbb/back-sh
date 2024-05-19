@@ -31,6 +31,7 @@
                         />
 
                       <PanelFilter
+                          @resetPage="resetPage"
                           :path="`product/get/skus/index`"
                           :filterField="filterField"
                           :brandsList="brandsList"
@@ -299,7 +300,15 @@ export default {
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
-        }
+        },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     }
 }
 </script>

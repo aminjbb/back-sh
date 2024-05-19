@@ -24,6 +24,7 @@
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
             <PanelFilter
+                @resetPage="resetPage"
                 path="menu/index"
                 :filterField="filterField"
                 :statusItems="status"
@@ -175,6 +176,14 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
 
   },
 

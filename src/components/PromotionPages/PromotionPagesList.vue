@@ -26,7 +26,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <PanelFilter path="promotion-page/index" :filterField="filterField" :statusItems="status"/>
+            <PanelFilter @resetPage="resetPage" path="promotion-page/index" :filterField="filterField" :statusItems="status"/>
           </v-row>
         </v-col>
       </v-row>
@@ -162,6 +162,14 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
     }
   },
 

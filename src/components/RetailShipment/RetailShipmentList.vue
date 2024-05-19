@@ -16,6 +16,8 @@
                 :header="header" />
 
             <PanelFilter
+                @resetPage="resetPage"
+                :factorId="$route.query.factor_id"
                 path="retail-shipment/index"
                 :filterField="filterFieldAllRetail"
                 :statusItems="status" />
@@ -188,6 +190,13 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
+    },
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
     }
   },
 

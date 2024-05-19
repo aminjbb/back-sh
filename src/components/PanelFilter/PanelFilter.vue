@@ -555,7 +555,9 @@ export default {
     disableCategory: false,
     path: '',
     page:Number,
-    perPage:Number
+    perPage:Number,
+    userId:null,
+    factorId:null,
   },
 
   setup(){
@@ -784,18 +786,18 @@ export default {
     setFilter() {
       let params = '?'
       let fullPath = this.$route.path;
-
+      this.$emit('resetPage')
       this.values.forEach((el) => {
         if (el.value) {
           if (el.name === 'created_at' || el.name === 'updated_at' || el.name === 'start_time' || el.name === 'end_time' || el.name === 'logistic_at') {
             let created_at_from = null
             let created_at_to = null
 
-            if (el.value[0] && !el.value[1]) {
+            if (el.value[0] && (!el.value[1] || el.value[1]==null)) {
               const splitDate = el.value[0].split('-');
               created_at_from = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2]);
             }
-            else if (el.value[0] && el.value[1]) {
+            else if ((el.value[0] && el.value[1]) && el.value[0] != null && el.value[1]!= null) {
               const splitDate = el.value[0].split('-');
               const splitDateUp = el.value[1].split('-');
               created_at_from = jalaliToGregorian(splitDate[0], splitDate[1], splitDate[2]);
@@ -803,31 +805,63 @@ export default {
             }
 
             if (el.name === 'created_at') {
-              params += 'created_at_from_date=' + created_at_from + '&created_at_to_date=' + created_at_to + '&';
+              if (created_at_from != null ){
+                params += 'created_at_from_date=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&created_at_to_date=' + created_at_to + '&'
+              }
+
             }
 
             else if (el.name === 'logistic_at') {
-              params += 'logistic_at_from_date=' + created_at_from + '&logistic_at_to_date=' + created_at_to + '&';
+              if (created_at_from != null ){
+                params += 'logistic_at_from_date=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&logistic_at_to_date=' + created_at_to + '&'
+              }
             }
 
             else if (el.name === 'updated_at') {
-              params += 'updated_at_from_date=' + created_at_from + '&updated_at_to_date=' + created_at_to + '&';
+              if (created_at_from != null ){
+                params += 'updated_at_from_date=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&updated_at_to_date=' + created_at_to + '&'
+              }
             }
 
             else if (el.name === 'start_time') {
-              params += 'start_time_from=' + created_at_from + '&start_time_to=' + created_at_to + '&';
+              if (created_at_from != null ){
+                params += 'start_time_from=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&start_time_to=' + created_at_to + '&'
+              }
             }
 
             else if (el.name === 'end_time') {
-              params += 'end_time_from=' + created_at_from + '&end_time_to=' + created_at_to + '&';
+              if (created_at_from != null ){
+                params += 'end_time_from=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&end_time_to=' + created_at_to + '&'
+              }
             }
           }
           else {
             params += el.name + '=' +el.value + '&';
+
           }
         }
       });
-
+      if (this.userId != null ){
+        params += 'user_id=' +this.userId + '&';
+      }
+      if (this.factorId != null ){
+        params += 'factor_id=' +this.factorId + '&';
+      }
       params = params.replace(/&$/, '');
 
       this.$router.push(fullPath + params);

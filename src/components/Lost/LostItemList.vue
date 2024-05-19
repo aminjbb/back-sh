@@ -10,6 +10,7 @@
         <v-col cols="12">
           <v-row justify="end pa-3">
             <PanelFilter
+                @resetPage="resetPage"
                 path="lost/index"
                 :filterField="filterField"
                 :typeItems="typeList"
@@ -161,6 +162,13 @@ export default {
         this.getWasteAndLostList();
       }
     },
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {
@@ -194,6 +202,10 @@ export default {
         this.getWasteAndLostList()
       }
     },
+
+    $route(){
+      this.getWasteAndLostList()
+    }
   }
 }
 </script>

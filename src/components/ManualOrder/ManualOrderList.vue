@@ -25,6 +25,7 @@
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
             <PanelFilter
+                @resetPage="resetPage"
                 path="orders/manual-order-list"
                 :filterField="filterField"
                 :statusItems="status"
@@ -203,6 +204,14 @@ export default {
         this.getManualOrderList();
       }
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {

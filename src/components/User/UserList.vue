@@ -34,6 +34,7 @@
             />
 
             <PanelFilter
+                @resetPage="resetPage"
                 path="user/index"
                 :filterField="filterField"
                 :page="page"
@@ -49,6 +50,7 @@
         height="580"
     >
       <Table
+
           class="flex-grow-1"
           :header="header"
           :items="userList"
@@ -158,6 +160,14 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
     }
   },
 

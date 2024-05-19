@@ -22,6 +22,7 @@
                <v-col cols="6">
                    <v-row justify="end">
                      <PanelFilter
+                         @resetPage="resetPage"
                          path="driver-management/index"
                          :filterField="filterField"
                      />
@@ -147,6 +148,13 @@
             changeHeaderShow(index, value) {
                 this.header[index].show = value
             },
+         resetPage(){
+           this.perPageFilter = true
+           this.page = 1
+           setTimeout(()=>{
+             this.perPageFilter = false
+           }, 1000)
+         }
        },
    
        mounted() {

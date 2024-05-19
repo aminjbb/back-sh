@@ -23,6 +23,7 @@
           <v-col cols="6">
             <v-row justify="end" class="mt-0">
               <PanelFilter
+                  @resetPage="resetPage"
                   path="free-delivery/index"
                   :filterField="indexFilterField"
                   :sendingItems="sendingMethods"
@@ -179,6 +180,14 @@
           this.getFreeDeliveryList();
         }
       },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
   
     mounted() {

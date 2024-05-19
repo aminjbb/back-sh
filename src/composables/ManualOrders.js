@@ -73,6 +73,7 @@ export default function setup() {
         if ( !route.query.per_page ){
             AxiosMethod.form = {
                 ...query,
+                is_admin_order:1,
                 page:page.value,
                 per_page : dataTableLength.value
             }
@@ -81,6 +82,7 @@ export default function setup() {
             AxiosMethod.form = {
                 ...query,
                 page:page.value,
+                is_admin_order:1,
                 per_page : dataTableLength.value
             }
         }
