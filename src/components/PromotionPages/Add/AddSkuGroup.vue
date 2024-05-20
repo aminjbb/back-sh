@@ -121,41 +121,9 @@ import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 export default {
   setup() {
-    const {
-      getPromotionShpsList,
-      promotionShpsList,
-      pageLengthShpsList,
-      promotion ,
-      promotions ,
-      getPromotion ,
-      getPromotions,
-      pageLength,
-      filterField ,
-      addPerPage,
-      dataTableLength,
-      promotionPage,
-      header,
-      loading ,
-      skuGroupHeader
-    }=new PromotionPage()
+    const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}=new PromotionPage()
+    return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}
 
-    return{
-      getPromotionShpsList,
-      promotionShpsList,
-      pageLengthShpsList,
-      promotion ,
-      promotions ,
-      getPromotion ,
-      getPromotions,
-      pageLength,
-      filterField ,
-      addPerPage,
-      dataTableLength,
-      promotionPage,
-      header,
-      loading ,
-      skuGroupHeader
-    }
   },
   data(){
     return{
@@ -193,9 +161,7 @@ export default {
   },
 
   methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
     async searchSku(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()

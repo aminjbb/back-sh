@@ -13,8 +13,6 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterField" />
-
             <PanelFilter
                 path="seller/index"
                 :filterField="filterField"/>
@@ -98,7 +96,6 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     } = Seller();
@@ -109,7 +106,6 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     };

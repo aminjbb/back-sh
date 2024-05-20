@@ -79,39 +79,27 @@ export default {
     return {
       cargoId: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      allCargoData: [],
-      filteredCargoData: [],
-      qrCode: null,
       valid: null,
     }
   },
 
   setup() {
     const {
-      cargoList,
-      getCargoList,
+
       dataTableLength,
       orderListHeader,
-      filterField,
       loading,
       getSortingOrder,
       orderList,
-      getOrderListDetail,
-      barcodeNum,
       pageNumber,
       pageLength
     } = OrderPackagingList();
     return {
-      cargoList,
-      getCargoList,
       dataTableLength,
       orderListHeader,
-      filterField,
       loading,
       getSortingOrder,
       orderList,
-      getOrderListDetail,
-      barcodeNum,
       pageNumber,
       pageLength
     };
@@ -132,14 +120,6 @@ export default {
   },
   methods: {
 
-
-    updatePackageIdInStore() {
-      this.$store.commit('set_packageId', this.cargoId);
-    },
-    updateSendingMethod() {
-      const paymentMethod = "saman";
-      this.$store.commit('set_sendingMethod', paymentMethod);
-    },
     onFormSubmit() {
       if (this.cargoId.includes('-')) {
         const cargoSplit = this.cargoId.split('-')
@@ -151,14 +131,8 @@ export default {
         this.$router.push('/order-packaging/detail-info/' + this.cargoId);
       }
     },
-    /**
-     * Change Header Status
-     * @param {*} index
-     * @param {*} value
-     */
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
+
     pageNumber(val){
       this.getSortingOrder(val)
     }

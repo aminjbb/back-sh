@@ -174,10 +174,6 @@ export default {
          */
         items: Array,
 
-        /**
-         * Model
-         */
-        model: String,
 
         /**
          * Height
@@ -222,10 +218,7 @@ export default {
         /**
          * Edit endpoint for change active
          */
-        activePath: {
-            type: String,
-            default: ''
-        },
+
 
     },
 
@@ -353,10 +346,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Return odd index

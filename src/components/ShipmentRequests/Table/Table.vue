@@ -201,7 +201,7 @@
                 </div>
 
                     <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu  :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -210,33 +210,18 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-<!--                                <v-list-item-title>-->
-<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
-<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            پرینت برچسب-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                </v-list-item-title>-->
+
                                
                                     <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail1(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                      <div class="ma-3 pointer" @click="print(item)">
+                                        <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             نمایش جزئیات
                                         </span>
-                                    </div>
+                                      </div>
                                 
                                 </v-list-item-title>
-<!--                            <v-list-item-title>-->
 
-<!--                                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">-->
-<!--                                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                                        <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                                            پرینت محموله-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                </v-list-item-title>-->
                             </v-list-item>
                         </v-list>
 
@@ -254,10 +239,7 @@
             </div>
         </div>
         <MarketPlaceDetailModal/>
-        <DetailModalTestQrCodeFull/>
-        <DetailModalTestQrCode/>
-        <DetailModalTest />
-        <DetailsModal />
+
         <ModalRejectRequestShipment :getShipmentRequestsList="getShipmentRequestsList"/>
     </div>
     </template>
@@ -273,25 +255,18 @@
 import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
 import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import DetailModalTestQrCode from "@/components/ShipmentRequests/Modal/DetailModalTestQrCode.vue";
-import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
 import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
 import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
 
     import {
         openToast,
-        openConfirm,
+
         isOdd
     } from "@/assets/js/functions";
-    import {
-    openModal
-} from "@/assets/js/functions_seller";
+
     export default {
         components: {
-                DetailsModal,
                 DetailModalTest,
-                DetailModalTestQrCode,
-                DetailModalTestQrCodeFull,
                 MarketPlaceDetailModal,
                 ModalRejectRequestShipment
 },
@@ -321,13 +296,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 default: '500',
             },
     
-            /**
-             * Delete endpoint for change filter
-             */
-            deletePath: {
-                type: String,
-                default: ''
-            },
+
     
             /**
              * Page on table
@@ -352,9 +321,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 type: Boolean,
                 default: false
             },
-    
-          
-    
+
         },
     
         data() {
@@ -368,7 +335,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
                 isIndex: [],
                 isFollow: [],
                 panelFilter: new SupplierPanelFilter(),
-                activeColumn: false,
+
 
             }
         },
@@ -393,14 +360,12 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
     
           
         },
-    
-        watch: {
-            items(val) {
 
-            }
-        },
-    
         methods: {
+
+          print(item) {
+            window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${item.id}/print-detail`, '_blank');
+          },
           openRejectModal(item){
             const form = {
               dialog :true,
@@ -447,42 +412,7 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             }
            
         },
-        requestShipmentTest(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTest' , form)
-    },
-    requestShipmentMarketPlace(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_MarketPlaceDetailModal' , form)
-    },
-    requestShipmentTestQrCode(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTestQrCode' , form)
-    },
-    requestShipmentTestQrCodeFull(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_detailModalTestQrCodeFull' , form)
-    },
-        /**
-         * Update list
-         * @param {*} status 
-         */
-        updateList(status) {
-            this.$emit('updateList', status);
-        },
-        
+
 
         async updateStatus(index, status, item) {
             var formdata = new FormData();
@@ -511,97 +441,6 @@ import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/Moda
             else {
               this.loading = true
             }
-        },
-
-        requestShipment(item) {
-              const form = {
-                dialog :true,
-                object : item
-              }
-              this.$store.commit('set_modalRequestShipment' , form)
-            },
-        /**
-         * retailShipment detail modal
-         */
-
-         async requestShipmentDetailShipmentDetail1(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/detail/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
-        }
-        this.$store.commit('set_detailModalTest' , form)
-
-      }
-
-    },
-    async requestShipmentDetailShipmentDetail2(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data && data.data) {
-                
-                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-
-                if (data.data.barcode_image) {
-                data.data.barcode_image = baseUrl + data.data.barcode_image;
-            }
-
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_detailModalTestQrCode', form)
-            } else {
-            console.error("Data not found");
-        }
-        },
-        async requestShipmentDetailShipmentDetail4(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog :true,
-          object : data.data
-        }
-        this.$store.commit('set_marketPlaceDetailModal' , form)
-
-      }
-
-    },
-    async requestShipmentDetailShipmentDetail3(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data && data.data) {
-                const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-                if (data.data.barcode_image) {
-                data.data.barcode_image = baseUrl + data.data.barcode_image;
-                  const form = {
-                    dialog: true,
-                    object: data.data
-                  }
-                  this.$store.commit('set_detailModalTestQrCodeFull', form)
-            }
-            // if (data.data.shps.barcode_image) {
-            //     data.data.shps.barcode_image = baseUrl + data.data.shps.barcode_image;
-            // }
-
-            } else {
-            console.error("Data not found");
-        }
         },
 
             /**

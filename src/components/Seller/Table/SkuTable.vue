@@ -304,7 +304,6 @@
 import {
   isOdd, splitChar
 } from '@/assets/js/functions'
-import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
 import {
     openConfirm
 } from '@/assets/js/functions'
@@ -332,7 +331,6 @@ import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscount
 export default {
     components: {
         ModalMassUpdate,
-        AddAttributeValueModal,
         OrderLimitModal,
         InventoryManagementModal,
         ConsumerPriceModal,
@@ -398,13 +396,6 @@ export default {
             default: '500',
         },
 
-        /**
-         * Edit endpoint for change filter
-         */
-        editPath: {
-            type: String,
-            default: ''
-        },
 
         /**
          * Edit endpoint for change active
@@ -414,20 +405,7 @@ export default {
             default: ''
         },
 
-        /**
-         * Edit endpoint for change Sellable
-         */
-        sellablePath: {
-            type: String,
-            default: ''
-        },
 
-        /**
-         * Get attributes
-         */
-        getAttributes: {
-            type: Function
-        },
 
         /**
          * Page on table
@@ -453,10 +431,6 @@ export default {
             default: false
         },
 
-        uploadImageUrl: {
-            type: String,
-            default: ''
-        }
     },
 
     data() {
@@ -495,16 +469,7 @@ export default {
         /**
          * Check is_active is true or false for show in table
          */
-        checkActive() {
-            this.header.forEach(element => {
-                if (element.value === 'is_active' && element.show == true) {
-                    this.activeColumn = true;
-                } else if (element.value === 'is_active' && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
+
     },
 
     watch: {
@@ -618,10 +583,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Change Active

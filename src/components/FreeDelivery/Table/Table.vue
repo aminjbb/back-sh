@@ -312,10 +312,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Return odd index
@@ -339,9 +335,7 @@ export default {
          * Update list
          * @param {*} status
          */
-        updateList(status) {
-            this.$emit('updateList', status);
-        },
+
 
         async changeActive(index, item) {
             var formdata = new FormData();

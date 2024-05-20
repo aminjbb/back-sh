@@ -151,51 +151,59 @@ export default {
       }
     ]
 
-    const {
-      pageLength,
-      getOrderList,
-      orderList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      loading
-    } = Orders();
-    return {
-      pageLength,
-      getOrderList,
-      orderList,
-      filterField,
-      dataTableLength,
-      page,
-      header,
-      loading,
-      status,
-      paymentStatus,
-      paymentMethods,
-      packedStatus
-    };
-  },
+        const {
+            pageLength,
+            getOrderList,
+            orderList,
+            filterField,
+            dataTableLength,
+            page,
+            header,
+            addPerPage,
+            loading
+        } = Orders();
+        return {
+            pageLength,
+            getOrderList,
+            orderList,
+            filterField,
+            dataTableLength,
+            page,
+            header,
 
-  components: {
-    PanelFilter,
-    Table,
-    ModalColumnFilter
-  },
+            addPerPage,
+            loading,
+            status,
+            paymentStatus,
+            paymentMethods,
+            packedStatus
 
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
-  },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
+        };
     },
 
-    updateList(status) {
-      if (status === 'true') {
+    components: {
+      PanelFilter,
+        Table,
+        ModalColumnFilter
+    },
+
+    computed: {
+
+    },
+
+    methods: {
+        changeHeaderShow(index, value) {
+            this.header[index].show = value
+        },
+
+        updateList(status) {
+            if (status === 'true') {
+                this.getOrderList();
+            }
+        },
+    },
+
+    mounted() {
         this.getOrderList();
       }
     },

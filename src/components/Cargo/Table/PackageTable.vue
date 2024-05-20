@@ -110,9 +110,6 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
 import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 
 import {
@@ -192,47 +189,6 @@ export default {
 
   data() {
     return {
-      statusItems: [
-        {
-          label: 'در انتظار',
-          value: 'waiting',
-        },
-        {
-          label: 'در حال بررسی',
-          value: 'in_review',
-        },
-        {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
-        },{
-          label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
-      ],
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -240,9 +196,7 @@ export default {
   },
 
   computed: {
-    PrintPermission(){
-      return ['waiting' , 'in_review']
-    },
+
     deleteAndShippingPermission(){
       return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
         'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
@@ -286,20 +240,8 @@ export default {
     },
 
     convertDateToJalai,
-    changeValue(index, value) {
-      this.active[index] = value
-    },
 
-    /**
-     * requestShipment modal
-     */
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
+
 
     /**
      * Get row index in table

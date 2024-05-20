@@ -145,19 +145,7 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(status){
-      if(status === 'true'){
-        this.getShipmentRequestsList();
-      }
-    },
 
-    resetPage(){
-      this.perPageFilter = true
-      this.page = 1
-      setTimeout(()=>{
-        this.perPageFilter = false
-      }, 1000)
-    }
   },
 
   mounted() {

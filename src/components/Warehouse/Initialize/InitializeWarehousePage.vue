@@ -112,8 +112,5 @@ export default {
 }
 </script>
 <style>
-.pick-up__counter {
-  position: absolute;
-  top: 36px;
-}
+
 </style>

@@ -146,36 +146,7 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
 
     /**
      * Page on table
@@ -201,10 +172,6 @@ export default {
       default: false
     },
 
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
   },
 
   data() {
@@ -243,16 +210,7 @@ export default {
     /**
      * Check is_active is true or false for show in table
      */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
+
   },
 
   watch: {
@@ -370,17 +328,7 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
 
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
   },
 }
 </script>

@@ -121,7 +121,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -139,12 +139,7 @@
                             </v-list-item-title>
 
                             <v-list-item-title>
-                                <div class="ma-3 pointer d--rtl" @click="printBarcode(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        پرینت برچسب
-                                    </span>
-                                </div>
+                              <ModalPrint :id="item.id" />
                             </v-list-item-title>
                         </v-list>
                     </v-menu>
@@ -160,7 +155,7 @@
         </div>
     </div>
 
-    <ModalPrint />
+
 </div>
 </template>
 
@@ -236,7 +231,6 @@ export default {
             per_page: '25',
             filter: [],
             panelFilter: new PanelFilter(),
-            activeColumn: false,
         }
     },
 
@@ -265,13 +259,6 @@ export default {
     },
 
     methods: {
-        /**
-         * Open print barcode modal
-         * @param {*} id
-         */
-        printBarcode(id) {
-            openModal(this.$store, 'set_printModal', id, true)
-        },
 
         /**
          * Get row index in table
@@ -324,10 +311,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index

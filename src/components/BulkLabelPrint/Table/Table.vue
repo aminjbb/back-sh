@@ -132,7 +132,7 @@
                   <v-list-item-title>
                     <div
                         class="ma-5 pointer"
-                        @click=getDetail(item)>
+                        @click=print(item)>
                       <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                               پرینت
@@ -147,26 +147,7 @@
             </v-menu>
 
           </div>
-          <v-list-item>
-            <v-list-item-title>
-              <div class="ma-5 pointer" @click="getShpssDetailLost(item)">
-                <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت مفقودی
-                                            </span>
-              </div>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <div class="ma-5 pointer" @click="getShpssDetailWastage(item)">
-                <v-icon size="small" class="text-grey-darken-1">mdi-delete-variant</v-icon>
-                <span class="mr-2 text-grey-darken-1 t14300">
-                                              ثبت ضایعات
-                                            </span>
-              </div>
-            </v-list-item-title>
-          </v-list-item>
+
         </div>
       </div>
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
@@ -177,17 +158,12 @@
         </div>
       </div>
     </div>
-    <ModalBulkPrintLabel :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId"/>
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
-    <ModalDamageReport/>
-    <ModalLostReport/>
   </div>
 </template>
 <script>
-import ModalBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalBulkPrintLabel.vue";
 
-import ModalLostReport from "@/components/BulkLabelPrint/Modal/ModalLostReport.vue";
-import ModalDamageReport from "@/components/BulkLabelPrint/Modal/ModalDamageReport.vue";
+
 
 
 import {
@@ -208,11 +184,6 @@ import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageMan
 export default {
   components: {
     PackageManagementModal,
-    ModalLostReport,
-    ModalDamageReport,
-    ModalBulkPrintLabel,
-
-
   },
 
   props: {
@@ -290,11 +261,8 @@ export default {
       active: [],
       panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
-      fetchCargoData: [],
       paramsQuery: [],
       filter: [],
-      reportType: null,
-      shps_s: null,
       loading: false,
       shipments: [],
       isSubmitted: false,
@@ -327,78 +295,16 @@ export default {
   },
 
   methods: {
+
     packageManagement(shipment){
       this.shipmentId = shipment.shipment_id
       this.shps_id = shipment.shps
       this.$store.commit('set_packageManagementModal' , true)
     },
-    async getDetail(shipment) {
-      this.shipmentId = shipment.shipment_id
-      this.shps_id = shipment.shps
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${shipment.shipment_id}?shps=${shipment.shps}&package_id=${this.packageId}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const dialogForm = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_bulkPrintLabel', dialogForm)
+    print(shipment) {
+      window.open(`${import.meta.env.VITE_API_SITEURL}processing-shipment/${shipment.shipment_id}/${shipment.shps}/${this.packageId}/barcode-print`, '_blank');
 
-
-        this.detail = data.data
-        this.dialog = true
-      }
     },
-
-    /**
-     * Open Basic Discount modal
-     * @param {*} id
-     */
-
-    /**
-     * LostShpss modal
-     */
-    async getShpssDetailLost(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-
-        this.$store.commit('set_shps_s', item.id);
-        this.$store.commit('set_reportType', 'lost');
-        this.$store.commit('set_modalLostShpss', form)
-      }
-    },
-    async getShpssDetailWastage(item) {
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_shps_s', item.sku.id);
-        this.$store.commit('set_reportType', 'wastage');
-        this.$store.commit('set_modalLostShpss', form)
-
-      }
-    },
-
     /**
      * sending data in save btn
      */

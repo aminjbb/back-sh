@@ -200,13 +200,6 @@ export default {
             default: false
         },
 
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
-        },
 
     },
 
@@ -217,7 +210,7 @@ export default {
             per_page: '25',
             filter: [],
             panelFilter: new PanelFilter(),
-            activeColumn: false,
+
         }
     },
 
@@ -293,10 +286,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Return odd index

@@ -101,6 +101,12 @@ export default {
   },
   setup() {
     const {
+     getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
+    pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherList
+    } = new Voucher()
+    return {
+      getVoucherShps, voucher, dataTableLength, filterField , filterFieldPeerToPeer,
+      pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup ,headerPeerToPeerVoucherList,
       headerShps,
       headerPublicVoucherList,
       getVoucherShps,

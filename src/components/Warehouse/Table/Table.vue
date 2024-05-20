@@ -260,13 +260,6 @@ export default {
         },
 
         /**
-         * Edit endpoint for change filter
-         */
-        editPath: {
-            type: String,
-            default: ''
-        },
-        /**
          * Delete endpoint for change filter
          */
         deletePath: {
@@ -445,10 +438,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Change Active

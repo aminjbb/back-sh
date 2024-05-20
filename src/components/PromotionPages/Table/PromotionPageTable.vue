@@ -251,8 +251,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            isIndex: [],
-            isFollow: [],
             priorities: [],
             panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
@@ -280,16 +278,6 @@ export default {
         /**
          * Check is_active is true or false for show in table
          */
-        checkActive() {
-            this.header.forEach(element => {
-                if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-                    this.activeColumn = true;
-                } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
     },
 
     watch: {
@@ -332,9 +320,6 @@ export default {
             }
         },
 
-        changeValue(index, value) {
-            this.active[index] = value
-        },
 
         /**
          * Mass update modal
@@ -394,10 +379,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Change Active

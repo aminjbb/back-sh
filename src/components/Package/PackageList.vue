@@ -90,7 +90,7 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const typeList = [
       {
         label: 'پالت',

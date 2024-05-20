@@ -91,10 +91,6 @@ export default {
       default: () => []
     },
 
-    /**
-     * Model
-     */
-    model: '',
 
     /**
      * Height
@@ -145,7 +141,6 @@ export default {
       filter: [],
       active: [],
       panelFilter: new SupplierPanelFilter(),
-      activeColumn: false,
       userInputs: [],
       loading: false,
       apiSuccess: {},

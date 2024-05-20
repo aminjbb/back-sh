@@ -154,7 +154,7 @@
                 </div>
 
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-start">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -164,11 +164,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="withdrawDetail(item)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            مشاهده دلیل رد </span>
-                                    </div>
+                                  <DetailModalTest  :item="item"/>
                                 </v-list-item-title>
                             </v-list-item>
                         </v-list>
@@ -186,7 +182,7 @@
         </div>
     </div>
 
-    <DetailModalTest />
+
 
     <ModalRejectWithdrawRequest :getWithdrawRequestList="getWithdrawRequestList" />
 </div>
@@ -229,10 +225,7 @@ export default {
          */
         items: [],
 
-        /**
-         * Model
-         */
-        model: '',
+
 
         /**
          * Height
@@ -242,13 +235,8 @@ export default {
             default: '500',
         },
 
-        /**
-         * Delete endpoint for change filter
-         */
-        deletePath: {
-            type: String,
-            default: ''
-        },
+
+
 
         /**
          * Page on table
@@ -283,10 +271,10 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            isIndex: [],
-            isFollow: [],
+
+
             panelFilter: new SupplierPanelFilter(),
-            activeColumn: false,
+
 
         }
     },
@@ -391,22 +379,7 @@ export default {
             }
         },
 
-        async withdrawDetail(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_depositDetail', form)
 
-            }
-
-        },
 
         /**
          * Get row index in table

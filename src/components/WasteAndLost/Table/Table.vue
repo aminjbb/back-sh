@@ -299,7 +299,6 @@ export default {
             per_page: '25',
             filter: [],
             panelFilter: new PanelFilter(),
-            activeColumn: false,
         }
     },
 
@@ -400,10 +399,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Return odd index
@@ -421,13 +416,7 @@ export default {
             openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", this.deletePath + id, true);
         },
 
-        /**
-         * Update list
-         * @param {*} status 
-         */
-        updateList(status) {
-            this.$emit('updateList', status);
-        },
+
     },
 }
 </script>

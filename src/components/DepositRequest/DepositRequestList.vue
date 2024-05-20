@@ -85,10 +85,9 @@
 import Table from '@/components/DepositRequest/Table/Table.vue'
 import WithdrawRequests from "@/composables/DepositRequest";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 
 export default {
   data() {
@@ -141,15 +140,11 @@ export default {
   components: {
     PanelFilter,
     Table,
-    ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
   },
 
   computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
   },
 
   methods: {
@@ -157,19 +152,6 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(status) {
-      if (status === 'true') {
-        this.getWithdrawRequestList();
-      }
-    },
-
-    resetPage() {
-      this.perPageFilter = true
-      this.page = 1
-      setTimeout(() => {
-        this.perPageFilter = false
-      }, 1000)
-    }
   },
 
   mounted() {
@@ -202,20 +184,8 @@ export default {
         this.getWithdrawRequestList()
       }
     },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getPageList();
-          openToast(
-              this.$store,
-              'صفحه مورد نظر با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
-        }
-      }
-    },
-    $route() {
+
+    $route(){
       this.getWithdrawRequestList();
 
     }

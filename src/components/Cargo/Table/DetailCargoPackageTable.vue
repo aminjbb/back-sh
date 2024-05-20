@@ -72,12 +72,9 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
 
 import {
-  openConfirm,
+
   isOdd, convertDateToJalai
 } from "@/assets/js/functions";
 export default {
@@ -168,11 +165,7 @@ export default {
   },
 
   computed: {
-    deleteAndShippingPermission(){
-      return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
-        'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
-        'received_base_warehouse' , 'locating' ,  'located']
-    },
+
     /**
      * Get each items table based of header length
      */
@@ -201,16 +194,6 @@ export default {
     convertDateToJalai,
     changeValue(index, value) {
       this.active[index] = value
-    },
-    /**
-     * requestShipment modal
-     */
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
     },
 
     /**
@@ -264,10 +247,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Return odd index
@@ -277,13 +256,8 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
+
+
   },
 }
 </script>

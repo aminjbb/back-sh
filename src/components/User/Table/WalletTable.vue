@@ -201,20 +201,7 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
-    /**
-     * Edit endpoint for change ban
-     */
-    banPath: {
-      type: String,
-      default: ''
-    },
+
     /**
      * Delete endpoint for change filter
      */
@@ -223,13 +210,6 @@ export default {
       default: ''
     },
 
-    /**
-     * url for edit user
-     */
-    editUrl: {
-      type: String,
-      default: ''
-    },
     /**
      * url for edit user
      */
@@ -387,10 +367,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Return odd index
@@ -400,13 +376,6 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
   },
   watch:{
     items(val){

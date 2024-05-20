@@ -91,7 +91,8 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 export default {
 
   props: {
-    status: null
+    status: null,
+    blogObject:null
   },
   components: {
     UploadFileSection,
@@ -143,21 +144,10 @@ export default {
   mounted() {
     if (this.status == 'edit') this.setForm()
   },
-  computed:{
-    blogObject(){
-      return this.$store.getters['get_homeBlogObject']
-    }
-  },
+
 
   watch:{
-    confirmModal(val){
-      if (!val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          this.form.imag= null
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
+
   }
 }
 </script>
