@@ -103,7 +103,6 @@
 import Table from '@/components/HomePage/Table/HomePageShpsTable.vue'
 import Seller from "@/composables/Seller";
 import Home from "@/composables/Home";
-import SkuModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -113,10 +112,6 @@ import {
 import {
   AxiosCall
 } from "@/assets/js/axios_call";
-import Brands from "@/composables/Brands";
-import Colors from "@/composables/Colors";
-import Categories from "@/composables/Categories";
-import Sku from "@/composables/Sku";
 export default {
   setup(props) {
     const {
@@ -141,7 +136,6 @@ export default {
   components: {
     Table,
     ModalGroupAdd,
-    SkuModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },
@@ -150,42 +144,12 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-    skuGroupList() {
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value: skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      } catch (e) {
-        return []
-      }
-    },
-    skuList() {
-      try {
-        let sku = []
-        this.skuSearchList.forEach(permission => {
-          const form = {
-            name: permission.label + '(' + permission.id + ')',
-            id: permission.id
-          }
-          sku.push(form)
-        })
-        return sku
-      } catch (e) {
-        return []
-      }
-    },
+
+
   },
 
   methods: {
-    changeHeaderShow(index, value) {
-      this.headerSku[index].show = value
-    },
+
 
     updateList(status) {
       if (status === 'true') {

@@ -9,7 +9,13 @@
 
         <v-col cols="12">
           <v-row justify="end pa-3">
-            <ModalTableFilter path="lost/index" :filterField="filterField" />
+            <PanelFilter
+                @resetPage="resetPage"
+                path="lost/index"
+                :filterField="filterField"
+                :typeItems="typeList"
+                :shipmentTypeItems="shipmentTypes"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -74,15 +80,44 @@
 <script>
 import Table from '@/components/Lost/Table/Table.vue'
 import Lost from "@/composables/Lost";
-import ModalTableFilter from '@/components/Lost/Filter/Filter.vue'
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   components: {
-    Table,
-    ModalTableFilter,
+    PanelFilter,
+    Table
   },
   
   setup() {
+    const typeList= [
+      {
+        label: 'پالت',
+        value: 'pallet'
+      },
+      {
+        label: 'بالک',
+        value: 'bulk'
+      },
+    ]
+    const shipmentTypes= [
+      {
+        label: 'کراس داک فروشندگان',
+        value: 'cross_dock_marketplace'
+      },
+      {
+        label: 'محموله های شاواز',
+        value: 'consignment_shavaz'
+      },
+      {
+        label: 'محموله های فروشندگان',
+        value: 'consignment_marketplace'
+      }
+    ]
     const {
       pageLength,
       getWasteAndLostList,
@@ -105,26 +140,31 @@ export default {
       header,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      typeList,
+      shipmentTypes
     };
   },
 
   computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
+
   },
 
   methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
 
     updateList(status) {
       if (status === 'true') {
         this.getWasteAndLostList();
       }
     },
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {
@@ -132,11 +172,36 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getWasteAndLostList()
+      }
     },
 
-
+    $route(){
+      this.getWasteAndLostList()
+    }
   }
 }
 </script>

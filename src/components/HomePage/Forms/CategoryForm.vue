@@ -86,7 +86,8 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 export default {
 
   props: {
-    status: null
+    status: null,
+    categoryObject:null
   },
   components: {
     UploadFileSection,
@@ -105,6 +106,7 @@ export default {
       valid: false,
     }
   },
+
   methods: {
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
@@ -122,34 +124,22 @@ export default {
      */
     setForm() {
       try {
-        this.form.link = this.bannerObject.link
-        this.form.title = this.bannerObject.label
-        this.form.imageAlt = this.bannerObject.image_alt
-        this.form.priority = this.bannerObject.priority
-        this.form.image = this.bannerObject.image_id
+        this.form.link = this.categoryObject.link
+        this.form.title = this.categoryObject.label
+        this.form.imageAlt = this.categoryObject.image_alt
+        this.form.priority = this.categoryObject.priority
+        this.form.image = this.categoryObject.image_id
 
       } catch (error) {}
     },
   },
 
-  computed: {
-    bannerObject(){
-      return this.$store.getters['get_homePageCategoryObject']
-    }
-  },
   mounted() {
     if (this.status == 'edit') this.setForm()
   },
 
   watch:{
-    confirmModal(val){
-      if (!val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          this.form.imag= null
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
+
   }
 }
 </script>

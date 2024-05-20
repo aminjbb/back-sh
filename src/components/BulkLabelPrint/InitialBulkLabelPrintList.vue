@@ -25,23 +25,17 @@
 
 //Components
 import InitialTable from '@/components/BulkLabelPrint/Table/InitialTable.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import BulkLabelPrintList from '@/composables/InitialBulkLabelPrint';
 import {openToast} from "@/assets/js/functions";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   components: {
     InitialTable,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalGroupAdd,
-
   },
 
   data() {

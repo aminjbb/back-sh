@@ -90,11 +90,7 @@
                         (v) => !!v || "این فیلد الزامی است",
                         (v) => /^[0-9]{10}$/.test(v) || "کد ملی معتبر وارد کنید",
                         ],
-                englishRule: [
-                    (v) => !!v || "این فیلد الزامی است",
-                    (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",
-                ],
-                receivedImages: [],
+
             }
         },
     
@@ -114,7 +110,7 @@
     
         watch: {
             driver(newVal) {
-                console.log("Driver prop in child component:", newVal);
+
             }
         }
     }

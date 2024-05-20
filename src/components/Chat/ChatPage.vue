@@ -136,7 +136,6 @@ export default {
 
   watch:{
     $route(){
-      // this.clearConversation()
     }
   }
 

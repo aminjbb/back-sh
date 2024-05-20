@@ -46,19 +46,23 @@
                 </v-row>
             </v-col>
 
+          <v-col cols="6">
+            <v-row justify="end">
+              <ModalColumnFilter
+                  :changeHeaderShow="changeHeaderShow"
+                  :header="headerSku" />
 
-        <v-col cols="6">
-          <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerSku" />
-
-            <SkuModalTableFilter
-                :path="`seller/${$route.params.sellerId}/add/sku`"
-                :filterField="filterFieldSku"
-                show-category
-                model="sellerSku"
-            />
-          </v-row>
-        </v-col>
+              <PanelFilter
+                  :path="`seller/${$route.params.sellerId}/add/sku`"
+                  :filterField="filterFieldSku"
+                  show-category
+                  model="sellerSku"
+                  :statusItems="status"
+                  :page="skuPage"
+                  :perPage="addSkuSellerPerPage"
+              />
+            </v-row>
+          </v-col>
       </v-row>
     </v-card>
 
@@ -125,7 +129,6 @@
 <script>
 import Table from '@/components/Seller/Table/SkuTable.vue'
 import Seller from "@/composables/Seller";
-import SkuModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -135,28 +138,60 @@ import {
 import {
     AxiosCall
 } from "@/assets/js/axios_call";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup(props) {
+    const status = [
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
     const {
-      getSkuSeller , sellerSku,headerSku,
-      filterFieldSku ,skuPage ,dataSkuTableLength,addSkuSellerPerPage,pageLength , skuSellerPage,
+      getSkuSeller,
+      sellerSku,
+      headerSku,
+      filterFieldSku,
+      skuPage,
+      dataSkuTableLength,
+      addSkuSellerPerPage,
+      pageLength,
+      skuSellerPage,
     } = Seller();
     return {
-      getSkuSeller , sellerSku,headerSku,filterFieldSku,addSkuSellerPerPage , pageLength,  skuSellerPage,
-      skuPage ,dataSkuTableLength
+      getSkuSeller,
+      sellerSku,
+      headerSku,
+      filterFieldSku,
+      addSkuSellerPerPage,
+      pageLength,
+      skuSellerPage,
+      skuPage,
+      dataSkuTableLength,
+      status
     };
   },
 
   data(){
     return{
-      skuSearchList:[]
+      skuSearchList:[],
+      perPageFilter:false
     }
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
-    SkuModalTableFilter,
+
     ModalColumnFilter,
     ModalExcelDownload,
   },
@@ -165,21 +200,7 @@ export default {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
-    skuGroupList() {
-      try {
-        let group = []
-        this.allSkuGroups.data.forEach(skuGroup => {
-          const form = {
-            label: skuGroup.label,
-            value: skuGroup.id
-          }
-          group.push(form)
-        })
-        return group
-      } catch (e) {
-        return []
-      }
-    },
+
     skuList() {
       try {
         let sku = []
@@ -251,8 +272,31 @@ export default {
   },
 
   watch: {
-    dataSkuTableLength(val) {
-      this.addSkuSellerPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getSkuSeller()
+      }
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {

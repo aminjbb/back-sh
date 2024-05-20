@@ -91,9 +91,6 @@ export default {
   },
 
   computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal;
-    },
   },
 
   methods: {

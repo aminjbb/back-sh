@@ -138,7 +138,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.created_at_fa }}
+                        {{ item.created_at_fa }} {{item.created_at.split('T')[1].split('.')[0]}}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----
@@ -201,20 +201,7 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
-    /**
-     * Edit endpoint for change ban
-     */
-    banPath: {
-      type: String,
-      default: ''
-    },
+
     /**
      * Delete endpoint for change filter
      */
@@ -223,13 +210,6 @@ export default {
       default: ''
     },
 
-    /**
-     * url for edit user
-     */
-    editUrl: {
-      type: String,
-      default: ''
-    },
     /**
      * url for edit user
      */
@@ -359,16 +339,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -384,10 +367,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Return odd index
@@ -397,13 +376,6 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
   },
   watch:{
     items(val){

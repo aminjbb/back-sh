@@ -90,7 +90,6 @@
     },
     mounted() {
       this.getDriver().then(() => {
-        console.log("Driver data after getDriver call:", this.driver);
     });
 
     }

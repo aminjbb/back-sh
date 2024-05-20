@@ -102,10 +102,7 @@ export default {
         type: '',
         category: {},
         parentCategory: [],
-        imagesNumber:{
-            type: Number,
-            default: 1,
-        }
+
     },
 
     data() {
@@ -118,7 +115,6 @@ export default {
                 category: '',
                 active: 0,
                 priority: 1,
-                imageValidation: 0,
                 categoryImage:null
             },
 
@@ -134,7 +130,6 @@ export default {
                 (v) => !!v || "این فیلد الزامی است",
                 (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",
             ],
-            receivedImages:[],
         }
     },
 
@@ -170,14 +165,7 @@ export default {
             } catch (error) { }
         },
 
-        handleModalSubmission(imagesArray) {
-            if(this.receivedImages.length){
-                this.form.images = [];
-            }
 
-            this.form.imageValidation = this.imagesNumber > imagesArray.length ? 0 : 1;
-            this.form.images = imagesArray;
-        }
     },
 
     watch: {

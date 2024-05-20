@@ -108,11 +108,7 @@
        * List of items
        */
       items: [],
-  
-      /**
-       * Model
-       */
-      model: '',
+
   
       /**
        * Height
@@ -155,7 +151,6 @@
         ordering: {},
         per_page: '25',
         filter: [],
-        isBan:[],
         panelFilter: new PanelFilter(),
       }
     },

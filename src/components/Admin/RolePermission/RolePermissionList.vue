@@ -24,7 +24,6 @@
             <v-col cols="6">
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-
                 </v-row>
             </v-col>
         </v-row>
@@ -89,7 +88,6 @@
 <script>
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalTableFilter from "@/components/Public/ModalTableFilter.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import RolePermission from "@/composables/RolePermission";
@@ -121,7 +119,6 @@ export default {
     components: {
         ModalExcelDownload,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         Table
     },

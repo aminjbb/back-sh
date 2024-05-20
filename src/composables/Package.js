@@ -27,11 +27,11 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name:'شناسه بسته' , type:'text', value:'id'},
-        {name:'نوع بسته' , type:'select', value:'type'},
-        {name:'وضعیت' , type:'select', value:'status'},
-        {name:'تعداد کالا' , type:'text', value:'shps_count_from'},
-        {name:'تعداد کالا' , type: 'text', value:'shps_count_to'},
+        {name:'شناسه بسته' , type:'text', value:'id', place:''},
+        {name:'نوع بسته' , type:'select', value:'type', place:''},
+        {name:'وضعیت' , type:'select', value:'status', place:''},
+        {name:'تعداد کالا' , type:'text', value:'shps_count_from', place:'از'},
+        {name:'تعداد کالا' , type: 'text', value:'shps_count_to', place:'تا'},
     ];
 
     const historyHeader =ref([
@@ -47,17 +47,28 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getPackageList(query) {
+    async function getPackageList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `package/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `package/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -68,10 +79,7 @@ export default function setup() {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
-    };
+    }
     async function getPackage(id) {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -111,37 +119,9 @@ export default function setup() {
                 await getPackageShpsList(data.data.id)
             }
         }
-    };
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/package/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/package/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getPackageList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength,filterField, packageList ,addPerPage, getPackageList, dataTableLength, page, header,loading,
+    return {pageLength,filterField, packageList , getPackageList, dataTableLength, page, header,loading,
         historyHeader , getPackage , singlePackage , packageShpsList , getPackageShpsList, getAssignPackageList,
         assignPackage , donePackage}
 }

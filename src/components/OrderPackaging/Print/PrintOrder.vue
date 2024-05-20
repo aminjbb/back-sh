@@ -227,7 +227,7 @@
 
 <script>
 import Barcode from "@/components/OrderPackaging/Barcode/OrderPackagingBarcode.vue";
-import OrderPackaging from "@/composables/OrderPackaging";
+
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
@@ -244,29 +244,7 @@ export default {
         }
     },
 
-    setup() {
-        const {
-            dataTableLength,
-            page,
-            header,
-            loading,
-            headerShps,
-            orderListDetail,
-            getShpssDetailLost,
-            shpssDetailLost
-        } = OrderPackaging();
 
-        return {
-            getShpssDetailLost,
-            shpssDetailLost,
-            dataTableLength,
-            page,
-            orderListDetail,
-            header,
-            loading,
-            headerShps
-        };
-    },
 
     components: {
       Barcode

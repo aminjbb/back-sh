@@ -112,7 +112,6 @@ export default {
     return {
       shpsItem: null,
       cargo: null,
-      rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
       orderDetail: [],
       accept: true,
@@ -121,36 +120,22 @@ export default {
   },
   setup() {
     const {
-      cargoList,
-      getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
       item,
       filterField,
       loading,
       detailInfo,
-      getOrderListDetail,
       orderListDetail,
-      barcodeNum,
-      getShpsList,
-      extractedIds
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
-      cargoList,
-      getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
       item,
       filterField,
       loading,
       detailInfo,
-      getOrderListDetail,
       orderListDetail,
       orderDetails,
-      barcodeNum,
-      getShpsList,
-      extractedIds
     };
   },
   computed: {

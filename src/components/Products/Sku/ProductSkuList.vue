@@ -35,10 +35,10 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <SkuModalTableFilter 
-                            :path="`product/get/${$route.params.productId}/sku/index`" 
+                        <PanelFilter
+                            :path="`product/get/${$route.params.productId}/sku/index`"
                             :filterField="filterField"
-                            :brandsList="brandsList" 
+                            :brandsList="brandsList"
                             :colorsList="colorsList"
                             :categoriesList="categoriesList"
                             :disable-category = true
@@ -120,13 +120,13 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Sku from '@/composables/Sku';
 import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
 
@@ -136,7 +136,6 @@ export default {
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
-        SkuModalTableFilter,
     },
 
     setup() {

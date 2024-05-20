@@ -93,7 +93,6 @@ export default function setup(posts) {
         AxiosMethod.end_point = `package/shps/items/${paramsQuery.package_id}/${paramsQuery.shps}`;
 
         let data = await AxiosMethod.axios_get();
-        console.log("API Response:", data);
         if (data && data.data) {
             console.log("API Response:", data.data);
             console.log("shipment_id:", data.data.shipment_id);

@@ -268,15 +268,8 @@ export default {
       form: {
         name: '',
         type: [],
-        marketCapacity: '',
-        RetailCapacity: '',
         address: '',
-        postalCode: '',
         phoneNumber: '',
-        latLong: {
-          latitude: 35.745669792668494,
-          longitude: 51.35438114404677
-        },
       },
       rule: [v => !!v || 'این فیلد الزامی است'],
       valid: false,

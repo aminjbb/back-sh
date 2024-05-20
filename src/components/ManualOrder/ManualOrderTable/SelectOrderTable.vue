@@ -214,13 +214,6 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
 
     removeItem (id) {
       const index = this.items.findIndex(item=> item.id === id)

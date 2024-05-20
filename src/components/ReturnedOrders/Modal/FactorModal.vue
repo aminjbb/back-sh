@@ -122,9 +122,6 @@ export default {
     data() {
         return {
             dialog: false,
-            stockModel: null,
-            generalDetails: [],
-            sellerDetails: [],
             userDetails: [],
             factorDetails: [],
         }

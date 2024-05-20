@@ -161,7 +161,7 @@
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" class="text-gray500">
                   mdi-dots-vertical
@@ -179,17 +179,10 @@
                     </div>
 
                   </v-list-item-title>
-<!--                  <v-list-item-title>-->
-<!--                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail3(item)">-->
-<!--                      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>-->
-<!--                      <span class="mr-2 text-grey-darken-1 t14300">-->
-<!--                        پرینت برچسب-->
-<!--                      </span>-->
-<!--                    </div>-->
-<!--                  </v-list-item-title>-->
+
                   <v-list-item-title>
 
-                    <div class="ma-5 pointer" @click="requestShipmentDetailShipmentDetail2(item)">
+                    <div class=" pointer" @click="print(item)">
                       <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                          پرینت محموله
@@ -212,8 +205,8 @@
         </div>
       </div>
     </div>
-    <DetailModalTestQrCodeFull/>
-    <ModalDetailUpComing/>
+
+
   </div>
 </template>
 
@@ -225,12 +218,8 @@ import {
   SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
 
-import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
 
-import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import ModalDetailUpComing from "@/components/UpComing/ModalDetailUpComing.vue";
-import DetailModalTestQrCodeFull from "@/components/ShipmentRequests/Modal/DetailModalTestQrCodeFull.vue";
-import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
+
 
 import {
   openToast,
@@ -239,15 +228,9 @@ import {
 
 export default {
   components: {
-    DetailsModal,
-    DetailModalTest,
-    ModalDetailUpComing,
-    DetailModalTestQrCodeFull,
-    MarketPlaceDetailModal,
   },
 
   props: {
-    getShipmentRequestsList: {type: Function},
     /**
      * List Items for header
      */
@@ -271,13 +254,6 @@ export default {
       default: '500',
     },
 
-    /**
-     * Delete endpoint for change filter
-     */
-    deletePath: {
-      type: String,
-      default: ''
-    },
 
     /**
      * Page on table
@@ -314,11 +290,7 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      isIndex: [],
-      isFollow: [],
       panelFilter: new SupplierPanelFilter(),
-      activeColumn: false,
-      selectedOption: 'Select an Option',
     }
   },
 
@@ -346,20 +318,8 @@ export default {
   methods: {
     convertDateToJalai,
 
-    openRejectModal(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_modalRejectRequestShipment', form)
-    },
-
-    showDropDown(index) {
-      const item = this.items[index];
-      if (item.status === 'in_review') {
-        const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
-        itemDropdown.classList.toggle('active');
-      }
+    print(retailObject) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${retailObject.id}/print`, '_blank');
     },
 
     translateType(type) {
@@ -383,156 +343,6 @@ export default {
       return 'transparent';  // Default background
     },
 
-    factorSelectedTitle(status) {
-      if (status === 'in_review') {
-        return 'در حال بررسی '
-      }
-      if (status === 'approved') {
-        return '  تایید شده'
-      }
-      if (status === 'rejected') {
-        return '  رد شده '
-      }
-
-    },
-    requestShipmentTest(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_detailModalTest', form)
-    },
-    requestShipmentMarketPlace(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_MarketPlaceDetailModal', form)
-    },
-    requestShipmentTestQrCode(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_detailModalTestQrCode', form)
-    },
-    requestShipmentTestQrCodeFull(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_detailModalTestQrCodeFull', form)
-    },
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
-
-
-    async updateStatus(index, status, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      formdata.append('status', status)
-      AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-
-      if (data.status === 'Success') {
-
-        this.getShipmentRequestsList()
-
-        openToast(
-            this.$store,
-            'وضعیت با موفقیت ویرایش شد.',
-            "success"
-        );
-      }
-    },
-
-    requestShipment(item) {
-      const form = {
-        dialog: true,
-        object: item
-      }
-      this.$store.commit('set_modalRequestShipment', form)
-    },
-    /**
-     * retailShipment detail modal
-     */
-    async requestShipmentDetailShipmentDetail1(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/consignment/crud/get/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_detailModalTest', form)
-
-      }
-
-    },
-    async requestShipmentDetailShipmentDetail2(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/detail/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_detailModalTestQrCode', form)
-        const baseUrl = import.meta.env.VITE_API_BACKEND_URL
-
-      } else {
-        console.error("Data not found");
-      }
-    },
-    async requestShipmentDetailShipmentDetail4(item) {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/crossdock/crud/get/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_marketPlaceDetailModal', form)
-
-      }
-
-    },
-    async requestShipmentDetailShipmentDetail3(item) {
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `shipment/print/barcode/${item.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_detailModalTestQrCodeFull', form)
-      } else {
-        console.error("Data not found");
-      }
-    },
 
     /**
      * Get row index in table
@@ -557,16 +367,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];

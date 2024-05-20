@@ -61,18 +61,8 @@
                         </template>
                     </span>
                 </div>
+
           <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px"
-               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
-                        <template v-if="item.snapp_transaction_id">
-                            {{ item.snapp_transaction_id }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_count">
@@ -84,12 +74,24 @@
                     </span>
           </div>
 
-                <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.status">
                           <span class="t10400">
                                {{getOrderStatus(item.status) }}
                           </span>
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+          </div>
+
+                <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px"
+               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13400 text-gray500 py-5 number-font">
+                        <template v-if="item.snapp_transaction_id">
+                            {{ item.snapp_transaction_id }}
                         </template>
                         <template v-else>
                             -
@@ -159,7 +161,7 @@
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" class="text-gray500">
                   mdi-dots-vertical
@@ -168,12 +170,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش جزئیات
-                                    </span>
-                  </div>
+                  <DetailsModal :id="item.id" />
                 </v-list-item-title>
 
                 <v-list-item-title>
@@ -193,12 +190,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        نمایش فاکتور مالی
-                                    </span>
-                  </div>
+                  <FactorModal  :id="item.id" />
                 </v-list-item-title>
               </v-list>
             </v-menu>
@@ -215,7 +207,7 @@
     </div>
 
     <DetailsModal />
-    <FactorModal />
+
   </div>
 </template>
 
@@ -295,13 +287,7 @@ export default {
       default: false
     },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
+
 
   },
 
@@ -312,7 +298,6 @@ export default {
       per_page: '25',
       filter: [],
       panelFilter: new PanelFilter(),
-      activeColumn: false,
       orderStatus: [{
         text: 'پرداخت شده',
         value: 'paid'
@@ -397,21 +382,7 @@ export default {
 
     },
 
-    /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
 
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
-    },
 
     /**
      * Get row index in table
@@ -480,16 +451,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -505,10 +479,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Return odd index
@@ -518,21 +488,8 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "با حذف بسته دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف بسته", "delete", this.deletePath + id, true);
-    },
 
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
+
   },
 }
 </script>

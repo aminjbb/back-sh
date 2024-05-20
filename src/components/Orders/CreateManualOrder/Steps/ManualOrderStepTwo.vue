@@ -92,25 +92,20 @@ export default {
   setup(props) {
     const {
       getSkuSeller,
-      dataSkuTableLength, addSkuSellerPerPage, pageLength, skuSellerPage,
+      dataSkuTableLength, addSkuSellerPerPage,  skuSellerPage,
     } = Seller();
     const {
       manualOrderHeader,
 
-      getManualOrderListGet,
-      manualOrderListGet,
       manualOrderList
     } = new Orders
     return {
       getSkuSeller,
       addSkuSellerPerPage,
-      pageLength,
       skuSellerPage,
       dataSkuTableLength,
       manualOrderHeader,
       manualOrderList,
-      getManualOrderListGet,
-      manualOrderListGet
     };
   },
 
@@ -182,9 +177,7 @@ export default {
 
 
 
-    changeHeaderShow(index, value) {
-      this.manualOrderHeader[index].show = value
-    },
+
 
     updateList(status) {
       if (status === 'true') {

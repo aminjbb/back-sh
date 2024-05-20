@@ -125,7 +125,7 @@
 
 <script>
 
-import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
+
 import {
   convertDateToJalai, openConfirm
 } from "@/assets/js/functions";
@@ -137,7 +137,6 @@ export default {
   },
   components: {
     UploadFileSection,
-    datePicker: VuePersianDatetimePicker,
 
   },
 
