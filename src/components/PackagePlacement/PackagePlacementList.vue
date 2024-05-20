@@ -8,12 +8,8 @@
         <v-col cols="5">
           <div>
             <div class="text-right d-block mb-2">
-                        <span class="text-gray600 t14500">
-                            شناسه بسته
-                        </span>
-              <span class="text-error">
-                            *
-                        </span>
+              <span class="text-gray600 t14500">شناسه بسته</span>
+              <span class="text-error">*</span>
             </div>
             <div>
               <v-text-field :autofocus="true" v-model="packageId" variant="outlined"/>
@@ -23,12 +19,10 @@
         <v-col cols="5">
           <div>
             <div class="text-right d-block mb-2">
-                        <span class="text-gray600 t14500">
-                            شماره جایگاه
-                        </span>
-              <span class="text-error">
-                            *
-                        </span>
+              <span class="text-gray600 t14500">
+                شماره جایگاه
+              </span>
+              <span class="text-error">*</span>
             </div>
             <div>
               <v-autocomplete
@@ -48,7 +42,6 @@
             height="40"
             rounded
             class="ml-15 px-8 mt-2">
-
           ذخیره
         </v-btn>
       </v-row>
@@ -73,26 +66,18 @@
 </template>
 
 <script>
-import {
-  ref
-} from 'vue'
 //Components
 import Table from '@/components/PackagePlacement/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import PackagePlacement from '@/composables/PackagePlacement';
-import Placement from '@/composables/Placement';
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
+import {AxiosCall} from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
 
 export default {
   components: {
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
@@ -106,8 +91,7 @@ export default {
       locatingPlacement: []
     }
   },
-  setup(props) {
-
+  setup() {
     const {
       pageLength,
       packagePlacement,
@@ -177,14 +161,7 @@ export default {
   },
 
   methods: {
-    /**
-     * Change Header Status
-     * @param {*} index
-     * @param {*} value
-     */
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
 
     async addPackage() {
       try {

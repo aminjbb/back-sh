@@ -59,17 +59,17 @@
                 id="rowSection"
                 class="d-flex align-center"
             >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -79,13 +79,9 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 //Components
 import Table from '@/components/Cargo/Table/Table.vue'
-import ModalTableFilter from '@/components/Public/ModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {openToast} from "@/assets/js/functions";
@@ -93,19 +89,16 @@ import {openToast} from "@/assets/js/functions";
 export default {
   components: {
     Table,
-    ModalTableFilter,
+    CreateCargo,
     ModalColumnFilter,
-    ModalGroupAdd,
-    ModalExcelDownload,
-    CreateCargo
   },
 
   setup() {
     const {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,loading
+      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item ,loading, filterField
     } = Cargo();
     return {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item , filterField ,loading
+      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item  ,loading, filterField
     };
   },
   mounted() {

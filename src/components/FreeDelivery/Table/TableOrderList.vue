@@ -147,10 +147,6 @@ export default {
      */
     items: [],
 
-    /**
-     * Model
-     */
-    model: '',
 
     /**
      * Height
@@ -193,7 +189,6 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      isBan:[],
       panelFilter: new PanelFilter(),
     }
   },

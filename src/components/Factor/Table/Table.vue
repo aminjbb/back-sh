@@ -168,12 +168,14 @@
                         <v-list class="c-table__more-options">
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="openShowDetailsModal(item.id)">
-                                        <v-icon size="small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                  <div  class="ml-16">
+                                    <div class=" pointer" @click=print(item)>
+                                      <v-icon size="x-small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                      <span class="mr-2 text-grey-darken-1 t14300">
                                             نمایش جزئیات
                                         </span>
                                     </div>
+                                  </div>
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -233,8 +235,8 @@
             </div>
         </div>
     </div>
-    <ModalMassUpdate :updateUrl="updateUrl" />
-    <DetailsModal />
+
+
 </div>
 </template>
 
@@ -245,23 +247,20 @@ import {
 import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import DetailsModal from "@/components/Factor/Modals/DetailsModal.vue";
+
 import {
     openToast,
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+
 export default {
     components: {
-        ModalMassUpdate,
-        DetailsModal
+
     },
 
     props: {
+
         /**
          * List Items for header
          */
@@ -359,13 +358,14 @@ export default {
     },
 
     methods: {
+      print(factorId) {
+        window.open(`${import.meta.env.VITE_API_SITEURL}factor/print/${factorId?.id}`, '_blank')
+      },
+
         /**
          * Open Basic Discount modal
          * @param {*} id
          */
-        openShowDetailsModal(id) {
-            openModal(this.$store, 'set_showDetailsModal', id, true)
-        },
 
         factorSelectedTitle(status) {
             if (status === 'draft') {
@@ -401,9 +401,6 @@ export default {
          * Open factor details modal
          * @param {*} id
          */
-        openBasicDiscountModal(id) {
-            openModal(this.$store, 'set_basicDiscountModal', id, true)
-        },
 
         showDropDown(index) {
             const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
@@ -449,12 +446,7 @@ export default {
             this.$emit('updateList', status);
         },
 
-        /**
-         * Mass update modal
-         */
-        massUpdateModal() {
-            this.$store.commit('set_massUpdateModal', true)
-        },
+
 
         /**
          * Get row index in table
@@ -478,21 +470,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-                if (index) {
-                    if (this.order_type === 'desc') {
-                        this.order_type = 'asc'
-                        this.panelFilter.order_type = 'asc'
-                    } else {
-                        this.order_type = 'desc'
-                        this.panelFilter.order_type = 'desc'
-                    }
-
-                    this.panelFilter.order = index
-                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
+              if (index) {
+                let query = this.$route.query
+                if (this.order_type === 'desc') {
+                  this.order_type = 'asc'
+                } else {
+                  this.order_type = 'desc'
                 }
+                this.$router.replace({
+                  query: {
+                    ...query,
+                    order_type :this.order_type,
+                    order :index
+                  }
+                })
+
+                this.ordering = {};
+                this.ordering[index] = !this.ordering[index];
+              }
             }
         },
 

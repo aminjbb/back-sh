@@ -132,6 +132,7 @@ export default {
       AxiosMethod.end_point = 'file-manager/direct/store'
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.form = formdata
+      AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       let data = await AxiosMethod.axios_image_upload()
       if (data) {

@@ -88,11 +88,11 @@ export default {
   },
   setup() {
     const {
-      headerShps, headerPublicVoucherList, getVoucherShps, voucher, dataTableLength,
+    headerPublicVoucherList, getVoucherShps, voucher,
       pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup
     } = new Voucher()
     return {
-      headerShps, getVoucherShps, voucher, dataTableLength, headerPublicVoucherList,
+      getVoucherShps, voucher, headerPublicVoucherList,
       pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup
     }
   },

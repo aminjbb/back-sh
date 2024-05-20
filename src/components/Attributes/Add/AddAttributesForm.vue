@@ -118,16 +118,6 @@ export default {
     },
 
     computed: {
-        /**
-         * Get attribute value length
-         */
-        attrValueLength() {
-            try {
-                return this.values.size + 1
-            } catch (error) {
-                return 1
-            }
-        }
     }
 }
 </script>

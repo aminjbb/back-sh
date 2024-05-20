@@ -30,9 +30,13 @@
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
+                  <ModalColumnFilter
+                      :changeHeaderShow="changeHeaderShow"
+                      :header="headerWarehouseInventoryHistory" />
 
-                    <ModalTableFilter :path="`seller/sku/${$route.params.sellerId}/history/site-inventory/${$route.params.skuId}`" :filterField="filterInventorySite" />
+                  <PanelFilter
+                      :path="`seller/sku/${$route.params.sellerId}/history/site-inventory/${$route.params.skuId}`"
+                      :filterField="filterInventorySite"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -100,13 +104,13 @@
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Sku/Histories/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
     openToast
 } from "@/assets/js/functions";
 import Sku from "@/composables/Sku";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
     setup(props) {
         const {
@@ -142,8 +146,8 @@ export default {
     },
 
     components: {
+      PanelFilter,
         Table,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

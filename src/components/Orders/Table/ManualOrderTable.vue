@@ -214,14 +214,6 @@ export default {
 
   props: {
     /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-
-    /**
      * List Items for header
      */
     header: [],
@@ -232,15 +224,9 @@ export default {
     items: [],
 
     /**
-     * Delete Path
-     */
-    deletePath: '',
-
-    /**
      * Model
      */
     model: '',
-
     /**
      * Active checkbox
      */
@@ -266,13 +252,6 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
     /**
      * Edit endpoint for change active
@@ -316,7 +295,6 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       values:[],
-      activeColumn: false,
     }
   },
 
@@ -360,6 +338,38 @@ export default {
       }
     },
 
+    /**
+     * Create ordering
+     * @param {*} index
+     * @param { boolean } order
+     */
+    createOrdering(index, order) {
+      if (order === true) {
+        if (index) {
+          if (this.order_type === 'desc') {
+            this.order_type = 'asc'
+
+            if (this.model === 'sku') {
+              this.skuPanelFilter.order_type = 'asc'
+            } else {
+              this.panelFilter.order_type = 'asc'
+            }
+          } else {
+            this.order_type = 'desc'
+
+            if (this.model === 'sku') {
+              this.skuPanelFilter.order_type = 'desc'
+            } else {
+              this.panelFilter.order_type = 'desc'
+            }
+          }
+
+          this.ordering = {};
+          this.ordering[index] = !this.ordering[index];
+        }
+      }
+
+    },
 
     /**
      * Get icon
@@ -368,6 +378,7 @@ export default {
     getIcon(column) {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
+
 
     returnTrueOrFalse(data) {
       if (data === 1) return true
@@ -391,10 +402,6 @@ export default {
       this.items.splice(index,1)
       this.values.splice(index,1)
 
-    },
-
-    updateList(status) {
-      this.$emit('updateList', status);
     },
   },
 }

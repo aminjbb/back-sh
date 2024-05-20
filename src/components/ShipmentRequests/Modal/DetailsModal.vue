@@ -7,7 +7,7 @@
                 align="center"
                 class="pa-1">
                 <v-col cols="2">
-                    <v-btn @click="close()" variant="icon">
+                    <v-btn @click="dialog = false" variant="icon">
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-col>
@@ -125,7 +125,7 @@
                         <v-col cols="3" class="d-flex justify-start">
                             <btn
                                 class="mt-3 mr-2"
-                                @click="close()"
+                                @click="dialog = false"
                                 style="cursor: pointer;">
                                 انصراف
                             </btn>
@@ -188,13 +188,6 @@ export default {
     methods: {
         convertDateToJalai,
 
-        close() {
-            const form = {
-                dialog: false,
-                object: ''
-            }
-            this.$store.commit('set_modalRetailShipmentDetail', form)
-        },
 
     },
 

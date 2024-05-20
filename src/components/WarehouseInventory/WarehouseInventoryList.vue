@@ -9,7 +9,10 @@
 
             <v-col cols="6" class="mt-3">
                 <v-row justify="end">
-                    <ModalTableFilter path="warehouse_inventory/index" :filterField="filterField" />
+                  <PanelFilter
+                      path="warehouse_inventory/index"
+                      :filterField="filterField"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -70,13 +73,18 @@
 
 <script>
 import Table from '@/components/WarehouseInventory/Table/Table.vue'
-import WarehouseInventory from "@/composables/WarehouseInventory";
-import ModalTableFilter from '@/components/WarehouseInventory/Filter/Filter.vue'
+import WarehouseInventory from "@/composables/WarehouseInventory"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
-        Table,
-        ModalTableFilter,
+      PanelFilter,
+        Table
     },
 
     setup() {
@@ -88,8 +96,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = WarehouseInventory();
         return {
@@ -100,8 +106,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         };
     },
@@ -113,9 +117,7 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
+
 
         updateList(status) {
             if (status === 'true') {
@@ -129,9 +131,35 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.getWarehouseInventoryList(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getWarehouseInventoryList()
+        }
+      },
+      $route(){
+        this.getWarehouseInventoryList()
+      }
     }
 }
 </script>

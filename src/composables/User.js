@@ -16,6 +16,7 @@ export default function setup() {
     const pageLengthWallet =ref(1)
     const header = ref([
         {name:'ردیف' , show:true, value:null, order:false},
+        {name: 'شناسه', show: true, value: 'created_at', order: true},
         {name:'نام' , show:true, value:'first_name', order:false},
         {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
         {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
@@ -39,8 +40,11 @@ export default function setup() {
     const filterField = [
         { name: 'نام', type:'text', value:'first_name'},
         { name: 'نام خانوادگی', type:'text', value:'last_name'},
+        { name: 'شناسه', type:'text', value:'id'},
         { name:'شماره موبایل', type: 'text', value:'phone_number'},
-        { name: 'ایمیل', type:'select', value:'email'},
+        {name: 'تاریخ ایجاد', type: 'date', value: 'created_at'},
+        {name: 'تاریخ بروز‌رسانی', type: 'date', value: 'updated_at'},
+        // { name: 'ایمیل', type:'select', value:'email'},
     ];
     const filterFieldWallet = [
 
@@ -105,18 +109,27 @@ export default function setup() {
         }
     };
 
-    async function getUserList (query) {
-        let paramsQuery = null
+    async function getUserList () {
         loading.value = true
-        if (query){
-            if (query.query.page)   page.value = parseInt(query.query?.page)
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `user/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `user/crud/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -127,19 +140,29 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    };
+    }
 
-    async function getTransactionList (query) {
-        let paramsQuery = null
+    async function getTransactionList () {
         loading.value = true
-        if (query){
-            paramsQuery = walletFilter.params_generator(query.query)
-        }
-        else  paramsQuery = walletFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `finance/admin/transaction/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `finance/admin/transaction/crud/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLengthWallet.value = data.data.last_page
@@ -150,43 +173,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    };
-
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path+ filter.query_maker(route.query))
-    }
-    
-    function addPaginationWallet(page){
-        walletFilter.page = page
-        walletFilter.per_page = dataTableLength.value
-        router.push(route.path+ walletFilter.params_generator(route.query))
     }
 
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push(route.path+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPaginationWallet(val)
-
-
-
-        }
-    })
-
-
-
-    return {pageLength, pageLengthWallet,  users, getUsers ,
-        dataTableLength , page  , header , userList ,
-        getUserList , filterField , filterFieldWallet, user , getUser , addPerPage,
-        getUserAddress , userAddress, headerTransaction, getTransactionList, transactionList,
-        addPaginationWallet}
+    return {pageLength, pageLengthWallet,  users, getUsers , dataTableLength , page  , header , userList , getUserList ,
+        filterField , filterFieldWallet, user , getUser , getUserAddress , userAddress, headerTransaction,
+        getTransactionList, transactionList}
 }
 

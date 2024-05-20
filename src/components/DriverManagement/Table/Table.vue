@@ -176,9 +176,7 @@
         openConfirm,
         isOdd
     } from "@/assets/js/functions";
-    import {
-        openModal
-    } from "@/assets/js/functions_seller";
+
     export default {
         props: {
             /**
@@ -190,12 +188,7 @@
              * List of items
              */
             items: [],
-    
-            /**
-             * Model
-             */
-            model: '',
-    
+
             /**
              * Height
              */
@@ -235,14 +228,8 @@
                 type: Boolean,
                 default: false
             },
-    
-            /**
-             * Edit endpoint for change active
-             */
-            activePath: {
-                type: String,
-                default: ''
-            },
+
+
     
         },
     
@@ -252,9 +239,7 @@
                 ordering: {},
                 per_page: '25',
                 filter: [],
-                active: [],
                 panelFilter: new SupplierPanelFilter(),
-                activeColumn: false,
 
              
             }
@@ -280,14 +265,7 @@
         },
     
         methods: {
-            /**
-             * Open Basic Discount modal
-             * @param {*} id
-             */
-            openShowDetailsModal(id) {
-                openModal(this.$store, 'set_showDetailsModal', id, true)
-            },
-    
+
             /**
              * Get row index in table
              * @param {*} index
@@ -310,21 +288,24 @@
              */
             createOrdering(index, order) {
                 if (order === true) {
-                    if (index) {
-                        if (this.order_type === 'desc') {
-                            this.order_type = 'asc'
-                            this.panelFilter.order_type = 'asc'
-                        } else {
-                            this.order_type = 'desc'
-                            this.panelFilter.order_type = 'desc'
-                        }
-    
-                        this.panelFilter.order = index
-                        this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-    
-                        this.ordering = {};
-                        this.ordering[index] = !this.ordering[index];
+                  if (index) {
+                    let query = this.$route.query
+                    if (this.order_type === 'desc') {
+                      this.order_type = 'asc'
+                    } else {
+                      this.order_type = 'desc'
                     }
+                    this.$router.replace({
+                      query: {
+                        ...query,
+                        order_type :this.order_type,
+                        order :index
+                      }
+                    })
+
+                    this.ordering = {};
+                    this.ordering[index] = !this.ordering[index];
+                  }
                 }
             },
     

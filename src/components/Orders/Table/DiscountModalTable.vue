@@ -176,10 +176,7 @@ export default {
 
     methods: {
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index

@@ -131,15 +131,6 @@ export default {
         {name:'ویرایش' , show:true, value:'edit', order:false},
 
       ],
-      specialExitCapacityObject:[
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-        {date:'1402-03-03' , capacity:1000},
-      ]
     }
   },
 

@@ -103,7 +103,7 @@ export default {
             dataTableLength,
             page,
             SliderHeader,
-            addPagination,
+
             addPerPage,
             loading,
           addPerPageSlider
@@ -116,7 +116,6 @@ export default {
             dataTableLength,
             page,
             SliderHeader,
-            addPagination,
             addPerPage,
             loading,
           addPerPageSlider
@@ -141,11 +140,6 @@ export default {
             this.SliderHeader[index].show = value
         },
 
-        updateList(status) {
-            if (status === 'true') {
-                this.getSliderList();
-            }
-        },
     },
 
     mounted() {

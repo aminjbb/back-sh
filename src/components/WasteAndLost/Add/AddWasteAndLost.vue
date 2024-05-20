@@ -149,7 +149,6 @@ export default {
                 shps_s: null,
             },
             shpssSearchList: [],
-            packageType: null,
             packageShpss: [],
             packageId: null,
         }

@@ -30,14 +30,16 @@
                             :changeHeaderShow="changeHeaderShow"
                         />
 
-                        <SkuModalTableFilter 
-                            :path="`product/get/skus/index`" 
-                            :filterField="filterField"
-                            :brandsList="brandsList" 
-                            :colorsList="colorsList"
-                            :categoriesList="categoriesList"
-                            show-category
-                        />
+                      <PanelFilter
+                          @resetPage="resetPage"
+                          :path="`product/get/skus/index`"
+                          :filterField="filterField"
+                          :brandsList="brandsList"
+                          :colorsList="colorsList"
+                          :categoriesList="categoriesList"
+                          :statusItems="activeStatus"
+                          show-category
+                      />
                     </v-row>
                 </v-col>
             </v-row>
@@ -112,7 +114,6 @@
 </template>
 <script>
 import Table from '@/components/Public/Table.vue'
-import SkuModalTableFilter from '@/components/Public/SkuModalTableFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -121,27 +122,70 @@ import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
 import Categories from '@/composables/Categories';
 import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
-        SkuModalTableFilter,
     },
 
     setup() {
-        const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
+      const activeStatus = ref([
+        {
+          label: 'وضعیت',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
+        const {
+        pageLength,
+          skues,
+          getSkues,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
+      } = Sku();
         const { allBrands, getAllBrands } = Brands();
         const { allColors, getAllColor } = Colors();
         const { allCategories, getAllCategories } = Categories();
 
-        return { 
-            allBrands, getAllBrands,
-            allColors, getAllColor,
-            allCategories, getAllCategories,
-            pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading
+        return {
+          activeStatus,
+          allBrands,
+          getAllBrands,
+          allColors,
+          getAllColor,
+          allCategories,
+          getAllCategories,
+          pageLength,
+          skues,
+          getSkues,
+          dataTableLength,
+          page,
+          header,
+          item,
+          filterField,
+          loading
         };
     },
 
@@ -221,15 +265,50 @@ export default {
         }
       },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      $route(){
+        this.getSkues()
+      },
+
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getSkues()
+        }
+      }
     },
 
     methods: {
         changeHeaderShow(index, value) {
             this.header[index].show = value
-        }
+        },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     }
 }
 </script>
