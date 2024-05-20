@@ -49,7 +49,9 @@ export default function setup() {
     const filterField = [
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
+        { name: 'گروه', type: 'text', value: 'group' },
         { name: 'شناسه کالا', type: 'text', value: 'id' },
+        { name: 'محصول', type: 'auto-complete', value: 'product_id' },
         { name: ' دسته بندی', type: 'auto-complete', value: 'category_id' },
         { name: ' برند', type: 'auto-complete', value: 'brand_id' },
         { name: ' رنگ', type: 'auto-complete', value: 'color_id' },

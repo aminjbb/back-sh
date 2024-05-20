@@ -31,16 +31,23 @@ export default function setup() {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام کالا', show: true , value:'name', order: false},
         { name: 'شناسه کالا', show: true , value:'label', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'id' , order: false},
+        { name: 'ترتیب نمایش', show: true, value:'id' , order: true},
         { name: 'ذخیره ', show: true, value:'id' , order: false},
         
 
         
     ]);
 
+    const filterFieldPromotionSku = [
+        {name:'نام فارسی' , type:'text', value:'label'},
+        { name: 'شناسه', type: 'text', value: 'id' },
+    ];
+
 
     const filterField = [
         {name:'نام فارسی' , type:'text', value:'label'},
+        {name: 'نام انگلیسی', type: 'text', value: 'name'},
+        { name: 'شناسه', type: 'text', value: 'id' },
         { name:'تاریخ ساخت' , type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'is_active'},
     ];
@@ -124,6 +131,7 @@ export default function setup() {
         }
     }
 
-    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField , dataTableLength, page, header,skuGroupHeader , loading , promotionPage }
+    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,
+        getPromotions, pageLength, filterField , dataTableLength, page, header,skuGroupHeader , loading , promotionPage, filterFieldPromotionSku }
 }
 

@@ -98,6 +98,10 @@ export default {
   setup() {
     const status= [
       {
+        label: 'همه',
+        value: '',
+      },
+      {
         label: 'در انتظار',
         value: 'waiting',
       },
