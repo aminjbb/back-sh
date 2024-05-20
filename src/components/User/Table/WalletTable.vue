@@ -138,7 +138,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5 number-font">
-                        {{ item.created_at_fa }}
+                        {{ item.created_at_fa }} {{item.created_at.split('T')[1].split('.')[0]}}
                     </span>
             <span v-else class="t14300 text-gray500 py-5">
                         ----

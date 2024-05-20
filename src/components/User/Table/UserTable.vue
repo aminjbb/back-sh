@@ -68,7 +68,16 @@
           </div>
 
           <div
-              v-if=" header[1].show"
+              v-if="item.id && header[1].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        {{ item.id }}
+                    </span>
+          </div>
+
+          <div
+              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span v-if="item.first_name" class="t14300 text-gray500 py-5">
@@ -80,7 +89,7 @@
           </div>
 
           <div
-              v-if=" header[2].show"
+              v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.last_name" class="t14300 text-gray500 py-5">
@@ -92,7 +101,7 @@
           </div>
 
           <div
-              v-if=" header[3].show"
+              v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                    <span v-if="item.phone_number" class="t14300 text-gray500 py-5 number-font">
@@ -104,7 +113,7 @@
           </div>
 
           <div
-              v-if=" header[4].show"
+              v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
@@ -116,7 +125,7 @@
                     </span>
           </div>
           <div
-              v-if=" header[5].show"
+              v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
@@ -128,7 +137,7 @@
           </div>
 
           <div
-              v-if=" header[6].show"
+              v-if=" header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span v-if="item.email" class="t14300 text-gray500 py-5">
@@ -139,7 +148,7 @@
                     </span>
           </div>
           <div
-              v-if=" header[7].show"
+              v-if=" header[8].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <v-switch

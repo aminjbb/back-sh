@@ -110,6 +110,10 @@ export default {
   setup(props) {
     const voucherTypes= [
       {
+        title: 'همه',
+        value: ''
+      },
+      {
         title: 'عادی',
         value: 'regular'
       },
@@ -124,6 +128,10 @@ export default {
 
     ]
     const voucherAmountTypes= [
+      {
+        title: 'همه',
+        value: ''
+      },
       {
         title: 'ریالی',
         value: 'rial'
@@ -149,6 +157,10 @@ export default {
       }
     ]
     const sendingItems = [
+      {
+        title: 'همه',
+        value: ''
+      },
       {
         title: 'پیش فرض',
         value: 'default'

@@ -48,6 +48,7 @@
 
         <v-col cols="6">
           <v-row justify="end">
+            <PanelFilter :filterField="filterFieldPromotionSku"/>
           </v-row>
         </v-col>
       </v-row>
@@ -119,6 +120,7 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
     const {
@@ -136,7 +138,8 @@ export default {
       promotionPage,
       header,
       loading ,
-      skuGroupHeader
+      skuGroupHeader,
+      filterFieldPromotionSku
     }=new PromotionPage()
 
     return{
@@ -154,7 +157,8 @@ export default {
       promotionPage,
       header,
       loading ,
-      skuGroupHeader
+      skuGroupHeader,
+      filterFieldPromotionSku
     }
   },
   data(){
@@ -163,6 +167,7 @@ export default {
     }
   },
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalColumnFilter,

@@ -98,7 +98,9 @@ export default function setup(posts) {
     ];
     const filterFieldSku = [
         { name: 'شناسه shps', type: 'text', value: 'id' },
+        { name: 'شناسه کالا', type: 'text', value: 'id' },
         { name: 'نام کالا', type: 'text', value: 'sku' },
+        { name: 'محدودیت سفارش', type: 'text', value: 'limit' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },
         { name: 'موجودی انبار(تا)', type: 'text', value: 'warehouse_stock_to' },
         { name: 'وضعیت', type: 'select', value: 'is_active' },
