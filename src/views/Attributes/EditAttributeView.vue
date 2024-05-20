@@ -1,8 +1,10 @@
 
 <script setup>
+import {defineAsyncComponent} from "vue";
+const EditAttributesForm = defineAsyncComponent(()=> import ('@/components/Attributes/Edit/EditAttributesForm.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import EditAttributesForm from '@/components/Attributes/Edit/EditAttributesForm.vue'
+
 </script>
 
 <template>

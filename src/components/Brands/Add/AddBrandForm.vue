@@ -41,8 +41,8 @@
     </div>
 </template>
 <script>
-import BrandForm from '@/components/Brands/BrandForm.vue'
-
+import {defineAsyncComponent} from "vue";
+const BrandForm = defineAsyncComponent(()=> import ('@/components/Brands/BrandForm.vue'))
 import { openToast } from "@/assets/js/functions";
 import { AxiosCall } from '@/assets/js/axios_call.js'
 

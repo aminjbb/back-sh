@@ -95,13 +95,14 @@
 </template>
 
 <script>
+import {defineAsyncComponent} from 'vue'
 import Table from '@/components/Admin/AdminTable/AdminTable.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Admin from "@/composables/Admin";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
 export default {
     setup() {
         const {

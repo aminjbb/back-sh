@@ -1,7 +1,8 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const DataAttributes = defineAsyncComponent(()=> import ('../../components/Attributes/DataAttributes.vue'))
 import DashboardLayout from '../../components/Layouts/DashboardLayout.vue'
 import Header from '../../components/Public/Header.vue'
-import DataAttributes from '../../components/Attributes/DataAttributes.vue'
 </script>
 
 <template>

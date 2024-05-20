@@ -1,7 +1,8 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const EditBrandForm = defineAsyncComponent(()=> import ('../../components/Brands/Edit/EditBrandForm.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import EditBrandForm from '../../components/Brands/Edit/EditBrandForm.vue'
 </script>
 
 <template>

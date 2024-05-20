@@ -1,7 +1,9 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const BulkLabelPrintList = defineAsyncComponent(()=> import ('@/components/BulkLabelPrint/BulkLabelPrintList.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import BulkLabelPrintList from '@/components/BulkLabelPrint/BulkLabelPrintList.vue'
+
 </script>
 
 <template>

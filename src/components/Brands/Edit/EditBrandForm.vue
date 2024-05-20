@@ -47,7 +47,10 @@
 <script>
 
 //component
-import BrandForm from '@/components/Brands/BrandForm.vue'
+import {defineAsyncComponent} from "vue";
+const BrandForm = defineAsyncComponent(()=> import ('@/components/Brands/BrandForm.vue'))
+
+
 
 //mixins
 import { AxiosCall } from '@/assets/js/axios_call.js'

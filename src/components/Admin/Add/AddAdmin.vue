@@ -44,7 +44,9 @@
 </template>
 
 <script>
-import AdminForm from "@/components/Admin/AdminForm.vue";
+
+import {defineAsyncComponent} from "vue";
+const AdminForm = defineAsyncComponent(()=> import ('@/components/Admin/AdminForm.vue'))
 import {AxiosCall} from "@/assets/js/axios_call";
 import {convertDateToGregorian} from "@/assets/js/functions";
 

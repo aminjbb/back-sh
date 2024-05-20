@@ -1,7 +1,9 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const EditAdmin = defineAsyncComponent(()=> import ('@/components/Admin/Edit/EditAdmin.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import EditAdmin from '@/components/Admin/Edit/EditAdmin.vue'
+
 </script>
 
 <template>

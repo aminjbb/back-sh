@@ -1,7 +1,9 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const CargoListing = defineAsyncComponent(()=> import ('@/components/Cargo/CargoListing.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import CargoListing from '@/components/Cargo/CargoListing.vue'
+
 </script>
 
 <template>

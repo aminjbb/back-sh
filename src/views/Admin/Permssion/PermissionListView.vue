@@ -1,7 +1,9 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const PermissionList = defineAsyncComponent(()=> import ('@/components/Admin/Permission/PermissionList.vue'))
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import PermissionList from '@/components/Admin/Permission/PermissionList.vue'
+
 </script>
 
 <template>
