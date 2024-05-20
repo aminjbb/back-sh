@@ -27,41 +27,15 @@
           </span>
         </div>
         <v-divider/>
-        <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
-          <div>
-           <span class="t12400">
-           شماره ردیف :
-            <span class="t12400 text-gray600 number-font">
-              {{ pickUpShps?.placement?.row_number }}
-            </span>
-          </span>
-          </div>
-          <div>
-          <span class="t12400">
-           شماره قفسه  :
-            <span class=" t12400 text-gray600 number-font">
-              {{ pickUpShps?.placement?.placement_number }}
-            </span>
-          </span>
-          </div>
-        </div>
-        <div class="text-right  px-5 d-flex justify-space-between px-10">
-          <div>
-           <span class="t12400">
-           شماره طبقه :
-            <span class=" t12400 text-gray600 number-font">
-               {{ pickUpShps?.placement?.step_number }}
-            </span>
-          </span>
-          </div>
-          <div>
-          <span class="t12400">
-           شماره شلف   :
-            <span class=" t12400 text-gray600 number-font">
-             {{ pickUpShps?.placement?.shelf_number }}
-            </span>
-          </span>
-          </div>
+        <div>
+          <!-- shelf number-->
+          <span class=" t12400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}/</span>
+          <!-- step number-->
+          <span class=" t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}/</span>
+          <!-- placement number -->
+          <span class=" t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}/</span>
+          <!-- row number-->
+          <span class="t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}</span>
         </div>
       </v-card>
       <v-card class="mx-5 mb-1 br-15 pa-2" >
