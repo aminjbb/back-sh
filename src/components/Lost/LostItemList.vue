@@ -78,9 +78,11 @@
 </template>
 
 <script>
-import Table from '@/components/Lost/Table/Table.vue'
+import {defineAsyncComponent} from 'vue'
+const Table = defineAsyncComponent(()=> import('@/components/Lost/Table/Table.vue'))
 import Lost from "@/composables/Lost";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
+
 
 export default {
   data() {

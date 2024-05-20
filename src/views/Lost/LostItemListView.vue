@@ -1,7 +1,9 @@
 <script setup>
+import { defineAsyncComponent } from 'vue'
 import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
 import Header from '@/components/Public/Header.vue'
-import LostItemList from '@/components/Lost/LostItemList.vue'
+
+const LostItemList = defineAsyncComponent(() => import('@/components/Lost/LostItemList.vue'));
 </script>
 
 <template>
