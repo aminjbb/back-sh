@@ -220,25 +220,26 @@ export default {
          * @param { boolean } order
          */
         createOrdering(index, order) {
-            if (order === true) {
-              if (index) {
-                let query = this.$route.query
-                if (this.order_type === 'desc') {
-                  this.order_type = 'asc'
-                } else {
-                  this.order_type = 'desc'
-                }
-                this.$router.replace({
-                  query: {
-                    ...query,
-                    order_type :this.order_type,
-                    order :index
-                  }
-                })
-
-                this.ordering = {};
-                this.ordering[index] = !this.ordering[index];
+          if (order === true) {
+            if (index) {
+              let query = this.$route.query
+              if (this.order_type === 'desc') {
+                this.order_type = 'asc'
+              } else {
+                this.order_type = 'desc'
               }
+              this.$router.replace({
+                query: {
+                  ...query,
+                  order_type: this.order_type,
+                  order: index
+                }
+              })
+
+              this.ordering = {};
+              this.ordering[index] = !this.ordering[index];
+            }
+          }
         },
 
         /**

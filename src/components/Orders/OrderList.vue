@@ -151,62 +151,55 @@ export default {
       }
     ]
 
-        const {
-            pageLength,
-            getOrderList,
-            orderList,
-            filterField,
-            dataTableLength,
-            page,
-            header,
-            addPerPage,
-            loading
-        } = Orders();
-        return {
-            pageLength,
-            getOrderList,
-            orderList,
-            filterField,
-            dataTableLength,
-            page,
-            header,
+    const {
+      pageLength,
+      getOrderList,
+      orderList,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      addPerPage,
+      loading
+    } = Orders();
+    return {
+      pageLength,
+      getOrderList,
+      orderList,
+      filterField,
+      dataTableLength,
+      page,
+      header,
 
-            addPerPage,
-            loading,
-            status,
-            paymentStatus,
-            paymentMethods,
-            packedStatus
+      addPerPage,
+      loading,
+      status,
+      paymentStatus,
+      paymentMethods,
+      packedStatus
 
-        };
+    };
+  },
+
+  components: {
+    PanelFilter,
+    Table,
+    ModalColumnFilter
+  },
+
+  computed: {},
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
     },
 
-    components: {
-      PanelFilter,
-        Table,
-        ModalColumnFilter
-    },
-
-    computed: {
-
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
-
-        updateList(status) {
-            if (status === 'true') {
-                this.getOrderList();
-            }
-        },
-    },
-
-    mounted() {
+    updateList(status) {
+      if (status === 'true') {
         this.getOrderList();
       }
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
@@ -214,7 +207,6 @@ export default {
         this.perPageFilter = false
       }, 1000)
     }
-
   },
 
   mounted() {

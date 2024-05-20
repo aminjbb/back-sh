@@ -483,6 +483,5 @@ export default {
       console.log('2.skuTable', status)
       this.$emit('updateList', status);
     },
-  },
 }
 </script>
