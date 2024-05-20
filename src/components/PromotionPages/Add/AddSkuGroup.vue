@@ -198,9 +198,7 @@ export default {
   },
 
   methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
+
     async searchSku(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()

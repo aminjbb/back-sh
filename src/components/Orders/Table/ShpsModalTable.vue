@@ -236,7 +236,7 @@ export default {
 
     data() {
         return {
-            activeColumn: false,
+
         }
     },
 
@@ -262,10 +262,7 @@ export default {
     methods: {
         splitChar,
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index

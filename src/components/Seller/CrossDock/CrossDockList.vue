@@ -94,7 +94,6 @@
 <script>
 import Table from '@/components/ShipmentRequests/Table/Table.vue'
 import CrossDock from "@/composables/CrossDock";
-import ModalTableFilter from '@/components/Seller/CrossDock/CrossDockModal/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
@@ -134,7 +133,6 @@ export default {
     PanelFilter,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

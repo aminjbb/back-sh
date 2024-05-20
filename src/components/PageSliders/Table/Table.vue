@@ -170,10 +170,6 @@ export default {
          */
         items: [],
 
-        /**
-         * Model
-         */
-        model: '',
 
         /**
          * Height
@@ -233,7 +229,6 @@ export default {
             filter: [],
             active: [],
             panelFilter: new PanelFilter(),
-            activeColumn: false,
         }
     },
 
@@ -255,19 +250,6 @@ export default {
             return 'auto';
         },
 
-        /**
-         * Check is_active is true or false for show in table
-         */
-        checkActive() {
-            this.header.forEach(element => {
-                if (element.value === 'is_active' && element.show == true) {
-                    this.activeColumn = true;
-                } else if (element.value === 'is_active'  && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
     },
 
     watch: {
@@ -312,21 +294,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-                if (index) {
-                    if (this.order_type === 'desc') {
-                        this.order_type = 'asc'
-                        this.panelFilter.order_type = 'asc'
-                    } else {
-                        this.order_type = 'desc'
-                        this.panelFilter.order_type = 'desc'
-                    }
-
-                    this.panelFilter.order = index
-                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
+              if (index) {
+                let query = this.$route.query
+                if (this.order_type === 'desc') {
+                  this.order_type = 'asc'
+                } else {
+                  this.order_type = 'desc'
                 }
+                this.$router.replace({
+                  query: {
+                    ...query,
+                    order_type :this.order_type,
+                    order :index
+                  }
+                })
+
+                this.ordering = {};
+                this.ordering[index] = !this.ordering[index];
+              }
             }
         },
 
@@ -338,29 +323,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
-        /**
-         * Change Active
-         * @param {*} index 
-         * @param {*} item 
-         */
-        async changeActive(index, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = this.activePath + item.id
-            if (this.active[index]) formdata.append('is_active', 1)
-            else formdata.append('is_active', 0)
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
-
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-        },
 
         /**
          * Return odd index

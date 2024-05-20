@@ -117,9 +117,7 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
+
 
         updateList(status) {
             if (status === 'true') {

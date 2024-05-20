@@ -166,9 +166,6 @@ export default {
       }
     },
 
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
 
   },
 

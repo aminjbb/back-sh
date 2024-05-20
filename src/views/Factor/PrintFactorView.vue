@@ -2,12 +2,7 @@
 <div class="text-center">
   <v-card>
     <header class="modal__header modal__header--factor">
-      <v-btn
-          class="modal__header__btn"
-          @click="close()"
-          variant="icon">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
+
     </header>
     <div class="pa-4">
       <div class="modal__content d--rtl py-3 px-4 mb-2">

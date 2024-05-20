@@ -225,12 +225,7 @@ export default {
     data() {
         return {
             state: null,
-            CreateMarkersPointsItem: {
-                iconUrl: '@/assets/img/Arrows.svg',
-                iconScale: 2,
-                text: 'amn',
-                isReverseMarker: true
-            },
+
             days: [{
                     label: 'شنبه',
                     value: 'Sat',

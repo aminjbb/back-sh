@@ -20,12 +20,12 @@
             <v-card class="mt-2 py-5 " variant="outlined">
               <div class="text-center my-2">
                   <span class="t16400">
-                    {{ skuDetail?.brand?.label }}
+                    {{ skuDetail?.label }}
                   </span>
               </div>
               <div class="text-center px-10 my-3">
                   <span class="text-gray600">
-                   {{ skuDetail?.label }}
+                   {{ shpssDetail?.shps?.id }}
                   </span>
               </div>
             </v-card>

@@ -1,6 +1,12 @@
 <template>
 <div class="text-right">
-    <v-dialog v-model="printModal.dialog" width="468" @input="dialogToggle">
+  <div class="ma-3 pointer d--rtl" @click="dialog = true">
+    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+    <span class="mr-2 text-grey-darken-1 t14300">
+                                        پرینت برچسب
+                                    </span>
+  </div>
+    <v-dialog v-model="dialog" width="468" @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
@@ -16,7 +22,7 @@
                 <v-divider />
             </div>
 
-            <div :id="`printableArea-${printModal.id}`" class="d-flex justify-center align-center mt-5" style="height: 180px;">
+            <div :id="`printableArea-${id}`" class="d-flex justify-center align-center mt-5" style="height: 180px;">
                 <div>
                     <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
                     <br />
@@ -108,13 +114,7 @@ export default {
     },
 
     computed: {
-        printModal() {
-            try {
-                return this.$store.getters['get_printModal']
-            } catch (error) {
-                return ''
-            }
-        }
+
     },
 
     props: {
@@ -124,7 +124,7 @@ export default {
     methods: {
 
         close() {
-            closeModal(this.$store, 'set_printModal')
+            this.dialog = false
         },
 
         /**
@@ -133,7 +133,7 @@ export default {
         async getPlacement() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `placement/crud/get/${this.printModal.id}`
+            AxiosMethod.end_point = `placement/crud/get/${this.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
@@ -150,14 +150,14 @@ export default {
          */
         print() {
             const printWindow = window.open('about:blank', '_blank');
-            printWindow.document.write(document.getElementById(`printableArea-${this.printModal.id}`).innerHTML)
+            printWindow.document.write(document.getElementById(`printableArea-${this.id}`).innerHTML)
             printWindow.print();
         },
     },
 
     created() {
         this.$watch(
-            () => this.printModal.dialog,
+            () => this.dialog,
             (dialogState) => {
                 if (dialogState) {
                     this.getPlacement();

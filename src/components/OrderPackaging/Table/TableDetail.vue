@@ -32,7 +32,7 @@
           <div
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
@@ -41,7 +41,7 @@
           <div
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                             {{ item.admin_name}}
                         </span>
@@ -49,7 +49,7 @@
           <div
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                             {{ item.sorting_placement}}
                         </span>
@@ -57,7 +57,7 @@
           <div
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                             {{ item.packing_status}}
                         </span>
@@ -65,7 +65,7 @@
           <div
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
@@ -73,7 +73,7 @@
           <div
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5">
                             <template v-if="item.sku_label">
                                 {{ item.sku_label }}
@@ -87,7 +87,7 @@
           <div
               v-if="header[6].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` , height: '85px'}">
                         <span class="t14300 text-black py-5 number-font">
                             <template v-if="item.shpss_barcode">
                                 {{ item.shpss_barcode}}
@@ -100,7 +100,7 @@
           <div
               v-if="header[7].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5 number-font">
                            <img width="70" height="70" :src="item?.sku_image?.image_url">
                         </span>
@@ -328,16 +328,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];

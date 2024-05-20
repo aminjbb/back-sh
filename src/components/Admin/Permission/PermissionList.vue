@@ -73,8 +73,8 @@
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Permission from "@/composables/Permission";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+
+
 export default {
     setup() {
         const {
@@ -102,8 +102,6 @@ export default {
     },
 
     components: {
-        ModalExcelDownload,
-        ModalGroupAdd,
         ModalColumnFilter,
         Table
     },

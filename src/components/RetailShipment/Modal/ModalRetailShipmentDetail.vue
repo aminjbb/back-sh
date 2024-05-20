@@ -8,7 +8,7 @@
             align="center"
             class="pa-1">
           <v-col cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -84,7 +84,7 @@
               height="40"
               rounded
               variant="outlined"
-              @click="close()"
+              @click="dialog = false"
               class="px-8 mt-1">
             انصراف
           </v-btn>
@@ -112,7 +112,9 @@ import Table from "@/components/RetailShipment/Table/RetailShipmentDetailShipmen
 import {
   convertDateToJalai
 } from "../../../assets/js/functions";
-
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 export default {
   setup() {
     const {
@@ -133,6 +135,9 @@ export default {
       headerShps
     };
   },
+  props:{
+    item : null
+  },
 
   components: {
     Table,
@@ -140,19 +145,17 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      dialog: false,
+      retailObject:null
+    }
   },
 
   computed: {
     baseUrl() {
       return import.meta.env.VITE_API_BACKEND_URL
     },
-    dialog() {
-      return this.$store.getters['get_modalRetailShipmentDetail']
-    },
-    retailObject() {
-      return this.$store.getters['get_modalRetailShipmentDetailObject']
-    },
+
     warehouseData() {
       try {
         return this.warehouseList.data
@@ -163,21 +166,36 @@ export default {
   },
 
   methods: {
+
+    /**
+     * retailShipment detail modal
+     */
+    async retailShipmentDetail() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shipment/consignment/crud/get/${this.item?.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.retailObject= data.data
+       this.dialog = true
+      }
+
+    },
     convertDateToJalai,
 
     print() {
       window.open(`${ import.meta.env.VITE_API_SITEURL}retail-shipment/${this.retailObject.id}/print`, '_blank');
     },
 
-    close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_modalRetailShipmentDetail', form)
-    },
-
-
   },
+
+  watch:{
+    dialog(val){
+      if (val){
+        this.retailShipmentDetail()
+      }
+    }
+  }
 }
 </script>

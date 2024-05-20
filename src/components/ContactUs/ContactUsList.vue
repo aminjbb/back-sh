@@ -52,7 +52,6 @@ import ContactUs from "@/composables/ContactUs.js"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
-import {openToast} from "@/assets/js/functions"
 export default {
     setup() {
         const {
@@ -79,27 +78,18 @@ export default {
 
     components: {
         Table,
+
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
+
     },
 
     computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
 
-        updateList(status) {
-            if (status === 'true') {
-                this.getContactUs();
-            }
-        },
     },
 
     mounted() {
@@ -110,19 +100,7 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getPageList();
-                    openToast(
-                        this.$store,
-                        'صفحه مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+
         $route() {
             this.getContactUs();
 

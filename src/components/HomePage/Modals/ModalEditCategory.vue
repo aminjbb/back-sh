@@ -26,7 +26,7 @@
         </div>
 
         <div class="text-center px-5" >
-          <CategoryForm status="edit" ref="CategoryForm"/>
+          <CategoryForm :categoryObject="categoryObject" status="edit" ref="CategoryForm"/>
         </div>
 
         <div class="mt-3 mb-8 px-5">
@@ -68,7 +68,8 @@ export  default {
   },
   data(){
     return{
-
+      categoryObject:null,
+      dialog:false
     }
   },
   methods:{
@@ -83,7 +84,7 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `page/home/section/banner/update/${this.bannerObject.id}`
+      AxiosMethod.end_point = `page/home/section/banner/update/${this.categoryObject.id}`
       formData.append('homepage_section_id' , this.$route.params.sectionId)
       formData.append('link', this.$refs.CategoryForm.form.link)
       formData.append('label', this.$refs.CategoryForm.form.title)
@@ -107,21 +108,9 @@ export  default {
       }
     },
     close(){
-      const form = {
-        dialog :false,
-        object : ''
-      }
-      this.$store.commit('set_homePageCategoryModal' , form)
+      this.dialog =false
     }
   },
 
-  computed:{
-    dialog(){
-      return this.$store.getters['get_homePageCategoryModal']
-    },
-    bannerObject(){
-      return this.$store.getters['get_homePageCategoryObject']
-    }
-  }
 }
 </script>

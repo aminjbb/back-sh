@@ -42,68 +42,7 @@ export default {
 
   data: () => ({
     valid:false,
-    shpsObject:[
-      {
-        id:'1',
-        shps:'232',
-        sku:{
-          id:'12',
-          label:'کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر'
-        },
-        count:10,
-        order_date:'1402/07/12',
-        send_date:'1402/07/23',
-        order_id:'331'
-      },
-      {
-        id:'2',
-        shps:'232',
-        sku:{
-          id:'12',
-          label:'کرم پودر شون مدل Daily Defence کد D01 ظرفیت 30 میلی لیتر'
-        },
-        count:5,
-        order_date:'1402/07/12',
-        send_date:'1402/07/22',
-        order_id:'331'
-      },
-      {
-        id:'3',
-        shps:'212',
-        sku:{
-          id:'13',
-          label:'کرم پودر شون مدل Daily Defence کد D01 ظرفیت 20 میلی لیتر'
-        },
-        count:5,
-        order_date:'1402/07/12',
-        send_date:'1402/07/23',
-        order_id:'321'
-      },
-      {
-        id:'4',
-        shps:'212',
-        sku:{
-          id:'13',
-          label:'کرم پودر شون مدل Daily Defence کد D01 ظرفیت 20 میلی لیتر'
-        },
-        count:12,
-        order_date:'1402/07/12',
-        send_date:'1402/07/21',
-        order_id:'311'
-      },
-      {
-        id:'5',
-        shps:'211',
-        sku:{
-          id:'14',
-          label:'کرم پودر شون مدل Daily Defence کد D01 ظرفیت 10 میلی لیتر'
-        },
-        count:12,
-        order_date:'1402/07/11',
-        send_date:'1402/07/22',
-        order_id:'131'
-      },
-    ]
+
   }),
 
   methods:{

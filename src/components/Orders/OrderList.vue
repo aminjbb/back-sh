@@ -167,6 +167,7 @@ export default {
       dataTableLength,
       page,
       header,
+      addPerPage,
       loading
     } = Orders();
     return {
@@ -177,11 +178,14 @@ export default {
       dataTableLength,
       page,
       header,
+
+      addPerPage,
       loading,
       status,
       paymentStatus,
       paymentMethods,
       packedStatus
+
     };
   },
 
@@ -191,11 +195,7 @@ export default {
     ModalColumnFilter
   },
 
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
-  },
+  computed: {},
 
   methods: {
     changeHeaderShow(index, value) {
@@ -207,6 +207,7 @@ export default {
         this.getOrderList();
       }
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
@@ -214,7 +215,6 @@ export default {
         this.perPageFilter = false
       }, 1000)
     }
-
   },
 
   mounted() {

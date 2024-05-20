@@ -70,7 +70,6 @@ import Table from '@/components/HomePage/Table/HomePageBannerTable.vue'
 import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
@@ -102,7 +101,7 @@ export default {
         Table,
         ModalGroupAdd,
         ModalColumnFilter,
-        ModalExcelDownload,
+
     },
 
     computed: {

@@ -107,7 +107,6 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       skuPanelFilter: new SkuPanelFilter(),
-      activeColumn: false,
     }
   },
 
@@ -158,43 +157,6 @@ export default {
       }
     },
 
-    /**
-     * Create ordering
-     * @param {*} index
-     */
-    createOrdering(index) {
-      if (index) {
-        if (this.order_type === 'desc') {
-          this.order_type = 'asc'
-
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order_type = 'asc'
-          } else {
-            this.panelFilter.order_type = 'asc'
-          }
-        } else {
-          this.order_type = 'desc'
-
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order_type = 'desc'
-          } else {
-            this.panelFilter.order_type = 'desc'
-          }
-        }
-
-        if (this.model === 'sku') {
-          this.skuPanelFilter.order = index
-          this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-        } else {
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-        }
-
-        this.ordering = {};
-        this.ordering[index] = !this.ordering[index];
-      }
-
-    },
 
     /**
      * Get icon
@@ -204,10 +166,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Return odd index
@@ -217,13 +175,6 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
 
   },
 }

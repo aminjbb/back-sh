@@ -47,7 +47,7 @@
           :loading="loading"
           updateUrl="seller/csv/mass-update"
           model="seller" />
-      <ModalRetailShipmentDetail/>
+
       <v-divider />
 
       <v-card-actions class="pb-3">

@@ -68,7 +68,6 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 export default {
 
   props: {
-    supplier: null,
     device:'',
     banner:''
   },
@@ -120,14 +119,7 @@ export default {
 
   },
   watch:{
-    confirmModal(val){
-      if (!val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          this.form.imag= null
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
+
   }
 }
 </script>

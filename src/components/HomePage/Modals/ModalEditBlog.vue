@@ -26,7 +26,7 @@
         </div>
 
         <div class="text-center px-5" >
-          <BlogForm status="edit" ref="BlogForm"/>
+          <BlogForm :blogObject="blogObject" status="edit" ref="BlogForm"/>
         </div>
 
         <div class="mt-3 mb-8 px-5">
@@ -68,16 +68,14 @@ export  default {
   },
   data(){
     return{
+      blogObject:null,
+      dialog:false,
     }
   },
 
   methods:{
     close(){
-      const form = {
-        dialog :false,
-        object : ''
-      }
-      this.$store.commit('set_homeBlogModal' , form)
+      this.dialog = false
     },
     validate(){
       this.$refs.BlogForm.$refs.addForm.validate()
@@ -114,13 +112,5 @@ export  default {
     }
   },
 
-  computed:{
-    dialog(){
-      return this.$store.getters['get_homeBlogModal']
-    },
-    blogObject(){
-      return this.$store.getters['get_homeBlogObject']
-    }
-  }
 }
 </script>

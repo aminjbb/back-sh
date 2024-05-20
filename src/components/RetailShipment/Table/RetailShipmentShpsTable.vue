@@ -242,36 +242,7 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
 
     /**
      * Page on table
@@ -391,37 +362,24 @@ export default {
      * @param { boolean } order
      */
     createOrdering(index, order) {
-      if (order === true) {
-        if (index) {
-          if (this.order_type === 'desc') {
-            this.order_type = 'asc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'asc'
-            } else {
-              this.panelFilter.order_type = 'asc'
-            }
-          } else {
-            this.order_type = 'desc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'desc'
-            } else {
-              this.panelFilter.order_type = 'desc'
-            }
-          }
-
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order = index
-            this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-          } else {
-            this.panelFilter.order = index
-            this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-          }
-
-          this.ordering = {};
-          this.ordering[index] = !this.ordering[index];
+      if (index) {
+        let query = this.$route.query
+        if (this.order_type === 'desc') {
+          this.order_type = 'asc'
+        } else {
+          this.order_type = 'desc'
         }
+        this.$router.replace({
+          query: {
+            ...query,
+            order_type :this.order_type,
+            order :index
+          }
+        })
+
+        this.ordering = {};
+        this.ordering[index] = !this.ordering[index];
+      }
       }
 
     },
@@ -434,10 +392,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Change Active
@@ -529,6 +483,5 @@ export default {
       console.log('2.skuTable', status)
       this.$emit('updateList', status);
     },
-  },
 }
 </script>

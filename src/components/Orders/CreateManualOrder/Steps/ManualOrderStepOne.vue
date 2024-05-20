@@ -160,21 +160,8 @@ export default {
 
   },
   setup() {
-    const {
-      manualOrderHeader,
-      getManualOrderList,
-      manualOrderList,
-      manualOrderListGet,
-      getManualOrderListGet,
-
-    } = new Orders;
     const {  getUserAddress , userAddress } = new User()
     return {
-      manualOrderHeader,
-      getManualOrderList,
-      manualOrderList,
-      manualOrderListGet,
-      getManualOrderListGet,
       getUserAddress,
       userAddress,
     }
@@ -202,25 +189,12 @@ export default {
     },
     valid: true,
     rule: [v => !!v || 'این فیلد الزامی است'],
-    persianRule: [
-      (v) => !!v || "این فیلد الزامی است",
-      (v) =>
-          /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]+$/.test(v) ||
-          "فقط حروف فارسی ",
-    ],
-    mobileRule: [
-      (v) => !!v || "این فیلد الزامی است",
-      (v) =>
-          /^(?:(\u0660\u0669[\u0660-\u0669][\u0660-\u0669]{8})|(\u06F0\u06F9[\u06F0-\u06F9][\u06F0-\u06F9]{8})|(09[0-9][0-9]{8}))$/.test(
-              v
-          ) || "شماره موبایل معتبر نیست",
-    ],
+
 
   }),
 
   props: {
     orderDetail: null,
-    // get state create sku
     state: {
       type: String,
       default: ''

@@ -220,47 +220,7 @@ export default {
 
   data() {
     return {
-      statusItems: [
-        {
-          label: 'در انتظار',
-          value: 'waiting',
-        },
-        {
-          label: 'در حال بررسی',
-          value: 'in_review',
-        },
-        {
-          label: 'رد شده',
-          value: 'rejected',
-        },{
-          label: 'تایید شده',
-          value: 'approved',
-        },{
-          label: 'در حال ارسال به انبار',
-          value: 'sending_warehouse',
-        },{
-          label: 'رسیده به انبار',
-          value: 'received_by_warehouse',
-        },{
-          label: 'در حال شمارش',
-          value: 'counting',
-        },{
-          label: 'تایید شده انبار',
-          value: 'approved_by_warehouse',
-        },{
-          label: 'به سمت انبار اصلی',
-          value: 'sending_base_warehouse',
-        },{
-          label: 'رسیده به انبار اصلی',
-          value: 'received_base_warehouse',
-        },{
-          label: 'در حال جایگذاری',
-          value: 'locating',
-        },{
-          label: 'موجود شده در انبار',
-          value: 'located',
-        },
-      ],
+
       order_type: "desc",
       ordering: {},
       per_page: '25',
@@ -268,14 +228,7 @@ export default {
   },
 
   computed: {
-    PrintPermission(){
-      return ['waiting' , 'in_review']
-    },
-    deleteAndShippingPermission(){
-      return ['approved' , 'sending_warehouse' , 'received_by_warehouse' ,
-        'counting' , 'approved_by_warehouse' , 'sending_base_warehouse' ,
-        'received_base_warehouse' , 'locating' ,  'located']
-    },
+
     /**
      * Get each items table based of header length
      */
@@ -293,47 +246,15 @@ export default {
       return 'auto';
     },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-          this.activeColumn = true;
-        } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
+
   },
 
 
   methods: {
     splitChar,
-    checkPermission(status , permissions){
-      const index = permissions.findIndex(p => p === status)
-      if (index > -1) return true
-      return false
-    },
-    getStatus(status){
-      const persianStatus = this.statusItems.find(element => element.value === status )
-      return persianStatus.label
-    },
+
     convertDateToJalai,
-    changeValue(index, value) {
-      this.active[index] = value
-    },
-    /**
-     * requestShipment modal
-     */
-    requestShipment(item) {
-      const form = {
-        dialog :true,
-        object : item
-      }
-      this.$store.commit('set_modalRequestShipment' , form)
-    },
+
 
     /**
      * Get row index in table
@@ -358,16 +279,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -383,29 +307,7 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
-    /**
-     * Change Active
-     * @param {*} index
-     * @param {*} item
-     */
-    async changeActive(index, item) {
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item.id
-      if (this.active[index]) formdata.append('is_active', 1)
-      else formdata.append('is_active', 0)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-    },
 
     /**
      * Return odd index
@@ -415,13 +317,7 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
+
   },
 }
 </script>

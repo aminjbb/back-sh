@@ -112,10 +112,7 @@ export default {
      */
     items: [],
 
-    /**
-     * Model
-     */
-    model: '',
+
 
     /**
      * Height

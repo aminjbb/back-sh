@@ -1,6 +1,11 @@
 <template>
   <div class="text-right">
-
+    <div class=" pointer" @click="dialog= true">
+      <v-icon class="text-grey-darken-1">mdi-car-pickup</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                            درخواست ارسال
+                                        </span>
+    </div>
     <v-dialog
         v-model="dialog"
         width="468"
@@ -8,7 +13,7 @@
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
           <v-col cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -87,16 +92,12 @@
               class="px-8 mt-1">
             تایید
           </v-btn>
-          <v-btn
-              @click="close()"
-              variant="text"
-              height="40"
-              rounded
-              class="px-5 mt-1"
-          >
-
+          <btn
+              class="mt-3 mr-2"
+              @click="dialog = false"
+              style="cursor: pointer;">
             انصراف
-          </v-btn>
+          </btn>
 
         </div>
       </v-card>
@@ -110,6 +111,7 @@ import Warehouse from "@/composables/Warehouse"
 import {convertDateToJalai, openToast} from "@/assets/js/functions";
 export  default {
   props:{
+    id: null,
     /**
      * Get Retail Shipment Function
      */
@@ -130,7 +132,10 @@ export  default {
       warehouse:null,
       workDays:[],
       workDay:null,
-      loading:false
+      loading:false,
+      retailObject: null,
+      dialog: false
+
     }
   },
 
@@ -192,7 +197,7 @@ export  default {
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `shipment/consignment/${this.retailObject.id}/send/warehouse`
+      AxiosMethod.end_point = `shipment/consignment/${this.id}/send/warehouse`
       formData.append('warehouse_id' , this.warehouse)
       formData.append('sent_to_warehouse_at', this.workDay)
       AxiosMethod.form = formData
@@ -227,12 +232,12 @@ export  default {
   },
 
   computed:{
-    dialog(){
-      return this.$store.getters['get_modalRequestShipment']
-    },
-    retailObject(){
-      return this.$store.getters['get_modalRequestShipmentObject']
-    },
+    // dialog(){
+    //   return this.$store.getters['get_modalRequestShipment']
+    // },
+    // retailObject(){
+    //   return this.$store.getters['get_modalRequestShipmentObject']
+    // },
     warehouseData(){
       try {
         return this.warehouseList.data
