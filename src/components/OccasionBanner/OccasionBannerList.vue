@@ -13,7 +13,7 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="menu/index" :filterField="filterField" />
+            <PanelFilter :statusHasOption="deviceTypes"  path="menu/index" :filterField="filterField" />
           </v-row>
         </v-col>
       </v-row>
@@ -23,13 +23,12 @@
       <Table
           class="flex-grow-1"
           :header="header"
-          :items="[]"
+          :items="OccasionBanners.data"
           :page="1"
           :perPage="25"
-          activePath="system/menu/crud/update/activation/"
-          deletePath="system/menu/crud/delete/"
-          :loading="loading"
-          updateUrl="page/csv/mass-update"
+          activePath="page/top_banner/crud/update/activation/"
+          deletePath="page/top_banner/crud/delete/"
+
           model="menu" />
       <v-divider />
     </v-card>
@@ -40,7 +39,7 @@
 import Table from '@/components/OccasionBanner/Table/Table.vue'
 import AddOccasionBannerModal from '@/components/OccasionBanner/Modal/AddOccasionBannerModal.vue'
 import OccasionBanner from "@/composables/OccasionBanner";
-import ModalTableFilter from '@/components/OccasionBanner/Filter/Filter.vue'
+import PanelFilter from '@/components/PanelFilter/PanelFilter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import { openToast} from "@/assets/js/functions";
 export default {
@@ -52,10 +51,19 @@ export default {
       filterField, OccasionBanners, getOccasionBanners  , header
     };
   },
+  data(){
+    return{
+      deviceTypes:[
+        {label:'دسکتاپ' , value:'desktop'},
+        {label:'موبایل' , value:'mobile'},
+        {label:'تبلت' , value:'tablet'},
+      ],
+    }
+  },
 
   components: {
     Table,
-    ModalTableFilter,
+    PanelFilter,
     ModalColumnFilter,
     AddOccasionBannerModal
   },
@@ -84,7 +92,7 @@ export default {
           this.getOccasionBanners();
           openToast(
               this.$store,
-              'منو مورد نظر با موفقیت حذف شد',
+              'بننر مورد نظر با موفقیت حذف شد',
               "success"
           );
           this.$cookies.remove('deleteItem')

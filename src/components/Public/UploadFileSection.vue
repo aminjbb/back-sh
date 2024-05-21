@@ -65,7 +65,6 @@ const route = useRoute()
 let loading = ref(false)
 const router = useRouter()
 const props = defineProps(['module'])
-console.log(props.module)
 
 function onDrop(e) {
     files.value = e.dataTransfer.files

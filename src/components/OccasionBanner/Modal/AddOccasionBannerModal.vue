@@ -1,6 +1,14 @@
 <template>
   <div class="text-right">
+    <div  @click="dialog = true" class="ma-5 pointer" v-if="type ==='edit'">
+      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                                            ویرایش
+      </span>
+
+    </div>
     <v-btn
+        v-else
         @click="dialog = true"
         color="primary500"
         height="40"
@@ -38,7 +46,7 @@
         <div class="d--rtl">
           <v-form ref="addOccasionBanner" v-model="valid">
             <v-row align="center" class="mx-5" justify="center">
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="4">
                 <div class="text-right my-5">
                 <span class="t14500">
                   لینک
@@ -53,7 +61,7 @@
                     v-model="form.link" />
 
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="4">
                 <div class="text-right my-5">
                 <span class="t14500">
                     Alt text
@@ -77,10 +85,25 @@
                     density="compact"
                     variant="outlined"
                     single-line
-
+                    multiple
                     :rules="rule"
                     v-model="form.device"
                     :items="deviceTypes"
+                />
+              </v-col>
+              <v-col cols="12" md="4">
+                <div class="text-right my-5">
+                <span class="t14500">
+                   انتخاب صفحات
+                </span>
+                </div>
+                <v-select
+                    density="compact"
+                    variant="outlined"
+                    multiple
+                    :rules="rule"
+                    v-model="form.pages"
+                    :items="pages"
                 />
               </v-col>
               <v-col cols="12" md="4">
@@ -98,7 +121,6 @@
                 </v-text-field>
                 <date-picker
                     clearable
-                    range
                     type="datetime"
 
                     display-format="jYYYY-jMM-jDD"
@@ -120,17 +142,45 @@
                 </v-text-field>
                 <date-picker
                     clearable
-                    range
                     type="datetime"
                     display-format="jYYYY-jMM-jDD"
                     :custom-input="`.start-input-end-date`"
                     v-model="form.endDate" />
               </v-col>
-              <v-col cols="12">
-                <UploadFileSection @getImage="getImage"/>
-                <div class="d-flex align-center mt-5" v-if="form.image">
-                  <span>IMG-{{ form.image }}</span>
-                  <span class="mr-15"><v-icon @click="removeItem(form.image)" color="error">mdi-delete</v-icon></span>
+              <v-col cols="12" v-if="form.device.find(element => element === 'desktop')">
+                <div class="text-right mb-3">
+                  <span>
+                    تصویر بنر دسکتاپ
+                  </span>
+                </div>
+                <UploadFileSection  @getImage="getImageDesktop"/>
+                <div class="d-flex align-center mt-5" v-if="form.imageDesktop">
+                  <span>IMG-{{ form.imageDesktop }}</span>
+                  <span class="mr-15"><v-icon @click="removeItem(form.imageDesktop , 'desktop')" color="error">mdi-delete</v-icon></span>
+                </div>
+              </v-col>
+              <v-col cols="12" v-if="form.device.find(element => element === 'tablet')">
+                <div class="text-right mb-3">
+                  <span>
+                    تصویر بنر تبلت
+                  </span>
+                </div>
+                <UploadFileSection  @getImage="getImageTablet"/>
+                <div class="d-flex align-center mt-5" v-if="form.imageTablet">
+                  <span>IMG-{{ form.imageTablet }}</span>
+                  <span class="mr-15"><v-icon @click="removeItem(form.imageTablet ,'tablet')" color="error">mdi-delete</v-icon></span>
+                </div>
+              </v-col>
+              <v-col cols="12" v-if="form.device.find(element => element === 'mobile')">
+                <div class="text-right mb-3">
+                  <span>
+                    تصویر بنر موبایل
+                  </span>
+                </div>
+                <UploadFileSection  @getImage="getImageMobile"/>
+                <div class="d-flex align-center mt-5" v-if="form.imageMobile">
+                  <span>IMG-{{ form.imageMobile }}</span>
+                  <span class="mr-15"><v-icon @click="removeItem(form.imageMobile , 'mobile')" color="error">mdi-delete</v-icon></span>
                 </div>
               </v-col>
             </v-row>
@@ -161,7 +211,6 @@
 
             انصراف
           </v-btn>
-
         </div>
       </v-card>
     </v-dialog>
@@ -174,27 +223,29 @@ import {
 } from "@/assets/js/axios_call";
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import {openConfirm} from "@/assets/js/functions";
+import {convertDateToGregorian, openConfirm, openToast} from "@/assets/js/functions";
 export default {
   components: {  datePicker: VuePersianDatetimePicker,UploadFileSection},
   props: {
     banner: null,
-    maxWidth: null,
-    getHomePageBanner:{type:Function},
     type:'create',
   },
 
   data() {
     return {
       dialog: false,
+      removeStatus :'',
       image: '',
       imageId:'',
       loading:false,
       form: {
-        device: '',
+        device: [],
+        pages: [],
         link:'',
         imageAlt: '',
-        image:'',
+        imageDesktop:'',
+        imageTablet:'',
+        imageMobile:'',
         imageUrl:'',
         startDate:null,
         endDate:null
@@ -205,61 +256,107 @@ export default {
         {title:'موبایل' , value:'mobile'},
         {title:'تبلت' , value:'tablet'},
       ],
+
+      pages:[
+        {title:'انتخاب همه' , value:'all'},
+        {title:'دسته بندی' , value:'category'},
+        {title:'برند' , value:'brand'},
+        {title:'کالا' , value:'sku'},
+        {title:'محصولات' , value:'product'},
+        {title:'گروه کالا' , value:'sku_group'},
+        {title:'صفحه اصلی' , value:'main_page'},
+        {title:'صفحه پروموشن' , value:'promotion'},
+      ],
       valid:true
     }
   },
 
   methods: {
-    getImage(image){
-      console.log(image)
-      this.form.image = image.data.data.image_id
+    getImageDesktop(image){
+      this.form.imageDesktop = image.data.data.image_id
     },
-     removeItem(id) {
-      this.imageId = id;
-       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
+    getImageTablet(image){
+      this.form.imageTablet = image.data.data.image_id
+    },
+    getImageMobile(image){
+      this.form.imageMobile = image.data.data.image_id
+    },
+     removeItem(id , status) {
+        this.imageId = id;
+        localStorage.setItem('imageIdDeleted', status)
+       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
     validate() {
-      this.$refs.addOccasionBanner.$refs.addBanner.validate()
+      this.$refs.addOccasionBanner.validate()
       setTimeout(() => {
         if (this.valid) this.sendDataBanner()
+
       }, 200)
     },
 
     async sendDataBanner() {
       try {
+        const startDateSplit = this.form.startDate.split(' ')
+        const endDateSplit = this.form.endDate.split(' ')
         this.loading = true
         let formData = new FormData();
         let endPoint = null
-        if (this.type === 'edit') endPoint = `page/home/section/banner/update/${this.banner.id}`
-        else endPoint = `page/home/section/banner/create/`
+        if (this.type === 'edit') endPoint = `page/top_banner/crud/update/${this.banner.id}`
+        else endPoint = `page/top_banner/crud/create`
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = endPoint
-        formData.append('homepage_section_id', this.$route.params.sectionId)
-        formData.append('link', this.$refs.AddAdsForm.form.link)
-        formData.append(`image_alt`, this.$refs.AddAdsForm.form.imageAlt)
-        formData.append('device', this.device)
-        formData.append('image_id', this.$refs.AddAdsForm.form.image)
+        formData.append('link', this.form.link)
+        formData.append(`image_alt`, this.form.imageAlt)
+        formData.append(`start_time`,`${ convertDateToGregorian(startDateSplit[0] ,'/' , false)} ${startDateSplit[1]}`)
+        formData.append(`end_time`,`${ convertDateToGregorian(endDateSplit[0] ,'/' , false)} ${endDateSplit[1]}`)
+        if (this.form.imageDesktop)  formData.append('desktop_image_id', this.form.imageDesktop)
+        if (this.form.imageTablet)  formData.append('tablet_image_id', this.form.imageTablet)
+        if (this.form.imageMobile)  formData.append('mobile_image_id', this.form.imageMobile)
+        this.form.device.forEach((device , index)=>{
+          formData.append(`device[${index}]`, device)
+        })
+        this.form.pages.forEach((page , index)=>{
+          formData.append(`pages[${index}]`, page)
+        })
         AxiosMethod.form = formData
         formData.append('is_active', 0)
         AxiosMethod.store = this.$store
         AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
         if (data) {
-          this.getHomePageBanner()
+          openToast(this.$store , 'بنرر با موفقیت آپلود شد' , 'success')
           this.loading = false
-          this.image = this.$refs.AddAdsForm.form.imageUrl
-          this.dialog = false
         } else {
           this.loading = false
         }
       }
       catch (e) {
         this.loading = false
+        console.log(e)
       }
     },
     setForm(){
+      try {
+        let startDateSplit = this.banner.start_time.split('T')
+        startDateSplit = startDateSplit[1].split('.')
+        let endDateSplit = this.banner.end_time.split('T')
+        endDateSplit = endDateSplit[1].split('.')
+        this.form.link = this.banner.link
+        this.form.imageAlt = this.banner.image_alt
+        this.form.pages = this.banner.pages
+        this.form.device = this.banner.device
+        this.form.endDate = `${this.banner.end_time_fa} ${startDateSplit[0]}`
+        this.form.startDate = `${this.banner.start_time_fa} ${endDateSplit[0]}`
+        this.form.imageDesktop = this.banner.desktop_image_id
+        this.form.imageTablet = this.banner.tablet_image_id
+        this.form.imageMobile = this.banner.mobile_image_id
 
+      }
+      catch (e) {
+        console.log(e)
+      }
     }
   },
   computed:{
@@ -271,8 +368,14 @@ export default {
     confirmModal(val){
       if (!val) {
         if (localStorage.getItem('deleteObject') === 'done') {
-          this.form.image = null
+          console.log(localStorage.getItem('imageIdDeleted') )
+          if (localStorage.getItem('imageIdDeleted') == 'desktop')   this.form.imageDesktop = null
+          if (localStorage.getItem('imageIdDeleted') == 'tablet')this.form.imageTablet = null
+          if (localStorage.getItem('imageIdDeleted') == 'mobile')this.form.imageMobile = null
           localStorage.removeItem('deleteObject')
+          setTimeout(()=>{
+            localStorage.removeItem('imageIdDeleted')
+          } , 2000)
         }
       }
     },

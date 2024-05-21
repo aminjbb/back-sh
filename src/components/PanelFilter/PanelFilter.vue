@@ -212,7 +212,7 @@
 
                   <!-- hasOption status -->
                   <v-select
-                      v-if="filter.value === 'icon' || filter.value === 'image_id'"
+                      v-if="filter.value === 'icon' || filter.value === 'image_id' || filter.value==='device'"
                       density="compact"
                       variant="outlined"
                       single-line

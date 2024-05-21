@@ -21,32 +21,9 @@
       </template>
 
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-menu :location="location">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props">
-              mdi-dots-vertical
-            </v-icon>
-          </template>
-
-          <v-list v-if="model !== 'menu'">
-            <v-list-item >
-              <v-list-item-title>
-                <v-btn
-                    @click="massUpdateModal()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 text-grey-darken-1 t14300">
-                  <template v-slot:append>
-                    <v-icon>mdi-pen-minus</v-icon>
-                  </template>
-                  ویرایش گروهی تنظیمات سئو
-                </v-btn>
-              </v-list-item-title>
-
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <v-icon v-bind="props">
+          mdi-dots-vertical
+        </v-icon>
       </div>
     </header>
 
@@ -67,81 +44,55 @@
           </div>
 
           <div
-              v-if="item.label && header[1].show"
+              v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.label }}
+                    <span class="t14300 text-gray500">
+                      <img width="100" height="28" class="br-4"  :src="item?.desktop_image?.image_url">
                     </span>
           </div>
           <div
-              v-if="item.name && header[2].show"
+              v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
-                        {{ item.name }}
+                    <span class="t14300 text-gray500 text-center">
+                        {{ item.link }}
                     </span>
           </div>
           <div
-              v-if="item.level && header[3].show"
+              v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.level }}
+                        {{ item.creator?.first_name }} {{ item.creator?.last_name }}
                     </span>
           </div>
           <div
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5" v-if="item.parent && item.parent.label">
-                        {{ item.parent.label }}
-                    </span>
-            <span class="t14300 text-gray500 py-5" v-else>
-                        -----
-                    </span>
+                   <v-switch inset color="success" @change="changeActive(index , item)" v-model="active[index]"></v-switch>
+
           </div>
-          <div
-              v-if=" header[5].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
-                        {{ item.priority }}
-                    </span>
-          </div>
+
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" class="text-gray500">
                   mdi-dots-vertical
                 </v-icon>
               </template>
 
-              <v-list class="c-table__more-options">
+              <v-list  class="c-table__more-options">
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/menu/update/${item.id}`)">
-                      <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                            ویرایش
-                                        </span>
-
-                    </div>
+                    <AddOccasionBannerModal type="edit" :banner="item"/>
                   </v-list-item-title>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="removeItem(item.id)">
+                    <div class="ma-5 pr-7 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
-                                        </span>
-
-                    </div>
-                  </v-list-item-title>
-                  <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/menu/${item.id}/add/image`)">
-                      <v-icon class="text-grey-darken-1">mdi-image</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                                            بارگذاری تصویر
                                         </span>
 
                     </div>
@@ -177,8 +128,10 @@ import {
   openConfirm,
   isOdd
 } from "@/assets/js/functions";
+import AddOccasionBannerModal from "@/components/OccasionBanner/Modal/AddOccasionBannerModal.vue";
 export default {
   components: {
+    AddOccasionBannerModal,
     ModalMassUpdate,
     ActivationModal
   },
@@ -341,10 +294,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
 
     /**
      * Change Active
