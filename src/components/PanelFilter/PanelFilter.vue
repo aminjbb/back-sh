@@ -123,6 +123,18 @@
                       variant="outlined"
                   />
 
+                    <!-- product Fields -->
+                    <v-autocomplete
+                        v-if="filter.value === 'product_id'"
+                        :items="productList"
+                        v-model='values[index].value'
+                        item-title="label"
+                        item-value="value"
+                        single-line
+                        clearable
+                        variant="outlined"
+                    />
+
                     <!-- brand Fields -->
                     <v-autocomplete
                         v-if="filter.value === 'brand_id'"
@@ -561,7 +573,7 @@ export default {
   },
 
   setup(){
-    const { product, searchProduct } = Product()
+    const { product, searchProduct, getProduct } = Product()
     const { getAllSuppliers, allSuppliers } = Supplier()
     const { getAdmins,  admin } = Admin()
     const { allMenu, getAllMenu } = new Menu()
@@ -574,7 +586,8 @@ export default {
       getAdmins,
       admin,
       allMenu,
-      getAllMenu
+      getAllMenu,
+      getProduct
     }
   },
 
@@ -614,6 +627,10 @@ export default {
 
     if (this.path === 'menu/index') {
       this.getAllMenu()
+    }
+
+    else if (this.path === 'product/get/skus/index') {
+      this.getProduct()
     }
 
     else if (

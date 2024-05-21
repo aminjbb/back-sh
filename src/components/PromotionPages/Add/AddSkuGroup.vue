@@ -48,6 +48,7 @@
 
         <v-col cols="6">
           <v-row justify="end">
+            <PanelFilter :filterField="filterFieldPromotionSku"/>
           </v-row>
         </v-col>
       </v-row>
@@ -119,11 +120,46 @@ import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
-    const {getPromotionShpsList,promotionShpsList, pageLengthShpsList, promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}=new PromotionPage()
-    return{getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength ,addPerPage, dataTableLength, promotionPage, header, loading ,skuGroupHeader}
+    const {
+      getPromotionShpsList,
+      promotionShpsList,
+      pageLengthShpsList,
+      promotion ,
+      promotions ,
+      getPromotion ,
+      getPromotions,
+      pageLength,
+      filterField ,
+      addPerPage,
+      dataTableLength,
+      promotionPage,
+      header,
+      loading ,
+      skuGroupHeader,
+      filterFieldPromotionSku
+    }=new PromotionPage()
 
+    return{
+      getPromotionShpsList,
+      promotionShpsList,
+      pageLengthShpsList,
+      promotion ,
+      promotions ,
+      getPromotion ,
+      getPromotions,
+      pageLength,
+      filterField ,
+      addPerPage,
+      dataTableLength,
+      promotionPage,
+      header,
+      loading ,
+      skuGroupHeader,
+      filterFieldPromotionSku
+    }
   },
   data(){
     return{
@@ -131,6 +167,7 @@ export default {
     }
   },
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
     ModalColumnFilter,

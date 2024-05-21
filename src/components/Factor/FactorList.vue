@@ -102,6 +102,10 @@ export default {
   setup() {
     const status = [
       {
+        label: 'همه',
+        value: ''
+      },
+      {
         label: 'پیش نویس',
         value: 'draft'
       },

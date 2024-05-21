@@ -101,6 +101,10 @@
     },
     setup() {
      const sendingMethods= [
+       {
+         title: 'همه',
+         value: ''
+       },
         {
           title: ' نفیس اکسپرس',
           value: 'nafis'

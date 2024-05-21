@@ -96,8 +96,16 @@ export default {
   setup(props) {
     const status = [
       {
+        label: 'در انتظار پرداخت',
+        value: 'payment_in_progress'
+      },
+      {
         label: 'پیش پردازش',
         value: 'pre_progress'
+      },
+      {
+        label: 'در حال پردازش',
+        value: 'in_progress'
       },
       {
         label: 'ارسال شده',
@@ -110,6 +118,10 @@ export default {
       {
         label: 'انقضای سفارش',
         value: 'payment_out_date'
+      },
+      {
+        label: 'در حال بسته بندی',
+        value: 'boxing'
       }
     ]
     const paymentStatus = [
@@ -130,10 +142,6 @@ export default {
       {
         label: 'کیف پول',
         value: 'wallet'
-      },
-      {
-        label: 'آنلاین',
-        value: 'online'
       },
       {
         label: 'اسنپ پی',

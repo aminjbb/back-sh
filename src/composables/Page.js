@@ -36,8 +36,9 @@ export default function setup() {
 
     const filterField = [
         {name:'عنوان' , type:'text', value:'label'},
+        { name: 'شناسه صفحه', type: 'text', value: 'id' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
-        { name: 'نوع صفحه', type:'select', value:'page_type'},
+        { name: 'نوع صفحه', type:'select', value:'type'},
         { name: 'ایندکس', type:'select', value:'is_index'},
         { name: 'follow', type:'select', value:'is_follow'},
         { name: 'وضعیت', type:'select', value:'is_active'},
