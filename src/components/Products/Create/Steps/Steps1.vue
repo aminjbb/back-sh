@@ -14,7 +14,6 @@
                 >
                     <div class="text-right my-2">
                         <span class="t12500">
-
                             {{ labels.product }}
                         </span>
                     </div>
@@ -1121,7 +1120,7 @@ export default {
         title  : product.label,
         value  : product.id
       }
-      this.productSelected = productSelected
+      this.createFromModel.productSelected = productSelected
       this.searchSkuGroups()
     },
 
