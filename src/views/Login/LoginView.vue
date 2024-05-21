@@ -1,5 +1,6 @@
 <script setup>
-import LoginSection from '@/components/Login/LoginSection.vue'
+import {defineAsyncComponent} from "vue";
+const LoginSection = defineAsyncComponent(()=> import ('@/components/Login/LoginSection.vue'))
 
 </script>
 

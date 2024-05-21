@@ -1,7 +1,9 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import DetailsDiscountCode from "@/components/Voucher/Table/DetailsDiscountCode.vue";
+import {defineAsyncComponent} from "vue";
+const DetailsDiscountCode = defineAsyncComponent(()=> import ('@/components/Voucher/Table/DetailsDiscountCode.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 </script>
 
 <template>

@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import AddSpecialCapacity from '@/components/Warehouse/SpecialCapacity/AddSpecialCapacity.vue'
+import {defineAsyncComponent} from "vue";
+const AddSpecialCapacity = defineAsyncComponent(()=> import ('@/components/Warehouse/SpecialCapacity/AddSpecialCapacity.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

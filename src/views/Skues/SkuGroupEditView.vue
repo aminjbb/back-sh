@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import SkuGroupEdit from '@/components/Products/Sku/Edit/SkuGroupEdit.vue'
+import {defineAsyncComponent} from "vue";
+const SkuGroupEdit = defineAsyncComponent(()=> import ('@/components/Products/Sku/Edit/SkuGroupEdit.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

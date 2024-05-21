@@ -1,5 +1,6 @@
 <script setup>
-import StockTaking from '@/components/StockTaking/StockTaking.vue'
+import {defineAsyncComponent} from "vue";
+const StockTaking = defineAsyncComponent(()=> import ('@/components/StockTaking/StockTaking.vue'))
 </script>
 
 <template>

@@ -1,5 +1,8 @@
 <script setup>
-import ShpsListLocatingToShelf from '@/components/PackagePlacement/Locating/ShpsListLocatingToShelf.vue'
+import {defineAsyncComponent} from "vue";
+const ShpsListLocatingToShelf = defineAsyncComponent(()=> import ('@/components/PackagePlacement/Locating/ShpsListLocatingToShelf.vue'))
+
+
 </script>
 
 <template>

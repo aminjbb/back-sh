@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import AddCrossDock from '@/components/Seller/CrossDock/Add/AddCrossDock.vue'
+import {defineAsyncComponent} from "vue";
+const AddCrossDock = defineAsyncComponent(()=> import ('@/components/Seller/CrossDock/Add/AddCrossDock.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

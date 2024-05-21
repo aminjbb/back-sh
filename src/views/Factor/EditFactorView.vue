@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import EditFactor from '@/components/Factor/Edit/EditFactor.vue'
+import {defineAsyncComponent} from "vue";
+const EditFactor = defineAsyncComponent(()=> import ('@/components/Factor/Edit/EditFactor.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>
