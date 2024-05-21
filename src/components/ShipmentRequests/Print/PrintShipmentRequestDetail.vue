@@ -1,7 +1,7 @@
 <template>
   <div v-if="retailObject" class="pa-5" id="printableArea-cargo d--ltr" >
 
-      <v-card class="d-flex justify-center align-center px-10 ma-5  " height="82">
+      <v-card class="d-flex justify-center align-center px-10 ma-5 " height="82">
         <div class="mx-10">
                         <span class="t14500">
                             تاریخ ارسال :
@@ -29,7 +29,6 @@
                             {{ retailObject?.supplier?.shopping_name }}
                         </span>
         </div>
-
         <div class="mx-10" v-else>
                         <span class="t10500">
                             نام تامین کننده :
@@ -38,8 +37,8 @@
                             {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
         </div>
-
       </v-card>
+
     <v-card class="ma-5" min-height="82" v-if="retailObject?.rejection_reason">
       <div class="my-2">دلیل رد</div>
       <v-divider class="mb-3"/>
@@ -49,8 +48,7 @@
     </v-card>
 
       <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
-        <div class="table-scroll-container">
-
+        <div>
           <Table
               class="flex-grow-1  "
               :header="headerShps"
@@ -65,75 +63,94 @@
               model="sku"/>
         </div>
         <v-divider />
-        <div class="calculate-all d-flex justify-end align-center">
-          <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px">
-            جمع:
-          </div>
+        <v-row justify="center" align="center" class="px-8 py-5">
+          <v-col cols="2">
+            <v-row justify="center">
+              <span>جمع:</span>
+            </v-row>
+          </v-col>
 
-          <div class="text-center  c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
-            <template v-if="retailObject && retailObject.shps_list.buying_price >= 0">
-              {{retailObject.buying_price}}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_list.customer_price >= 0">
-              {{retailObject.shps_list.customer_price }}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_list.sum_customer_price ">
-              {{retailObject.shps_list.sum_customer_price}}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item t10500 text-black mr-15" style="width:11.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_count >= 0">
-              {{retailObject.shps_count}}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item t10500 text-black mr-10" style="width:11.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_count >= 0">
-              {{retailObject.total_buying_price}}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item t10500 text-black " style="width:11.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_count >= 0">
-              {{retailObject.total_customer_price}}
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-          <div class="text-center c-table__header__item  " style="width:11.1111%;padding:15px 10px">
-            <template v-if="retailObject && retailObject.shps_count >= 0">
-              {{retailObject.total_profit}}%
-            </template>
-            <template v-else>
-              -
-            </template>
-          </div>
-        </div>
+          <v-col cols="4" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_list.buying_price >= 0">
+                {{splitChar(retailObject.buying_price)}}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+          </v-col>
 
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_list.customer_price >= 0">
+                {{splitChar(retailObject.shps_list.customer_price) }}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
 
+          </v-col>
 
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_list.sum_customer_price ">
+                {{splitChar(retailObject.shps_list.sum_customer_price)}}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+          </v-col>
+
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_count >= 0">
+                {{retailObject.shps_count}}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+          </v-col>
+
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_count >= 0">
+                {{splitChar(retailObject.total_buying_price)}}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+
+          </v-col>
+
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center">
+              <template v-if="retailObject && retailObject.shps_count >= 0">
+                {{splitChar(retailObject.total_customer_price)}}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+          </v-col>
+
+          <v-col cols="1" class="text-center number-font">
+            <v-row justify="center" align="center">
+              <template v-if="retailObject && retailObject.shps_count >= 0">
+                {{retailObject.total_profit}}%
+              </template>
+              <template v-else>
+                -
+              </template>
+            </v-row>
+          </v-col>
+        </v-row>
       </v-card>
-
     </div>
-
 </template>
 
 <script>
@@ -143,7 +160,7 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 import ShipmentRequests from "@/composables/ShipmentRequests";
 import Table from "@/components/ShipmentRequests/Table/ShipmentRequestDetailShipmentShps.vue";
 import {
-  convertDateToJalai
+  convertDateToJalai, splitChar
 } from "@/assets/js/functions";
 
 export default {
@@ -175,6 +192,7 @@ export default {
   },
 
   methods: {
+    splitChar,
 
 
 
