@@ -78,7 +78,7 @@ export default function setup() {
         }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `user/contact-us/index/${paramsQuery}`
+        AxiosMethod.end_point = `user/contact-us/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
