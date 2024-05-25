@@ -12,7 +12,6 @@ export default function setup() {
     const page = ref(1)
     const pageLength =ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
     const isFilter =ref(false)

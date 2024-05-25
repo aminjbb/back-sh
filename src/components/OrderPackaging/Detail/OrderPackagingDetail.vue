@@ -149,31 +149,38 @@ export default {
       this.dialog = false
     },
     async orderItemPack() {
-      let endPointUrl = null
-      if (this.accept) endPointUrl= `warehouse/order/packaging/done/?accept`
-      else endPointUrl= `warehouse/order/packaging/done/`
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point =endPointUrl
-      formdata.append('barcode', this.shpsItem)
-      AxiosMethod.form = formdata
-      AxiosMethod.store = this.$store
-      AxiosMethod.toast_error = true
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.orderId = data?.data?.order?.id
-        if (data?.data?.is_completed) {
-          window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
-        }
-        this.orderDetail = data?.data?.order_items
-        this.loading = false
-        setTimeout(()=>{this.shpsItem = ''},1000)
-      } else {
-        this.loading = false
-      }
+     try {
+       let endPointUrl = null
+       if (this.accept) endPointUrl= `warehouse/order/packaging/done/?accept`
+       else endPointUrl= `warehouse/order/packaging/done/`
+       this.loading = true
+       var formdata = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point =endPointUrl
+       formdata.append('barcode', this.shpsItem)
+       AxiosMethod.form = formdata
+       AxiosMethod.store = this.$store
+       AxiosMethod.toast_error = true
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.orderId = data?.data?.order?.id
+         if (data?.data?.is_completed) {
+           window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
+         }
+         this.orderDetail = data?.data?.order_items
+         this.loading = false
+         setTimeout(()=>{this.shpsItem = ''},1000)
+       } else {
+         this.shpsItem = null
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.shpsItem = null
+       this.loading = false
+     }
     },
 
   },

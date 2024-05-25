@@ -279,6 +279,7 @@ import EditOrderView from "@/views/ManualOrder/EditOrderView.vue";
 import PrintLabelView from "@/views/Warehouse/PrintLabelView.vue";
 import StockTakingView from "@/views/StockTaking/StockTakingView.vue";
 import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
+import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
 
 
 const router = createRouter({
@@ -2237,6 +2238,23 @@ const router = createRouter({
                 component: PickUpTaskView,
                 meta: {
                     name: 'برنامه پیک آپ '
+                }
+            },
+
+
+            ]
+        },
+        {
+            path: '/occasion-banner', // Zone
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'OccasionBannerView',
+                component: OccasionBannerView,
+                meta: {
+                    name: 'بنر مناسبتی'
                 }
             },
 
