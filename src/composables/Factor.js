@@ -68,14 +68,18 @@ export default function setup() {
             AxiosMethod.form = {
                 ...query,
                 page:page.value,
-                per_page : dataTableLength.value
+                per_page : dataTableLength.value,
+                order:'created_at',
+                order_type:'desc'
             }
         }
         else{
             AxiosMethod.form = {
                 ...query,
                 page:page.value,
-                per_page : dataTableLength.value
+                per_page : dataTableLength.value,
+                order:'created_at',
+                order_type:'desc'
             }
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
