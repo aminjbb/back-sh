@@ -511,6 +511,7 @@ export default {
                 ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
+                ['اختصاص کالا به بسته', '/assign-shps-package/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
@@ -547,7 +548,7 @@ export default {
 
             withdraw: [
                 ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
-              [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],
+                [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             message: [
                 ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],

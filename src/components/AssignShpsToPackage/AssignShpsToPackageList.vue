@@ -43,6 +43,7 @@
         </v-col>
       </v-row>
     </v-card>
+
     <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
       <v-row
           justify="center"
