@@ -280,6 +280,7 @@ import PrintLabelView from "@/views/Warehouse/PrintLabelView.vue";
 import StockTakingView from "@/views/StockTaking/StockTakingView.vue";
 import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
+import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPackageView.vue";
 
 
 const router = createRouter({
@@ -2253,6 +2254,24 @@ const router = createRouter({
                 path: 'index',
                 name: 'OccasionBannerView',
                 component: OccasionBannerView,
+                meta: {
+                    name: 'بنر مناسبتی'
+                }
+            },
+
+
+            ]
+        },
+
+        {
+            path: '/assign-shps-package', // Zone
+            meta: {
+                name: ' انبار'
+            },
+            children: [{
+                path: 'index',
+                name: 'AssignShpsToPackageView',
+                component: AssignShpsToPackageView,
                 meta: {
                     name: 'بنر مناسبتی'
                 }
