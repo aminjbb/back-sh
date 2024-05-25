@@ -96,6 +96,7 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_get()
         if (data) {
+          openToast(this.$store,'جایگاه سورتینگ با موفقیت تخلیه شد','success')
           this.loading = false
           this.getWarehouseOrders()
           this.close()
