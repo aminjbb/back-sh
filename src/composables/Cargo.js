@@ -71,16 +71,49 @@ export default function setup() {
 
     async function getCargoList(query) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-
         const AxiosMethod = new AxiosCall()
+
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =true
-        AxiosMethod.end_point = `cargo/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `cargo/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)

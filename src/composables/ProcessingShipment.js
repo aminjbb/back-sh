@@ -79,13 +79,48 @@ export default function setup() {
         let paramsQuery = null
         filter.factor = route.params.factorId
         loading.value = true
-        if (query) {
-            paramsQuery = filter.params_generator(query.query)
-        } else paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `cargo/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `cargo/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
