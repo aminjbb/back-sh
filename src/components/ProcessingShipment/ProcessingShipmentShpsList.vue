@@ -5,40 +5,40 @@
           justify="start"
           align="center"
           class="px-10 py-5">
-<!--        <v-col cols="3">-->
-<!--          <div class="text-right ">-->
-<!--            <span class="text-gray600 t14500">-->
-<!--              شناسه بسته-->
-<!--            </span>-->
-<!--            <span class="text-error">-->
-<!--              *-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <v-text-field-->
-<!--                @keyup="setpackId()"-->
-<!--                variant="outlined"-->
-<!--                :rules="rule"-->
-<!--                :autofocus="packageFocus"-->
-<!--                v-model="boxId"/>-->
-<!--          </div>-->
-<!--        </v-col>-->
+        <v-col cols="3">
+          <div class="text-right ">
+            <span class="text-gray600 t14500">
+              شناسه بسته
+            </span>
+            <span class="text-error">
+              *
+            </span>
+          </div>
+          <div>
+            <v-text-field
+                @keyup="setpackId()"
+                variant="outlined"
+                :rules="rule"
+                :autofocus="packageFocus"
+                v-model="boxId"/>
+          </div>
+        </v-col>
 
-<!--        <v-col cols="3">-->
-<!--          <div class="d-flex justify-start pt-5">-->
-<!--            <v-btn-->
-<!--                color="primary500"-->
-<!--                :loading="loadingPackage"-->
-<!--                @click="packageUpdate()"-->
-<!--                :disabled="!boxId"-->
-<!--                height="40"-->
-<!--                rounded-->
-<!--                class="px-8 mt-1">-->
-<!--              تکمیل ظرفیت بسته-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </v-col>-->
-        <v-col cols="4">
+        <v-col cols="3">
+          <div class="d-flex justify-start pt-5">
+            <v-btn
+                color="primary500"
+                :loading="loadingPackage"
+                @click="packageUpdate()"
+                :disabled="!boxId"
+                height="40"
+                rounded
+                class="px-8 mt-1">
+              تکمیل ظرفیت بسته
+            </v-btn>
+          </div>
+        </v-col>
+        <v-col cols="3">
           <div class="text-right ">
             <span class="text-gray600 t14500">
              شناسه کالا
@@ -54,7 +54,7 @@
           </div>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="3">
           <div class="d-flex justify-start pt-5">
             <v-btn
                 color="primary500"
