@@ -90,6 +90,7 @@
 </template>
 
 <script>
+
 import {ref} from 'vue'
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
@@ -172,6 +173,11 @@ export default {
          this.orderDetail = data?.data?.order_items
          this.loading = false
          setTimeout(()=>{this.shpsItem = ''},1000)
+         openToast(
+             this.$store,
+             'محصول  با موفقیت اضافه شد',
+             "success"
+         );
        } else {
          this.shpsItem = null
          this.loading = false
