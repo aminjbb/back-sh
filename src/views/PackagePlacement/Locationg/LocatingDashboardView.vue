@@ -1,5 +1,6 @@
 <script setup>
-import LocatingDashboard from '@/components/PackagePlacement/Locating/LocatingDashboard.vue'
+import {defineAsyncComponent} from "vue";
+const LocatingDashboard = defineAsyncComponent(()=> import ('@/components/PackagePlacement/Locating/LocatingDashboard.vue'))
 </script>
 
 <template>

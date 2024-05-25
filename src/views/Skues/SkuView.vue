@@ -1,12 +1,13 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const SkuList = defineAsyncComponent(()=> import ('@/components/Products/Sku/SkuList.vue'))
+const GroupSkuList = defineAsyncComponent(()=> import ('@/components/Products/Sku/GroupSkuList.vue'))
+const ProductSkuList = defineAsyncComponent(()=> import ('@/components/Products/Sku/ProductSkuList.vue'))
+const SkuGroupList = defineAsyncComponent(()=> import ('@/components/Products/Sku/Group/SkuGroupList.vue'))
+const ProductSkuGroupList = defineAsyncComponent(()=> import ('@/components/Products/Sku/Group/ProductSkuGroupList.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import SkuList from '@/components/Products/Sku/SkuList.vue'
-import GroupSkuList from '@/components/Products/Sku/GroupSkuList.vue'
-import ProductSkuList from '@/components/Products/Sku/ProductSkuList.vue'
-import SkuGroupList from '@/components/Products/Sku/Group/SkuGroupList.vue'
-import ProductSkuGroupList from '@/components/Products/Sku/Group/ProductSkuGroupList.vue'
 </script>
 
 <template>

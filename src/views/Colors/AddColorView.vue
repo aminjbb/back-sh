@@ -1,7 +1,9 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import AddColorForm from '@/components/Colors/Add/AddColorForm.vue'
+import {defineAsyncComponent} from "vue";
+const AddColorForm = defineAsyncComponent(()=> import ('@/components/Colors/Add/AddColorForm.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 </script>
 
 <template>

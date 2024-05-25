@@ -1,6 +1,7 @@
-<script setup>import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import ShpsLocation from '@/components/PackagePlacement/Locating/ShpsLocation.vue'
+<script setup>
+import {defineAsyncComponent} from "vue";
+const ShpsLocation = defineAsyncComponent(()=> import ('@/components/PackagePlacement/Locating/ShpsLocation.vue'))
+
 </script>
 
 <template>

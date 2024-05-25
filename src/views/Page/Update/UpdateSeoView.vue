@@ -1,7 +1,9 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import UpdateSeo from '@/components/Pages/Update/Seo/UpdateSeo.vue'
+import {defineAsyncComponent} from "vue";
+const UpdateSeo = defineAsyncComponent(()=> import ('@/components/Pages/Update/Seo/UpdateSeo.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 </script>
 
 <template>

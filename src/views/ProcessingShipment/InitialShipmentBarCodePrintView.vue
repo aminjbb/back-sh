@@ -1,6 +1,8 @@
 <script setup>
 
-import InitialProcessingShipmentPrintBarCode from '@/components/ProcessingShipment/InitialProcessingShipmentPrintBarCode.vue'
+import {defineAsyncComponent} from "vue";
+const InitialProcessingShipmentPrintBarCode = defineAsyncComponent(()=> import ('@/components/ProcessingShipment/InitialProcessingShipmentPrintBarCode.vue'))
+
 </script>
 
 <template>

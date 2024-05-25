@@ -1,5 +1,7 @@
 <script setup>
-import WarehouseOrderPickUp from '@/components/WarehouseOrderList/WarehouseOrderPickUp.vue'
+import {defineAsyncComponent} from "vue";
+const WarehouseOrderPickUp = defineAsyncComponent(()=> import ('@/components/WarehouseOrderList/WarehouseOrderPickUp.vue'))
+
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup>
-
-import PrintCargo from '@/components/Cargo/Print/PrintCargo.vue'
+import {defineAsyncComponent} from "vue";
+const PrintCargo = defineAsyncComponent(()=> import ('@/components/Cargo/Print/PrintCargo.vue'))
 </script>
 
 <template>

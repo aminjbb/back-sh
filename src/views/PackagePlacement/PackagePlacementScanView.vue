@@ -1,5 +1,6 @@
 <script setup>
-import ScanPackagePlacement from '@/components/PackagePlacement/ScanPackagePlacement.vue'
+import {defineAsyncComponent} from "vue";
+const ScanPackagePlacement = defineAsyncComponent(()=> import ('@/components/PackagePlacement/ScanPackagePlacement.vue'))
 </script>
 
 <template>

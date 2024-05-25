@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import UpComingShipment from '@/components/UpComing/Shipment/UpComingShipment.vue'
+import {defineAsyncComponent} from "vue";
+const UpComingShipment = defineAsyncComponent(()=> import ('@/components/UpComing/Shipment/UpComingShipment.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

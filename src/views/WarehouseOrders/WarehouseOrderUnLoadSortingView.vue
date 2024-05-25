@@ -1,5 +1,8 @@
 <script setup>
-import WarehouseUnLoadSorting from '@/components/WarehouseOrderList/WarehouseUnLoadSorting.vue'
+import {defineAsyncComponent} from "vue";
+const WarehouseUnLoadSorting = defineAsyncComponent(()=> import ('@/components/WarehouseOrderList/WarehouseUnLoadSorting.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

@@ -1,5 +1,7 @@
 <script setup>
-import WarehouseOrderSorting from '@/components/WarehouseOrderList/WarehouseOrderSorting.vue'
+import {defineAsyncComponent} from "vue";
+const WarehouseOrderSorting = defineAsyncComponent(()=> import ('@/components/WarehouseOrderList/WarehouseOrderSorting.vue'))
+
 </script>
 
 <template>

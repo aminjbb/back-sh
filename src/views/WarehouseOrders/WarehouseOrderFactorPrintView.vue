@@ -1,6 +1,7 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const WarehouseOrderPrntFactor = defineAsyncComponent(()=> import ('@/components/WarehouseOrderList/WarehouseOrderPrntFactor.vue'))
 
-import WarehouseOrderPrntFactor from '@/components/WarehouseOrderList/WarehouseOrderPrntFactor.vue'
 </script>
 
 <template>
