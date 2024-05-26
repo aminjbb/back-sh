@@ -330,8 +330,14 @@ export default {
         this.form.pages.forEach((page , index)=>{
           formData.append(`pages[${index}]`, page)
         })
+        if (this.type === 'edit'){
+          if (this.banner.is_active) formData.append('is_active', 1)
+          else  formData.append('is_active', 0)
+        }
+        else formData.append('is_active', 0)
+
         AxiosMethod.form = formData
-        formData.append('is_active', 0)
+
         AxiosMethod.store = this.$store
         AxiosMethod.using_auth = true
         AxiosMethod.toast_error = true
