@@ -32,19 +32,43 @@ export default function setup() {
 
     async function  getOccasionBanners(query) {
         const AxiosMethod = new AxiosCall()
-        if (!route.query.per_page ){
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
         }
         else{
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')

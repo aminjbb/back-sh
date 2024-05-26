@@ -232,7 +232,8 @@ export default {
     async searchSku(e) {
       const filter = {
         per_page: 10,
-        q: e
+        q: e,
+        is_active:1
       }
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true

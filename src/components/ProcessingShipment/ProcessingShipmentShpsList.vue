@@ -21,7 +21,7 @@
           </div>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="3">
           <div class="d-flex justify-start pt-5">
             <v-btn
                 color="primary500"

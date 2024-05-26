@@ -83,18 +83,42 @@ export default function setup() {
         let query = route.query
         AxiosMethod.using_auth = true
         if ( !route.query.per_page ){
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
         }
         else{
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/consignment/crud/requested/index/`

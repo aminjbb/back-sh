@@ -9,7 +9,7 @@ import ManualOrderList from "@/components/ManualOrder/ManualOrderList.vue";
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-    <ManualOrderList/>
+      <ManualOrderList/>
     </v-main>
   </v-layout>
 </template>
