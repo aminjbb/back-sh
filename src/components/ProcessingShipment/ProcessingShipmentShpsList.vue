@@ -5,39 +5,6 @@
           justify="start"
           align="center"
           class="px-10 py-5">
-<!--        <v-col cols="3">-->
-<!--          <div class="text-right ">-->
-<!--            <span class="text-gray600 t14500">-->
-<!--              شناسه بسته-->
-<!--            </span>-->
-<!--            <span class="text-error">-->
-<!--              *-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <v-text-field-->
-<!--                @keyup="setpackId()"-->
-<!--                variant="outlined"-->
-<!--                :rules="rule"-->
-<!--                :autofocus="packageFocus"-->
-<!--                v-model="boxId"/>-->
-<!--          </div>-->
-<!--        </v-col>-->
-
-<!--        <v-col cols="3">-->
-<!--          <div class="d-flex justify-start pt-5">-->
-<!--            <v-btn-->
-<!--                color="primary500"-->
-<!--                :loading="loadingPackage"-->
-<!--                @click="packageUpdate()"-->
-<!--                :disabled="!boxId"-->
-<!--                height="40"-->
-<!--                rounded-->
-<!--                class="px-8 mt-1">-->
-<!--              تکمیل ظرفیت بسته-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </v-col>-->
         <v-col cols="4">
           <div class="text-right ">
             <span class="text-gray600 t14500">
@@ -68,7 +35,7 @@
           </div>
         </v-col>
         <v-col v-if="shipmentType === 'seller'" cols="5">
-          <div class="text-right ">
+          <div class="text-right">
                         <span class="text-gray600 t14500">
                             شناسه کالا
                         </span>
@@ -135,9 +102,7 @@
                 variant="outlined"
                 width="115"
                 @click="finishedPack()">
-                            <span class="t14300">
-                                اتمام شمارش
-                            </span>
+              <span class="t14300">اتمام شمارش</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -203,45 +168,11 @@ export default {
     }
   },
   methods: {
-    setpackId() {
-      if (this.boxId.includes('-')) {
-        const cargoSplit = this.boxId.split('-')
-        if (cargoSplit[1]) this.packId = cargoSplit[1]
-        else this.packId = this.boxId
-      } else this.packId = this.boxId
-
-    },
-    async packageUpdate() {
-      try {
-        let packageId = null
-        if (this.boxId.includes('-')) {
-          const cargoSplit = this.boxId.split('-')
-          if (cargoSplit[1]) packageId = cargoSplit[1]
-          else packageId = this.boxId
-        } else packageId = this.boxId
-        this.loadingPackage = true
-        var formData = new FormData();
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `package/complete/${packageId}`
-        AxiosMethod.store = this.$store
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        let data = await AxiosMethod.axios_post()
-        if (data) {
-          this.loadingPackage = false
-          openToast(this.$store, 'بسته با موقیت ویرایش شد', 'success')
-        } else {
-          this.loadingPackage = false
-        }
-      } catch (e) {
-        this.loadingPackage = false
-      }
-    },
     async finishedPack() {
       try {
         this.finishLoading = true
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `shipment/pack/${this.$route.params.shipmentId}`
+        AxiosMethod.end_point = `shipment/shps/count/${this.$route.params.shipmentId}/done?approved=0`
         AxiosMethod.store = this.$store
         AxiosMethod.toast_error = true
         AxiosMethod.using_auth = true
@@ -297,7 +228,6 @@ export default {
     }
   },
   computed: {
-
     sumRequestCount(){
       let sum =0
       this.shipmentShpsListFilterd.forEach(shps=>{

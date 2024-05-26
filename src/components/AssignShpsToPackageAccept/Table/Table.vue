@@ -41,13 +41,12 @@
             :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-start">
           <div
-
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            {{ rowIndexTable(index) }}
-                        </span>
+              <span class="t14300 text-gray500 py-5 number-font">
+                {{ rowIndexTable(index) }}
+              </span>
               <template v-if="checkbox">
                 <v-checkbox class="mr-1" v-model="item.value"/>
               </template>
@@ -55,104 +54,45 @@
           </div>
 
           <div
-
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.sku_label }}
+                       {{ item.label }}
                     </span>
           </div>
 
-
           <div
-
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.shps_count }}
-                    </span>
-          </div>
-          <div
-
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-                {{ item.min_tolerance }}
-              </span>
-
-          </div>
-          <div
-
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-                {{ item.max_tolerance }}
-              </span>
-          </div>
-          <div
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-               {{ item.remained_count }}
+               {{ item.left_over_count }}
               </span>
           </div>
 
           <div
-
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0.1 0 ${itemsWidth}` }"
-          style="width: 100px">
-              <div class="t14300 text-gray500 py-5 number-font w-100">
-                <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
-              </div>
+              style="width: 100px">
+            <div class="t14300 text-gray500 py-5 number-font w-100">
+              <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
+            </div>
           </div>
+
           <div
-              v-if="  model === 'upcoming'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <div class="t14300 text-gray500 py-5 number-font">
-                <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].price" variant="outlined"/>
-              </div>
-          </div>
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
+            <div
+                v-else
+                @click="validate(item , index)"
+                class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-          <div
-              v-if="  form[index] && model === 'shavaz'"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
-          </div>
-          <div
+              <v-icon size="15">mdi-plus</v-icon>
+            </div>
 
-              class="c-table__contents__item justify-start px-0"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span>
-                <img :src="item?.image?.image_url" width="70" height="70">
-              </span>
-          </div>
-          <div
-              v-if="  form[index] && model === 'shavaz'"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
-           <template v-if="item.is_packed === 0">
-             <v-progress-circular
-                 v-if="form[index].loading"
-                 indeterminate
-                 color="primary"></v-progress-circular>
-             <div
-                 v-else
-                 @click="validate(item , index)"
-                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
-
-               <v-icon size="15">mdi-plus</v-icon>
-             </div>
-           </template>
-            <template v-else>
-              <div
-                  class="seller__add-sku-btn d-flex justify-center align-center pointer">
-                <v-icon size="15">mdi-check</v-icon>
-              </div>
-            </template>
           </div>
         </div>
       </div>
@@ -204,11 +144,6 @@ export default {
      * List of items
      */
     items: [],
-
-    /**
-     * Delete Path
-     */
-    deletePath: '',
 
     /**
      * Model
@@ -364,14 +299,6 @@ export default {
 
     },
 
-    /**
-     * Get icon
-     * @param {*} column
-     */
-    getIcon(column) {
-      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-
     validate(item , index){
       this.updateShps(index)
     },
@@ -390,7 +317,7 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.end_point = 'shipment/shps/count'
         formData.append('shipment_id', this.$route.params.shipmentId)
-        formData.append('shps', this.items[index].id)
+        formData.append('shps', this.items[index].shps)
         formData.append('approved_count', this.form[index].count)
         AxiosMethod.form = formData
         let data = await AxiosMethod.axios_post()
