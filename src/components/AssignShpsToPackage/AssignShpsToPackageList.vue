@@ -1,25 +1,18 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card max-height="400" class="mx-5   pb-15">
+    <v-card max-height="400" class="mx-5 pb-15">
       <div class="text-center my-3">
-        <span>
-          پردازش محموله
-        </span>
+        <span>پردازش محموله</span>
       </div>
       <v-divider/>
       <v-row align="center" class="px-3 my-5">
         <v-col cols="6">
           <div class="text-right ">
-                      <span class="text-gray600 t14500">
-                          شناسه محموله
-                      </span>
-            <span class="text-error">
-                          *
-                      </span>
+            <span class="text-gray600 t14500">شناسه محموله</span>
+            <span class="text-error">*</span>
           </div>
           <div>
             <v-text-field
-
                 variant="outlined"
                 :rules="rule"
                 :autofocus="true"
@@ -124,9 +117,9 @@ import UpComing from "@/composables/UpComing"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
-import { openToast} from "@/assets/js/functions"
+import { openToast } from "@/assets/js/functions"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
-import ModalDetaiShipment from "@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue";
+import ModalDetaiShipment from "@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue"
 export default {
   data() {
     return {
@@ -208,7 +201,7 @@ export default {
     },
 
     validate() {
-      this.$router.push(`/processing-shipment/${this.splitShipmentId}/shps-list`)
+      this.$router.push(`/assign-shps-package/${this.splitShipmentId}/accept`)
     },
   },
 
