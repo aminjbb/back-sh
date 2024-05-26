@@ -19,7 +19,7 @@
       </template>
       افزودن بنر
     </v-btn>
-    <v-dialog v-model="dialog" width="908">
+    <v-dialog v-model="dialog" width="1080">
       <v-card>
         <v-row
             justify="space-between"
@@ -104,7 +104,19 @@
                     :rules="rule"
                     v-model="form.pages"
                     :items="pages"
-                />
+                >
+                  <template v-slot:selection="{ item, index }">
+                    <v-chip v-if="index < 2">
+                      <span>{{ item.title }}</span>
+                    </v-chip>
+                    <span
+                        v-if="index === 2"
+                        class="text-grey text-caption align-self-center"
+                    >
+                    (+{{ form.pages.length - 2 }} others)
+                  </span>
+                  </template>
+                </v-select>
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
@@ -258,7 +270,7 @@ export default {
       ],
 
       pages:[
-        {title:'انتخاب همه' , value:'all'},
+        // {title:'انتخاب همه' , value:'all'},
         {title:'دسته بندی' , value:'category'},
         {title:'برند' , value:'brand'},
         {title:'کالا' , value:'sku'},

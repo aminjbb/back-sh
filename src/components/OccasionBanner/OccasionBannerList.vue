@@ -87,7 +87,7 @@ export default {
 
   watch: {
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteItem')) {
         if (!val) {
           this.getOccasionBanners();
           openToast(
@@ -95,10 +95,13 @@ export default {
               'بننر مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.remove('deleteItem')
         }
       }
     },
+    $route(){
+      this.getOccasionBanners();
+    }
   }
 }
 </script>

@@ -33,11 +33,12 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getContactUs(query) {
+    async function getContactUs() {
 
         let paramsQuery = null
         loading.value = true
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         if ( !route.query.per_page ){
             if (!route.query.order && !route.query.order_type){
                 AxiosMethod.form = {

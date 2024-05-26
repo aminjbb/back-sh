@@ -69,10 +69,10 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getCargoList(query) {
+    async function getCargoList() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
-
+        let query = route.query
         if ( !route.query.per_page ){
             if (!route.query.order && !route.query.order_type){
                 AxiosMethod.form = {

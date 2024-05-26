@@ -75,10 +75,11 @@ export default function setup() {
     const isFilterPage = ref(false)
     const filter = new RetailShipmentFilter()
 
-    async function getRetailShipmentList(query) {
+    async function getRetailShipmentList() {
         let paramsQuery = null
         filter.factor = route.params.factorId
         loading.value = true
+        let query = route.query
         const AxiosMethod = new AxiosCall()
         if ( !route.query.per_page ){
             if (!route.query.order && !route.query.order_type){
