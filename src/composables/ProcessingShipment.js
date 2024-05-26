@@ -7,6 +7,7 @@ import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 export default function setup() {
     const processingShipment = ref([],)
     const shipmentShpsList = ref([])
+    const assignShpsAcceptList = ref([])
     const pageLength = ref(1)
     const cookies = useCookies()
     const route = useRoute()
@@ -48,7 +49,6 @@ export default function setup() {
         {name: 'تعداد درخواستی', show: true, value: 'number', order: false},
         {name: 'تعداد تایید شده', show: true, value: 'high_tolerance', order: false},
     ]);
-
     const headerDetailShipment = ref([
         {name: 'ردیف', show: true, value: null, order: false},
         {name: 'شناسه SHPS', show: true, value: 'label', order: false},
@@ -56,6 +56,13 @@ export default function setup() {
         {name: 'قیمت مصرف', show: true, value: 'high_tolerance', order: false},
         {name: 'تعداد کالا', show: true, value: 'high_tolerance', order: false},
         {name: 'قیمت مصرف کل', show: true, value: 'high_tolerance', order: false},
+    ]);
+    const headerAssignShpsToPackageAccept =ref([
+        {name: 'ردیف', show: true, value: null, order: false},
+        {name: 'نام کالا', show: true, value: 'label', order: false},
+        {name: 'تعداد باقی مانده', show: true, value: 'number', order: false},
+        {name: 'تعداد تایید شده', show: true, value: 'count', order: false},
+        {name: 'ذخیره', show: true, value: 'save', order: false},
     ]);
 
     const filterFieldAllRetail = [
@@ -75,17 +82,53 @@ export default function setup() {
     const isFilterPage = ref(false)
     const filter = new RetailShipmentFilter()
 
-    async function getRetailShipmentList(query) {
+    async function getRetailShipmentList() {
         let paramsQuery = null
         filter.factor = route.params.factorId
         loading.value = true
-        if (query) {
-            paramsQuery = filter.params_generator(query.query)
-        } else paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `cargo/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `cargo/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -110,11 +153,23 @@ export default function setup() {
         }
     };
 
+    async function getAssignShpsAcceptList() {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/shps/assign/list/${route.params.shipmentId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            assignShpsAcceptList.value = data.data
+        }
+    }
+
 
     return {
-        filterFieldAllRetail, getRetailShipmentList, processingShipment,
-        header, loading, headerShps, getShipmentShpslist, shipmentShpsList, headerShpsSeller,
-        headerDetailShipment, headerShpsSellerUpcoming
+        filterFieldAllRetail, getRetailShipmentList, processingShipment,headerAssignShpsToPackageAccept, shipmentShpsList,
+        getAssignShpsAcceptList, assignShpsAcceptList, header, loading, headerShps, getShipmentShpslist,
+        headerShpsSeller, headerDetailShipment, headerShpsSellerUpcoming
     }
 }
 

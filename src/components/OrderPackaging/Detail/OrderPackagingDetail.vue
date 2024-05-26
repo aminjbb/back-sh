@@ -11,7 +11,7 @@
       </header>
       <v-divider color="grey"/>
       <v-row align="center" class="pa-3">
-        <v-col cols="6">
+        <v-col cols="4">
           <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem"
                         variant="outlined"></v-text-field>
         </v-col>
@@ -30,6 +30,14 @@
             <v-radio label="پردازش" :value="true"></v-radio>
             <v-radio label="نمایش" :value="false"></v-radio>
           </v-radio-group>
+        </v-col>
+        <v-col cols="2">
+          <span>
+            شناسه سفارش:
+          </span>
+          <span>
+           {{orderId}}
+          </span>
         </v-col>
       </v-row>
     </v-card>

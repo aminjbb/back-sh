@@ -68,13 +68,22 @@ export default function setup() {
         { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
     ]);
     const manualOrderHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر کالا', show: true , value:'shps_img', order: false},
-        { name: 'نام کالا', show: true, value:'shps_name' , order: false},
-        { name: 'قیمت مصرف کننده', show: true , value:'customer_price', order: false},
-        { name: 'قیمت فروش', show: true , value:'final_price', order: false},
-        { name: 'موجودی سایت', show: true , value:'site_count', order: false},
-        { name: 'تعداد کالا', show: true, value:'shps_count', order: false },
+        {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
+        {name:'شماره سفارش' , type:'text', value:'order_number'},
+        {name:'نام مشتری' , type:'select', value:'user_id'},
+        {name:'وضعیت سفارش' , type:'select', value:'status'},
+        {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
+        {name:'روش پرداخت' , type: 'select', value:'payment_method'},
+        {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
+        //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
+        {name:'استان' , type:'select', value:'receive_state_id'},
+        {name:'شهر' , type:'select', value:'receive_city_id'},
+        {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
 
     ]);
 
@@ -113,18 +122,42 @@ export default function setup() {
         let query = route.query
         AxiosMethod.using_auth = true
         if ( !route.query.per_page ){
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
         }
         else{
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/order/crud/index`

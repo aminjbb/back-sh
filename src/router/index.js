@@ -280,6 +280,8 @@ import PrintLabelView from "@/views/Warehouse/PrintLabelView.vue";
 import StockTakingView from "@/views/StockTaking/StockTakingView.vue";
 import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
+import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPackageView.vue";
+import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
 
 
 const router = createRouter({
@@ -1523,7 +1525,8 @@ const router = createRouter({
             meta: {
                 name: 'انبار'
             },
-            children: [{
+            children: [
+                {
                 path: 'index',
                 name: 'ProcessingShipmentIndexView',
                 component: ProcessingShipmentIndexView,
@@ -2137,9 +2140,7 @@ const router = createRouter({
                     meta: {
                         name: 'لیست سفارشات تخقیف ارسال رایگان'
                     }
-                },
-
-
+                }
             ],
         },
         {
@@ -2154,9 +2155,7 @@ const router = createRouter({
                 meta: {
                     name: 'ضایعات '
                 }
-            },
-
-
+            }
             ]
         },
         {
@@ -2171,9 +2170,7 @@ const router = createRouter({
                 meta: {
                     name: 'مفقودی '
                 }
-            },
-
-
+            }
             ]
         },
         {
@@ -2240,8 +2237,6 @@ const router = createRouter({
                     name: 'برنامه پیک آپ '
                 }
             },
-
-
             ]
         },
         {
@@ -2259,6 +2254,31 @@ const router = createRouter({
             },
 
 
+            ]
+        },
+
+        {
+            path: '/assign-shps-package', // Zone
+            meta: {
+                name: ' انبار'
+            },
+            children: [
+                {
+                path: 'index',
+                name: 'AssignShpsToPackageView',
+                component: AssignShpsToPackageView,
+                meta: {
+                    name: 'اختصاص کالا به بسته'
+                }
+                },
+                {
+                    path: ':shipmentId/accept',
+                    name: 'AssignShpsToPackageAcceptView',
+                    component: AssignShpsToPackageAcceptView,
+                    meta: {
+                        name: 'اختصاص کالا به بسته'
+                    }
+                }
             ]
         },
     ]

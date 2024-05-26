@@ -10,7 +10,7 @@ const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-    <ManualOrderList/>
+      <ManualOrderList/>
     </v-main>
   </v-layout>
 </template>
