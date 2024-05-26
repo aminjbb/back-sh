@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12500 text-black"
             :class="head.order === true ? 'pointer' : ''"
             :key="index"
             style="padding: 20px 5px !important"
