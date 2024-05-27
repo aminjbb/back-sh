@@ -309,6 +309,7 @@ export default {
      * sending data in save btn
      */
 
+
     async submitShipmentsForm(itemId, shipmentId , shps) {
       let packageId = null
       if (this.packageId.includes('-')) {
@@ -335,8 +336,11 @@ export default {
         if (data) {
           this.isSubmitted = true;
           openToast(this.$store, 'با موفقیت ذخیره شد', "success");
-          this.submittedItemId = itemId;
+          this.submittedItemId = itemId
+          this.$emit('updateList',  this.getShpsList(packageId) )
+
           this.loading = false;
+
         }
       } catch (error) {
         console.error("Error submitting form:", error);

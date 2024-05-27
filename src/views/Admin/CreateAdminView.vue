@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import AddAdmin from '@/components/Admin/Add/AddAdmin.vue'
+import {defineAsyncComponent} from 'vue'
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+const AddAdmin = defineAsyncComponent(()=> import ('@/components/Admin/Add/AddAdmin.vue'))
 </script>
 
 <template>

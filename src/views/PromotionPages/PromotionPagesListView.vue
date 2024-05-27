@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import PromotionPagesList from '@/components/PromotionPages/PromotionPagesList.vue'
+import {defineAsyncComponent} from "vue";
+const PromotionPagesList = defineAsyncComponent(()=> import ('@/components/PromotionPages/PromotionPagesList.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

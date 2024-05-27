@@ -1,6 +1,7 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const ProcessingShipmentDetailPrint = defineAsyncComponent(()=> import ('@/components/ProcessingShipment/ProcessingShipmentDetailPrint.vue'))
 
-import ProcessingShipmentDetailPrint from '@/components/ProcessingShipment/ProcessingShipmentDetailPrint.vue'
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 <script setup>
-import SingularLocating from '@/components/PackagePlacement/Locating/SingularLocating.vue'
+import {defineAsyncComponent} from "vue";
+const SingularLocating = defineAsyncComponent(()=> import ('@/components/PackagePlacement/Locating/SingularLocating.vue'))
 </script>
 
 <template>

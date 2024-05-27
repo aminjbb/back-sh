@@ -1,7 +1,10 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import AddBrandForm from '@/components/Brands/Add/AddBrandForm.vue'
+import {defineAsyncComponent} from "vue";
+const AddBrandForm = defineAsyncComponent(()=> import ('@/components/Brands/Add/AddBrandForm.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
+
 </script>
 
 <template>

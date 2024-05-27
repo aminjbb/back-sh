@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import HomePageSectionList from '@/components/HomePage/HomePageSkuWithSection.vue'
+import {defineAsyncComponent} from "vue";
+const HomePageSectionList = defineAsyncComponent(()=> import ('@/components/HomePage/HomePageSkuWithSection.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

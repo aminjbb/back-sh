@@ -62,7 +62,8 @@
           :perPage="1000"
           :packageId="packageId"
           :loading="loading"
-      :getShpsList="getShpsList"/>
+          :getShpsList="getShpsList"
+           @updateList="updateList"/>
 
       <v-divider/>
 
@@ -174,6 +175,11 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
+
+    $route() {
+      this.fetchCargoData();
+
+    }
   },
 
   methods: {
@@ -264,10 +270,10 @@ export default {
       this.header[index].show = value
     },
 
-    $route() {
-      this.fetchCargoData();
-
+    updateList(){
+      this.submitShipmentsForm()
     }
+
   }
 }
 </script>

@@ -1,7 +1,9 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import WarehouseInventoryHistoryList from '@/components/Seller/Sku/Histories/WarehouseInventoryHistoryList.vue'
+import {defineAsyncComponent} from "vue";
+const WarehouseInventoryHistoryList = defineAsyncComponent(()=> import ('@/components/Seller/Sku/Histories/WarehouseInventoryHistoryList.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 </script>
 
 <template>
