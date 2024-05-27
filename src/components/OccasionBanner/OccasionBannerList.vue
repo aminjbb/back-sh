@@ -6,7 +6,7 @@
           align="center"
           class="px-10 py-4">
         <v-col cols="6" >
-          <AddOccasionBannerModal/>
+          <AddOccasionBannerModal @updateList="getOccasionBanners"/>
         </v-col>
 
         <v-col cols="6">

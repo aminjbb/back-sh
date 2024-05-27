@@ -346,13 +346,31 @@ export default {
         if (data) {
           openToast(this.$store , 'بنرر با موفقیت آپلود شد' , 'success')
           this.loading = false
+          this.dialog = false
+          this.$emit('updateList')
+          this.resetForm()
         } else {
           this.loading = false
+
         }
       }
       catch (e) {
         this.loading = false
         console.log(e)
+      }
+    },
+    resetForm(){
+      this.form = {
+        device: [],
+        pages: [],
+        link:'',
+        imageAlt: '',
+        imageDesktop:'',
+        imageTablet:'',
+        imageMobile:'',
+        imageUrl:'',
+        startDate:null,
+        endDate:null
       }
     },
     setForm(){
