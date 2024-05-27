@@ -109,7 +109,7 @@
         </v-row>
       </div>
     </v-card>
-    <WarningTerolance/>
+    <WarningTerolance ref="WarningTerolance"/>
   </div>
 </template>
 
@@ -184,6 +184,7 @@ export default {
           this.$router.go(-1)
         } else {
           this.finishLoading = false
+          this.$refs.WarningTerolance.dialog = true
         }
       } catch (e) {
         this.finishLoading = false
