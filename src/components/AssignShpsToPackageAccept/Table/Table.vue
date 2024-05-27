@@ -240,7 +240,7 @@ export default {
       this.items.forEach(element => {
         const form = {
           loading: false,
-          count: element.approved_count,
+          count: element.packed_count,
         }
         this.form.push(form)
       })
@@ -315,10 +315,11 @@ export default {
         AxiosMethod.using_auth = true
         AxiosMethod.store = this.$store
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'shipment/shps/count'
+        AxiosMethod.end_point = 'shipment/shps/pack'
         formData.append('shipment_id', this.$route.params.shipmentId)
         formData.append('shps', this.items[index].shps)
-        formData.append('approved_count', this.form[index].count)
+        formData.append('package_id', this.packId)
+        formData.append('packed_count', this.form[index].count)
         AxiosMethod.form = formData
         let data = await AxiosMethod.axios_post()
         if (data) {

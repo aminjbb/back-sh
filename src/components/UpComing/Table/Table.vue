@@ -177,7 +177,7 @@
                         پردازش محموله
                       </span>
                     </div>
-                    <div class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.id}/shps-list`)">
+                    <div v-else class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.id}/shps-list`)">
                       <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                         پردازش محموله
