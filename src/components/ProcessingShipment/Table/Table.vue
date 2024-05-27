@@ -301,11 +301,12 @@ export default {
 
   watch: {
     items(val){
+      this.form= []
       this.items.forEach(element => {
         const form = {
           loading: false,
-          count: element.packed_count,
-          price: element.packed_count,
+          count: element.approved_count,
+          // price: element.packed_count,
         }
         this.form.push(form)
       })

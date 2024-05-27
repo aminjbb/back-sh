@@ -171,6 +171,12 @@
               <v-list class="c-table__more-options">
                 <v-list-item>
                   <v-list-item-title>
+                    <div v-if="model ==='assignShpsToPackage'" class="ma-5 pointer" @click="$router.push(`/assign-shps-package/${item.id}/accept`)">
+                      <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14300">
+                        پردازش محموله
+                      </span>
+                    </div>
                     <div class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.id}/shps-list`)">
                       <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">

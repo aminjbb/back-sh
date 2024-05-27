@@ -31,7 +31,7 @@
               </v-col>
             </v-row>
           </v-form>
-          <v-row class="justify-between my-2 mx-2">
+          <v-row class="justify-space-between my-2 mx-2">
 
             <v-col cols="3" class="d-flex mx-10 ">
               <v-btn
@@ -95,7 +95,8 @@ export default {
       this.$refs.addBarcode.reset()
     },
     validateOpenModal(){
-      if (this.barcode === null) this.dialog = true
+      console.log(this.barcode)
+      if (this.barcode === null || this.barcode === '') this.dialog = true
     },
    async validate(){
      await this.$refs.addBarcode.validate()

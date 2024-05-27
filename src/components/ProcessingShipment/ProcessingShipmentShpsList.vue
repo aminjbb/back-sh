@@ -16,6 +16,7 @@
           </div>
           <div>
             <v-text-field
+                @keyup.enter="filterShps()"
                 variant="outlined"
                 v-model="barcodeShps"/>
           </div>
