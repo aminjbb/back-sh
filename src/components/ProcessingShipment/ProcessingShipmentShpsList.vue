@@ -71,43 +71,43 @@
           updateUrl="seller/csv/mass-update"
           :model="shipmentType"/>
       <v-divider />
-      <div class="pb-3 d-block" style="height: 60px">
-        <v-row align="center" class="pt-2 px-3">
-          <v-col cols="4">
-            جمع:
-          </v-col>
-          <v-col cols="1" class="mr-12 pr-8">
-            <span class="t12500 text-black number-font">
-              {{ sumRequestCount }}
-            </span>
-          </v-col>
-          <v-col cols="1" class="pr-5">
-            <span class="t12500 text-black number-font">
-              {{ sumMinToleranceCount }}
-            </span>
-          </v-col>
-          <v-col cols="1" class="pr-2">
-            <span class="t12500 text-black number-font">
-              {{ sumMaxToleranceCount }}
-            </span>
-          </v-col>
-          <v-col cols="1" class="pr-0">
-            <span class="t12500 text-black number-font">
-              {{ sumRemainedCount }}
-            </span>
-          </v-col>
-          <v-col cols="3" class="d-flex justify-end">
-            <v-btn
-                :loading="finishLoading"
-                rounded
-                variant="outlined"
-                width="115"
-                @click="finishedPack()">
-              <span class="t14300">اتمام شمارش</span>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </div>
+<!--      <div class="pb-3 d-block" style="height: 60px">-->
+<!--        <v-row align="center" class="pt-2 px-3">-->
+<!--          <v-col cols="4">-->
+<!--            جمع:-->
+<!--          </v-col>-->
+<!--          <v-col cols="1" class="mr-12 pr-8">-->
+<!--            <span class="t12500 text-black number-font">-->
+<!--              {{ sumRequestCount }}-->
+<!--            </span>-->
+<!--          </v-col>-->
+<!--          <v-col cols="1" class="pr-5">-->
+<!--            <span class="t12500 text-black number-font">-->
+<!--              {{ sumMinToleranceCount }}-->
+<!--            </span>-->
+<!--          </v-col>-->
+<!--          <v-col cols="1" class="pr-2">-->
+<!--            <span class="t12500 text-black number-font">-->
+<!--              {{ sumMaxToleranceCount }}-->
+<!--            </span>-->
+<!--          </v-col>-->
+<!--          <v-col cols="1" class="pr-0">-->
+<!--            <span class="t12500 text-black number-font">-->
+<!--              {{ sumRemainedCount }}-->
+<!--            </span>-->
+<!--          </v-col>-->
+<!--          <v-col cols="3" class="d-flex justify-end">-->
+<!--            <v-btn-->
+<!--                :loading="finishLoading"-->
+<!--                rounded-->
+<!--                variant="outlined"-->
+<!--                width="115"-->
+<!--                @click="finishedPack()">-->
+<!--              <span class="t14300">اتمام شمارش</span>-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </div>-->
     </v-card>
     <WarningTerolance ref="WarningTerolance"/>
   </div>
