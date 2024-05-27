@@ -219,6 +219,7 @@
               variant="text"
               height="40"
               rounded
+              @click="dialog = false"
               class="px-5 mt-1">
 
             انصراف
@@ -310,6 +311,8 @@ export default {
       try {
         const startDateSplit = this.form.startDate.split(' ')
         const endDateSplit = this.form.endDate.split(' ')
+        const startTimeSplit = startDateSplit[1].split(':')
+        const endTimeSplit = endDateSplit[1].split(':')
         this.loading = true
         let formData = new FormData();
         let endPoint = null
@@ -319,8 +322,8 @@ export default {
         AxiosMethod.end_point = endPoint
         formData.append('link', this.form.link)
         formData.append(`image_alt`, this.form.imageAlt)
-        formData.append(`start_time`,`${ convertDateToGregorian(startDateSplit[0] ,'/' , false)} ${startDateSplit[1]}`)
-        formData.append(`end_time`,`${ convertDateToGregorian(endDateSplit[0] ,'/' , false)} ${endDateSplit[1]}`)
+        formData.append(`start_time`,`${ convertDateToGregorian(startDateSplit[0] ,'/' , false)} ${startTimeSplit[0]}:${startTimeSplit[1]}:00`)
+        formData.append(`end_time`,`${ convertDateToGregorian(endDateSplit[0] ,'/' , false)} ${endTimeSplit[0]}:${endTimeSplit[1]}:00`)
         if (this.form.imageDesktop)  formData.append('desktop_image_id', this.form.imageDesktop)
         if (this.form.imageTablet)  formData.append('tablet_image_id', this.form.imageTablet)
         if (this.form.imageMobile)  formData.append('mobile_image_id', this.form.imageMobile)
