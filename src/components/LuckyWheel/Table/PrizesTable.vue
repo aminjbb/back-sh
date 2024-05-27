@@ -107,7 +107,7 @@
               v-if="header[4].show"
               class="c-table__contents__item"
               style="width: 10.33333%; flex: 0 0 6.33333%;padding: 3px 5px;"
-              >
+          >
                     <span class="t12500text-gray500 py-5">
                         <template v-if="item.package_type">
                             {{ getPackageType(item.package_type) }}
@@ -147,54 +147,6 @@
                         </template>
                     </span>
           </div>
-          <div
-              v-if="header[7].show"
-              class="c-table__contents__item"
-              style="padding: 3px 5px;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 mr-10">
-                        <template v-if="item.shps && item.shps.seller">
-                            {{ item.shps.seller.shopping_name }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-
-
-
-          <div
-              v-if="header[9].show"
-              class="c-table__contents__item"
-              style="width: 15.33333%; flex: 0 0 10.33333%; padding: 6px 5px;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
-                        <template v-if="item.creator">
-                            {{ item.creator.first_name }} {{ item.creator.last_name }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
-          <div
-              v-if="header[9].show"
-              class="c-table__contents__item"
-              style="padding: 2px 5px;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font mr-10">
-                        <template v-if="item.created_at_fa">
-                            {{ item.created_at_fa }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
               <template v-slot:activator="{ props }">
