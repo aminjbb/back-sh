@@ -380,7 +380,7 @@ export default {
       try {
         let startDateSplit = this.banner.start_time.split(' ')
         startDateSplit = startDateSplit[1].split('.')
-        let endDateSplit = this.banner.end_time.split(' ')
+        let endDateSplit = this.banner.end_time.split('')
         endDateSplit = endDateSplit[1].split('.')
         this.form.link = this.banner.link
         this.form.imageAlt = this.banner.image_alt
