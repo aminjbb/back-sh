@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right ">
+  <div class="text-right">
     <v-dialog v-model="dialog" width="468">
       <v-card class="">
         <v-row
@@ -39,7 +39,6 @@
 
 <script>
 import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
-import ProcessingShipment from '@/composables/ProcessingShipment'
 import {convertDateToJalai} from "../../../assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 
@@ -81,14 +80,18 @@ export default {
         this.finishLoading = false
       }
     },
+
     close(){
+     this.dialog = false
       const form ={
         dialog:false,
         object:''
       }
       this.$store.commit('set_warningTolerance' , form)
     },
+
     convertDateToJalai,
+
     convertDate(date){
       const jalaliDate = convertDateToJalai( date , '-' , false)
       const splitDate = jalaliDate.split('-')

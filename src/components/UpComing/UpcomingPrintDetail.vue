@@ -79,10 +79,6 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.retailObject =data.data
-        console.log(this.retailObject)
-
-      } else {
-        console.error("Data not found");
       }
     },
     
