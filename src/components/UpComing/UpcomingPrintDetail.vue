@@ -79,10 +79,14 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.retailObject =data.data
-        console.log(this.retailObject)
+        setTimeout(()=>{
+          let myElement = document.getElementById('printableArea-cargo');
+          window.onafterprint = function() {window.close()};
+          window.print(myElement);
+        } , 2000)
 
       } else {
-        console.error("Data not found");
+
       }
     },
     
