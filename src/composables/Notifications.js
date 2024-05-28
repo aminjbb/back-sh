@@ -63,17 +63,52 @@ export default function setup() {
     const isFilterPage = ref(false)
     const filter = new PanelFilter()
 
-    async function getNotifications(query, store) {
+    async function getNotifications(store) {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `notification/admin/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `notification/admin/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             if (store) {
@@ -103,18 +138,6 @@ export default function setup() {
         if (data) {
             notification.value = data.data;
         }
-    };
-
-    function addPerPage(number) {
-        filter.page = 1
-        filter.per_page = number
-        router.push('/notifications/index' + filter.params_generator(route.query))
-    }
-
-    function addPagination(page) {
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/notifications/index' + filter.params_generator(route.query))
     }
 
     onBeforeRouteUpdate(async (to, from) => {
@@ -127,18 +150,10 @@ export default function setup() {
         await getNotifications(to)
     })
 
-    watch(page, function (val) {
-        if (!isFilter.value) {
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
     return {
         pageLength,
         notifications,
         notification,
-        addPerPage,
         getNotifications,
         getNotification,
         dataTableLength,

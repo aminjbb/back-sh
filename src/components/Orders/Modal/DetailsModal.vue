@@ -1,6 +1,10 @@
 <template>
   <div class="text-right">
-    <v-dialog v-model="orderDetailsModal.dialog">
+    <div class="ma-3 pointer d--rtl" @click="dialog= true">
+      <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
+    </div>
+    <v-dialog v-model="dialog">
       <v-card class="pa-5 ">
         <v-expansion-panels class="accordion" variant="inset">
           <v-expansion-panel>
@@ -190,7 +194,9 @@ export default {
     ShpsTable,
     DiscountTable
   },
-
+  props:{
+    id:null
+  },
   methods: {
     close() {
       closeModal(this.$store, 'set_orderDetailsModal')
@@ -204,7 +210,7 @@ export default {
       const AxiosMethod = new AxiosCall();
       AxiosMethod.using_auth = true;
       AxiosMethod.token = this.$cookies.get('adminToken');
-      AxiosMethod.end_point = `admin/order/crud/get/${this.orderDetailsModal.id}`;
+      AxiosMethod.end_point = `admin/order/crud/get/${this.id}`;
       AxiosMethod.form = formdata;
       AxiosMethod.store = this.$store;
       let data = await AxiosMethod.axios_get();
@@ -310,7 +316,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.orderDetailsModal.id}`
+      AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.id}`
       AxiosMethod.form = formdata;
       AxiosMethod.store = this.$store
       let data = await AxiosMethod.axios_get();
@@ -376,7 +382,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.orderDetailsModal.id}`
+      AxiosMethod.end_point = `admin/order/crud/discount/detail/${this.id}`
       AxiosMethod.form = formdata;
       AxiosMethod.store = this.$store
       let data = await AxiosMethod.axios_get();
@@ -394,7 +400,7 @@ export default {
       const AxiosMethod = new AxiosCall();
       AxiosMethod.using_auth = true;
       AxiosMethod.token = this.$cookies.get('adminToken');
-      AxiosMethod.end_point = `admin/order/tracking/${this.orderDetailsModal.id}`;
+      AxiosMethod.end_point = `admin/order/tracking/${this.id}`;
       AxiosMethod.form = formdata;
       AxiosMethod.store = this.$store;
       let data = await AxiosMethod.axios_get();
@@ -432,7 +438,7 @@ export default {
 
   created() {
     this.$watch(
-        () => this.orderDetailsModal.dialog,
+        () => this.dialog,
         (dialogState) => {
           if (dialogState) {
             this.getShpsDetails();

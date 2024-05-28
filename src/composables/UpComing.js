@@ -7,6 +7,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 export default function setup() {
     const upComingList = ref([]);
+    const confirmedShipmentList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -27,13 +28,13 @@ export default function setup() {
         { name: 'وضعیت', show: true, value:'is_active', order: false },
     ]);
     const filterField = [
-        {name:'شناسه محموله' , type:'text', value:'retail_id' , place:'شناسه محموله'},
-        { name:'تعداد آیتم' , type: 'text', value:'count_from' , place:'از'},
-        { name: 'تعداد آیتم', type:'text', value:'count_to' , place:'تا'},
+        {name:'شناسه محموله' , type:'text', value:'id' , place:'شناسه محموله'},
+        { name:'تعداد آیتم' , type: 'text', value:'shps_count_from' , place:'از'},
+        { name: 'تعداد آیتم', type:'text', value:'shps_count_to' , place:'تا'},
         { name: 'شناسه فاکتور', type:'text', value:'factor_id' , place:'شناسه فاکتور'},
-        { name: 'تنوع آیتم', type:'text', value:'number_from', place:'از'},
-        { name: 'تنوع آیتم', type:'text', value:'number_to', place:'تا'},
-        { name: 'نام سازنده', type:'auto-complete', value:'admin', place:'نام سازنده'},
+        { name: 'تنوع آیتم', type:'text', value:'shps_variety_from', place:'از'},
+        { name: 'تنوع آیتم', type:'text', value:'shps_variety_to', place:'تا'},
+        { name: 'نام سازنده', type:'auto-complete', value:'creator_id', place:'نام سازنده'},
         { name: 'تاریخ ساخت', type:'date', value:'created_at', place:'تاریخ ساخت'},
         { name: 'وضعیت', type:'select', value:'status', place:'وضعیت'},
     ];
@@ -46,18 +47,52 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getUpComingList(query) {
-        let paramsQuery = null
+    async function getUpComingList() {
         filter.factor = route.params.factorId
         loading.value = true
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `shipment/upcoming/${paramsQuery}`
+        AxiosMethod.end_point = `shipment/upcoming/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -68,30 +103,69 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/up-coming/index'+ filter.params_generator(route.query))
     }
+    async function getConfirmedShipment() {
+        filter.factor = route.params.factorId
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        let query = route.query
+        AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/up-coming/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
         }
-    })
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/shps/confirmed/index`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            confirmedShipmentList.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 1000)
+        }
+    }
+
 
     return {
-        pageLength, filterField,upComingList ,addPerPage, getUpComingList,
-        dataTableLength, page, header, loading
+        pageLength, filterField,upComingList, getUpComingList,
+        dataTableLength, page, header, loading ,getConfirmedShipment ,confirmedShipmentList
     }
 }
 

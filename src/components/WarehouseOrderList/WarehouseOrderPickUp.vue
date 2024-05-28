@@ -27,41 +27,15 @@
           </span>
         </div>
         <v-divider/>
-        <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
-          <div>
-           <span class="t12400">
-           شماره ردیف :
-            <span class="t12400 text-gray600 number-font">
-              {{ pickUpShps?.placement?.row_number }}
-            </span>
-          </span>
-          </div>
-          <div>
-          <span class="t12400">
-           شماره قفسه  :
-            <span class=" t12400 text-gray600 number-font">
-              {{ pickUpShps?.placement?.placement_number }}
-            </span>
-          </span>
-          </div>
-        </div>
-        <div class="text-right  px-5 d-flex justify-space-between px-10">
-          <div>
-           <span class="t12400">
-           شماره طبقه :
-            <span class=" t12400 text-gray600 number-font">
-               {{ pickUpShps?.placement?.step_number }}
-            </span>
-          </span>
-          </div>
-          <div>
-          <span class="t12400">
-           شماره شلف   :
-            <span class=" t12400 text-gray600 number-font">
-             {{ pickUpShps?.placement?.shelf_number }}
-            </span>
-          </span>
-          </div>
+        <div>
+          <!-- shelf number-->
+          <span class=" t12400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}/</span>
+          <!-- step number-->
+          <span class=" t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}/</span>
+          <!-- placement number -->
+          <span class=" t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}/</span>
+          <!-- row number-->
+          <span class="t12400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}</span>
         </div>
       </v-card>
       <v-card class="mx-5 mb-1 br-15 pa-2" >
@@ -145,7 +119,7 @@
       </div>
     </div>
   </template>
-  <template v-else-if="pickUpIsNull && pickUpDone && !notFound">
+  <template v-else-if=" pickUpDone && !notFound">
     <div class="h-100 bg-success d-flex  justify-center align-center">
       <div>
         <div class="d-flex justify-center">
@@ -164,9 +138,9 @@
               height="40"
               width="348"
               rounded
-              @click="$router.push('/locating/dashboard')"
+              @click="getNextTask()"
               class="px-8 mt-5">
-            بازگشت به داشبورد
+            جمع آوری کالای بعدی
           </v-btn>
 
         </div>
@@ -238,7 +212,7 @@ export default {
       notFound:false,
       shelfBarcode:'',
       autoSend:'automate',
-      lastBarcode:null
+      lastBarcode:null,
 
     }
   },
@@ -270,7 +244,9 @@ export default {
         if (data) {
           this.loading = false
           this.shpssBarCode = ''
-          this.getPickUpShps()
+          if (this.pickUpCount > 1)   this.getPickUpShps()
+          else this.pickUpDone = true
+
         }
         else {
           this.loading = false
@@ -281,6 +257,10 @@ export default {
         this.shpssBarCode = ''
         this.loading = false
       }
+    },
+    async getNextTask(){
+      await this.getPickUpShps()
+      this.pickUpDone = false
     },
     async notFoundTask() {
       try {

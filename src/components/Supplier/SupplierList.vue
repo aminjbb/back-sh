@@ -20,15 +20,22 @@
                     </v-btn>
 
                     <ModalGroupAdd getEndPoint="supplier/csv/get/template" uploadEndpoint="supplier/csv/bulk" />
-
                 </v-row>
             </v-col>
 
             <v-col cols="6">
                 <v-row justify="end">
-                    <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                  <ModalColumnFilter
+                      :changeHeaderShow="changeHeaderShow"
+                      :header="header" />
 
-                    <ModalTableFilter path="supplier/index" :filterField="filterField" />
+                  <PanelFilter
+                      @resetPage="resetPage"
+                      path="supplier/index"
+                      :filterField="filterField"
+                      :typeItems="supplierTypeFilter"
+                      :paymentType="paymentTypeFilter"
+                  />
                 </v-row>
             </v-col>
         </v-row>
@@ -96,15 +103,52 @@
 <script>
 import Table from '@/components/Supplier/Table/Table.vue'
 import Supplier from "@/composables/Supplier";
-import ModalTableFilter from '@/components/Supplier/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {
     openToast
 } from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
     setup(props) {
+      const supplierTypeFilter = [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'حقوقی',
+          value: 'legal',
+        },
+        {
+          label: 'حقیقی',
+          value: 'genuine',
+        },
+      ]
+      const  paymentTypeFilter= [
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'نقدی',
+          value: 'cash',
+        },
+        {
+          label: 'امانی',
+          value: 'safekeeping',
+        },
+        {
+          label: 'اعتباری',
+          value: 'credit',
+        }
+      ]
         const {
             pageLength,
             getSupplierList,
@@ -113,8 +157,6 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
             loading
         } = Supplier();
         return {
@@ -125,16 +167,16 @@ export default {
             dataTableLength,
             page,
             header,
-            addPagination,
-            addPerPage,
-            loading
+            loading,
+            supplierTypeFilter,
+            paymentTypeFilter
         };
     },
 
     components: {
+      PanelFilter,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },
@@ -155,6 +197,14 @@ export default {
                 this.getSupplierList();
             }
         },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
 
     mounted() {
@@ -162,22 +212,48 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSupplierList();
-                    openToast(
-                        this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
             }
-        },
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+      page(){
+        if (!this.perPageFilter){
+          this.getSupplierList()
+        }
+      },
+      confirmModal(val) {
+        if (this.$cookies.get('deleteItem')) {
+          if (!val) {
+            this.getSupplierList();
+            openToast(
+                this.$store,
+                'انبار با موفقیت حذف شد',
+                "success"
+            );
+            this.$cookies.remove('deleteItem')
+          }
+        }
+      },
+      $route(){
+        this.getSupplierList()
+      }
     }
 }
 </script>

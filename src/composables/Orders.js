@@ -23,9 +23,9 @@ export default function setup() {
         { name: 'شماره سفارش', show: true , value:'order_number', order: false},
         { name: 'نام مشتری', show: true, value:'user' , order: false},
         { name: 'شماره تماس', show: true, value:'phone_number' , order: false},
-        { name: 'اسنپ پی', show: true, value:'snapp_transaction_id' , order: false},
         { name: 'تعداد کالا', show: false , value:'shps_count', order: false},
         { name: 'وضعیت سفارش', show: true, value:'status', order: false },
+        { name: 'اسنپ پی', show: true, value:'snapp_transaction_id' , order: false},
         { name: 'وضعیت پرداخت', show: true, value:'payment_status', order: false },
         { name: 'روش پرداخت', show: true, value:'payment_method', order: false },
         { name: 'مبلغ پرداختی', show: true, value:'paid_price', order: false },
@@ -38,7 +38,7 @@ export default function setup() {
         {name:'شناسه سفارش' , type:'text', value:'id'},
         {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
         {name:'شماره سفارش' , type:'text', value:'order_number'},
-        {name:'نام مشتری' , type:'select', value:'creator_id'},
+        {name:'نام مشتری' , type:'select', value:'user_id'},
         {name:'وضعیت سفارش' , type:'select', value:'status'},
         {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
         {name:'روش پرداخت' , type: 'select', value:'payment_method'},
@@ -68,13 +68,22 @@ export default function setup() {
         { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
     ]);
     const manualOrderHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر کالا', show: true , value:'shps_img', order: false},
-        { name: 'نام کالا', show: true, value:'shps_name' , order: false},
-        { name: 'قیمت مصرف کننده', show: true , value:'customer_price', order: false},
-        { name: 'قیمت فروش', show: true , value:'final_price', order: false},
-        { name: 'موجودی سایت', show: true , value:'site_count', order: false},
-        { name: 'تعداد کالا', show: true, value:'shps_count', order: false },
+        {name:'شناسه سفارش' , type:'text', value:'id'},
+        {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
+        {name:'شماره سفارش' , type:'text', value:'order_number'},
+        {name:'نام مشتری' , type:'select', value:'user_id'},
+        {name:'وضعیت سفارش' , type:'select', value:'status'},
+        {name:'وضعیت پرداخت' , type:'select', value:'payment_status'},
+        {name:'روش پرداخت' , type: 'select', value:'payment_method'},
+        {name:'وضعیت بارگیری' , type:'select', value:'packed_status'},
+        //{name:'کد معرف' , type:'text', value:'identification_code'},
+        //{name:'شناسه بانکی' , type:'text', value:'bank_id'},
+        {name:'استان' , type:'select', value:'receive_state_id'},
+        {name:'شهر' , type:'select', value:'receive_city_id'},
+        {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
+        {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
 
     ]);
 
@@ -105,19 +114,53 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getOrderList(query) {
+    async function getOrderList() {
         loading.value = true
-        let paramsQuery = null
         filter.is_admin_order = 0
 
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -181,38 +224,9 @@ export default function setup() {
 
         else {
         }
-    };
-
-
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/orders/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/orders/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getOrderList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength,filterField, orderList ,addPerPage, getOrderList, dataTableLength, page, header,loading, shpsModalHeader, discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList, manualOrderHeader, manualOrderList}
+    return {pageLength,filterField, orderList, getOrderList, dataTableLength, page, header,loading, shpsModalHeader,
+        discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList,
+        manualOrderHeader, manualOrderList}
 }

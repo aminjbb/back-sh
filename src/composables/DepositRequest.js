@@ -37,7 +37,7 @@ export default function setup() {
         {name:' شناسه' , type:'text', value:'id' , place:'شناسه'},
         { name:'نام مشتری' , type: 'auto-complete', value:'user_id' , place:'نام مشتری'},
         { name: 'شماره شبا مشتری', type:'text', value:'card_number' , place:'شماره شبا مشتری'},
-        { name: 'نام ادمین', type:'auto-complete', value:'admin' , place:'نام ادمین'},
+        { name: 'نام ادمین', type:'auto-complete', value:'admin_id' , place:'نام ادمین'},
         { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
         { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
         { name: 'حداقل موجودی کیف پول', type:'text', value:'wallet_value_from', place:'از '},
@@ -55,19 +55,51 @@ export default function setup() {
      * Get page list
      * @param {*} query
      */
-    async function getWithdrawRequestList(query) {
-
-        let paramsQuery = null
+    async function getWithdrawRequestList() {
         loading.value = true
-        if (query){
-            if (query.query.page)   page.value = parseInt(query.query?.page)
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/index/${paramsQuery}`
+        AxiosMethod.end_point = `finance/admin/transaction/crud/withdraw/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -81,30 +113,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/withdraw-request/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {
-        pageLength, filterField, WithdrawRequestList ,addPerPage, getWithdrawRequestList,
-        dataTableLength, page, header, loading, WithdrawRequest
+        pageLength, filterField, WithdrawRequestList , getWithdrawRequestList, dataTableLength, page, header, loading, WithdrawRequest
     }
 }
 

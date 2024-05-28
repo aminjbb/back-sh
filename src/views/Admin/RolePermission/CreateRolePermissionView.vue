@@ -1,7 +1,9 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import CreateRolePermission from '@/components/Admin/RolePermission/Add/CreateRolePermission.vue'
+import {defineAsyncComponent} from "vue";
+const CreateRolePermission = defineAsyncComponent(()=> import ('@/components/Admin/RolePermission/Add/CreateRolePermission.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 </script>
 
 <template>

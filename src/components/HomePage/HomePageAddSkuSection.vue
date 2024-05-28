@@ -71,7 +71,7 @@
                         height="40"
                         rounded
                         class="px-8 mt-1">
-                        تایید
+                         تایید
                     </v-btn>
                 </v-row>
             </v-col>
@@ -127,10 +127,7 @@
 import Table from '@/components/HomePage/Table/HomePageShpsTable.vue'
 import Seller from "@/composables/Seller";
 import Home from "@/composables/Home";
-import SkuModalTableFilter from '@/components/Seller/Sku/Filter/SkuSellerFilter.vue'
-import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+
 import {
     openToast
 } from "@/assets/js/functions";
@@ -180,46 +177,14 @@ export default {
 
     components: {
         Table,
-        ModalGroupAdd,
-        SkuModalTableFilter,
-        ModalColumnFilter,
-        ModalExcelDownload,
+
     },
 
     computed: {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal
         },
-        skuGroupList() {
-            try {
-                let group = []
-                this.allSkuGroups.data.forEach(skuGroup => {
-                    const form = {
-                        label: skuGroup.label,
-                        value: skuGroup.id
-                    }
-                    group.push(form)
-                })
-                return group
-            } catch (e) {
-                return []
-            }
-        },
-        skuList() {
-            try {
-                let sku = []
-                this.skuSearchList.forEach(permission => {
-                    const form = {
-                        name: permission.label + '(' + permission.id + ')',
-                        id: permission.id
-                    }
-                    sku.push(form)
-                })
-                return sku
-            } catch (e) {
-                return []
-            }
-        },
+
     },
 
     methods: {

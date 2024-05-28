@@ -36,8 +36,9 @@ export default function setup() {
 
     const filterField = [
         {name:'عنوان' , type:'text', value:'label'},
+        { name: 'شناسه صفحه', type: 'text', value: 'id' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
-        { name: 'نوع صفحه', type:'select', value:'page_type'},
+        { name: 'نوع صفحه', type:'select', value:'type'},
         { name: 'ایندکس', type:'select', value:'is_index'},
         { name: 'follow', type:'select', value:'is_follow'},
         { name: 'وضعیت', type:'select', value:'is_active'},
@@ -83,17 +84,51 @@ export default function setup() {
      * Get page list
      * @param {*} query 
      */
-    async function getPageList(query) {
+    async function getPageList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `page/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -233,43 +268,14 @@ export default function setup() {
         else {
         }
     };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/page/index'+ filter.params_generator(route.query))
-    }
     function addPerPageSlider(number){
         filter.page = 1
         filter.per_page =number
         router.push('/page/' +route.params.pageId+ '/sliders/index'+ filter.params_generator(route.query))
     }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/page/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        if (route.name === 'pageSliders') await getSliderList(to)
-        else await getPageList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {templates, getTemplates,pageSingle , getPageImages, getPage ,
-        imageHeader , pageLength, filterField, pageList ,addPerPage, getPageList,
+    return {templates, getTemplates,pageSingle , getPage ,
+        imageHeader , pageLength, filterField, pageList , getPageList,
         dataTableLength, page, header, loading, SliderHeader,getSliderList, sliderList,
         SliderSkuHeader, getSliderSkuList, skuList, addPerPageSlider }
 }

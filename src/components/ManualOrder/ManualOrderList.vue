@@ -24,8 +24,15 @@
         <v-col cols="6">
           <v-row justify="end" class="mt-0">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
-
-            <ModalTableFilter path="orders/manual-order-list" :filterField="filterField"/>
+            <PanelFilter
+                @resetPage="resetPage"
+                path="orders/manual-order-list"
+                :filterField="filterField"
+                :statusItems="status"
+                :paymentStatuses="paymentStatus"
+                :paymentMethods="paymentMethods"
+                :packedStatus="packedStatus"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -67,16 +74,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -87,16 +94,78 @@
 </template>
 
 <script>
-import ModalTableFilter from '@/components/Orders/Filter/Filter.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vue";
 import ManualOrders from "@/composables/ManualOrders";
 import Orders from "@/composables/Orders";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
-    const {filterField} = Orders();
+    const status = [
+      {
+        label: 'پیش پردازش',
+        value: 'pre_progress'
+      },
+      {
+        label: 'ارسال شده',
+        value: 'sending'
+      },
+      {
+        label: 'تحویل داده شده',
+        value: 'received'
+      },
+      {
+        label: 'انقضای سفارش',
+        value: 'payment_out_date'
+      }
+    ]
+    const paymentStatus = [
+      {
+        label: 'پرداخت شده',
+        value: 'successful'
+      },
+      {
+        label: 'در انتظار پرداخت',
+        value: 'payment_in_progress'
+      },
+      {
+        label: 'انقضای پرداخت',
+        value: 'payment_out_date'
+      }
+    ]
+    const paymentMethods= [
+      {
+        label: 'کیف پول',
+        value: 'wallet'
+      },
+      {
+        label: 'آنلاین',
+        value: 'online'
+      },
+      {
+        label: 'اسنپ پی',
+        value: 'snap_pay'
+      }
+    ]
+    const packedStatus = [
+      {
+        label: 'بارگیری شده',
+        value: '1'
+      },
+      {
+        label: 'بارگیری نشده',
+        value: '0'
+      }
+    ]
 
+    const {filterField} = Orders();
     const {
       header,
       page,
@@ -105,7 +174,6 @@ export default {
       loading,
       manualOrderList,
       getManualOrderList,
-      addPerPage
     } = ManualOrders()
 
     return {
@@ -117,11 +185,14 @@ export default {
       manualOrderList,
       filterField,
       getManualOrderList,
-      addPerPage
+      status,
+      paymentStatus,
+      paymentMethods,
+      packedStatus
     }
   },
 
-  components: {ModalTableFilter, ModalColumnFilter, Table },
+  components: { PanelFilter, ModalColumnFilter, Table },
 
   methods:{
     changeHeaderShow(index, value) {
@@ -133,6 +204,14 @@ export default {
         this.getManualOrderList();
       }
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {
@@ -140,8 +219,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getManualOrderList()
+      }
     },
     $route(){
       this.getManualOrderList()

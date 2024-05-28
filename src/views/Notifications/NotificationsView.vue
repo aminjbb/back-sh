@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import DataNotifications from '@/components/Notifications/DataNotifications.vue'
+import {defineAsyncComponent} from "vue";
+const DataNotifications = defineAsyncComponent(()=> import ('@/components/Notifications/DataNotifications.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

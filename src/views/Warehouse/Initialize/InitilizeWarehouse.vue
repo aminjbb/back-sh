@@ -1,5 +1,8 @@
 <script setup>
-import InitializeWarehousePage from '@/components/Warehouse/Initialize/InitializeWarehousePage.vue'
+import {defineAsyncComponent} from "vue";
+const InitializeWarehousePage = defineAsyncComponent(()=> import ('@/components/Warehouse/Initialize/InitializeWarehousePage.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

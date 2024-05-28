@@ -50,8 +50,9 @@
 </template>
 
 <script>
-import AttributeForm from '@/components/Attributes/AttributeForm.vue'
-import AddAttributeValueForm from '@/components/Attributes/Add/AddAttributeValueForm.vue'
+import {defineAsyncComponent} from "vue";
+const AttributeForm = defineAsyncComponent(()=> import ('@/components/Attributes/AttributeForm.vue'))
+const AddAttributeValueForm = defineAsyncComponent(()=> import ('@/components/Attributes/Add/AddAttributeValueForm.vue'))
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { openToast } from '@/assets/js/functions.js'
 
@@ -118,16 +119,6 @@ export default {
     },
 
     computed: {
-        /**
-         * Get attribute value length
-         */
-        attrValueLength() {
-            try {
-                return this.values.size + 1
-            } catch (error) {
-                return 1
-            }
-        }
     }
 }
 </script>

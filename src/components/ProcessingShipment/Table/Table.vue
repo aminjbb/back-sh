@@ -59,7 +59,7 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.sku_label }}
+                       {{ item.label }}
                     </span>
           </div>
 
@@ -90,11 +90,10 @@
               </span>
           </div>
           <div
-
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-               {{ item.remained_count }}
+               {{ item.left_over_count }}
               </span>
           </div>
 
@@ -135,25 +134,18 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
-           <template v-if="item.is_packed === 0">
-             <v-progress-circular
-                 v-if="form[index].loading"
-                 indeterminate
-                 color="primary"></v-progress-circular>
-             <div
-                 v-else
-                 @click="validate(item , index)"
-                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
+            <div
+                v-else
+                @click="validate(item , index)"
+                class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-               <v-icon size="15">mdi-plus</v-icon>
-             </div>
-           </template>
-            <template v-else>
-              <div
-                  class="seller__add-sku-btn d-flex justify-center align-center pointer">
-                <v-icon size="15">mdi-check</v-icon>
-              </div>
-            </template>
+              <v-icon size="15">mdi-plus</v-icon>
+            </div>
+
           </div>
         </div>
       </div>
@@ -195,24 +187,6 @@ export default {
     packId: {
       type :String
     },
-    deleteFunction: {
-      type: Function,
-    },
-    updateSkuUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
 
     /**
      * List Items for header
@@ -259,36 +233,6 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Get attributes
-     */
-    getAttributes: {
-      type: Function
-    },
 
     /**
      * Page on table
@@ -346,29 +290,15 @@ export default {
       return 'auto';
     },
 
-    /**
-     * Check is_active is true or false for show in table
-     */
-    checkActive() {
-      this.header.forEach(element => {
-        if (element.value === 'is_active' && element.show == true) {
-          this.activeColumn = true;
-        } else if (element.value === 'is_active' && element.show == false) {
-          this.activeColumn = false;
-        }
-      });
-      return this.activeColumn;
-    },
   },
 
   watch: {
     items(val){
+      this.form= []
       this.items.forEach(element => {
         const form = {
           loading: false,
-          count: element.packed_count,
-          price: element.packed_count,
-
+          count: element.approved_count,
         }
         this.form.push(form)
       })
@@ -406,31 +336,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'asc'
-            } else {
-              this.panelFilter.order_type = 'asc'
-            }
           } else {
             this.order_type = 'desc'
-
-            if (this.model === 'sku') {
-              this.skuPanelFilter.order_type = 'desc'
-            } else {
-              this.panelFilter.order_type = 'desc'
+          }
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
             }
-          }
-
-          if (this.model === 'sku') {
-            this.skuPanelFilter.order = index
-            this.$router.push(this.$route.path + this.skuPanelFilter.sort_query(this.$route.query))
-          } else {
-            this.panelFilter.order = index
-            this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-          }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -447,18 +365,8 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-    returnTrueOrFalse(data) {
-      if (data === 1) return true
-      else return false
-    },
     validate(item , index){
-      if (this.packId){
-        this.updateShps(index)
-      }
-      else{
-        openToast(this.$store , 'ابتدا شناسه بسته را وارد کنید'  , 'error')
-      }
-
+      this.updateShps(index)
     },
     /**
      * Change Active
@@ -473,11 +381,10 @@ export default {
         AxiosMethod.using_auth = true
         AxiosMethod.store = this.$store
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = `shipment/shps/pack`
+        AxiosMethod.end_point = 'shipment/shps/count'
         formData.append('shipment_id', this.$route.params.shipmentId)
-        formData.append('shps', this.items[index].id)
-        formData.append('package_id', this.packId)
-        formData.append('packed_count', this.form[index].count)
+        formData.append('shps', this.items[index].shps)
+        formData.append('approved_count', this.form[index].count)
         AxiosMethod.form = formData
         let data = await AxiosMethod.axios_post()
         if (data) {
@@ -495,7 +402,6 @@ export default {
       }catch (e) {
         this.form[index].loading = false
       }
-
     },
 
     /**
@@ -506,44 +412,13 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Remove Item
-     * @param {*} id
-     */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
-    },
-
-    /**
-     * Clipboard success msg
-     */
-    onCopy() {
-      openToast(
-          this.$store,
-          'متن  با موفقیت کپی شد.',
-          "success"
-      );
-    },
-
-    /**
-     * Clipboard error msg
-     */
-    onError() {
-      openToast(
-          this.$store,
-          'کپی متن با مشکل مواجه شد.',
-          "error"
-      );
-    },
-
     updateList(status) {
-      console.log('2.skuTable', status)
       this.$emit('updateList', status);
     },
   },
 
   mounted() {
-
+    this.getShipmentShpslist()
   }
 }
 </script>

@@ -1,7 +1,11 @@
 <template>
 <div class="text-right">
-    <v-dialog v-model="printModal.dialog" width="468" @input="dialogToggle">
-        <v-card>
+  <div class="ma-3 pointer d--rtl" @click="dialog = true">
+    <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
+    <span class="mr-2 text-grey-darken-1 t14300">پرینت برچسب</span>
+  </div>
+    <v-dialog v-model="dialog" width="468" @input="dialogToggle">
+        <v-card class="rounded-lg">
             <header class="modal__header d-flex justify-center align-center">
                 <span class="t16400 pa-6">
                     پرینت برچسب
@@ -16,51 +20,24 @@
                 <v-divider />
             </div>
 
-            <div :id="`printableArea-${printModal.id}`" class="d-flex justify-center align-center mt-5" style="height: 180px;">
+            <div :id="`printableArea-${id}`" class="d-flex justify-center align-center mt-2" style="height: 180px;">
                 <div>
-                    <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
-                    <br />
-                    <div style="display: flex;justify-content: center;margin: 14px;">
-                        <div>
-                            <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
-                                <div>
-                                    <span class="t12400">
-                                        شماره ردیف :
-                                        <span class="t12400 text-gray600 number-font">
-                                            {{ data?.row_number }}
-                                        </span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <span class="t12400">
-                                        شماره قفسه :
-                                        <span class=" t12400 text-gray600 number-font">
-                                            {{ data?.placement_number }}
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-right  px-5 d-flex justify-space-between px-10">
-                                <div>
-                                    <span class="t12400">
-                                        شماره طبقه :
-                                        <span class=" t12400 text-gray600 number-font">
-                                            {{ data?.step_number }}
-                                        </span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <span class="t12400">
-                                        شماره شلف :
-                                        <span class=" t12400 text-gray600 number-font">
-                                            {{ data?.shelf_number }}
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                  <div style="display: flex;justify-content: center;margin: 14px;">
+                    <div>
+                      <!-- shelf number-->
+                      <span class=" t12400 text-black number-font">{{ data?.shelf_number }}/</span>
+                      <!-- step number-->
+                      <span class=" t12400 text-black number-font">{{ data?.step_number }}/</span>
+                      <!-- placement number -->
+                      <span class=" t12400 text-black number-font">{{ data?.placement_number }}/</span>
+                      <!-- row number-->
+                      <span class="t12400 text-black number-font">{{ data?.row_number }}</span>
                     </div>
-                    <div v-if="data && data.barcode" class="number-font text-black t12500 mt-2" style="text-align:center">{{ data.barcode }}</div>
+                  </div>
+
+                  <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
+
+                  <div v-if="data && data.barcode" class="number-font text-black t12500 mt-2" style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
@@ -69,12 +46,15 @@
             </div>
 
             <v-row justify="space-between" align="center" class="pb-4 ma-0">
-                <v-col cols="6" class="">
-                    <div class="text-left">
-                        <v-btn @click="print()" color="white" height="40" rounded class="px-5 mt-1 mr-5">
-                            پرینت برچسب
-                        </v-btn>
-                    </div>
+                <v-col cols="6">
+                  <v-btn
+                      @click="print()"
+                      variant="outlined"
+                      rounded
+                      height="40"
+                      class="px-5 mt-1 mr-5">
+                    پرینت برچسب
+                  </v-btn>
                 </v-col>
 
                 <v-col cols="6" class="text-right">
@@ -108,13 +88,7 @@ export default {
     },
 
     computed: {
-        printModal() {
-            try {
-                return this.$store.getters['get_printModal']
-            } catch (error) {
-                return ''
-            }
-        }
+
     },
 
     props: {
@@ -124,7 +98,7 @@ export default {
     methods: {
 
         close() {
-            closeModal(this.$store, 'set_printModal')
+            this.dialog = false
         },
 
         /**
@@ -133,7 +107,7 @@ export default {
         async getPlacement() {
             var formdata = new FormData();
             const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = `placement/crud/get/${this.printModal.id}`
+            AxiosMethod.end_point = `placement/crud/get/${this.id}`
             AxiosMethod.form = formdata;
 
             AxiosMethod.store = this.$store
@@ -150,14 +124,14 @@ export default {
          */
         print() {
             const printWindow = window.open('about:blank', '_blank');
-            printWindow.document.write(document.getElementById(`printableArea-${this.printModal.id}`).innerHTML)
+            printWindow.document.write(document.getElementById(`printableArea-${this.id}`).innerHTML)
             printWindow.print();
         },
     },
 
     created() {
         this.$watch(
-            () => this.printModal.dialog,
+            () => this.dialog,
             (dialogState) => {
                 if (dialogState) {
                     this.getPlacement();

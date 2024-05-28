@@ -48,7 +48,7 @@ export default {
   components: {ContentForm},
   methods:{
     validate(){
-      console.log(this.$refs.ContentForm.form)
+
       if (!this.$refs.ContentForm.form.content){
         openToast(this.$store , 'محتوا را وارد کنید' , 'error')
       }

@@ -1,6 +1,7 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const PrintOrder = defineAsyncComponent(()=> import ('@/components/OrderPackaging/Print/PrintOrder.vue'))
 
-import PrintOrder from '@/components/OrderPackaging/Print/PrintOrder.vue'
 </script>
 
 <template>

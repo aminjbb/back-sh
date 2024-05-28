@@ -1,10 +1,11 @@
 <script>
-import DashboardLayout from '../components/Layouts/DashboardLayout.vue'
-import Header from '../components/Public/Header.vue'
-import HomeSectionDesktop from '../components/Home/HomeSectionDesktop.vue'
-import HomeSectionMobile from '../components/Home/HomeSectionMobile.vue'
-import HeaderMobile from "@/components/Public/HeaderMobile.vue";
-import DashboardLayoutMobile from "@/components/Layouts/DashboardLayoutMobile.vue";
+import {defineAsyncComponent} from "vue";
+const HomeSectionMobile = defineAsyncComponent(()=> import ('../components/Home/HomeSectionMobile.vue'))
+const HomeSectionDesktop = defineAsyncComponent(()=> import ('../components/Home/HomeSectionDesktop.vue'))
+const HeaderMobile = defineAsyncComponent(()=> import ('@/components/Public/HeaderMobile.vue'))
+const DashboardLayoutMobile = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayoutMobile.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
 export default {
   components:{

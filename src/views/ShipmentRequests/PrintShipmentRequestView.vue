@@ -1,6 +1,7 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
+const PrintShipmentRequest = defineAsyncComponent(()=> import ('@/components/ShipmentRequests/Print/PrintShipmentRequest.vue'))
 
-import PrintShipmentRequest from '@/components/ShipmentRequests/Print/PrintShipmentRequest.vue'
 </script>
 
 <template>

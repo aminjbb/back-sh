@@ -76,14 +76,7 @@
               رایگان
             </span>
           </div>
-<!--          <v-select -->
-<!--              :rules="rule"-->
-<!--              :items="sendingItems"-->
-<!--              variant="outlined"-->
-<!--              v-model="voucherForm.sending"-->
-<!--              rounded="lg">-->
 
-<!--          </v-select>-->
         </v-col>
 
 
@@ -249,33 +242,8 @@
 
         },
        
-    
-        voucherTypes: [
-          {
-            title: 'عادی',
-            value: 'regular'
-          },
-          {
-            title: 'گروهی',
-            value: 'group'
-          },
-          {
-            title: 'نظیر به نظیر',
-            value: 'peer_to_peer'
-          },
 
-        ],
-        voucherAmountTypes: [
-          {
-            title: 'ریالی',
-            value: 'rial'
-          },
-          {
-            title: 'درصدی',
-            value: 'percent'
-          },
 
-        ],
         voucherActives: [
           {
             title: 'فعال',

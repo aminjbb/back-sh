@@ -296,19 +296,7 @@ export default {
         this.shpssBarCode = ''
       }
     },
-    async pickUpshpss(barcode) {
-      const AxiosMethod = new AxiosCall()
-      const formData = new FormData()
-      formData.append('barcode', barcode)
-      formData.append('placement_id', this.pickUpShps?.placement?.id)
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = cookies.cookies.get('adminToken')
-      AxiosMethod.end_point = 'admin/order/pick'
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.getPickUpShps()
-      }
-    },
+
   },
 
   components: {

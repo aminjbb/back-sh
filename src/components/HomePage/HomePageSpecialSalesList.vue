@@ -85,16 +85,13 @@
 <script>
 import Table from '@/components/HomePage/Table/HomePageSpecialSaleTable.vue'
 import Home from "@/composables/Home";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 export default {
-    setup(props) {
+    setup() {
         const {
             specialSalesHeader,
             getHomeSection,
@@ -119,7 +116,6 @@ export default {
         ModalAddBanner,
         Table,
         ModalGroupAdd,
-        ModalTableFilter,
         ModalColumnFilter,
         ModalExcelDownload,
     },

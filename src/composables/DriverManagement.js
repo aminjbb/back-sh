@@ -62,17 +62,51 @@ export default function setup() {
      * Get page list
      * @param {*} query 
      */
-    async function getDriverList(query) {
-        let paramsQuery = null
+    async function getDriverList() {
         loading.value = true
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `driver/crud/index/${paramsQuery}`
+        AxiosMethod.end_point = `driver/crud/index/`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -115,29 +149,10 @@ export default function setup() {
                 isFilterPage.value = false
             } , 1000)
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/driver-management/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/driver-management/index'+ filter.params_generator(route.query))
-    }
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, DriverManagementList ,addPerPage, getDriverList, getDriver,
+         pageLength, filterField, headerShps, headerQrcode, DriverManagementList , getDriverList, getDriver,
         dataTableLength, page, header, loading, getAllDriverList
          }
 }

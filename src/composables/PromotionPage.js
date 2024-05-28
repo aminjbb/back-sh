@@ -31,16 +31,23 @@ export default function setup() {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام کالا', show: true , value:'name', order: false},
         { name: 'شناسه کالا', show: true , value:'label', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'id' , order: false},
+        { name: 'ترتیب نمایش', show: true, value:'id' , order: true},
         { name: 'ذخیره ', show: true, value:'id' , order: false},
         
 
         
     ]);
 
+    const filterFieldPromotionSku = [
+        {name:'نام فارسی' , type:'text', value:'label'},
+        { name: 'شناسه', type: 'text', value: 'id' },
+    ];
+
 
     const filterField = [
         {name:'نام فارسی' , type:'text', value:'label'},
+        {name: 'نام انگلیسی', type: 'text', value: 'name'},
+        { name: 'شناسه', type: 'text', value: 'id' },
         { name:'تاریخ ساخت' , type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'is_active'},
     ];
@@ -50,17 +57,51 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getPromotions(query) {
+    async function getPromotions() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/promotion/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `page/promotion/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
@@ -113,35 +154,8 @@ export default function setup() {
         else {
         }
     }
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/promotion-page/index'+ filter.params_generator(route.query))
-    }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/promotion-page/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getPromotions(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,getPromotions, pageLength, filterField ,addPerPage, dataTableLength, page, header,skuGroupHeader , loading , promotionPage }
+    return {getPromotionShpsList,promotionShpsList, pageLengthShpsList,promotion , promotions , getPromotion ,
+        getPromotions, pageLength, filterField , dataTableLength, page, header,skuGroupHeader , loading , promotionPage, filterFieldPromotionSku }
 }
 

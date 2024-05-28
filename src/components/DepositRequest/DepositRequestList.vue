@@ -5,13 +5,18 @@
           justify="center"
           align="center"
           class="px-10 py-5">
-        <v-col cols="6" />
+        <v-col cols="6"/>
 
         <v-col cols="6">
           <v-row justify="end">
-            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header"/>
 
-            <ModalTableFilter path="withdraw-request/index" :filterField="filterField" />
+            <PanelFilter
+                @resetPage="resetPage"
+                path="withdraw-request/index"
+                :filterField="filterField"
+                :statusItems="status"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -29,9 +34,9 @@
           :loading="loading"
           updateUrl="page/csv/mass-update"
 
-          model="page" />
+          model="page"/>
 
-      <v-divider />
+      <v-divider/>
 
       <v-card-actions class="pb-3">
 
@@ -40,7 +45,7 @@
             <ModalExcelDownload getEndPoint="finance/admin/transaction/crud/withdraw/export"/>
           </v-col>
 
-          <v-col cols="6" >
+          <v-col cols="6">
             <div class="text-center">
               <v-pagination
                   v-model="page"
@@ -49,7 +54,7 @@
                   size="40"
                   :total-visible="7"
                   prev-icon="mdi-chevron-right"
-                  next-icon="mdi-chevron-left" />
+                  next-icon="mdi-chevron-left"/>
             </div>
           </v-col>
 
@@ -66,7 +71,7 @@
                                     v-model="dataTableLength"
                                     class="t1330"
                                     variant="outlined"
-                                    :items="[25,50,100]" />
+                                    :items="[25,50,100]"/>
                             </span>
             </div>
           </v-col>
@@ -79,14 +84,32 @@
 <script>
 import Table from '@/components/DepositRequest/Table/Table.vue'
 import WithdrawRequests from "@/composables/DepositRequest";
-import ModalTableFilter from '@/components/DepositRequest/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 
 export default {
+  data() {
+    return {
+      perPageFilter: false
+    }
+  },
   setup() {
+    const status = [
+      {
+        label: 'در انتظار',
+        value: 'waiting',
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'in_review',
+      },
+      {
+        label: 'رد شده',
+        value: 'rejected',
+      }
+    ]
     const {
       pageLength,
       getWithdrawRequestList,
@@ -109,22 +132,19 @@ export default {
       header,
       addPagination,
       addPerPage,
-      loading
+      loading,
+      status
     };
   },
 
   components: {
+    PanelFilter,
     Table,
-    ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },
 
   computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
-    }
   },
 
   methods: {
@@ -132,11 +152,6 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(status){
-      if(status === 'true'){
-        this.getWithdrawRequestList();
-      }
-    },
   },
 
   mounted() {
@@ -144,22 +159,32 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      } else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
-        if (!val) {
-          this.getPageList();
-          openToast(
-              this.$store,
-              'صفحه مورد نظر با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
-        }
+    page() {
+      if (!this.perPageFilter) {
+        this.getWithdrawRequestList()
       }
     },
+
     $route(){
       this.getWithdrawRequestList();
 

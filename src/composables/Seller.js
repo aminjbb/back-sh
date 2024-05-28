@@ -46,7 +46,7 @@ export default function setup(posts) {
         { name: 'شناسه کالا', show: true, value: 'id', order:false },
         { name: 'شناسه shps', show: true, value: 'unique_code', order:false },
         { name:'نام کالا' , show:true ,  value:'label', order:true},
-        { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:false },
+        { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:true },
         { name: 'موجودی سایت', show: true, value: 'site_stock', order:true },
         { name: ' قیمت مصرف کننده', show: true, value: 'customer_price', order:true },
         { name: ' تخفیف پایه', show: true, value: 'base_discount', order:true },
@@ -98,12 +98,14 @@ export default function setup(posts) {
     ];
     const filterFieldSku = [
         { name: 'شناسه shps', type: 'text', value: 'id' },
-        { name: 'نام کالا', type: 'text', value: 'label' },
+        { name: 'شناسه کالا', type: 'text', value: 'id' },
+        { name: 'نام کالا', type: 'text', value: 'sku' },
+        { name: 'محدودیت سفارش', type: 'text', value: 'limit' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },
         { name: 'موجودی انبار(تا)', type: 'text', value: 'warehouse_stock_to' },
-        { name: 'وضعیت', type: 'select', value: 'active' },
-        { name: ' موجودی قابل فروش(از)', type: 'text', value: 'site_stock_from' },
-        { name: ' موجودی قابل فروش(تا)', type: 'text', value: 'site_stock_to' },
+        { name: 'وضعیت', type: 'select', value: 'is_active' },
+        { name: ' موجودی سایت(از)', type: 'text', value: 'site_stock_from' },
+        { name: ' موجودی سایت(تا)', type: 'text', value: 'site_stock_to' },
         { name: 'کمترین تخفیف پایه(از)', type: 'text', value: 'base_discount_from' },
         { name: ' بیشترین تخفیف پایه(تا)', type: 'text', value: 'base_discount_to' },
         { name: 'کمترین تخفیف مارکتینگ(از)', type: 'text', value: 'marketing_discount_from' },
@@ -143,17 +145,51 @@ export default function setup(posts) {
     const skuFilter = new SkuPanelFilter()
     const skuSellerFilter =  new SkuSellerPanelFilter()
 
-    async function getSellerList(query) {
+    async function getSellerList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -166,7 +202,6 @@ export default function setup(posts) {
         }
     };
     async function getSeller(query) {
-
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -176,27 +211,27 @@ export default function setup(posts) {
             seller.value = data.data
         }
     };
-    async function getSkuSeller(query) {
+    async function getSkuSeller() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            if (query.query.page){
-                isFilter.value= true
-                skuSellerPage.value = parseInt(query.query.page)
-            }
-            paramsQuery = skuSellerFilter.params_generator(query.query)
-        }
-        else {
-            if (route.query.page){
-                isFilter.value= true
-                skuSellerPage.value = parseInt(route.query.page)
-            }
-            paramsQuery = skuSellerFilter.params_generator(route.query)
-        }
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+       if ( !route.query.per_page ){
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
+        else{
+            AxiosMethod.form = {
+                ...query,
+                page:page.value,
+                per_page : dataTableLength.value
+            }
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =data.data.last_page
@@ -274,23 +309,7 @@ export default function setup(posts) {
             } , 2000)
         }
     }
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/seller/index/'+ filter.params_generator(route.query))
 
-    }
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/seller/index'+ filter.params_generator(route.query))
-    }
-
-    function addSkuPerPage(number){
-        skuFilter.page = 1
-        skuFilter.per_page =number
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
     function addSkuSellerPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
@@ -302,11 +321,6 @@ export default function setup(posts) {
         router.push(route.path + skuSellerFilter.params_generator(route.query))
     }
 
-    function addSkuPagination(page){
-        skuFilter.page = page
-        skuFilter.per_page = dataTableLength.value
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
     function priceHistoryPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
@@ -317,30 +331,7 @@ export default function setup(posts) {
         skuSellerFilter.per_page = dataTableLength.value
         router.push(route.path + skuFilter.params_generator(route.query))
     }
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
 
-        if (route.name === 'PriceHistoryView') await getPriceHistory(to)
-        if (route.name === 'AddSkuSellerView') await getSkuSeller(to)
-        else await getSellerList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-    watch(skuPage, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addSkuPagination(val)
-        }
-    })
     watch(priceHistoryPage, function(val) {
         if (!isFilter.value){
             isFilterPage.value = true
@@ -362,8 +353,8 @@ export default function setup(posts) {
 
     return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
         getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
-        headerWarehouseInventoryHistory,addSkuPerPage,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
+        headerWarehouseInventoryHistory,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
         getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
-        dataTableLength, page, header, addPagination, addPerPage, loading , priceHistoryPage ,siteHistoryPage ,
+        dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
         headerConsigment , addSkuSellerPerPage , skuSellerPage}
 }

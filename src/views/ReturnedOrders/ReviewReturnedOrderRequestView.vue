@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import ReviewReturnedOrderRequest from '@/components/ReturnedOrders/ReviewReturnedOrderRequest.vue'
+import {defineAsyncComponent} from "vue";
+const ReviewReturnedOrderRequest = defineAsyncComponent(()=> import ('@/components/ReturnedOrders/ReviewReturnedOrderRequest.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
 
 <template>

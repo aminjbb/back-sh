@@ -23,7 +23,13 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <ModalTableFilter path="menu/index" :filterField="filterField" />
+            <PanelFilter
+                @resetPage="resetPage"
+                path="menu/index"
+                :filterField="filterField"
+                :statusItems="status"
+                :statusHasOption="hasOption"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -87,27 +93,76 @@
 <script>
 import Table from '@/components/Menu/Table/MenuTable.vue'
 import Menu from "@/composables/Menu";
-import ModalTableFilter from '@/components/Menu/Filter/Filter.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+
 import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
   setup() {
+    const status = [
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
+   const hasOption=[
+      {
+        label: 'دارد',
+        value: '1',
+      },
+      {
+        label: 'ندارد',
+        value: '0',
+      },
+    ]
+
     const {
-      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading
+      getMenus ,
+      getMenu ,
+      menu ,
+      menus ,
+      pageLength,
+      filterField ,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = new Menu();
     return {
-      getMenus , getMenu , menu , menus , pageLength, filterField ,addPerPage, dataTableLength, page, header, loading
+      getMenus ,
+      getMenu ,
+      menu ,
+      menus ,
+      pageLength,
+      filterField ,
+      dataTableLength,
+      page,
+      header,
+      loading,
+      status,
+      hasOption
     };
   },
 
   components: {
+    PanelFilter,
     Table,
     ModalGroupAdd,
-    ModalTableFilter,
     ModalColumnFilter,
-    ModalExcelDownload,
   },
 
   computed: {
@@ -121,6 +176,14 @@ export default {
       this.header[index].show = value
     },
 
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+
   },
 
   mounted() {
@@ -128,8 +191,31 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getMenus()
+      }
     },
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
@@ -144,6 +230,9 @@ export default {
         }
       }
     },
+    $route(){
+      this.getMenus()
+    }
   }
 }
 </script>

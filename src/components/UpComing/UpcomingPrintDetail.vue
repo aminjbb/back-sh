@@ -12,7 +12,7 @@
         <v-card class="content">
           <div class="d-flex justify-space-between pa-5 d--rtl">
             <span>شناسه محموله : {{ retailObject?.id }}</span>
-            <span v-if="retailObject?.seller">نام فروشگاه : {{ retailObject?.seller?.shopping_name  }}</span>
+            <span v-if="retailObject?.factor">نام تامین کننده : {{ retailObject?.factor?.supplier?.full_name }}</span>
             <span v-if="retailObject?.sent_to_warehouse_at">تاریخ تحویل : {{ convertDateToJalai(retailObject?.sent_to_warehouse_at , '-' , false)}} </span>
             <div class="text-center">
               <div>

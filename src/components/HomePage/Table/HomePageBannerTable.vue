@@ -202,9 +202,9 @@
         </div>
     </div>
 
-    <ModalEditBanner />
-    <ModalEditCategory />
-    <ModalEditBlog />
+    <ModalEditBanner ref="ModalEditBanner" />
+    <ModalEditCategory ref="ModalEditCategory" />
+    <ModalEditBlog ref="ModalEditBlog"/>
 </div>
 </template>
 
@@ -418,13 +418,18 @@ export default {
 
     methods: {
         openEditModal(object) {
-            const form = {
-                dialog: true,
-                object: object
+            if (this.model == 'category') {
+              this.$refs.ModalEditCategory.dialog = true
+              this.$refs.ModalEditCategory.categoryObject = object
             }
-            if (this.model == 'category') this.$store.commit('set_homePageCategoryModal', form)
-            else if (this.model == 'blog') this.$store.commit('set_homeBlogModal', form)
-            else this.$store.commit('set_homePageBannerModal', form)
+            else if (this.model == 'blog'){
+              this.$refs.ModalEditBlog.dialog = true
+              this.$refs.ModalEditBlog.blogObject = object
+            }
+            else {
+              this.$refs.ModalEditBanner.dialog = true
+              this.$refs.ModalEditBanner.bannerObject = object
+            }
         },
 
         convertDateToJalai,
@@ -506,23 +511,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-                if (index) {
-                    if (this.order_type === 'desc') {
-                        this.order_type = 'asc'
-
-                        this.panelFilter.order_type = 'asc'
-                    } else {
-                        this.order_type = 'desc'
-
-                        this.panelFilter.order_type = 'desc'
-                    }
-
-                    this.panelFilter.order = index
-                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
+              if (index) {
+                let query = this.$route.query
+                if (this.order_type === 'desc') {
+                  this.order_type = 'asc'
+                } else {
+                  this.order_type = 'desc'
                 }
+                this.$router.replace({
+                  query: {
+                    ...query,
+                    order_type :this.order_type,
+                    order :index
+                  }
+                })
+
+                this.ordering = {};
+                this.ordering[index] = !this.ordering[index];
+              }
             }
 
         },

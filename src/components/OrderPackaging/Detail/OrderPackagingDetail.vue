@@ -11,7 +11,7 @@
       </header>
       <v-divider color="grey"/>
       <v-row align="center" class="pa-3">
-        <v-col cols="6">
+        <v-col cols="4">
           <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem"
                         variant="outlined"></v-text-field>
         </v-col>
@@ -30,6 +30,14 @@
             <v-radio label="پردازش" :value="true"></v-radio>
             <v-radio label="نمایش" :value="false"></v-radio>
           </v-radio-group>
+        </v-col>
+        <v-col cols="2">
+          <span>
+            شناسه سفارش:
+          </span>
+          <span>
+           {{orderId}}
+          </span>
         </v-col>
       </v-row>
     </v-card>
@@ -90,6 +98,7 @@
 </template>
 
 <script>
+
 import {ref} from 'vue'
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
@@ -112,7 +121,6 @@ export default {
     return {
       shpsItem: null,
       cargo: null,
-      rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
       orderDetail: [],
       accept: true,
@@ -121,36 +129,22 @@ export default {
   },
   setup() {
     const {
-      cargoList,
-      getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
       item,
       filterField,
       loading,
       detailInfo,
-      getOrderListDetail,
       orderListDetail,
-      barcodeNum,
-      getShpsList,
-      extractedIds
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
-      cargoList,
-      getCargoList,
       dataTableLength,
-      cargoReceivingHeader,
       item,
       filterField,
       loading,
       detailInfo,
-      getOrderListDetail,
       orderListDetail,
       orderDetails,
-      barcodeNum,
-      getShpsList,
-      extractedIds
     };
   },
   computed: {
@@ -164,31 +158,43 @@ export default {
       this.dialog = false
     },
     async orderItemPack() {
-      let endPointUrl = null
-      if (this.accept) endPointUrl= `warehouse/order/packaging/done/?accept`
-      else endPointUrl= `warehouse/order/packaging/done/`
-      this.loading = true
-      var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point =endPointUrl
-      formdata.append('barcode', this.shpsItem)
-      AxiosMethod.form = formdata
-      AxiosMethod.store = this.$store
-      AxiosMethod.toast_error = true
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.orderId = data?.data?.order?.id
-        if (data?.data?.is_completed) {
-          window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
-        }
-        this.orderDetail = data?.data?.order_items
-        this.loading = false
-        setTimeout(()=>{this.shpsItem = ''},1000)
-      } else {
-        this.loading = false
-      }
+     try {
+       let endPointUrl = null
+       if (this.accept) endPointUrl= `warehouse/order/packaging/done/?accept`
+       else endPointUrl= `warehouse/order/packaging/done/`
+       this.loading = true
+       var formdata = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point =endPointUrl
+       formdata.append('barcode', this.shpsItem)
+       AxiosMethod.form = formdata
+       AxiosMethod.store = this.$store
+       AxiosMethod.toast_error = true
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.orderId = data?.data?.order?.id
+         if (data?.data?.is_completed) {
+           window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
+         }
+         this.orderDetail = data?.data?.order_items
+         this.loading = false
+         setTimeout(()=>{this.shpsItem = ''},1000)
+         openToast(
+             this.$store,
+             'محصول  با موفقیت اضافه شد',
+             "success"
+         );
+       } else {
+         this.shpsItem = null
+         this.loading = false
+       }
+     }
+     catch (e) {
+       this.shpsItem = null
+       this.loading = false
+     }
     },
 
   },

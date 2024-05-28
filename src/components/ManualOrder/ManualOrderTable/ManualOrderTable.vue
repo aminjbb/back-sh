@@ -40,8 +40,18 @@
                         </template>
                     </span>
           </div>
-
           <div v-if="header[3].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray500 py-5 number-font">
+                        <template v-if="item.creator">
+                          {{ item.creator.first_name }} {{ item.creator.last_name }}
+                        </template>
+                        <template v-else>
+                          -
+                        </template>
+                    </span>
+          </div>
+
+          <div v-if="header[4].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.user && item.user.first_name && item.user.last_name">
                             {{ item.user.first_name }} {{ item.user.last_name }}
@@ -52,7 +62,7 @@
                     </span>
           </div>
 
-          <div v-if="header[4].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.user && item.user.phone_number">
                             {{ item.user.phone_number }}
@@ -63,7 +73,7 @@
                     </span>
           </div>
 
-          <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_count">
                             {{ item.shps_count }}
@@ -74,7 +84,7 @@
                     </span>
           </div>
 
-          <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.status">
                           <span class="t10400">
@@ -87,7 +97,7 @@
                     </span>
           </div>
 
-          <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
                             {{ splitChar(item.paid_price) }}
@@ -98,13 +108,13 @@
                     </span>
           </div>
 
-          <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <v-icon :icon="setIcon(item.packed_status)" :color="item.packed_status === 1 ? 'green' : 'red'" />
                     </span>
           </div>
 
-          <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.sending_method">
                             {{ getSendingMethod(item.sending_method) }}
@@ -115,7 +125,7 @@
                     </span>
           </div>
 
-          <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+          <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5 number-font text-center">
                         <template v-if="item.submit_date_fa">
                             {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
@@ -127,7 +137,7 @@
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props" class="text-gray500">
                   mdi-dots-vertical
@@ -136,10 +146,7 @@
 
               <v-list class="c-table__more-options">
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showDetails(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
-                  </div>
+                  <DetailsModal :id="item.id"/>
                 </v-list-item-title>
 
                 <v-list-item-title>
@@ -150,10 +157,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="showFactor(item.id)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">نمایش فاکتور مالی</span>
-                  </div>
+                  <FactorModal :id="item.id" />
                 </v-list-item-title>
               </v-list>
             </v-menu>
@@ -169,8 +173,8 @@
       </div>
     </div>
 
-    <DetailsModal />
-    <FactorModal />
+
+
   </div>
 </template>
 
@@ -204,10 +208,6 @@ export default {
      */
     items: Array,
 
-    /**
-     * Model
-     */
-    model: String,
 
     /**
      * Height
@@ -266,7 +266,6 @@ export default {
       per_page: '25',
       filter: [],
       panelFilter: new PanelFilter(),
-      activeColumn: false,
       orderStatus: [
           {
         text: 'پرداخت شده',
@@ -352,21 +351,9 @@ export default {
 
     },
 
-    /**
-     * Open details modal
-     * @param {*} id
-     */
-    showDetails(id) {
-      openModal(this.$store, 'set_orderDetailsModal', id, true)
-    },
 
-    /**
-     * Open factor modal
-     * @param {*} id
-     */
-    showFactor(id) {
-      openModal(this.$store, 'set_orderFactorModal', id, true)
-    },
+
+
 
     /**
      * Get row index in table
@@ -421,16 +408,19 @@ export default {
     createOrdering(index, order) {
       if (order === true) {
         if (index) {
+          let query = this.$route.query
           if (this.order_type === 'desc') {
             this.order_type = 'asc'
-            this.panelFilter.order_type = 'asc'
           } else {
             this.order_type = 'desc'
-            this.panelFilter.order_type = 'desc'
           }
-
-          this.panelFilter.order = index
-          this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
 
           this.ordering = {};
           this.ordering[index] = !this.ordering[index];
@@ -454,13 +444,7 @@ export default {
       return isOdd(index)
     },
 
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
+
   },
 }
 </script>

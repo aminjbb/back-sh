@@ -350,16 +350,19 @@ export default {
         createOrdering(index, order) {
             if (order === true) {
                 if (index) {
+                  let query = this.$route.query
                     if (this.order_type === 'desc') {
                         this.order_type = 'asc'
-                        this.panelFilter.order_type = 'asc'
                     } else {
                         this.order_type = 'desc'
-                        this.panelFilter.order_type = 'desc'
                     }
-
-                    this.panelFilter.order = index
-                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
+                    this.$router.replace({
+                      query: {
+                        ...query,
+                        order_type :this.order_type,
+                        order :index
+                      }
+                    })
 
                     this.ordering = {};
                     this.ordering[index] = !this.ordering[index];
@@ -375,10 +378,6 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
 
         /**
          * Change filter
@@ -418,6 +417,7 @@ export default {
     watch:{
 
       items(val){
+        this.isBan =[]
         val.forEach(admin => {
           if (admin.is_ban === 1)  this.isBan.push(true)
           else this.isBan.push(false)

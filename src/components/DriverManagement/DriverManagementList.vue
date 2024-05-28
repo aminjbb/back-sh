@@ -21,8 +21,11 @@
    
                <v-col cols="6">
                    <v-row justify="end">
-   
-                       <ModalTableFilter path="driver-management/index" :filterField="filterField" />
+                     <PanelFilter
+                         @resetPage="resetPage"
+                         path="driver-management/index"
+                         :filterField="filterField"
+                     />
                    </v-row>
                </v-col>
            </v-row>
@@ -89,12 +92,17 @@
    <script>
    import Table from '@/components/DriverManagement/Table/Table.vue'
    import DriverManagement from "@/composables/DriverManagement";
-   import ModalTableFilter from '@/components/DriverManagement/Filter/Filter.vue'
    import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
    import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
    import { openToast} from "@/assets/js/functions";
+   import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
    export default {
+     data() {
+       return {
+         perPageFilter:false
+       }
+     },
        setup() {
            const {
                pageLength,
@@ -123,9 +131,9 @@
        },
    
        components: {
+         PanelFilter,
            Table,
            ModalGroupAdd,
-           ModalTableFilter,
            ModalColumnFilter,
            ModalExcelDownload,
        },
@@ -140,6 +148,13 @@
             changeHeaderShow(index, value) {
                 this.header[index].show = value
             },
+         resetPage(){
+           this.perPageFilter = true
+           this.page = 1
+           setTimeout(()=>{
+             this.perPageFilter = false
+           }, 1000)
+         }
        },
    
        mounted() {
@@ -147,9 +162,32 @@
        },
    
        watch: {
-            dataTableLength(val) {
-                this.addPerPage(val)
-            },
+         dataTableLength() {
+           this.perPageFilter = true
+           this.page = 1
+           let query = this.$route.query
+           if (query) {
+             this.$router.replace({
+               query: {
+                 ...query,
+                 per_page: this.dataTableLength,
+               }
+             })
+           }
+           else {
+             this.$router.push({
+               query: {
+                 per_page: this.dataTableLength,
+               }
+             })
+           }
+           this.perPageFilter = false
+         },
+         page(){
+           if (!this.perPageFilter){
+             this.getDriverList()
+           }
+         },
 
             confirmModal(val) {
                 if (localStorage.getItem('deleteObject') === 'done') {

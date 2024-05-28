@@ -247,9 +247,6 @@ export default {
         return  ''
       }
     },
-    adminId(){
-      return  localStorage.getItem('userId')
-    }
   },
     watch:{
       conversationMessages(val){

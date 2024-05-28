@@ -97,14 +97,14 @@
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان شروع تخفیف مارکتینگ: </span>
                         <span v-if="data && data.base_discount_start_time !== null" class="modal__content__txt number-font">
-                            {{convertDate(data.base_discount_start_time)}}
+                          {{data.base_discount_start_time.split('T')[1].split('.')[0]}}
                         </span>
                     </div>
 
                     <div class="d-flex justify-star align-center pa-2">
                         <span class="modal__content__title">زمان پایان تخفیف مارکتینگ : </span>
                         <span v-if="data && data.base_discount_end_time !== null" class="modal__content__txt number-font">
-                            {{convertDate(data.base_discount_end_time)}}
+                          {{data.base_discount_end_time.split('T')[1].split('.')[0]}}
                         </span>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                             :rules="rule" />
                     </div>
                 </v-col>
-                
+
             </v-row>
 
             <div class="mt-5 px-5">

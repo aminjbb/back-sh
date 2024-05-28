@@ -1,6 +1,11 @@
 <template>
   <div class="text-right ">
-
+    <div class=" pointer" @click="requestShipmentDetailShipmentDetail()">
+      <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
+      <span class="mr-2 text-grey-darken-1 t14300">
+                         پرینت محموله
+                      </span>
+    </div>
     <v-dialog v-model="dialog" width="1060">
       <v-card class="">
         <v-row
@@ -8,7 +13,7 @@
             align="center"
             class="pa-1 my-2">
           <v-col class="mx-10" cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -67,7 +72,7 @@
             <v-col cols="3" class="d-flex justify-end mx-10">
               <btn
                   class="mt-3 mr-2"
-                  @click="close()"
+                  @click="dialog = false"
                   style="cursor: pointer;">
                 انصراف
               </btn>
@@ -81,6 +86,9 @@
 
 <script>
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+import {
+  AxiosCall
+} from '@/assets/js/axios_call.js'
 import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
 import {
   convertDateToJalai
@@ -97,8 +105,29 @@ export default {
     UploadFileSection
 
   },
+  props:{
+    item : null
+  },
+  data() {
+    return {
+      dialog: false,
+      retailObject:null
+    }
+  },
 
   methods: {
+    async requestShipmentDetailShipmentDetail() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `shipment/detail/${this.item.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.retailObject= data.data
+        this.dialog = true
+        const baseUrl = import.meta.env.VITE_API_BACKEND_URL
+      }
+    },
 
     print() {
       window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${this.retailObject.id}/print`, '_blank');
@@ -106,47 +135,28 @@ export default {
     
     convertDateToJalai,
 
-    close() {
-      const form = {
-        dialog: false,
-        object: ''
-      }
-      this.$store.commit('set_detailModalTestQrCode', form)
-    },
 
-    validate() {
-      this.$refs.BlogForm.$refs.addForm.validate()
-      setTimeout(() => {
-        if (this.$refs.BlogForm.valid) this.createBlog()
-      }, 200)
-    },
 
-    searchWarehouse(e) {
-      const filter = {
-        name: e
-      }
-      this.getWarehouseList(filter)
-    },
+
+
+
   },
 
   computed: {
     baseUrl() {
       return import.meta.env.VITE_API_BACKEND_URL
     },
-    dialog() {
-      return this.$store.getters['get_detailModalTestQrCode']
-    },
-    retailObject() {
-      return this.$store.getters['get_detailModalTestQrCodeObject']
-    },
-    warehouseData() {
-      try {
-        return this.warehouseList.data
-      } catch (e) {
-        return []
-      }
-    }
+
   },
 
+  // watch:{
+  //   dialog(val){
+  //     if (val){
+  //       this.requestShipmentDetailShipmentDetail()
+  //     }
+  //   }
+  // }
+
 }
+
 </script>

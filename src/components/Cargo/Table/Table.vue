@@ -123,7 +123,7 @@
                 </div>
 
                 <div style="width: 7.09091%; flex: 0 0 7.09091%;" class="c-table__contents__item justify-center">
-                    <v-menu :location="location">
+                  <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-gray500">
                                 mdi-dots-vertical
@@ -144,12 +144,12 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="getCargoDetail(item)">
-                                        <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                  <div class=" pointer" @click="print(item)">
+                                    <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14300">
                                             پرینت بسته های کارگو
                                         </span>
-                                    </div>
+                                  </div>
                                 </v-list-item-title>
                             </v-list-item>
 
@@ -178,32 +178,27 @@
             </div>
         </div>
     </div>
-    <ModalCargoDetail />
+
 
 </div>
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+
 import {
     SupplierPanelFilter
 } from "@/assets/js/filter_supplier"
-import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
 
-import ActivationModal from "@/components/Public/ActivationModal.vue";
+
+
 import {
     openConfirm,
     isOdd,
     convertDateToJalai
 } from "@/assets/js/functions";
-import ModalCargoDetail from "@/components/Cargo/Modal/ModalCargoDetail.vue";
 export default {
     components: {
-        ModalCargoDetail,
-        ModalRequestShipment,
-        ActivationModal,
+
     },
 
     props: {
@@ -262,13 +257,7 @@ export default {
             default: false
         },
 
-        /**
-         * Edit endpoint for change active
-         */
-        activePath: {
-            type: String,
-            default: ''
-        },
+
 
     },
 
@@ -295,17 +284,13 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            isIndex: [],
-            isFollow: [],
             panelFilter: new SupplierPanelFilter(),
-            activeColumn: false,
+
         }
     },
 
     computed: {
-        PrintPermission() {
-            return ['waiting', 'in_review']
-        },
+
         deleteAndShippingPermission() {
             return ['approved', 'sending_warehouse', 'received_by_warehouse',
                 'counting', 'approved_by_warehouse', 'sending_base_warehouse',
@@ -332,16 +317,6 @@ export default {
         /**
          * Check is_active is true or false for show in table
          */
-        checkActive() {
-            this.header.forEach(element => {
-                if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == true) {
-                    this.activeColumn = true;
-                } else if ((element.value === 'is_active' || element.value === 'is_follow' || element.value === 'is_index') && element.show == false) {
-                    this.activeColumn = false;
-                }
-            });
-            return this.activeColumn;
-        },
     },
 
     watch: {
@@ -357,6 +332,13 @@ export default {
     },
 
     methods: {
+
+      print(object) {
+
+        window.open(`${ import.meta.env.VITE_API_SITEURL}cargo-management/${object.id}/print`, '_blank');
+
+
+      },
         checkPermission(status, permissions) {
             const index = permissions.findIndex(p => p === status)
             if (index > -1) return true
@@ -367,36 +349,11 @@ export default {
             return persianStatus.label
         },
         convertDateToJalai,
-        changeValue(index, value) {
-            this.active[index] = value
-        },
         /**
          * requestShipment modal
          */
-        requestShipment(item) {
-            const form = {
-                dialog: true,
-                object: item
-            }
-            this.$store.commit('set_modalRequestShipment', form)
-        },
-        /**
-         * retailShipment detail modal
-         */
-        async getCargoDetail(item) {
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `cargo/crud/get/${item.id}`
-            let data = await AxiosMethod.axios_get()
-            if (data) {
-                const form = {
-                    dialog: true,
-                    object: data.data
-                }
-                this.$store.commit('set_ModalCargoDetail', form)
-            }
-        },
+
+
         /**
          * Get row index in table
          * @param {*} index
@@ -419,21 +376,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-                if (index) {
-                    if (this.order_type === 'desc') {
-                        this.order_type = 'asc'
-                        this.panelFilter.order_type = 'asc'
-                    } else {
-                        this.order_type = 'desc'
-                        this.panelFilter.order_type = 'desc'
-                    }
-
-                    this.panelFilter.order = index
-                    this.$router.push(this.$route.path + this.panelFilter.sort_query(this.$route.query))
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
+              if (index) {
+                let query = this.$route.query
+                if (this.order_type === 'desc') {
+                  this.order_type = 'asc'
+                } else {
+                  this.order_type = 'desc'
                 }
+                this.$router.replace({
+                  query: {
+                    ...query,
+                    order_type :this.order_type,
+                    order :index
+                  }
+                })
+
+                this.ordering = {};
+                this.ordering[index] = !this.ordering[index];
+              }
             }
         },
 
@@ -445,10 +405,7 @@ export default {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
 
-        returnTrueOrFalse(data) {
-            if (data === 1) return true
-            else return false
-        },
+
 
         /**
          * Return odd index

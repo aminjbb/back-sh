@@ -153,11 +153,9 @@ export default {
             pageLength,
             getSliderSkuList,
             skuList,
-            filterField,
             dataTableLength,
             page,
             SliderSkuHeader,
-            addPagination,
             addPerPage,
             loading,
         } = Page();
@@ -165,11 +163,9 @@ export default {
             pageLength,
             getSliderSkuList,
             skuList,
-            filterField,
             dataTableLength,
             page,
             SliderSkuHeader,
-            addPagination,
             addPerPage,
             loading,
         };
@@ -189,9 +185,6 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.SliderHeader[index].show = value
-        },
         async searchSku(search) {
             this.skuSearchList = []
 

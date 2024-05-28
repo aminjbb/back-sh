@@ -28,8 +28,9 @@ export default function setup() {
     const filterField = [
         { name: 'نام انگلیسی', type: 'text', value: 'name' },
         { name: 'نام فارسی', type: 'text', value: 'label' },
+        { name: 'شناسه رنگ', type: 'text', value: 'id' },
         { name: 'گروه', type: 'text', value: 'group' },
-        { name: 'فعال سازی ', type: 'select', value: 'active' },
+        { name: 'فعال سازی ', type: 'select', value: 'is_active' },
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
     ];
@@ -40,17 +41,51 @@ export default function setup() {
     const isFilterPage =ref(false)
     const filter = new PanelFilter()
 
-    async function getColor(query) {
+    async function getColor() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `product/color/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `product/color/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -95,36 +130,7 @@ export default function setup() {
             colorGroups.value = data.data
             loading.value = false
         }
-    };
-
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/color/index'+ filter.params_generator(route.query))
     }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/color/index'+ filter.params_generator(route.query))
-    }
-
-    onBeforeRouteUpdate(async (to, from) => {
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-       await getColor(to)
-    })
-
-    watch(page, function (val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return { pageLength, filterField, color, getColor, getGroupColor,getAllColor, allColors, colorGroups, addPerPage, dataTableLength, page, header, item , loading}
+    return { pageLength, filterField, color, getColor, getGroupColor,getAllColor, allColors, colorGroups, dataTableLength, page, header, item , loading}
 }
 

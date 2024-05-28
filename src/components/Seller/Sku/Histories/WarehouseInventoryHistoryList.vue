@@ -13,7 +13,9 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="headerWarehouseInventoryHistory" />
 
-            <ModalTableFilter path="seller/index" :filterField="filterField" />
+            <PanelFilter
+                path="seller/index"
+                :filterField="filterField"/>
           </v-row>
         </v-col>
       </v-row>
@@ -60,16 +62,16 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">
+                تعداد سطر در هر صفحه
+              </span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                 <v-select
+                     v-model="dataTableLength"
+                     class="t1330"
+                     variant="outlined"
+                     :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -80,13 +82,13 @@
 
 <script>
 import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
-import Seller from "@/composables/Seller";
-import ModalTableFilter from '@/components/Seller/Filter/Filter.vue'
+import Seller from "@/composables/Seller"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
+import {openToast} from "@/assets/js/functions"
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 export default {
-  setup(props) {
+  setup() {
     const {
       pageLength,
       sellerList,
@@ -94,7 +96,6 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     } = Seller();
@@ -105,15 +106,14 @@ export default {
       dataTableLength,
       page,
       headerWarehouseInventoryHistory,
-      addPagination,
       addPerPage,
       loading
     };
   },
 
   components: {
+    PanelFilter,
     Table,
-    ModalTableFilter,
     ModalColumnFilter,
     ModalExcelDownload,
   },

@@ -59,15 +59,48 @@ export default function setup() {
         }
     };
 
-    async function  getExports(query ) {
+    async function  getExports( ) {
         loading.value = true
-        var formdata  ={}
-        if (query) {
-            var formdata  = query
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'export/crud/index'
-        AxiosMethod.form = formdata
         AxiosMethod.using_auth =  true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         let data = await AxiosMethod.axios_get()

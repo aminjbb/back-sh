@@ -1,7 +1,8 @@
 <script setup>
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import Header from '@/components/Public/Header.vue'
-import UpcomingPrintDetail from '@/components/UpComing/UpcomingPrintDetail.vue'
+import {defineAsyncComponent} from "vue";
+const UpcomingPrintDetail = defineAsyncComponent(()=> import ('@/components/UpComing/UpcomingPrintDetail.vue'))
+
+
 </script>
 
 <template>

@@ -188,21 +188,8 @@ export default {
     ModalNotProvidable
   },
   props: {
-    updateSkuUrl:{
-      type: String,
-      default: '',
-    },
-    /**
-     * Update button url
-     */
-    updateUrl: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Edit button url
-     */
-    editUrl: '',
+
+
 
     /**
      * List Items for header
@@ -249,29 +236,7 @@ export default {
       default: '500',
     },
 
-    /**
-     * Edit endpoint for change filter
-     */
-    editPath: {
-      type: String,
-      default: ''
-    },
 
-    /**
-     * Edit endpoint for change active
-     */
-    activePath: {
-      type: String,
-      default: ''
-    },
-
-    /**
-     * Edit endpoint for change Sellable
-     */
-    sellablePath: {
-      type: String,
-      default: ''
-    },
 
     /**
      * Get orders
@@ -304,10 +269,6 @@ export default {
       default: false
     },
 
-    uploadImageUrl: {
-      type: String,
-      default: ''
-    }
   },
 
   data() {
@@ -325,7 +286,7 @@ export default {
       filter: [],
       panelFilter: new PanelFilter(),
       skuPanelFilter: new SkuPanelFilter(),
-      activeColumn: false,
+
     }
   },
 
