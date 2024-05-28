@@ -66,15 +66,15 @@
 
           <div
 
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item text-right d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.shps_count }}
-                    </span>
+                {{ item.requested_count }}
+              </span>
           </div>
           <div
 
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                 {{ item.min_tolerance }}
@@ -83,14 +83,14 @@
           </div>
           <div
 
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14300 text-gray500 py-5 number-font ">
                 {{ item.max_tolerance }}
               </span>
           </div>
           <div
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                {{ item.left_over_count }}
@@ -126,7 +126,7 @@
               class="c-table__contents__item justify-start px-0"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span>
-                <img :src="item?.image?.image_url" width="70" height="70">
+                <img :src="item?.image_url" width="70" height="70">
               </span>
           </div>
           <div
