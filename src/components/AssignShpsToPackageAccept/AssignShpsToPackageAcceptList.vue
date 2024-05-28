@@ -201,14 +201,12 @@ export default {
 
     async filterShps() {
       if (this.barcodeShps && this.barcodeShps !== "") {
-        const filterData = this.shipmentShpsListFilterd.find(element => {
-          return element.barcode == this.barcodeShps
+        const filterData = this.assignShpsAcceptList.find(element => {
+          return element.barcode === this.barcodeShps
         })
-
         if (filterData) {
-          this.shipmentShpsListFilterd = []
-
-          this.shipmentShpsListFilterd.push(filterData)
+          this.assignShpsAcceptList = []
+          this.assignShpsAcceptList.push(filterData)
         } else {
           openToast(this.$store, 'شناسه کالا وجود ندارد')
         }
