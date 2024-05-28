@@ -1318,14 +1318,7 @@ const router = createRouter({
                     name: 'محموله های درخواستی '
                 }
             },
-                {
-                    path: ':shipmentRequestId/print',
-                    name: 'PrintShipmentRequestView',
-                    component: PrintShipmentRequestView,
-                    meta: {
-                        name: 'محموله های بازرگانی'
-                    }
-                },
+
                 {
                     path: ':shipmentRequestDetailId/print-detail',
                     name: 'PrintShipmentRequestDetailView',

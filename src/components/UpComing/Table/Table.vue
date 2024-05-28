@@ -318,8 +318,9 @@ export default {
   methods: {
     convertDateToJalai,
 
-    print(retailObject) {
-      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${retailObject.id}/print`, '_blank');
+    print(item) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${item.id}/print`, '_blank');
+
     },
 
     translateType(type) {
