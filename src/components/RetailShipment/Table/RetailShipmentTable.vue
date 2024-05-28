@@ -292,9 +292,10 @@ export default {
                 }, {
                     label: 'در حال جایگذاری',
                     value: 'locating',
-                }, {
+                },
+              {
                     label: 'موجود شده در انبار',
-                    value: 'located',
+                    value: 'available_in_warehouse',
                 },
             ],
             order_type: "desc",
@@ -363,7 +364,9 @@ export default {
         },
         getStatus(status) {
             const persianStatus = this.statusItems.find(element => element.value === status)
+          if (persianStatus){
             return persianStatus.label
+          }
         },
         convertDateToJalai,
 

@@ -6,7 +6,7 @@
           align="center"
           class="px-10 py-4">
         <v-col cols="6" >
-          <AddOccasionBannerModal/>
+          <AddOccasionBannerModal @updateList="getOccasionBanners"/>
         </v-col>
 
         <v-col cols="6">
@@ -87,18 +87,21 @@ export default {
 
   watch: {
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
           this.getOccasionBanners();
           openToast(
               this.$store,
-              'بننر مورد نظر با موفقیت حذف شد',
+              'بنر مورد نظر با موفقیت حذف شد',
               "success"
           );
-          this.$cookies.remove('deleteItem')
+          localStorage.removeItem('deleteObject')
         }
       }
     },
+    $route(){
+      this.getOccasionBanners();
+    }
   }
 }
 </script>

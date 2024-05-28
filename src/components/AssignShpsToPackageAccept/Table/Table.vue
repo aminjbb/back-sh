@@ -41,13 +41,12 @@
             :class="oddIndex(index) ? 'bg-gray90' : ''"
             class="d-flex justify-start">
           <div
-
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
-                            {{ rowIndexTable(index) }}
-                        </span>
+              <span class="t14300 text-gray500 py-5 number-font">
+                {{ rowIndexTable(index) }}
+              </span>
               <template v-if="checkbox">
                 <v-checkbox class="mr-1" v-model="item.value"/>
               </template>
@@ -55,7 +54,6 @@
           </div>
 
           <div
-
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
@@ -63,34 +61,8 @@
                     </span>
           </div>
 
-
           <div
-
-              class="c-table__contents__item text-right"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.shps_count }}
-                    </span>
-          </div>
-          <div
-
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-                {{ item.min_tolerance }}
-              </span>
-
-          </div>
-          <div
-
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
-                {{ item.max_tolerance }}
-              </span>
-          </div>
-          <div
-              class="c-table__contents__item"
+              class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                {{ item.left_over_count }}
@@ -98,42 +70,17 @@
           </div>
 
           <div
-
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0.1 0 ${itemsWidth}` }"
-          style="width: 100px">
-              <div class="t14300 text-gray500 py-5 number-font w-100">
-                <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
-              </div>
-          </div>
-          <div
-              v-if="  model === 'upcoming'"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <div class="t14300 text-gray500 py-5 number-font">
-                <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].price" variant="outlined"/>
-              </div>
+              style="width: 100px">
+            <div class="t14300 text-gray500 py-5 number-font w-100">
+              <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
+            </div>
           </div>
 
           <div
-              v-if="  form[index] && model === 'shavaz'"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                <AddBarcodeModal :getShipmentShpslist="getShipmentShpslist" :barcode="item.barcode" :skuId="item.sku_id"/>
-          </div>
-          <div
-
-              class="c-table__contents__item justify-start px-0"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span>
-                <img :src="item?.image?.image_url" width="70" height="70">
-              </span>
-          </div>
-          <div
-              v-if="  form[index] && model === 'shavaz'"
-              class="c-table__contents__item"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-
             <v-progress-circular
                 v-if="form[index].loading"
                 indeterminate
@@ -197,11 +144,6 @@ export default {
      * List of items
      */
     items: [],
-
-    /**
-     * Delete Path
-     */
-    deletePath: '',
 
     /**
      * Model
@@ -294,11 +236,11 @@ export default {
 
   watch: {
     items(val){
-      this.form= []
+      this.form = []
       this.items.forEach(element => {
         const form = {
           loading: false,
-          count: element.approved_count,
+          count: element.packed_count,
         }
         this.form.push(form)
       })
@@ -357,14 +299,6 @@ export default {
 
     },
 
-    /**
-     * Get icon
-     * @param {*} column
-     */
-    getIcon(column) {
-      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-
     validate(item , index){
       this.updateShps(index)
     },
@@ -381,10 +315,11 @@ export default {
         AxiosMethod.using_auth = true
         AxiosMethod.store = this.$store
         AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'shipment/shps/count'
+        AxiosMethod.end_point = 'shipment/shps/pack'
         formData.append('shipment_id', this.$route.params.shipmentId)
         formData.append('shps', this.items[index].shps)
-        formData.append('approved_count', this.form[index].count)
+        formData.append('package_id', this.packId)
+        formData.append('packed_count', this.form[index].count)
         AxiosMethod.form = formData
         let data = await AxiosMethod.axios_post()
         if (data) {

@@ -9,6 +9,7 @@ export default function setup() {
        { name: 'ردیف', show: true , value:null, order:false},
        { name: 'شناسه سفارش', show: true , value:'id', order: false},
        { name: 'شماره سفارش', show: true , value:'order_number', order: false},
+       { name: 'سازنده', show: true , value:'creator', order: false},
        { name: 'نام کاربر', show: true, value:'user' , order: false},
        { name: 'شماره کاربر', show: true, value:'phone_number' , order: false},
        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},

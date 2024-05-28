@@ -24,27 +24,52 @@ export default function setup() {
 
     const filterField = [
         {name:'دستگاه' , type:'select', value:'device' ,},
-        {name:'زمان شروع' , type:'date', value:'start_date'},
-        {name:'زمان پایان' , type:'date', value:'end_date'},
+        {name:'زمان شروع' , type:'date', value:'start_time'},
+        {name:'زمان پایان' , type:'date', value:'end_time'},
         {name:'سازنده' , type:'autocomplete', value:'creator_id'},
         {name:'وضعیت' , type:'select', value:'is_active'},
     ];
 
-    async function  getOccasionBanners(query) {
+    async function  getOccasionBanners() {
         const AxiosMethod = new AxiosCall()
-        if (!route.query.per_page ){
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+        let query = route.query
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
         }
         else{
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')

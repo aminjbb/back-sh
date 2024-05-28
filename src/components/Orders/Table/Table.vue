@@ -113,7 +113,12 @@
                 <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13400 text-gray500 py-5">
                         <template v-if="item.payment_method">
+                          <span v-if="item.snapp_transaction_id">
+                            اسنپ پی
+                          </span>
+                          <span v-else>
                             {{ getPaymentMethod(item.payment_method) }}
+                          </span>
                         </template>
                         <template v-else>
                             -

@@ -372,17 +372,16 @@ export default {
         this.$router.replace({
           query: {
             ...query,
-            order_type :this.order_type,
-            order :index
+            order_type: this.order_type,
+            order: index
           }
         })
 
         this.ordering = {};
         this.ordering[index] = !this.ordering[index];
       }
-      }
-
     },
+
 
     /**
      * Get icon
@@ -400,9 +399,9 @@ export default {
      */
     async updateRetailShipment(index) {
       try {
-        console.log(this.form[index].minTolerance , this.form[index].maxTolerance)
-        if (parseInt(this.form[index].count )>= 0 && parseInt(this.form[index].minTolerance )>= 0 && parseInt(this.form[index].maxTolerance )>= 0) {
-          if (parseInt(this.form[index].minTolerance )> parseInt(this.form[index].maxTolerance)) {
+        console.log(this.form[index].minTolerance, this.form[index].maxTolerance)
+        if (parseInt(this.form[index].count) >= 0 && parseInt(this.form[index].minTolerance) >= 0 && parseInt(this.form[index].maxTolerance) >= 0) {
+          if (parseInt(this.form[index].minTolerance) > parseInt(this.form[index].maxTolerance)) {
             openToast(
                 this.$store,
                 'تلورانس پایین نمیتواند بیشتر از تلورانس بالا باشد',
@@ -483,5 +482,6 @@ export default {
       console.log('2.skuTable', status)
       this.$emit('updateList', status);
     },
+  },
 }
 </script>

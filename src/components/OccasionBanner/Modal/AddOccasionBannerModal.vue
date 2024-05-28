@@ -19,7 +19,7 @@
       </template>
       افزودن بنر
     </v-btn>
-    <v-dialog v-model="dialog" width="908">
+    <v-dialog v-model="dialog" width="1080">
       <v-card>
         <v-row
             justify="space-between"
@@ -104,7 +104,19 @@
                     :rules="rule"
                     v-model="form.pages"
                     :items="pages"
-                />
+                >
+                  <template v-slot:selection="{ item, index }">
+                    <v-chip v-if="index < 2">
+                      <span>{{ item.title }}</span>
+                    </v-chip>
+                    <span
+                        v-if="index === 2"
+                        class="text-grey text-caption align-self-center"
+                    >
+                    (+{{ form.pages.length - 2 }} others)
+                  </span>
+                  </template>
+                </v-select>
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
@@ -207,6 +219,7 @@
               variant="text"
               height="40"
               rounded
+              @click="dialog = false"
               class="px-5 mt-1">
 
             انصراف
@@ -258,7 +271,7 @@ export default {
       ],
 
       pages:[
-        {title:'انتخاب همه' , value:'all'},
+        // {title:'انتخاب همه' , value:'all'},
         {title:'دسته بندی' , value:'category'},
         {title:'برند' , value:'brand'},
         {title:'کالا' , value:'sku'},
@@ -298,6 +311,8 @@ export default {
       try {
         const startDateSplit = this.form.startDate.split(' ')
         const endDateSplit = this.form.endDate.split(' ')
+        const startTimeSplit = startDateSplit[1].split(':')
+        const endTimeSplit = endDateSplit[1].split(':')
         this.loading = true
         let formData = new FormData();
         let endPoint = null
@@ -307,8 +322,8 @@ export default {
         AxiosMethod.end_point = endPoint
         formData.append('link', this.form.link)
         formData.append(`image_alt`, this.form.imageAlt)
-        formData.append(`start_time`,`${ convertDateToGregorian(startDateSplit[0] ,'/' , false)} ${startDateSplit[1]}`)
-        formData.append(`end_time`,`${ convertDateToGregorian(endDateSplit[0] ,'/' , false)} ${endDateSplit[1]}`)
+        formData.append(`start_time`,`${ convertDateToGregorian(startDateSplit[0] ,'/' , false)} ${startTimeSplit[0]}:${startTimeSplit[1]}:00`)
+        formData.append(`end_time`,`${ convertDateToGregorian(endDateSplit[0] ,'/' , false)} ${endTimeSplit[0]}:${endTimeSplit[1]}:00`)
         if (this.form.imageDesktop)  formData.append('desktop_image_id', this.form.imageDesktop)
         if (this.form.imageTablet)  formData.append('tablet_image_id', this.form.imageTablet)
         if (this.form.imageMobile)  formData.append('mobile_image_id', this.form.imageMobile)
@@ -318,8 +333,14 @@ export default {
         this.form.pages.forEach((page , index)=>{
           formData.append(`pages[${index}]`, page)
         })
+        if (this.type === 'edit'){
+          if (this.banner.is_active) formData.append('is_active', 1)
+          else  formData.append('is_active', 0)
+        }
+        else formData.append('is_active', 0)
+
         AxiosMethod.form = formData
-        formData.append('is_active', 0)
+
         AxiosMethod.store = this.$store
         AxiosMethod.using_auth = true
         AxiosMethod.toast_error = true
@@ -328,8 +349,12 @@ export default {
         if (data) {
           openToast(this.$store , 'بنرر با موفقیت آپلود شد' , 'success')
           this.loading = false
+          this.dialog = false
+          this.$emit('updateList')
+          this.resetForm()
         } else {
           this.loading = false
+
         }
       }
       catch (e) {
@@ -337,11 +362,25 @@ export default {
         console.log(e)
       }
     },
+    resetForm(){
+      this.form = {
+        device: [],
+        pages: [],
+        link:'',
+        imageAlt: '',
+        imageDesktop:'',
+        imageTablet:'',
+        imageMobile:'',
+        imageUrl:'',
+        startDate:null,
+        endDate:null
+      }
+    },
     setForm(){
       try {
-        let startDateSplit = this.banner.start_time.split('T')
+        let startDateSplit = this.banner.start_time.split(' ')
         startDateSplit = startDateSplit[1].split('.')
-        let endDateSplit = this.banner.end_time.split('T')
+        let endDateSplit = this.banner.end_time.split('')
         endDateSplit = endDateSplit[1].split('.')
         this.form.link = this.banner.link
         this.form.imageAlt = this.banner.image_alt

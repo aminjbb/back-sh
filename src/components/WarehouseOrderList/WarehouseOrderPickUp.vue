@@ -119,7 +119,7 @@
       </div>
     </div>
   </template>
-  <template v-else-if="pickUpIsNull && pickUpDone && !notFound">
+  <template v-else-if=" pickUpDone && !notFound">
     <div class="h-100 bg-success d-flex  justify-center align-center">
       <div>
         <div class="d-flex justify-center">
@@ -138,9 +138,9 @@
               height="40"
               width="348"
               rounded
-              @click="$router.push('/locating/dashboard')"
+              @click="getNextTask()"
               class="px-8 mt-5">
-            بازگشت به داشبورد
+            جمع آوری کالای بعدی
           </v-btn>
 
         </div>
@@ -212,7 +212,7 @@ export default {
       notFound:false,
       shelfBarcode:'',
       autoSend:'automate',
-      lastBarcode:null
+      lastBarcode:null,
 
     }
   },
@@ -244,7 +244,9 @@ export default {
         if (data) {
           this.loading = false
           this.shpssBarCode = ''
-          this.getPickUpShps()
+          if (this.pickUpCount > 1)   this.getPickUpShps()
+          else this.pickUpDone = true
+
         }
         else {
           this.loading = false
@@ -255,6 +257,10 @@ export default {
         this.shpssBarCode = ''
         this.loading = false
       }
+    },
+    async getNextTask(){
+      await this.getPickUpShps()
+      this.pickUpDone = false
     },
     async notFoundTask() {
       try {

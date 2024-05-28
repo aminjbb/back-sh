@@ -7,6 +7,7 @@ import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
 
 export default function setup() {
     const upComingList = ref([]);
+    const confirmedShipmentList = ref([]);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -53,18 +54,42 @@ export default function setup() {
         let query = route.query
         AxiosMethod.using_auth = true
         if ( !route.query.per_page ){
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
         }
         else{
-            AxiosMethod.form = {
-                ...query,
-                page:page.value,
-                per_page : dataTableLength.value
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
             }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/upcoming/`
@@ -79,10 +104,68 @@ export default function setup() {
             } , 1000)
         }
     }
+    async function getConfirmedShipment() {
+        filter.factor = route.params.factorId
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        let query = route.query
+        AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `shipment/shps/confirmed/index`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            confirmedShipmentList.value = data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 1000)
+        }
+    }
+
 
     return {
         pageLength, filterField,upComingList, getUpComingList,
-        dataTableLength, page, header, loading
+        dataTableLength, page, header, loading ,getConfirmedShipment ,confirmedShipmentList
     }
 }
 

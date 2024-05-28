@@ -41,20 +41,22 @@
               </v-col>
 
             </v-row>
+
+          </div>
+          <div>
+            <v-btn
+                @click="shelfScanBarcode()"
+                color="primary500"
+                height="40"
+                width="348"
+                variant="flat"
+                rounded
+                class="px-8 mt-2">
+              تایید
+            </v-btn>
           </div>
         </div>
-        <div class="px-5 d-flex justify-center " style="  position: absolute; bottom: 8px; left: 0;right: 0;">
-          <v-btn
-              @click="shelfScanBarcode()"
-              color="primary500"
-              height="40"
-              width="348"
-              variant="flat"
-              rounded
-              class="px-8 mt-2">
-            تایید
-          </v-btn>
-        </div>
+
       </div>
 
     </template>
