@@ -1,6 +1,6 @@
 <script setup>
 import {defineAsyncComponent} from "vue";
-const EditHomePageSpecialSale = defineAsyncComponent(()=> import ('@/components/Admin/RolePermission/RolePermissionList.vue'))
+const EditHomePageSpecialSale = defineAsyncComponent(()=> import ('@/components/HomePage/Add/EditHomePageSpecialSale.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
