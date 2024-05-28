@@ -8,7 +8,7 @@
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
           <v-col cols="2">
-            <v-btn @click="close()" variant="icon">
+            <v-btn @click="dialog = false" variant="icon">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="text-center px-5" >
-          <BannerForm status="edit" ref="BannerForm"/>
+          <BannerForm :bannerObject="bannerObject" status="edit" ref="BannerForm"/>
         </div>
 
         <div class="mt-3 mb-8 px-5">
@@ -44,7 +44,7 @@
             تایید
           </v-btn>
           <v-btn
-              @click="close()"
+              @click="dialog = false"
               variant="text"
               height="40"
               rounded
@@ -69,7 +69,8 @@ export  default {
   },
   data(){
     return{
-
+      dialog:false,
+      bannerObject:null
     }
   },
   methods:{
@@ -106,7 +107,7 @@ export  default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
-        this.close()
+        this.dialog = false
       }
       else{
         this.loading=false
@@ -121,13 +122,5 @@ export  default {
     }
   },
 
-  computed:{
-    dialog(){
-      return this.$store.getters['get_homePageBannerModal']
-    },
-    bannerObject(){
-      return this.$store.getters['get_homePageBannerObject']
-    }
-  }
 }
 </script>
