@@ -1,6 +1,6 @@
 <script setup>
 import {defineAsyncComponent} from "vue";
-const ManualOrderList = defineAsyncComponent(()=> import ('@/components/Admin/RolePermission/RolePermissionList.vue'))
+const ManualOrderList = defineAsyncComponent(()=> import ('@/components/ManualOrder/ManualOrderList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 </script>
