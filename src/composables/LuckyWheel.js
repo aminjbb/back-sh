@@ -25,12 +25,11 @@ export default function setup() {
     ]);
     const prizesHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'اسم گردونه', show: true , value:'label', order: false},
-        { name: 'لیبل', show: true, value:'name' , order: false},
-        { name: 'تاریخ شروع', show: true , value:'start_date', order: true},
-        { name: 'تاریخ پایان', show: true , value:'end_date', order: true},
-        { name: 'تعداد شانس', show: true , value:'chance', order: false},
-        { name: 'وضعیت', show: true , value:'is_active', order: false},
+        { name: 'کد تخفیف', show: true , value:'voucher', order: false},
+        { name: 'نام کد تخفیف', show: true, value:'name' , order: false},
+        { name: 'لیبل کد تخفیف', show: true , value:'label', order: true},
+        { name: 'میزان درصد شانس', show: true , value:'chance', order: true},
+        { name: 'مدت زمان استفاده', show: true , value:'time', order: false},
     ]);
     const filterField = [
         { name: 'شناسه بسته', type:'text', value:'package_id'},
@@ -92,17 +91,15 @@ export default function setup() {
 
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `report/crud/index`
+        AxiosMethod.end_point = 'game/lucky-wheel/crud/index'
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
             luckyWheel.value = data.data.data
+            console.log(luckyWheel.value, 'luckyWheel.value')
             loading.value = false
         }
-
-        else {
-        }
-    };
+    }
 
 
     return {pageLength, luckyWheel , getLuckyWheelList, dataTableLength, page, header,loading , filterField , prizesHeader }

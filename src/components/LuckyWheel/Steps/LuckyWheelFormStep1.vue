@@ -15,7 +15,7 @@
             <span class="text-error">*</span>
           </div>
           <div class="mt-2">
-            <v-text-field variant="outlined" v-model=" form.label" :rules="rule"/>
+            <v-text-field variant="outlined" v-model="label" :rules="rule"/>
           </div>
         </v-col>
         <v-col cols="4">
@@ -24,7 +24,7 @@
             <span class="text-error">*</span>
           </div>
           <div class="mt-2">
-            <v-text-field variant="outlined" v-model=" form.name" :rules="rule"/>
+            <v-text-field variant="outlined" v-model="name" :rules="rule"/>
           </div>
         </v-col>
         <v-col cols="4">
@@ -33,13 +33,13 @@
             <span class="text-error">*</span>
           </div>
           <div class="mt-2">
-            <v-text-field class="input-start-date" variant="outlined" v-model=" form.startDate" :rules="rule"/>
+            <v-text-field class="input-start-date" variant="outlined" v-model="startDate" :rules="rule"/>
             <date-picker
                 clearable
                 type="datetime"
                 display-format="jYYYY-jMM-jDD"
                 :custom-input="`.input-start-date`"
-                v-model="form.startDate" />
+                v-model="startDate" />
           </div>
         </v-col>
         <v-col cols="4">
@@ -48,13 +48,13 @@
             <span class="text-error">*</span>
           </div>
           <div class="mt-2">
-            <v-text-field class="input-end-date" variant="outlined" v-model=" form.endDate" :rules="rule"/>
+            <v-text-field class="input-end-date" variant="outlined" v-model="endDate" :rules="rule"/>
             <date-picker
                 clearable
                 type="datetime"
                 display-format="jYYYY-jMM-jDD"
                 :custom-input="`.input-end-date`"
-                v-model="form.endDate" />
+                v-model="endDate" />
           </div>
         </v-col>
         <v-col cols="4">
@@ -63,7 +63,7 @@
             <span class="text-error">*</span>
           </div>
           <div class="mt-2">
-            <v-text-field variant="outlined" v-model=" form.chance" :rules="rule"/>
+            <v-text-field variant="outlined" v-model="chance" :rules="rule"/>
           </div>
         </v-col>
       </v-row>
@@ -79,17 +79,37 @@
       return{
         valid:true,
         rule: [v => !!v || "این فیلد الزامی است"],
-        form:{
-          label:null,
-          name :null,
-          startDate:null,
-          endDate:null,
-          chance:null
-        }
+        label:null,
+        name :null,
+        startDate:null,
+        endDate:null,
+        chance:null,
       }
     },
     components:{
       datePicker: VuePersianDatetimePicker
+    },
+
+    watch: {
+      label(label){
+        this.$emit('label',label)
+      },
+
+      name(name){
+        this.$emit('name',name)
+      },
+
+      startDate(startDate){
+        this.$emit('startDate',startDate)
+      },
+
+      endDate(endDate){
+        this.$emit('endDate',endDate)
+      },
+
+      chance(chance){
+        this.$emit('chance',chance)
+      },
     }
   }
 </script>

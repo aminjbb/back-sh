@@ -6,7 +6,7 @@
       </span>
     </div>
     <v-divider/>
-    <div >
+    <div>
       <v-form ref="LuckyWheelStep1Form" v-model="valid">
         <v-row justify="start" align="end" class="pa-5">
           <v-col cols="3">
@@ -15,7 +15,20 @@
               <span class="text-error">*</span>
             </div>
             <div class="mt-2">
-              <v-autocomplete variant="outlined" v-model=" form.label" :rules="rule"/>
+              <v-autocomplete
+                  variant="outlined"
+                  v-model="form.voucher"
+                  :rules="rule"
+                  :items="voucehrList"
+                  v-debounce="searchVoucher">
+                <template v-slot:item="item">
+                  <v-list-item>
+                    <div class="text-right pointer">
+                      {{item.item.value.name}}
+                    </div>
+                  </v-list-item>
+                </template>
+              </v-autocomplete>
             </div>
           </v-col>
           <v-col cols="2">
@@ -33,8 +46,7 @@
               <span class="text-error">*</span>
             </div>
             <div class="mt-2">
-              <v-text-field variant="outlined" v-model=" form.startDate" :rules="rule"/>
-
+              <v-text-field variant="outlined" v-model=" form.label" :rules="rule"/>
             </div>
           </v-col>
           <v-col cols="2">
@@ -43,7 +55,7 @@
               <span class="text-error">*</span>
             </div>
             <div class="mt-2">
-              <v-text-field class="input-end-date" variant="outlined" v-model=" form.endDate" :rules="rule"/>
+              <v-text-field variant="outlined" v-model="form.chance" :rules="rule"/>
             </div>
           </v-col>
           <v-col cols="3">
@@ -52,7 +64,7 @@
               <span class="text-error">*</span>
             </div>
             <div class="mt-2">
-              <v-text-field variant="outlined" v-model=" form.chance" :rules="rule"/>
+              <v-text-field variant="outlined" v-model="form.time" :rules="rule"/>
             </div>
           </v-col>
           <v-col cols="12">
@@ -61,10 +73,10 @@
               <span class="text-error">*</span>
             </div>
             <div class="mt-2">
-              <v-text-field variant="outlined" v-model=" form.chance" :rules="rule"/>
+              <v-text-field variant="outlined" v-model="form.description" :rules="rule"/>
             </div>
           </v-col>
-          <v-col cols="10">
+          <v-col cols="5">
             <div class="text-right mb-3">
                   <span>
                    تصویر کد تخفیف
@@ -74,8 +86,26 @@
             <UploadFileSection @getImage="getImage()"/>
             <div class="d-flex align-center mt-5" v-if="form.imageMobile">
               <span>IMG-{{ form.imageMobile }}</span>
-              <span class="mr-15"><v-icon @click="removeItem(form.imageMobile , 'mobile')"
-                                          color="error">mdi-delete</v-icon></span>
+              <span class="mr-15">
+                <v-icon
+                    @click="removeItem(form.imageMobile , 'mobile')"
+                    color="error">mdi-delete</v-icon></span>
+            </div>
+          </v-col>
+          <v-col cols="5">
+            <div class="text-right mb-3">
+                  <span>
+                   تصویر کد تخفیف موبایل
+                  </span>
+              <span class="text-error">*</span>
+            </div>
+            <UploadFileSection @getImage="getImageMobile()"/>
+            <div class="d-flex align-center mt-5" v-if="form.imageMobile">
+              <span>IMG-{{ form.imageMobile }}</span>
+              <span class="mr-15">
+                <v-icon
+                    @click="removeItem(form.imageMobile , 'mobile')"
+                    color="error">mdi-delete</v-icon></span>
             </div>
           </v-col>
           <v-col cols="2">
@@ -97,7 +127,7 @@
         <Table
             class="flex-grow-1"
             :header="prizesHeader"
-            :items="[]"
+            :items="prizeList"
             :page="1"
             :perPage="25"
             :loading="loading"
@@ -114,6 +144,7 @@ import {defineAsyncComponent} from "vue";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
 import {openConfirm} from "@/assets/js/functions";
 import LuckyWheel from "@/composables/LuckyWheel";
+import {AxiosCall} from "@/assets/js/axios_call";
 const Table = defineAsyncComponent(()=> import('@/components/LuckyWheel/Table/PrizesTable.vue'))
 const UploadFileSection = defineAsyncComponent(() => import('@/components/Public/UploadFileSection.vue'))
 export default {
@@ -136,13 +167,18 @@ export default {
       valid: true,
       rule: [v => !!v || "این فیلد الزامی است"],
       form: {
-        label: null,
         name: null,
-        startDate: null,
-        endDate: null,
+        label: null,
+        voucher: null,
         chance: null,
-        image: null
-      }
+        time: null,
+        image: null,
+        imageMobile: null,
+        description: null
+      },
+      voucherSearchList: [],
+      prizeList:[],
+
     }
   },
   components: {
@@ -150,17 +186,63 @@ export default {
     UploadFileSection,
     Table
   },
+
+  computed: {
+    voucehrList () {
+      try {
+        let voucher = []
+        this.voucherSearchList.forEach(permission => {
+          const form = {
+            name: permission?.name,
+            id: permission?.id,
+          }
+          voucher.push(form)
+        })
+        return voucher
+      } catch (e) {
+        return []
+      }
+    }
+  },
+
   methods: {
+    async searchVoucher(search) {
+      this.voucherSearchList = []
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `voucher/crud/index?label=${search}`
+
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.voucherSearchList = data.data.data
+      }
+    },
+
     getImage(image) {
       this.form.image = image.data.data.image_id
+    },
+    getImageMobile(image) {
+      this.form.imageMobile = image.data.data.image_id
     },
 
     removeItem(id, status) {
       this.imageId = id;
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
-    createPrize() {
 
+    createPrize() {
+      const form = {
+        name: this.form.name,
+        label: this.form.label,
+        chance: this.form.chance,
+        time: this.form.time,
+        image: this.form.image,
+        imageMobile: this.form.imageMobile,
+        voucher: this.form.voucher,
+        description: this.form.description
+      }
+      this.prizeList.push(form)
     }
   }
 }

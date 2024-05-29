@@ -4,7 +4,13 @@
 
     <v-card class="mx-5 br-12 pb-15 flex-grow-1" height="600">
       <template v-if="step===1">
-        <LuckyWheelFormStep1 ref="LuckyWheelFormStep1"/>
+        <LuckyWheelFormStep1
+            @label="getLabel"
+            @name="getName"
+            @startDate="getStartDate"
+            @endDate="getEndDate"
+            @chance="getChance"
+            ref="LuckyWheelFormStep1"/>
       </template>
 
       <template v-if="step===2">
@@ -67,7 +73,8 @@
 <script>
 
 import {defineAsyncComponent} from "vue";
-import {openConfirm} from "@/assets/js/functions";
+import {convertDateToGregorian, openConfirm, openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 const Stepper = defineAsyncComponent(() => import('@/components/Public/Stepper.vue'))
 const LuckyWheelFormStep1 = defineAsyncComponent(() => import('@/components/LuckyWheel/Steps/LuckyWheelFormStep1.vue'))
@@ -88,21 +95,165 @@ export default {
         'مرحله اول',
         'مرحله دوم',
       ],
+      labelData:null,
+      nameData:null,
+      startDateData:null,
+      endDateData:null,
+      chanceData:null,
+      isLabel:false,
+      isName:false,
+      isStartDate:false,
+      isEndDate:false,
+      isChance:false,
     }
   },
 
   methods: {
 
     async increaseStep() {
-      if (this.step === 1) {
-        ++this.step
-        // await this.$refs.LuckyWheelFormStep1.$refs.LuckyWheelStep1Form.validate()
-        //  if (this.$refs.LuckyWheelFormStep1.valid) ++this.step
+      if (this.step === 1){
+        this.validationStepOne()
       }
+      // if (this.step === 2){
+      //   // this.step2Validation()
+      // }
+      // if (this.step === 1) {
+      //   ++this.step
+      //   // await this.$refs.LuckyWheelFormStep1.$refs.LuckyWheelStep1Form.validate()
+      //   //  if (this.$refs.LuckyWheelFormStep1.valid) ++this.step
+      // }
     },
 
     decreaseStep() {
       if (this.step > 1) --this.step
+    },
+
+    validationStepOne() {
+      if(this.isLabel && this.isName && this.isStartDate && this.isEndDate && this.isChance) {
+        this.step++
+      }
+      else {
+        if(this.isLabel===false) {
+          openToast( this.$store,'نام فارسی گردونه شانس وارد نشده است' , 'error')
+        }
+        else if (this.isName===false) {
+          openToast( this.$store, 'لبیل انگلیسی گردانه وارد نشده است' , 'error')
+        }
+        else if (this.isStartDate===false ) {
+          openToast( this.$store,'تاریخ شروع لازم است' , 'error')
+        }
+        else if (this.isEndDate===false) {
+          openToast( this.$store,'تاریخ پایان لازم است' , 'error')
+        }
+        else if (this.isChance===false) {
+          openToast( this.$store,'تعداد شانس وارد نشده است' , 'error')
+        }
+      }
+    },
+
+    getLabel(label) {
+      this.labelData = label
+      if(label && label !== null && label !== ''){
+        this.isLabel = true
+      }
+      else {
+        this.isLabel = false
+      }
+    },
+    getName (name) {
+      this.nameData = name
+      if(name && name !== null && name !== ''){
+        this.isName = true
+      }
+      else {
+        this.isName = false
+      }
+    },
+    getStartDate(startDate) {
+      this.startDateData = startDate
+      if(startDate && startDate !== null && startDate !== ''){
+        this.isStartDate = true
+      }
+      else {
+        this.isStartDate = false
+      }
+    },
+    getEndDate(endDate) {
+      this.endDateData = endDate
+      if(endDate && endDate !== null && endDate !== ''){
+        this.isEndDate = true
+      }
+      else {
+        this.isEndDate = false
+      }
+    },
+    getChance(chance) {
+      this.chanceData = chance
+      if(chance && chance !== null && chance !== ''){
+        this.isChance = true
+      }
+      else {
+        this.isChance = false
+      }
+    },
+
+
+   async sendingData() {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'game/lucky-wheel/crud/creat'
+      formData.append('name', this.nameData)
+      formData.append('label', this.labelData)
+      formData.append('start_time', this.startDateData)
+      formData.append('end_time', this.endDateData)
+      formData.append('turn_per_user', this.chanceData)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.$refs.LuckyWheelFormStep2.prizeList.forEach(prize=>{
+          this.createPrize(data.data.id , prize)
+        })
+        this.loading = false
+        openToast(this.$store,
+            'چرخونه با موفقیت ایجاد شد.',
+            "success")
+      } else {
+        this.loading = false
+      }
+    },
+   async createPrize(luckyWheelId , item) {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'game/lucky-wheel/prize/crud/creat'
+      formData.append('lucky_wheel_id', luckyWheelId)
+      formData.append('name', item.name)
+      formData.append('label', item.label)
+      formData.append('voucher_id', item.voucher)
+      formData.append('deadline_for_use', item.time)
+      formData.append('chance', item.chance)
+      formData.append('desktop_image_id', item.image)
+      formData.append('mobile_image_id', item.imageMobile)
+      formData.append('description', item.description)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/lucky-wheel/index')
+
+      } else {
+        this.loading = false
+      }
+    }
     },
 
 
@@ -113,6 +264,6 @@ export default {
     changeStep(step) {
       this.step = step
     },
-  }
+
 }
 </script>

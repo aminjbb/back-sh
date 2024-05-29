@@ -61,29 +61,28 @@
               v-if="header[0].show"
               class="c-table__contents__item"
               style="width: 4.33333%; flex: 0 0 4.33333%;">
-                    <span class="t12500text-gray500 py-5 number-font">
-                        {{rowIndexTable(index)}}
-
-                    </span>
+            <span class="t12500text-gray500 py-5 number-font">
+              {{rowIndexTable(index)}}
+            </span>
           </div>
 
           <div
-              v-if="item.id && header[1].show"
+              v-if="header[1].show"
               class="c-table__contents__item"
               style="flex: 0 0 10.33333%; "
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500text-gray500 py-5 number-font mr-10">
-                        {{ item.shps_s }}
+                        {{ item.name }}
                     </span>
           </div>
 
           <div
-              v-if="header[2].show"
+              v-if="header[1].show"
               class="c-table__contents__item"
               style="width: 0.33333%; flex: 0 0 10.33333%;padding: 3px 5px;">
                     <span class="t10500text-gray500 py-5 number-font">
-                        <template v-if="item.shps && item.shps.label">
-                            {{ item.shps.label }}
+                        <template v-if="item.name">
+                            {{ item.name }}
                         </template>
                         <template v-else>
                             -
@@ -91,26 +90,42 @@
                     </span>
           </div>
           <div
-              v-if="header[3].show"
+              v-if="header[2].show"
               class="c-table__contents__item"
               style="width: 10.33333%; flex: 0 0 7.33333%;padding: 3px 5px;">
                     <span class="t12500text-gray500 py-5 number-font">
-                        <template v-if="item.package_id && item.package_id">
-                            {{ item.package_id }}
+                        <template v-if="item.name">
+                            {{ item.name }}
                         </template>
                         <template v-else>
                             -
                         </template>
                     </span>
           </div>
+
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item"
+              style="width: 5.33333%; flex: 0 0 5.33333%;"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500text-gray500 py-5 number-font mr-10">
+                        <template v-if="item.label">
+                            {{item.label}}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+          </div>
+
           <div
               v-if="header[4].show"
               class="c-table__contents__item"
-              style="width: 10.33333%; flex: 0 0 6.33333%;padding: 3px 5px;"
-          >
-                    <span class="t12500text-gray500 py-5">
-                        <template v-if="item.package_type">
-                            {{ getPackageType(item.package_type) }}
+              style="width: 5.33333%; flex: 0 0 5.33333%;"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t12500text-gray500 py-5 number-font mr-10">
+                        <template v-if="item.chance">
+                            {{item.chance}}
                         </template>
                         <template v-else>
                             -
@@ -124,8 +139,8 @@
               style="width: 5.33333%; flex: 0 0 5.33333%;"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500text-gray500 py-5 number-font mr-10">
-                        <template v-if="item.shipment_id">
-                            {{item.shipment_id}}
+                        <template v-if="item.time">
+                            {{item.time}}
                         </template>
                         <template v-else>
                             -
@@ -133,20 +148,6 @@
                     </span>
           </div>
 
-          <div
-              v-if="header[6].show"
-              class="c-table__contents__item"
-              style=" width: 0.33333%; flex: 0 0 5.33333%; padding: 3px 5px;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t10500text-gray500 py-5 number-font mr-8">
-                        <template v-if="item.shipment_type">
-                            {{getShipmentType(item.shipment_type)}}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
             <v-menu :location="location">
               <template v-slot:activator="{ props }">
