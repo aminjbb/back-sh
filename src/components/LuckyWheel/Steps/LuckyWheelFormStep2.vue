@@ -20,14 +20,9 @@
                   v-model="form.voucher"
                   :rules="rule"
                   :items="voucehrList"
+                  item-title="name"
+                  item-value="id"
                   v-debounce="searchVoucher">
-                <template v-slot:item="item">
-                  <v-list-item>
-                    <div class="text-right pointer">
-                      {{item.item.value.name}}
-                    </div>
-                  </v-list-item>
-                </template>
               </v-autocomplete>
             </div>
           </v-col>
@@ -76,30 +71,30 @@
               <v-text-field variant="outlined" v-model="form.description" :rules="rule"/>
             </div>
           </v-col>
-          <v-col cols="5">
+          <v-col cols="12">
             <div class="text-right mb-3">
                   <span>
                    تصویر کد تخفیف
                   </span>
               <span class="text-error">*</span>
             </div>
-            <UploadFileSection @getImage="getImage()"/>
-            <div class="d-flex align-center mt-5" v-if="form.imageMobile">
-              <span>IMG-{{ form.imageMobile }}</span>
+            <UploadFileSection @getImage="getImage"/>
+            <div class="d-flex align-center mt-5" v-if="form.image">
+              <span>IMG-{{ form.image }}</span>
               <span class="mr-15">
                 <v-icon
-                    @click="removeItem(form.imageMobile , 'mobile')"
+                    @click="removeItem(form.image , 'mobile')"
                     color="error">mdi-delete</v-icon></span>
             </div>
           </v-col>
-          <v-col cols="5">
+          <v-col cols="12">
             <div class="text-right mb-3">
                   <span>
                    تصویر کد تخفیف موبایل
                   </span>
               <span class="text-error">*</span>
             </div>
-            <UploadFileSection @getImage="getImageMobile()"/>
+            <UploadFileSection @getImage="getImageMobile"/>
             <div class="d-flex align-center mt-5" v-if="form.imageMobile">
               <span>IMG-{{ form.imageMobile }}</span>
               <span class="mr-15">
@@ -211,7 +206,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `voucher/crud/index?label=${search}`
+      AxiosMethod.end_point = `voucher/crud/index?label=${search}&per_page=15`
 
       let data = await AxiosMethod.axios_get()
       if (data) {
@@ -220,6 +215,7 @@ export default {
     },
 
     getImage(image) {
+      console.log(image)
       this.form.image = image.data.data.image_id
     },
     getImageMobile(image) {

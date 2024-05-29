@@ -42,7 +42,7 @@
           :perPage="dataTableLength"
           :loading="loading"
           @updateList="updateList"
-          deletePath="report/crud/delete/"
+            deletePath="game/lucky-wheel/prize/crud/delete/"
           model="report" />
 
 
@@ -93,6 +93,7 @@
 import {defineAsyncComponent} from 'vue'
 const Table = defineAsyncComponent(()=> import('@/components/LuckyWheel/Table/Table.vue'))
 import LuckyWheel from "@/composables/LuckyWheel";
+import {openToast} from "@/assets/js/functions";
 const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
 
 
@@ -108,7 +109,6 @@ export default {
   },
 
   setup() {
-
     const {
       pageLength,
       getLuckyWheelList,
@@ -134,6 +134,7 @@ export default {
       loading,
     };
   },
+
   methods: {
 
 
@@ -177,6 +178,7 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
         this.getWasteAndLostList()

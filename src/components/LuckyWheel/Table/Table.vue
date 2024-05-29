@@ -20,34 +20,6 @@
         </div>
       </template>
 
-      <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-menu :location="location">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props">
-              mdi-dots-vertical
-            </v-icon>
-          </template>
-
-          <v-list v-if="model !== 'menu'">
-            <v-list-item >
-              <v-list-item-title>
-                <v-btn
-                    @click="massUpdateModal()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 text-grey-darken-1 t14300">
-                  <template v-slot:append>
-                    <v-icon>mdi-pen-minus</v-icon>
-                  </template>
-                  ویرایش گروهی تنظیمات سئو
-                </v-btn>
-              </v-list-item-title>
-
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
     </header>
 
     <div class="stretch-table">
@@ -56,116 +28,72 @@
             v-for="(item , index) in items"
             :key="index"
             :class="oddIndex(index) ? 'bg-gray90' : ''"
-            class="d-flex justify-between c-table__contents__row">
+            class="d-flex justify-start">
           <div
               v-if="header[0].show"
               class="c-table__contents__item"
-              style="width: 4.33333%; flex: 0 0 4.33333%;">
-                    <span class="t12500text-gray500 py-5 number-font">
-                        {{rowIndexTable(index)}}
-
-                    </span>
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div class="d-flex align-center">
+                        <span class="t14300 text-gray500 py-5 number-font justify-end">
+                            {{rowIndexTable(index)}}
+                        </span>
+            </div>
           </div>
 
           <div
-              v-if="item.id && header[1].show"
-              class="c-table__contents__item"
-              style="flex: 0 0 10.33333%; "
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font mr-10">
-                        {{ item.shps_s }}
+              v-if="header[1].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+
+                    <span>
+                        {{ item.name }}
                     </span>
           </div>
-
           <div
               v-if="header[2].show"
-              class="c-table__contents__item"
-              style="width: 0.33333%; flex: 0 0 10.33333%;padding: 3px 5px;">
-                    <span class="t10500text-gray500 py-5 number-font">
-                        <template v-if="item.shps && item.shps.label">
-                            {{ item.shps.label }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+
+                    <span>
+                        {{ item.label }}
                     </span>
           </div>
           <div
               v-if="header[3].show"
-              class="c-table__contents__item"
-              style="width: 10.33333%; flex: 0 0 7.33333%;padding: 3px 5px;">
-                    <span class="t12500text-gray500 py-5 number-font">
-                        <template v-if="item.package_id && item.package_id">
-                            {{ item.package_id }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+
+                    <span>
+                        {{ item.start_time }}
                     </span>
           </div>
           <div
               v-if="header[4].show"
-              class="c-table__contents__item"
-              style="width: 10.33333%; flex: 0 0 6.33333%;padding: 3px 5px;"
-          >
-                    <span class="t12500text-gray500 py-5">
-                        <template v-if="item.package_type">
-                            {{ getPackageType(item.package_type) }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+
+                    <span>
+                        {{ item?.end_time }}
                     </span>
           </div>
-
           <div
               v-if="header[5].show"
-              class="c-table__contents__item"
-              style="width: 5.33333%; flex: 0 0 5.33333%;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font mr-10">
-                        <template v-if="item.shipment_id">
-                            {{item.shipment_id}}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+
+                    <span>
+                        {{ item?.turn_per_user }}
                     </span>
           </div>
 
           <div
               v-if="header[6].show"
-              class="c-table__contents__item"
-              style=" width: 0.33333%; flex: 0 0 5.33333%; padding: 3px 5px;"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t10500text-gray500 py-5 number-font mr-8">
-                        <template v-if="item.shipment_type">
-                            {{getShipmentType(item.shipment_type)}}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-          <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center">
-            <v-menu :location="location">
-              <template v-slot:activator="{ props }">
-                <v-icon v-bind="props" class="text-gray500">
-                  mdi-dots-vertical
-                </v-icon>
-              </template>
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
 
-              <v-list class="c-table__more-options">
-                <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
-                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                    <span class="mr-1 text-grey-darken-1 t13400">
-                                        حذف
-                                    </span>
-                  </div>
-                </v-list-item-title>
-              </v-list>
-            </v-menu>
+                    <span>
+                       <v-switch v-model="values[index]" dense color="success" />
+                    </span>
           </div>
         </div>
       </div>
@@ -261,7 +189,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
+      values: [],
       panelFilter: new PanelFilter(),
 
 
@@ -373,7 +301,7 @@ export default {
      * @param {*} id
      */
     removeItem(id) {
-      openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", this.deletePath + id, true);
+      openConfirm(this.$store, "از حذف آیتم اطمینان دارید؟", "حذف آیتم", "delete", this.deletePath + id, true);
     },
 
     /**
@@ -384,5 +312,16 @@ export default {
       this.$emit('updateList', status);
     },
   },
+
+  watch:{
+    items(val){
+      this.values = []
+      if (this.items.length > 0){
+        this.items.forEach(element=>{
+          this.values.push(element)
+        })
+      }
+    }
+  }
 }
 </script>

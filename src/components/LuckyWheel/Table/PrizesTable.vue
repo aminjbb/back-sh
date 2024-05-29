@@ -21,32 +21,9 @@
       </template>
 
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <v-menu :location="location">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props">
-              mdi-dots-vertical
-            </v-icon>
-          </template>
-
-          <v-list v-if="model !== 'menu'">
-            <v-list-item >
-              <v-list-item-title>
-                <v-btn
-                    @click="massUpdateModal()"
-                    variant="text"
-                    height="40"
-                    rounded
-                    class="px-5 mt-1 text-grey-darken-1 t14300">
-                  <template v-slot:append>
-                    <v-icon>mdi-pen-minus</v-icon>
-                  </template>
-                  ویرایش گروهی تنظیمات سئو
-                </v-btn>
-              </v-list-item-title>
-
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <v-icon v-bind="props">
+          mdi-dots-vertical
+        </v-icon>
       </div>
     </header>
 
@@ -76,35 +53,9 @@
                     </span>
           </div>
 
-          <div
-              v-if="header[1].show"
-              class="c-table__contents__item"
-              style="width: 0.33333%; flex: 0 0 10.33333%;padding: 3px 5px;">
-                    <span class="t10500text-gray500 py-5 number-font">
-                        <template v-if="item.name">
-                            {{ item.name }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
-          <div
-              v-if="header[2].show"
-              class="c-table__contents__item"
-              style="width: 10.33333%; flex: 0 0 7.33333%;padding: 3px 5px;">
-                    <span class="t12500text-gray500 py-5 number-font">
-                        <template v-if="item.name">
-                            {{ item.name }}
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
 
           <div
-              v-if="header[3].show"
+              v-if="header[2].show"
               class="c-table__contents__item"
               style="width: 5.33333%; flex: 0 0 5.33333%;"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">

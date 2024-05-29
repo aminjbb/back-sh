@@ -199,14 +199,19 @@ export default {
 
 
    async sendingData() {
+      let dateSplit = this.startDateData.split(' ')
+      const convertDate = convertDateToGregorian(dateSplit[0] , '/' , false)
+
+      let dateSplitEnd = this.endDateData.split(' ')
+      const convertDateEnd = convertDateToGregorian(dateSplitEnd[0] , '/' , false)
       this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'game/lucky-wheel/crud/creat'
       formData.append('name', this.nameData)
       formData.append('label', this.labelData)
-      formData.append('start_time', this.startDateData)
-      formData.append('end_time', this.endDateData)
+      formData.append('start_time', convertDate + ' ' + dateSplit[1] + ':00')
+      formData.append('end_time', convertDateEnd + ' ' +  dateSplitEnd[1]+ ':00')
       formData.append('turn_per_user', this.chanceData)
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
