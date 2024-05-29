@@ -29,13 +29,13 @@
         <v-divider/>
         <div class="text-center ">
           <!-- row number-->
-          <span class="t16400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}-</span>
+          <span class="t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}-</span>
           <!-- placement number -->
-          <span class=" t16400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}-</span>
+          <span class=" t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}-</span>
           <!-- step number-->
-          <span class=" t16400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}-</span>
+          <span class=" t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}-</span>
           <!-- shelf number-->
-          <span class=" t16400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}</span>
+          <span class=" t20400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}</span>
 
 
 
