@@ -133,7 +133,8 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 export default {
 
   props: {
-    status: null
+    status: null,
+    bannerObject:null
   },
   components: {
     UploadFileSection,
@@ -193,6 +194,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.status)
     if (this.status == 'edit') this.setForm()
   },
   computed: {

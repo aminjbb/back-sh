@@ -161,7 +161,7 @@
                     </span>
                 </div>
                 <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props">
                                 mdi-dots-vertical
@@ -418,6 +418,7 @@ export default {
 
     methods: {
         openEditModal(object) {
+          console.log(object)
             if (this.model == 'category') {
               this.$refs.ModalEditCategory.dialog = true
               this.$refs.ModalEditCategory.categoryObject = object

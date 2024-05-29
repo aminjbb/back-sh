@@ -294,7 +294,7 @@ export default {
       }
       this.perPageFilter = false
     },
-    page(){
+    skuSellerPage(){
       if (!this.perPageFilter){
         this.getSkuSeller()
       }
