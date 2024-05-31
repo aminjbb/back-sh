@@ -2259,9 +2259,9 @@ const router = createRouter({
             ]
         },
         {
-            path: '/lucky-wheel', // Zone
+            path: '/lucky-wheel', // Lucky wheel
             meta: {
-                name: ' مارکتینگ'
+                name:  'گردانه شانس'
             },
             children: [
                 {
