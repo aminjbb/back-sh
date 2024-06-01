@@ -468,6 +468,7 @@ export default {
             ],
             support: [
                 ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
+              ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             groupsFunction: [
                 ['عملیات گروهی', '/exports/index', 'mdi-export'],
