@@ -208,7 +208,7 @@ import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue"
 import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
 /* change password */
-import ChangePassword from "@/views/ChangePassword/ChangePasswordView.vue";
+import ChangePasswordView from "@/views/ChangePassword/ChangePasswordView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
@@ -655,8 +655,8 @@ const router = createRouter({
             },
             children: [{
                 path: 'index',
-                name: 'ChangePassword',
-                component: ChangePassword,
+                name: 'ChangePasswordView',
+                component: ChangePasswordView,
                 meta: {
                     name: 'تغییر رمز'
                 }
