@@ -282,6 +282,8 @@ import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
 import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPackageView.vue";
 import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
+import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
+import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
 
 
 const router = createRouter({
@@ -1520,13 +1522,13 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'ProcessingShipmentIndexView',
-                component: ProcessingShipmentIndexView,
-                meta: {
-                    name: 'پردازش محموله'
-                }
-            },
+                    path: 'index',
+                    name: 'ProcessingShipmentIndexView',
+                    component: ProcessingShipmentIndexView,
+                    meta: {
+                        name: 'پردازش محموله'
+                    }
+                },
                 {
                     path: ':shipmentId/detail-print',
                     name: 'ShipmentDetailPrintView',
@@ -2249,6 +2251,32 @@ const router = createRouter({
 
             ]
         },
+        {
+            path: '/lucky-wheel', // Lucky wheel
+            meta: {
+                name:  'گردانه شانس'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'LuckyWheelView',
+                    component: LuckyWheelView,
+                    meta: {
+                        name: 'گردانه شانس'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'CreateLuckyWheelView',
+                    component: CreateLuckyWheelView,
+                    meta: {
+                        name: 'ساخت گردانه شانس'
+                    }
+                },
+
+
+            ]
+        },
 
         {
             path: '/assign-shps-package', // Zone
@@ -2257,12 +2285,12 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'AssignShpsToPackageView',
-                component: AssignShpsToPackageView,
-                meta: {
-                    name: 'اختصاص کالا به بسته'
-                }
+                    path: 'index',
+                    name: 'AssignShpsToPackageView',
+                    component: AssignShpsToPackageView,
+                    meta: {
+                        name: 'اختصاص کالا به بسته'
+                    }
                 },
                 {
                     path: ':shipmentId/accept',

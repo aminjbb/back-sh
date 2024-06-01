@@ -61,6 +61,8 @@ export default function setup() {
 
     async function  getExports( ) {
         loading.value = true
+        const AxiosMethod = new AxiosCall()
+        let query =route.query
         if ( !route.query.per_page ){
             if (!route.query.order && !route.query.order_type){
                 AxiosMethod.form = {
@@ -99,7 +101,6 @@ export default function setup() {
             }
 
         }
-        const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'export/crud/index'
         AxiosMethod.using_auth =  true
         AxiosMethod.token = cookies.cookies.get('adminToken')
