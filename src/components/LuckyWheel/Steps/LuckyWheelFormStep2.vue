@@ -210,7 +210,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `voucher/crud/index?label=${search}&per_page=15`
+      AxiosMethod.end_point = `voucher/crud/index?name=${search}&per_page=15`
 
       let data = await AxiosMethod.axios_get()
       if (data) {
