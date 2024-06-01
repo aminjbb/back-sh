@@ -658,7 +658,7 @@ const router = createRouter({
                 name: 'ChangePassword',
                 component: ChangePassword,
                 meta: {
-                    name: 'تیکت ها'
+                    name: 'تغییر رمز'
                 }
             },
 

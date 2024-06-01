@@ -48,7 +48,7 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.password = data
-        console.log("aydin", this.password)
+
 
       }
 
