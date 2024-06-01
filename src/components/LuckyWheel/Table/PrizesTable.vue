@@ -26,9 +26,9 @@
                 </div>
 
                 <div v-if="header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.voucher_code" class="t12500 text-gray500 py-5 number-font">
-                        <template v-if="item.voucher_code">
-                          {{ item.voucher_code }}
+                    <span v-if="item.voucherName" class="t12500 text-gray500 py-5 number-font">
+                        <template v-if="item.voucherName">
+                          {{ item.voucherName }}
                         </template>
                         <template v-else>
                           -
@@ -91,7 +91,7 @@
                         <v-list class="c-table__more-options">
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
-                                    <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                    <v-icon @click="deletePrize(index)" class="text-grey-darken-1">mdi-delete</v-icon>
                                     <span class="mr-1 text-grey-darken-1 t13400">
                                         حذف
                                     </span>
@@ -217,23 +217,9 @@ export default {
 
     methods: {
 
-        getPackageType(type) {
-            if (type === 'bulk') {
-                return 'بالک'
-            } else {
-                return 'پالت'
-            }
-        },
-
-        getShipmentType(type) {
-            if (type === 'cross_dock_marketplace') {
-                return 'فروش مارکت'
-            } else if (type === 'consignment_shavaz') {
-                return 'انبارش شاوز'
-            } else if (type === 'consignment_marketplace') {
-                return 'انبارش مارکت'
-            }
-        },
+      deletePrize(index){
+        this.$emit('deletePrize' , index)
+      },
 
         /**
          * Get row index in table

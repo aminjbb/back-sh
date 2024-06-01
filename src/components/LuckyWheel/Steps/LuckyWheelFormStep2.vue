@@ -7,7 +7,7 @@
     </div>
     <v-divider/>
     <div>
-      <v-form ref="LuckyWheelStep1Form" v-model="valid">
+      <v-form ref="LuckyWheelStep2Form" v-model="valid">
         <v-row justify="start" align="end" class="pa-5">
           <v-col cols="3">
             <div>
@@ -127,7 +127,8 @@
             :perPage="25"
             :loading="loading"
             deletePath="report/crud/delete/"
-            model="report" />
+            model="report"
+            @deletePrize="deletePrize"/>
       </v-card>
     </div>
 
@@ -201,6 +202,9 @@ export default {
   },
 
   methods: {
+    deletePrize(index){
+      this.prizeList.splice(index , 1)
+    },
     async searchVoucher(search) {
       this.voucherSearchList = []
       const AxiosMethod = new AxiosCall()
@@ -215,7 +219,6 @@ export default {
     },
 
     getImage(image) {
-      console.log(image)
       this.form.image = image.data.data.image_id
     },
     getImageMobile(image) {
@@ -227,18 +230,38 @@ export default {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
 
-    createPrize() {
-      const form = {
-        name: this.form.name,
-        label: this.form.label,
-        chance: this.form.chance,
-        time: this.form.time,
-        image: this.form.image,
-        imageMobile: this.form.imageMobile,
-        voucher: this.form.voucher,
-        description: this.form.description
+    async createPrize() {
+      await this.$refs.LuckyWheelStep2Form.validate()
+      if (this.valid) {
+        let voucherName = this.voucherSearchList.find(voucher=> voucher.id == this.form.voucher )
+        if (voucherName) voucherName = voucherName?.name
+        const form = {
+          name: this.form.name,
+          label: this.form.label,
+          chance: this.form.chance,
+          time: this.form.time,
+          image: this.form.image,
+          imageMobile: this.form.imageMobile,
+          voucher: this.form.voucher,
+          voucherName: voucherName,
+          description: this.form.description
+        }
+        await this.prizeList.push(form)
+        this.resetPrizeForm()
       }
-      this.prizeList.push(form)
+
+    },
+    resetPrizeForm(){
+      this.form = {
+        name : null,
+        label: null,
+        chance: null,
+        time: null,
+        image:null,
+        imageMobile: null,
+        voucher: null,
+        description: null
+      }
     }
   }
 }

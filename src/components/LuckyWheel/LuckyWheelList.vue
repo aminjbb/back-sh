@@ -42,7 +42,8 @@
           :perPage="dataTableLength"
           :loading="loading"
           @updateList="updateList"
-            deletePath="game/lucky-wheel/prize/crud/delete/"
+          deletePath="game/lucky-wheel/prize/crud/delete/"
+          activePath="game/lucky-wheel/crud/update/activation/"
           model="report" />
 
 

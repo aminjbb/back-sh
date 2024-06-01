@@ -38,13 +38,13 @@
                 <div v-if="header[3].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
 
                     <span class="number-font text-grey-darken-2">
-                        {{ item.start_time }}
+                        {{ item.start_time_fa }}
                     </span>
                 </div>
                 <div v-if="header[4].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
 
                     <span class="number-font text-grey-darken-2">
-                        {{ item?.end_time }}
+                        {{ item?.end_time_fa }}
                     </span>
                 </div>
                 <div v-if="header[5].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
@@ -57,7 +57,7 @@
                 <div v-if="header[6].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
 
                     <span>
-                        <v-switch v-model="values[index]" dense color="success" />
+                        <v-switch @change="changeActive(index , item)" v-model="values[index]" dense color="success" />
                     </span>
                 </div>
             </div>
@@ -82,6 +82,7 @@ import {
     openConfirm,
     isOdd
 } from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 export default {
 
     props: {
@@ -177,23 +178,24 @@ export default {
 
     methods: {
 
-        getPackageType(type) {
-            if (type === 'bulk') {
-                return 'بالک'
-            } else {
-                return 'پالت'
-            }
-        },
+      /**
+       * Change Active
+       * @param {*} index
+       * @param {*} item
+       */
+      async changeActive(index, item) {
+        var formData = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = this.activePath + item.id
+        if (this.values[index]) formData.append('is_active', 1)
+        else formData.append('is_active', 0)
+        AxiosMethod.store = this.$store
+        AxiosMethod.form = formData
 
-        getShipmentType(type) {
-            if (type === 'cross_dock_marketplace') {
-                return 'فروش مارکت'
-            } else if (type === 'consignment_shavaz') {
-                return 'انبارش شاوز'
-            } else if (type === 'consignment_marketplace') {
-                return 'انبارش مارکت'
-            }
-        },
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+      },
 
         /**
          * Get row index in table
@@ -276,7 +278,8 @@ export default {
             this.values = []
             if (this.items.length > 0) {
                 this.items.forEach(element => {
-                    this.values.push(element)
+                    if (element.is_active) this.values.push(true)
+                    else this.values.push(false)
                 })
             }
         }
