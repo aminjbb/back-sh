@@ -16,6 +16,7 @@
           </div>
           <div>
             <v-text-field
+                @keyup.enter="filterShps()"
                 variant="outlined"
                 v-model="barcodeShps"/>
           </div>
@@ -108,7 +109,7 @@
         </v-row>
       </div>
     </v-card>
-    <WarningTerolance/>
+    <WarningTerolance ref="WarningTerolance"/>
   </div>
 </template>
 
@@ -121,6 +122,7 @@ import {
 } from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import axios from "axios";
 
 export default {
   setup() {
@@ -164,30 +166,11 @@ export default {
       packageFocus: true,
       shpssFocus: true,
       shipmentShpsListFilterd: [],
-      barcodeShps: null
+      barcodeShps: null,
+      url: import.meta.env.VITE_API_BASEURL,
     }
   },
   methods: {
-    async finishedPack() {
-      try {
-        this.finishLoading = true
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `shipment/shps/count/${this.$route.params.shipmentId}/done?approved=0`
-        AxiosMethod.store = this.$store
-        AxiosMethod.toast_error = true
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        let data = await AxiosMethod.axios_post()
-        if (data) {
-          this.finishLoading = false
-          this.$router.go(-1)
-        } else {
-          this.finishLoading = false
-        }
-      } catch (e) {
-        this.finishLoading = false
-      }
-    },
     async packedShpss() {
       try {
         this.finishLoading = true
@@ -225,13 +208,35 @@ export default {
         this.shipmentShpsListFilterd = this.shipmentShpsList
       }
 
+    },
+
+    async finishedPack(){
+      await axios.post(`${this.url}/v1/shipment/shps/count/${this.$route.params.shipmentId}/done?approved=0`, {},{
+        headers: {
+          Authorization:
+              "Bearer " + this.$cookies.get('adminToken'),
+        },})
+          .then((response) => {
+            this.finishLoading = false
+            this.$router.go(-1)
+          })
+          .catch((err) => {
+            if (err.response.status === 409) {
+              this.finishLoading = false
+              this.$refs.WarningTerolance.dialog = true
+            }
+            else {
+              openToast(this.$store , err.message , 'error')
+
+            }
+          })
     }
   },
   computed: {
     sumRequestCount(){
       let sum =0
       this.shipmentShpsListFilterd.forEach(shps=>{
-        sum += parseInt(shps.shps_count)
+        sum += parseInt(shps.requested_count)
       })
       return sum
     },
@@ -252,7 +257,7 @@ export default {
     sumRemainedCount(){
       let sum =0
       this.shipmentShpsListFilterd.forEach(shps=>{
-        sum += parseInt(shps.remained_count)
+        sum += parseInt(shps.left_over_count)
       })
       return sum
     },
@@ -285,3 +290,5 @@ export default {
   }
 }
 </script>
+
+

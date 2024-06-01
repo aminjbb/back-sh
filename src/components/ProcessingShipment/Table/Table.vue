@@ -59,22 +59,22 @@
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.sku_label }}
+                       {{ item.label }}
                     </span>
           </div>
 
 
           <div
 
-              class="c-table__contents__item text-right"
+              class="c-table__contents__item text-right d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-                       {{ item.shps_count }}
-                    </span>
+                {{ item.requested_count }}
+              </span>
           </div>
           <div
 
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
                 {{ item.min_tolerance }}
@@ -83,17 +83,17 @@
           </div>
           <div
 
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14300 text-gray500 py-5 number-font ">
                 {{ item.max_tolerance }}
               </span>
           </div>
           <div
-              class="c-table__contents__item"
+              class="c-table__contents__item d-flex justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 number-font">
-               {{ item.remained_count }}
+               {{ item.left_over_count }}
               </span>
           </div>
 
@@ -126,7 +126,7 @@
               class="c-table__contents__item justify-start px-0"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span>
-                <img :src="item?.image?.image_url" width="70" height="70">
+                <img :src="item?.image_url" width="70" height="70">
               </span>
           </div>
           <div
@@ -134,25 +134,18 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
-           <template v-if="item.is_packed === 0">
-             <v-progress-circular
-                 v-if="form[index].loading"
-                 indeterminate
-                 color="primary"></v-progress-circular>
-             <div
-                 v-else
-                 @click="validate(item , index)"
-                 class="seller__add-sku-btn d-flex justify-center align-center pointer">
+            <v-progress-circular
+                v-if="form[index].loading"
+                indeterminate
+                color="primary"></v-progress-circular>
+            <div
+                v-else
+                @click="validate(item , index)"
+                class="seller__add-sku-btn d-flex justify-center align-center pointer">
 
-               <v-icon size="15">mdi-plus</v-icon>
-             </div>
-           </template>
-            <template v-else>
-              <div
-                  class="seller__add-sku-btn d-flex justify-center align-center pointer">
-                <v-icon size="15">mdi-check</v-icon>
-              </div>
-            </template>
+              <v-icon size="15">mdi-plus</v-icon>
+            </div>
+
           </div>
         </div>
       </div>
@@ -301,11 +294,11 @@ export default {
 
   watch: {
     items(val){
+      this.form= []
       this.items.forEach(element => {
         const form = {
           loading: false,
-          count: element.packed_count,
-          price: element.packed_count,
+          count: element.approved_count,
         }
         this.form.push(form)
       })
@@ -390,7 +383,7 @@ export default {
         AxiosMethod.token = this.$cookies.get('adminToken')
         AxiosMethod.end_point = 'shipment/shps/count'
         formData.append('shipment_id', this.$route.params.shipmentId)
-        formData.append('shps', this.items[index].id)
+        formData.append('shps', this.items[index].shps)
         formData.append('approved_count', this.form[index].count)
         AxiosMethod.form = formData
         let data = await AxiosMethod.axios_post()

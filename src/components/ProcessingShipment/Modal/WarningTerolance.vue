@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right ">
+  <div class="text-right">
     <v-dialog v-model="dialog" width="468">
       <v-card class="">
         <v-row
@@ -19,13 +19,17 @@
         <div class="text-center pa-8" >
           <div class="text-center">
             <span>
-              این محموله دارای مغایرت می باشد.
+            این محموله دارای مغایرت می باشد. آیا از بستن آن اطمینان دارید؟
             </span>
           </div>
-          <div class="text-center mt-1">
-            <span>
-              قادر به تایید نیستید
-            </span>
+          <div class="d-flex justify-space-between mt-5">
+            <v-btn @click="approved()" color="primary500">
+              تایید
+            </v-btn>
+
+            <v-btn variant="outlined" @click="dialog=false">
+              انصراف
+            </v-btn>
           </div>
         </div>
       </v-card>
@@ -35,21 +39,18 @@
 
 <script>
 import Table from "@/components/ProcessingShipment/Table/DetailProcessingTable.vue";
-import ProcessingShipment from '@/composables/ProcessingShipment'
 import {convertDateToJalai} from "../../../assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  setup(){
-    const {headerDetailShipment} = new ProcessingShipment()
-    return { headerDetailShipment }
-  },
   props:{
     shipmentId:null
   },
   data(){
     return {
       detail:null,
-      loading:false
+      loading:false,
+      dialog:false
     }
   },
   components: {
@@ -57,14 +58,40 @@ export default {
   },
 
   methods: {
+   async approved(){
+      try {
+        this.finishLoading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `shipment/shps/count/${this.$route.params.shipmentId}/done?approved=1`
+        AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.dialog = false
+          this.finishLoading = false
+          this.$router.go(-1)
+        } else {
+          this.finishLoading = false
+          this.$refs.WarningTerolance.dialog = true
+        }
+      } catch (e) {
+        this.finishLoading = false
+      }
+    },
+
     close(){
+     this.dialog = false
       const form ={
         dialog:false,
         object:''
       }
       this.$store.commit('set_warningTolerance' , form)
     },
+
     convertDateToJalai,
+
     convertDate(date){
       const jalaliDate = convertDateToJalai( date , '-' , false)
       const splitDate = jalaliDate.split('-')
@@ -72,16 +99,5 @@ export default {
     },
   },
 
-  computed: {
-    basUrl(){
-      return import.meta.env.VITE_API_BACKEND_URL
-    },
-    dialog(){
-      return this.$store.getters['get_warningTolerance']
-    },
-    object(){
-      return this.$store.getters['get_warningToleranceObject']
-    }
-  }
 }
 </script>

@@ -59,13 +59,13 @@
           :getShipmentRequestsList="getUpComingList"
           class="flex-grow-1"
           :header="header"
-          :items="upComingList?.data"
+          :items="confirmedShipmentList?.data"
           :page="page"
           :perPage="dataTableLength"
           activePath="page/crud/update/activation/"
           :loading="loading"
           updateUrl="page/csv/mass-update"
-          model="page" />
+          model="assignShpsToPackage" />
 
       <v-divider />
 
@@ -148,8 +148,7 @@ export default {
     const {
       pageLength,
       filterField,
-      upComingList,
-      getUpComingList,
+      getConfirmedShipment ,confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -158,8 +157,7 @@ export default {
     return {
       pageLength,
       filterField,
-      upComingList ,
-      getUpComingList,
+      getConfirmedShipment ,confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -206,7 +204,7 @@ export default {
   },
 
   mounted() {
-    this.getUpComingList();
+    this.getConfirmedShipment();
   },
 
   watch: {

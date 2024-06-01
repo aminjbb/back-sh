@@ -171,7 +171,13 @@
               <v-list class="c-table__more-options">
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.id}/shps-list`)">
+                    <div v-if="model ==='assignShpsToPackage'" class="ma-5 pointer" @click="$router.push(`/assign-shps-package/${item.id}/accept`)">
+                      <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14300">
+                        پردازش محموله
+                      </span>
+                    </div>
+                    <div v-else class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.id}/shps-list`)">
                       <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                         پردازش محموله
@@ -318,8 +324,9 @@ export default {
   methods: {
     convertDateToJalai,
 
-    print(retailObject) {
-      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${retailObject.id}/print`, '_blank');
+    print(item) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${item.id}/print`, '_blank');
+
     },
 
     translateType(type) {

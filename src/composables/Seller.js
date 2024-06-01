@@ -219,14 +219,14 @@ export default function setup(posts) {
        if ( !route.query.per_page ){
             AxiosMethod.form = {
                 ...query,
-                page:page.value,
+                page:skuSellerPage.value,
                 per_page : dataTableLength.value
             }
         }
         else{
             AxiosMethod.form = {
                 ...query,
-                page:page.value,
+                page:skuSellerPage.value,
                 per_page : dataTableLength.value
             }
         }
@@ -344,12 +344,7 @@ export default function setup(posts) {
             siteHistoryPagination(val)
         }
     })
-    watch(skuSellerPage, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addSkuSellerPagination(val)
-        }
-    })
+
 
     return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
         getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,

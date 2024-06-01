@@ -146,10 +146,10 @@ export default function setup() {
         AxiosMethod.using_auth = true
         AxiosMethod.toast_error = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `shipment/packing/shps/list/${route.params.shipmentId}`
+        AxiosMethod.end_point = `shipment/shps/count/list/${route.params.shipmentId}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            shipmentShpsList.value = data.data
+            shipmentShpsList.value = data.data?.shps_items
         }
     };
 
