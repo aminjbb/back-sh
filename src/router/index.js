@@ -207,6 +207,8 @@ import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDa
 import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue";
 import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
+/* Wast and lost */
+import ChangePassword from "@/views/ChangePassword/ChangePasswordView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
@@ -644,6 +646,23 @@ const router = createRouter({
                         name: 'تیکت'
                     }
                 },
+            ],
+        },
+        {
+            path: '/change-password', // Change password
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [{
+                path: 'index',
+                name: 'ChangePassword',
+                component: ChangePassword,
+                meta: {
+                    name: 'تیکت ها'
+                }
+            },
+
+
             ],
         },
         {
