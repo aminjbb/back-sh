@@ -15,6 +15,22 @@ export default function setup() {
     const router = useRouter()
     const route = useRoute()
     const manualOrderListGet = ref([])
+    const canselOrderList = ref([
+        {
+            id:134768,
+            shps_label:'کرم پودر شون مدل DailyDefence کدD01 ظرفیت 30 میلی لیتر',
+            shps_count:3,
+            cancelled_count:1,
+            remained_count:5,
+            shopping_name:'شاواز',
+            price:1000000,
+            base_discount:'',
+            marketing_discount:800000,
+            code:'',
+            total_price:400000,
+            shps_status:'موفق',
+        }
+    ])
 
 
     const header =ref([
@@ -32,6 +48,22 @@ export default function setup() {
         { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
         { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
         { name: 'تاریخ ارسال سفارش', show: true, value:'logistic_date', order: true },
+    ]);
+
+    const headerCanselOrder =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه کالا', show: true , value:'shps_id', order: false},
+        { name: 'نام کالا', show: true, value:'shps_label' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'تعداد کالاهای کنسلی', show: true , value:'cancelled_count', order: false},
+        { name: 'تعداد کالاهای باقی‌مانده', show: true , value:'remained_count', order: false},
+        { name: 'فروشگاه', show: true, value:'shopping_name', order: false },
+        { name: 'قیمت کالا', show: true, value:'price', order: false },
+        { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },
+        { name: 'مقدار تخفیف مارکتینگ', show: true, value:'marketing_discount', order: false },
+        { name: 'کد تخفیف', show: true, value:'code', order: false },
+        { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
+        { name: 'وضعیت کالا', show: true, value:'shps_status', order: false },
     ]);
 
     const filterField = [
@@ -228,5 +260,5 @@ export default function setup() {
 
     return {pageLength,filterField, orderList, getOrderList, dataTableLength, page, header,loading, shpsModalHeader,
         discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList,
-        manualOrderHeader, manualOrderList}
+        manualOrderHeader, manualOrderList, headerCanselOrder, canselOrderList}
 }

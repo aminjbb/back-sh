@@ -282,6 +282,7 @@ import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
 import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPackageView.vue";
 import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
+import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
 
 
 const router = createRouter({
@@ -1973,6 +1974,14 @@ const router = createRouter({
                     component: ManualOrderListView,
                     meta: {
                         name: 'سفارش های اپراتوری'
+                    },
+                },
+                {
+                    path: 'cansel-order-list',
+                    name: 'CancelOrderView',
+                    component: CancelOrderView,
+                    meta: {
+                        name: 'لیست سفارش ها'
                     },
                 },
                 {
