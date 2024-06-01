@@ -207,7 +207,7 @@ import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDa
 import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue";
 import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
-/* Wast and lost */
+/* change password */
 import ChangePassword from "@/views/ChangePassword/ChangePasswordView.vue";
 
 /* Bulk Label Print */
