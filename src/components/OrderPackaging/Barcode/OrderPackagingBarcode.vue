@@ -1,6 +1,6 @@
 <template>
   <div class="barcode-container">
-    <svg id="barcode"></svg>
+    <svg :id="'barcode-'+index"></svg>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
       textMargin: 1,
       height: 85,
     };
-    JsBarcode("#barcode", this.barcodeValue, settings);
+    JsBarcode("#barcode-" + this.index, this.barcodeValue, settings);
   }
 
 }

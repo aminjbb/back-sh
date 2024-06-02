@@ -101,7 +101,7 @@
                 <v-card height="12" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center">
                                       <span class="t8400">
-                                         کاربر عادی 1/1
+                                         کاربر عادی {{ index+1 }}/{{ modalPrintOrderObject?.length }}
                                       </span>
                 </v-card>
               </v-col>
@@ -201,17 +201,18 @@
               <v-col class="pa-0 ma-0" cols="4">
                 <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
-                         کاربر عادی 1/1
+                       کاربر عادی {{ index+1 }}/{{ modalPrintOrderObject?.length }}
                            </span>
                 </v-card>
               </v-col>
               <v-col cols="12" class="pa-0 ma-0">
+
                 <v-card height="70" variant="outlined" color="black"
-                        class="rounded-0 d-flex justify-center align-center pa-0">
+                        class="rounded-0 d-flex justify-center align-center pa-0"  :key="'logistic_barcode'+index" >
                   <barcode
                       :barcodeValue="printObject.logistic_barcode"
                       :format="'CODE128'"
-                      :index="1"
+                      :index="index"
                       text=""
                   >
                   </barcode>
@@ -267,7 +268,7 @@ export default {
 
                     setTimeout(() => {
                         let myElement = document.getElementById('printableArea-order');
-                        window.onafterprint = function() {window.close()};
+                        // window.onafterprint = function() {window.close()};
                         window.print(myElement);
                     }, 2000)
 
