@@ -147,7 +147,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
+                                    <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
                                         </span>

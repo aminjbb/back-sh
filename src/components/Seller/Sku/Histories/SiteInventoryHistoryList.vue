@@ -177,7 +177,7 @@ export default {
 
     watch: {
         dataTableLength(val) {
-            this.addPerPage(val)
+          this.getSiteInventoryHistory()
         },
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
@@ -192,6 +192,10 @@ export default {
                 }
             }
         },
+
+      siteHistoryPage(){
+        this.getSiteInventoryHistory()
+      }
     }
 }
 </script>

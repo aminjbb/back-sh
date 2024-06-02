@@ -68,7 +68,8 @@ export default function setup() {
                     page:page.value,
                     per_page : dataTableLength.value,
                     order:'created_at',
-                    order_type:'desc'
+                    order_type:'desc',
+                    report_type:"wastage"
                 }
             }
             else {
@@ -76,6 +77,7 @@ export default function setup() {
                     ...query,
                     page:page.value,
                     per_page : dataTableLength.value,
+                    report_type:"wastage"
                 }
             }
 
@@ -87,14 +89,15 @@ export default function setup() {
                     page:page.value,
                     per_page : dataTableLength.value,
                     order:'created_at',
-                    order_type:'desc'
+                    report_type:"wastage"
                 }
             }
             else{
                 AxiosMethod.form = {
                     ...query,
                     page:page.value,
-                    per_page : dataTableLength.value
+                    per_page : dataTableLength.value,
+                    report_type:"wastage"
                 }
             }
 

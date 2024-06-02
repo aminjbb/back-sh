@@ -328,7 +328,7 @@ import InventoryManagementModal from "@/components/Seller/Modals/InventoryManage
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
-export default {
+export default  {
     components: {
         ModalMassUpdate,
         OrderLimitModal,
