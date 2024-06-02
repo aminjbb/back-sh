@@ -2267,8 +2267,6 @@ const router = createRouter({
                     name: 'بنر مناسبتی'
                 }
             },
-
-
             ]
         },
         {
