@@ -286,6 +286,7 @@ import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPac
 import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
 import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
 import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
+import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.vue";
 
 
 const router = createRouter({
@@ -2290,6 +2291,14 @@ const router = createRouter({
                     component: CreateLuckyWheelView,
                     meta: {
                         name: 'ساخت گردانه شانس'
+                    }
+                },
+                {
+                    path: ':luckyWheelId/prize-edit',
+                    name: 'EditLuckyWheelPrizeView',
+                    component: EditLuckyWheelPrizeView,
+                    meta: {
+                        name: 'ویرایش گردانه شانس'
                     }
                 },
 
