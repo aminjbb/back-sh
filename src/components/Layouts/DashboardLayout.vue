@@ -537,6 +537,7 @@ export default {
                 ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
+                ['گردانه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
                 ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
