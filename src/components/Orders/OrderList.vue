@@ -126,16 +126,12 @@ export default {
     ]
     const paymentStatus = [
       {
-        label: 'پرداخت شده',
+        label: 'موفق',
         value: 'successful'
       },
       {
-        label: 'در انتظار پرداخت',
-        value: 'payment_in_progress'
-      },
-      {
-        label: 'انقضای پرداخت',
-        value: 'payment_out_date'
+        label: 'ناموفق',
+        value: 'unsuccessful'
       }
     ]
     const paymentMethods = [
