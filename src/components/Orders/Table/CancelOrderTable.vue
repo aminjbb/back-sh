@@ -40,7 +40,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t14300 text-gray500 py-5 number-font">{{ item.id }}</span>
+            <span class="t14300 text-gray500 py-5 number-font">{{ item.shps?.id }}</span>
           </div>
 
           <div
@@ -49,7 +49,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
              <span class="t14300 text-gray500 py-5 number-font">
-               <template v-if="item.shps_label">{{ item.shps_label }}</template>
+               <template v-if="item.shps">{{ item.shps?.sku?.label   }}</template>
                <template v-else>-</template>
              </span>
           </div>
@@ -60,7 +60,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5">
-              <template v-if="item.shps_count">{{ item.shps_count }}</template>
+              <template v-if="item.count">{{ item.count }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -70,7 +70,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-text-field v-model="item.cancelled_count"  variant="outlined" />
+            <v-text-field v-model="form[index].cancelled_count"  variant="outlined" />
           </div>
 
           <div
@@ -90,7 +90,7 @@
               style="padding:3px"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.shopping_name">{{ item.shopping_name }}</template>
+              <template v-if="item.shps">{{ item.shps?.sku?.seller?.shopping_name }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -101,7 +101,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.price">{{ splitChar(item.price) }}</template>
+              <template v-if="item.customer_price">{{ splitChar(item.customer_price) }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -123,8 +123,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.marketing_discount">{{ splitChar(item.marketing_discount) }}</template>
-              <template v-else>-</template>
+              {{ splitChar(item.marketing_discount) }}
             </span>
           </div>
 
@@ -145,7 +144,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.total_price">{{ splitChar(item.total_price) }}</template>
+              <template v-if="item.total_customer_price">{{ splitChar(item.total_customer_price) }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -227,7 +226,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
+      form: [],
     }
   },
 
@@ -334,5 +333,21 @@ export default {
 
 
   },
+
+
+  watch:{
+    items(newVal){
+      this.form = []
+      if (newVal.length){
+        newVal.forEach(item=>{
+          const form = {
+            cancelled_count : item.cancelled_count
+          }
+          this.form.push(form)
+        })
+
+      }
+    }
+  }
 }
 </script>

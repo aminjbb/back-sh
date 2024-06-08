@@ -188,7 +188,7 @@
                 </v-list-item-title>
 
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push('/orders/cansel-order-list')">
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/${item.id}/cancel-order-list`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">ویرایش سفارش</span>
                   </div>

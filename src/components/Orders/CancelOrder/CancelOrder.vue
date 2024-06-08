@@ -20,7 +20,7 @@
       <CanselOrderTable
           class="flex-grow-1"
           :header="headerCanselOrder"
-          :items="canselOrderList"/>
+          :items="shpsDetails"/>
       <v-divider/>
 
       <v-card-actions class="pb-3">
@@ -34,7 +34,6 @@
           <v-col cols="1" class="text-center number-font">قیمت کالا</v-col>
           <v-col cols="1" class="text-center number-font">مقدار تخفیف پایه</v-col>
           <v-col cols="1" class="text-center number-font">مقدار تخفیف مارکتینگ</v-col>
-          <v-col cols="1" class="text-center number-font">کد تخفیف</v-col>
           <v-col cols="3" class="text-center number-font">پرداخت نهایی</v-col>
         </v-row>
       </v-card-actions>
@@ -43,22 +42,15 @@
 
       <v-card-actions>
         <v-row justify="space-between">
-          <v-col cols="9"/>
-          <v-col cols="3">
+          <v-col cols="1"/>
+          <v-col cols="4">
             <v-btn
                 height="40"
                 rounded
                 class="px-8 mt-1 mr-5">
               انصراف
             </v-btn>
-            <v-btn
-                color="primary500"
-                height="40"
-                rounded
-                variant="elevated"
-                class="px-8 mt-1">
-              ذخیره
-            </v-btn>
+           <ConfirmCancelOrder/>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -69,25 +61,49 @@
 <script>
 import Orders from "@/composables/Orders";
 import CanselOrderTable from "@/components/Orders/Table/CancelOrderTable.vue";
+import {defineAsyncComponent} from "vue";
+const ConfirmCancelOrder =defineAsyncComponent(()=> import ('@/components/Orders/CancelOrder/Modal/ConfirmCancelOrder.vue'))
 import SaveModal from "@/components/Orders/Modal/SaveModal.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  components: {SaveModal, CanselOrderTable},
+  components: {SaveModal, CanselOrderTable, ConfirmCancelOrder},
   setup() {
     const {
       headerCanselOrder,
-      canselOrderList
     } = Orders();
     return {
       headerCanselOrder,
-      canselOrderList
     }
   },
 
   data() {
     return {
-      dialog: false
+      dialog: false,
+      shpsDetails:[]
     }
+  },
+
+  methods:{
+    /**
+     * Get order 'Shps' details by order_id
+     */
+    async getShpsDetails() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/crud/shps/detail/${this.$route.params.orderId}`
+      AxiosMethod.store = this.$store
+      let data = await AxiosMethod.axios_get();
+      if (data) {
+        this.shpsDetails = data.data;
+      } else {
+      }
+    },
+  },
+
+  mounted() {
+    this.getShpsDetails()
   }
 }
 </script>

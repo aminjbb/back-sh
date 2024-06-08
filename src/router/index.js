@@ -1977,7 +1977,7 @@ const router = createRouter({
                     },
                 },
                 {
-                    path: 'cansel-order-list',
+                    path: ':orderId/cancel-order-list',
                     name: 'CancelOrderView',
                     component: CancelOrderView,
                     meta: {
