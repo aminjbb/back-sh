@@ -833,10 +833,10 @@ export default {
 
             else if (el.name === 'logistic_at') {
               if (created_at_from != null ){
-                params += 'logistic_at_from_date=' + created_at_from + '&';
+                params += 'logistic_date_from=' + created_at_from + '&';
               }
               if (created_at_to != null){
-                params += '&logistic_at_to_date=' + created_at_to + '&'
+                params += '&logistic_date_to=' + created_at_to + '&'
               }
             }
 
