@@ -3,8 +3,11 @@ import {PanelFilter} from '@/assets/js/filter.js'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 
+import {onUnmounted} from "vue";
+
 export default function setup() {
     const orderList = ref([])
+    const  orderId = ref(null)
     const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -99,6 +102,23 @@ export default function setup() {
             loading.value = false;
         }
     }
+    async function refreshOrderPackaging() {
+        const AxiosMethod = new AxiosCall();
+        const formData = new FormData()
+        formData.append('order_id' , orderId.value)
+        AxiosMethod.using_auth = true
+        AxiosMethod.form = formData
+        AxiosMethod.toast_error = true
+        AxiosMethod.token = cookies.cookies.get('adminToken');
+        AxiosMethod.end_point = `warehouse/order/packaging/refresh`;
+        await AxiosMethod.axios_post();
+
+    }
+
+    onUnmounted(() =>{
+        if (orderId.value ) refreshOrderPackaging()
+    })
+
     return {
         getSortingOrder,
         dataTableLength,
@@ -113,7 +133,8 @@ export default function setup() {
         extractedIds,
         pageNumber,
         pageLength,
-        printLabelHeader
+        printLabelHeader,
+        orderId
     }
 }
 
