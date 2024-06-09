@@ -41,7 +41,7 @@
                         </template>
                     </v-autocomplete>
 
-                    <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="system/bulk/update/shps" />
+                    <ModalGroupAdd getEndPoint="seller/sku/csv/get/template" uploadEndpoint="seller/sku/csv/bulk" />
 
                 </v-row>
             </v-col>
