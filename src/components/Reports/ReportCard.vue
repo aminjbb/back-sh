@@ -21,7 +21,7 @@
             </span>
             </v-row>
             <v-row class="mb-1">
-              <small class="number-font">{{ itemValue?.toLocaleString() }}</small>
+              <span class="number-font">{{ itemValue?.toLocaleString() }}</span>
             </v-row>
           </template>
 
