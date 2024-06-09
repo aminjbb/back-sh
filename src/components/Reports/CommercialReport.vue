@@ -254,9 +254,7 @@ export default defineComponent({
 
   methods: {
     startInterval() {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-      }
+      this.stopInterval()
       this.startTime = Date.now();
       this.intervalId = setInterval(() => {
         this.startTime = Date.now(); // Reset start time after each fetch
