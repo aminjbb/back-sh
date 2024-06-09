@@ -5,9 +5,11 @@ import {useCookies} from "vue3-cookies";
 export default function setup() {
     const commercialReportData = ref([]);
     const cookies = useCookies()
+    const loading = ref(false);
 
     async function getCommercialReportData(from_date, to_date) {
         try {
+            this.loading = true
             let now = new Date().getTime();
             let yesterday = new Date().getTime() - (24 * 60 * 60 * 1000);
             const AxiosMethod = new AxiosCall()
@@ -19,13 +21,14 @@ export default function setup() {
             if (data) {
                 commercialReportData.value = data.data
             }
+            this.loading = false
         } catch (e) {
             this.loading = false
         }
     }
 
     return {
-        commercialReportData, getCommercialReportData
+        commercialReportData, getCommercialReportData, loading
     }
 }
 
