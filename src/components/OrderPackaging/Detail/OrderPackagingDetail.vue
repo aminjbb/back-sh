@@ -135,7 +135,8 @@ export default {
       detailInfo,
       orderListDetail,
       orderId,
-      accept
+      accept,
+      refreshOrderPackaging
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
@@ -147,7 +148,8 @@ export default {
       orderListDetail,
       orderDetails,
       orderId,
-      accept
+      accept,
+      refreshOrderPackaging
     };
   },
   computed: {
@@ -184,6 +186,8 @@ export default {
        if (data) {
          closeToast(this.$store)
          this.orderId = data?.data?.order?.id
+         localStorage.setItem('orderIdForRefreshOrderPackaging' ,  data?.data?.order?.id)
+         this.orderId = data?.data?.order?.id
          if (data?.data?.is_completed) {
            window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
          }
@@ -207,6 +211,9 @@ export default {
     },
 
   },
+  mounted() {
+    if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
+  }
 
 }
 </script>

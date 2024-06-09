@@ -103,10 +103,10 @@ export default function setup() {
             loading.value = false;
         }
     }
-    async function refreshOrderPackaging() {
+    async function refreshOrderPackaging(orderIdForOrderPackaging) {
         const AxiosMethod = new AxiosCall();
         const formData = new FormData()
-        formData.append('order_id' , orderId.value)
+        formData.append('order_id' , orderIdForOrderPackaging)
         if (accept.value)    formData.append('accept' , 1)
         else formData.append('accept' , 0)
         AxiosMethod.using_auth = true
@@ -114,12 +114,15 @@ export default function setup() {
         AxiosMethod.toast_error = true
         AxiosMethod.token = cookies.cookies.get('adminToken');
         AxiosMethod.end_point = `warehouse/order/packaging/refresh`;
-        await AxiosMethod.axios_post();
+        let data = await AxiosMethod.axios_post();
+        if (data){
+            localStorage.removeItem('orderIdForRefreshOrderPackaging')
+        }
 
     }
 
     onUnmounted(() =>{
-        if (orderId.value ) refreshOrderPackaging()
+        if (orderId.value ) refreshOrderPackaging(orderId.value)
     })
 
     return {
@@ -138,7 +141,8 @@ export default function setup() {
         pageLength,
         printLabelHeader,
         orderId,
-        accept
+        accept,
+        refreshOrderPackaging
     }
 }
 
