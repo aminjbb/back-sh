@@ -295,16 +295,15 @@ export default defineComponent({
         if (isNaN(newPrice)) return 0
         return newPrice.toFixed(0)
       } catch (e) {
-        return 0
+        return price
       }
     },
 
-    //convert price fields from Rial to Toman
     formatNumber(price: any) {
       try {
           return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       } catch (e) {
-        return 0
+        return price
       }
     },
 
