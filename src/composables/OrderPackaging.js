@@ -15,6 +15,7 @@ export default function setup() {
     const pageNumber = ref(1)
     const barcodeNum = ref([])
     const extractedIds = ref(null)
+    const accept = ref(true)
 
     const orderListHeader = ref([
         {name: 'ردیف', show: true, value: null, order: false},
@@ -106,6 +107,8 @@ export default function setup() {
         const AxiosMethod = new AxiosCall();
         const formData = new FormData()
         formData.append('order_id' , orderId.value)
+        if (accept.value)    formData.append('accept' , 1)
+        else formData.append('accept' , 0)
         AxiosMethod.using_auth = true
         AxiosMethod.form = formData
         AxiosMethod.toast_error = true
@@ -134,7 +137,8 @@ export default function setup() {
         pageNumber,
         pageLength,
         printLabelHeader,
-        orderId
+        orderId,
+        accept
     }
 }
 

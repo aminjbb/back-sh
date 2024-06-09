@@ -123,7 +123,6 @@ export default {
       shpsItem: null,
       cargo: null,
       orderDetail: [],
-      accept: true,
       dialog: false
     }
   },
@@ -135,7 +134,8 @@ export default {
       loading,
       detailInfo,
       orderListDetail,
-      orderId
+      orderId,
+      accept
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
@@ -146,7 +146,8 @@ export default {
       detailInfo,
       orderListDetail,
       orderDetails,
-      orderId
+      orderId,
+      accept
     };
   },
   computed: {
