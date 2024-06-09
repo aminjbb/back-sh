@@ -150,9 +150,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent} from 'vue'
 import Reports from '../../composables/Reports'
-import ReportCard from "@/components/Reports/ReportCard.vue";
+import ReportCard from "@/components/Reports/ReportCard.vue"
 
 export default defineComponent({
   name: 'CommercialReport',
@@ -163,7 +163,7 @@ export default defineComponent({
       selectedRefreshRate: 300000,
       intervalId: null as unknown as ReturnType<typeof setInterval>,
       selectedPeriod: "24h",
-      fromDate: new Date().getTime() - (30 * 24 * 60 * 60 * 1000), //last 24 hours
+      fromDate: new Date().getTime() - (24 * 60 * 60 * 1000), //last 24 hours
       toDate: new Date().getTime(),
       remainingTime: 300000,
       startTime: Date.now(),
@@ -206,6 +206,10 @@ export default defineComponent({
           name: 'یک هفته گذشته',
           value: '7d'
         },
+        {
+          name: 'یک ماه گذشته',
+          value: '30d'
+        },
       ],
 
     }
@@ -222,58 +226,65 @@ export default defineComponent({
   },
 
   mounted() {
-    this.startInterval();
+    this.refreshInterval()
   },
 
   close() {
-    this.stopInterval();
+    this.stopInterval()
   },
 
   watch: {
     selectedRefreshRate() {
-      this.startInterval();
+      this.refreshInterval()
     },
 
     selectedPeriod(newValue, oldValue) {
       switch (newValue) {
         case '12h':
-          this.fromDate = new Date().getTime() - (12 * 60 * 60 * 1000); //last 12 hours
-          break;
+          this.fromDate = new Date().getTime() - (12 * 60 * 60 * 1000) //last 12 hours
+          break
         case '24h':
-          this.fromDate = new Date().getTime() - (24 * 60 * 60 * 1000); //last 24 hours
-          break;
+          this.fromDate = new Date().getTime() - (24 * 60 * 60 * 1000) //last 24 hours
+          break
         case '48h':
-          this.fromDate = new Date().getTime() - (48 * 60 * 60 * 1000); //last 48 hours
-          break;
+          this.fromDate = new Date().getTime() - (48 * 60 * 60 * 1000) //last 48 hours
+          break
         case '7d':
-          this.fromDate = new Date().getTime() - (7 * 24 * 60 * 60 * 1000); //last 7 days
-          break;
+          this.fromDate = new Date().getTime() - (7 * 24 * 60 * 60 * 1000) //last 7 days
+          break
+        case '30d':
+          this.fromDate = new Date().getTime() - (30 * 24 * 60 * 60 * 1000) //last 30 days
+          break
       }
+      this.refreshInterval()
     }
   },
 
   methods: {
-    startInterval() {
+    refreshInterval(){
       this.stopInterval()
-      this.startTime = Date.now();
+      this.startTime = Date.now()
+      this.fetchData()
+      this.startInterval()
+    },
+    startInterval() {
       this.intervalId = setInterval(() => {
-        this.startTime = Date.now(); // Reset start time after each fetch
-        this.fetchData();
-      }, this.selectedRefreshRate);
-      this.updateRemainingTime();
+        this.startTime = Date.now() // Reset start time after each fetch
+        this.fetchData()
+      }, this.selectedRefreshRate)
+      this.updateRemainingTime()
     },
 
     stopInterval() {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-      }
+      clearInterval(this.intervalId)
+      this.intervalId = null as unknown as ReturnType<typeof setInterval>
     },
 
     updateRemainingTime() {
       if (this.intervalId) {
-        const elapsed = Date.now() - this.startTime;
-        this.remainingTime = this.selectedRefreshRate - elapsed;
-        requestAnimationFrame(this.updateRemainingTime);
+        const elapsed = Date.now() - this.startTime
+        this.remainingTime = this.selectedRefreshRate - elapsed
+        requestAnimationFrame(this.updateRemainingTime)
       }
     },
 
@@ -289,21 +300,21 @@ export default defineComponent({
     },
 
     priceFormat(price: any) {
-      if (!price) return '';
-      let formattedValue;
+      if (!price) return ''
+      let formattedValue
 
       if (price >= 1e9) {
-        formattedValue = (price / 1e9).toFixed(3) + ' میلیارد';
+        formattedValue = (price / 1e9).toFixed(3) + ' میلیارد'
       } else if (price >= 1e6) {
-        formattedValue = (price / 1e6).toFixed(2) + ' میلیون';
+        formattedValue = (price / 1e6).toFixed(2) + ' میلیون'
       } else {
-        formattedValue = price.toLocaleString();
+        formattedValue = price.toLocaleString()
       }
-      return formattedValue;
+      return formattedValue
     },
 
     fetchData() {
-      this.getCommercialReportData(this.fromDate, this.toDate);
+      this.getCommercialReportData(this.fromDate, this.toDate)
     }
   }
 })

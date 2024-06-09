@@ -5,7 +5,7 @@ import {useCookies} from "vue3-cookies";
 export default function setup() {
     const commercialReportData = ref([]);
     const cookies = useCookies()
-    const loading = ref(false);
+    const loading = ref(true);
 
     async function getCommercialReportData(from_date, to_date) {
         try {
