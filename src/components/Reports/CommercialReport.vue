@@ -264,7 +264,9 @@ export default defineComponent({
     },
 
     stopInterval() {
-      clearInterval(this.intervalId);
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
     },
 
     updateRemainingTime() {
