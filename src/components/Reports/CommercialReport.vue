@@ -40,7 +40,7 @@
                     :model-value="100 - ((remainingTime/selectedRefreshRate)*100)"
                     :rotate="360"
                     :size="40"
-                    :width="7"
+                    :width="5"
                     color="teal"
                 >
                   {{ (remainingTime / 1000).toFixed(0) }}
