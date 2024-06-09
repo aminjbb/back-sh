@@ -1,0 +1,49 @@
+<template>
+  <v-col class="py-0 px-0" cols="4">
+    <v-card class="ma-2 px-2 py-2 flex-grow-1 rounded-lg">
+      <v-row justify="space-between" align="center">
+        <v-col v-if="itemImagePath" cols="3">
+          <img class="w-100" :src=itemImagePath :width="100" alt="order-box">
+        </v-col>
+        <v-col cols="9">
+          <v-row class="mb-1">
+            <span class="modal__content__title"><b>{{ itemName }}</b></span>
+          </v-row>
+          <v-row>
+            <span v-if="itemValueFormatted"  class="text-h6 number-font"><b>{{ itemValueFormatted?.toLocaleString() }}</b></span>
+          </v-row>
+          <v-row>
+            <small class="number-font">{{ itemValue?.toLocaleString() }}</small>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-col>
+</template>
+
+<script setup>
+import {toRefs} from "vue";
+
+const props = defineProps({
+  itemName: {
+    type: String,
+    required: true
+  },
+  itemValueFormatted: {
+    type: String,
+    required: true
+  },
+  itemValue: {
+    type: String,
+    required: false
+  },
+  itemImagePath: {
+    type: String,
+    required: false
+  }
+});
+const { itemName } = toRefs(props);
+const { itemValue } = toRefs(props);
+const { itemValueFormatted } = toRefs(props);
+const { itemImagePath } = toRefs(props);
+</script>
