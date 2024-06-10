@@ -57,90 +57,89 @@
       <div class="mt-5">
         <div class="d-flex flex-wrap">
           <reportCard :itemValueFormatted="commercialReportData?.total_orders" itemName="تعداد سفارش"
-                      itemImagePath="/src/assets/img/order-box.png"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.total_order_items" itemName="تعداد آیتم سفارش"
-                      itemImagePath="/src/assets/img/order-box.png"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.total_order_details" itemName="تعداد اقلام سفارش"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_customer_amount))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_customer_amount))"
                       itemName="مجموع قیمت مشتری"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_buy_amount))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_buy_amount))" itemName="مجموع قیمت خرید"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_base_discount))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_base_discount))" itemName="مجموع تخفیف بازرگانی"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_marketing_discount))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_marketing_discount))"
-                      itemName="مجموع تخفیف بازاریابی" itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      itemName="مجموع تخفیف بازاریابی"
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.gmv))"
                       :itemValue="formatNumber(toToman(commercialReportData?.gmv))" itemName="GMV"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.nmv))"
                       :itemValue="formatNumber(toToman(commercialReportData?.nmv))" itemName="NMV"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_profit))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_profit))" itemName="مجموع سود"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.total_margin" itemName="مجموع مارجین"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.AOV_GMV))"
                       :itemValue="formatNumber(toToman(commercialReportData?.AOV_GMV))" itemName="AOV GMV"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.AOV_NMV))"
                       :itemValue="formatNumber(toToman(commercialReportData?.AOV_NMV))" itemName="AOV NMV"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_voucher_amount))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_voucher_amount))" itemName="مجموع وچرها"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.avv))"
                       :itemValue="formatNumber(toToman(commercialReportData?.avv))" itemName="میانگین وچر به ازای هر سفارش"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.IPO" itemName="تعداد آیتم در هر سفارش"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_post_income))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_post_income))" itemName="مجموع درآمد پستی"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_paid_price))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_paid_price))" itemName="مجموع مبالغ پرداخت شده"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.APP))"
                       :itemValue="formatNumber(toToman(commercialReportData?.APP))"
                       itemName="میانگین مبلغ پرداخت شده به ازای هر سفارش"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+                      :loading=loading
           />
-          <reportCard :itemValueFormatted="commercialReportData?.total_buyers" itemName="مجموع تعداد خریداران"
-                      itemImagePath="/src/assets/img/order-box.png" :loading=loading
+          <reportCard :itemValueFormatted="commercialReportData?.total_buyers" itemName="تعداد خریداران"
+                      :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.average_order_per_buyer"
-                      itemName="تعداد سفارش به ازای هر خریدار" itemImagePath="/src/assets/img/order-box.png"
+                      itemName="تعداد سفارش به ازای هر خریدار"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.average_amount_per_buyer))"
                       :itemValue="formatNumber(toToman(commercialReportData?.average_amount_per_buyer))"
-                      itemName="مبلغ سفارش به ازای هر خریدار" itemImagePath="/src/assets/img/order-box.png"
+                      itemName="مبلغ سفارش به ازای هر خریدار"
                       :loading=loading
           />
         </div>
