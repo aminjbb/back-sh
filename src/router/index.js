@@ -228,6 +228,8 @@ import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
 import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
+/* Reports */
+import CommercialReportVew from "@/views/Reports/CommercialReportView.vue";
 
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
@@ -2320,6 +2322,22 @@ const router = createRouter({
                     }
                 }
             ]
+        },
+        {
+            path: '/reports', // Order route
+            meta: {
+                name: 'گزارش‌ها'
+            },
+            children: [
+                {
+                    path: 'commercial',
+                    name: 'CommercialReports',
+                    component: CommercialReportVew,
+                    meta: {
+                        name: 'گزارشات بازرگانی'
+                    }
+                },
+            ],
         },
     ]
 })
