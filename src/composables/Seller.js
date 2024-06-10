@@ -43,15 +43,15 @@ export default function setup(posts) {
     ]);
     const headerSku =ref([
         { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه کالا', show: true, value: 'id', order:false },
-        { name: 'شناسه shps', show: true, value: 'unique_code', order:false },
-        { name:'نام کالا' , show:true ,  value:'label', order:true},
+        { name: 'شناسه کالا', show: true, value: 'id', order:true },
+        { name: 'شناسه shps', show: true, value: 'unique_code', order:true },
+        { name:'نام کالا' , show:true ,  value:'label', order:false},
         { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:true },
         { name: 'موجودی سایت', show: true, value: 'site_stock', order:true },
         { name: ' قیمت مصرف کننده', show: true, value: 'customer_price', order:true },
         { name: ' تخفیف پایه', show: true, value: 'base_discount', order:true },
         { name: 'تخفیف مارکتینگ', show: true , value:'marketing_discount', order:true},
-        { name: 'قیمت فروش', show: true , value:'site_price', order:true},
+        { name: 'قیمت فروش', show: true , value:'site_price', order:false},
         { name: 'وضعیت', show: true , value:'is_active', order:false},
     ]
     );
@@ -98,7 +98,7 @@ export default function setup(posts) {
     ];
     const filterFieldSku = [
         { name: 'شناسه shps', type: 'text', value: 'id' },
-        { name: 'شناسه کالا', type: 'text', value: 'id' },
+        { name: 'شناسه کالا', type: 'text', value: 'sku_id' },
         { name: 'نام کالا', type: 'text', value: 'sku' },
         { name: 'محدودیت سفارش', type: 'text', value: 'limit' },
         { name: 'موجودی انبار(از)', type: 'text', value: 'warehouse_stock_from' },

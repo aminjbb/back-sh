@@ -40,6 +40,7 @@ export default function setup() {
         { name: 'تلفن همراه', type:'number', value:'phone_number'},
         { name: 'نوع پرداخت', type:'select', value:'payment_type'},
         { name: 'بازده پرداخت', type:'text', value:'payment_period'},
+        {name: 'وضعیت ', type: 'select', value: 'is_active'},
     ];
     
     const router = useRouter()
