@@ -101,43 +101,20 @@ export default {
   },
   setup() {
     const {
-     getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
-    pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherList
+      headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
+      filterField , page , voucherList, filterFieldPeerToPeer
+      ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
+      getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
+      addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder
     } = new Voucher()
     return {
-      getVoucherShps, voucher, dataTableLength, filterField , filterFieldPeerToPeer,
-      pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup ,headerPeerToPeerVoucherList,
-      headerShps,
-      headerPublicVoucherList,
-      getVoucherShps,
-      voucher,
-      dataTableLength,
-      filterField ,
-      filterFieldPeerToPeer,
-      pageLength,
-      page,
-      getVoucherDetail,
-      voucherDetail,
-      getVoucherGroup,
-      voucherGroup,
-      headerPeerToPeerVoucherList
-    } = new Voucher()
-    return {
-      headerShps,
-      getVoucherShps,
-      voucher,
-      dataTableLength,
-      headerPublicVoucherList,
-      filterField ,
-      filterFieldPeerToPeer,
-      pageLength,
-      page,
-      getVoucherDetail,
-      voucherDetail,
-      getVoucherGroup,
-      voucherGroup ,
-      headerPeerToPeerVoucherList
+      headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
+      filterField , page , voucherList, filterFieldPeerToPeer
+      ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
+      getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
+      addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder
     }
+
   },
   components: {
     PanelFilter,
