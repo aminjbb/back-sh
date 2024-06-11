@@ -262,24 +262,7 @@ export default defineComponent({
       this.refreshInterval()
     },
 
-    selectedPeriod(newValue, oldValue) {
-      // switch (newValue) {
-      //   case '12h':
-      //     this.fromDate = new Date().getTime() - (12 * 60 * 60 * 1000) //last 12 hours
-      //     break
-      //   case '24h':
-      //     this.fromDate = new Date().getTime() - (24 * 60 * 60 * 1000) //last 24 hours
-      //     break
-      //   case '48h':
-      //     this.fromDate = new Date().getTime() - (48 * 60 * 60 * 1000) //last 48 hours
-      //     break
-      //   case '7d':
-      //     this.fromDate = new Date().getTime() - (7 * 24 * 60 * 60 * 1000) //last 7 days
-      //     break
-      //   case '30d':
-      //     this.fromDate = new Date().getTime() - (30 * 24 * 60 * 60 * 1000) //last 30 days
-      //     break
-      // }
+    selectedPeriod() {
       this.refreshInterval()
     }
   },
