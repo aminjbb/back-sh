@@ -37,7 +37,7 @@
                 >
                 </v-select>
                 <v-progress-circular
-                    :model-value="100 - ((remainingTime/selectedRefreshRate)*100)"
+                    :model-value="100 - ((remainingTime/progressRefreshIn)*100)"
                     :rotate="360"
                     :size="40"
                     :width="5"
@@ -71,11 +71,13 @@
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_buy_amount))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.total_buy_amount))" itemName="مجموع قیمت خرید"
+                      :itemValue="formatNumber(toToman(commercialReportData?.total_buy_amount))"
+                      itemName="مجموع قیمت خرید"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_base_discount))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.total_base_discount))" itemName="مجموع تخفیف بازرگانی"
+                      :itemValue="formatNumber(toToman(commercialReportData?.total_base_discount))"
+                      itemName="مجموع تخفیف بازرگانی"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_marketing_discount))"
@@ -107,22 +109,26 @@
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_voucher_amount))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.total_voucher_amount))" itemName="مجموع وچرها"
+                      :itemValue="formatNumber(toToman(commercialReportData?.total_voucher_amount))"
+                      itemName="مجموع وچرها"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.avv))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.avv))" itemName="میانگین وچر به ازای هر سفارش"
+                      :itemValue="formatNumber(toToman(commercialReportData?.avv))"
+                      itemName="میانگین وچر به ازای هر سفارش"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.IPO" itemName="تعداد آیتم در هر سفارش"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_post_income))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.total_post_income))" itemName="مجموع درآمد پستی"
+                      :itemValue="formatNumber(toToman(commercialReportData?.total_post_income))"
+                      itemName="مجموع درآمد پستی"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_paid_price))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.total_paid_price))" itemName="مجموع مبالغ پرداخت شده"
+                      :itemValue="formatNumber(toToman(commercialReportData?.total_paid_price))"
+                      itemName="مجموع مبالغ پرداخت شده"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.APP))"
@@ -150,7 +156,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import Reports from '../../composables/Reports'
+import Reports from '@/composables/Reports.js'
 import ReportCard from "@/components/Reports/ReportCard.vue"
 
 export default defineComponent({
@@ -159,9 +165,10 @@ export default defineComponent({
 
   data() {
     return {
-      selectedRefreshRate: 300000,
+      selectedRefreshRate: '5m',
       intervalId: null as unknown as ReturnType<typeof setInterval>,
       selectedPeriod: "24h",
+      progressRefreshIn: 300000,
       fromDate: new Date().getTime() - (24 * 60 * 60 * 1000), //last 24 hours
       toDate: new Date().getTime(),
       remainingTime: 300000,
@@ -169,23 +176,23 @@ export default defineComponent({
       refreshRates: [
         {
           name: 'هر 1 دقیقه',
-          value: 60000
+          value: '1m'
         },
         {
           name: 'هر ۵ دقیقه',
-          value: 300000
+          value: '5m'
         },
         {
           name: 'هر ۱۵ دقیقه',
-          value: 900000
+          value: '15m'
         },
         {
           name: 'هر ۳۰ دقیقه',
-          value: 1800000
+          value: '30m'
         },
         {
           name: 'هر یک ساعت',
-          value: 3600000
+          value: '1h'
         }
       ],
       periods: [
@@ -233,34 +240,52 @@ export default defineComponent({
   },
 
   watch: {
-    selectedRefreshRate() {
+    selectedRefreshRate(newValue, oldValue) {
+      switch (newValue) {
+        case '1m':
+          this.progressRefreshIn = 60000
+          break
+        case '15m':
+          this.progressRefreshIn = 900000
+          break
+        case '30m':
+          this.progressRefreshIn = 1800000
+          break
+        case '1h':
+          this.progressRefreshIn = 3600000
+          break
+        case '5m':
+        default:
+          this.progressRefreshIn = 300000
+          break
+      }
       this.refreshInterval()
     },
 
     selectedPeriod(newValue, oldValue) {
-      switch (newValue) {
-        case '12h':
-          this.fromDate = new Date().getTime() - (12 * 60 * 60 * 1000) //last 12 hours
-          break
-        case '24h':
-          this.fromDate = new Date().getTime() - (24 * 60 * 60 * 1000) //last 24 hours
-          break
-        case '48h':
-          this.fromDate = new Date().getTime() - (48 * 60 * 60 * 1000) //last 48 hours
-          break
-        case '7d':
-          this.fromDate = new Date().getTime() - (7 * 24 * 60 * 60 * 1000) //last 7 days
-          break
-        case '30d':
-          this.fromDate = new Date().getTime() - (30 * 24 * 60 * 60 * 1000) //last 30 days
-          break
-      }
+      // switch (newValue) {
+      //   case '12h':
+      //     this.fromDate = new Date().getTime() - (12 * 60 * 60 * 1000) //last 12 hours
+      //     break
+      //   case '24h':
+      //     this.fromDate = new Date().getTime() - (24 * 60 * 60 * 1000) //last 24 hours
+      //     break
+      //   case '48h':
+      //     this.fromDate = new Date().getTime() - (48 * 60 * 60 * 1000) //last 48 hours
+      //     break
+      //   case '7d':
+      //     this.fromDate = new Date().getTime() - (7 * 24 * 60 * 60 * 1000) //last 7 days
+      //     break
+      //   case '30d':
+      //     this.fromDate = new Date().getTime() - (30 * 24 * 60 * 60 * 1000) //last 30 days
+      //     break
+      // }
       this.refreshInterval()
     }
   },
 
   methods: {
-    refreshInterval(){
+    refreshInterval() {
       this.stopInterval()
       this.startTime = Date.now()
       this.fetchData()
@@ -270,7 +295,7 @@ export default defineComponent({
       this.intervalId = setInterval(() => {
         this.startTime = Date.now() // Reset start time after each fetch
         this.fetchData()
-      }, this.selectedRefreshRate)
+      }, this.progressRefreshIn)
       this.updateRemainingTime()
     },
 
@@ -282,7 +307,7 @@ export default defineComponent({
     updateRemainingTime() {
       if (this.intervalId) {
         const elapsed = Date.now() - this.startTime
-        this.remainingTime = this.selectedRefreshRate - elapsed
+        this.remainingTime = this.progressRefreshIn - elapsed
         requestAnimationFrame(this.updateRemainingTime)
       }
     },
@@ -300,7 +325,7 @@ export default defineComponent({
 
     formatNumber(price: any) {
       try {
-          return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       } catch (e) {
         return price
       }
@@ -321,7 +346,7 @@ export default defineComponent({
     },
 
     fetchData() {
-      this.getCommercialReportData(this.fromDate, this.toDate)
+      this.getCommercialReportData(this.selectedPeriod, this.selectedRefreshRate)
     }
   }
 })
