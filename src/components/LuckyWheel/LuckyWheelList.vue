@@ -23,10 +23,9 @@
           <v-row justify="end pa-3">
             <PanelFilter
                 @resetPage="resetPage"
-                path="lost/index"
-                :filterField="filterField"
-                :typeItems="typeList"
-                :shipmentTypeItems="shipmentTypes"
+                path="lucky-wheel/index"
+                :filterField="filterFieldLuckyWheel"
+                :statusItems="activeFilter"
             />
           </v-row>
         </v-col>
@@ -110,9 +109,24 @@ export default {
   },
 
   setup() {
+    const activeFilter= [
+      {
+        label: 'وضعیت',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
     const {
       pageLength,
       getLuckyWheelList,
+      filterFieldLuckyWheel,
       luckyWheel,
       filterField,
       dataTableLength,
@@ -125,6 +139,7 @@ export default {
     return {
       pageLength,
       getLuckyWheelList,
+      filterFieldLuckyWheel,
       luckyWheel,
       filterField,
       dataTableLength,
@@ -133,6 +148,7 @@ export default {
       addPagination,
       addPerPage,
       loading,
+      activeFilter
     };
   },
 
@@ -182,12 +198,12 @@ export default {
 
     page(){
       if (!this.perPageFilter){
-        this.getWasteAndLostList()
+        this.getLuckyWheelList()
       }
     },
 
     $route(){
-      this.getWasteAndLostList()
+      this.getLuckyWheelList()
     }
   }
 }

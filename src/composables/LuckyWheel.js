@@ -42,6 +42,14 @@ export default function setup() {
         { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
         { name: 'تاریخ افزودن به لیست', type:'date', value:'created_at'},
     ];
+    const filterFieldLuckyWheel = [
+        { name: 'اسم گردونه', type:'text', value:'name'},
+        { name: 'لیبل', type:'text', value:'label'},
+        { name: 'تاریخ شروع', type:'date', value:'start_time'},
+        { name: 'تاریخ پایان', type:'date', value:'end_time'},
+        { name: 'تعداد شانس', type:'text', value:'turn_per_user'},
+        { name: 'وضعیت', type:'select', value:'is_active'},
+    ];
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
@@ -102,6 +110,6 @@ export default function setup() {
     }
 
 
-    return {pageLength, luckyWheel , getLuckyWheelList, dataTableLength, page, header,loading , filterField , prizesHeader }
+    return {pageLength, luckyWheel , getLuckyWheelList, dataTableLength, page, header,loading , filterField , prizesHeader, filterFieldLuckyWheel }
 }
 

@@ -200,7 +200,7 @@
                   <div class="t13300 text-right mb-1">{{filter.name}}</div>
                   <!-- Active status -->
                   <v-select
-                      v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_index' || filter.value === 'is_follow'"
+                      v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_filterable' || filter.value === 'is_index' || filter.value === 'is_follow'"
                       density="compact"
                       variant="outlined"
                       single-line
@@ -806,7 +806,7 @@ export default {
       this.$emit('resetPage')
       this.values.forEach((el) => {
         if (el.value) {
-          if (el.name === 'created_at' || el.name === 'updated_at' || el.name === 'start_time' || el.name === 'end_time' || el.name === 'logistic_at') {
+          if (el.name === 'created_at' || el.name === 'updated_at' || el.name === 'start_time' || el.name === 'end_time' || el.name === 'logistic_at' || el.name === 'logistic_date') {
             let created_at_from = null
             let created_at_to = null
 
@@ -833,7 +833,16 @@ export default {
 
             else if (el.name === 'logistic_at') {
               if (created_at_from != null ){
-                params += 'logistic_date_from=' + created_at_from + '&';
+                params += 'logistic_at=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&logistic_date_to=' + created_at_to + '&'
+              }
+            }
+
+            else if (el.name === 'logistic_date') {
+              if (created_at_from != null ){
+                params += 'logistic_date=' + created_at_from + '&';
               }
               if (created_at_to != null){
                 params += '&logistic_date_to=' + created_at_to + '&'
