@@ -29,7 +29,7 @@ export default function setup() {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام کالا', show: true , value:'name', order: false},
         { name: 'شناسه کالا', show: true , value:'label', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'id' , order: true},
+        { name: 'ترتیب نمایش', show: true, value:'priority' , order: true},
         { name: 'ذخیره ', show: true, value:'id' , order: false},
     ]);
 
