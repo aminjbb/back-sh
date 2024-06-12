@@ -48,7 +48,9 @@
 
         <v-col cols="6">
           <v-row justify="end">
-            <PanelFilter :filterField="filterFieldPromotionSku"/>
+            <PanelFilter
+                :path="`promotion-page/${$route.params.promotionId}/sku-group/add`"
+                :filterField="filterFieldPromotionSku"/>
           </v-row>
         </v-col>
       </v-row>
@@ -66,7 +68,6 @@
           :loading="loading"
           updateUrl="page/csv/mass-update"
           model="skuPromotionPage" />
-
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -138,6 +139,7 @@ export default {
       promotionPage,
       header,
       loading ,
+      page,
       skuGroupHeader,
       filterFieldPromotionSku
     }=new PromotionPage()
@@ -157,6 +159,7 @@ export default {
       promotionPage,
       header,
       loading ,
+      page,
       skuGroupHeader,
       filterFieldPromotionSku
     }

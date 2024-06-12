@@ -34,7 +34,7 @@ export default function setup() {
     ]);
 
     const filterFieldPromotionSku = [
-        { name:'نام فارسی' , type:'text', value:'label'},
+        { name:'نام فارسی' , type:'text', value:'sku'},
         { name: 'شناسه', type: 'text', value: 'id' },
     ];
     const filterField = [
