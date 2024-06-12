@@ -108,7 +108,7 @@ export default {
         value: 'in_progress'
       },
       {
-        label: 'ارسال شده',
+        label: 'در حال ارسال',
         value: 'sending'
       },
       {
