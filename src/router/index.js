@@ -288,6 +288,12 @@ import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPac
 import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
 import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
 import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
+import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.vue";
+
+/* Comments*/
+import CommentListView from '../views/CommentAccepted/CommentListView.vue'
+import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
+
 
 
 const router = createRouter({
@@ -2268,8 +2274,6 @@ const router = createRouter({
                     name: 'بنر مناسبتی'
                 }
             },
-
-
             ]
         },
         {
@@ -2292,6 +2296,14 @@ const router = createRouter({
                     component: CreateLuckyWheelView,
                     meta: {
                         name: 'ساخت گردانه شانس'
+                    }
+                },
+                {
+                    path: ':luckyWheelId/prize-edit',
+                    name: 'EditLuckyWheelPrizeView',
+                    component: EditLuckyWheelPrizeView,
+                    meta: {
+                        name: 'ویرایش گردانه شانس'
                     }
                 },
 
@@ -2339,7 +2351,30 @@ const router = createRouter({
                 },
             ],
         },
-    ]
+        {
+            path: '/comment', // Zone
+            meta: {
+                name: ' کامنت '
+            },
+            children: [
+                {
+                path: 'index',
+                name: 'CommentListView',
+                component: CommentListView,
+                meta: {
+                    name: 'بنر مناسبتی'
+                }
+                },
+                {
+                path: 'reply/:id',
+                name: 'ReplyCommentView',
+                component: ReplyCommentView,
+                meta: {
+                    name: ' بررسی کامنت '
+                }
+            }]
+        }
+        ]
 })
 router.beforeEach((to, from, next) => {
     // redirect to dashboard page if user is already logged in

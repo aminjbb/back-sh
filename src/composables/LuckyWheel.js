@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const luckyWheel = ref([]);
+    const luckyWheelPrize = ref(null);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -22,6 +23,7 @@ export default function setup() {
         { name: 'تاریخ پایان', show: true , value:'end_date', order: true},
         { name: 'تعداد شانس', show: true , value:'chance', order: false},
         { name: 'وضعیت', show: true , value:'is_active', order: false},
+        { name: 'عملیات', show: true , value:'is_active', order: false},
     ]);
     const prizesHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -41,14 +43,6 @@ export default function setup() {
         { name: 'نام کالا', type:'text', value:'sku_label'},
         { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
         { name: 'تاریخ افزودن به لیست', type:'date', value:'created_at'},
-    ];
-    const filterFieldLuckyWheel = [
-        { name: 'اسم گردونه', type:'text', value:'name'},
-        { name: 'لیبل', type:'text', value:'label'},
-        { name: 'تاریخ شروع', type:'date', value:'start_time'},
-        { name: 'تاریخ پایان', type:'date', value:'end_time'},
-        { name: 'تعداد شانس', type:'text', value:'turn_per_user'},
-        { name: 'وضعیت', type:'select', value:'is_active'},
     ];
     const loading = ref(false)
     const isFilter =ref(false)
@@ -104,12 +98,24 @@ export default function setup() {
         if (data) {
             pageLength.value = data.data.last_page
             luckyWheel.value = data.data.data
-            console.log(luckyWheel.value, 'luckyWheel.value')
             loading.value = false
+        }
+    }
+    async function getLuckyWheelPrize() {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `game/lucky-wheel/crud/get/${route.params.luckyWheelId}`
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            luckyWheelPrize.value = data.data
         }
     }
 
 
-    return {pageLength, luckyWheel , getLuckyWheelList, dataTableLength, page, header,loading , filterField , prizesHeader, filterFieldLuckyWheel }
+
+    return {pageLength, luckyWheel , getLuckyWheelList, dataTableLength, page, header,loading , filterField ,
+        prizesHeader , getLuckyWheelPrize , luckyWheelPrize}
 }
 
