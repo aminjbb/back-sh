@@ -99,11 +99,11 @@ export default {
     const status = [
       {
         label: 'در انتظار',
-        value: 'waiting',
+        value: 'pending',
       },
       {
-        label: 'در حال بررسی',
-        value: 'in_review',
+        label: 'تایید شده',
+        value: 'accepted',
       },
       {
         label: 'رد شده',

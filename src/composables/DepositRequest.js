@@ -22,8 +22,8 @@ export default function setup() {
         { name: ' شناسه مشتری', show: true , value:'user_id', order: true},
         { name: ' نام مشتری', show: true , value:'name', order: false},
         { name: ' شماره مشتری', show: true , value:'phone_number', order: false},
-        { name: ' شماره شبا مشتری', show: true, value:'type' , order: false},
         { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
+        { name: ' شماره شبا مشتری', show: true, value:'type' , order: false},
         { name: ' موجودی قابل برداشت', show: true, value:'value', order: false },
         { name: ' موجودی  کل', show: true, value:'value', order: false },
         { name: ' تاریخ درخواست ', show: true, value:'created_at', order: true },
@@ -33,11 +33,10 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name:'شماره تماس' , type:'text', value:'phone_number' , place:'شماره تماس'},
         {name:' شناسه' , type:'text', value:'id' , place:'شناسه'},
+        {name:' شناسه مشتری' , type:'text', value:'user_id' , place:'شناسه مشتری'},
         { name:'نام مشتری' , type: 'auto-complete', value:'user_id' , place:'نام مشتری'},
         { name: 'شماره شبا مشتری', type:'text', value:'card_number' , place:'شماره شبا مشتری'},
-        { name: 'نام ادمین', type:'auto-complete', value:'admin_id' , place:'نام ادمین'},
         { name: 'حداقل مبلغ درخواستی', type:'text', value:'amount_from', place:'از'},
         { name: 'حداکثر مبلغ درخواستی', type:'text', value:'amount_to', place:'تا'},
         { name: 'حداقل موجودی کیف پول', type:'text', value:'wallet_value_from', place:'از '},

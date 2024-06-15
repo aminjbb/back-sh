@@ -15,7 +15,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه محموله', show: true , value:'id', order: false},
-        { name: 'شناسه فاکتور', show: true , value:'factor_id', order: false},
+        { name: 'شناسه فاکتور', show: true , value:'factor_id', order: true},
         { name: 'تعداد آیتم', show: true, value:'number' , order: false},
         { name: 'تنوع آیتم', show: true , value:'variety', order: false},
         { name: 'نام سازنده', show: true, value:'creator', order: false },

@@ -18,14 +18,14 @@ export default function setup() {
     // Page table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'label', order: false},
+        { name: 'شناسه محموله', show: true , value:'id', order: true},
         { name: 'نوع محموله', show: true, value:'type' , order: false},
         { name: ' تعداد آیتم', show: true , value:'id', order: false},
         { name: 'تنوع آیتم', show: true, value:'created_at', order: false },
         { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
         { name: 'نام سازنده', show: true, value:'is_index', order: false },
-        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: false },
+        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: true },
+        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: true },
         { name: 'وضعیت', show: true, value:'is_active', order: false },
     ]);
 

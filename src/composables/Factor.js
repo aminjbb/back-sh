@@ -19,7 +19,7 @@ export default function setup() {
     // Factor table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه فاکتور', show: true , value:'id', order: false},
+        { name: 'شناسه فاکتور', show: true , value:'id', order: true},
         { name: 'تامین کننده ', show: true, value:'supplier' , order: false},
         { name: 'سازنده', show: true , value:'creator', order: false},
         { name: 'شماره فاکتور تامین کننده ', show: true, value:'factor_number', order: false },

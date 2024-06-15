@@ -72,7 +72,7 @@ export default function setup() {
         {name:'عنوان' , type:'text', value:'name'},
         {name:'کد تخفیف' , type:'text', value:'code'},
         {name:'نوع کد تخفیف' , type:'select', value:'voucher_type'},
-        {name:'نوع تخفیف' , type:'select', value:'discount_type'},
+        {name:'نوع مقدارتخفیف' , type:'select', value:'discount_type'},
         {name:'هزینه ارسال' , type:'select', value:'sending_method'},
         {name:'استان' , type:'select', value:'state_id'},
         {name:'تاریخ شروع ' , type:'date', value:'start_time'},

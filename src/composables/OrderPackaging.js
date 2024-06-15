@@ -3,8 +3,11 @@ import {PanelFilter} from '@/assets/js/filter.js'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 
+import {onUnmounted} from "vue";
+
 export default function setup() {
     const orderList = ref([])
+    const  orderId = ref(null)
     const orderListDetail = ref([])
     const cookies = useCookies()
     const dataTableLength = ref(25)
@@ -12,6 +15,7 @@ export default function setup() {
     const pageNumber = ref(1)
     const barcodeNum = ref([])
     const extractedIds = ref(null)
+    const accept = ref(true)
 
     const orderListHeader = ref([
         {name: 'ردیف', show: true, value: null, order: false},
@@ -99,6 +103,28 @@ export default function setup() {
             loading.value = false;
         }
     }
+    async function refreshOrderPackaging(orderIdForOrderPackaging) {
+        const AxiosMethod = new AxiosCall();
+        const formData = new FormData()
+        formData.append('order_id' , orderIdForOrderPackaging)
+        if (accept.value)    formData.append('accept' , 1)
+        else formData.append('accept' , 0)
+        AxiosMethod.using_auth = true
+        AxiosMethod.form = formData
+        AxiosMethod.toast_error = true
+        AxiosMethod.token = cookies.cookies.get('adminToken');
+        AxiosMethod.end_point = `warehouse/order/packaging/refresh`;
+        let data = await AxiosMethod.axios_post();
+        if (data){
+            localStorage.removeItem('orderIdForRefreshOrderPackaging')
+        }
+
+    }
+
+    onUnmounted(() =>{
+        if (orderId.value ) refreshOrderPackaging(orderId.value)
+    })
+
     return {
         getSortingOrder,
         dataTableLength,
@@ -113,7 +139,10 @@ export default function setup() {
         extractedIds,
         pageNumber,
         pageLength,
-        printLabelHeader
+        printLabelHeader,
+        orderId,
+        accept,
+        refreshOrderPackaging
     }
 }
 
