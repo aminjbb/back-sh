@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_menu.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -22,7 +20,7 @@ export default function setup() {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام انگلیسی', show: true , value:'name', order: false},
         { name: 'نام فارسی', show: true , value:'label', order: false},
-        { name: 'شناسه صفحه', show: true, value:'id' , order: false},
+        { name: 'شناسه صفحه', show: true, value:'id' , order: true},
         { name: 'تاریخ ساخت', show: true , value:'created_at', order: true},
         { name: 'تاریخ ویرایش', show: true, value:'updated_at', order: true },
         { name: 'وضعیت', show: true, value:'is_active', order: false },
@@ -31,19 +29,14 @@ export default function setup() {
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'نام کالا', show: true , value:'name', order: false},
         { name: 'شناسه کالا', show: true , value:'label', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'id' , order: true},
+        { name: 'ترتیب نمایش', show: true, value:'priority' , order: true},
         { name: 'ذخیره ', show: true, value:'id' , order: false},
-        
-
-        
     ]);
 
     const filterFieldPromotionSku = [
-        {name:'نام فارسی' , type:'text', value:'label'},
+        { name:'نام فارسی' , type:'text', value:'sku'},
         { name: 'شناسه', type: 'text', value: 'id' },
     ];
-
-
     const filterField = [
         {name:'نام فارسی' , type:'text', value:'label'},
         {name: 'نام انگلیسی', type: 'text', value: 'name'},
@@ -55,7 +48,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getPromotions() {
         loading.value = true
@@ -112,9 +104,6 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-
-        else {
-        }
     };
     async function getPromotionShpsList(page , perPage) {
         loading.value = true
@@ -137,9 +126,6 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-
-        else {
-        }
     };
     async function getPromotion(){
         const AxiosMethod = new AxiosCall()
@@ -149,9 +135,6 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             promotion.value = data.data
-        }
-
-        else {
         }
     }
 

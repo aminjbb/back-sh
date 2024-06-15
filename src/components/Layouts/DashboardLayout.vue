@@ -439,7 +439,7 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-message-reply-text-outline</v-icon>
+                  <v-icon>mdi-tooltip-text-outline</v-icon>
                 </template>
 
                 <span class="t14500">
@@ -480,6 +480,21 @@
                     {{title}}
                 </span>
             </v-list-item>
+
+          <v-list-item
+              v-for="([title, to, icon], index) in comments"
+              :key="index"
+              active-class="bg-active"
+              :to="to">
+            <template v-slot:prepend>
+              <v-icon>{{icon}}</v-icon>
+            </template>
+
+            <span class="t14500">
+                    {{title}}
+                </span>
+          </v-list-item>
+
         </v-list>
 
     </v-navigation-drawer>
@@ -495,6 +510,9 @@ export default {
             open: [],
             sending: [
                 // ['ارسال', '/send/index', 'mdi-truck-outline'],
+            ],
+            comments: [
+                ['نظرات', '/comment/index', 'mdi-message-reply-text-outline'],
             ],
             chat: [
                 ['گفتگو', '/chat', 'mdi-chat-outline'],

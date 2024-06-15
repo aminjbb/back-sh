@@ -674,6 +674,7 @@ export default {
          * @param { boolean } order
          */
         createOrdering(index, order) {
+          console.log(index, order)
             if (order === true) {
               if (index) {
                 let query = this.$route.query

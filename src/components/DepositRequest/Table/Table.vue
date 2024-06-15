@@ -59,18 +59,9 @@
                     </span>
               </div>
 
-                <div v-if="header[4].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13300 text-gray500 py-5 number-font">
-                        <template v-if="item.card_number">
-                            {{ item.card_number }}
-                        </template>
-                        <template v-else>
-                            نامعلوم
-                        </template>
-                    </span>
-                </div>
 
-                <div v-if="header[5].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+
+                <div v-if="header[4].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.amount">
                             {{ item.amount }}
@@ -80,6 +71,16 @@
                         </template>
                     </span>
                 </div>
+                <div v-if="header[5].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t13300 text-gray500 py-5 number-font">
+                        <template v-if="item.card_number">
+                            {{ item.card_number }}
+                        </template>
+                        <template v-else>
+                            نامعلوم
+                        </template>
+                    </span>
+              </div>
                 <div v-if="header[6].show" class="c-table__contents__item justify-center " :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray500 py-5 number-font">
                         <template v-if="item.user.wallet.value ">

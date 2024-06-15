@@ -43,6 +43,7 @@
                 path="categories/index"
                 :filterField="filterField"
                 :statusItems="activeStatus"
+                :categoriesList="categoriesList"
             />
           </v-row>
         </v-col>
@@ -155,6 +156,8 @@ export default {
     const {
       pageLength,
       categoreis,
+      allCategories,
+      getAllCategories,
       getCategories,
       dataTableLength,
       page,
@@ -166,6 +169,8 @@ export default {
     return {
       pageLength,
       categoreis,
+      allCategories,
+      getAllCategories,
       getCategories,
       dataTableLength,
       page,
@@ -180,7 +185,23 @@ export default {
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
-    }
+    },
+
+    categoriesList() {
+      try {
+        const categories = []
+        this.allCategories.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id
+          }
+          categories.push(form)
+        });
+        return categories
+      } catch (error) {
+        return []
+      }
+    },
   },
 
   watch: {
@@ -225,6 +246,10 @@ export default {
         this.getCategories()
       }
     }
+  },
+
+  mounted() {
+    this.getAllCategories();
   },
 
   methods: {
