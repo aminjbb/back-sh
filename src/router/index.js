@@ -288,6 +288,11 @@ import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
 import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
 import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.vue";
 
+/* Comments*/
+import CommentListView from '../views/CommentAccepted/CommentListView.vue'
+import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
+
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -2328,6 +2333,29 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/comment', // Zone
+            meta: {
+                name: ' کامنت '
+            },
+            children: [
+                {
+                path: 'index',
+                name: 'CommentListView',
+                component: CommentListView,
+                meta: {
+                    name: 'بنر مناسبتی'
+                }
+                },
+                {
+                path: 'reply/:id',
+                name: 'ReplyCommentView',
+                component: ReplyCommentView,
+                meta: {
+                    name: ' بررسی کامنت '
+                }
+            }]
+        }
     ]
 })
 router.beforeEach((to, from, next) => {

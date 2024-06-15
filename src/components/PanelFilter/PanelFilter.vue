@@ -258,17 +258,17 @@
                       v-model="values[index].value"
                   />
 
-                <!-- type -->
-                <v-select
-                      v-if="filter.value === 'type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="typeItems"
-                      v-model="values[index].value"
-                  />
+                  <!-- type -->
+                  <v-select
+                        v-if="filter.value === 'type'"
+                        density="compact"
+                        variant="outlined"
+                        single-line
+                        item-title="label"
+                        item-value="value"
+                        :items="typeItems"
+                        v-model="values[index].value"
+                    />
 
                   <!-- priority -->
                   <v-select
@@ -282,7 +282,7 @@
                       v-model="values[index].value"
                   />
 
-
+                  <!-- type_package -->
                   <v-select
                       v-if="filter.value === 'type_package'"
                       density="compact"
@@ -337,17 +337,17 @@
                       v-model="values[index].value"
                   />
 
-                <!-- charge_type status -->
-                <v-select
-                    v-if="filter.value === 'charge_type'"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    item-title="label"
-                    item-value="value"
-                    :items="chargeType"
-                    v-model="values[index].value"
-                />
+                  <!-- charge_type status -->
+                  <v-select
+                      v-if="filter.value === 'charge_type'"
+                      density="compact"
+                      variant="outlined"
+                      single-line
+                      item-title="label"
+                      item-value="value"
+                      :items="chargeType"
+                      v-model="values[index].value"
+                  />
 
                   <!-- supplier fields -->
                   <v-autocomplete
@@ -477,6 +477,19 @@
                       item-value="value"
                       v-model="values[index].value"
                       v-debounce="searchUser" />
+
+                  <!-- score -->
+                  <v-select
+                      v-if="filter.value ==='score'"
+                      density="compact"
+                      variant="outlined"
+                      single-line
+                      hide-details
+                      multiple
+                      item-title="name"
+                      item-value="value"
+                      :items="scoreItems"
+                      v-model="values[index].value" />
                 </v-col>
 
               <!-- Date fields -->
@@ -570,6 +583,7 @@ export default {
     perPage:Number,
     userId:null,
     factorId:null,
+    scoreItems:[]
   },
 
   setup(){
