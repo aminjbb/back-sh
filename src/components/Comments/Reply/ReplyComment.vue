@@ -187,7 +187,8 @@ export default {
       AxiosMethod.token =this.$cookies.get('adminToken')
       AxiosMethod.end_point = `product/comment/crud/update/status/`  + this.$route.params.id
       let res = await AxiosMethod.axios_post()
-      if (res.status === 'Success') {
+      if (res) {
+        this.getComment()
         this.loading1=false
         openToast(
             this.$store,
@@ -214,7 +215,7 @@ export default {
       AxiosMethod.token =this.$cookies.get('adminToken')
       AxiosMethod.end_point = `product/comment/crud/create/`  + this.$route.params.id
       let res = await AxiosMethod.axios_post()
-      if (res.status === 'Success') {
+      if (res) {
         this.loading2=false
         openToast(
             this.$store,
