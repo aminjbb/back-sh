@@ -23,9 +23,7 @@
           <v-row justify="end pa-3">
             <PanelFilter
                 @resetPage="resetPage"
-                path="lucky-wheel/index"
-                :filterField="filterFieldLuckyWheel"
-                :statusItems="activeFilter"
+                :filterField="filterField"
             />
           </v-row>
         </v-col>

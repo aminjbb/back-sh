@@ -34,15 +34,7 @@ export default function setup() {
         { name: 'مدت زمان استفاده', show: true , value:'time', order: false},
     ]);
     const filterField = [
-        { name: 'شناسه بسته', type:'text', value:'package_id'},
-        { name: 'نوع بسته', type:'select', value:'type_package'},
-        { name:'نوع محموله', type: 'select', value:'shipment_type'},
-        { name: 'نام فروشگاه', type:'text', value:'shopping_name'},
-        { name: 'تامین کننده', type:'select', value:'supplier_id'},
-        { name: 'سریال کالا', type:'text', value:'shps_s'},
-        { name: 'نام کالا', type:'text', value:'sku_label'},
-        { name: 'نام ایجاد کننده', type:'select', value:'creator_id'},
-        { name: 'تاریخ افزودن به لیست', type:'date', value:'created_at'},
+        { name: 'نام', type:'text', value:'name'},
     ];
     const loading = ref(false)
     const isFilter =ref(false)

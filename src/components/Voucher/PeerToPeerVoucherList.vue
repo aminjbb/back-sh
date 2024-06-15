@@ -101,20 +101,28 @@ export default {
   },
   setup() {
     const {
-      headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
-      filterField , page , voucherList, filterFieldPeerToPeer
-      ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-      getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
-      addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder
+     getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
+    pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherLis, headerShps,
+      headerPeerToPeerVoucherList , headerPublicVoucherList
     } = new Voucher()
-    return {
-      headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
-      filterField , page , voucherList, filterFieldPeerToPeer
-      ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-      getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
-      addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder
-    }
 
+    return {
+      headerShps,
+      getVoucherShps,
+      voucher,
+      dataTableLength,
+      headerPublicVoucherList,
+      filterField ,
+      filterFieldPeerToPeer,
+      pageLength,
+      page,
+      getVoucherDetail,
+      voucherDetail,
+      getVoucherGroup,
+      voucherGroup ,
+      headerPeerToPeerVoucherList,
+
+    }
   },
   components: {
     PanelFilter,
