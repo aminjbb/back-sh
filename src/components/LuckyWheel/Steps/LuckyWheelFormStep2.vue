@@ -122,13 +122,15 @@
         <Table
             class="flex-grow-1"
             :header="prizesHeader"
-            :items="prizeList"
+            :items="status==='edit' ? luckyWheelPrize?.prizes : prizeList"
             :page="1"
             :perPage="25"
             :loading="loading"
             deletePath="report/crud/delete/"
             model="report"
-            @deletePrize="deletePrize"/>
+            @deletePrize="deletePrize"
+            :getLuckyWheelPrize="updateList"
+            :status="status"/>
       </v-card>
     </div>
 
@@ -144,6 +146,12 @@ import {AxiosCall} from "@/assets/js/axios_call";
 const Table = defineAsyncComponent(()=> import('@/components/LuckyWheel/Table/PrizesTable.vue'))
 const UploadFileSection = defineAsyncComponent(() => import('@/components/Public/UploadFileSection.vue'))
 export default {
+  props:{
+    status:'',
+    luckyWheelPrize:null,
+    getLuckyWheelPrize:{type:Function},
+  },
+
   setup() {
 
     const {
@@ -174,7 +182,6 @@ export default {
       },
       voucherSearchList: [],
       prizeList:[],
-
     }
   },
   components: {
@@ -202,8 +209,12 @@ export default {
   },
 
   methods: {
+    updateList(){
+      this.getLuckyWheelPrize()
+    },
     deletePrize(index){
-      this.prizeList.splice(index , 1)
+      if (this.status === 'edit') this.deletePrizeAsServer(index)
+      else this.prizeList.splice(index , 1)
     },
     async searchVoucher(search) {
       this.voucherSearchList = []
@@ -229,25 +240,79 @@ export default {
       this.imageId = id;
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
+    async deletePrizeAsServer(id) {
+      this.loading = true
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `game/lucky-wheel/prize/crud/delete/${id}`
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_delete()
+      if (data) {
+        this.loading = false
+        this.getLuckyWheelPrize()
+        this.resetPrizeForm()
+
+
+      } else {
+        this.loading = false
+      }
+    },
+    async sendingPrize() {
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'game/lucky-wheel/prize/crud/creat'
+      formData.append('lucky_wheel_id', this.$route.params.luckyWheelId)
+      formData.append('name', this.form.name)
+      formData.append('label', this.form.label)
+      formData.append('voucher_id', this.form.voucher)
+      formData.append('deadline_for_use',  this.form.time)
+      formData.append('chance',this.form.chance)
+      formData.append('desktop_image_id', this.form.image)
+      formData.append('mobile_image_id', this.form.imageMobile)
+      formData.append('description', this.form.description)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.getLuckyWheelPrize()
+        this.resetPrizeForm()
+
+
+      } else {
+        this.loading = false
+      }
+    },
 
     async createPrize() {
-      await this.$refs.LuckyWheelStep2Form.validate()
-      if (this.valid) {
-        let voucherName = this.voucherSearchList.find(voucher=> voucher.id == this.form.voucher )
-        if (voucherName) voucherName = voucherName?.name
-        const form = {
-          name: this.form.name,
-          label: this.form.label,
-          chance: this.form.chance,
-          time: this.form.time,
-          image: this.form.image,
-          imageMobile: this.form.imageMobile,
-          voucher: this.form.voucher,
-          voucherName: voucherName,
-          description: this.form.description
-        }
-        await this.prizeList.push(form)
-        this.resetPrizeForm()
+      if (this.status ==='edit'){
+        this.sendingPrize()
+      }
+      else{
+        await this.$refs.LuckyWheelStep2Form.validate()
+        if (this.valid) {
+          let voucherName = this.voucherSearchList.find(voucher=> voucher.id == this.form.voucher )
+          if (voucherName) voucherName = voucherName?.name
+          const form = {
+            name: this.form.name,
+            label: this.form.label,
+            chance: this.form.chance,
+            time: this.form.time,
+            image: this.form.image,
+            imageMobile: this.form.imageMobile,
+            voucher: this.form.voucher,
+            voucherName: voucherName,
+            description: this.form.description
+          }
+          await this.prizeList.push(form)
+          this.resetPrizeForm()
+      }
       }
 
     },

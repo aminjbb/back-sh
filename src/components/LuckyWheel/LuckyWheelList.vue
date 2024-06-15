@@ -23,10 +23,7 @@
           <v-row justify="end pa-3">
             <PanelFilter
                 @resetPage="resetPage"
-                path="lost/index"
                 :filterField="filterField"
-                :typeItems="typeList"
-                :shipmentTypeItems="shipmentTypes"
             />
           </v-row>
         </v-col>
