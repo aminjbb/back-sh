@@ -125,6 +125,14 @@ export default {
         label: 'کالاها',
         value: 'sku',
       },
+      {
+        label: 'محصول',
+        value: 'product',
+      },
+      {
+        label: 'گروه کالا',
+        value: 'skugroup',
+      },
     ]
     const {
       pageLength,

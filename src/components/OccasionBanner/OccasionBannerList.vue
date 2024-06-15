@@ -13,7 +13,11 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <PanelFilter :statusHasOption="deviceTypes"  path="menu/index" :filterField="filterField" />
+            <PanelFilter
+                :statusHasOption="deviceTypes"
+                path="occasion-banner/index"
+                :filterField="filterField"
+                :statusItems="activeFilter"/>
           </v-row>
         </v-col>
       </v-row>
@@ -44,11 +48,25 @@ import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import { openToast} from "@/assets/js/functions";
 export default {
   setup() {
+    const activeFilter= [
+      {
+        label: 'وضعیت',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ]
     const {
       filterField, OccasionBanners, getOccasionBanners  , header
     } = new OccasionBanner();
     return {
-      filterField, OccasionBanners, getOccasionBanners  , header
+      filterField, OccasionBanners, getOccasionBanners  , header, activeFilter
     };
   },
   data(){
