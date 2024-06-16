@@ -119,7 +119,7 @@
               </v-col>
 
               <v-col cols="12" class="pa-0 ma-0">
-                <v-card height="65" variant="outlined" color="black"
+                <v-card height="70" variant="outlined" color="black"
                         class="rounded-0 d-flex justify-center align-center pa-0">
                   <barcode
                       :barcodeValue="printObject.logistic_barcode"
