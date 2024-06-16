@@ -120,7 +120,7 @@
 
               <v-col cols="12" class="pa-0 ma-0">
                 <v-card height="70" variant="outlined" color="black"
-                        class="rounded-0 d-flex justify-center align-center pa-0">
+                        class="rounded-0 d-flex justify-center align-center pa-0 pt-1">
                   <barcode
                       :barcodeValue="printObject.logistic_barcode"
                       :format="'CODE128'"
@@ -208,7 +208,7 @@
               <v-col cols="12" class="pa-0 ma-0">
 
                 <v-card height="70" variant="outlined" color="black"
-                        class="rounded-0 d-flex justify-center align-center pa-0"  :key="'logistic_barcode'+index" >
+                        class="rounded-0 d-flex justify-center align-center pa-0 pt-1"  :key="'logistic_barcode'+index" >
                   <barcode
                       :barcodeValue="printObject.logistic_barcode"
                       :format="'CODE128'"
@@ -268,7 +268,7 @@ export default {
 
                     setTimeout(() => {
                         let myElement = document.getElementById('printableArea-order');
-                        window.onafterprint = function() {window.close()};
+                        // window.onafterprint = function() {window.close()};
                         window.print(myElement);
                     }, 2000)
 
