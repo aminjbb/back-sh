@@ -53,9 +53,9 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.shps_id">
+                  <template v-if="item.shps">
                     <span class="number-font">
-                         {{item.shps_id}}
+                         {{item.shps}}
                     </span>
                   </template>
                   <template v-else>
