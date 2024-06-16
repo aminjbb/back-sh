@@ -1,5 +1,5 @@
 <template>
-  <div :style="{height: height}" class="c-table pl-1">
+  <div :style="{height: height}" class="c-table pl-1" >
     <v-progress-linear
         color="primary500"
         indeterminate
@@ -47,15 +47,15 @@
                         {{rowIndexTable(index)}}
                     </span>
           </div>
-<!-- id 1-->
+<!-- shps_id 1-->
           <div
               v-if="header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.sku_id">
-                    <span >
-                         {{item.sku_id}}
+                  <template v-if="item.shps">
+                    <span class="number-font">
+                         {{item.shps}}
                     </span>
                   </template>
                   <template v-else>
@@ -63,15 +63,15 @@
                   </template>
               </span>
           </div>
-<!-- label 2-->
+<!-- sku_label 2-->
           <div
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{  width: itemsWidth, flex: `0 0 ${itemsWidth}`}">
               <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.sku.label">
-                    <span >
-                         {{item.sku.label}}
+                  <template v-if="item.sku_label">
+                    <span class="number-font">
+                         {{item.sku_label}}
                     </span>
                   </template>
                   <template v-else>
@@ -79,50 +79,42 @@
                   </template>
               </span>
           </div>
-<!-- score 3-->
+<!-- count 3-->
           <div
               v-if="header[3].show"
-              class="c-table__contents__item justify-center " >
-              <v-rating
-                  style="direction: ltr!important;"
-                  v-model="item.score"
-                  size="18"
-                  half-increments
-                  readonly>
-                <template v-slot:item="props">
-                  <v-icon
-                      size="large"
-                      :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
-                    mdi-star
-                  </v-icon>
-                </template>
-              </v-rating>
+              class="c-table__contents__item justify-center"
+              :style="{  width: itemsWidth, flex: `0 0 ${itemsWidth}`}">
+              <span class="t14300 text-gray500 py-5">
+                  <template v-if="item.count">
+                    <span class="number-font">
+                         {{item.count}}
+                    </span>
+                  </template>
+                  <template v-else>
+                      -
+                  </template>
+              </span>
           </div>
-<!--  brand 4-->
+<!--  picked_count 4-->
           <div
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.sku.brand.name">
+              <span class="t14300 text-gray500 py-5 number-font">
                     <span >
-                         {{item.sku.brand.name}}
+                         {{item.picked_count}}
                     </span>
-                  </template>
-                  <template v-else>
-                      -
-                  </template>
               </span>
           </div>
-<!--  user 5-->
+<!--  pick_upper 5-->
           <div
               v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.user.first_name">
+                     <template v-if="item.pick_upper">
                     <span >
-                         {{item.user.first_name}} {{item.user.last_name}}
+                        {{ item.pick_upper }}
                     </span>
                   </template>
                   <template v-else>
@@ -130,78 +122,15 @@
                   </template>
               </span>
           </div>
-<!--  phone_number 6-->
+
+<!--  created_at_fa 6-->
           <div
               v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.user.phone_number">
-                    <span >
-                         {{item.user.phone_number}}
-                    </span>
-                  </template>
-                  <template v-else>
-                      -
-                  </template>
-              </span>
-          </div>
-<!--  email 7-->
-          <div
-              v-if=" header[7].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.user.email">
-                    <span >
-                         {{item.user.email}}
-                    </span>
-                  </template>
-                  <template v-else>
-                      -
-                  </template>
-              </span>
-          </div>
-<!--  admin 8-->
-          <div
-              v-if=" header[8].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
-                  <template v-if="item.creator">
-                    <span >
-                         {{item.creator.first_name}} {{item.creator.last_name}}
-                    </span>
-                  </template>
-                  <template v-else>
-                      -
-                  </template>
-              </span>
-          </div>
-<!--  created_at 9-->
-          <div
-              v-if=" header[9].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 ">
-                  <template v-if="item.created_at_fa">
-                    <span class="number-font" >
-                        {{ item.created_at_fa }}
-                    </span>
-                  </template>
-                  <template v-else>
-                      -
-                  </template>
-              </span>
-          </div>
-<!--  updated_at 10-->
-          <div
-              v-if=" header[10].show"
-              class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
                   <template v-if="item.updated_at_fa">
-                    <span class="number-font" >
+                    <span class="number-font " >
                         {{ item.updated_at_fa }}
                     </span>
                   </template>
@@ -210,27 +139,12 @@
                   </template>
               </span>
           </div>
-<!--  checkStatus 11-->
-          <div v-if="header[11].show"
-               class="c-table__contents__item justify-center"
-               style="padding : 3px"
-               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span >
-                        <template v-if="item.status">
-                          <v-sheet  class="[ br-12 text-end py-2 px-7 ]"  :color="getStatusClass(item.status)" >
-                            {{ getPersianStatus(item.status) }}
-                          </v-sheet>
-                        </template>
-                        <template v-else>
-                            -
-                        </template>
-                    </span>
-          </div>
 
 
-<!-- Check -->
+
+<!-- operation -->
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item">
-            <v-menu :location="location">
+            <v-menu :close-on-content-click="false" :location="location">
               <template v-slot:activator="{ props }">
                 <v-icon v-bind="props">
                   mdi-dots-vertical
@@ -240,15 +154,14 @@
               <v-list class="c-table__more-options">
                 <v-list-item>
                   <v-list-item-title>
-                    <div class=" pointer" @click="$router.push( editUrl +  item.id )">
-                      <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
-                              نمایش جزئیات
-                      </span>
-                    </div>
+
+<!-- Modal-->
+                    <ReportDialog @reloadNewReports="reloadList()" :id="item.id" />
+
                   </v-list-item-title>
                 </v-list-item>
               </v-list>
+
             </v-menu>
           </div>
         </div>
@@ -262,15 +175,22 @@
         </div>
       </div>
     </div>
+
+
   </div>
 </template>
 
 <script>
 import {isOdd} from '@/assets/js/functions'
+import ReportDialog from '@/components/ReportBugTask/ReportDialog.vue';
+
 
 export default {
 
   props: {
+    /*
+    show modal
+    */
     /**
      * List Items for header
      */
@@ -326,12 +246,15 @@ export default {
 
   data() {
     return {
+      menu: false,
       order_type: "desc",
       ordering: {},
       per_page: '25',
       filter: [],
     }
   },
+
+  components: {ReportDialog},
 
   computed: {
     /**
@@ -341,7 +264,7 @@ export default {
       let headerLength = 0;
       if (this.header && this.header.length > 0) {
         this.header.forEach(element => {
-          if (element.show == true) {
+          if (element.show === true) {
             headerLength++;
           }
         });
@@ -353,16 +276,9 @@ export default {
   },
 
   methods: {
-    getStatusClass(status){
-      if (status === 'waiting') return '#FFF3E0'
-      else if (status === 'rejected') return '#FFEBEE'
-      else if (status === 'approved') return '#E8F5E9'
-    },
 
-    getPersianStatus(status){
-      if (status === 'waiting') return ' در انتظار '
-      else if (status === 'rejected') return ' رد شده '
-      else if (status === 'approved') return ' تایید شده '
+    reloadList(){
+      this.$emit('reload-reports')
     },
 
     /**

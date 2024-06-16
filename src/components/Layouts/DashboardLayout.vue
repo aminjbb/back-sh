@@ -564,6 +564,7 @@ export default {
                 ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
+                [' تسک های پیک آپ', '/report-bug-task/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
