@@ -294,6 +294,11 @@ import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.
 import CommentListView from '../views/CommentAccepted/CommentListView.vue'
 import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 
+/* Report Bug Task */
+import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
+
+
+
 
 
 const router = createRouter({
@@ -2373,8 +2378,24 @@ const router = createRouter({
                     name: ' بررسی کامنت '
                 }
             }]
+        },
+        {
+            path: '/report-bug-task', // Zone
+            meta: {
+                name: ' تسک های پیک آپ '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'ReportBugTask',
+                    component: ReportBugTaskView,
+                    meta: {
+                        name: 'تسک های پیک آپ'
+                    }
+                },
+            ]
         }
-        ]
+    ]
 })
 router.beforeEach((to, from, next) => {
     // redirect to dashboard page if user is already logged in
