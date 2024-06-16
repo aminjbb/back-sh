@@ -10,8 +10,8 @@ export default function setup() {
         {name: 'ردیف', show: true, value: null, order: false},
         {name: 'شناسه  shps' , show:true, value:'shps', order: false},
         {name: 'نام کالا ', show: true, value: 'sku_label', order: false},
-        {name: 'تعداد' , show:true, value:'count', order: false},
-        {name: 'تعداد ' , show:true, value:'picked_count', order: false},
+        {name: 'تعداد درخواستی' , show:true, value:'count', order: false},
+        {name: 'تعداد پیک شده' , show:true, value:'picked_count', order: false},
         {name: 'نام پیک آپر ', show: true, value: 'pick_upper', order: false},
         {name: ' تاریخ بررسی ', show: true, value: 'updated_at_fa', order: true},
     ]);
