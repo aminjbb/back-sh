@@ -8,7 +8,7 @@ export default function setup() {
 
     const header = ref([
         {name: 'ردیف', show: true, value: null, order: false},
-        {name: 'شناسه  shps' , show:true, value:'shps_id', order: false},
+        {name: 'شناسه  shps' , show:true, value:'shps', order: false},
         {name: 'نام کالا ', show: true, value: 'sku_label', order: false},
         {name: 'تعداد' , show:true, value:'count', order: false},
         {name: 'تعداد ' , show:true, value:'picked_count', order: false},
