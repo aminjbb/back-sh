@@ -26,10 +26,11 @@ export default function setup() {
     const filterField = [
         {name:'نام انگلیسی' , type:'text', value:'name'},
         {name:'نام فارسی' , type:'text', value:'label'},
-        { name: 'شناسه دسته‌بندی', type: 'text', value: 'id' },
+        {name: 'شناسه دسته‌بندی', type: 'text', value: 'id' },
+        { name: ' دسته‌بندی مادر', type: 'auto-complete', value: 'category_id' },
         {name:'فعال سازی ' , type:'select', value:'is_active'},
-        { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
-        { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
+        {name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
+        {name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
     ];
 
     const item = []

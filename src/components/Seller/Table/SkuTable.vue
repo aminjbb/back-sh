@@ -19,6 +19,7 @@
                     :class="head.order == true ? 'pointer' : ''"
                     :key="index"
                     :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
+                  <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                     {{head.name}}
                 </div>
             </template>
@@ -328,7 +329,7 @@ import InventoryManagementModal from "@/components/Seller/Modals/InventoryManage
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
-export default {
+export default  {
     components: {
         ModalMassUpdate,
         OrderLimitModal,

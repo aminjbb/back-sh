@@ -95,7 +95,6 @@ function bytesToSize(bytes) {
  * Submit Image
  */
 async function submitImage(index) {
-
     uploadLoading.value = true
         var formdata = new FormData();
         const AxiosMethod = new AxiosCall()

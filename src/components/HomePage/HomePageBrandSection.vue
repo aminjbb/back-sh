@@ -21,7 +21,7 @@
             :items="homeBrand.data"
             editUrl="/seller/edit/"
             activePath="seller/crud/update/activation/"
-            deletePath="seller/crud/update/activation/"
+            deletePath="page/home/section/brand/delete/"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
             updateUrl="seller/csv/mass-update"
@@ -117,20 +117,20 @@ export default {
         dataTableLength(val) {
             this.addPerPage(val)
         },
-        
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getMenus();
-                    openToast(
-                        this.$store,
-                        'منو مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getHomeBrand();
+            openToast(
+                this.$store,
+                'آیتم مورد نظر با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
     }
 }
 </script>

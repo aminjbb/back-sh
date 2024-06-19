@@ -207,6 +207,8 @@ import LocatingDashboardView from "@/views/PackagePlacement/Locationg/LocatingDa
 import WasteAndLostListView from "@/views/WasteAndLost/WasteAndLostListView.vue";
 import AddWasteAndLostView from "@/views/WasteAndLost/AddWasteAndLostView.vue";
 
+/* change password */
+import ChangePasswordView from "@/views/ChangePassword/ChangePasswordView.vue";
 
 /* Bulk Label Print */
 import BulkLabelPrintListView from "@/views/BulkLabelPrint/BulkLabelPrintListView.vue";
@@ -226,6 +228,8 @@ import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
 import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
+/* Reports */
+import CommercialReportVew from "@/views/Reports/CommercialReportView.vue";
 
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
@@ -282,7 +286,20 @@ import PickUpTaskView from "@/views/PickUpTask/PickUpTaskView.vue";
 import OccasionBannerView from "@/views/OccasionBanner/OccasionBannerView.vue";
 import AssignShpsToPackageView from "@/views/AssignShpsToPackage/AssignShpsToPackageView.vue";
 import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/AssignShpsToPackageAcceptView.vue";
+import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
+import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
+import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.vue";
+
+/* Comments*/
+import CommentListView from '../views/CommentAccepted/CommentListView.vue'
+import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
+
+/* Report Bug Task */
+import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
+
+
+
 
 
 const router = createRouter({
@@ -645,6 +662,23 @@ const router = createRouter({
                         name: 'تیکت'
                     }
                 },
+            ],
+        },
+        {
+            path: '/change-password', // Change password
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [{
+                path: 'index',
+                name: 'ChangePasswordView',
+                component: ChangePasswordView,
+                meta: {
+                    name: 'تغییر رمز'
+                }
+            },
+
+
             ],
         },
         {
@@ -1521,13 +1555,13 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'ProcessingShipmentIndexView',
-                component: ProcessingShipmentIndexView,
-                meta: {
-                    name: 'پردازش محموله'
-                }
-            },
+                    path: 'index',
+                    name: 'ProcessingShipmentIndexView',
+                    component: ProcessingShipmentIndexView,
+                    meta: {
+                        name: 'پردازش محموله'
+                    }
+                },
                 {
                     path: ':shipmentId/detail-print',
                     name: 'ShipmentDetailPrintView',
@@ -2254,6 +2288,38 @@ const router = createRouter({
                     name: 'بنر مناسبتی'
                 }
             },
+            ]
+        },
+        {
+            path: '/lucky-wheel', // Lucky wheel
+            meta: {
+                name:  'گردانه شانس'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'LuckyWheelView',
+                    component: LuckyWheelView,
+                    meta: {
+                        name: 'گردانه شانس'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'CreateLuckyWheelView',
+                    component: CreateLuckyWheelView,
+                    meta: {
+                        name: 'ساخت گردانه شانس'
+                    }
+                },
+                {
+                    path: ':luckyWheelId/prize-edit',
+                    name: 'EditLuckyWheelPrizeView',
+                    component: EditLuckyWheelPrizeView,
+                    meta: {
+                        name: 'ویرایش گردانه شانس'
+                    }
+                },
 
 
             ]
@@ -2266,12 +2332,12 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'AssignShpsToPackageView',
-                component: AssignShpsToPackageView,
-                meta: {
-                    name: 'اختصاص کالا به بسته'
-                }
+                    path: 'index',
+                    name: 'AssignShpsToPackageView',
+                    component: AssignShpsToPackageView,
+                    meta: {
+                        name: 'اختصاص کالا به بسته'
+                    }
                 },
                 {
                     path: ':shipmentId/accept',
@@ -2283,6 +2349,61 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/reports', // Order route
+            meta: {
+                name: 'گزارش‌ها'
+            },
+            children: [
+                {
+                    path: 'commercial',
+                    name: 'CommercialReports',
+                    component: CommercialReportVew,
+                    meta: {
+                        name: 'گزارشات بازرگانی'
+                    }
+                },
+            ],
+        },
+        {
+            path: '/comment', // Zone
+            meta: {
+                name: ' کامنت '
+            },
+            children: [
+                {
+                path: 'index',
+                name: 'CommentListView',
+                component: CommentListView,
+                meta: {
+                    name: 'بنر مناسبتی'
+                }
+                },
+                {
+                path: 'reply/:id',
+                name: 'ReplyCommentView',
+                component: ReplyCommentView,
+                meta: {
+                    name: ' بررسی کامنت '
+                }
+            }]
+        },
+        {
+            path: '/report-bug-task', // Zone
+            meta: {
+                name: ' تسک های پیک آپ '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'ReportBugTask',
+                    component: ReportBugTaskView,
+                    meta: {
+                        name: 'تسک های پیک آپ'
+                    }
+                },
+            ]
+        }
     ]
 })
 router.beforeEach((to, from, next) => {

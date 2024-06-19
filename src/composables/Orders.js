@@ -65,7 +65,7 @@ export default function setup() {
         {name:'استان' , type:'select', value:'receive_state_id'},
         {name:'شهر' , type:'select', value:'receive_city_id'},
         {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
-        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_date'},
         {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
     ];

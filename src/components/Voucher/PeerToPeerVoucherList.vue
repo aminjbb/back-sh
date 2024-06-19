@@ -102,26 +102,10 @@ export default {
   setup() {
     const {
      getVoucherShps, voucher, dataTableLength,filterField , filterFieldPeerToPeer,
-    pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherList
+    pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup, headerPeerToPeerVoucherLis, headerShps,
+      headerPeerToPeerVoucherList , headerPublicVoucherList
     } = new Voucher()
-    return {
-      getVoucherShps, voucher, dataTableLength, filterField , filterFieldPeerToPeer,
-      pageLength, page, getVoucherDetail, voucherDetail, getVoucherGroup, voucherGroup ,headerPeerToPeerVoucherList,
-      headerShps,
-      headerPublicVoucherList,
-      getVoucherShps,
-      voucher,
-      dataTableLength,
-      filterField ,
-      filterFieldPeerToPeer,
-      pageLength,
-      page,
-      getVoucherDetail,
-      voucherDetail,
-      getVoucherGroup,
-      voucherGroup,
-      headerPeerToPeerVoucherList
-    } = new Voucher()
+
     return {
       headerShps,
       getVoucherShps,
@@ -136,7 +120,8 @@ export default {
       voucherDetail,
       getVoucherGroup,
       voucherGroup ,
-      headerPeerToPeerVoucherList
+      headerPeerToPeerVoucherList,
+
     }
   },
   components: {
