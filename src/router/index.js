@@ -296,6 +296,7 @@ import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 
 /* Report Bug Task */
 import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
+import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
 
 
 
@@ -2007,6 +2008,14 @@ const router = createRouter({
                     component: ManualOrderListView,
                     meta: {
                         name: 'سفارش های اپراتوری'
+                    },
+                },
+                {
+                    path: ':orderId/cancel-order-list',
+                    name: 'CancelOrderView',
+                    component: CancelOrderView,
+                    meta: {
+                        name: 'لیست سفارش ها'
                     },
                 },
                 {
