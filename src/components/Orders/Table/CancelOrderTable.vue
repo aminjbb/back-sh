@@ -74,13 +74,22 @@
           </div>
 
           <div
+              v-if="header[4].show"
+              class="c-table__contents__item justify-center"
+              style="padding:3px"
+              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+              <span class="number-font text-gray500">
+                {{item.cancelled_count}}
+              </span>
+          </div>
+
+          <div
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
               style="padding:3px"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.remained_count">{{ item.remained_count }}</template>
-              <template v-else>-</template>
+              {{ item.remained_count }}
             </span>
           </div>
 
@@ -133,7 +142,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.code">{{ splitChar(item.code) }}</template>
+              <template v-if="item.voucher_code">{{ splitChar(item.voucher_code) }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -144,7 +153,7 @@
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <span class="t13400 text-gray500 py-5 number-font">
-              <template v-if="item.total_customer_price">{{ splitChar(item.total_customer_price) }}</template>
+              <template v-if="item.paid_price">{{ splitChar(item.paid_price) }}</template>
               <template v-else>-</template>
             </span>
           </div>
@@ -341,7 +350,9 @@ export default {
       if (newVal.length){
         newVal.forEach(item=>{
           const form = {
-            cancelled_count : item.cancelled_count
+            shps: item.shps?.id,
+            count:item.remained_count,
+            cancelled_count : 0
           }
           this.form.push(form)
         })

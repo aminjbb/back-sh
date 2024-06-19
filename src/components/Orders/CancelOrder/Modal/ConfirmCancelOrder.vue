@@ -1,13 +1,5 @@
 <template>
-  <v-btn
-      color="primary500"
-      height="40"
-      rounded
-      variant="elevated"
-      @click="dialog= true"
-      class="px-8 mt-1">
-    ذخیره
-  </v-btn>
+
   <v-dialog
       v-model="dialog"
       width="468"
@@ -33,7 +25,7 @@
 
       <div class="text-center pa-5">
                         <span class="t14500">
-                           با ذخیره اطلاعات کیف پول کاربر به مبلغ 340,000 ریال شارژ خواهد شد.
+                           با ذخیره اطلاعات کیف پول کاربر به مبلغ {{splitChar(cancelOrderAccept.refund_amount)}} ریال شارژ خواهد شد.
                         </span>
       </div>
       <div class="text-center pa-5">
@@ -46,7 +38,7 @@
       </div>
 
       <div class="text-center pb-5">
-        <v-btn :loading="loading" color="primary500"  height="40" rounded
+        <v-btn :loading="loading" @click="acceptCancelOrder()" color="primary500"  height="40" rounded
                class="px-5 mt-1 mr-15">
                         <span>
                             تایید
@@ -60,10 +52,14 @@
   </v-dialog>
 </template>
 <script>
-import {closeConfirm} from "@/assets/js/functions";
+import {closeConfirm, splitChar} from "@/assets/js/functions";
 import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
+  props:{
+    cancelOrderAccept:null,
+    status:null
+  },
   data() {
     return {
       loading: false,
@@ -82,6 +78,10 @@ export default {
   },
 
   methods: {
+    acceptCancelOrder(){
+      this.$emit('cancelOrder' , {accept : 1 , status:this.status})
+    },
+    splitChar,
     close() {
       this.dialog = false
     },
