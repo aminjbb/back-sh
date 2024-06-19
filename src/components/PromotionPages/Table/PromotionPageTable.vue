@@ -283,6 +283,7 @@ export default {
     watch: {
         items(val) {
             this.active = []
+            this.priorities = []
             val.forEach(element => {
                 var active = false
                 if (element.is_active == 1) active = true

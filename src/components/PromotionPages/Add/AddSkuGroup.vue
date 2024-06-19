@@ -166,7 +166,9 @@ export default {
   },
   data(){
     return{
-      skuSearchList:[]
+      skuSearchList:[],
+      perPageFilter:false
+
     }
   },
   components: {
@@ -246,15 +248,35 @@ export default {
   },
 
   mounted() {
-    this.getPromotionShpsList(1 , this.dataTableLength);
+    this.getPromotionShpsList();
   },
 
   watch: {
     dataTableLength(val) {
-      this.getPromotionShpsList(1 , val);
+      this.perPageFilter = true
+      this.promotionPage = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    promotionPage(val){
-      this.getPromotionShpsList(val , this.dataTableLength);
+    promotionPage(){
+      if (!this.perPageFilter){
+        this.getPromotionShpsList()
+      }
     },
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
@@ -269,6 +291,11 @@ export default {
         }
       }
     },
+
+    $route(){
+      this.getPromotionShpsList();
+
+    }
   }
 }
 </script>

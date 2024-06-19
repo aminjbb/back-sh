@@ -34,8 +34,8 @@ export default function setup() {
     ]);
 
     const filterFieldPromotionSku = [
-        { name:'نام فارسی' , type:'text', value:'sku'},
-        { name: 'شناسه', type: 'text', value: 'id' },
+        { name:'نام فارسی' , type:'text', value:'sku_name'},
+        { name: 'شناسه', type: 'text', value: 'sku_id' },
     ];
     const filterField = [
         {name:'نام فارسی' , type:'text', value:'label'},
@@ -107,14 +107,49 @@ export default function setup() {
     };
     async function getPromotionShpsList(page , perPage) {
         loading.value = true
-        const form ={
-            page :page,
-            per_page : perPage
-        }
+        let query = route.query
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:promotionPage.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:promotionPage.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:promotionPage.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:promotionPage.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+        AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.form = form
         AxiosMethod.end_point = `page/promotion/crud/get/seller-sku/${route.params.promotionId}`
         let data = await AxiosMethod.axios_get()
         if (data) {

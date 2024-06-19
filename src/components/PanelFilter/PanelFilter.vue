@@ -133,6 +133,7 @@
                         single-line
                         clearable
                         variant="outlined"
+                        v-debounce="searchProductList"
                     />
 
                     <!-- brand Fields -->
@@ -644,7 +645,7 @@ export default {
     }
 
     else if (this.path === 'product/get/skus/index') {
-      this.getProduct()
+      this.searchProduct(' ')
     }
 
     else if (
@@ -847,7 +848,7 @@ export default {
 
             else if (el.name === 'logistic_at') {
               if (created_at_from != null ){
-                params += 'logistic_at=' + created_at_from + '&';
+                params += 'logistic_date_from=' + created_at_from + '&';
               }
               if (created_at_to != null){
                 params += '&logistic_date_to=' + created_at_to + '&'
@@ -856,7 +857,7 @@ export default {
 
             else if (el.name === 'logistic_date') {
               if (created_at_from != null ){
-                params += 'logistic_date=' + created_at_from + '&';
+                params += 'logistic_date_from=' + created_at_from + '&';
               }
               if (created_at_to != null){
                 params += '&logistic_date_to=' + created_at_to + '&'
@@ -1000,6 +1001,10 @@ export default {
       if (data) {
         this.userSearchList = data.data.data
       }
+    },
+
+    async searchProductList(search) {
+     this.searchProduct(search)
     },
   }
 }
