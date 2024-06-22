@@ -486,7 +486,6 @@
                       variant="outlined"
                       single-line
                       hide-details
-                      multiple
                       item-title="name"
                       item-value="value"
                       :items="scoreItems"
