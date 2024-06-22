@@ -21,6 +21,7 @@
               color="primary500"
               height="40"
               rounded
+              :loading="loading"
               class="px-8 mt-1">
             تایید
           </v-btn>
@@ -121,9 +122,7 @@ export default {
     return {
       shpsItem: null,
       cargo: null,
-      orderId: null,
       orderDetail: [],
-      accept: true,
       dialog: false
     }
   },
@@ -135,6 +134,9 @@ export default {
       loading,
       detailInfo,
       orderListDetail,
+      orderId,
+      accept,
+      refreshOrderPackaging
     } = OrderPackagingList();
     const orderDetails = ref(orderListDetail);
     return {
@@ -145,6 +147,9 @@ export default {
       detailInfo,
       orderListDetail,
       orderDetails,
+      orderId,
+      accept,
+      refreshOrderPackaging
     };
   },
   computed: {
@@ -159,6 +164,11 @@ export default {
     },
     async orderItemPack() {
      try {
+       openToast(
+           this.$store,
+           'تا برقراری ارتباظ کمی صیر کنید',
+           "success"
+       );
        let endPointUrl = null
        if (this.accept) endPointUrl= `warehouse/order/packaging/done/?accept`
        else endPointUrl= `warehouse/order/packaging/done/`
@@ -174,11 +184,24 @@ export default {
        AxiosMethod.token = this.$cookies.get('adminToken')
        let data = await AxiosMethod.axios_post()
        if (data) {
+         closeToast(this.$store)
+         this.orderId = data?.data?.order?.id
+         localStorage.setItem('orderIdForRefreshOrderPackaging' ,  data?.data?.order?.id)
          this.orderId = data?.data?.order?.id
          if (data?.data?.is_completed) {
            window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
          }
-         this.orderDetail = data?.data?.order_items
+         const sortedItem = data?.data?.order_items
+         sortedItem.sort(function (a, b) {
+           if (a.packing_status < b.packing_status) {
+             return 1;
+           }
+           if (a.packing_status > b.packing_status) {
+             return -1;
+           }
+           return 0;
+         });
+         this.orderDetail = sortedItem
          this.loading = false
          setTimeout(()=>{this.shpsItem = ''},1000)
          openToast(
@@ -198,6 +221,10 @@ export default {
     },
 
   },
+  mounted() {
+    if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
+  }
+
 }
 </script>
   

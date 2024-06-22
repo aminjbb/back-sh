@@ -29,7 +29,7 @@ export default function setup() {
         { name: 'نام فارسی', type: 'text', value: 'label' },
         { name: 'شناسه ویژگی', type: 'text', value: 'id' },
         { name: 'نوع ', type: 'select', value: 'type' },
-        {name:'فعال سازی ' , type:'select', value:'is_active'},
+        {name:'فعال سازی ' , type:'select', value:'is_filterable'},
         { name:'تاریخ ایجاد' , type: 'date', value:'created_at'},
         { name:'تاریخ بروز‌رسانی' , type: 'date', value:'updated_at'},
     ];

@@ -34,6 +34,23 @@ export default function setup() {
         { name: 'تاریخ ارسال سفارش', show: true, value:'logistic_date', order: true },
     ]);
 
+    const headerCanselOrder =ref([
+        { name: 'ردیف', show: true , value:null, order:false},
+        { name: 'شناسه کالا', show: true , value:'shps_id', order: false},
+        { name: 'نام کالا', show: true, value:'shps_label' , order: false},
+        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
+        { name: 'تعداد کالاهای کنسلی', show: true , value:'cancel', order: false},
+        { name: 'تعداد کالاهای کنسل شده', show: true , value:'cancelled_count', order: false},
+        { name: 'تعداد کالاهای باقی‌مانده', show: true , value:'remained_count', order: false},
+        { name: 'فروشگاه', show: true, value:'shopping_name', order: false },
+        { name: 'قیمت کالا', show: true, value:'price', order: false },
+        { name: 'مقدار تخفیف پایه', show: true, value:'base_discount', order: false },
+        { name: 'مقدار تخفیف مارکتینگ', show: true, value:'marketing_discount', order: false },
+        { name: 'کد تخفیف', show: true, value:'code', order: false },
+        { name: 'پرداخت نهایی', show: true, value:'total_price', order: false },
+        { name: 'وضعیت کالا', show: true, value:'shps_status', order: false },
+    ]);
+
     const filterField = [
         {name:'شناسه سفارش' , type:'text', value:'id'},
         {name:'اسنپ پی' , type:'text', value:'snapp_transaction_id'},
@@ -48,7 +65,7 @@ export default function setup() {
         {name:'استان' , type:'select', value:'receive_state_id'},
         {name:'شهر' , type:'select', value:'receive_city_id'},
         {name:'تاریخ ثبت سفارش' , type:'date', value:'created_at'},
-        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_at'},
+        {name:'تاریخ ارسال سفارش' , type:'date', value:'logistic_date'},
         {name:'کمترین مبلغ پرداختی ' , type:'text', value:'paid_price_from'},
         {name:'بیشترین مبلغ پرداختی ' , type:'text', value:'paid_price_to'},
     ];
@@ -228,5 +245,5 @@ export default function setup() {
 
     return {pageLength,filterField, orderList, getOrderList, dataTableLength, page, header,loading, shpsModalHeader,
         discountModalHeader, factorModalHeader, getManualOrderListGet , manualOrderListGet, getManualOrderList,
-        manualOrderHeader, manualOrderList}
+        manualOrderHeader, manualOrderList, headerCanselOrder}
 }

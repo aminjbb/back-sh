@@ -33,6 +33,8 @@ export default function setup() {
         { name: 'منو مادر', type:'select', value:'menu_id'},
         { name: 'آیکون', type:'select', value:'icon'},
         { name: 'تصویر', type:'select', value:'image_id'},
+        {name:'سطح' , type:'text', value:'level'},
+        {name:'اولویت' , type:'text', value:'priority'},
         { name: 'وضعیت', type:'select', value:'is_active'},
     ];
 

@@ -72,7 +72,7 @@ export default function setup() {
         {name:'عنوان' , type:'text', value:'name'},
         {name:'کد تخفیف' , type:'text', value:'code'},
         {name:'نوع کد تخفیف' , type:'select', value:'voucher_type'},
-        {name:'نوع تخفیف' , type:'select', value:'discount_type'},
+        {name:'نوع مقدارتخفیف' , type:'select', value:'discount_type'},
         {name:'هزینه ارسال' , type:'select', value:'sending_method'},
         {name:'استان' , type:'select', value:'state_id'},
         {name:'تاریخ شروع ' , type:'date', value:'start_time'},
@@ -185,17 +185,54 @@ export default function setup() {
             voucher.value = data.data.data
         }
     };
-    async function  getVoucherGroup(query) {
+    async function  getVoucherGroup() {
         loading.value = true
         let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+
+        AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}${paramsQuery}`
+        AxiosMethod.end_point = `voucher/crud/group/index/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {

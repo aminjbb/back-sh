@@ -172,7 +172,17 @@ export default {
       }
     ]
 
-    const {pageLength, filterField, dataTableLength, page, header, item, loading, getTicketList, allTickets} = Ticket();
+    const {
+      pageLength,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      item,
+      loading,
+      getTicketList,
+      allTickets
+    } = Ticket();
     return {
       pageLength,
       filterField,

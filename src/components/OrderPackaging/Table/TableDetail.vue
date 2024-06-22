@@ -66,7 +66,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t10400 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>

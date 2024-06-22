@@ -105,34 +105,37 @@
                          جزئیات ارسال
                     </span>
             </v-expansion-panel-title>
-
-            <v-expansion-panel-text class="accordion__items__content">
-              <div class="simple-table-parent">
-                <div class="simple-table">
-                  <v-row
-                      v-for="(item,index) in orderInfo"
-                      :key="`user-${index}`"
-                      class="ma-0 d--rtl">
-                    <v-col col="6" class="pa-0">{{ item.label }}</v-col>
-                    <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
-                  </v-row>
+            <div v-for="(orderInfoObject, index) in orderInfo">
+              <v-expansion-panel-text class="accordion__items__content">
+                <div class="simple-table-parent">
+                  <div class="simple-table" >
+                    <v-row
+                        v-for="(item,index) in orderInfoObject.details"
+                        :key="`user-${index}`"
+                        class="ma-0 d--rtl">
+                      <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                      <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                    </v-row>
+                  </div>
                 </div>
-              </div>
-            </v-expansion-panel-text>
+              </v-expansion-panel-text>
 
-            <v-expansion-panel-text class="accordion__items__content">
-              <div class="simple-table-parent">
-                <div class="simple-table">
-                  <v-row
-                      v-for="(item,index) in shipingDetails"
-                      :key="`user-${index}`"
-                      class="ma-0 d--rtl">
-                    <v-col col="6" class="pa-0">{{ item.label }}</v-col>
-                    <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
-                  </v-row>
+              <v-expansion-panel-text class="accordion__items__content">
+                <div class="simple-table-parent">
+                  <div class="simple-table">
+                    <v-row
+                        v-for="(item,index) in orderInfoObject.shippingDetail"
+                        :key="`user-${index}`"
+                        class="ma-0 d--rtl">
+                      <v-col col="6" class="pa-0">{{ item.label }}</v-col>
+                      <v-col col="6" class="pa-0 number-font">{{ item.value }}</v-col>
+                    </v-row>
+                  </div>
                 </div>
-              </div>
-            </v-expansion-panel-text>
+              </v-expansion-panel-text>
+              <v-divider/>
+            </div>
+
           </v-expansion-panel>
         </v-expansion-panels>
       </v-card>
@@ -194,8 +197,8 @@ export default {
     ShpsTable,
     DiscountTable
   },
-  props:{
-    id:null
+  props: {
+    id: null
   },
   methods: {
     close() {
@@ -407,28 +410,40 @@ export default {
 
       if (data) {
         if (data.data) {
-          this.shipingDetails= []
-          this.orderInfo = [
-            {
-              label: 'بارکد',
-              value: data.data.tracking_code
-            },
-            {
-              label: 'روش ارسال',
-              value: data.data.service_name
-            },
-            {
-              label: 'تاریخ بارگیری',
-              value: data.data.pickup_date
-            }
-          ]
-          data.data.logs.forEach((item) => {
-            const form = {
-              label: item.status,
-              value: item.created_at,
-            }
-            this.shipingDetails.push(form)
+          this.orderInfo = []
+          let orderInfoDetail = {
+            details: [],
+            shippingDetail: []
+          }
+          data.data.forEach((trackingDetail) => {
+            let shippingDetailForm = []
+            trackingDetail.logs.forEach((item) => {
+              const form = {
+                label: item.status,
+                value: item.created_at,
+              }
+              shippingDetailForm.push(form)
+            })
+            const orderInfoDetail = [
+              {
+                label: 'بارکد',
+                value: trackingDetail.tracking_code
+              },
+              {
+                label: 'روش ارسال',
+                value: trackingDetail.service_name
+              },
+              {
+                label: 'تاریخ بارگیری',
+                value: trackingDetail.pickup_date
+              },
+            ]
+            orderInfoDetail.details = orderInfoDetail
+            orderInfoDetail.shippingDetail = shippingDetailForm
+            this.orderInfo.push(orderInfoDetail)
+
           })
+
 
         }
       }

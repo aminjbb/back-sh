@@ -29,10 +29,11 @@ export default function setup() {
     ]);
 
     const filterField = [
+        { name:'شناسه' , type:'text', value:'id'},
         { name: 'شماره تیکت', type:'text', value:'code'},
         { name: 'عنوان تیکت', type:'text', value:'title'},
         { name: 'کاریر', type:'select', value:'user_id'},
-        // { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
+        { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
         { name: 'اولویت', type:'select', value:'priority'},
     ];

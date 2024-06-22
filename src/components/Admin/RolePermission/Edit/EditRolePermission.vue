@@ -1,34 +1,35 @@
 <template>
-<div class="vh-100">
-    <v-card class="ma-5 br-12 pa-10 position__relative" min-height="600">
+<div class="vh-100 ">
+    <v-card class="ma-5 br-12 pa-10 h-100  scroller">
         <RolePermissionForm ref="RolePermissionForm" :role="rolePermission" />
+        <v-card-actions>
+        <v-row justify="end" >
+          <v-btn
+              :loading="loading"
+              @click="validate()"
+              color="primary500"
+              height="40"
+              rounded
+              class="px-8 mt-1">
+            <template v-slot:prepend>
+              <v-icon>mdi-pen</v-icon>
+            </template>
+            ویرایش
+          </v-btn>
 
-        <v-row justify="end" class="position__absolute bottom left">
-            <v-btn
-                :loading="loading"
-                @click="validate()"
-                color="primary500"
-                height="40"
-                rounded
-                class="px-8 mt-1">
-                <template v-slot:prepend>
-                    <v-icon>mdi-pen</v-icon>
-                </template>
-                ویرایش
-            </v-btn>
-
-            <v-btn
-                @click="$router.go(-1)"
-                variant="outlined"
-                height="40"
-                rounded
-                class="px-8 mt-1 mr-5">
-                <template v-slot:prepend>
-                    <v-icon>mdi-cancel</v-icon>
-                </template>
-                انصراف
-            </v-btn>
+          <v-btn
+              @click="$router.go(-1)"
+              variant="outlined"
+              height="40"
+              rounded
+              class="px-8 mt-1 mr-5">
+            <template v-slot:prepend>
+              <v-icon>mdi-cancel</v-icon>
+            </template>
+            انصراف
+          </v-btn>
         </v-row>
+      </v-card-actions>
     </v-card>
 </div>
 </template>

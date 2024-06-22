@@ -16,11 +16,11 @@ export default function setup() {
     const pageLengthWallet =ref(1)
     const header = ref([
         {name:'ردیف' , show:true, value:null, order:false},
-        {name: 'شناسه', show: true, value: 'created_at', order: true},
+        {name: 'شناسه', show: true, value: 'id', order: true},
         {name:'نام' , show:true, value:'first_name', order:false},
         {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
         {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
-        {name:'تاریخ ساخت' , show:true, value:'created_at_fa', order:true},
+        {name:'تاریخ ساخت' , show:true, value:'created_at', order:true},
         {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
         {name:'ایمیل' , show:true, value:'email', order:false},
         {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
@@ -47,14 +47,13 @@ export default function setup() {
         // { name: 'ایمیل', type:'select', value:'email'},
     ];
     const filterFieldWallet = [
-
         { name:'شماره مشتری', type: 'auto-complete', value:'user_id'},
         { name:'حداقل برداشت از کیف پول', type: 'text', value:'withdraw_amount_from'},
         { name:'حداکثر برداشت از کیف پول', type: 'text', value:'withdraw_amount_to'},
-        { name:'حداکثر شارژ کیف پول', type: 'text', value:'deposit_amount_to'},
         { name:'حداقل شارژ کیف پول', type: 'text', value:'deposit_amount_from'},
-        // { name:'تاریخ تراکنش', type: 'date', value:'created_at'},
-        { name:' شماره ارجاع', type: 'text', value:'refid'},
+        { name:'حداکثر شارژ کیف پول', type: 'text', value:'deposit_amount_to'},
+        { name:'تاریخ تراکنش', type: 'date', value:'created_at'},
+        // { name:' شماره ارجاع', type: 'text', value:'refid'},
         { name: 'کد رهگیری', type:'text', value:'shvz_tracking_code'},
         { name: ' وضعیت تراکنش', type:'select', value:'status'},
         { name: ' علت تراکنش', type:'select', value:'charge_type'},
