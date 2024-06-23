@@ -569,8 +569,8 @@ export default {
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
-                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],               
-                ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],            
+                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
