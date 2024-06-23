@@ -123,10 +123,10 @@ export default {
       this.status = object.status
       if (object.status === 'items'){
         this.$refs.cancelOrderTable.form.forEach((element , index) =>{
-          console.log(this.$refs.cancelOrderTable.form , 'form')
-          formData.append(`shps_list[${index}][shps]` , element.shps)
-          if (element.cancelled_count) formData.append(`shps_list[${index}][count]` , element.cancelled_count)
-          else  formData.append(`shps_list[${index}][count]` , 0)
+          if (element.cancelled_count){
+            formData.append(`shps_list[${index}][shps]` , element.shps)
+            formData.append(`shps_list[${index}][count]` , element.cancelled_count)
+          }
         })
       }
       else if (object.status === 'all'){
