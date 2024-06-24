@@ -173,7 +173,7 @@
         <template v-if="condition.raw.inputType === 'select'">
           <v-autocomplete
               :items="provinceList"
-              v-model="condition.data"
+              v-model="condition.raw.data"
               variant="outlined"
               item-title="title"
               item-value="value"
@@ -182,7 +182,7 @@
         </template>
         <template v-else-if="condition.raw.inputType === 'text'">
           <v-text-field
-              v-model="condition.data"
+              v-model="condition.raw.data"
               variant="outlined"
               rounded="lg">
           </v-text-field>
@@ -191,7 +191,7 @@
         <v-row justify="center">
           <v-col cols="6">
             <v-text-field
-                v-model="condition.data[0]"
+                v-model="condition.raw.data[0]"
                 variant="outlined"
                 class="custom-input-start-date"
                 clearable
@@ -202,7 +202,7 @@
                 type="datetime"
                 class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
 
-                v-model="condition.data[0]"
+                v-model="condition.raw.data[0]"
                 variant="outlined"
                 placeholder="تاریخ تولد"
                 custom-input=".custom-input-start-date"
@@ -210,7 +210,7 @@
           </v-col>
           <v-col cols="6">
             <v-text-field
-                v-model="condition.data[1]"
+                v-model="condition.raw.data[1]"
                 variant="outlined"
                 class="custom-input-end-date"
                 clearable
@@ -221,7 +221,7 @@
                 type="datetime"
                 class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
 
-                v-model="condition.data[1]"
+                v-model="condition.raw.data[1]"
                 variant="outlined"
                 placeholder="تاریخ تولد"
                 custom-input=".custom-input-end-date"
@@ -233,7 +233,7 @@
         <div class="d-flex">
           <v-text-field
               readonly
-              v-model="condition.data"
+              v-model="condition.raw.data"
               variant="outlined"
               rounded="lg">
           </v-text-field>
@@ -433,7 +433,7 @@ export default {
 
     addCondition(value){
       this.voucherForm.voucherCondition.add(value)
-      // console.log( this.voucherForm.voucherCondition)
+      console.log( this.voucherForm.voucherCondition)
     },
     checkUserCondition(){
       const object = this.voucherConditions.find(item => item.value === 'user_file')
@@ -450,7 +450,7 @@ export default {
       }
       else{
         const objectIndex = this.voucherForm.voucherCondition.findIndex(item => item.value === 'user_file')
-        if (objectIndex >-1) this.voucherForm.voucherCondition.splice(objectIndex , 1)
+          if (objectIndex >-1) this.voucherForm.voucherCondition.splice(objectIndex , 1)
       }
     }
   },
