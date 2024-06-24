@@ -1,7 +1,7 @@
 <template>
   <div class="create-product flex-column d-flex vh-100">
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
-{{voucherDetail}}
+
       <CreateVoucherFrom
           :voucherDetail="voucherDetail"
           ref="CreateVoucherFrom" />
@@ -31,6 +31,9 @@ import Voucher from '@/composables/Voucher'
 import {
   AxiosCall
 } from "@/assets/js/axios_call";
+import {
+  convertDateToJalai, openConfirm
+} from "@/assets/js/functions";
 import {
   convertDateToGregorian,
   openToast
@@ -62,10 +65,11 @@ export default {
         this.loading = true
         let formData = new FormData();
         const AxiosMethod = new AxiosCall()
+        const splitEndDate = this.$refs.CreateVoucherFrom.voucherForm.endTime.split(' ')
+        const endTime = convertDateToGregorian(splitEndDate[0] , '-' , false)
         AxiosMethod.end_point = `voucher/crud/update/${this.$route.params.voucherId}`
         formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
-        formData.append('end_time', this.$refs.CreateVoucherFrom.voucherForm.endTime)
-
+        formData.append('end_time' , `${endTime} ${splitEndDate[1]}:00`)
 
         AxiosMethod.form = formData
         AxiosMethod.store = this.$store
