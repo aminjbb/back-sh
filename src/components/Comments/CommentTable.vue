@@ -151,9 +151,9 @@
               v-if=" header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14300 text-gray500 py-5 px-15">
                   <template v-if="item.user.email">
-                    <span >
+                    <span class="t10600">
                          {{item.user.email}}
                     </span>
                   </template>

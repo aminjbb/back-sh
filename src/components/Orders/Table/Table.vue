@@ -345,6 +345,10 @@ export default {
         {
           text: 'انقضای سفارش',
           value: 'payment_out_date'
+        },
+        {
+          text: 'درحال بسته بندی',
+          value: 'boxing'
         }
       ],
     }

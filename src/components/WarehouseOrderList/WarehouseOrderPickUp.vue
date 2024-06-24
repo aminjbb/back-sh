@@ -69,8 +69,8 @@
             </v-card>
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center">
-<!--                <img src="@/assets/img/productImge.png" width="150" height="150" alt="">-->
-                              <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
+                <!--                <img src="@/assets/img/productImge.png" width="150" height="150" alt="">-->
+                <img :src="pickUpShps?.shps?.sku?.image_url" width="100" height="100" alt="">
               </div>
               <div class="text-center px-10 my-3">
                 <span class="text-gray600">
@@ -117,7 +117,7 @@
             rounded
             @click="$router.push('/locating/dashboard')"
             class="px-8 mt-5">
-            بازگشت به داشبورد
+          بازگشت به داشبورد
         </v-btn>
       </div>
     </div>
@@ -153,40 +153,40 @@
   </template>
   <template v-else-if="!pickUpIsNull && !pickUpDone && notFound">
     <div class="h-100 d-flex justify-center align-center">
-     <div class="w-100">
-       <div class="text-center mb-10">
-         شناسه شلف را اسکن کنید
-       </div>
-       <v-card class="mx-5 mb-1 br-15 pa-2" >
-         <v-row justify="center">
-           <v-col cols="6">
-             <div>
-               <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
-             </div>
-           </v-col>
-           <v-col cols="12">
-             <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
-             <v-text-field v-else @keyup.enter="notFoundTask()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
-           </v-col>
+      <div class="w-100">
+        <div class="text-center mb-10">
+          شناسه شلف را اسکن کنید
+        </div>
+        <v-card class="mx-5 mb-1 br-15 pa-2" >
+          <v-row justify="center">
+            <v-col cols="6">
+              <div>
+                <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+              </div>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-if="autoSend === 'automate'" v-debounce:150ms="notFoundTask"  v-model="shelfBarcode" variant="outlined" :autofocus="true"></v-text-field>
+              <v-text-field v-else @keyup.enter="notFoundTask()" :autofocus="true" v-model="shelfBarcode" variant="outlined" ></v-text-field>
+            </v-col>
 
-         </v-row>
+          </v-row>
 
-       </v-card>
+        </v-card>
 
-       <div class="d-flex justify-center">
-         <v-btn
-             color="primary500"
-             height="40"
-             width="348"
-             rounded
-             @click="notFoundTask"
-             class="px-8 mt-5">
+        <div class="d-flex justify-center">
+          <v-btn
+              color="primary500"
+              height="40"
+              width="348"
+              rounded
+              @click="notFoundTask"
+              class="px-8 mt-5">
              <span class="t11500">
                 تایید
              </span>
-         </v-btn>
-       </div>
-     </div>
+          </v-btn>
+        </div>
+      </div>
 
     </div>
 
@@ -197,6 +197,8 @@ import LocatingToast from '@/components/PackagePlacement/Locating/LocatingToast.
 import WarehouseOrder from '@/composables/WarehouseOrder'
 import {AxiosCall} from "@/assets/js/axios_call";
 import HandheldDrawer from "@/components/Layouts/HandheldDrawer.vue";
+import axios from "axios";
+import {openToast} from "@/assets/js/functions";
 
 export default {
   setup() {
@@ -233,28 +235,52 @@ export default {
     },
     async pickUpshpss(barcode) {
       try {
-        this.loading = true
-        const AxiosMethod = new AxiosCall()
+        this.loading =true
         const formData = new FormData()
         formData.append('barcode', barcode)
-        AxiosMethod.form = formData
-        AxiosMethod.using_auth = true
-        AxiosMethod.toast_error = true
-        AxiosMethod.store = this.$store
-        AxiosMethod.token = this.$cookies.get('adminToken')
-        AxiosMethod.end_point = 'warehouse/order/pickup/get'
-        let data = await AxiosMethod.axios_post()
-        if (data) {
-          this.loading = false
-          this.shpssBarCode = ''
-          if (this.pickUpCount > 1)   this.getPickUpShps()
-          else this.pickUpDone = true
-
-        }
-        else {
-          this.loading = false
-          this.shpssBarCode = ''
-        }
+        await axios
+            .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/get`, formData, {
+              headers: {
+                Authorization:
+                    "Bearer " + this.$cookies.get('adminToken')
+              },
+            })
+            .then((response) => {
+              this.loading = false
+              this.shpssBarCode = ''
+              if (this.pickUpCount > 1)   this.getPickUpShps()
+              else this.pickUpDone = true
+            })
+            .catch((err) => {
+              this.loading = false
+              if (err.response.status == 401) {
+                this.$router.push('/login')
+              }
+              else if (err.response.status == 403){
+                openToast(
+                    this.$store,
+                    'مجاز به عملیات نیستید',
+                    "error"
+                );
+              }
+              else if (err.response.status == 418){
+                openToast(
+                    this.$store,
+                    err.response.data.message,
+                    "error"
+                );
+                setTimeout(()=>{
+                  window.location.reload()
+                },4000)
+              }
+              else{
+                openToast(
+                    this.$store,
+                    err.response.data.message,
+                    "error"
+                );
+              }
+            });
       }
       catch (e) {
         this.shpssBarCode = ''
