@@ -119,7 +119,6 @@ export default {
 
     async cancelOrder(object ){
       const formData = new FormData()
-      console.log(object)
       this.status = object.status
       if (object.status === 'items'){
         this.$refs.cancelOrderTable.form.forEach((element , index) =>{

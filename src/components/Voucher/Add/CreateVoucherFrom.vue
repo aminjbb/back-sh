@@ -136,17 +136,15 @@
         <v-autocomplete
             :items="voucherConditions"
             variant="outlined"
-            item-title="title"
-            item-value="value"
             return-object
             rounded="lg">
-          <template v-slot:item="item">
+          <template v-slot:item="{ props , item}">
             <v-list-item>
               <v-row justify="center">
 
                 <v-col cols="4">
 
-                  <div @click="addCondition(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                  <div @click="addCondition(item)" class="seller__add-sku-btn d-flex justify-center align-center">
                     <v-icon>mdi-plus</v-icon>
                   </div>
 
@@ -165,7 +163,6 @@
         </v-autocomplete>
       </v-col>
 <!--   for condition   -->
-
       <v-col cols="6" v-for="(condition , index) in voucherForm.voucherCondition">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
@@ -173,7 +170,7 @@
                 </span>
         </div>
 
-        <template v-if="condition.inputType === 'select'">
+        <template v-if="condition.raw.inputType === 'select'">
           <v-autocomplete
               :items="provinceList"
               v-model="condition.data"
@@ -183,14 +180,14 @@
               rounded="lg">
           </v-autocomplete>
         </template>
-        <template v-else-if="condition.inputType === 'text'">
+        <template v-else-if="condition.raw.inputType === 'text'">
           <v-text-field
               v-model="condition.data"
               variant="outlined"
               rounded="lg">
           </v-text-field>
         </template>
-        <template v-else-if="condition.inputType === 'date'">
+        <template v-else-if="condition.raw.inputType === 'date'">
         <v-row justify="center">
           <v-col cols="6">
             <v-text-field
@@ -232,7 +229,7 @@
           </v-col>
         </v-row>
         </template>
-        <template v-else-if="condition.inputType === 'file'">
+        <template v-else-if="condition.raw.inputType === 'file'">
         <div class="d-flex">
           <v-text-field
               readonly
@@ -436,6 +433,7 @@ export default {
 
     addCondition(value){
       this.voucherForm.voucherCondition.add(value)
+      // console.log( this.voucherForm.voucherCondition)
     },
     checkUserCondition(){
       const object = this.voucherConditions.find(item => item.value === 'user_file')
