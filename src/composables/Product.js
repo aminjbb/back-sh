@@ -25,6 +25,7 @@ export default function setup() {
     ]);
 
     const filterField = [
+        {name:'شناسه' , type:'text', value:'id'},
         {name: 'نام انگلیسی', type: 'text', value: 'name'},
         {name: 'نام فارسی', type: 'text', value: 'label'},
         {name: 'فعال سازی ', type: 'select', value: 'is_active'},

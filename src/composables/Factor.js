@@ -19,7 +19,7 @@ export default function setup() {
     // Factor table header
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه فاکتور', show: true , value:'id', order: false},
+        { name: 'شناسه فاکتور', show: true , value:'id', order: true},
         { name: 'تامین کننده ', show: true, value:'supplier' , order: false},
         { name: 'سازنده', show: true , value:'creator', order: false},
         { name: 'شماره فاکتور تامین کننده ', show: true, value:'factor_number', order: false },
@@ -35,6 +35,10 @@ export default function setup() {
         { name: 'تعداد دریافتی کالا', show: true , value:'shps_received_count', order: false},
         { name: 'قیمت خرید', show: true, value:'buying_price', order: false },
         { name: 'قیمت مصرف کننده', show: true, value:'customer_price', order: false },
+        { name: 'مجموع قیمت خرید درخواستی', show: true, value:'buying_price', order: false },
+        { name: 'مجموع قیمت خرید دریافتی', show: true, value:'buying_price', order: false },
+        { name: 'مجموع قیمت مصرف کننده درخواستی', show: true, value:'buying_price', order: false },
+        { name: 'مجموع قیمت مصرف کننده دریافتی', show: false, value:'buying_price', order: false },
         { name: 'مجموع قیمت خرید', show: true, value:'sum_buying_price', order: false },
         { name: 'مجموع قیمت مصرف کننده', show: true, value:'sum_customer_price', order: false },
         { name: 'درصد سود', show: true, value:'profit', order: false },

@@ -133,6 +133,7 @@
                         single-line
                         clearable
                         variant="outlined"
+                        v-debounce="searchProductList"
                     />
 
                     <!-- brand Fields -->
@@ -200,7 +201,7 @@
                   <div class="t13300 text-right mb-1">{{filter.name}}</div>
                   <!-- Active status -->
                   <v-select
-                      v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_index' || filter.value === 'is_follow'"
+                      v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_filterable' || filter.value === 'is_index' || filter.value === 'is_follow'"
                       density="compact"
                       variant="outlined"
                       single-line
@@ -258,17 +259,17 @@
                       v-model="values[index].value"
                   />
 
-                <!-- type -->
-                <v-select
-                      v-if="filter.value === 'type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="typeItems"
-                      v-model="values[index].value"
-                  />
+                  <!-- type -->
+                  <v-select
+                        v-if="filter.value === 'type'"
+                        density="compact"
+                        variant="outlined"
+                        single-line
+                        item-title="label"
+                        item-value="value"
+                        :items="typeItems"
+                        v-model="values[index].value"
+                    />
 
                   <!-- priority -->
                   <v-select
@@ -282,7 +283,7 @@
                       v-model="values[index].value"
                   />
 
-
+                  <!-- type_package -->
                   <v-select
                       v-if="filter.value === 'type_package'"
                       density="compact"
@@ -337,17 +338,17 @@
                       v-model="values[index].value"
                   />
 
-                <!-- charge_type status -->
-                <v-select
-                    v-if="filter.value === 'charge_type'"
-                    density="compact"
-                    variant="outlined"
-                    single-line
-                    item-title="label"
-                    item-value="value"
-                    :items="chargeType"
-                    v-model="values[index].value"
-                />
+                  <!-- charge_type status -->
+                  <v-select
+                      v-if="filter.value === 'charge_type'"
+                      density="compact"
+                      variant="outlined"
+                      single-line
+                      item-title="label"
+                      item-value="value"
+                      :items="chargeType"
+                      v-model="values[index].value"
+                  />
 
                   <!-- supplier fields -->
                   <v-autocomplete
@@ -477,6 +478,18 @@
                       item-value="value"
                       v-model="values[index].value"
                       v-debounce="searchUser" />
+
+                  <!-- score -->
+                  <v-select
+                      v-if="filter.value ==='score'"
+                      density="compact"
+                      variant="outlined"
+                      single-line
+                      hide-details
+                      item-title="name"
+                      item-value="value"
+                      :items="scoreItems"
+                      v-model="values[index].value" />
                 </v-col>
 
               <!-- Date fields -->
@@ -570,6 +583,7 @@ export default {
     perPage:Number,
     userId:null,
     factorId:null,
+    scoreItems:[]
   },
 
   setup(){
@@ -630,7 +644,7 @@ export default {
     }
 
     else if (this.path === 'product/get/skus/index') {
-      this.getProduct()
+      this.searchProduct(' ')
     }
 
     else if (
@@ -806,7 +820,7 @@ export default {
       this.$emit('resetPage')
       this.values.forEach((el) => {
         if (el.value) {
-          if (el.name === 'created_at' || el.name === 'updated_at' || el.name === 'start_time' || el.name === 'end_time' || el.name === 'logistic_at') {
+          if (el.name === 'created_at' || el.name === 'updated_at' || el.name === 'start_time' || el.name === 'end_time' || el.name === 'logistic_at' || el.name === 'logistic_date') {
             let created_at_from = null
             let created_at_to = null
 
@@ -832,6 +846,15 @@ export default {
             }
 
             else if (el.name === 'logistic_at') {
+              if (created_at_from != null ){
+                params += 'logistic_date_from=' + created_at_from + '&';
+              }
+              if (created_at_to != null){
+                params += '&logistic_date_to=' + created_at_to + '&'
+              }
+            }
+
+            else if (el.name === 'logistic_date') {
               if (created_at_from != null ){
                 params += 'logistic_date_from=' + created_at_from + '&';
               }
@@ -977,6 +1000,10 @@ export default {
       if (data) {
         this.userSearchList = data.data.data
       }
+    },
+
+    async searchProductList(search) {
+     this.searchProduct(search)
     },
   }
 }

@@ -33,6 +33,7 @@
                       @resetPage="resetPage"
                       path="supplier/index"
                       :filterField="filterField"
+                      :statusItems="activeStatus"
                       :typeItems="supplierTypeFilter"
                       :paymentType="paymentTypeFilter"
                   />
@@ -110,6 +111,7 @@ import {
     openToast
 } from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {ref} from "vue";
 export default {
   data() {
     return {
@@ -149,6 +151,20 @@ export default {
           value: 'credit',
         }
       ]
+      const activeStatus = ref([
+        {
+          label: 'همه',
+          value: '',
+        },
+        {
+          label: 'فعال',
+          value: '1',
+        },
+        {
+          label: 'غیرفعال',
+          value: '0',
+        }
+      ])
         const {
             pageLength,
             getSupplierList,
@@ -169,7 +185,8 @@ export default {
             header,
             loading,
             supplierTypeFilter,
-            paymentTypeFilter
+            paymentTypeFilter,
+            activeStatus
         };
     },
 

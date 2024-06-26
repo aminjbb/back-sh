@@ -228,6 +228,8 @@ import OrderDetailView from "@/views/OrderPackaging/OrderDetailView.vue";
 import PrintOrderPackagingListView from "@/views/OrderPackaging/PrintOrderPackagingListView.vue";
 import ManualOrderView from "@/views/Orders/ManualOrderView.vue"
 
+/* Reports */
+import CommercialReportVew from "@/views/Reports/CommercialReportView.vue";
 
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
@@ -287,6 +289,17 @@ import AssignShpsToPackageAcceptView from "@/views/AssignShpsToPackageAccept/Ass
 import LuckyWheelView from "@/views/LuckyWheel/LuckyWheelView.vue";
 import CreateLuckyWheelView from "@/views/LuckyWheel/CreateLuckyWheelView.vue";
 import EditLuckyWheelPrizeView from "@/views/LuckyWheel/EditLuckyWheelPrizeView.vue";
+
+/* Comments*/
+import CommentListView from '../views/CommentAccepted/CommentListView.vue'
+import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
+
+/* Report Bug Task */
+import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
+import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
+
+
+
 
 
 const router = createRouter({
@@ -1998,6 +2011,14 @@ const router = createRouter({
                     },
                 },
                 {
+                    path: ':orderId/cancel-order-list',
+                    name: 'CancelOrderView',
+                    component: CancelOrderView,
+                    meta: {
+                        name: 'لیست سفارش ها'
+                    },
+                },
+                {
                     path: 'manual-order-list/:orderId/edit',
                     name: 'EditOrderView',
                     component: EditOrderView,
@@ -2328,6 +2349,61 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/reports', // Order route
+            meta: {
+                name: 'گزارش‌ها'
+            },
+            children: [
+                {
+                    path: 'commercial',
+                    name: 'CommercialReports',
+                    component: CommercialReportVew,
+                    meta: {
+                        name: 'گزارشات بازرگانی'
+                    }
+                },
+            ],
+        },
+        {
+            path: '/comment', // Zone
+            meta: {
+                name: ' کامنت '
+            },
+            children: [
+                {
+                path: 'index',
+                name: 'CommentListView',
+                component: CommentListView,
+                meta: {
+                    name: 'بنر مناسبتی'
+                }
+                },
+                {
+                path: 'reply/:id',
+                name: 'ReplyCommentView',
+                component: ReplyCommentView,
+                meta: {
+                    name: ' بررسی کامنت '
+                }
+            }]
+        },
+        {
+            path: '/report-bug-task', // Zone
+            meta: {
+                name: ' تسک های پیک آپ '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'ReportBugTask',
+                    component: ReportBugTaskView,
+                    meta: {
+                        name: 'تسک های پیک آپ'
+                    }
+                },
+            ]
+        }
     ]
 })
 router.beforeEach((to, from, next) => {

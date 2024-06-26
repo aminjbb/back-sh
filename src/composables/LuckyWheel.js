@@ -35,6 +35,11 @@ export default function setup() {
     ]);
     const filterField = [
         { name: 'نام', type:'text', value:'name'},
+        {name:'لیبل' , type:'text', value:'label'},
+        {name:'تاریخ شروع ' , type:'date', value:'start_time'},
+        {name:'تاریخ پایان ' , type:'date', value:'end_time'},
+        {name:'وضعیت' , type:'select', value:'is_active'},
+        {name:'تعداد شانس' , type:'text', value:'turn_per_user'},
     ];
     const loading = ref(false)
     const isFilter =ref(false)

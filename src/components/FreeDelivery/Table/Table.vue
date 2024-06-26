@@ -353,6 +353,7 @@ export default {
     watch: {
 
         items(val) {
+          this.active =[]
             val.forEach(element => {
                 var active = false
                 if (element.is_active == 1) active = true

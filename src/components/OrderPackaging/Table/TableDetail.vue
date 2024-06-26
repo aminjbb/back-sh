@@ -15,7 +15,7 @@
             class="text-center c-table__header__item t12500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
-            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
           <v-icon v-if="head.order == true" :icon="getIcon(head.value)"/>
           {{ head.name }}
         </div>
@@ -73,7 +73,7 @@
           <div
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
-              :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}`, height: '85px' }">
                         <span class="t14300 text-black py-5">
                             <template v-if="item.sku_label">
                                 {{ item.sku_label }}

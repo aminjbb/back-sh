@@ -45,6 +45,7 @@ export default {
       this.$refs.CreateVoucherFrom.$refs.addVoucher.validate()
       setTimeout(()=>{
         let isFileNull = false
+
         this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
           switch (condition.data) {
             case null:
@@ -58,6 +59,7 @@ export default {
 
         })
         if (this.$refs.CreateVoucherFrom.valid && !isFileNull){
+          // console.log(this.$refs.CreateVoucherFrom.voucherForm.voucherCondition)
           this.createVoucher()
 
         }
@@ -83,13 +85,13 @@ export default {
         if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
         this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
           if (condition.value === 'start-and-end-time'){
-            const startDateSplit = condition.data[0].split(' ')
-            const endDateSplit = condition.data[1].split(' ')
+            const startDateSplit = condition.raw.data[0].split(' ')
+            const endDateSplit = condition.raw.data[1].split(' ')
             formData.append('start_time', convertDateToGregorian(startDateSplit[0] , '/' , false) + ' ' + startDateSplit[1]+':00')
             formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
           }
           else {
-            formData.append(condition.value, condition.data)
+            formData.append(condition.value, condition.raw.data)
           }
         })
         AxiosMethod.form = formData

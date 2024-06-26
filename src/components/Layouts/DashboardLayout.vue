@@ -369,44 +369,77 @@
 
             </v-list-group>
 
-            <v-list-group value="bulk">
-                <template v-slot:activator="{ props }">
-                <v-list-item v-bind="props" active-class="bg-active">
-                    <template v-slot:prepend>
-                    <v-icon>mdi-file-edit-outline</v-icon>
-
-                    </template>
-
-                    <span class="t14500">
-                                ویرایش گروهی
-                            </span>
-                </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in bulkEdit"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
+          <v-list-group value="bulk">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                    <v-icon size="x-small">{{icon}}</v-icon>
+                  <v-icon>mdi-file-edit-outline</v-icon>
+
                 </template>
 
                 <span class="t14500">
+                                ویرایش گروهی
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in bulkEdit"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14500">
                             {{title}}
                         </span>
-                </v-list-item>
+            </v-list-item>
 
-            </v-list-group>
+          </v-list-group>
+
+          <v-list-group value="report">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-file-edit-outline</v-icon>
+
+                </template>
+
+                <span class="t14500">
+                                گزارشات
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in reports"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14500">
+                            {{title}}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
 
           <v-list-group value="message">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon>mdi-message-reply-text-outline</v-icon>
+                  <v-icon>mdi-tooltip-text-outline</v-icon>
                 </template>
 
                 <span class="t14500">
@@ -447,6 +480,21 @@
                     {{title}}
                 </span>
             </v-list-item>
+
+          <v-list-item
+              v-for="([title, to, icon], index) in comments"
+              :key="index"
+              active-class="bg-active"
+              :to="to">
+            <template v-slot:prepend>
+              <v-icon>{{icon}}</v-icon>
+            </template>
+
+            <span class="t14500">
+                    {{title}}
+                </span>
+          </v-list-item>
+
         </v-list>
 
     </v-navigation-drawer>
@@ -462,6 +510,9 @@ export default {
             open: [],
             sending: [
                 // ['ارسال', '/send/index', 'mdi-truck-outline'],
+            ],
+            comments: [
+                ['نظرات', '/comment/index', 'mdi-message-reply-text-outline'],
             ],
             chat: [
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
@@ -513,12 +564,13 @@ export default {
                 ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
                 ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
+                [' تسک های پیک آپ', '/report-bug-task/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             commerce: [
                 ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
-                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],               
-                ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],            
+                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
                 ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
@@ -547,7 +599,9 @@ export default {
             bulkEdit: [
                 ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
             ],
-
+            reports: [
+              ['داشبورد بازرگانی', '/reports/commercial', 'mdi-checkbox-blank-circle-outline'],
+            ],
             withdraw: [
                 ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
                 [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],

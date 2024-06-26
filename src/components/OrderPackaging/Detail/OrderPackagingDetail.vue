@@ -191,7 +191,17 @@ export default {
          if (data?.data?.is_completed) {
            window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
          }
-         this.orderDetail = data?.data?.order_items
+         const sortedItem = data?.data?.order_items
+         sortedItem.sort(function (a, b) {
+           if (a.packing_status < b.packing_status) {
+             return 1;
+           }
+           if (a.packing_status > b.packing_status) {
+             return -1;
+           }
+           return 0;
+         });
+         this.orderDetail = sortedItem
          this.loading = false
          setTimeout(()=>{this.shpsItem = ''},1000)
          openToast(

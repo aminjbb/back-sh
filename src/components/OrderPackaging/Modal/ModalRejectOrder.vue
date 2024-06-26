@@ -1,7 +1,6 @@
 <template>
   <div class="text-center">
     <v-btn
-        v-if="accept"
         height="40"
         rounded
         variant="flat"

@@ -128,9 +128,38 @@
                         class="number-font"
                         type="number" />
                 </div>
+              <div
+                  v-if="header[6].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                  {{splitChar(item.requested_buying_price_sum)}}
+              </div>
+              <div
+                  v-if="header[7].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                {{ splitChar(item.received_buying_price_sum) }}
+              </div>
+              <div
+                  v-if="header[8].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                  {{splitChar(item.requested_customer_price_sum)}}
+              </div>
+              <div
+                  v-if="header[9].show"
+                  style="padding: 3px 5px;"
+                  class="c-table__contents__item justify-center"
+                  :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                {{ splitChar(item.requested_customer_price_sum) }}
+              </div>
+
 
                 <div
-                    v-if="header[6].show"
+                    v-if="header[10].show"
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -145,7 +174,7 @@
                 </div>
 
                 <div
-                    v-if="header[7].show"
+                    v-if="header[11].show"
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -160,7 +189,7 @@
                 </div>
 
                 <div
-                    v-if="header[8].show"
+                    v-if="header[12].show"
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
