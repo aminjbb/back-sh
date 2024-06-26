@@ -297,6 +297,8 @@ import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 /* Report Bug Task */
 import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
+import BestSellingCategoriesView from "@/views/BestSellingCategories/BestSellingCategoriesView.vue";
+import AddBestSellingCategoriesView from "@/views/BestSellingCategories/AddBestSellingCategoriesView.vue";
 
 
 
@@ -2400,6 +2402,30 @@ const router = createRouter({
                     component: ReportBugTaskView,
                     meta: {
                         name: 'تسک های پیک آپ'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/best-selling-categories', // Zone
+            meta: {
+                name: ' تنظیمات'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'BestSellingCategoriesView',
+                    component: BestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'AddBestSellingCategoriesView',
+                    component: AddBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
                     }
                 },
             ]
