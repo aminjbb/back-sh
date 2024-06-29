@@ -132,7 +132,7 @@
                         <v-icon
                               icon="mdi-square"
                               size="x-large"
-                              :style="{color: item.value.value}"
+                              :style="{color: item.raw.value}"
                           />
                       </v-chip>
                   </template>
@@ -146,17 +146,18 @@
                       </template>
 
                       <template v-else>
+<!--                        {{item}}-->
                         <v-list-item-content
                             v-bind="props"
                             class="d-flex align-center mb-3 justify-end pr-3"
                             style="cursor:pointer"
                         >
-                            <v-list-item-title v-html="item.value.label"/>
+                            <v-list-item-title v-html="item.raw.label"/>
 
                             <v-icon
                                 icon="mdi-square"
                                 size="x-large"
-                                :style="{ color: item.value.value }"
+                                :style="{ color: item.raw.value }"
                             />
                         </v-list-item-content>
                       </template>
