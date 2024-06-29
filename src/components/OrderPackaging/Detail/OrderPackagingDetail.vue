@@ -12,8 +12,11 @@
       <v-divider color="grey"/>
       <v-row align="center" class="pa-3">
         <v-col cols="4">
-          <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem"
-                        variant="outlined"></v-text-field>
+          <v-text-field
+              @keyup.enter="orderItemPack()"
+              :autofocus="true"
+              v-model="shpsItem"
+              variant="outlined"/>
         </v-col>
         <v-col cols="3">
           <v-btn
@@ -27,9 +30,12 @@
           </v-btn>
         </v-col>
         <v-col cols="3">
-          <v-radio-group v-model="accept" inline @update:model-value="dialog = true">
-            <v-radio label="پردازش" :value="true"></v-radio>
-            <v-radio label="نمایش" :value="false"></v-radio>
+          <v-radio-group
+              v-model="accept"
+              inline
+              @update:model-value="dialog = true">
+            <v-radio label="پردازش" :value="true"/>
+            <v-radio label="نمایش" :value="false"/>
           </v-radio-group>
         </v-col>
         <v-col cols="2">
@@ -69,12 +75,13 @@
         persistent
     >
       <v-card>
-        <v-row justify="center" align="center" class="pa-5">
+        <v-row
+            justify="center"
+            align="center"
+            class="pa-5">
           <v-col cols="12">
             <div class="text-center pl-5">
-                            <span class="t14500">
-                              از تغییر وضعیت مطمئن هستید
-                            </span>
+              <span class="t14500">از تغییر وضعیت مطمئن هستید</span>
             </div>
           </v-col>
         </v-row>
@@ -83,18 +90,27 @@
         </div>
 
         <div class="text-center pb-5">
-          <v-btn  color="primary500" @click="dialog = false" height="40" rounded
-                 class="px-5 mt-1 mr-15">
-                        <span>
-                            تایید
-                        </span>
+          <v-btn
+              color="primary500"
+              @click="dialog = false"
+              height="40"
+              rounded
+              class="px-5 mt-1 mr-15">
+            <span>تایید</span>
           </v-btn>
-          <v-btn @click="closeModal()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
+          <v-btn
+              @click="closeModal()"
+              variant="text"
+              height="40"
+              rounded
+              class="px-5 mt-1 ml-15">
             انصراف
           </v-btn>
         </div>
       </v-card>
     </v-dialog>
+
+    <ModalNotAvailableOrder/>
   </div>
 </template>
 
@@ -110,9 +126,11 @@ import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
 import {openToast, closeToast} from "@/assets/js/functions";
+import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";
 
 export default {
   components: {
+    ModalNotAvailableOrder,
     Table,
     ModalRejectOrder,
     Modal
