@@ -4,8 +4,10 @@
         class="ma-5 br-12 pa-10 position__relative "
         min-height="600"
     >
-      <BestSellingCategoriesForm ref="BestSellingCategoryForm"/>
-
+      <BestSellingCategoriesForm
+          ref="BestSellingCategoryForm"
+          :bestSelling="bestSelling"
+      />
       <v-row
           justify="end"
           class="position__absolute bottom left"
@@ -20,7 +22,7 @@
           <template v-slot:prepend>
             <v-icon>mdi-plus</v-icon>
           </template>
-          افزودن
+          تایید
         </v-btn>
 
         <v-btn
@@ -45,11 +47,24 @@ import {defineAsyncComponent} from 'vue'
 import CategoryForm from "@/components/Categories/CategoryForm.vue";
 import {openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import BestSellingCategories from "@/composables/BestSellingCategories";
 const BestSellingCategoriesForm = defineAsyncComponent(()=> import('@/components/BestSellingCategories/Form/BestSellingCategoriesForm.vue'))
 export default {
   components: {
     CategoryForm,
     BestSellingCategoriesForm,
+  },
+
+  setup() {
+    const {
+      bestSelling ,
+      getBestSellCategories,
+    } = new BestSellingCategories()
+
+    return{
+      bestSelling ,
+      getBestSellCategories
+    }
   },
 
   methods: {
@@ -91,7 +106,7 @@ export default {
       let formdata = new FormData()
 
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'category/best_selling/crud/create'
+      AxiosMethod.end_point = 'category/best_selling/crud/update/' + this.$route.params.categoryId
       AxiosMethod.form = formdata
       formdata.append('label', this.$refs.BestSellingCategoryForm.form.label)
       formdata.append('priority', this.$refs.BestSellingCategoryForm.form.priority)
@@ -113,6 +128,10 @@ export default {
         this.loading = false
       }
     }
+  },
+
+  mounted() {
+    this.getBestSellCategories()
   }
 }
 </script>

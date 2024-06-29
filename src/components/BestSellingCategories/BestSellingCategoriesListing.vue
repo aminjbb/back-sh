@@ -8,7 +8,7 @@
 
         <v-col cols="6">
           <v-btn
-              @click="$router.push('/lucky-wheel/create')"
+              @click="$router.push('/best-selling-categories/create')"
               color="primary500"
               height="40"
               rounded
@@ -20,10 +20,14 @@
           </v-btn>
         </v-col>
         <v-col cols="6">
-          <v-row justify="end pa-3">
+          <v-row justify="end">
+            <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+
             <PanelFilter
                 @resetPage="resetPage"
                 :filterField="filterField"
+                path="best-selling-categories/index"
+                :statusHasOption="devices"
             />
           </v-row>
         </v-col>
@@ -34,13 +38,13 @@
       <Table
           class="flex-grow-1"
           :header="header"
-          :items="[]"
+          :items="bestSellCategories"
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
           @updateList="updateList"
-          deletePath="game/lucky-wheel/prize/crud/delete/"
-          activePath="game/lucky-wheel/crud/update/activation/"
+          deletePath="category/best_selling/crud/delete/"
+          activePath="category/best_selling/crud/update/activation/"
           model="bestSellCategory" />
 
       <v-divider />
@@ -68,16 +72,14 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -90,6 +92,7 @@
 import {defineAsyncComponent} from 'vue'
 const Table = defineAsyncComponent(()=> import('@/components/BestSellingCategories/Table/Table.vue'))
 import BestSellingCategories from "@/composables/BestSellingCategories";
+import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
 
 
@@ -99,36 +102,76 @@ export default {
       perPageFilter:false
     }
   },
+
   components: {
+    ModalColumnFilter,
     PanelFilter,
     Table
   },
 
   setup() {
+    const devices=[
+      {
+        label: 'دسکتاپ',
+        value: 'desktop',
+      },
+      {
+        label: 'تبلت',
+        value: 'tablet',
+      },
+      {
+        label: 'موبایل',
+        value: 'mobile',
+      },
+    ]
    const {
-     pageLength, bestSellCategories , getBestSellCategories, dataTableLength, page, header,loading , filterField , bestSellCategory
+     pageLength,
+     bestSellCategories ,
+     getAllBestSellCategories,
+     dataTableLength,
+     page,
+     header,
+     loading ,
+     filterField ,
+     bestSellCategory
    } = new BestSellingCategories()
-    return{ pageLength, bestSellCategories , getBestSellCategories, dataTableLength, page, header,loading , filterField , bestSellCategory}
+
+    return{
+     pageLength,
+      bestSellCategories ,
+      getAllBestSellCategories,
+      dataTableLength,
+      page,
+      header,
+      loading ,
+      filterField ,
+      bestSellCategory,
+      devices
+   }
   },
 
   methods: {
-
     updateList(status) {
       if (status === 'true') {
-        this.getLuckyWheelList();
+        this.getAllBestSellCategories();
       }
     },
+
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
   },
 
   mounted() {
-    // this.getLuckyWheelList();
+    this.getAllBestSellCategories()
   },
 
   watch: {
@@ -156,11 +199,12 @@ export default {
 
     page(){
       if (!this.perPageFilter){
-        this.getLuckyWheelList()
+        this.getAllBestSellCategories()
       }
     },
 
     $route(){
+      this.getAllBestSellCategories()
     }
   }
 }

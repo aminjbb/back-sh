@@ -6,6 +6,7 @@ import { useCookies } from "vue3-cookies";
 export default function setup() {
     const bestSellCategories = ref([]);
     const bestSellCategory = ref(null);
+    const bestSelling = ref(null);
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -14,23 +15,24 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'تصویر', show: true, value:'name' , order: false},
-        { name: 'دستگاه', show: true , value:'start_date', order: false},
-        { name: 'لینک', show: true , value:'end_date', order: false},
-        { name: 'سازنده', show: true , value:'chance', order: false},
-        // { name: 'عملیات', show: true , value:'is_active', order: false},
+        { name: 'تصویر', show: true, value:'image' , order: false},
+        { name: 'دستگاه', show: true , value:'device', order: false},
+        { name: 'لینک', show: true , value:'link', order: false},
+        { name: 'سازنده', show: true , value:'creator_id', order: false},
+        { name: 'وضعیت', show: true , value:'status', order: false},
+        { name: 'عملیات', show: true , value:'is_active', order: false},
     ]);
     const filterField = [
-        { name: 'عنوان', type:'text', value:'name'},
-        {name:'دستگاه' , type:'text', value:'device'},
-        {name:'سازنده ' , type:'select', value:'creator_id'},
+        { name: 'عنوان', type:'text', value:'label'},
+        { name:'دستگاه' , type:'select', value:'device'},
+        { name:'سازنده ' , type:'select', value:'creator_id'},
 
     ];
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
 
-    async function getBestSellCategories() {
+    async function getAllBestSellCategories() {
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -74,16 +76,41 @@ export default function setup() {
 
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = 'game/lucky-wheel/crud/index'
+        AxiosMethod.end_point = 'category/best_selling/crud/index'
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            luckyWheel.value = data.data.data
+            bestSellCategories.value = data.data.data
+            loading.value = false
+        }
+    }
+
+    async function getBestSellCategories() {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = 'category/best_selling/crud/get/' + this.$route.params.categoryId
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            bestSelling.value = data.data
             loading.value = false
         }
     }
 
 
-    return {pageLength, bestSellCategories , getBestSellCategories, dataTableLength, page, header,loading , filterField , bestSellCategory}
+    return {
+        pageLength,
+        bestSellCategories ,
+        getAllBestSellCategories,
+        dataTableLength,
+        page,
+        header,
+        loading ,
+        filterField ,
+        bestSellCategory,
+        getBestSellCategories,
+        bestSelling
+    }
 }
 

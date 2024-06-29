@@ -299,6 +299,7 @@ import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
 import BestSellingCategoriesView from "@/views/BestSellingCategories/BestSellingCategoriesView.vue";
 import AddBestSellingCategoriesView from "@/views/BestSellingCategories/AddBestSellingCategoriesView.vue";
+import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBestSellingCategoriesView.vue";
 
 
 
@@ -2428,6 +2429,14 @@ const router = createRouter({
                         name: 'پرفروش ترین دسته بندی ها'
                     }
                 },
+                {
+                    path: ':categoryId/best-selling-edit',
+                    name: 'EditBestSellingCategories',
+                    component: EditBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                }
             ]
         }
     ]

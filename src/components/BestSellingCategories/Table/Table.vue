@@ -8,9 +8,7 @@
           {{head.name}}
         </div>
       </template>
-
     </header>
-
 
     <div class="stretch-table">
       <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
@@ -25,48 +23,54 @@
             </div>
           </div>
 
-          <div v-if="header[1].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-
-                    <span class="text-grey-darken-2">
-                        {{ item.name }}
-                    </span>
-          </div>
-          <div v-if="header[2].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-
-                    <span class="text-grey-darken-2">
-                        {{ item.label }}
-                    </span>
-          </div>
-          <div v-if="header[3].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-
-                    <span class="number-font text-grey-darken-2">
-                        {{ item.start_time_fa }}
-                    </span>
-          </div>
-          <div v-if="header[4].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-
-                    <span class="number-font text-grey-darken-2">
-                        {{ item?.end_time_fa }}
-                    </span>
-          </div>
-          <div v-if="header[5].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-
-                    <span class="number-font text-grey-darken-2">
-                        {{ item?.turn_per_user }}
-                    </span>
+          <div
+              v-if="header[1].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+             <span class="text-grey-darken-2">{{ item.label }}</span>
           </div>
 
-          <div v-if="header[6].show" class="c-table__contents__item justify-center"
-               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+          <div
+              v-if="header[2].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+            <span class="text-grey-darken-2">
+              <img :src="item.image.image_url" width="100" height="28" alt="" class="br br__4">
+            </span>
+          </div>
 
-                    <span>
-                        <v-switch @change="changeActive(index , item)" v-model="values[index]" dense color="success"/>
-                    </span>
+          <div
+              v-if="header[3].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+            <span class="number-font text-grey-darken-2">{{ translateDevice(item.device) }}</span>
+          </div>
+
+          <div
+              v-if="header[4].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+            <span class="number-font text-grey-darken-2">{{ item?.link }}</span>
+          </div>
+
+          <div
+              v-if="header[5].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+            <span class="number-font text-grey-darken-2">{{ item?.creator?.full_name }}</span>
+          </div>
+
+          <div
+              v-if="header[6].show"
+              class="c-table__contents__item justify-center"
+              :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
+            <span>
+              <v-switch
+                  @change="changeActive(index , item)"
+                  v-model="values[index]"
+                  dense
+                  color="success"/>
+            </span>
           </div>
 
           <div :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" class="c-table__contents__item justify-center  ">
@@ -78,13 +82,16 @@
               </template>
 
               <v-list class="c-table__more-options">
-
                 <v-list-item-title>
-                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/lucky-wheel/${item.id}/prize-edit`)">
-                    <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
-                                        ویرایش جایزه
-                                    </span>
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/best-selling-categories/${item.id}/best-selling-edit`)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pen</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش </span>
+                  </div>
+                </v-list-item-title>
+                <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-delete</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">حذف </span>
                   </div>
                 </v-list-item-title>
               </v-list>
@@ -209,6 +216,13 @@ export default {
 
   methods: {
 
+    translateDevice(device) {
+      if (device==='desktop') return 'دسکتاپ'
+      else if (device==='mobile') return 'موبایل'
+      else if (device==='tablet') return 'تبلت'
+      console.log(device)
+    },
+
     /**
      * Change Active
      * @param {*} index
@@ -217,7 +231,7 @@ export default {
     async changeActive(index, item) {
       var formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = this.activePath + item.id
+      AxiosMethod.end_point = `category/best_selling/crud/update/activation/` + item.id
       if (this.values[index]) formData.append('is_active', 1)
       else formData.append('is_active', 0)
       AxiosMethod.store = this.$store
@@ -292,7 +306,7 @@ export default {
      * @param {*} id
      */
     removeItem(id) {
-      openConfirm(this.$store, "از حذف آیتم اطمینان دارید؟", "حذف آیتم", "delete", this.deletePath + id, true);
+      openConfirm(this.$store, "با حذف تصویر، تمام اطلاعات مربوطه نیز حذف می‌شودآیا از انجام این کار اطمینان دارید؟", "حذف تصویر", "delete", this.deletePath + id, true);
     },
 
     /**
