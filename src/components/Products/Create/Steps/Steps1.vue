@@ -146,7 +146,6 @@
                       </template>
 
                       <template v-else>
-<!--                        {{item}}-->
                         <v-list-item-content
                             v-bind="props"
                             class="d-flex align-center mb-3 justify-end pr-3"
