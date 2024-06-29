@@ -59,8 +59,8 @@ import TicketList from '../views/Ticket/TicketDashboard.vue'
 /* chat */
 import ChatView from '../views/Chat/ChatView.vue'
 /* Admin management */
-import AdminListView from '../views/Admin/AdminListView.vue'
-import CreateAdminView from '../views/Admin/CreateAdminView.vue'
+import AdminListView from '../views/Refactor/Index/AdminIndexView.vue'
+import CreateAdminView from '../views/Refactor/Create/AdminCreateView.vue'
 import EditAdminView from '../views/Admin/EditAdminView.vue'
 import UserListView from '../views/User/UserListView.vue'
 import CreateUserView from '../views/User/CreateUserView.vue'
@@ -68,10 +68,10 @@ import EditUserView from '../views/User/EditUserView.vue'
 import UserWalletView from '../views/User/UserWalletView.vue'
 
 /* admin permission */
-import PermissionListView from '../views/Admin/Permssion/PermissionListView.vue'
-import RolePermissionListView from '../views/Admin/RolePermission/RolePermissionListView.vue'
-import CreateRolePermissionView from '../views/Admin/RolePermission/CreateRolePermissionView.vue'
-import EditRolePermissionView from '../views/Admin/RolePermission/EditRolePermissionView.vue'
+import PermissionListView from '../views/Refactor/Index/AdminPermssionIndexView.vue'
+import RolePermissionListView from '../views/Refactor/Index/AdminRolePermissionIndexView.vue'
+import CreateRolePermissionView from '../views/Refactor/Update/AdminEditRolePermissionView.vue'
+import EditRolePermissionView from '../views/Refactor/Create/AdminRolePermissionCreateView.vue'
 
 /* Warehouse */
 import WarehouseListView from '../views/Warehouse/WarehouseListView.vue'
