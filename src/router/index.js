@@ -269,6 +269,8 @@ import LostItemListView from "@/views/Lost/LostItemListView.vue";
 import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
 import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
+import EditVoucherView from "@/views/Voucher/EditVoucherView.vue";
+
 import SystemVariableView from "@/views/System/SystemVariableView.vue";
 import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
@@ -2127,6 +2129,14 @@ const router = createRouter({
                     component: VoucherDetailCustomerView,
                     meta: {
                         name: 'جزئیات'
+                    }
+                },
+                {
+                    path: ':voucherId/edit',
+                    name: 'EditVoucherView',
+                    component: EditVoucherView,
+                    meta: {
+                        name: 'سفارش ها'
                     }
                 },
             ],
