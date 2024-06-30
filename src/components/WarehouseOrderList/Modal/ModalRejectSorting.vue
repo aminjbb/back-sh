@@ -2,12 +2,8 @@
   <div class="text-center mb-5">
     <v-card @click="dialog=true" height="50" class="mx-2" variant="outlined" :color="cardColor(order.status)">
       <div class="d-flex align-center justify-center py-3 px-5">
-            <span>
-                شناسه:
-            </span>
-        <span class="number-font mr-1">
-                {{ order.id }}
-            </span>
+        <span>شناسه:</span>
+        <span class="number-font mr-1">{{ order.id }}</span>
       </div>
     </v-card>
     <v-dialog v-model="dialog" width="468">
@@ -20,9 +16,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-12">
-                        <span class="t14500">
-                            ثبت مغایرت سورتینگ
-                        </span>
+              <span class="t14500">ثبت مغایرت سورتینگ</span>
             </div>
           </v-col>
         </v-row>
@@ -31,22 +25,28 @@
         </div>
 
         <div class="text-center pa-5">
-                <span class="t14500">
-                    از ثبت مغایرت مطمئن هستید؟
-                </span>
+          <span class="t14500">از ثبت مغایرت مطمئن هستید؟</span>
         </div>
         <div class="mt-3 mb-8  px-5">
           <v-divider/>
         </div>
 
         <div class="text-center pb-5">
-          <v-btn :loading="loading" color="primary500" @click="rejectOrder()" height="40" rounded
-                 class="px-5 mt-1 mr-15">
-                    <span>
-                        تایید
-                    </span>
+          <v-btn
+              :loading="loading"
+              color="primary500"
+              @click="rejectOrder()"
+              height="40"
+              rounded
+              class="px-5 mt-1 mr-15">
+            <span>تایید</span>
           </v-btn>
-          <v-btn @click="close()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
+          <v-btn
+              @click="close()"
+              variant="text"
+              height="40"
+              rounded
+              class="px-5 mt-1 ml-15">
             انصراف
           </v-btn>
         </div>
@@ -56,9 +56,7 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   props: {

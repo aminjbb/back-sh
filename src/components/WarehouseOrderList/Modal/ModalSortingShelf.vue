@@ -1,7 +1,12 @@
 <template>
-  <v-dialog v-model="dialog" width="468">
+  <v-dialog
+      v-model="dialog"
+      width="468">
     <v-card class="rounded-lg">
-      <v-row justify="center" align="center" class="pa-3">
+      <v-row
+          justify="center"
+          align="center"
+          class="pa-3">
         <v-col cols="3">
           <v-btn @click="close()" variant="icon">
             <v-icon>mdi-close</v-icon>
@@ -62,7 +67,7 @@ export default {
   },
 
   methods:{
-    confirmation() {
+    async confirmation() {
       console.log('confirmation')
     },
 

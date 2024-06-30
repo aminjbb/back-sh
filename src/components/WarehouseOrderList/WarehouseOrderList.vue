@@ -11,9 +11,9 @@
             v-for="(order,index) in orders"
             :key="`order${index}`"/>
 
-          <ModalSortingShelf ref="ModalSortingShelf"/>
+        <ModalSortingShelf ref="ModalSortingShelf"/>
 
-          <ModalCompletedOrder ref="ModalCompleteOrder"/>
+        <ModalCompletedOrder ref="ModalCompleteOrder"/>
       </v-row>
     </v-card>
   </div>

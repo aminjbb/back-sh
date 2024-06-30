@@ -45,8 +45,13 @@
           <v-radio-group
               v-model="selectedOperation"
               inline>
-            <v-radio label="خالی کردن شلف سورتینگ" value="shelf" />
-            <v-radio class="mr-16" label="اتمام سفارش" value="order-packaging" />
+            <v-radio
+                label="خالی کردن شلف سورتینگ"
+                value="shelf" />
+            <v-radio
+                class="mr-16"
+                label="اتمام سفارش"
+                value="order-packaging" />
           </v-radio-group>
         </div>
 
