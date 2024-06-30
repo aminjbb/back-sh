@@ -307,15 +307,7 @@ export default {
      */
     removeItem(id) {
       openConfirm(this.$store, "با حذف تصویر، تمام اطلاعات مربوطه نیز حذف می‌شودآیا از انجام این کار اطمینان دارید؟", "حذف تصویر", "delete", this.deletePath + id, true);
-    },
-
-    /**
-     * Update list
-     * @param {*} status
-     */
-    updateList(status) {
-      this.$emit('updateList', status);
-    },
+    }
   },
 
   watch: {

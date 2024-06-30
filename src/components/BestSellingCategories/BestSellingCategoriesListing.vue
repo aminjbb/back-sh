@@ -42,7 +42,6 @@
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
-          @updateList="updateList"
           deletePath="category/best_selling/crud/delete/"
           activePath="category/best_selling/crud/update/activation/"
           model="bestSellCategory" />
@@ -93,6 +92,7 @@ import {defineAsyncComponent} from 'vue'
 const Table = defineAsyncComponent(()=> import('@/components/BestSellingCategories/Table/Table.vue'))
 import BestSellingCategories from "@/composables/BestSellingCategories";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import {openToast} from "@/assets/js/functions";
 const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
 
 
@@ -150,13 +150,13 @@ export default {
    }
   },
 
-  methods: {
-    updateList(status) {
-      if (status === 'true') {
-        this.getAllBestSellCategories();
-      }
-    },
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
 
+  methods: {
     resetPage(){
       this.perPageFilter = true
       this.page = 1
@@ -175,6 +175,20 @@ export default {
   },
 
   watch: {
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getAllBestSellCategories()
+          openToast(
+              this.$store,
+              'آیتم با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
