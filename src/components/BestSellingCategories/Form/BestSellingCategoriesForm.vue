@@ -101,7 +101,7 @@ export default {
         image_alt: null
       },
       rule: [v => !!v || 'این فیلد الزامی است'],
-      valid: false,
+      valid: true,
       deviceTypes:[
         {title:'دسکتاپ' , value:'desktop'},
         {title:'موبایل' , value:'mobile'},

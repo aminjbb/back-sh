@@ -72,24 +72,6 @@ export default {
       if (this.$refs.BestSellingCategoryForm.form.image_id == null){
         openToast(this.$store, 'حتما باید عکس اضافه شود' , 'error')
       }
-      else if (this.$refs.BestSellingCategoryForm.form.label == null) {
-        openToast(this.$store, 'حتما باید عنوان اضافه شود' , 'error')
-      }
-      else if (this.$refs.BestSellingCategoryForm.form.priority == null) {
-        openToast(this.$store, 'حتما باید اولویت اضافه شود' , 'error')
-      }
-
-      else if (this.$refs.BestSellingCategoryForm.form.device == null) {
-        openToast(this.$store, 'حتما باید دستگاه اضافه شود' , 'error')
-
-      }
-      else if (this.$refs.BestSellingCategoryForm.form.image_alt == null) {
-        openToast(this.$store, 'حتما باید alt اضافه شود' , 'error')
-      }
-
-      else if (this.$refs.BestSellingCategoryForm.form.link == null) {
-        openToast(this.$store, 'حتما باید لینک اضافه شود' , 'error')
-      }
 
       else{
         this.$refs.BestSellingCategoryForm.$refs.addBestSelling.validate()
