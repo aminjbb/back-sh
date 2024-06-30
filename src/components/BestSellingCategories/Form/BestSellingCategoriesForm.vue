@@ -84,6 +84,7 @@
 </template>
 <script >
 import {defineAsyncComponent} from 'vue'
+import {openConfirm} from "@/assets/js/functions";
 const UploadFileSection = defineAsyncComponent(()=> import('@/components/Public/UploadFileSection.vue'))
 export default {
   props: {
@@ -113,9 +114,15 @@ export default {
     UploadFileSection
   },
 
+  computed:{
+    confirmModal(){
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
   methods:{
-    removeItem(image_id) {
-      this.form.image_id = image_id
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
     },
 
     /**
@@ -124,7 +131,6 @@ export default {
      */
     getImage(image){
       this.form.image_id = image.data.data.image_id
-      this.form.imageUrl = image.data.data.url
     },
 
     setForm() {
@@ -142,7 +148,16 @@ export default {
   watch: {
     bestSelling() {
       this.setForm()
-    }
+    },
+
+    confirmModal(val){
+      if (!val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          this.form.image_id = null
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
   }
 }
 </script>
