@@ -167,7 +167,7 @@ export default defineComponent({
     return {
       selectedRefreshRate: '5m',
       intervalId: null as unknown as ReturnType<typeof setInterval>,
-      selectedPeriod: "24h",
+      selectedPeriod: "today",
       progressRefreshIn: 300000,
       fromDate: new Date().getTime() - (24 * 60 * 60 * 1000), //last 24 hours
       toDate: new Date().getTime(),
@@ -196,6 +196,22 @@ export default defineComponent({
         }
       ],
       periods: [
+        {
+          name: 'امروز',
+          value: "today"
+        },
+        {
+          name: 'دیروز',
+          value: "yesterday"
+        },
+        {
+          name: 'هفته جاری',
+          value: 'week'
+        },
+        {
+          name: 'ماه جاری',
+          value: 'month'
+        },
         {
           name: '۱۲ ساعت گذشته',
           value: "12h"

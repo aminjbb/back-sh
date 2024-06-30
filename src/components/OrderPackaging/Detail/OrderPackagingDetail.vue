@@ -188,8 +188,6 @@ export default {
                     },
                 })
                 .then((data) => {
-                    console.log( data?.data?.data?.order_items , 'response')
-
                     closeToast(this.$store)
                     localStorage.setItem('orderIdForRefreshOrderPackaging', data?.data?.data?.order?.id)
                     this.orderId = data?.data?.data?.order?.id
