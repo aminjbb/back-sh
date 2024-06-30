@@ -220,7 +220,6 @@ export default {
       if (device==='desktop') return 'دسکتاپ'
       else if (device==='mobile') return 'موبایل'
       else if (device==='tablet') return 'تبلت'
-      console.log(device)
     },
 
     /**
