@@ -298,7 +298,8 @@ import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
 
-
+/* Order Tracking */
+import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 
 
 
@@ -1883,6 +1884,22 @@ const router = createRouter({
                         name: 'بسته بندی سفارش ها'
                     }
                 },
+            ],
+        },
+        {
+            path: '/order-tracking', // order tracking
+            meta: {
+                name: 'پشیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'dorder tracking',
+                    component: OrderTrackingView,
+                    meta: {
+                        name: 'پیگیری سفارش مشتری'
+                    }
+                }
             ],
         },
         {
