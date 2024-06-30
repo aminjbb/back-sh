@@ -211,11 +211,21 @@ export default {
                     setTimeout(()=>{this.shpsItem = null},1000)
                 })
                 .catch((err) => {
-                    console.log(err, 'error')
+                    console.log('error', err)
 
                     this.shpsItem = null
                     this.loading = false
-                    if (err.response.status == 401) {
+                    if (err.response.status == 400) {
+                        openToast(
+                            this.$store,
+                            'خطا در دریافت بارکد، لطفا از ابتدا تلاش کنید',
+                            "error",
+                        );
+                        setTimeout(()=>{
+                            window.location.reload()
+                        },4000)
+                    }
+                    else if (err.response.status == 401) {
                         this.$router.push('/login')
                     } else if (err.response.status == 403) {
                         openToast(
@@ -225,7 +235,7 @@ export default {
                         );
                     }
                     else if (err.response.status == 410) {
-                        console.log(err.response.data.data)
+                        console.log('error 410', err.response.data.data )
 
                         this.sendingMethods = err.response.data.data.sending_methods
                         this.currentSendingMethod = err.response.data.data.current_sending_method

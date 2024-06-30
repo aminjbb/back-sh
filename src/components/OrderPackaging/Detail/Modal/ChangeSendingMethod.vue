@@ -56,6 +56,7 @@
 
 <script>
 import { AxiosCall } from '@/assets/js/axios_call.js'
+import {closeToast, openToast} from "@/assets/js/functions";
 
 export default {
     props:{
@@ -80,20 +81,28 @@ export default {
             AxiosMethod.end_point = `warehouse/order/packaging/update-sending-method/${this.orderId}`
             AxiosMethod.form = formdata
             AxiosMethod.store = this.$store
-            AxiosMethod.toast_success = true
             AxiosMethod.using_auth = true
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
+                console.log(data?.data)
                 this.loading = false
                 this.dialogSendingMethod = false
                 this.currentMethod = null
-                this.orderId = null
                 if (data?.data?.is_completed) {
                     window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.order?.id}/print`, '_blank');
                 }
+                else {
+                    openToast(
+                        this.$store,
+                        'خطا در دریافت بارکد.',
+                        "error",
+                    );
+                    console.log(data?.data?.is_completed)
+                }
             }
             else {
+
                 this.loading = false
                 this.dialogSendingMethod = false
                 this.currentMethod = null
