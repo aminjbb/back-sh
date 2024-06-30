@@ -4,6 +4,7 @@
       <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
       <span class="mr-2 text-grey-darken-1 t14300">نمایش جزئیات</span>
     </div>
+    
     <v-dialog v-model="dialog">
       <v-card class="pa-5 ">
         <v-expansion-panels class="accordion" variant="inset">

@@ -69,6 +69,12 @@
             font-size: 12px;
             color: #9E9E9E !important;
         }
+
+        &:nth-child(3) {
+            border-right: 1px solid var(--Gray-100, #F5F5F5);
+            font-size: 14px;
+            color: #555 !important;
+        }
     }
 
     .v-row:last-child {
