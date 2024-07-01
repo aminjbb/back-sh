@@ -6,17 +6,19 @@
                align="center"
                class="px-10 py-3">
                <v-col cols="6">
-                <v-btn
-                    @click="$router.push('/driver-management/create')"
-                    color="primary500"
-                    height="40"
-                    rounded
-                    class="px-8 mt-1">
-                    <template v-slot:prepend>
-                        <v-icon>mdi-plus</v-icon>
-                    </template>
-                    افزودن
-                </v-btn>
+
+                 <sh-btn
+                     title="افزودن"
+                     prepend-icon="mdi-plus"
+                     color="primary500"
+                     :height="40"
+                     :to="'/driver-management/create'"
+                     rounded="xl"
+                     :width="120"
+                     :hasIcon="true"
+                     class="mt-1"
+
+                 />
             </v-col>
    
                <v-col cols="6">
@@ -97,6 +99,7 @@
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
    import { openToast} from "@/assets/js/functions";
    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+   import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
    export default {
      data() {
        return {
@@ -131,11 +134,13 @@
        },
    
        components: {
+         shBtn,
          PanelFilter,
            Table,
            ModalGroupAdd,
            ModalColumnFilter,
            ModalExcelDownload,
+
        },
    
        computed: {
