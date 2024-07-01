@@ -662,6 +662,7 @@ export default {
         this.path === 'shipment-requests/index' ||
         this.path === 'withdraw-request/index' ||
         this.path === 'wastage/index' ||
+        this.path === 'best-selling-categories/index' ||
         this.path === 'lost/index') {
       this.getAdmins()
       if (this.path === 'wastage/index' || this.path === 'lost/index'|| this.path === 'factor/index') {
