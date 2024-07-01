@@ -11,17 +11,19 @@
               class="px-10 py-5">
             <v-col cols="6">
               <v-row justify="start">
-                <v-btn
-                    @click="$router.push('/role-permission/create')"
+
+                <sh-btn
+                    title="ساخت نقش"
+                    prepend-icon="mdi-plus"
                     color="primary500"
-                    height="40"
-                    rounded
-                    class="px-8 mt-1">
-                  <template v-slot:prepend>
-                    <v-icon>mdi-plus</v-icon>
-                  </template>
-                  ساخت نقش
-                </v-btn>
+                    :height="40"
+                    :to="'/role-permission/create'"
+                    rounded="xl"
+                    :width="150"
+                    :hasIcon="true"
+                    class="mt-1"
+
+                />
               </v-row>
             </v-col>
 
@@ -97,6 +99,7 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
 
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
@@ -133,7 +136,8 @@ export default {
     ModalGroupAdd,
     ModalColumnFilter,
     Table,
-    DashboardLayout
+    DashboardLayout,
+    shBtn
 
   },
   mounted() {

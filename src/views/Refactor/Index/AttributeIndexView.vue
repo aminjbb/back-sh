@@ -8,12 +8,19 @@
           <v-row justify="center" align="center" class="px-10 py-5">
             <v-col cols="6">
               <v-row justify="start">
-                <v-btn @click="$router.push('/attributes/create')" color="primary500" height="40" rounded class="px-8 mt-1">
-                  <template v-slot:prepend>
-                    <v-icon>mdi-plus</v-icon>
-                  </template>
-                  افزودن
-                </v-btn>
+
+                <sh-btn
+                    title="افزودن"
+                    prepend-icon="mdi-plus"
+                    color="primary500"
+                    :height="40"
+                    :to="'/attributes/create'"
+                    rounded="xl"
+                    :width="120"
+                    :hasIcon="true"
+                    class="mt-1"
+
+                />
 
                 <ModalGroupAdd getEndPoint="product/attribute/csv/get/template"
                                uploadEndpoint="product/attribute/csv/bulk"/>
@@ -105,6 +112,8 @@
 
 <script >
 import {defineAsyncComponent} from "vue";
+import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
+
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import Table from '@/components/Public/Table.vue'
@@ -127,7 +136,8 @@ export default {
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
-    DashboardLayout
+    DashboardLayout,
+    shBtn
   },
 
   setup() {

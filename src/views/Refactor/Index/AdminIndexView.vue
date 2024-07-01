@@ -12,17 +12,19 @@
                 class="px-10 py-5">
               <v-col cols="6">
                 <v-row justify="start">
-                  <v-btn
-                      @click="$router.push('/admin/create')"
+
+                  <sh-btn
+                      title="ساخت ادمین"
+                      prepend-icon="mdi-plus"
                       color="primary500"
-                      height="40"
-                      rounded
-                      class="px-8 mt-1">
-                    <template v-slot:prepend>
-                      <v-icon>mdi-plus</v-icon>
-                    </template>
-                    ساخت ادمین
-                  </v-btn>
+                      :height="40"
+                      :to="'/admin/create'"
+                      rounded="xl"
+                      :width="150"
+                      :hasIcon="true"
+                      class="mt-1"
+
+                  />
                 </v-row>
               </v-col>
 
@@ -103,6 +105,8 @@
 </template>
 <script >
 import {defineAsyncComponent} from "vue";
+import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
+
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
@@ -142,7 +146,8 @@ export default {
     PanelFilter,
     ModalGroupAdd,
     ModalColumnFilter,
-    Table
+    Table,
+    shBtn
   },
 
   data() {
