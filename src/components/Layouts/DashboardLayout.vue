@@ -582,6 +582,7 @@ export default {
             setting: [
                 ['صفحات', '/page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['منو ها', '/menu/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پرفروش ترین دسته بندی ها', '/best-selling-categories/index', 'mdi-checkbox-blank-circle-outline'],
                 ['صفحه اصلی', '/home-page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['متغییر ها', '/system/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بنر مناسبتی', '/occasion-banner/index', 'mdi-checkbox-blank-circle-outline'],
