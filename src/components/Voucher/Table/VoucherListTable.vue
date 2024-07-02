@@ -263,6 +263,15 @@
                   </div>
                 </v-list-item-title>
                 <v-list-item-title>
+                  <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/edit`)">
+                    <v-icon class="text-grey-darken-1" size="x-small">mdi-pen-minus</v-icon>
+
+                    <span class="mr-2 text-grey-darken-1 t14300">
+                      ویرایش
+                    </span>
+                  </div>
+                </v-list-item-title>
+                <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
                     <span class="mr-2 text-grey-darken-1 t14300">

@@ -269,6 +269,8 @@ import LostItemListView from "@/views/Lost/LostItemListView.vue";
 import BulkEditView from "@/views/BulkEdit/BulkEditView.vue";
 import UpcomingPrintView from "@/views/Warehouse/UpcomingPrintView.vue";
 import VoucherOrderView from "@/views/Voucher/VoucherOrderView.vue";
+import EditVoucherView from "@/views/Voucher/EditVoucherView.vue";
+
 import SystemVariableView from "@/views/System/SystemVariableView.vue";
 import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
@@ -297,8 +299,12 @@ import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 /* Report Bug Task */
 import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
+import BestSellingCategoriesView from "@/views/BestSellingCategories/BestSellingCategoriesView.vue";
+import AddBestSellingCategoriesView from "@/views/BestSellingCategories/AddBestSellingCategoriesView.vue";
+import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBestSellingCategoriesView.vue";
 
-
+/* Order Tracking */
+import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 
 
 
@@ -1886,6 +1892,22 @@ const router = createRouter({
             ],
         },
         {
+            path: '/order-tracking', // order tracking
+            meta: {
+                name: 'پشیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'dorder tracking',
+                    component: OrderTrackingView,
+                    meta: {
+                        name: 'پیگیری سفارش مشتری'
+                    }
+                }
+            ],
+        },
+        {
 
             path: '/warehouse-orders', // Warehouse orders
             meta: {
@@ -2127,6 +2149,14 @@ const router = createRouter({
                     component: VoucherDetailCustomerView,
                     meta: {
                         name: 'جزئیات'
+                    }
+                },
+                {
+                    path: ':voucherId/edit',
+                    name: 'EditVoucherView',
+                    component: EditVoucherView,
+                    meta: {
+                        name: 'سفارش ها'
                     }
                 },
             ],
@@ -2402,6 +2432,38 @@ const router = createRouter({
                         name: 'تسک های پیک آپ'
                     }
                 },
+            ]
+        },
+        {
+            path: '/best-selling-categories', // Zone
+            meta: {
+                name: ' تنظیمات'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'BestSellingCategoriesView',
+                    component: BestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'AddBestSellingCategoriesView',
+                    component: AddBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                },
+                {
+                    path: ':categoryId/best-selling-edit',
+                    name: 'EditBestSellingCategories',
+                    component: EditBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                }
             ]
         }
     ]

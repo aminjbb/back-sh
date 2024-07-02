@@ -22,14 +22,14 @@ export default function setup() {
 
     const filterField = ref([
         {name: 'شناسه SKU', type: 'text', value: 'sku_id'},
-        {name: 'نام کالا', type: 'text', value: 'sku_label'},
+        {name: 'نام کالا', type: 'text', value: 'sku_name'},
         {name: 'وضعیت', type:'select', value:'status'},
         {name: 'امتیاز', type: 'select', value: 'score'},
         {name: 'برند', type: 'auto-complete', value: 'brand_id'},
         {name: 'نام کاربر', type: 'auto-complete', value: 'user_id'},
         {name: ' شماره کاربر', type: 'text', value: 'phone_number'},
         {name: ' ایمیل کاربر', type: 'text', value: 'email'},
-        {name: 'نام ادمین', type: 'auto-complete', value: 'admin_id'},
+        {name: 'نام ادمین', type: 'auto-complete', value: 'creator_id'},
         {name: 'تاریخ ثبت', type: 'date', value: 'created_at'},
         {name: 'تاریخ بررسی', type: 'date', value: 'updated_at'},
     ]);
