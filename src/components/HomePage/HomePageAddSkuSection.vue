@@ -27,7 +27,7 @@
 
                                     <v-col cols="4">
 
-                                        <div @click="assignSku(item.props.value.id,item.props.value.sku_id)" class="seller__add-sku-btn d-flex justify-center align-center">
+                                        <div @click="assignSku(item.props.value , item)" class="seller__add-sku-btn d-flex justify-center align-center">
                                             <v-icon>mdi-plus</v-icon>
                                         </div>
 
@@ -231,7 +231,7 @@ export default {
             }
         },
 
-        async assignSku(id, skuId) {
+        async assignSku(id , item) {
             const formData = new FormData()
             const AxiosMethod = new AxiosCall()
             AxiosMethod.using_auth = true
@@ -239,7 +239,7 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.end_point = `page/home/section/${this.$route.params.sectionId}/sku/attach`
             formData.append('shps', id)
-            formData.append('sku_id', skuId)
+            formData.append('sku_id', item.item.raw.sku.id)
             formData.append('priority', 1)
             formData.append('is_active', 0)
             AxiosMethod.form = formData
