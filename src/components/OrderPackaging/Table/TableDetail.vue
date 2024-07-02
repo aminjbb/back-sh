@@ -27,7 +27,7 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            :class="packedStatus(item?.packing_status) ? 'bg-success' : ''"
+            :class="checkStatus(item)"
             class="d-flex justify-between c-table__contents__row">
           <div
               v-if="header[0].show"
@@ -360,10 +360,9 @@ export default {
      * Return odd index
      * @param {*} status
      */
-    packedStatus(status) {
-      if (status == 'packed') return true
-      return false
-
+    checkStatus(status) {
+      if (status.packing_status === 'packed') return 'bg-success'
+      else if(status.packing_status === 'not_sorted') return 'bg-notSorted'
     },
   },
   created() {

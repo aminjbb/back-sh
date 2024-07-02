@@ -1,14 +1,5 @@
 <template>
   <div class="text-center">
-<!--    <v-btn-->
-<!--        height="40"-->
-<!--        rounded-->
-<!--        variant="flat"-->
-<!--        class="px-8 mt-2"-->
-<!--        @click="dialog = true"-->
-<!--    >-->
-<!--     تست-->
-<!--    </v-btn>-->
     <v-dialog
         v-model="dialog"
         width="468">
@@ -42,7 +33,7 @@
           <v-btn
               :loading="loading"
               color="primary500"
-              @click="rejectOrder()"
+              @click="close()"
               height="40"
               rounded
               class="px-5 mt-1 mr-15">
@@ -64,10 +55,17 @@
 <script>
 export default {
   name: "ModalNotAvailableOrder",
+
   data(){
     return {
       dialog: false,
       loading: false
+    }
+  },
+
+  methods: {
+    close() {
+      this.dialog = false
     }
   }
 }
