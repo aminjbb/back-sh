@@ -34,10 +34,10 @@
        </v-card>
    
        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-           <Table
-               :getDriverList="getDriverList"
+           <ShTable
+
                class="flex-grow-1"
-               :header="header"
+               :header="headers"
                :items="DriverManagementList.data"
                :page="page"
                :perPage="dataTableLength"
@@ -45,10 +45,23 @@
                :loading="loading"
                updateUrl="page/csv/mass-update"
                deletePath="driver/crud/delete/"
-               model="page" />
-   
+               model="page" > </ShTable>
+<!--         <div>-->
+<!--&lt;!&ndash;           <ShTable&ndash;&gt;-->
+<!--&lt;!&ndash;               :headers="headers"&ndash;&gt;-->
+<!--&lt;!&ndash;               :items="plants"&ndash;&gt;-->
+<!--&lt;!&ndash;               :loading="loading"&ndash;&gt;-->
+<!--&lt;!&ndash;               :items-per-page="10"&ndash;&gt;-->
+<!--&lt;!&ndash;               :height="300"&ndash;&gt;-->
+<!--&lt;!&ndash;           >&ndash;&gt;-->
+
+<!--             <template v-slot:item.actions="{ item }">-->
+<!--               <v-btn @click="editItem(item)">Edit</v-btn>-->
+<!--             </template>-->
+<!--          -->
+<!--         </div>-->
            <v-divider />
-   
+          {{header}}
            <v-card-actions class="pb-3">
                <v-row class="px-8">
                    <v-col cols="3" class="d-flex justify-start">
@@ -100,10 +113,93 @@
    import { openToast} from "@/assets/js/functions";
    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
    import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
+   import ShTable from "@/components/components/Table/sh-table.vue";
+
+
    export default {
      data() {
        return {
-         perPageFilter:false
+         perPageFilter:false,
+         headers: [
+           { title: 'Plant', align: 'start', sortable: false, key: 'name' },
+           { title: 'Light', align: 'end', key: 'light' },
+           { title: 'Height', align: 'end', key: 'height' },
+           { title: 'Pet Friendly', align: 'end', key: 'petFriendly' },
+           { title: 'Price ($)', align: 'end', key: 'price' },
+         ],
+         plants: [
+           {
+             name: 'Fern',
+             light: 'Low',
+             height: '20cm',
+             petFriendly: 'Yes',
+             price: 20,
+           },
+           {
+             name: 'Snake Plant',
+             light: 'Low',
+             height: '50cm',
+             petFriendly: 'No',
+             price: 35,
+           },
+           {
+             name: 'Monstera',
+             light: 'Medium',
+             height: '60cm',
+             petFriendly: 'No',
+             price: 50,
+           },
+           {
+             name: 'Pothos',
+             light: 'Low to medium',
+             height: '40cm',
+             petFriendly: 'Yes',
+             price: 25,
+           },
+           {
+             name: 'ZZ Plant',
+             light: 'Low to medium',
+             height: '90cm',
+             petFriendly: 'Yes',
+             price: 30,
+           },
+           {
+             name: 'Spider Plant',
+             light: 'Bright, indirect',
+             height: '30cm',
+             petFriendly: 'Yes',
+             price: 15,
+           },
+           {
+             name: 'Air Plant',
+             light: 'Bright, indirect',
+             height: '15cm',
+             petFriendly: 'Yes',
+             price: 10,
+           },
+           {
+             name: 'Peperomia',
+             light: 'Bright, indirect',
+             height: '25cm',
+             petFriendly: 'Yes',
+             price: 20,
+           },
+           {
+             name: 'Aloe Vera',
+             light: 'Bright, direct',
+             height: '30cm',
+             petFriendly: 'Yes',
+             price: 15,
+           },
+           {
+             name: 'Jade Plant',
+             light: 'Bright, direct',
+             height: '40cm',
+             petFriendly: 'Yes',
+             price: 25,
+           },
+         ],
+         loading: false
        }
      },
        setup() {
@@ -140,6 +236,7 @@
            ModalGroupAdd,
            ModalColumnFilter,
            ModalExcelDownload,
+         ShTable
 
        },
    
@@ -150,6 +247,8 @@
        },
    
        methods: {
+         editItem(item) {
+         },
             changeHeaderShow(index, value) {
                 this.header[index].show = value
             },
