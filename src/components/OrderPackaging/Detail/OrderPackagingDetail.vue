@@ -96,6 +96,7 @@
             </v-card>
         </v-dialog>
         <ModalChangeMethod :orderId="orderId" ref='ModalChangeMethod' :sendingMethods="sendingMethods" :currentSendingMethod="currentSendingMethod"/>
+      <ModalNotAvailableOrder ref="ModalNotAvailable"/>
     </div>
 </template>
 
@@ -111,14 +112,15 @@ import ModalChangeMethod from "@/components/OrderPackaging/Detail/Modal/ChangeSe
 import {AxiosCall,} from '@/assets/js/axios_call.js'
 import {openToast, closeToast} from "@/assets/js/functions";
 import axios from "axios";
+import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";
 
 export default {
-    components: {
-        Table,
-        ModalRejectOrder,
-        Modal,
-        ModalChangeMethod,
-    },
+  components: {
+    ModalNotAvailableOrder,
+    Table,
+    ModalRejectOrder,
+    Modal
+  },
 
     data() {
         return {
@@ -140,7 +142,7 @@ export default {
             orderListDetail,
             orderId,
             accept,
-            refreshOrderPackaging,
+            refreshOrderPackaging
         } = OrderPackagingList();
         const orderDetails = ref(orderListDetail);
         return {
@@ -153,14 +155,16 @@ export default {
             orderDetails,
             orderId,
             accept,
-            refreshOrderPackaging,
-        };
+            refreshOrderPackaging
+        }
     },
+
     computed: {
         confirmModal() {
             return this.$store.getters['get_confirmForm'].confirmModal;
         },
     },
+
     methods: {
         closeModal() {
             this.accept = !this.accept
@@ -209,8 +213,6 @@ export default {
                     setTimeout(()=>{this.shpsItem = null},1000)
                 })
                 .catch((err) => {
-                    console.log('error', err)
-
                     this.shpsItem = null
                     this.loading = false
                     if (err.response.status == 400) {
@@ -223,6 +225,9 @@ export default {
                             window.location.reload()
                         },4000)
                     }
+                    else if (err.response.status == 411) {
+                      this.$refs.ModalNotAvailable.dialog = true
+                    }
                     else if (err.response.status == 401) {
                         this.$router.push('/login')
                     } else if (err.response.status == 403) {
@@ -233,8 +238,6 @@ export default {
                         );
                     }
                     else if (err.response.status == 410) {
-                        console.log('error 410', err.response.data.data )
-
                         this.sendingMethods = err.response.data.data.sending_methods
                         this.currentSendingMethod = err.response.data.data.current_sending_method
                         this.$refs.ModalChangeMethod.dialogSendingMethod = true
@@ -242,6 +245,7 @@ export default {
                 });
         },
     },
+
     mounted() {
         if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
     }
