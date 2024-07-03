@@ -119,7 +119,8 @@ export default {
     ModalNotAvailableOrder,
     Table,
     ModalRejectOrder,
-    Modal
+    Modal,
+    ModalChangeMethod
   },
 
     data() {
