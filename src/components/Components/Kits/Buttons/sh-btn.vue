@@ -5,10 +5,12 @@
     rounded = pill
 -->
   <v-btn
+      :icon="icon"
       :class="classList"
       :variant="variant"
       :color="color"
       :rounded="rounded"
+      :size="size"
       :width="width"
       :height="height"
       :disabled="disabled"
@@ -40,14 +42,16 @@ export default {
 
     title: {
       type: String,
-      default: ''
+      default: undefined
     },
-
+    icon: {
+      type: String,
+      default: undefined
+    },
     classList: {
       type: Array,
       default: []
     },
-
     classListIcon: {
           type: Array,
           default: []
@@ -67,7 +71,10 @@ export default {
       type: [Boolean, String],
       default: 'pill'
     },
-
+    size:{
+      type: String,
+      default: undefined
+    },
     width:{
       type: Number,
       default: undefined
