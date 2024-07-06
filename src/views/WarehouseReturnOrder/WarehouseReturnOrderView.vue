@@ -69,19 +69,22 @@ async function getPackageList() {
     AxiosMethod.toast_error = true
     AxiosMethod.store = store
     AxiosMethod.token = cookies.cookies.get('adminToken')
-    AxiosMethod.end_point = `admin/order/${this.orderId}/processing-back-to-pre-progress`
+    AxiosMethod.end_point = `admin/order/${orderId.value}/processing-back-to-pre-progress`
     let data = await AxiosMethod.axios_post()
     if (data) {
       loading.value = false
       openToast(
           store,
           ' سفارش با موفقیت بازگردانی شد',
-          "error")
+          "success")
+      orderId.value = null
     } else {
       loading.value = false
+      orderId.value = null
     }
   } catch (e) {
     loading.value = false
+    orderId.value = null
   }
 }
 
