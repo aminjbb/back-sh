@@ -1,18 +1,18 @@
 <template>
-<!--    check div span label-->
+<!--    defaults:
+        ripple = true
+-->
     <v-checkbox
         v-model="value"
-        :color="color"
         :value="value"
         :class="classList"
         :disabled="disabled"
+        :color="color"
         :ripple="ripple"
         hide-details="auto"
     >
         <template v-if="label" v-slot:label>
-            <div>
-                <span :class="labelClass"> {{ label }} </span>
-            </div>
+            <span :class="labelClass"> {{ label }} </span>
         </template>
     </v-checkbox>
 </template>
@@ -28,12 +28,12 @@ export default {
     props: {
         label: {
             type: String,
-            default: ""
+            default: undefined
         },
 
         value: {
             type: String,
-            default: ""
+            default: undefined
         },
 
 
@@ -43,8 +43,8 @@ export default {
         },
 
         labelClass: {
-            type: String,
-            default: ""
+            type: Array,
+            default: []
         },
 
         disabled: {
@@ -54,7 +54,7 @@ export default {
 
         color:{
             type: String,
-            default: ""
+            default: undefined
         },
 
         ripple:{

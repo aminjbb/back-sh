@@ -1,16 +1,35 @@
 <template>
-    <!-- add block :fill width   -->
+<!--
+    block : take full width
+    flat : remove shadow
+    rounded = pill
+-->
   <v-btn
+      :class="classList"
+      :variant="variant"
       :color="color"
-      :height="height"
-      @click="handleClick"
       :rounded="rounded"
       :width="width"
+      :height="height"
+      :disabled="disabled"
+      :loading="loading"
+      :block="block"
+      :flat="flat"
+      @click="handleClick"
   >
-    <template v-if="hasIcon" v-slot:prepend>
-      <v-icon>{{ prependIcon }}</v-icon>
-    </template>
+        <template v-if="prependIcon" v-slot:prepend>
+          <v-icon :class="classListIcon">
+              {{ prependIcon }}
+          </v-icon>
+        </template>
+
     {{ title }}
+
+        <template v-if="appendIcon" v-slot:append>
+          <v-icon :class="classListIcon">
+              {{ appendIcon }}
+          </v-icon>
+        </template>
 
   </v-btn>
 </template>
@@ -18,51 +37,86 @@
 export default {
   name: "sh-btn",
   props: {
+
     title: {
       type: String,
       default: ''
     },
+
+    classList: {
+      type: Array,
+      default: []
+    },
+
+    classListIcon: {
+          type: Array,
+          default: []
+      },
+
+    variant:{
+          type: String,
+          default: undefined
+      },
+
     color:{
       type: String,
-      default: ''
+      default: undefined
     },
-    height: {
-      type: Number,
-      default: ''
-    },
-    width:{
-      type: Number,
-      default: ''
-    },
-    prependIcon: {
-      type: String,
-      default: ''
-    },
+
     rounded: {
       type: [Boolean, String],
-      default: 'default'
+      default: 'pill'
     },
-    hasIcon: {
+
+    width:{
+      type: Number,
+      default: undefined
+    },
+
+    height: {
+      type: Number,
+      default: undefined
+    },
+
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+
+    loading:{
+      type: Boolean,
+      default: false
+    },
+
+    prependIcon: {
+      type: String,
+      default: undefined
+    },
+    appendIcon: {
+      type: String,
+      default: undefined
+      },
+    flat: {
+      type: Boolean,
+      default: false
+    },
+    block: {
       type: Boolean,
       default: false
     },
     to: {
       type: [String, Object],
       default: null
-    }
+    },
   },
+
   methods: {
     handleClick() {
       if (this.to) {
         this.$router.push(this.to);
       }
-      this.$emit('click');
-        /*already have original click event*/
+         this.$emit('onClick');
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

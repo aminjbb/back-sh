@@ -1,6 +1,7 @@
 <template>
 <!-- defaults
     inset = true
+    ripple = true
     hide-details="auto"
 
 
@@ -20,9 +21,7 @@
         hide-details="auto"
     >
         <template v-if="label" v-slot:label>
-            <div>
-                <span :class="labelClass" > {{ label }} </span>
-            </div>
+            <span :class="labelClass" > {{ label }} </span>
         </template>
     </v-switch>
 </template>
@@ -38,22 +37,22 @@ export default {
     props: {
         label: {
             type: String,
-            default: ""
+            default: undefined
         },
 
         value: {
             type: String,
-            default: ""
+            default: undefined
         },
 
         trueValue: {
             type: String,
-            default: ""
+            default: undefined
         },
 
         falseValue: {
             type: String,
-            default: ""
+            default: undefined
         },
 
         classList: {
@@ -62,8 +61,8 @@ export default {
         },
 
         labelClass: {
-            type: String,
-            default: ""
+            type: Array,
+            default: []
         },
 
         disabled: {
@@ -71,20 +70,20 @@ export default {
             default: false
         },
 
-        color:{
+        color: {
             type: String,
-            default: ""
+            default: undefined
         },
 
-        ripple:{
+        ripple: {
             type: Boolean,
             default: true
         },
 
-        inset:{
+        inset: {
             type: Boolean,
             default: true
         },
-    },
+    }
 }
 </script>

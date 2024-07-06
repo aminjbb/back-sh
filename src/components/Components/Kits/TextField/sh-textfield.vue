@@ -1,25 +1,32 @@
 <template>
-<!--    single-line : remove label after focus
-        persistent-placeholder: show placeholder while unfocused-->
+<!--    defaults:
+            single-line = true
+            variant = outlined
+            density = compact
+            persistent-placeholder: show placeholder while unfocused
+-->
+
     <v-text-field
         v-model="value"
-        :class="classList"
-        :disabled="disabled"
-        :type="type"
-        :rules="rules"
-        :variant="variant"
         :single-line="singleLine"
+        :variant="variant"
         :density="density"
+
+        :class="classList"
+        :rules="rules"
+        :type="type"
+        :color="color"
+        :counter="counter"
+        :min-width="minWidth"
+
+        :hint="hint"
+        :placeholder="placeholder"
+        :persistent-placeholder="persistentPlaceholder"
+        :disabled="disabled"
         :clearable="clearable"
         :autofocus="autofocus"
-        :min-width="minWidth"
-        hide-details="auto"
-        :placeholder="placeholder"
-
-        :persistent-placeholder="persistentPlaceholder"
-        :hint="hint"
-        :counter="counter"
         :loading="loading"
+        hide-details="auto"
 
         :append-icon="appendIcon"
         :prepend-icon="prependIcon"
@@ -35,9 +42,7 @@
         center-affix
     >
         <template v-if="label" v-slot:label>
-            <div>
-                <span :class="labelClass" > {{ label }} </span>
-            </div>
+            <span :class="labelClass" > {{ label }} </span>
         </template>
     </v-text-field>
 </template>
@@ -56,127 +61,102 @@ export default {
             type: String,
             default: ""
         },
-
-        classList: {
-            type: Array,
-            default: []
-        },
-
-        labelClass: {
-            type: String,
-            default: ""
-        },
-
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-
-        color:{
-            type: String,
-            default: ""
-        },
-
-        ripple:{
+        singleLine:{
             type: Boolean,
             default: true
         },
-
-        placeholder:{
-            type: String,
-            default: ""
-        },
-
-        hint:{
-            type: String,
-            default: ""
-        },
-
-
-        type:{
-            type: String,
-            default: ""
-        },
-
         variant:{
             type: String,
             default: "outlined"
         },
-
         density:{
             type: String,
             default: "compact"
         },
 
+        classList: {
+            type: Array,
+            default: []
+        },
+        labelClass: {
+            type: Array,
+            default: []
+        },
+        rules:{
+            type: Array,
+            default: []
+        },
+        type:{
+            type: String,
+            default: undefined
+        },
+        color:{
+            type: String,
+            default: undefined
+        },
+        counter:{
+            type: [Boolean, String],
+            default: null
+        },
         minWidth:{
             type: Number,
             default: null
         },
 
-
-        autofocus:{
-            type: Boolean,
-            default: false
+        hint:{
+            type: String,
+            default: undefined
         },
-
-
-
-        rules:{
-            type: Array,
-            default: []
+        placeholder:{
+            type: String,
+            default: undefined
         },
-
-        clearable:{
-            type: Boolean,
-            default: false
-        },
-
         persistentPlaceholder:{
             type: Boolean,
             default: false
         },
-
-        singleLine:{
+        disabled: {
             type: Boolean,
             default: false
         },
-
-        counter:{
-            type: [Boolean, String],
-            default: null
+        clearable:{
+            type: Boolean,
+            default: false
         },
-
+        autofocus:{
+            type: Boolean,
+            default: false
+        },
         loading:{
             type: Boolean,
             default: false
         },
 
-        /*icons*/
+    /*icons*/
         appendIcon:{
             type: String,
-            default: ""
+            default: undefined
         },
         prependIcon:{
             type: String,
-            default: ""
+            default: undefined
         },
-
         appendInnerIcon:{
             type: String,
-            default: ""
+            default: undefined
         },
         prependInnerIcon:{
             type: String,
-            default: ""
+            default: undefined
         },
 
         suffix:{
             type: String,
-            default: ""
+            default: undefined
         },
         prefix:{
             type: String,
-            default: ""
+            default: undefined
         },
     },
 
