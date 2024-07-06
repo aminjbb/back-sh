@@ -1,4 +1,5 @@
 <template>
+    <!-- add block :fill width   -->
   <v-btn
       :color="color"
       :height="height"
@@ -56,6 +57,7 @@ export default {
         this.$router.push(this.to);
       }
       this.$emit('click');
+        /*already have original click event*/
     }
   }
 }
