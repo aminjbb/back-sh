@@ -68,7 +68,8 @@ export default {
   components: {
     AttributeForm,
     AddAttributeValueForm,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   data() {

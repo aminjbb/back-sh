@@ -62,16 +62,23 @@ import {convertDateToGregorian} from "@/assets/js/functions";
 import Admin from '@/composables/Admin'
 
 export default {
+    components: {
+        AdminForm,
+        DashboardLayout,
+        Header
+    },
+
   setup(){
     const {getAdmin , adminForEdit } = new Admin()
     return {getAdmin , adminForEdit}
   },
+
   data() {
     return {
       loading: false,
     }
   },
-  components: {AdminForm, DashboardLayout},
+
   methods:{
     validate(){
       this.$refs.AdminForm.$refs.addForm.validate()

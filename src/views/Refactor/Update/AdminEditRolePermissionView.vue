@@ -52,6 +52,11 @@ import {
 } from "@/assets/js/axios_call";
 import RolePermission from '@/composables/RolePermission'
 export default {
+    components: {
+        RolePermissionForm,
+        DashboardLayout,
+        Header
+    },
   setup() {
     const {
       getRolePermission,
@@ -67,11 +72,6 @@ export default {
     return {
       loading: false,
     }
-  },
-
-  components: {
-    RolePermissionForm,
-    DashboardLayout
   },
 
   methods: {

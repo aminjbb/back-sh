@@ -137,6 +137,7 @@ export default {
     ModalColumnFilter,
     Table,
     DashboardLayout,
+    Header,
     shBtn
 
   },

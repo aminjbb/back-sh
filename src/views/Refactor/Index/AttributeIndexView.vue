@@ -137,6 +137,7 @@ export default {
     ModalGroupAdd,
     ModalExcelDownload,
     DashboardLayout,
+    Header,
     shBtn
   },
 
