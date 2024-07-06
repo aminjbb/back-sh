@@ -1,4 +1,8 @@
 <template>
+<!--    defaults:
+            ripple = true
+            inline = true
+-->
     <v-radio-group
         v-model="value"
         :class="classListGroup"
@@ -13,9 +17,7 @@
                  :ripple="ripple"
         >
             <template v-if="radio.label" v-slot:label>
-                <div>
-                    <span :class="labelClass" > {{ radio.label }} </span>
-                </div>
+                <span :class="labelClass" > {{ radio.label }} </span>
             </template>
         </v-radio>
     </v-radio-group>
@@ -37,7 +39,7 @@ export default {
 
         value: {
             type: String,
-            default: ""
+            default: undefined
         },
 
 
@@ -47,13 +49,13 @@ export default {
         },
 
         classListRadio: {
-            type: String,
-            default: ""
+            type: Array,
+            default: []
         },
 
         labelClass: {
-            type: String,
-            default: ""
+            type: Array,
+            default: []
         },
 
         disabled: {
@@ -63,7 +65,7 @@ export default {
 
         color:{
             type: String,
-            default: ""
+            default: undefined
         },
 
         ripple:{

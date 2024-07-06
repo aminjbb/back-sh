@@ -29,7 +29,6 @@
         :clearable="clearable"
         :return-object="returnObject"
         :v-debounce="debounce"
-        :ripple="ripple"
         hide-details="auto"
 
         :multiple="multiple"
@@ -42,9 +41,7 @@
         :prefix="prefix"
     >
         <template v-if="label" v-slot:label>
-            <div>
-                <span :class="labelClass" > {{ label }} </span>
-            </div>
+            <span :class="labelClass" > {{ label }} </span>
         </template>
     </v-autocomplete>
 </template>
@@ -61,11 +58,11 @@ export default {
     props: {
         label: {
             type: String,
-            default: ""
+            default: undefined
         },
         singleLine:{
             type: Boolean,
-            default: false
+            default: true
         },
         variant:{
             type: String,
@@ -83,7 +80,7 @@ export default {
         },
         labelClass: {
             type: String,
-            default: ""
+            default: undefined
         },
         rules:{
             type: Array,
@@ -95,17 +92,17 @@ export default {
         },
         itemTitle:{
             type: String,
-            default: ""
+            default: undefined
         },
         itemValue:{
             type: String,
-            default: ""
+            default: undefined
             },
 
 
         placeholder:{
             type: String,
-            default: ""
+            default: undefined
         },
         persistentPlaceholder:{
             type: Boolean,
@@ -113,15 +110,15 @@ export default {
         },
         noDataText:{
             type: String,
-            default: ""
+            default: undefined
         },
         color:{
             type: String,
-            default: ""
+            default: undefined
         },
         rounded:{
             type: String,
-            default: ""
+            default: undefined
         },
         minWidth:{
             type: Number,
@@ -151,11 +148,7 @@ export default {
         },
         debounce:{
             type: String,
-            default: ""
-        },
-        ripple:{
-            type: Boolean,
-            default: true
+            default: undefined
         },
 
 
@@ -179,20 +172,16 @@ export default {
 
         prependInnerIcon:{
             type: String,
-            default: ""
+            default: undefined
         },
         suffix:{
             type: String,
-            default: ""
+            default: undefined
         },
         prefix:{
             type: String,
-            default: ""
+            default: undefined
         },
     },
 }
 </script>
-
-<style scoped>
-
-</style>
