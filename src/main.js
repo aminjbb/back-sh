@@ -51,6 +51,7 @@ const vuetify = createVuetify({
                     CharcoalGrey: '#424242',
                     success:'#4CAF50',
                     disableRow:'#FFEBEE',
+                    notSorted:'#FFEBEE',
                     warningRow:'#FFF3E0',
                     successRow:'#E8F5E9',
                     scanError:'#EF5350'
