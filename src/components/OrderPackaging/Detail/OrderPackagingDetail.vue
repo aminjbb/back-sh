@@ -222,9 +222,6 @@ export default {
                             'خطا در دریافت بارکد، لطفا از ابتدا تلاش کنید',
                             "error",
                         );
-                        setTimeout(()=>{
-                            window.location.reload()
-                        },4000)
                     }
                     else if (err.response.status == 411) {
                       this.$refs.ModalNotAvailable.dialog = true
