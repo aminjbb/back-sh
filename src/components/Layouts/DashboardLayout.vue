@@ -521,6 +521,7 @@ export default {
                 ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             groupsFunction: [
                 ['عملیات گروهی', '/exports/index', 'mdi-export'],
