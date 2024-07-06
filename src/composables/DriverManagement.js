@@ -16,14 +16,15 @@ export default function setup() {
     const router = useRouter()
     const route = useRoute()
 
-    const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: ' شناسه راننده ', show: true , value:'label', order: false},
-        { name: ' نام راننده', show: true, value:'type' , order: false},
-        { name: '  کد ملی', show: true , value:'id', order: false},
-        { name: ' شماره موبایل', show: true, value:'created_at', order: false },
-        { name: ' تاریخ ایجاد ', show: true, value:'updated_at', order: false },
-        { name: ' تاریخ ویرایش', show: true, value:'is_index', order: false },
+    const headerDriver =ref([
+        { title: 'ردیف', show: true , key: 'row', order:false},
+        { title: ' شناسه راننده ', show: true , key:'id', order: false},
+        { title: ' نام راننده', show: true,  key:'full_name', order: false},
+        { title: '  کد ملی', show: true ,  key:'identification_code', order: false},
+        { title: ' شماره موبایل', show: true,  key:'phone_number' , order: false },
+        { title: ' تاریخ ایجاد ', show: true, key:'created_at_fa' , order: false },
+        { title: ' تاریخ ویرایش', show: true, key:'updated_at_fa' , order: false },
+        { title: 'عملیات', key:'action_driver'},
        
     ]);
 
@@ -46,6 +47,44 @@ export default function setup() {
         
 
     ]);
+    const consignmentPrintList = ref([
+        {
+            id:28,
+            shps_count:28,
+            label: "کرم ضد آفتاب لافارر SPF 50 ظرفیت 40 میلی لیتر"
+        },
+        {
+            id:28,
+            shps_count:28,
+            label: "مایع ظرفشویی گلرنگ حاوی رایحه پرتقال وزن 3500 گرم"
+        },
+        {
+            id:28,
+            shps_count:28,
+            label:"دستمال توالت گلرنگ 3 لایه بسته2 عددی"
+        },
+        {
+            id:28,
+            shps_count:28,
+            label: "سرم احیا کننده ابرو سریتا ظرفیت 8 میلی لیتر"
+        },
+        {
+            id:28,
+            shps_count:28,
+            label: "رژ گونه مای مدل Natural کد 05"
+        },
+    ]);
+    const headerConsignmentShipmentList = ref([
+        { title: 'ردیف',key: 'row'},
+        { title: 'شناسه محموله',key:'id' },
+        { title:'تعداد آیتم' ,key:'shps_count' },
+        { title:'تنوع آیتم' ,key:'shps_variety' },
+        { title: 'تاریخ ساخت',key:'created_at'},
+        { title: 'تاریخ ویرایش',key:'update_at'},
+        { title: 'وضعیت',key:'status' },
+        { title: 'عملیات', key:'action_shipment'},
+    ])
+
     const headerQrcode =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه shps', show: true , value:'shps', order: false},
@@ -153,7 +192,7 @@ export default function setup() {
 
     return {   
          pageLength, filterField, headerShps, headerQrcode, DriverManagementList , getDriverList, getDriver,
-        dataTableLength, page, header, loading, getAllDriverList
+        dataTableLength, page, headerDriver, loading, getAllDriverList, consignmentPrintList , headerConsignmentShipmentList
          }
 }
 
