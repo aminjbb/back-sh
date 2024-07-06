@@ -7,12 +7,12 @@
         </v-col>
         <v-col md="10" sm="12">
           <v-skeleton-loader type="list-item-two-line" v-if="loading"></v-skeleton-loader>
-          <v-col class="py-0" v-else>
-            <v-row class="my-1">
-              <span class="modal__content__title"><b>{{ itemName }}</b></span>
+          <v-col class="py-0 d-flex " v-else>
+            <v-row class="my-3 ma-1">
+              <span class="modal__content__title t10400"><b>{{ itemName }}</b></span>
             </v-row>
-            <v-row>
-           <span v-if="itemValueFormatted" class="text-h6 number-font">
+            <v-row class="ml-6">
+           <span v-if="itemValueFormatted" class="text-h6 number-font   ">
              <b>
                {{
                  itemValueFormatted?.toLocaleString()
@@ -63,4 +63,3 @@ const {itemValueFormatted} = toRefs(props);
 const {itemImagePath} = toRefs(props);
 const {loading} = toRefs(props);
 </script>
-
