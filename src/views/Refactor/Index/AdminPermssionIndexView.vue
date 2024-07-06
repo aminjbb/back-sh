@@ -115,7 +115,8 @@ export default {
   components: {
     ModalColumnFilter,
     Table,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   mounted() {

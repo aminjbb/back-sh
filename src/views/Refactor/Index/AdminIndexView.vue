@@ -142,6 +142,7 @@ export default {
   },
   components: {
     DashboardLayout,
+    Header,
     ModalExcelDownload,
     PanelFilter,
     ModalGroupAdd,

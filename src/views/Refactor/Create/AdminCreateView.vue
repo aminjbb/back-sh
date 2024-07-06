@@ -65,7 +65,10 @@ export default {
     }
   },
 
-  components: {AdminForm, DashboardLayout },
+  components: {
+      AdminForm,
+      DashboardLayout,
+      Header },
 
   methods:{
     convertPersianToEnglishNumber(input) {

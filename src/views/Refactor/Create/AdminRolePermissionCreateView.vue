@@ -60,7 +60,8 @@ export default {
 
   components: {
     RolePermissionForm,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   methods: {
