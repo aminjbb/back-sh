@@ -65,55 +65,55 @@
           <reportCard :itemValueFormatted="commercialReportData?.total_order_details" itemName="تعداد اقلام سفارش"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_customer_amount))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_customer_amount)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_customer_amount))"
                       itemName="مجموع قیمت مشتری"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_buy_amount))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_buy_amount)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_buy_amount))"
                       itemName="مجموع قیمت خرید"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_base_discount))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_base_discount)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_base_discount))"
                       itemName="مجموع تخفیف بازرگانی"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_marketing_discount))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_marketing_discount)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_marketing_discount))"
                       itemName="مجموع تخفیف بازاریابی"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.gmv))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.gmv)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.gmv))" itemName="GMV"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.nmv))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.nmv)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.nmv))" itemName="NMV"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_profit))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_profit)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_profit))" itemName="مجموع سود"
                       :loading=loading
           />
           <reportCard :itemValueFormatted="commercialReportData?.total_margin" itemName="مجموع مارجین"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.AOV_GMV))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.AOV_GMV)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.AOV_GMV))" itemName="AOV GMV"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.AOV_NMV))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.AOV_NMV)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.AOV_NMV))" itemName="AOV NMV"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_voucher_amount))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_voucher_amount)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_voucher_amount))"
                       itemName="مجموع وچرها"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.avv))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.avv)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.avv))"
                       itemName="میانگین وچر به ازای هر سفارش"
                       :loading=loading
@@ -121,17 +121,17 @@
           <reportCard :itemValueFormatted="commercialReportData?.IPO" itemName="تعداد آیتم در هر سفارش"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_post_income))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_post_income)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_post_income))"
                       itemName="مجموع درآمد پستی"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.total_paid_price))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.total_paid_price)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.total_paid_price))"
                       itemName="مجموع مبالغ پرداخت شده"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.APP))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.APP)))"
                       :itemValue="formatNumber(toToman(commercialReportData?.APP))"
                       itemName="میانگین مبلغ پرداخت شده به ازای هر سفارش"
                       :loading=loading
@@ -143,8 +143,8 @@
                       itemName="تعداد سفارش به ازای هر خریدار"
                       :loading=loading
           />
-          <reportCard :itemValueFormatted="priceFormat(toToman(commercialReportData?.average_amount_per_buyer))"
-                      :itemValue="formatNumber(toToman(commercialReportData?.average_amount_per_buyer))"
+          <reportCard :itemValueFormatted="splitChar(priceFormat(toToman(commercialReportData?.average_amount_per_buyer)))"
+                      :itemValue="splitChar(toToman(commercialReportData?.average_amount_per_buyer))"
                       itemName="مبلغ سفارش به ازای هر خریدار"
                       :loading=loading
           />
@@ -155,6 +155,8 @@
 </template>
 
 <script lang="ts">
+
+import {splitChar} from "@/assets/js/functions";
 import {defineComponent} from 'vue'
 import Reports from '@/composables/Reports.js'
 import ReportCard from "@/components/Reports/ReportCard.vue"
@@ -284,6 +286,7 @@ export default defineComponent({
   },
 
   methods: {
+    splitChar,
     refreshInterval() {
       this.stopInterval()
       this.startTime = Date.now()
@@ -324,9 +327,11 @@ export default defineComponent({
 
     formatNumber(price: any) {
       try {
-        return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        let stringPrice = String(price).replace(/,/g, '');
+
+        return stringPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       } catch (e) {
-        return price
+        return price;
       }
     },
 
