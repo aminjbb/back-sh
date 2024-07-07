@@ -12,7 +12,7 @@
               <span class="modal__content__title t10400"><b>{{ itemName }}</b></span>
             </v-row>
             <v-row class="mr-6 ">
-           <span v-if="itemValueFormatted" class="text-h6 number-font t11500  ">
+           <span v-if="itemValueFormatted" class="text-h6 number-font t12500  ">
              <b>
                {{
                  itemValueFormatted?.toLocaleString()

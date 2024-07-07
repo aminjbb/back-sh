@@ -73,6 +73,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import {splitChar} from "@/assets/js/functions";
 import Reports from '@/composables/Reports.js'
 import ReportCard from "@/components/Reports/ReportCard.vue"
 
@@ -128,81 +129,81 @@ export default defineComponent({
         { formattedValue: this.commercialReportData?.total_order_items, name: "تعداد آیتم سفارش" },
         { formattedValue: this.commercialReportData?.total_order_details, name: "تعداد اقلام سفارش" },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_customer_amount)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_customer_amount))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_customer_amount)),
           name: "مجموع قیمت مشتری"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_buy_amount)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_buy_amount))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_buy_amount)),
           name: "مجموع قیمت خرید"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_base_discount)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_base_discount))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_base_discount)),
           name: "مجموع تخفیف بازرگانی"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_marketing_discount)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_marketing_discount))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_marketing_discount)),
           name: "مجموع تخفیف بازاریابی"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.gmv)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.gmv))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.gmv)),
           name: "GMV"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.nmv)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.nmv))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.nmv)),
           name: "NMV"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_profit)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_profit))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_profit)),
           name: "مجموع سود"
         },
         { formattedValue: this.commercialReportData?.total_margin, name: "مجموع مارجین" },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.AOV_GMV)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.AOV_GMV))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.AOV_GMV)),
           name: "AOV GMV"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.AOV_NMV)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.AOV_NMV))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.AOV_NMV)),
           name: "AOV NMV"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_voucher_amount)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_voucher_amount))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_voucher_amount)),
           name: "مجموع وچرها"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.avv)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.avv))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.avv)),
           name: "میانگین وچر به ازای هر سفارش"
         },
         { formattedValue: this.commercialReportData?.IPO, name: "تعداد آیتم در هر سفارش" },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_post_income)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_post_income))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_post_income)),
           name: "مجموع درآمد پستی"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.total_paid_price)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.total_paid_price))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.total_paid_price)),
           name: "مجموع مبالغ پرداخت شده"
         },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.APP)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.APP))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.APP)),
           name: "میانگین مبلغ پرداخت شده به ازای هر سفارش"
         },
         { formattedValue: this.commercialReportData?.total_buyers, name: "تعداد خریداران" },
         { formattedValue: this.commercialReportData?.average_order_per_buyer, name: "تعداد سفارش به ازای هر خریدار" },
         {
-          formattedValue: this.priceFormat(this.toToman(this.commercialReportData?.average_amount_per_buyer)),
+          formattedValue: this.splitChar(this.priceFormat(this.toToman(this.commercialReportData?.average_amount_per_buyer))),
           value: this.formatNumber(this.toToman(this.commercialReportData?.average_amount_per_buyer)),
           name: "مبلغ سفارش به ازای هر خریدار"
         },
@@ -291,7 +292,7 @@ export default defineComponent({
         return price
       }
     },
-
+    splitChar,
     priceFormat(price: any) {
       if (!price) return ''
       let formattedValue
