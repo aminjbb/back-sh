@@ -305,7 +305,7 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
-
+import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
 
 
 const router = createRouter({
@@ -2323,7 +2323,7 @@ const router = createRouter({
         {
             path: '/lucky-wheel', // Lucky wheel
             meta: {
-                name:  'گردانه شانس'
+                name: 'گردانه شانس'
             },
             children: [
                 {
@@ -2402,21 +2402,21 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'CommentListView',
-                component: CommentListView,
-                meta: {
-                    name: 'بنر مناسبتی'
-                }
+                    path: 'index',
+                    name: 'CommentListView',
+                    component: CommentListView,
+                    meta: {
+                        name: 'بنر مناسبتی'
+                    }
                 },
                 {
-                path: 'reply/:id',
-                name: 'ReplyCommentView',
-                component: ReplyCommentView,
-                meta: {
-                    name: ' بررسی کامنت '
-                }
-            }]
+                    path: 'reply/:id',
+                    name: 'ReplyCommentView',
+                    component: ReplyCommentView,
+                    meta: {
+                        name: ' بررسی کامنت '
+                    }
+                }]
         },
         {
             path: '/report-bug-task', // Zone
@@ -2464,6 +2464,22 @@ const router = createRouter({
                         name: 'پرفروش ترین دسته بندی ها'
                     }
                 }
+            ]
+        },
+        {
+            path: '/warehouse-return-order', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'WarehouseReturnOrderView',
+                    component: WarehouseReturnOrderView,
+                    meta: {
+                        name: 'باز گردانی سفارش'
+                    }
+                },
             ]
         }
     ]
