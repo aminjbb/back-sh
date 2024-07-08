@@ -25,6 +25,7 @@
               </span>
             </div>
           </v-col>
+
         </v-row>
         <div class="mt-3 mb-8  px-5">
           <v-divider/>
@@ -33,6 +34,32 @@
 
 
         <div class="mt-3 mb-8 px-5">
+          <v-col cols="12">
+            <div class="text-right mt-4 mb-2">
+                            <span class="t12300">
+                                میزان مالیات
+                            </span>
+            </div>
+            <v-text-field
+                density="compact"
+                variant="outlined"
+                single-line
+                :rules="numberDecimalRule"
+                v-model="form.tax_amount" />
+          </v-col>
+          <v-col cols="12">
+            <div class="text-right mt-4 mb-2">
+                            <span class="t12300">
+                                شناسه ملی
+                            </span>
+            </div>
+            <v-text-field
+                density="compact"
+                variant="outlined"
+                single-line
+                :rules="numberOnlyRule"
+                v-model="form.identification_code" />
+          </v-col>
           <v-divider />
         </div>
 
@@ -73,6 +100,24 @@ export  default {
   },
   data(){
     return{
+      form: {
+        tax_amount: '',
+        identification_code: '',
+
+      },
+      numberDecimalRule: [
+        (v) => !!v || "این فیلد الزامی است",
+        (v) => /^\d*\.?\d*$/.test(v) || "میزان مالیات را صحیح وارد کنید"
+      ],
+      englishRule: [
+        (v) => !!v || "این فیلد الزامی است",
+        (v) => !RegExp("[\u0600-\u06FF]").test(v) || "فقط حروف انگلیسی ",
+      ],
+      numberOnlyRule: [
+        (v) => !!v || "این فیلد الزامی است",
+        (v) => /^\d+$/.test(v) || "لطفا فقط عدد وارد کنید"
+      ],
+
 
       loading:false,
       retailObject: null,
