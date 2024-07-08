@@ -22,10 +22,10 @@ import AddColorView from '../views/Colors/AddColorView.vue'
 import EditColorView from '../views/Colors/EditColorView.vue'
 
 /* Attributes */
-import AttributesView from '../views/refactor/Index/AttributeIndexView.vue'
-import AddAttributesView from '../views/refactor/Create/AttributesCreateView.vue'
-import CreateProductView from '../views/Prodcuts/CreateProductView.vue'
-import EditAttributeView from '../views/refactor/Update/AttributeEditView.vue'
+import AttributesView from '@/views/Refactor/Index/AttributeIndexView.vue'
+import AddAttributesView from '@/views/Refactor/Create/AttributesCreateView.vue'
+import CreateProductView from '@/views/Prodcuts/CreateProductView.vue'
+import EditAttributeView from '@/views/Refactor/Update/AttributeEditView.vue'
 
 /* Export */
 import ExportView from '../views/Exports/ExportView.vue'

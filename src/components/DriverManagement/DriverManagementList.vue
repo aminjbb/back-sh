@@ -99,8 +99,8 @@
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
    import { openToast} from "@/assets/js/functions";
    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-   import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
-   import ShTable from "@/components/components/Table/sh-table.vue";
+   import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
+   import ShTable from "@/components/Components/Table/sh-table.vue";
 
 
    export default {

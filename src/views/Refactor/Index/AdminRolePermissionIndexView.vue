@@ -99,7 +99,7 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
+import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
 
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
