@@ -19,7 +19,7 @@
 <script>
 import {defineAsyncComponent} from "vue";
 const VoucherList = defineAsyncComponent(()=> import ('@/components/Voucher/VoucherList.vue'))
-const VoucherListMobile = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/VoucherListMobile.vue'))
+const VoucherListMobile = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/index/VoucherListMobile.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const DashboardLayoutMobile = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayoutMobile.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
