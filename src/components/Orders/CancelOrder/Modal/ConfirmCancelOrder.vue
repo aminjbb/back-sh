@@ -32,6 +32,18 @@
                         <span class="t14500">
                           آیا از انجام این کار اطمینان دارید؟
                         </span>
+
+      </div>
+      <div class="d-flex justify-center ">
+         <span class="t14300  ">
+                        <v-switch
+                            inset
+                            color="success"
+                        />
+         </span>
+        <span class="pa-4">
+          افزایش موجودی سایت
+        </span>
       </div>
       <div class="mt-3 mb-8  px-5">
         <v-divider/>
