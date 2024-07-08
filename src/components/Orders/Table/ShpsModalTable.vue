@@ -142,7 +142,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t12500 text-gray500 py-3 number-font">
                         <template v-if="item.base_discount">
-                            {{ splitChar(item.base_discount) }} تومان
+                            {{ splitChar(item.base_discount) }}
                         </template>
                         <template v-else>
                             -
