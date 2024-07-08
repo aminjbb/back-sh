@@ -396,6 +396,12 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
+                              <v-list-item-title>
+                                <div class="ma-5 pointer" >
+                                  <ModalFinancialInfo />
+
+                                </div>
+                              </v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -416,10 +422,14 @@
 </template>
 
 <script>
+import {defineAsyncComponent} from "vue";
+const ModalFinancialInfo = defineAsyncComponent(()=> import ('@/components/Products/Sku/Modal/ModalFinancialInfo.vue'))
 import {
     isOdd
 } from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
+
+
 import {
     openConfirm
 } from '@/assets/js/functions'
@@ -439,10 +449,15 @@ import {
 export default {
     components: {
         ModalMassUpdate,
-        AddAttributeValueModal
+        AddAttributeValueModal,
+        ModalFinancialInfo
     },
 
     props: {
+      getRetailShipmentList:{
+        type:Function
+      },
+      id:'',
         /**
          * Update button url
          */
