@@ -24,6 +24,7 @@
             <PanelFilter
                 @resetPage="resetPage"
                 :filterField="filterField"
+                path="lucky-wheel/index"
             />
           </v-row>
         </v-col>

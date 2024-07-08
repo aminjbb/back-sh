@@ -15,6 +15,7 @@
         :class="classList"
         :rules="rules"
         :type="type"
+        :name="name"
         :color="color"
         :counter="counter"
         :min-width="minWidth"
@@ -57,107 +58,111 @@ export default {
     },
 
     props: {
-        label: {
-            type: String,
-            default: ""
-        },
-        singleLine:{
-            type: Boolean,
-            default: true
-        },
-        variant:{
-            type: String,
-            default: "outlined"
-        },
-        density:{
-            type: String,
-            default: "compact"
-        },
+      label: {
+        type: String,
+        default: ""
+      },
+      singleLine:{
+        type: Boolean,
+        default: true
+      },
+      variant:{
+        type: String,
+        default: "outlined"
+      },
+      density:{
+        type: String,
+        default: "compact"
+      },
 
-        classList: {
-            type: Array,
-            default: []
-        },
-        labelClass: {
-            type: Array,
-            default: []
-        },
-        rules:{
-            type: Array,
-            default: []
-        },
-        type:{
-            type: String,
-            default: undefined
-        },
-        color:{
-            type: String,
-            default: undefined
-        },
-        counter:{
-            type: [Boolean, String],
-            default: null
-        },
-        minWidth:{
-            type: Number,
-            default: null
-        },
+      classList: {
+        type: Array,
+        default: []
+      },
+      labelClass: {
+        type: Array,
+        default: []
+      },
+      rules:{
+        type: Array,
+        default: []
+      },
+      type:{
+        type: String,
+        default: undefined
+      },
+      name:{
+        type: String,
+        default: null
+      },
+      color:{
+        type: String,
+        default: undefined
+      },
+      counter:{
+        type: [Boolean, String],
+        default: null
+      },
+      minWidth:{
+        type: Number,
+        default: null
+      },
 
-        hint:{
-            type: String,
-            default: undefined
-        },
-        placeholder:{
-            type: String,
-            default: undefined
-        },
-        persistentPlaceholder:{
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        clearable:{
-            type: Boolean,
-            default: false
-        },
-        autofocus:{
-            type: Boolean,
-            default: false
-        },
-        loading:{
-            type: Boolean,
-            default: false
-        },
+      hint:{
+        type: String,
+        default: undefined
+      },
+      placeholder:{
+        type: String,
+        default: undefined
+      },
+      persistentPlaceholder:{
+        type: Boolean,
+        default: false
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      clearable:{
+        type: Boolean,
+        default: false
+      },
+      autofocus:{
+        type: Boolean,
+        default: false
+      },
+      loading:{
+        type: Boolean,
+        default: false
+      },
 
-    /*icons*/
-        appendIcon:{
-            type: String,
-            default: undefined
-        },
-        prependIcon:{
-            type: String,
-            default: undefined
-        },
-        appendInnerIcon:{
-            type: String,
-            default: undefined
-        },
-        prependInnerIcon:{
-            type: String,
-            default: undefined
-        },
+      /*icons*/
+      appendIcon:{
+        type: String,
+        default: undefined
+      },
+      prependIcon:{
+        type: String,
+        default: undefined
+      },
+      appendInnerIcon:{
+        type: String,
+        default: undefined
+      },
+      prependInnerIcon:{
+        type: String,
+        default: undefined
+      },
 
-        suffix:{
-            type: String,
-            default: undefined
-        },
-        prefix:{
-            type: String,
-            default: undefined
-        },
+      suffix:{
+        type: String,
+        default: undefined
+      },
+      prefix:{
+        type: String,
+        default: undefined
+      },
     },
 
     methods:{
