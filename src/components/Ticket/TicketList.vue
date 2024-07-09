@@ -141,12 +141,8 @@ export default {
         value: 'resolved'
       },
       {
-        label: 'متوقف شده',
-        value: 'postponed'
-      },
-      {
-        label: 'دیده شده',
-        value: 'seen'
+        label: 'در حال بررسی',
+        value: 'pending'
       }
     ]
     const priorityList = [
