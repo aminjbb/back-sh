@@ -112,7 +112,7 @@
 
 <script >
 import {defineAsyncComponent} from "vue";
-import shBtn from "@/components/components/Kits/Buttons/sh-btn.vue";
+import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
 
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))

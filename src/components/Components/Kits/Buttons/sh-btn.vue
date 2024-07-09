@@ -17,21 +17,25 @@
       :loading="loading"
       :block="block"
       :flat="flat"
-      @click="handleClick"
-  >
-        <template v-if="prependIcon" v-slot:prepend>
-          <v-icon :class="classListIcon">
-              {{ prependIcon }}
-          </v-icon>
-        </template>
+      @click="handleClick">
+    <template v-if="prependIcon" v-slot:prepend>
+      <v-icon :class="classListIcon">
+        {{ prependIcon }}
+      </v-icon>
+    </template>
+
+    <template v-if="prependImg" v-slot:prepend>
+      <img src="@/assets/img/Fillter.svg" alt="shavaz-img">
+    </template>
 
     {{ title }}
 
-        <template v-if="appendIcon" v-slot:append>
-          <v-icon :class="classListIcon">
-              {{ appendIcon }}
-          </v-icon>
-        </template>
+    <template v-if="appendIcon" v-slot:append>
+      <v-icon :class="classListIcon">
+        {{ appendIcon }}
+      </v-icon>
+    </template>
+
 
   </v-btn>
 </template>
@@ -98,6 +102,10 @@ export default {
     prependIcon: {
       type: String,
       default: undefined
+    },
+    prependImg: {
+      type: Boolean,
+      default: false
     },
     appendIcon: {
       type: String,
