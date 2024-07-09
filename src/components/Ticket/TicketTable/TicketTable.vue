@@ -104,7 +104,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-chip
-                        class="ma-2 rounded-lg t12300"
+                        class="ma-2 rounded-lg t10400"
                         :color="getStatusColor(item.status)"
                         text-color="white">
                         {{getStatusText(item.status)}}
