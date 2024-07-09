@@ -44,7 +44,7 @@
                 density="compact"
                 variant="outlined"
                 single-line
-                :rules="numberDecimalRule"
+                :rules="numberOnlyRule"
                 v-model="form.tax_amount" />
           </v-col>
           <v-col cols="12">
@@ -57,7 +57,7 @@
                 density="compact"
                 variant="outlined"
                 single-line
-                :rules="numberOnlyRule"
+                :rules="nationalCodeRule"
                 v-model="form.identification_code" />
           </v-col>
           <v-divider />
@@ -66,7 +66,7 @@
         <div class="d-flex justify-space-between pb-5 px-10">
           <v-btn
               width="80"
-              @click="validate()"
+              @click="fianancialInfo()"
               color="primary500"
               :loading="loading"
               height="40"
@@ -88,10 +88,13 @@
 </template>
 <script>
 import {AxiosCall} from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
+
 
 export  default {
   props:{
-
+    id:null,
+    items: [],
   },
 
   components:{
@@ -117,6 +120,10 @@ export  default {
         (v) => !!v || "این فیلد الزامی است",
         (v) => /^\d+$/.test(v) || "لطفا فقط عدد وارد کنید"
       ],
+      nationalCodeRule: [
+        (v) => !!v || "این فیلد الزامی است",
+        (v) => /^[0-9]{11}$/.test(v) || "کد ملی معتبر وارد کنید",
+      ],
 
 
       loading:false,
@@ -128,7 +135,31 @@ export  default {
 
   methods:{
 
+    async fianancialInfo() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `product/sku/crud/add/financial-data/${this.id}`
+      AxiosMethod.form = formdata;
+      formdata.append('tax', this.form.tax_amount)
+      formdata.append('national_code', this.form.identification_code);
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        this.$router.push('/product/get/skus/index');
+        this.dialog = false
+        openToast(this.$store,
+            ' با موفقیت اضافه  شد.',
+            "success");
 
+
+      } else {
+        this.loading = false
+      }
+    },
 
 
 

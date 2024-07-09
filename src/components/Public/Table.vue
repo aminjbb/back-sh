@@ -396,9 +396,9 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
-                              <v-list-item-title>
+                              <v-list-item-title v-if="item.product">
                                 <div class="ma-5 pointer" >
-                                  <ModalFinancialInfo />
+                                  <ModalFinancialInfo :id="item.id" />
 
                                 </div>
                               </v-list-item-title>
@@ -465,6 +465,7 @@ export default {
             type: String,
             default: '',
         },
+
         /**
          * Edit button url
          */
