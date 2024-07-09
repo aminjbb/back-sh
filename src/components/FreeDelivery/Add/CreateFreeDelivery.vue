@@ -98,13 +98,13 @@
             <template v-slot:item="item">
               <v-list-item>
                 <v-row justify="center">
-  
+
                   <v-col cols="4">
-  
-                    <div @click="addCondition(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+
+                    <div @click="addCondition(item)" class="seller__add-sku-btn d-flex justify-center align-center">
                       <v-icon>mdi-plus</v-icon>
                     </div>
-  
+
                   </v-col>
                   <v-col cols="8">
                     <text-clamp
@@ -123,12 +123,15 @@
   
         <v-col cols="6" v-for="(condition , index) in voucherForm.voucherCondition">
           <div class="text-right my-5">
-                  <span class="t14500 text-gray600">
-                     {{ condition.title }}
+                  <span class="t14500 text-gray600" v-if="condition.title">
+                     {{ condition.title}}
+                  </span>
+            <span class="t14500 text-gray600" v-else>
+                     {{ condition.item.raw.title}}
                   </span>
           </div>
-  
-          <template v-if="condition.inputType === 'select'">
+
+          <template v-if="condition?.item?.raw?.inputType === 'select'">
             <v-autocomplete
                 :items="provinceList"
                 v-model="condition.data"
@@ -138,14 +141,14 @@
                 rounded="lg">
             </v-autocomplete>
           </template>
-          <template v-else-if="condition.inputType === 'text'">
+          <template v-else-if="condition?.item?.raw?.inputType === 'text'">
             <v-text-field
                 v-model="condition.data"
                 variant="outlined"
                 rounded="lg">
             </v-text-field>
           </template>
-          <template v-else-if="condition.inputType === 'date'">
+          <template v-else-if="condition?.item?.raw?.inputType === 'date' || condition?.inputType === 'date'">
           <v-row justify="center">
             <v-col cols="6">
               <v-text-field
@@ -156,10 +159,10 @@
                   rounded="lg">
               </v-text-field>
               <date-picker
-  
+
                   type="datetime"
                   class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
-  
+
                   v-model="condition.data[0]"
                   variant="outlined"
                   placeholder="تاریخ تولد"
@@ -175,10 +178,10 @@
                   rounded="lg">
               </v-text-field>
               <date-picker
-  
+
                   type="datetime"
                   class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
-  
+
                   v-model="condition.data[1]"
                   variant="outlined"
                   placeholder="تاریخ تولد"
@@ -187,7 +190,7 @@
             </v-col>
           </v-row>
           </template>
-          <template v-else-if="condition.inputType === 'file'">
+          <template v-else-if="condition?.item?.raw?.inputType === 'file'">
           <div class="d-flex">
             <v-text-field
                 readonly
@@ -202,7 +205,7 @@
                 :condition="condition"
             />
           </div>
-  
+
           </template>
   
         </v-col>
@@ -237,9 +240,6 @@
           sending: 'free',
           voucherCondition: new Set(),
           sendingWays: null
-
-
-
         },
        
 
@@ -342,6 +342,7 @@
       },
   
       addCondition(value){
+        console.log(value)
         this.voucherForm.voucherCondition.add(value)
       }
     },

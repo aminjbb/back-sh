@@ -101,6 +101,7 @@
           formData.append('is_active', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
           if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
           this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
+            console.log(condition , 'condition')
             if (condition.value === 'start-and-end-time'){
               const startDateSplit = condition.data[0].split(' ')
               const endDateSplit = condition.data[1].split(' ')
@@ -108,7 +109,7 @@
               formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
             }
             else {
-              formData.append(condition.value, condition.data)
+              formData.append(condition.item.value, condition.data)
             }
           })
           AxiosMethod.form = formData
