@@ -14,7 +14,7 @@
     <v-bottom-sheet v-model="sheet">
       <v-card
           class="text-center rounded-t-lg"
-          height="460">
+          height="900">
         <v-card-text>
           <div class="d-flex justify-space-between align-center">
             <v-icon icon="mdi-close" @click="sheet = !sheet"/>

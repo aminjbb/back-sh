@@ -78,7 +78,7 @@
                     v-model="dataTableLength"
                     class="t1330"
                     variant="outlined"
-                    :items="[25,50,100]"/>
+                    :items="[25,50,100]" />
               </span>
             </div>
           </v-col>
@@ -266,6 +266,17 @@ export default {
       setTimeout(() => {
         this.perPageFilter = false
       }, 1000)
+    },
+
+    scrollToTop(container) {
+      const element = document.querySelector(container)
+      if (element) {
+        element.scrollTo({top:0, behavior: 'smooth'})
+      }
+    },
+
+    pageChanged () {
+      this.scrollToTop('.scroller')
     }
   },
 
@@ -294,11 +305,15 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page() {
+      this.pageChanged()
+
       if (!this.perPageFilter) {
         this.getOrderList()
       }
     },
+
     $route() {
       this.getOrderList()
     }
