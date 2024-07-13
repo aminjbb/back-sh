@@ -18,7 +18,7 @@
                 افزودن
             </v-btn>
 
-            <PanelFilter
+            <PanelFilterMobile
                 @resetPage="resetPage"
                 path="voucher/index"
                 :filterField="indexFilterField"
@@ -143,7 +143,7 @@
 <script>
 import Voucher from "@/composables/Voucher";
 import {openConfirm, openToast} from "@/assets/js/functions";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
 import CreateVoucher from '@/components/Voucher/mobile/index/CreateVoucherMobile.vue'
 import DetailsDiscount from '@/components/Voucher/mobile/index/DetailsDiscountMobile.vue'
 import operations from '@/components/Voucher/mobile/index/VoucherOperationMobile.vue'
@@ -252,7 +252,7 @@ export default {
     },
 
     components: {
-        PanelFilter,
+        PanelFilterMobile,
         DetailsDiscount,
         CreateVoucher,
         operations,
