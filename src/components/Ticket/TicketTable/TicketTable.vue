@@ -104,7 +104,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-chip
-                        class="ma-2 t14300"
+                        class="ma-2 rounded-lg t10400"
                         :color="getStatusColor(item.status)"
                         text-color="white">
                         {{getStatusText(item.status)}}
@@ -255,7 +255,7 @@ export default {
             const color = '';
 
             if (status == 'open') {
-                return 'green';
+                return 'blue';
             }
             if (status == 'answered') {
                 return 'green';
@@ -263,9 +263,9 @@ export default {
             if (status == 'resolved') {
                 return 'grey-lighten-1';
             }
-            if (status == 'postponed') {
-                return 'red';
-            }
+          if (status == 'pending') {
+            return 'warning';
+          }
 
             return '';
         },
@@ -282,12 +282,9 @@ export default {
             if (status == 'resolved') {
                 return 'بسته شده';
             }
-            if (status == 'postponed') {
-                return 'متوقف شده';
-            }
-            if (status == 'seen') {
-                return 'دیده شده';
-            }
+          if (status == 'pending') {
+            return 'در حال بررسی';
+          }
 
             return 'نامعلوم';
         },

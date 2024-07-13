@@ -8,17 +8,11 @@
             <div class="pr-2 mt-2">{{ getStatusText(ticketStatus) }}</div>
           </div>
 
-          <div class="ticket-single__sidebar__item">
-            <span class="title">تغییر وضعیت : </span>
-            <v-select
-                density="compact"
-                variant="outlined"
-                single-line
-                item-title="label"
-                item-value="value"
-                :items="statusList"
-                v-model="statusModel"
-                class="mt-2"/>
+          <div
+              v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
+              class="ticket-single__sidebar__item d-flex align-center ga-3">
+            <span class="title">وضعیت در حال بررسی شود </span>
+            <v-switch v-model="isSwitchActive"  inset color="success"/>
           </div>
 
           <div v-if="oneTicket && oneTicket.priority" class="ticket-single__sidebar__item">
@@ -42,6 +36,7 @@
               </template>
             </div>
           </div>
+
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> موبایل :</span>
             <div class="pr-2 mt-2 number-font">{{ oneTicket.user.phone_number }}</div>
@@ -54,7 +49,7 @@
               height="40"
               rounded
               class="px-8 mt-1 w-50">
-            ویرایش
+           ثبت
           </v-btn>
         </div>
       </v-col>
@@ -180,33 +175,35 @@ export default {
     content: null,
     loading: false,
     sendMsgLoading: false,
-    statusList: [{
-      label: 'باز',
-      value: 'open'
-    },
-      {
-        label: 'پاسخ داده شده',
-        value: 'answered'
-      },
-      {
-        label: 'بسته شده',
-        value: 'resolved'
-      },
-      {
-        label: 'متوقف شده',
-        value: 'postponed'
-      },
-      {
-        label: 'دیده شده',
-        value: 'seen'
-      },
-    ],
     statusModel: '',
     editorConfig: {
       language: 'en',
       contentsLangDirection: 'rtl',
     },
+    isSwitchActive: false
   }),
+
+  watch: {
+    oneTicket(newVal) {
+      if (newVal.status === 'pending') {
+        this.statusModel = 'pending'
+        this.isSwitchActive = true
+      }
+      else {
+        this.statusModel = 'open'
+        this.isSwitchActive =false
+      }
+    },
+
+    isSwitchActive(newVal) {
+      if (newVal) {
+        this.statusModel = 'pending'
+      }
+      else {
+        this.statusModel = 'open'
+      }
+    }
+  },
 
   computed: {
     /**
@@ -215,7 +212,6 @@ export default {
     ticketStatus() {
       try {
         const status = this.oneTicket && this.oneTicket.status ? this.oneTicket.status : '';
-
         this.statusModel = status;
         return status
       } catch (e) {
