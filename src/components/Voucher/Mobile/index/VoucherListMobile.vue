@@ -40,7 +40,7 @@
                         <span>  {{ `عنوان  : ${voucher.name}` }} </span>
                         <v-spacer></v-spacer>
 <!-- delete voucher-->
-                        <v-icon class="me-auto" color="red" size="large" @click="removeItem(voucher.id)">
+                        <v-icon class="me-auto" color="red" size="large" @click="removeVoucher(voucher.id)">
                             mdi-trash-can-outline
                         </v-icon>
                     </v-row>
@@ -128,11 +128,15 @@
     </div>
 
 <!-- create-->
-    <CreateVoucher  ref="CreateVoucher"/>
+    <CreateVoucher  ref="CreateVoucher" @updateVoucherList="updateList('created')"/>
 <!-- show more voucher details-->
-    <DetailsDiscount  ref="DetailsDiscount" :voucherId="voucherId"/>
+    <DetailsDiscount  ref="DetailsDiscount" @updateVoucherList="updateList('statusChanged')"/>
 <!-- operation -->
-    <operations  ref="operations"/>
+<operations  ref="operations" :voucherId="voucherId" @openEdit="openEdit"/>
+<!-- edit -->
+    <EditVoucher  ref="EditVoucher" :voucherId="voucherId" @updateVoucherList="updateList('updated')"/>
+<!-- delete -->
+    <deleteVoucher  ref="deleteVoucher" :title="deleteTitle" :text="deleteText" :endPoint="endPointVoucher" @updateVoucherList="updateList('deleted')"/>
 
 </template>
 
@@ -143,12 +147,18 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import CreateVoucher from '@/components/Voucher/mobile/index/CreateVoucherMobile.vue'
 import DetailsDiscount from '@/components/Voucher/mobile/index/DetailsDiscountMobile.vue'
 import operations from '@/components/Voucher/mobile/index/VoucherOperationMobile.vue'
+import EditVoucher from '@/components/Voucher/mobile/index/EditVoucherMobile.vue'
+import deleteVoucher from '@/components/Public/ConfirmModalMobile.vue'
+
 
 export default {
     data() {
         return {
             perPageFilter:false,
-            voucherId: null,
+            voucherId: Number,
+            endPointVoucher: String,
+            deleteTitle: "حذف کد تخفیف",
+            deleteText: "آیا از حذف کد تخفیف اطمینان دارید؟"
         }
     },
 
@@ -246,6 +256,8 @@ export default {
         DetailsDiscount,
         CreateVoucher,
         operations,
+        EditVoucher,
+        deleteVoucher
     },
 
     methods: {
@@ -280,19 +292,52 @@ export default {
         },
 
         openCreate(){
-            this.$refs.CreateVoucher.create = true
+            this.$refs.CreateVoucher.createModal = true
         },
-        removeItem(id) {
-            openConfirm(this.$store, "آیا از حذف آیتم مورد نظر مطمئن هستید ؟", "حذف تخفیف", "delete", "voucher/crud/delete/" + id, true);
+        openDetails(id){
+            this.$refs.DetailsDiscount.detailsModal = true
+            this.$refs.DetailsDiscount.id = id
         },
-        openDetails(val){
-            this.$refs.DetailsDiscount.details = true
-            this.voucherId = val
+        openOperation(id){
+            this.$refs.operations.operations = true
+            this.voucherId = id
         },
-        openOperation(val){
-            this.$refs.DetailsDiscount.operations = false
-            this.voucherId = val
-        }
+        openEdit(){
+            this.$refs.EditVoucher.editModal = true
+        },
+        removeVoucher(id) {
+            this.$refs.deleteVoucher.deleteModal = true
+            this.endPointVoucher = "voucher/crud/delete/" + id
+        },
+
+        updateList(val) {
+            this.getVoucherList();
+            if(val === "deleted"){
+                openToast(
+                    this.$store,
+                    'کد تخفیف با موفقیت حذف شد',
+                    "success"
+                );}
+            else if(val === "updated"){
+                openToast(
+                    this.$store,
+                    'کد تخفیف با موفقیت آپدیت شد',
+                    "success"
+                );
+            } else if(val === "created"){
+                openToast(
+                    this.$store,
+                    'کد تخفیف با موفقیت ساخته شد',
+                    "success"
+                );
+            } else if(val === "statusChanged"){
+                openToast(
+                    this.$store,
+                    'وضعیت فعال سازی کد تخفیف با موفقیت تغییر کرد',
+                    "success"
+                );
+            }
+        },
     },
 
     mounted() {

@@ -7,7 +7,7 @@
         </v-main>
     </v-layout>
 
-    <v-layout class="bg-gray" v-if="screenType==='mobile'">
+    <v-layout class="bg-gray mh-100" v-if="screenType==='mobile'">
         <DashboardLayoutMobile @closeSidebar="ToggleSideBarMenu" v-if="isMenu" />
         <v-main>
             <HeaderMobile @sideMenu="ToggleSideBarMenu"/>
