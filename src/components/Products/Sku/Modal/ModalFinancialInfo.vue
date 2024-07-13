@@ -15,7 +15,7 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7">
+          <v-col cols="8">
             <div class="text-left pl-5">
               <span class="t14500">اطلاعات مالی</span>
             </div>
@@ -106,7 +106,7 @@ export  default {
       ],
       nationalCodeRule: [
         (v) => !!v || "این فیلد الزامی است",
-        (v) => /^[0-9]{11}$/.test(v) || "کد ملی معتبر وارد کنید",
+        (v) => /^[0-9]{11}$/.test(v) || "شناسه معتبر وارد کنید",
       ],
 
       loading:false,
