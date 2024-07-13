@@ -7,6 +7,7 @@
           class="px-10 pt-3">
         <v-col cols="12">
           <v-btn
+              :loading="loadingAllItem"
               @click="cancelOrder( {accept:0 , status :'all'})"
               variant="outlined"
               rounded
@@ -58,6 +59,7 @@
                 height="40"
                 rounded
                 variant="elevated"
+                :loading="loadingItem"
                 @click="cancelOrder({accept:0 , status :'items'})"
                 class="px-8 mt-1">
               ذخیره
@@ -95,7 +97,9 @@ export default {
       dialog: false,
       shpsDetails:[],
       cancelOrderAccept:null,
-      status:'items'
+      status:'items',
+      loadingItem:false,
+      loadingAllItem:false
     }
   },
 
@@ -118,43 +122,56 @@ export default {
     },
 
     async cancelOrder(object ){
-      const formData = new FormData()
-      this.status = object.status
-      if (object.status === 'items'){
-        this.$refs.cancelOrderTable.form.forEach((element , index) =>{
-          if (element.cancelled_count){
+      try {
+        const formData = new FormData()
+        this.status = object.status
+        if (object.status === 'items'){
+          this.loadingItem = true
+          this.$refs.cancelOrderTable.form.forEach((element , index) =>{
+            if (element.cancelled_count){
+              formData.append(`shps_list[${index}][shps]` , element.shps)
+              formData.append(`shps_list[${index}][count]` , element.cancelled_count)
+            }
+          })
+        }
+        else if (object.status === 'all'){
+          this.loadingAllItem = true
+          this.$refs.cancelOrderTable.form.forEach((element , index) =>{
             formData.append(`shps_list[${index}][shps]` , element.shps)
-            formData.append(`shps_list[${index}][count]` , element.cancelled_count)
-          }
-        })
-      }
-      else if (object.status === 'all'){
-        this.$refs.cancelOrderTable.form.forEach((element , index) =>{
-          formData.append(`shps_list[${index}][shps]` , element.shps)
-          formData.append(`shps_list[${index}][count]` , element.count)
-        })
-      }
-      formData.append(`accept` , object.accept)
-      formData.append(`order_id` , this.$route.params.orderId)
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/cancel/`
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post();
-      if (data) {
-        this.cancelOrderAccept = data.data;
-        if (object.accept){
-          this.$refs.ConfirmCancelOrder.dialog  = false
-          openToast(this.$store , 'آیتم های سفارش با موفقیت کنسل شد' , 'success')
-          this.getShpsDetails()
+            formData.append(`shps_list[${index}][count]` , element.count)
+          })
+        }
+        formData.append(`accept` , object.accept)
+        formData.append(`order_id` , this.$route.params.orderId)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/cancel/`
+        AxiosMethod.store = this.$store
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.cancelOrderAccept = data.data;
+          this.loadingItem = false
+          this.loadingAllItem = false
+          if (object.accept){
+            this.$refs.ConfirmCancelOrder.dialog  = false
+            openToast(this.$store , 'آیتم های سفارش با موفقیت کنسل شد' , 'success')
+            this.getShpsDetails()
 
+          }
+          else{
+            this.$refs.ConfirmCancelOrder.dialog  = true
+
+          }
+        } else {
+          this.loadingItem = false
+          this.loadingAllItem = false
         }
-        else{
-          this.$refs.ConfirmCancelOrder.dialog  = true
-        }
-      } else {
+      }
+      catch (e) {
+        this.loadingItem = false
+        this.loadingAllItem = false
       }
     }
   },
