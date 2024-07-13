@@ -20,9 +20,9 @@
              </b>
            </span>
             </v-row>
-<!--            <v-row class="mb-1">-->
-<!--              <span class="number-font">{{ itemValue?.toLocaleString() ?? '&nbsp;'}}</span>-->
-<!--            </v-row>-->
+            <!--            <v-row class="mb-1">-->
+            <!--              <span class="number-font">{{ itemValue?.toLocaleString() ?? '&nbsp;'}}</span>-->
+            <!--            </v-row>-->
           </v-col>
 
         </v-col>
