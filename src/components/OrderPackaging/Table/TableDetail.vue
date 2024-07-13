@@ -123,16 +123,7 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
+import { AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   components: {},
@@ -205,7 +196,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
       userInputs: [],
       loading: false,
@@ -245,24 +235,9 @@ export default {
   },
 
   methods: {
-    orderDetailProp(value, value2) {
-
-      const shpsOrderIndex = value.findIndex(shps=> shps.id == value2)
-      ++this.userInputs[shpsOrderIndex]
-    },
-
     /**
      * translation
      */
-    translateType(type) {
-      const translations = {
-        'consignment': 'انبارش',
-        'in_review': 'در حال بررسی'
-      };
-      return translations[type] || type;
-    },
-
-
     shpsId() {
       return this.$store.getters['get_shpsId']
     },
@@ -301,10 +276,7 @@ export default {
       } else {
         this.loading = false
       }
-    }
-    ,
-
-
+    },
     /**
      * Get row index in table
      * @param {*} index

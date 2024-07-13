@@ -166,25 +166,18 @@
                             </div>
                             <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${index}`">
                                 <div
-
                                     class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--1">
                                     {{ translateType(item.status) }}
-
                                 </div>
                                 <div
-
                                     class="factor-dropdown__item my-2 t10400"
                                     id="factor-dropdown__item--2"
                                     @click="openRejectModal(item)">
                                     رد شده
                                 </div>
                                 <div
-
-
-
                                     class="factor-dropdown__item retail-status-box my-2 t10400"
-
                                     id="factor-dropdown__item--3"
                                     @click="updateStatus(index,'approved',item)">
                                     تایید شده
@@ -210,8 +203,6 @@
 
                         <v-list class="c-table__more-options">
                             <v-list-item>
-
-                               
                                     <v-list-item-title>
                                       <div class="ma-3 pointer" @click="print(item)">
                                         <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
@@ -219,13 +210,9 @@
                                             نمایش جزئیات
                                         </span>
                                       </div>
-                                
                                 </v-list-item-title>
-
                             </v-list-item>
                         </v-list>
-
-
                     </v-menu>
                 </div>
                 </div>
@@ -245,265 +232,246 @@
     </template>
     
     <script>
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
-    import {
-        SupplierPanelFilter
-    } from "@/assets/js/filter_supplier"
-   
-import DetailsModal from "@/components/ShipmentRequests/Modal/DetailsModal.vue";
-
-import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
-import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
-import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
-
-    import {
-        openToast,
-
-        isOdd
-    } from "@/assets/js/functions";
+    import {AxiosCall} from '@/assets/js/axios_call.js'
+    import DetailModalTest from "@/components/ShipmentRequests/Modal/DetailModalTest.vue";
+    import MarketPlaceDetailModal from "@/components/ShipmentRequests/Modal/MarketPlaceDetailModal.vue";
+    import ModalRejectRequestShipment from "@/components/ShipmentRequests/Modal/ModalRejectRequestShipment.vue";
+    import {openToast, isOdd} from "@/assets/js/functions";
 
     export default {
-        components: {
-                DetailModalTest,
-                MarketPlaceDetailModal,
-                ModalRejectRequestShipment
-},
-    
-        props: {
-          getShipmentRequestsList:{type:Function},
-            /**
-             * List Items for header
-             */
-            header: [],
-    
-            /**
-             * List of items
-             */
-            items: [],
-    
-            /**
-             * Model
-             */
-            model: '',
-    
-            /**
-             * Height
-             */
-            height: {
-                type: String,
-                default: '500',
-            },
-    
+      components: {
+        DetailModalTest,
+        MarketPlaceDetailModal,
+        ModalRejectRequestShipment
+      },
 
-    
-            /**
-             * Page on table
-             */
-            page: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * PerPage of data
-             */
-            perPage: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * Active loading
-             */
-            loading: {
-                type: Boolean,
-                default: false
-            },
+      props: {
+        getShipmentRequestsList:{type:Function},
+        /**
+         * List Items for header
+         */
+        header: [],
 
-        },
-    
-        data() {
-            return {
+        /**
+         * List of items
+         */
+        items: [],
 
-                order_type: "desc",
-                ordering: {},
-                per_page: '25',
-                filter: [],
-                active: [],
-                isIndex: [],
-                isFollow: [],
-                panelFilter: new SupplierPanelFilter(),
+        /**
+         * Model
+         */
+        model: '',
 
-
-            }
-        },
-    
-        computed: {
-            /**
-             * Get each items table based of header length
-             */
-            itemsWidth() {
-                let headerLength = 0;
-                if (this.header && this.header.length > 0) {
-                    this.header.forEach(element => {
-                        if (element.show == true) {
-                            headerLength++;
-                        }
-                    });
-                    const width = 100 / (headerLength + 1);
-                    return `${width}%`;
-                }
-                return 'auto';
-            },
-    
-          
+        /**
+         * Height
+         */
+        height: {
+          type: String,
+          default: '500',
         },
 
-        methods: {
 
-          print(item) {
-            window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${item.id}/print-detail`, '_blank');
-          },
-          openRejectModal(item){
-            const form = {
-              dialog :true,
-              object : item
-            }
-            this.$store.commit('set_modalRejectRequestShipment' , form)
-          },
-          showDropDown(index) {
-            const item = this.items[index];
-            if (item.status === 'in_review') {
-                const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
-                itemDropdown.classList.toggle('active');
+
+        /**
+         * Page on table
+         */
+        page: {
+          type: Number,
+          default: 1
+        },
+
+        /**
+         * PerPage of data
+         */
+        perPage: {
+          type: Number,
+          default: 1
+        },
+
+        /**
+         * Active loading
+         */
+        loading: {
+          type: Boolean,
+          default: false
+        },
+
+      },
+
+      data() {
+        return {
+
+          order_type: "desc",
+          ordering: {},
+          per_page: '25',
+          filter: [],
+          active: [],
+          isIndex: [],
+          isFollow: []
+        }
+      },
+
+      computed: {
+        /**
+         * Get each items table based of header length
+         */
+        itemsWidth() {
+          let headerLength = 0;
+          if (this.header && this.header.length > 0) {
+            this.header.forEach(element => {
+              if (element.show == true) {
+                headerLength++;
+              }
+            });
+            const width = 100 / (headerLength + 1);
+            return `${width}%`;
+          }
+          return 'auto';
+        },
+
+
+      },
+
+      methods: {
+        print(item) {
+          window.open(`${ import.meta.env.VITE_API_SITEURL}shipment-requests/${item.id}/print-detail`, '_blank');
+        },
+        openRejectModal(item){
+          const form = {
+            dialog :true,
+            object : item
+          }
+          this.$store.commit('set_modalRejectRequestShipment' , form)
+        },
+        showDropDown(index) {
+          const item = this.items[index];
+          if (item.status === 'in_review') {
+            const itemDropdown = document.getElementById(`factor-dropdown__items-${index}`);
+            itemDropdown.classList.toggle('active');
           }
         },
         translateType(type) {
-                const translations = {
-                    'consignment': 'انبارش',
-                    'in_review': 'در حال بررسی'
-                };
-                return translations[type] || type;
-            },
+          const translations = {
+            'consignment': 'انبارش',
+            'in_review': 'در حال بررسی'
+          };
+          return translations[type] || type;
+        },
         BgSelected(status) {
-            if (status === 'in_review') {
-                return '#EDE7F6';  // Light purple
-            }
-            if (status === 'approved') {
-                return '#E8F5E9';  // Light green
-            }
-            if (status === 'rejected') {
-                return '#FFEBEE';  // Light red
-            }
-            return 'transparent';  // Default background
+          if (status === 'in_review') {
+            return '#EDE7F6';  // Light purple
+          }
+          if (status === 'approved') {
+            return '#E8F5E9';  // Light green
+          }
+          if (status === 'rejected') {
+            return '#FFEBEE';  // Light red
+          }
+          return 'transparent';  // Default background
         },
 
         factorSelectedTitle(status) {
-            if (status === 'in_review') {
-                return 'در حال بررسی '
-            }
-            if (status === 'approved') {
-                return '  تایید شده'
-            }
-            if (status === 'rejected') {
-                return '  رد شده '
-            }
-           
-        },
+          if (status === 'in_review') {
+            return 'در حال بررسی '
+          }
+          if (status === 'approved') {
+            return '  تایید شده'
+          }
+          if (status === 'rejected') {
+            return '  رد شده '
+          }
 
+        },
 
         async updateStatus(index, status, item) {
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            formdata.append('status', status)
-            AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
-            AxiosMethod.store = this.$store
-            AxiosMethod.form = formdata
+          var formdata = new FormData();
+          const AxiosMethod = new AxiosCall()
+          formdata.append('status', status)
+          AxiosMethod.end_point = 'shipment/consignment/crud/update/status/' + item.id
+          AxiosMethod.store = this.$store
+          AxiosMethod.form = formdata
 
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          let data = await AxiosMethod.axios_post()
 
-            if (data.status === 'Success') {
+          if (data.status === 'Success') {
 
-                this.getShipmentRequestsList()
+            this.getShipmentRequestsList()
 
-                openToast(
-                    this.$store,
-                    'وضعیت با موفقیت ویرایش شد.',
-                    "success"
-                );
-              this.$router.push(`/shipment-requests/index`)
+            openToast(
+                this.$store,
+                'وضعیت با موفقیت ویرایش شد.',
+                "success"
+            );
+            this.$router.push(`/shipment-requests/index`)
 
-            }
-            else {
-              this.loading = true
-            }
+          }
+          else {
+            this.loading = true
+          }
         },
 
-            /**
-             * Get row index in table
-             * @param {*} index
-             */
-            rowIndexTable(index) {
-                let rowIndex = 0
-                if (this.page === 1) {
-                    rowIndex = (1 + index)
-                    return rowIndex
-                } else {
-                    rowIndex = ((this.page - 1) * this.perPage) + index + 1
-                    return rowIndex
-                }
-            },
-    
-            /**
-             * Create ordering
-             * @param {*} index
-             * @param { boolean } order
-             */
-            createOrdering(index, order) {
-                if (order === true) {
-                  if (index) {
-                    let query = this.$route.query
-                    if (this.order_type === 'desc') {
-                      this.order_type = 'asc'
-                    } else {
-                      this.order_type = 'desc'
-                    }
-                    this.$router.replace({
-                      query: {
-                        ...query,
-                        order_type :this.order_type,
-                        order :index
-                      }
-                    })
-
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
-                  }
-                }
-            },
-    
-            /**
-             * Get icon
-             * @param {*} column
-             */
-            getIcon(column) {
-                return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-            },
-
-            /**
-             * Return odd index
-             * @param {*} index
-             */
-            oddIndex(index) {
-                return isOdd(index)
-            },
-    
-           
+        /**
+         * Get row index in table
+         * @param {*} index
+         */
+        rowIndexTable(index) {
+          let rowIndex = 0
+          if (this.page === 1) {
+            rowIndex = (1 + index)
+            return rowIndex
+          } else {
+            rowIndex = ((this.page - 1) * this.perPage) + index + 1
+            return rowIndex
+          }
         },
+
+        /**
+         * Create ordering
+         * @param {*} index
+         * @param { boolean } order
+         */
+        createOrdering(index, order) {
+          if (order === true) {
+            if (index) {
+              let query = this.$route.query
+              if (this.order_type === 'desc') {
+                this.order_type = 'asc'
+              } else {
+                this.order_type = 'desc'
+              }
+              this.$router.replace({
+                query: {
+                  ...query,
+                  order_type :this.order_type,
+                  order :index
+                }
+              })
+
+              this.ordering = {};
+              this.ordering[index] = !this.ordering[index];
+            }
+          }
+        },
+
+        /**
+         * Get icon
+         * @param {*} column
+         */
+        getIcon(column) {
+          return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
+        },
+
+        /**
+         * Return odd index
+         * @param {*} index
+         */
+        oddIndex(index) {
+          return isOdd(index)
+        }
+      },
     }
+
     </script>
     

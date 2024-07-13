@@ -104,14 +104,7 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
@@ -182,9 +175,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      values: [],
-      panelFilter: new PanelFilter(),
-
+      values: []
     }
   },
 
@@ -208,7 +199,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Change Active
      * @param {*} index

@@ -1,7 +1,5 @@
-import {ref, watch} from 'vue';
-import { onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter.js'
-import {useRouter, useRoute} from 'vue-router'
+import {ref} from 'vue';
+import {useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 export default function setup() {
@@ -9,7 +7,6 @@ export default function setup() {
     const oneProduct = ref('');
     const dataTableLength = ref(25)
     const pageLength = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const page = ref(1)
     const cookies = useCookies()
@@ -37,7 +34,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new PanelFilter()
 
     async function getProduct() {
         loading.value = true

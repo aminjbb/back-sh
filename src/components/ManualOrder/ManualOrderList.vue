@@ -99,7 +99,6 @@ import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vu
 import ManualOrders from "@/composables/ManualOrders";
 import Orders from "@/composables/Orders";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import {ref} from "vue";
 
 export default {
   data() {

@@ -222,7 +222,6 @@
 import { jalaliToGregorian } from '@/assets/js/functions'
 import Product from "@/composables/Product";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import {SkuSellerPanelFilter} from "@/assets/js/filter_sku_to_seller";
 
 export default {
   components: {  datePicker: VuePersianDatetimePicker,},
@@ -441,7 +440,6 @@ export default {
   methods: {
 
     setFilter() {
-      const filter = new SkuSellerPanelFilter()
       filter.page = 1;
       if (this.id) {
         filter.id = this.id

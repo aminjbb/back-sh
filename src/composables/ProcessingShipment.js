@@ -1,8 +1,7 @@
 import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
-import {useRouter, useRoute} from 'vue-router'
+import {useRoute} from 'vue-router'
 import {useCookies} from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
 export default function setup() {
     const processingShipment = ref([],)
@@ -80,7 +79,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new RetailShipmentFilter()
 
     async function getRetailShipmentList() {
         let paramsQuery = null

@@ -127,13 +127,8 @@
 </template>
 
 <script>
-import {
-  isOdd
-} from '@/assets/js/functions'
+import {isOdd} from '@/assets/js/functions'
 
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 export default {
 
   props: {
@@ -188,8 +183,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
-      panelFilter: new PanelFilter(),
+      filter: []
     }
   },
 
@@ -229,9 +223,7 @@ export default {
      */
     oddIndex(index) {
       return isOdd(index)
-    },
-
-  },
-
+    }
+  }
 }
 </script>

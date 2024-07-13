@@ -224,22 +224,9 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter_order.js"
-
-import {
-  openConfirm,
-  isOdd,
-  splitChar
-} from "@/assets/js/functions";
-
+import {isOdd, splitChar} from "@/assets/js/functions";
 import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
 import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 
 export default {
 
@@ -309,11 +296,11 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      panelFilter: new PanelFilter(),
-      orderStatus: [{
-        text: 'پرداخت شده',
-        value: 'paid'
-      },
+      orderStatus: [
+        {
+          text: 'پرداخت شده',
+          value: 'paid'
+        },
         {
           text: 'پیش پردازش',
           value: 'pre_progress'
