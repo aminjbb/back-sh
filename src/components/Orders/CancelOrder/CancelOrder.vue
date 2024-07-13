@@ -8,7 +8,7 @@
         <v-col cols="12">
           <v-btn
               :loading="loadingAllItem"
-              @click="cancelOrder( {accept:0 , status :'all'})"
+              @click="cancelOrder( {accept:0 , status :'all', increase_site_stock:0})"
               variant="outlined"
               rounded
               class="px-3 mt-1">
@@ -60,11 +60,15 @@
                 rounded
                 variant="elevated"
                 :loading="loadingItem"
-                @click="cancelOrder({accept:0 , status :'items'})"
+                @click="cancelOrder({accept:0 , status :'items', increase_site_stock:0})"
                 class="px-8 mt-1">
               ذخیره
             </v-btn>
-           <ConfirmCancelOrder  :status="status" @cancelOrder="cancelOrder" :cancelOrderAccept="cancelOrderAccept" ref="ConfirmCancelOrder"/>
+           <ConfirmCancelOrder
+               :status="status"
+               @cancelOrder="cancelOrder"
+               :cancelOrderAccept="cancelOrderAccept"
+               ref="ConfirmCancelOrder" />
           </v-col>
         </v-row>
       </v-card-actions>
@@ -121,7 +125,7 @@ export default {
       }
     },
 
-    async cancelOrder(object ){
+    async cancelOrder(object){
       try {
         const formData = new FormData()
         this.status = object.status
@@ -143,6 +147,7 @@ export default {
         }
         formData.append(`accept` , object.accept)
         formData.append(`order_id` , this.$route.params.orderId)
+        formData.append(`increase_site_stock` , object.increase_site_stock)
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
@@ -158,11 +163,9 @@ export default {
             this.$refs.ConfirmCancelOrder.dialog  = false
             openToast(this.$store , 'آیتم های سفارش با موفقیت کنسل شد' , 'success')
             this.getShpsDetails()
-
           }
           else{
             this.$refs.ConfirmCancelOrder.dialog  = true
-
           }
         } else {
           this.loadingItem = false
