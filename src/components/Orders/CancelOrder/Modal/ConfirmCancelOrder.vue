@@ -1,4 +1,5 @@
 <template>
+
   <v-dialog
       v-model="dialog"
       width="468">
@@ -24,14 +25,22 @@
           با ذخیره اطلاعات کیف پول کاربر به مبلغ {{splitChar(cancelOrderAccept.refund_amount)}} ریال شارژ خواهد شد.
         </span>
       </div>
-      <div class="d-flex justify-center align-center text-center pa-5">
-        <v-switch
-            v-model="is_active"
-            inset
-            color="success"/>
+      <div class="text-center pa-5">
+                        <span class="t14500">
+                          آیا از انجام این کار اطمینان دارید؟
+                        </span>
 
-        <span class="t14500">
-          آیا از انجام این کار اطمینان دارید؟
+      </div>
+      <div class="d-flex justify-center ">
+         <span class="t14300  ">
+                        <v-switch
+                            inset
+                            color="success"
+                            v-model="is_active"
+                        />
+         </span>
+        <span class="pa-4">
+          افزایش موجودی سایت
         </span>
       </div>
       <div class="mt-3 mb-8  px-5">

@@ -49,7 +49,8 @@
             class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
             height="580"
         >
-            <Table 
+            <Table
+                @getFinancial="getFinancialData"
                 class="flex-grow-1"
                 activePath="product/sku/crud/update/activation/" 
                 sellablePath="product/sku/crud/update/sellable/"
@@ -298,9 +299,13 @@ export default {
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
+      getFinancialData(v) {
+        this.getSkues()
+      },
+
+      changeHeaderShow(index, value) {
+        this.header[index].show = value
+      },
 
       resetPage(){
         this.perPageFilter = true
