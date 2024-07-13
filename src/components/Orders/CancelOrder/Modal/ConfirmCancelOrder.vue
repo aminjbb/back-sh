@@ -26,18 +26,15 @@
         </span>
       </div>
       <div class="text-center pa-5">
-                        <span class="t14500">
-                          آیا از انجام این کار اطمینان دارید؟
-                        </span>
-
+        <span class="t14500">آیا از انجام این کار اطمینان دارید؟</span>
       </div>
       <div class="d-flex justify-center ">
-         <span class="t14300  ">
-                        <v-switch
-                            inset
-                            color="success"
-                            v-model="is_active"
-                        />
+         <span class="t14300 ">
+           <v-switch
+               inset
+               color="success"
+               v-model="is_increase"
+           />
          </span>
         <span class="pa-4">
           افزایش موجودی سایت
@@ -77,7 +74,7 @@ export default {
     return {
       loading: false,
       dialog: false,
-      is_active:false,
+      is_increase:false,
     }
   },
 
@@ -93,7 +90,7 @@ export default {
 
   methods: {
     acceptCancelOrder(){
-      this.$emit('cancelOrder' , {accept : 1 , status:this.status, increase_site_stock: this.is_active ? 1 : 0})
+      this.$emit('cancelOrder' , {accept : 1 , status:this.status, increase_site_stock: this.is_increase ? 1 : 0})
     },
     splitChar,
     close() {
