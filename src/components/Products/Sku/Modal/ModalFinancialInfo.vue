@@ -82,7 +82,8 @@ import {openToast} from "@/assets/js/functions";
 export  default {
   props:{
     id:null,
-    items: []
+    items: [],
+    financialInfo: {}
   },
 
   data(){
@@ -146,11 +147,22 @@ export  default {
       } else {
         this.loading = false
       }
+      this.$emit('getFinancialData', this.financialInfo)
     },
 
     close() {
      this.dialog = false
+    },
+
+    setForm() {
+      try {
+        this.form.tax_amount = this.financialInfo.tax
+        this.form.identification_code = this.financialInfo.national_code
+      } catch (error) { }
     }
+  },
+  mounted() {
+    this.setForm()
   }
 }
 </script>
