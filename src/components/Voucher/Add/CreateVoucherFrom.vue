@@ -436,7 +436,6 @@ export default {
 
     addCondition(value){
       this.voucherForm.voucherCondition.add(value)
-      console.log( this.voucherForm.voucherCondition)
     },
     checkUserCondition(){
       const object = this.voucherConditions.find(item => item.value === 'user_file')
