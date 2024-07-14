@@ -1,6 +1,4 @@
 <template>
-<p>    form :{{voucherForm}}</p>
-<div>    detail :{{voucherDetail}}</div>
     <v-form
       ref="addVoucher"
       class="create-product__info-form scroller"

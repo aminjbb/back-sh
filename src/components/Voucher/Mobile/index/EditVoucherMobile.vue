@@ -1,7 +1,5 @@
 <template>
     <v-bottom-sheet v-model="editModal" height="80%">
-        <p>    form :{{voucherForm}}</p>
-        <div>    detail :{{voucherDetail}}</div>
         <v-card class="rounded-t-lg px-3 vh-100">
             <div class="d-flex justify-space-between t16500 py-6 px-5">
                 <v-icon   @click="editModal = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
