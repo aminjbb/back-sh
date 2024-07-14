@@ -74,7 +74,7 @@ import CreateRolePermissionView from '../views/Refactor/Update/AdminEditRolePerm
 import EditRolePermissionView from '../views/Refactor/Create/AdminRolePermissionCreateView.vue'
 
 /* Warehouse */
-import WarehouseListView from '../views/Warehouse/WarehouseListView.vue'
+import WarehouseListView from '../views/Refactor/Index/WarehouseIndexView.vue'
 import CreateWarehouseView from '../views/Warehouse/CreateWarehouseView.vue'
 import EditWarehouseView from '../views/Warehouse/EditWarehouseView.vue'
 import SpecialCapacityView from '../views/Warehouse/SpecialCapacityView.vue'
@@ -171,26 +171,26 @@ import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
 import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
 /* Vehicle */
-import VehicleListView from '../views/Vehicle/VehicleListView.vue'
+import VehicleListView from '../views/Refactor/Index/VehicleIndexView.vue'
 
 /* Processing shipment */
-import ProcessingShipmentIndexView from "@/views/ProcessingShipment/ProcessingShipmentIndexView.vue";
-import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/ProcessingShipmentShpsListView.vue";
+import ProcessingShipmentIndexView from "@/views/Refactor/Index/ProcessingShipmentIndexView.vue";
+import ProcessingShipmentShpsListView from "@/views/Refactor/Index/ProcessingShipmentShpsIndexView.vue";
 
 /* Package */
-import PackageListView from '../views/Package/PackageListView.vue'
-import PackageHistoryView from '../views/Package/PackageHistoryView.vue'
+import PackageListView from '../views/Refactor/Index/PackageIndexView.vue'
+import PackageHistoryView from '../views/Refactor/Index/PackageHistoryIndexView.vue'
 
 /* Active Package Requests */
-import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
+import ActivePackageListView from '../views/Refactor/Index/ActivePackageIndexView.vue'
 
 /* Placement */
 import PlacementListView from '../views/Placement/PlacementListView.vue'
 import PlacementShpssListView from '../views/Placement/PlacementShpssListView.vue'
 
 /* Cargo Management */
-import CargoListingView from "@/views/Cargo/CargoListingView.vue";
-import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
+import CargoListingView from "../views/Refactor/Index/CargoIndexView.vue";
+import CargoPackageView from "../views/Refactor/Index/CargoPackageIndeView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
 /* Package Placement */
@@ -260,8 +260,9 @@ import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderLis
 import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
 import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
 import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
-import UpComingView from "@/views/Warehouse/UpComingView.vue";
-import UpComingShipmentView from "@/views/Warehouse/UpComingShipmentView.vue";
+import UpComingView from "@/views/Refactor/Index/UpComingIndexView.vue";
+import UpComingShipmentView from "@/views/Refactor/Index/AssignShpsToPackageIndexView.vue"
+
 
 /* Wastage */
 import WastageListView from "@/views/Wastage/WastageListView.vue";
