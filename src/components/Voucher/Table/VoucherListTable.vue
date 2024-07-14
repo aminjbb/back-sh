@@ -331,24 +331,9 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
-  openConfirm,
-  isOdd,
-  splitChar
-} from "@/assets/js/functions";
-
-
+import { openConfirm, isOdd, splitChar} from "@/assets/js/functions";
 import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
 import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-
-
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
@@ -425,7 +410,6 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      panelFilter: new PanelFilter(),
       active: [],
     }
   },
@@ -508,7 +492,6 @@ export default {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
 
-
     /**
      * Return odd index
      * @param {*} index
@@ -525,7 +508,6 @@ export default {
       openConfirm(this.$store, "آیا از حذف آیتم مورد نظر مظمئن هستید ؟", "حذف تخفیف", "delete", this.deletePath + id, true);
     },
 
-
     async changeActive(index, item) {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
@@ -540,6 +522,7 @@ export default {
       let data = await AxiosMethod.axios_post()
     },
   },
+
   watch: {
     items(val) {
       this.active= []

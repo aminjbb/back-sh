@@ -62,17 +62,6 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
-
 export default {
   components: {},
 
@@ -140,7 +129,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       userInputs: [],
       loading: false,
       apiSuccess: {},

@@ -11,7 +11,6 @@
               class="px-10 py-5">
             <v-col cols="6">
               <v-row justify="start">
-
                 <sh-btn
                     title="ساخت نقش"
                     prepend-icon="mdi-plus"
@@ -22,7 +21,6 @@
                     :width="150"
                     :hasIcon="true"
                     class="mt-1"
-
                 />
               </v-row>
             </v-col>
@@ -37,6 +35,7 @@
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
           <Table
+              @resetPage="resetPage"
               class="flex-grow-1"
               :header="header"
               :items="rolePermissions"
@@ -77,12 +76,12 @@
                             تعداد سطر در هر صفحه
                         </span>
                   <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                     <v-select
+                         v-model="dataTableLength"
+                         class="t1330"
+                         variant="outlined"
+                         :items="[25,50,100]" />
+                  </span>
                 </div>
               </v-col>
             </v-row>
@@ -97,23 +96,21 @@
 
 <script >
 import {defineAsyncComponent} from "vue";
+import RolePermission from "@/composables/RolePermission";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
+const shBtn = defineAsyncComponent(()=> import ('@/components/Components/Kits/Buttons/sh-btn.vue'))
+const Table = defineAsyncComponent(()=> import ('@/components/Public/Table.vue'))
+const ModalColumnFilter = defineAsyncComponent(()=> import ('@/components/Public/ModalColumnFilter.vue'))
+const ModalGroupAdd = defineAsyncComponent(()=> import ('@/components/Public/ModalGroupAdd.vue'))
+const ModalExcelDownload = defineAsyncComponent(()=> import ('@/components/Public/ModalExcelDownload.vue'))
 
-import Table from '@/components/Public/Table.vue'
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import RolePermission from "@/composables/RolePermission";
 export default {
   setup() {
     const {
       pageLength,
       rolePermissions,
-      addPerPage,
       getRolePermissions,
-      addPerPageRole,
       dataTableLength,
       page,
       header,
@@ -122,15 +119,14 @@ export default {
     return {
       pageLength,
       rolePermissions,
-      addPerPage,
       getRolePermissions,
       dataTableLength,
-      addPerPageRole,
       page,
       header,
       loading
-    };
+    }
   },
+
   components: {
     ModalExcelDownload,
     ModalGroupAdd,
@@ -139,16 +135,30 @@ export default {
     DashboardLayout,
     Header,
     shBtn
-
   },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
   mounted() {
     this.getRolePermissions()
   },
+
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
 
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   computed: {
@@ -158,9 +168,38 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
+
+    $route(){
+      this.getRolePermissions()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getRolePermissions()
+      }
+    },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
@@ -168,11 +207,7 @@ export default {
           localStorage.removeItem('deleteObject')
         }
       }
-    },
-    $route(){
-      this.getRolePermissions()
     }
   }
 }
-
 </script>

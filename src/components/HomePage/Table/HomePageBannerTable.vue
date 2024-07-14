@@ -418,7 +418,6 @@ export default {
 
     methods: {
         openEditModal(object) {
-          console.log(object)
             if (this.model == 'category') {
               this.$refs.ModalEditCategory.dialog = true
               this.$refs.ModalEditCategory.categoryObject = object

@@ -184,22 +184,8 @@
 </template>
 
 <script>
-
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-
-
-import {
-    openConfirm,
-    isOdd,
-    convertDateToJalai
-} from "@/assets/js/functions";
+import {openConfirm, isOdd, convertDateToJalai} from "@/assets/js/functions";
 export default {
-    components: {
-
-    },
 
     props: {
         /**
@@ -284,7 +270,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new SupplierPanelFilter(),
 
         }
     },

@@ -162,18 +162,9 @@
 </template>
 
 <script>
-import {
-  isOdd
-} from '@/assets/js/functions'
-import {
-  openConfirm
-} from '@/assets/js/functions'
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  openToast
-} from "@/assets/js/functions";
+import {isOdd} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast} from "@/assets/js/functions";
 import AddBarcodeModal from "@/components/ProcessingShipment/Modal/AddBarcodeModal.vue";
 
 export default {

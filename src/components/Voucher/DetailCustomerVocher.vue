@@ -44,22 +44,11 @@
       </div>
     </v-card>
     <v-card height="70" class="mx-5 br-12" max-height="70">
-      <v-row
-          justify="end"
-          align="center"
-          class="px-10 py-5">
-
-
-        <v-col cols="6">
-          <v-row justify="end">
-
-            <PanelFilter path="admin/index" :filterField="[]"/>
-          </v-row>
-        </v-col>
-      </v-row>
     </v-card>
+
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          @resetPage="resetPage"
           class="flex-grow-1"
           :header="headerCustomer"
           :items="voucher?.data"
@@ -112,7 +101,6 @@
   </div>
 </template>
 <script>
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Table from "@/components/Voucher/Table/VoucherDatailCustomerTable.vue";
 import Voucher from '@/composables/Voucher'
 export default {
@@ -145,20 +133,58 @@ export default {
 
   components: {Table},
 
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
+  methods: {
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
   mounted() {
     this.getVoucherCustomer()
     this.getVoucherDetail()
   },
 
   watch:{
-    dataTableLength(val){
-      this.addPerPageCustomer(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    $route(to){
-      this.getVoucherCustomer(to)
+
+    $route(){
+      this.getVoucherCustomer()
     },
-    page(val){
-      this.addPaginationCustomer(val)
+
+    page(){
+      if (!this.perPageFilter){
+        this.addPaginationCustomer()
+      }
     }
   }
 }

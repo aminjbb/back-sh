@@ -1,10 +1,7 @@
 import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
-import {SkuPanelFilter} from "@/assets/js/filter_sku";
-import {SkuSellerPanelFilter} from "@/assets/js/filter_sku_to_seller";
+import {useRoute, useRouter} from "vue-router";
 
 export default function setup(posts) {
     const sellerList = ref([]);
@@ -141,9 +138,6 @@ export default function setup(posts) {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new SupplierPanelFilter()
-    const skuFilter = new SkuPanelFilter()
-    const skuSellerFilter =  new SkuSellerPanelFilter()
 
     async function getSellerList() {
         loading.value = true
@@ -322,17 +316,56 @@ export default function setup(posts) {
         }
 
     }
-    async function getPriceHistory(query){
+    async function getPriceHistory(){
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = skuSellerFilter.params_generator(query.query)
-        }
-        else  paramsQuery = skuSellerFilter.params_generator(route.query)
+        let query = route.query
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = skuSellerFilter.params_generator(query.query)
+        // }
+        // else  paramsQuery = skuSellerFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -345,11 +378,6 @@ export default function setup(posts) {
         }
     }
 
-    function addSkuSellerPagination(page){
-        skuSellerFilter.page = page
-        skuSellerFilter.per_page = dataTableLength.value
-        router.push(route.path + skuSellerFilter.query_maker(route.query))
-    }
     function addSkuSellerPerPage(number){
         skuSellerFilter.page = 1
         skuSellerFilter.per_page =number
@@ -357,11 +385,6 @@ export default function setup(posts) {
     }
 
     function priceHistoryPagination(page){
-        skuSellerFilter.page = page
-        skuSellerFilter.per_page = dataTableLength.value
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
-    function siteHistoryPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
         router.push(route.path + skuFilter.params_generator(route.query))
@@ -374,12 +397,9 @@ export default function setup(posts) {
         }
     })
 
-
-
-    return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
-        getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
-        headerWarehouseInventoryHistory,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
-        getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
-        dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
-        headerConsigment , addSkuSellerPerPage , skuSellerPage}
+    return { priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory, getPriceHistory,
+        getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory, headerWarehouseInventoryHistory,
+        dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength,
+        getSellerList, sellerList, filterField, dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
+        headerConsigment , addSkuSellerPerPage , skuSellerPage }
 }

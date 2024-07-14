@@ -89,13 +89,8 @@
   </template>
   
   <script>
-  import {
-    isOdd
-  } from '@/assets/js/functions'
-  
-  import {
-    PanelFilter
-  } from "@/assets/js/filter"
+  import { isOdd} from '@/assets/js/functions'
+
   export default {
   
     props: {
@@ -150,8 +145,7 @@
         order_type: "desc",
         ordering: {},
         per_page: '25',
-        filter: [],
-        panelFilter: new PanelFilter(),
+        filter: []
       }
     },
   

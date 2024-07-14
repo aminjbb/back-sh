@@ -21,6 +21,7 @@
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
           <Table
+              @resetPage="resetPage"
               class="flex-grow-1"
               :header="header"
               :items="permissions"
@@ -80,11 +81,9 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-
 import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Permission from "@/composables/Permission";
-
 
 export default {
   setup() {
@@ -92,7 +91,6 @@ export default {
       pageLength,
       permissions,
       permission,
-      addPerPage,
       getPermissions,
       dataTableLength,
       page,
@@ -103,13 +101,12 @@ export default {
       pageLength,
       permissions,
       permission,
-      addPerPage,
       getPermissions,
       dataTableLength,
       page,
       header,
       loading
-    };
+    }
   },
 
   components: {
@@ -117,6 +114,12 @@ export default {
     Table,
     DashboardLayout,
     Header
+  },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
   },
 
   mounted() {
@@ -127,6 +130,14 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   computed: {
@@ -136,9 +147,38 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
+
+    $route(){
+      this.getPermissions()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getPermissions()
+      }
+    },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {

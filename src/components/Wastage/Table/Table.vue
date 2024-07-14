@@ -229,14 +229,7 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {openConfirm,isOdd} from "@/assets/js/functions";
 export default {
 
   props: {
@@ -301,9 +294,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
-      panelFilter: new PanelFilter(),
-
+      filter: []
     }
   },
 
@@ -327,9 +318,6 @@ export default {
   },
 
   methods: {
-
-
-
     getPackageType(type){
       if(type === 'bulk'){
         return 'بالک'
@@ -398,7 +386,6 @@ export default {
     getIcon(column) {
       return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
     },
-
 
     /**
      * Return odd index

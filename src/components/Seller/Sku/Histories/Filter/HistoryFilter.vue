@@ -90,9 +90,6 @@
 </template>
 
 <script>
-import {
-    SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller";
 
 export default {
     props: {

@@ -116,18 +116,10 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
-import {
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
 import AddOccasionBannerModal from "@/components/OccasionBanner/Modal/AddOccasionBannerModal.vue";
 export default {
   components: {
@@ -209,7 +201,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      // panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
     }
   },

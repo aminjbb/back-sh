@@ -1,10 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {DriverFilter} from "@/assets/js/filter_driver.js";
-
 
 export default function setup() {
     const driver = ref(null)
@@ -13,7 +10,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const headerDriver =ref([
@@ -95,7 +91,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new DriverFilter()
 
     /**
      * Get page list
@@ -172,7 +167,7 @@ export default function setup() {
         }
     }
 
-    async function getAllDriverList(query) {
+    async function getAllDriverList() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true

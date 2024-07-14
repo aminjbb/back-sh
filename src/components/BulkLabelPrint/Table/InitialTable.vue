@@ -139,24 +139,25 @@
         </div>
       </div>
     </div>
-    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id" :placementId="currentItem.placement_id"/>
-    <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
-                            :shipmentId="shipmentId"/>
+    <ModalInitialBulkPrintLabel
+        v-if="dialog"
+        :shpsId="shps_id"
+        :packageId="packageId"
+        :shipmentId="shipmentId"
+        :placerId="currentItem.placer_id"
+        :placementId="currentItem.placement_id"/>
+
+    <PackageManagementModal
+        :getShpsList="getShpsList"
+        :packageId="packageId"
+        :shpsId="shps_id"
+        :shipmentId="shipmentId"/>
   </div>
 </template>
 <script>
 import ModalInitialBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalInitialBulkPrintLabel.vue";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  openToast,
-  isOdd
-} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast, isOdd} from "@/assets/js/functions";
 import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
 
 export default {
@@ -217,8 +218,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-
   },
 
   data() {
@@ -229,7 +228,6 @@ export default {
       ordering: {},
       per_page: '25',
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
       fetchCargoData: [],
       paramsQuery: [],
@@ -242,8 +240,6 @@ export default {
       submittedItemId: null,
       shipmentId: null,
       shps_id: null
-
-
     }
   },
 
@@ -269,11 +265,6 @@ export default {
   },
 
   methods: {
-    packageManagement(shipment) {
-      this.shipmentId = shipment.shipment_id
-      this.shps_id = shipment.shps
-      this.$store.commit('set_packageManagementModal', true)
-    },
     async getDetail(shipment) {
       this.currentItem = shipment
       this.shipmentId = shipment.shipment_id
@@ -316,29 +307,6 @@ export default {
         this.$store.commit('set_modalLostShpss', form)
       }
     },
-    async getShpssDetailWastage(item) {
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_shps_s', item.sku.id);
-        this.$store.commit('set_reportType', 'wastage');
-        this.$store.commit('set_modalLostShpss', form)
-
-      }
-    },
-
-    /**
-     * sending data in save btn
-     */
 
     async submitShipmentsForm(itemId, shipmentId, shps, placerId,placementId) {
 
