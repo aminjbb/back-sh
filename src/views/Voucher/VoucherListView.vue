@@ -9,7 +9,7 @@
 
     <v-layout class="bg-gray" v-if="screenType==='mobile'">
         <DashboardLayoutMobile @closeSidebar="ToggleSideBarMenu" v-if="isMenu" />
-        <v-main>
+        <v-main  class="h-100vh">
             <HeaderMobile @sideMenu="ToggleSideBarMenu"/>
             <VoucherListMobile/>
         </v-main>

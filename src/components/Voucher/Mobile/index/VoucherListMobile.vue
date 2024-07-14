@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="h-100 scroller">
         <v-row
             no-gutters
             justify="space-between"
@@ -109,7 +109,7 @@
                         :length="pageLength"
                         rounded="circle"
                         size="20"
-                        :total-visible="3"
+                        :total-visible="5"
                         prev-icon="mdi-chevron-right"
                         next-icon="mdi-chevron-left" />
                 </v-col>
@@ -338,6 +338,10 @@ export default {
                 );
             }
         },
+
+        scrollToTop() {
+            document.querySelector('.scroller').scrollTo({top: 0, behavior: 'smooth'})
+        }
     },
 
     mounted() {
@@ -371,6 +375,7 @@ export default {
             this.getVoucherList(to)
         },
         page(){
+            this.scrollToTop()
             if (!this.perPageFilter){
                 this.getVoucherList()
             }
