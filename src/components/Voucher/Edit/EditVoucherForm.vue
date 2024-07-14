@@ -1,5 +1,7 @@
 <template>
-  <v-form
+<p>    form :{{voucherForm}}</p>
+<div>    detail :{{voucherDetail}}</div>
+    <v-form
       ref="addVoucher"
       class="create-product__info-form scroller"
       v-model="valid">
@@ -105,14 +107,19 @@ export default {
 
     setForm() {
       try {
-        const endTime =  convertDateToJalai(this.voucherDetail.end_time , '-' , true)
+          this.voucherForm.title = this.voucherDetail.name
 
+          if(this.voucherDetail.end_time_fa) {
+              this.voucherForm.endTime = this.voucherDetail.end_time_fa
+          }
+
+/*      const endTime =  convertDateToJalai(this.voucherDetail.end_time , '-' , true)
         const endDateSplit = this.voucherDetail.end_time.split(' ')
-        this.voucherForm.title = this.voucherDetail.name
-        this.voucherForm.endTime =`${endTime} ${endDateSplit[1].slice(0,5)}`
-        this.voucherForm.endTime = this.voucherDetail.end_time_fa
+        this.voucherForm.endTime =`${endTime} ${endDateSplit[1].slice(0,5)}`*/
 
-      } catch (error) { }
+      } catch (error) {
+          console.log(error)
+      }
     }
 
   },
@@ -120,9 +127,6 @@ export default {
 
   },
   watch: {
-    user(val) {
-      this.getUserAddress(val.id)
-    },
     voucherDetail(val){
       this.setForm()
     }

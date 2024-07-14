@@ -1,5 +1,7 @@
 <template>
     <v-bottom-sheet v-model="editModal" height="80%">
+        <p>    form :{{voucherForm}}</p>
+        <div>    detail :{{voucherDetail}}</div>
         <v-card class="rounded-t-lg px-3 vh-100">
             <div class="d-flex justify-space-between t16500 py-6 px-5">
                 <v-icon   @click="editModal = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
@@ -98,14 +100,12 @@ export default {
     methods: {
         setForm() {
             try {
-                const endTime =  convertDateToJalai(this.voucherDetail.end_time , '-' , true)
-
-                const endDateSplit = this.voucherDetail.end_time.split(' ')
                 this.voucherForm.title = this.voucherDetail.name
-                this.voucherForm.endTime =`${endTime} ${endDateSplit[1].slice(0,5)}`
                 this.voucherForm.endTime = this.voucherDetail.end_time_fa
 
-            } catch (error) { }
+            } catch (error) {
+                console.log(error)
+            }
         },
 
         async getVoucherDetail() {
