@@ -85,9 +85,9 @@ import AddDriverManagementView from '../views/DriverManagement/AddDriverManageme
 import EditDriverManagementView from '../views/DriverManagement/EditDriverManagementView.vue'
 
 /* Supplier */
-import SupplierListView from '../views/Supplier/SupplierListView.vue'
-import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
-import EditSupplierView from '../views/Supplier/EditSupplierView.vue'
+import SupplierListView from '../views/Refactor/Index/SupplierIndexView.vue'
+import CreateSupplierView from '../views/Refactor/Create/SupplierCreateView.vue'
+import EditSupplierView from '../views/Refactor/Update/SupplierEditView.vue'
 
 /* Seller */
 import CreateSellerView from '@/views/Seller/CreateSellerView.vue'
@@ -142,29 +142,29 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
-import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
-import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
+import RetailShipmentListView from "@/views/Refactor/Index/RetailShipmentIndexView.vue";
+import AddShpsToRetailShipmentView from "@/views/Refactor/Create/ShpsToRetailShipmentCreateView.vue";
 
 /* Shipment */
-import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue';
-import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentRequestView.vue'
-import PrintShipmentRequestDetailView from '../views/ShipmentRequests/PrintShipmentRequestDetailView.vue'
+import ShipmentRequestsView from '../views/Refactor/Index/ShipmentRequestsIndexView.vue';
+import PrintShipmentRequestView from '../views/Refactor/Read/ShipmentRequestPrintReadView.vue'
+import PrintShipmentRequestDetailView from '../views/Refactor/Read/ShipmentRequestDetailPrintReadView.vue'
 /* Deposit */
 import DepositRequestView from '../views/DepositRequests/DepositeRequestsView.vue';
 /* ContactUs */
 import ContactUsView from '../views/ContactUs/ContactUsView.vue';
 
 /* Factor */
-import FactorListView from '../views/Factor/FactorListView.vue'
-import AddFactorView from '../views/Factor/AddFactorView.vue'
-import EditFactorView from '../views/Factor/EditFactorView.vue'
-import PricingListView from '../views/Factor/PricingListView.vue'
-import PrintFactorView from '../views/Factor/PrintFactorView.vue'
+import FactorListView from '../views/Refactor/Index/FactorIndexView.vue'
+import AddFactorView from '../views/Refactor/Create/FactorCreateView.vue'
+import EditFactorView from '../views/Refactor/Update/FactorEditView.vue'
+import PricingListView from '../views/Refactor/Index/PricingIndexView.vue'
+import PrintFactorView from '../views/Refactor/Read/FactorPrintReadView.vue'
 
 /* RetailShipment */
-import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
-import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
-import PrintShipmentView from "@/views/RetailShipment/PrintShipmentView.vue";
+import AllRetailShipmentListView from "@/views/Refactor/Index/RetailShipmentAllIndexView.vue";
+import EditShpsToRetailShipmentView from "@/views/Refactor/Update/ShpsToRetailShipmentEditView.vue";
+import PrintShipmentView from "@/views/Refactor/Read/ShipmentPrintReadView.vue";
 
 /* Crossdock */
 import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
