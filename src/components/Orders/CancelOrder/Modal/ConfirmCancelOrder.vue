@@ -2,8 +2,7 @@
 
   <v-dialog
       v-model="dialog"
-      width="468"
-  >
+      width="468">
     <v-card>
       <v-row justify="center" align="center" class="pa-5">
         <v-col cols="3">
@@ -13,9 +12,7 @@
         </v-col>
         <v-col cols="9">
           <div class="text-left pl-15">
-                            <span class="t14500">
-                           ذخیره اطلاعات
-                            </span>
+            <span class="t14500">ذخیره اطلاعات</span>
           </div>
         </v-col>
       </v-row>
@@ -24,22 +21,20 @@
       </div>
 
       <div class="text-center pa-5">
-                        <span class="t14500">
-                           با ذخیره اطلاعات کیف پول کاربر به مبلغ {{splitChar(cancelOrderAccept.refund_amount)}} ریال شارژ خواهد شد.
-                        </span>
+        <span class="t14500">
+          با ذخیره اطلاعات کیف پول کاربر به مبلغ {{splitChar(cancelOrderAccept.refund_amount)}} ریال شارژ خواهد شد.
+        </span>
       </div>
       <div class="text-center pa-5">
-                        <span class="t14500">
-                          آیا از انجام این کار اطمینان دارید؟
-                        </span>
-
+        <span class="t14500">آیا از انجام این کار اطمینان دارید؟</span>
       </div>
       <div class="d-flex justify-center ">
-         <span class="t14300  ">
-                        <v-switch
-                            inset
-                            color="success"
-                        />
+         <span class="t14300 ">
+           <v-switch
+               inset
+               color="success"
+               v-model="is_increase"
+           />
          </span>
         <span class="pa-4">
           افزایش موجودی سایت
@@ -50,11 +45,14 @@
       </div>
 
       <div class="text-center pb-5">
-        <v-btn :loading="loading" @click="acceptCancelOrder()" color="primary500"  height="40" rounded
-               class="px-5 mt-1 mr-15">
-                        <span>
-                            تایید
-                        </span>
+        <v-btn
+            :loading="loading"
+            @click="acceptCancelOrder()"
+            color="primary500"
+            height="40"
+            rounded
+            class="px-5 mt-1 mr-15">
+          <span>تایید</span>
         </v-btn>
         <v-btn @click="close()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
           انصراف
@@ -75,7 +73,8 @@ export default {
   data() {
     return {
       loading: false,
-      dialog: false
+      dialog: false,
+      is_increase:false,
     }
   },
 
@@ -91,7 +90,7 @@ export default {
 
   methods: {
     acceptCancelOrder(){
-      this.$emit('cancelOrder' , {accept : 1 , status:this.status})
+      this.$emit('cancelOrder' , {accept : 1 , status:this.status, increase_site_stock: this.is_increase ? 1 : 0})
     },
     splitChar,
     close() {
