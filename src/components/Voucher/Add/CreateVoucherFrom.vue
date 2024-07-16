@@ -4,12 +4,14 @@
       class="create-product__info-form scroller"
       v-model="valid">
     <v-row justify="start" align="center">
-      <v-col cols="12">
-        <div class="text-center">
-          <span class="t14500">ساخت کد تخفیف</span>
-        </div>
-      </v-col>
-      <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+        <template v-if="screenType === 'desktop' ">
+            <v-col cols="12">
+                <div class="text-center">
+                    <span class="t14500">ساخت کد تخفیف</span>
+                </div>
+            </v-col>
+        </template>
+      <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    عنوان *
@@ -24,7 +26,7 @@
 
         </v-text-field>
       </v-col>
-      <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+      <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    کد تخفیف *
@@ -39,7 +41,7 @@
 
         </v-text-field>
       </v-col>
-      <v-col :cols="voucherForm.voucherType === 'group' ? 3 : 4">
+      <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    نوع تخفیف *
@@ -55,7 +57,7 @@
         @update:modelValue="checkUserCondition()">
         </v-select>
       </v-col>
-      <v-col v-if="voucherForm.voucherType === 'group'" cols="3">
+      <v-col  cols="12" sm="3"  v-if="voucherForm.voucherType === 'group'" >
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    تعداد
@@ -63,7 +65,7 @@
         </div>
         <v-text-field variant="outlined" v-model="voucherForm.voucherCount" type="number" min="1"/>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    نوع مقدار تخفیف *
@@ -80,7 +82,7 @@
 
         </v-select>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    مقدار تخفیف *
@@ -95,7 +97,7 @@
 
         </v-text-field>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    وضعیت کد تخفیف *
@@ -110,7 +112,7 @@
 
         </v-select>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    هزینه ارسال *
@@ -126,7 +128,7 @@
 
         </v-select>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    افرودن شرط
@@ -163,7 +165,7 @@
         </v-autocomplete>
       </v-col>
 <!--   for condition   -->
-      <v-col cols="6" v-for="(condition , index) in voucherForm.voucherCondition">
+      <v-col cols="12" sm="6" v-for="(condition , index) in voucherForm.voucherCondition">
         <div class="text-right my-5">
                 <span class="t14500 text-gray600">
                    {{ condition.title }}
@@ -189,7 +191,7 @@
         </template>
         <template v-else-if="condition.raw.inputType === 'date'">
         <v-row justify="center">
-          <v-col cols="6">
+          <v-col cols="12" sm="6">
             <v-text-field
                 v-model="condition.raw.data[0]"
                 variant="outlined"
@@ -208,7 +210,7 @@
                 custom-input=".custom-input-start-date"
             />
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" sm="6">
             <v-text-field
                 v-model="condition.raw.data[1]"
                 variant="outlined"
@@ -268,6 +270,7 @@ export default {
 
   data() {
     return {
+        screenType: null,
       voucherForm: {
         title: null,
         code: null,
@@ -433,7 +436,6 @@ export default {
 
     addCondition(value){
       this.voucherForm.voucherCondition.add(value)
-      console.log( this.voucherForm.voucherCondition)
     },
     checkUserCondition(){
       const object = this.voucherConditions.find(item => item.value === 'user_file')
@@ -477,7 +479,8 @@ export default {
     }
   },
   mounted() {
-    this.getProvince()
+      window.innerWidth < 600 ? this.screenType = 'mobile' : this.screenType = 'desktop';
+      this.getProvince()
   }
 
 }

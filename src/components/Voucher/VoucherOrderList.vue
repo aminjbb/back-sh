@@ -43,6 +43,7 @@
         </div>
       </div>
     </v-card>
+<!--
     <v-card height="70" class="mx-5 br-12" max-height="70">
       <v-row
           justify="end"
@@ -58,6 +59,7 @@
         </v-col>
       </v-row>
     </v-card>
+-->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
