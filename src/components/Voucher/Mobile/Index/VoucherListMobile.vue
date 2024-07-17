@@ -144,10 +144,10 @@
 import Voucher from "@/composables/Voucher";
 import {openConfirm, openToast} from "@/assets/js/functions";
 import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
-import CreateVoucher from '@/components/Voucher/mobile/index/CreateVoucherMobile.vue'
-import DetailsDiscount from '@/components/Voucher/mobile/index/DetailsDiscountMobile.vue'
-import operations from '@/components/Voucher/mobile/index/VoucherOperationMobile.vue'
-import EditVoucher from '@/components/Voucher/mobile/index/EditVoucherMobile.vue'
+import CreateVoucher from '@/components/Voucher/Mobile/Index/CreateVoucherMobile.vue'
+import DetailsDiscount from '@/components/Voucher/Mobile/Index/DetailsDiscountMobile.vue'
+import operations from '@/components/Voucher/Mobile/Index/VoucherOperationMobile.vue'
+import EditVoucher from '@/components/Voucher/Mobile/Index/EditVoucherMobile.vue'
 import deleteVoucher from '@/components/Public/ConfirmModalMobile.vue'
 
 

@@ -99,7 +99,6 @@
                          {{  item?.customer_price  }} ریال
                     </span>
                 </v-col>
-                {{item}}
 
             </v-row>
         </v-card>
