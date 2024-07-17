@@ -112,9 +112,11 @@
   </div>
 </template>
 <script>
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import Table from "@/components/Voucher/Table/VoucherDatailCustomerTable.vue";
+import {defineAsyncComponent} from "vue";
+const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherDatailCustomerTable.vue"))
+
 import Voucher from '@/composables/Voucher'
+
 export default {
   setup() {
     const {

@@ -94,11 +94,13 @@
 </template>
 
 <script>
-import Table from '@/components/Voucher/Table/VoucherListTable.vue'
+import {defineAsyncComponent} from "vue";
+const Table = defineAsyncComponent(()=> import ('@/components/Voucher/Table/VoucherListTable.vue'))
+const ModalColumnFilter = defineAsyncComponent(()=> import ("@/components/Public/ModalColumnFilter.vue"))
+const PanelFilter = defineAsyncComponent(()=> import ("@/components/PanelFilter/PanelFilter.vue"))
+
 import Voucher from "@/composables/Voucher";
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import {openToast} from "@/assets/js/functions";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {

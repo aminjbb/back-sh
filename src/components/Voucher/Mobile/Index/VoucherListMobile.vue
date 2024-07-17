@@ -141,15 +141,16 @@
 </template>
 
 <script>
+import {defineAsyncComponent} from "vue";
+const PanelFilterMobile = defineAsyncComponent(()=> import ("@/components/PanelFilterMobile.vue"))
+const CreateVoucher = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/Index/CreateVoucherMobile.vue'))
+const DetailsDiscount = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/Index/DetailsDiscountMobile.vue'))
+const operations = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/Index/VoucherOperationMobile.vue'))
+const EditVoucher = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/Index/EditVoucherMobile.vue'))
+const deleteVoucher = defineAsyncComponent(()=> import ('@/components/Public/ConfirmModalMobile.vue'))
+
 import Voucher from "@/composables/Voucher";
 import {openConfirm, openToast} from "@/assets/js/functions";
-import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
-import CreateVoucher from '@/components/Voucher/Mobile/Index/CreateVoucherMobile.vue'
-import DetailsDiscount from '@/components/Voucher/Mobile/Index/DetailsDiscountMobile.vue'
-import operations from '@/components/Voucher/Mobile/Index/VoucherOperationMobile.vue'
-import EditVoucher from '@/components/Voucher/Mobile/Index/EditVoucherMobile.vue'
-import deleteVoucher from '@/components/Public/ConfirmModalMobile.vue'
-
 
 export default {
     data() {

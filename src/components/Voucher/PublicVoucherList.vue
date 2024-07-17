@@ -76,9 +76,11 @@
   </div>
 </template>
 <script>
-import Table from "@/components/Voucher/Table/PublicVoucherTable.vue";
+import {defineAsyncComponent} from "vue";
+const Table = defineAsyncComponent(()=> import ("@/components/Voucher/Table/PublicVoucherTable.vue"))
+const ModalExcelDownload = defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
+
 import Voucher from '@/composables/Voucher';
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 
 export default {
   data() {

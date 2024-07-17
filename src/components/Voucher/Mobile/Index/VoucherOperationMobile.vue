@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {defineAsyncComponent} from "vue";
+const PanelFilter= defineAsyncComponent(()=> import ("@/components/PanelFilter/PanelFilter.vue"))
 
 export default {
     components: {PanelFilter},
