@@ -17,12 +17,13 @@
 </template>
 
 <script>
-import VoucherList from '@/components/Voucher/VoucherList.vue'
-import VoucherListMobile from '@/components/Voucher/Mobile/Index/VoucherListMobile.vue'
-import DashboardLayout from '@/components/Layouts/DashboardLayout.vue'
-import DashboardLayoutMobile from '@/components/Layouts/DashboardLayoutMobile.vue'
-import Header from '@/components/Public/Header.vue'
-import HeaderMobile from '@/components/Public/HeaderMobile.vue'
+import {defineAsyncComponent} from "vue";
+const VoucherList = defineAsyncComponent(()=> import ('@/components/Voucher/VoucherList.vue'))
+const VoucherListMobile = defineAsyncComponent(()=> import ('@/components/Voucher/Mobile/Index/VoucherListMobile.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const DashboardLayoutMobile = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayoutMobile.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+const HeaderMobile = defineAsyncComponent(()=> import ('@/components/Public/HeaderMobile.vue'))
 
 export default {
     components:{
