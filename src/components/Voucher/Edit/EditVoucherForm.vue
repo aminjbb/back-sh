@@ -62,14 +62,10 @@
 
 
 <script>
+import {defineAsyncComponent} from "vue";
+const ModalGroupAdd = defineAsyncComponent(()=> import ("@/components/Public/ModalGroupAdd.vue"))
 
-import {AxiosCall} from "@/assets/js/axios_call";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
-import {
-  convertDateToJalai, openConfirm
-} from "@/assets/js/functions";
-
 
 export default {
   components: {

@@ -88,10 +88,12 @@
   </div>
 </template>
 <script>
-import Table from "@/components/Voucher/Table/PeerToPeerVoucherTable.vue";
+import {defineAsyncComponent} from "vue";
+const Table = defineAsyncComponent(()=> import ("@/components/Voucher/Table/PeerToPeerVoucherTable.vue"))
+const ModalExcelDownload = defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
+const PanelFilter = defineAsyncComponent(()=> import ("@/components/PanelFilter/PanelFilter.vue"))
+
 import Voucher from '@/composables/Voucher';
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {

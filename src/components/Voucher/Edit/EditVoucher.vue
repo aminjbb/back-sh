@@ -25,19 +25,13 @@
 </template>
 
 <script>
-import CreateVoucherFrom from "@/components/Voucher/Edit/EditVoucherForm.vue";
-import Voucher from '@/composables/Voucher'
+import {defineAsyncComponent} from "vue";
+const CreateVoucherFrom = defineAsyncComponent(()=> import ("@/components/Voucher/Edit/EditVoucherForm.vue"))
 
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToJalai, openConfirm
-} from "@/assets/js/functions";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import Voucher from '@/composables/Voucher'
+import {AxiosCall} from "@/assets/js/axios_call";
+import { convertDateToGregorian, openToast } from "@/assets/js/functions";
+
 
 export default {
   setup(){

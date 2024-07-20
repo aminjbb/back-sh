@@ -115,10 +115,11 @@
   </div>
 </template>
 <script>
-import Table from "@/components/Voucher/Table/VoucherOrderTable.vue";
-import Voucher from '@/composables/Voucher'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {defineAsyncComponent} from "vue";
+const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherOrderTable.vue"))
+const ModalExcelDownload= defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
+
+import Voucher from "@/composables/Voucher";
 
 export default {
   data() {
