@@ -38,8 +38,12 @@
           </div>
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
-            <span class="title"> موبایل :</span>
-            <div class="pr-2 mt-2 number-font">{{ oneTicket.user.phone_number }}</div>
+              <span class="title"> موبایل :</span>
+              <a :href="`https://backoffice.shvz.ir/orders/index?user_id=${oneTicket.user.id}`" target="_blank">
+                  <div class="pr-2 mt-2 number-font">
+                      {{ oneTicket.user.phone_number }}
+                  </div>
+              </a>
           </div>
 
           <v-btn
