@@ -43,7 +43,7 @@
         </div>
       </div>
     </v-card>
-    <v-card height="70" class="mx-5 br-12" max-height="70">
+<!--    <v-card height="70" class="mx-5 br-12" max-height="70">
       <v-row
           justify="end"
           align="center"
@@ -57,7 +57,7 @@
           </v-row>
         </v-col>
       </v-row>
-    </v-card>
+    </v-card>-->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
@@ -112,9 +112,11 @@
   </div>
 </template>
 <script>
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import Table from "@/components/Voucher/Table/VoucherDatailCustomerTable.vue";
+import {defineAsyncComponent} from "vue";
+const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherDatailCustomerTable.vue"))
+
 import Voucher from '@/composables/Voucher'
+
 export default {
   setup() {
     const {

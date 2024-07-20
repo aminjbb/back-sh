@@ -331,25 +331,13 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
+import {defineAsyncComponent} from "vue";
+const DetailsModal = defineAsyncComponent(()=> import ('@/components/Orders/Modal/DetailsModal.vue'))
+const FactorModal = defineAsyncComponent(()=> import ('@/components/Orders/Modal/FactorModal.vue'))
 
-import {
-  openConfirm,
-  isOdd,
-  splitChar
-} from "@/assets/js/functions";
-
-
-import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
-import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-
-
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 import {AxiosCall} from "@/assets/js/axios_call";
+import { PanelFilter } from "@/assets/js/filter"
+import { openConfirm,  isOdd,  splitChar } from "@/assets/js/functions";
 
 export default {
 

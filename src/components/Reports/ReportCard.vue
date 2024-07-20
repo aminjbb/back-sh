@@ -7,22 +7,22 @@
         </v-col>
         <v-col md="10" sm="12">
           <v-skeleton-loader type="list-item-two-line" v-if="loading"></v-skeleton-loader>
-          <v-col class="py-0" v-else>
-            <v-row class="my-1">
-              <span class="modal__content__title"><b>{{ itemName }}</b></span>
+          <v-col class="py-0 d-flex justify-end " v-else>
+            <v-row class="my-3 ma-1">
+              <span class="modal__content__title t10400"><b>{{ itemName }}</b></span>
             </v-row>
-            <v-row>
-            <span v-if="itemValueFormatted" class="text-h6 number-font">
-              <b>
-                {{
-                  itemValueFormatted?.toLocaleString()
-                }}
-              </b>
-            </span>
+            <v-row class="mr-6 ">
+           <span v-if="itemValueFormatted" class="text-h6 number-font t12500  ">
+             <b>
+               {{
+                 itemValueFormatted?.toLocaleString()
+               }}
+             </b>
+           </span>
             </v-row>
-            <v-row class="mb-1">
-              <span class="number-font">{{ itemValue?.toLocaleString() ?? '&nbsp;'}}</span>
-            </v-row>
+            <!--            <v-row class="mb-1">-->
+            <!--              <span class="number-font">{{ itemValue?.toLocaleString() ?? '&nbsp;'}}</span>-->
+            <!--            </v-row>-->
           </v-col>
 
         </v-col>
@@ -63,3 +63,4 @@ const {itemValueFormatted} = toRefs(props);
 const {itemImagePath} = toRefs(props);
 const {loading} = toRefs(props);
 </script>
+
