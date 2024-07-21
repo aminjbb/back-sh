@@ -140,24 +140,12 @@ export default {
             },
             reasonItem: [
                 {
-                    label: "مرجوعی سفارش",
-                    value: "return_order"
-                },
-                {
-                    label: "انصراف از خرید",
-                    value: "cancel_order"
-                },
-                {
-                    label: "مغایرت",
-                    value: "difference_order"
+                    label: "خطای اپراتور",
+                    value: "operator_mistake"
                 },
                 {
                     label: "سایر",
                     value: "other"
-                },
-                {
-                    label: "هزینه پستی",
-                    value: "post_cost"
                 },
             ],
             rule: [v => !!v || 'این فیلد الزامی است'],
