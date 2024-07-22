@@ -3,20 +3,24 @@
         <v-main class="h-100 ">
             <div class="vh-100 " >
 
-                <div class="loading_modal" v-if="loading">
+                <template class="loading_modal" v-if="loading">
                     <v-progress-circular
                         indeterminate
-                        color="purple"
-                    ></v-progress-circular>
-                </div>
+                        color="purple">
+                    </v-progress-circular>
+                </template>
 
-
+                <template></template>
+                <template v-if="testTrue">
+                    <div class="bg-red" >dad</div>
+                </template>
+                <template v-else-if="test">
                     <div class="d-flex justify-space-between align-center">
                         <div class="pa-3 d-flex">
                             <HandheldDrawer/>
                             <span class="t20400">
-            جمع آوری کالا
-            </span>
+                            جمع آوری کالا
+                            </span>
                         </div>
                         <div class="pa-3">
                             <v-icon @click="$router.go(-1)"  size="30">
@@ -48,15 +52,15 @@
                     <v-icon>mdi-check-circle</v-icon>
                     <span>جمع آوری سفارش با کسری بسته شد.</span>
                     <span>
-        جمع آوری سفارش با شناسه {{ code }} با کسری انجام شد.
+        جمع آوری سفارش با شناسه {{  }} با کسری انجام شد.
                     </span>
 
                     <v-icon>mdi-check-circle</v-icon>
                     <span>جمع آوری با موفقیت انجام شد.</span>
                     <span>
-        جمع آوری سفارش با شناسه {{ code }} با موفقیت انجام شد.
+        جمع آوری سفارش با شناسه {{  }} با موفقیت انجام شد.
                     </span>
-
+                </template>
 
             </div>
         </v-main>
@@ -74,7 +78,9 @@ export default{
 
     data() {
         return {
-            code: 1
+            test: false,
+            testTrue: true
+
         }
     },
 
