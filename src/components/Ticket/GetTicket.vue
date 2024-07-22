@@ -39,11 +39,11 @@
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
               <span class="title"> موبایل :</span>
-              <a :href="`https://backoffice.shvz.ir/orders/index?user_id=${oneTicket.user.id}`" target="_blank">
-                  <div class="pr-2 mt-2 number-font">
+              <v-btn @click="redirect()" variant="text" >
+                  <span class="number-font">
                       {{ oneTicket.user.phone_number }}
-                  </div>
-              </a>
+                  </span>
+              </v-btn>
           </div>
 
           <v-btn
@@ -351,6 +351,10 @@ export default {
       return 'معمولی';
     },
 
+      redirect() {
+        window.open(`${import.meta.env.VITE_API_SITEURL}orders/index?user_id=${this.oneTicket.user.id}`, '_blank');
+
+      }
   },
 
   mounted() {
