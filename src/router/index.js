@@ -234,6 +234,7 @@ import CommercialReportVew from "@/views/Reports/CommercialReportView.vue";
 /* Warehouse orders */
 import WarehouseOrderListView from "@/views/WarehouseOrders/WarehouseOrderListView.vue";
 import WarehouseOrderPickUpView from "@/views/WarehouseOrders/WarehouseOrderPickUpView.vue";
+import PickUp from "@/views/WarehouseOrders/PickUp.vue";
 import WarehouseOrderSortingView from "@/views/WarehouseOrders/WarehouseOrderSortingView.vue";
 import WarehouseOrderFactorPrintView from "@/views/WarehouseOrders/WarehouseOrderFactorPrintView.vue";
 
@@ -1921,6 +1922,14 @@ const router = createRouter({
                     name: 'سفارش های سورتینگ'
                 }
             },
+                {
+                    path: 'PickUp',
+                    name: 'PickUp',
+                    component: PickUp,
+                    meta: {
+                        name: 'PickUp'
+                    }
+                },
                 {
                     path: ':orderId/print',
                     name: 'WarehouseOrderFactorPrintView',
