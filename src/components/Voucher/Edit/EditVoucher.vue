@@ -25,19 +25,13 @@
 </template>
 
 <script>
-import CreateVoucherFrom from "@/components/Voucher/Edit/EditVoucherForm.vue";
-import Voucher from '@/composables/Voucher'
+import {defineAsyncComponent} from "vue";
+const CreateVoucherFrom = defineAsyncComponent(()=> import ("@/components/Voucher/Edit/EditVoucherForm.vue"))
 
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToJalai, openConfirm
-} from "@/assets/js/functions";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import Voucher from '@/composables/Voucher'
+import {AxiosCall} from "@/assets/js/axios_call";
+import { convertDateToGregorian, openToast } from "@/assets/js/functions";
+
 
 export default {
   setup(){
@@ -70,14 +64,13 @@ export default {
         AxiosMethod.end_point = `voucher/crud/update/${this.$route.params.voucherId}`
         formData.append('name', this.$refs.CreateVoucherFrom.voucherForm.title)
         formData.append('end_time' , `${endTime} ${splitEndDate[1]}:00`)
-
         AxiosMethod.form = formData
         AxiosMethod.store = this.$store
+        AxiosMethod.toast_error = true
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
         if (data) {
-
           this.loading = false
           openToast(this.$store,
               'کد تخفیف موفقیت ویرایش شد.',
@@ -85,9 +78,6 @@ export default {
           this.$router.push('/voucher/index')
         } else {
           this.loading = false
-          openToast(this.$store,
-              'ویرایش کد تخفیف مشکل مواجه شد',
-              "error")
         }
       }
       catch (e) {

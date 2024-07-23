@@ -22,14 +22,11 @@
 </template>
 
 <script>
-import CreateVoucherFrom from "@/components/Voucher/Add/CreateVoucherFrom.vue";
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import {defineAsyncComponent} from "vue";
+const CreateVoucherFrom = defineAsyncComponent(()=> import ("@/components/Voucher/Add/CreateVoucherFrom.vue"))
+
+import { AxiosCall } from "@/assets/js/axios_call";
+import { convertDateToGregorian, openToast } from "@/assets/js/functions";
 
 export default {
   data() {

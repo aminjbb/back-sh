@@ -23,6 +23,7 @@ export default function setup() {
         { name: 'ایجاد کننده', show: true, value:'user_name', order: false},
         { name: 'موبایل', show: true, value:'mobile', order: false},
         { name: 'تاریخ ایجاد', show: true, value:'created_at', order: true},
+        { name: 'تاریخ آخرین پیام', show: true, value:'latest_date', order: true},
     ]);
 
     const filterField = [

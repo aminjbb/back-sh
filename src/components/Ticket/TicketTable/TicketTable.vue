@@ -58,7 +58,7 @@
                 </div>
 
                 <div
-                    v-if="header[1].show"
+                    v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t13300 text-gray-darken-1 py-5 d--ltr number-font">
@@ -92,8 +92,8 @@
                     <span class="py-5" :class="item.priority == 'urgent' ? 't14500 text-red-darken-4' : item.priority == 'high' ? 't14500 text-red-darken-2' : 't14300 text-gray-darken-1 '" :style="{ 'text-shadow': item.priority === 'urgent' ? '0px 0px 7px #CE0202' : '' }">
                         <template v-if="item.priority">
                             {{getPriorityText(item.priority)}}
-                        </template> 
-                        <template>
+                        </template>
+                        <template v-else>
                             -
                         </template>
                     </span>
@@ -104,7 +104,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-chip
-                        class="ma-2 t14300"
+                        class="ma-2 rounded-lg t10400"
                         :color="getStatusColor(item.status)"
                         text-color="white">
                         {{getStatusText(item.status)}}
@@ -119,7 +119,7 @@
                         <template v-if="item.user && item.user.first_name   ">
                             {{ item.user.first_name }} {{ item.user.last_name }}
                         </template>
-                        <template>
+                        <template v-else>
                             -
                         </template>
                     </span>
@@ -140,11 +140,32 @@
                 </div>
 
                 <div
-                    v-if="item.created_at_fa && header[7].show"
+                    v-if=" header[8].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14300 text-gray-darken-1 py-5 number-font">
-                        {{item.updated_at.split('T')[1].split('.')[0]}} {{ item.created_at_fa }}
+                        <template v-if="item.created_at_fa">
+                            {{item.updated_at.split('T')[1].split('.')[0]}}
+                            {{ item.created_at_fa }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </span>
+                </div>
+
+                    <div
+                        v-if="header[9].show"
+                    class="c-table__contents__item justify-center"
+                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                    <span class="t14300 text-gray-darken-1 py-5 number-font">
+                        <template v-if="item.latest_date_fa">
+                            {{ item.latest_date_fa.split(' ')[1] }}
+                            {{ item.latest_date_fa.split(' ')[0] }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
                     </span>
                 </div>
 
@@ -253,7 +274,7 @@ export default {
             const color = '';
 
             if (status == 'open') {
-                return 'green';
+                return 'blue';
             }
             if (status == 'answered') {
                 return 'green';
@@ -261,9 +282,9 @@ export default {
             if (status == 'resolved') {
                 return 'grey-lighten-1';
             }
-            if (status == 'postponed') {
-                return 'red';
-            }
+          if (status == 'pending') {
+            return 'warning';
+          }
 
             return '';
         },
@@ -280,12 +301,9 @@ export default {
             if (status == 'resolved') {
                 return 'بسته شده';
             }
-            if (status == 'postponed') {
-                return 'متوقف شده';
-            }
-            if (status == 'seen') {
-                return 'دیده شده';
-            }
+          if (status == 'pending') {
+            return 'در حال بررسی';
+          }
 
             return 'نامعلوم';
         },

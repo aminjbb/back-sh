@@ -43,8 +43,10 @@
         </div>
       </div>
     </v-card>
+<!--
     <v-card height="70" class="mx-5 br-12" max-height="70">
     </v-card>
+-->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           @resetPage="resetPage"
@@ -98,10 +100,11 @@
   </div>
 </template>
 <script>
-import Table from "@/components/Voucher/Table/VoucherOrderTable.vue";
-import Voucher from '@/composables/Voucher'
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {defineAsyncComponent} from "vue";
+const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherOrderTable.vue"))
+const ModalExcelDownload= defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
+
+import Voucher from "@/composables/Voucher";
 
 export default {
   components: {

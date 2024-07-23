@@ -277,6 +277,7 @@ import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import InitilizeWarehouse from "@/views/Warehouse/Initialize/InitilizeWarehouse.vue";
 import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLabelPrintListView.vue";
+import CancelSnapPayView from "@/views/SnapPay/CancelSnapPayView.vue";
 
 /* Zone */
 import ZoneListView from '../views/Zone/ZoneListView.vue'
@@ -300,10 +301,13 @@ import ReplyCommentView from '../views/CommentAccepted/ReplyCommentView.vue'
 /* Report Bug Task */
 import ReportBugTaskView from '../views/ReportBugTask/ReportBugTaskView.vue'
 import CancelOrderView from "@/views/Orders/CancelOrderView.vue";
+import BestSellingCategoriesView from "@/views/BestSellingCategories/BestSellingCategoriesView.vue";
+import AddBestSellingCategoriesView from "@/views/BestSellingCategories/AddBestSellingCategoriesView.vue";
+import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBestSellingCategoriesView.vue";
 
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
-
+import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
 
 
 const router = createRouter({
@@ -2321,7 +2325,7 @@ const router = createRouter({
         {
             path: '/lucky-wheel', // Lucky wheel
             meta: {
-                name:  'گردانه شانس'
+                name: 'گردانه شانس'
             },
             children: [
                 {
@@ -2400,21 +2404,21 @@ const router = createRouter({
             },
             children: [
                 {
-                path: 'index',
-                name: 'CommentListView',
-                component: CommentListView,
-                meta: {
-                    name: 'بنر مناسبتی'
-                }
+                    path: 'index',
+                    name: 'CommentListView',
+                    component: CommentListView,
+                    meta: {
+                        name: 'بنر مناسبتی'
+                    }
                 },
                 {
-                path: 'reply/:id',
-                name: 'ReplyCommentView',
-                component: ReplyCommentView,
-                meta: {
-                    name: ' بررسی کامنت '
-                }
-            }]
+                    path: 'reply/:id',
+                    name: 'ReplyCommentView',
+                    component: ReplyCommentView,
+                    meta: {
+                        name: ' بررسی کامنت '
+                    }
+                }]
         },
         {
             path: '/report-bug-task', // Zone
@@ -2431,7 +2435,71 @@ const router = createRouter({
                     }
                 },
             ]
-        }
+        },
+        {
+            path: '/best-selling-categories', // Zone
+            meta: {
+                name: ' تنظیمات'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'BestSellingCategoriesView',
+                    component: BestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'AddBestSellingCategoriesView',
+                    component: AddBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                },
+                {
+                    path: ':categoryId/best-selling-edit',
+                    name: 'EditBestSellingCategories',
+                    component: EditBestSellingCategoriesView,
+                    meta: {
+                        name: 'پرفروش ترین دسته بندی ها'
+                    }
+                }
+            ]
+        },
+        {
+            path: '/warehouse-return-order', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'WarehouseReturnOrderView',
+                    component: WarehouseReturnOrderView,
+                    meta: {
+                        name: 'باز گردانی سفارش'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/snap-pay', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'cancel',
+                    name: 'CancelSnapPayView',
+                    component: CancelSnapPayView,
+                    meta: {
+                        name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
     ]
 })
 router.beforeEach((to, from, next) => {

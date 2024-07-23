@@ -12,6 +12,9 @@
         <v-col cols="6">
           <v-row v-if="$route.query.user_id" justify="start">
            <IncreseWalletModal :getTransactionList="getTransactionList"/>
+
+           <DecreaseWalletModal :getTransactionList="getTransactionList"/>
+
           </v-row>
         </v-col>
 
@@ -104,6 +107,7 @@ import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
+import DecreaseWalletModal from "@/components/User/Modal/DecreaseWalletModal.vue"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
@@ -147,7 +151,9 @@ export default {
     ModalExcelDownload,
     ModalGroupAdd,
     ModalColumnFilter,
-    Table,IncreseWalletModal
+    Table,
+    IncreseWalletModal,
+    DecreaseWalletModal
   },
   data() {
     return {

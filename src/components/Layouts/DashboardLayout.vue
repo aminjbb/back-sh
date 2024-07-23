@@ -518,9 +518,11 @@ export default {
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
             ],
             support: [
+                ['کنسل اسنپ پی', '/snap-pay/cancel', 'mdi-checkbox-blank-circle-outline'],
                 ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             groupsFunction: [
                 ['عملیات گروهی', '/exports/index', 'mdi-export'],
@@ -582,6 +584,7 @@ export default {
             setting: [
                 ['صفحات', '/page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['منو ها', '/menu/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پرفروش ترین دسته بندی ها', '/best-selling-categories/index', 'mdi-checkbox-blank-circle-outline'],
                 ['صفحه اصلی', '/home-page/index', 'mdi-checkbox-blank-circle-outline'],
                 ['متغییر ها', '/system/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بنر مناسبتی', '/occasion-banner/index', 'mdi-checkbox-blank-circle-outline'],

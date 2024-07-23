@@ -90,7 +90,6 @@
                         </template>
                     </div>
                 </div>
-
                 <div
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item"
@@ -370,7 +369,7 @@
                     v-if="model !== 'permission'  "
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props">
                                 mdi-dots-vertical
@@ -396,6 +395,11 @@
                                         </span>
                                     </div>
                                 </v-list-item-title>
+                              <v-list-item-title v-if="item.product">
+                                <div class="ma-5 pointer" >
+                                  <ModalFinancialInfo :id="item.id" :financialInfo="item" @getFinancialData="financialData"/>
+                                </div>
+                              </v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -425,10 +429,15 @@ import {openToast} from "@/assets/js/functions";
 export default {
     components: {
         ModalMassUpdate,
-        AddAttributeValueModal
+        AddAttributeValueModal,
+        ModalFinancialInfo
     },
 
     props: {
+      getRetailShipmentList:{
+        type:Function
+      },
+      id:'',
         /**
          * Update button url
          */
@@ -436,6 +445,7 @@ export default {
             type: String,
             default: '',
         },
+
         /**
          * Edit button url
          */
@@ -630,6 +640,9 @@ export default {
     },
 
     methods: {
+      financialData(va) {
+        this.$emit('getFinancial', va)
+      },
         /**
          * Mass update modal
          */
@@ -658,7 +671,6 @@ export default {
          * @param { boolean } order
          */
         createOrdering(index, order) {
-          console.log(index, order)
             if (order === true) {
               if (index) {
                 let query = this.$route.query
