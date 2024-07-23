@@ -66,9 +66,7 @@
                     <template v-if="oneTicket.user.first_name">
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
-                    <template v-else>
-                      بدون نام
-                    </template>
+                    <template v-else>بدون نام</template>
                   </span>
                   <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
                       {{ convertDate(oneTicket.created_at) }}
@@ -88,7 +86,6 @@
                 <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
                 <video v-else-if="file.type === 'video'" :src="file.url" controls/>
               </div>
-
               <v-divider color="black"/>
 
               <p class="text-justify pa-5" v-html="oneTicket.content"/>
@@ -103,16 +100,21 @@
                     class="mb-10"
                     :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                   <div class="d-flex justify-space-between pa-6">
-                                    <span class="t14500 text-gray500 ml-10">
-                                        {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
-                                    </span>
+                    <span class="t14500 text-gray500 ml-10">
+                      {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
+                    </span>
 
                     <span class="t14500 text-gray500 mr-10 number-font">
-                                        {{ convertDate(ticket.created_at) }}
-                                    </span>
+                      {{ convertDate(ticket.created_at) }}
+                    </span>
                   </div>
 
                   <v-divider color="black"/>
+
+                  <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
+                    <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                    <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                  </div>
 
                   <p class="text-justify pa-5" v-html="ticket.content"/>
                 </v-card>
@@ -120,9 +122,7 @@
             </template>
 
             <div>
-              <div class="text-right mb-3 t14500">
-                ارسال پیام
-              </div>
+              <div class="text-right mb-3 t14500">ارسال پیام</div>
 
               <ckeditor
                   v-model="content"
