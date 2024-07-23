@@ -426,11 +426,12 @@ import {openConfirm} from '@/assets/js/functions'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import {openToast} from "@/assets/js/functions";
+import ModalFinancialInfo from '@/components/Products/Sku/Modal/ModalFinancialInfo.vue'
 export default {
     components: {
         ModalMassUpdate,
         AddAttributeValueModal,
-        ModalFinancialInfo
+      ModalFinancialInfo
     },
 
     props: {
