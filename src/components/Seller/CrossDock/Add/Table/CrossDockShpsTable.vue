@@ -175,13 +175,6 @@ import {
   convertDateToJalai,
   isOdd
 } from '@/assets/js/functions'
-
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-import {
-  SkuPanelFilter
-} from "@/assets/js/filter_sku"
 export default {
 
   components:{
@@ -284,8 +277,6 @@ export default {
       active: [],
       sellable: [],
       filter: [],
-      panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuPanelFilter(),
 
     }
   },

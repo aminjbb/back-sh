@@ -69,9 +69,6 @@ import {
   isOdd
 } from '@/assets/js/functions'
 
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 
 export default {
 
@@ -129,7 +126,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan: [],
-      panelFilter: new PanelFilter(),
     }
   },
 
