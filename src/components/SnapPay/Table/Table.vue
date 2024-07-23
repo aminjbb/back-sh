@@ -221,7 +221,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
+                    <div class="ma-5 pointer" @click="removeItem(index)">
                       <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
                       <span class="mr-2 text-grey-darken-1 t14300">
                                             حذف
@@ -480,10 +480,10 @@ export default {
 
     /**
      * Remove Item
-     * @param {*} id
+     * @param {*} index
      */
-    removeItem(id) {
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
+    removeItem(index) {
+      this.$emit('removeItem' , index)
     },
 
     changeStatus(index , text){
