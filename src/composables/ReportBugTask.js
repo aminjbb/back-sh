@@ -1,4 +1,4 @@
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import {useCookies} from "vue3-cookies";
 import {AxiosCall} from "@/assets/js/axios_call";
 import { useRoute } from 'vue-router'

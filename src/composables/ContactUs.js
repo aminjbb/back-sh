@@ -2,8 +2,6 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {PanelFilter} from "@/assets/js/filter";
-
 
 export default function setup() {
     const contactUsList = ref([]);
@@ -27,15 +25,12 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get page list
      * @param {*} query
      */
     async function getContactUs() {
-
-        let paramsQuery = null
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query

@@ -1,10 +1,7 @@
-import { ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
-import { UserPanelFilter } from '@/assets/js/filter_free_delivery_user.js'
-import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {OrderListPanelFilter} from '@/assets/js/filter_free_delivery_order_list.js'
 
 export default function setup() {
     const freeDeliveryList = ref([]);
@@ -17,7 +14,6 @@ export default function setup() {
     let page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const headerFreeDelivery =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
@@ -90,9 +86,6 @@ export default function setup() {
         {name:'تاریخ ثبت سفارش ' , type:'date', value:'created_at'},
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
-    const UserFilter = new UserPanelFilter()
-    const OrderFilter = new OrderListPanelFilter()
 
     async function  getFreeDeliveryList() {
         loading.value = true

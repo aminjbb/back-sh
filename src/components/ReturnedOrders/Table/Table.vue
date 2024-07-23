@@ -380,24 +380,10 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    openConfirm,
-    isOdd,
-    splitChar
-} from "@/assets/js/functions";
-
-
+import {isOdd, splitChar} from "@/assets/js/functions";
 import DetailsModal from '@/components/ReturnedOrders/Modal/DetailsModal.vue'
 import FactorModal from '@/components/ReturnedOrders/Modal/FactorModal.vue'
-
-
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+import {openModal} from "@/assets/js/functions_seller";
 
 export default {
 
@@ -465,8 +451,7 @@ export default {
             order_type: "desc",
             ordering: {},
             per_page: '25',
-            filter: [],
-            panelFilter: new PanelFilter(),
+            filter: []
         }
     },
 

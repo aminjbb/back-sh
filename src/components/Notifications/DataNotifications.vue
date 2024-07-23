@@ -38,6 +38,7 @@
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          @resetPage="resetPage"
           class="flex-grow-1"
           deletePath="notification/admin/crud/delete/"
           model="notification"
@@ -164,7 +165,8 @@ export default {
             per_page: this.dataTableLength,
           }
         })
-      } else {
+      }
+      else {
         this.$router.push({
           query: {
             per_page: this.dataTableLength,
@@ -173,11 +175,15 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page() {
       if (!this.perPageFilter) {
         this.getNotifications()
       }
-    }
+    },
+    $route(){
+      this.getNotifications()
+    },
   },
 
   methods: {

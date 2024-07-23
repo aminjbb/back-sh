@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
-import { onBeforeRouteUpdate } from 'vue-router'
-import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter} from '@/assets/js/filter.js'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
@@ -13,7 +11,6 @@ export default function setup() {
     const page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
 
     const header = ref([
@@ -39,7 +36,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getColor() {
         loading.value = true

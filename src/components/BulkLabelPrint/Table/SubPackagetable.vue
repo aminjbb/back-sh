@@ -126,18 +126,8 @@
   </div>
 </template>
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  openToast,
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast, openConfirm,isOdd} from "@/assets/js/functions";
 
 export default {
 
@@ -211,7 +201,6 @@ export default {
       ordering: {},
       per_page: '25',
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       filter: [],
       reportType: null,
       shps_s: null,
@@ -247,9 +236,6 @@ export default {
   },
 
   methods: {
-    packageManagement(){
-      this.$store.commit('set_packageManagementModal' , true)
-    },
     async getDetail(shipment) {
       this.shipmentId = shipment.shipment_id
       this.shps_id = shipment.shps

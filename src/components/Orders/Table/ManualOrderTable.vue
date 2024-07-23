@@ -197,17 +197,8 @@
 </template>
 
 <script>
-import {
-  isOdd, splitChar
-} from '@/assets/js/functions'
+import { isOdd, splitChar} from '@/assets/js/functions'
 
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 export default {
   components: {
   },
@@ -281,9 +272,7 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    },
-
-
+    }
   },
 
   data() {
@@ -293,7 +282,6 @@ export default {
       per_page: '25',
       active: [],
       filter: [],
-      panelFilter: new PanelFilter(),
       values:[],
     }
   },

@@ -217,20 +217,7 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-
-
-
-import {
-  openToast,
-  isOdd, convertDateToJalai
-} from "@/assets/js/functions";
+import {isOdd, convertDateToJalai} from "@/assets/js/functions";
 
 export default {
   components: {
@@ -295,8 +282,7 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      active: [],
-      panelFilter: new SupplierPanelFilter(),
+      active: []
     }
   },
 

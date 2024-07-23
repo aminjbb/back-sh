@@ -91,9 +91,7 @@
 
 <script>
 import ModalShowDes from "@/components/ContactUs/Modal/ModalShowDes.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
+
 import {
     convertDateToJalai,
     isOdd
@@ -159,7 +157,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
         }
     },
 

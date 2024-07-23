@@ -2,7 +2,6 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import {useCookies } from 'vue3-cookies'
 import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
 
 export default function setup() {
     const exports = ref([]);
