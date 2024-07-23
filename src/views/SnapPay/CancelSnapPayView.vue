@@ -21,6 +21,7 @@
                     height="40"
                     rounded
                     class="px-8 mt-1 mr-5"
+                    :loading="allOrderCancelLoading"
                     @click="cancelSnapPayAllOrder()">
                   <template v-slot:prepend>
                     <v-icon>mdi-plus</v-icon>
@@ -39,6 +40,7 @@
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
           <Table
+              @removeItem="removeItem"
               :header="header"
               :items="orderList"
               :page="1"
@@ -122,6 +124,11 @@ export default {
         })
       }
     },
+
+    removeItem(index){
+      console.log(index)
+      this.orderList.splice(index , 1)
+    }
   }
 }
 </script>
