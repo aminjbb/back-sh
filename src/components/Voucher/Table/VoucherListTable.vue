@@ -335,8 +335,6 @@ import { openConfirm, isOdd, splitChar} from "@/assets/js/functions";
 import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
 import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
-import { PanelFilter } from "@/assets/js/filter"
-import { openConfirm,  isOdd,  splitChar } from "@/assets/js/functions";
 
 export default {
 
