@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,7 +13,6 @@ export default function setup() {
     const cookies = useCookies()
     const page = ref(1)
     const promotionPage = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([

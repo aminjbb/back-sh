@@ -38,8 +38,12 @@
           </div>
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
-            <span class="title"> موبایل :</span>
-            <div class="pr-2 mt-2 number-font">{{ oneTicket.user.phone_number }}</div>
+              <span class="title"> موبایل :</span>
+              <v-btn @click="redirect()" variant="text" >
+                  <span class="number-font">
+                      {{ oneTicket.user.phone_number }}
+                  </span>
+              </v-btn>
           </div>
 
           <v-btn
@@ -347,6 +351,10 @@ export default {
       return 'معمولی';
     },
 
+      redirect() {
+        window.open(`${import.meta.env.VITE_API_SITEURL}orders/index?user_id=${this.oneTicket.user.id}`, '_blank');
+
+      }
   },
 
   mounted() {

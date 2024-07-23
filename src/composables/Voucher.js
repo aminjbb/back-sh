@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_voucher.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
@@ -105,9 +104,6 @@ export default function setup() {
 
     ]);
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function  getVoucherList() {
         loading.value = true
@@ -160,8 +156,9 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucherList.value = data.data.data
         }
-    };
-    async function  getVoucherDetail(query) {
+    }
+
+    async function  getVoucherDetail() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -171,8 +168,9 @@ export default function setup() {
         if (data) {
             voucherDetail.value = data.data
         }
-    };
-    async function  getVoucherShps(query) {
+    }
+
+    async function  getVoucherShps() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -184,10 +182,10 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data.data
         }
-    };
+    }
+
     async function  getVoucherGroup() {
         loading.value = true
-        let paramsQuery = null
         let query = route.query
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -239,120 +237,115 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucherGroup.value = data.data.data
         }
-    };
-    async function  getVoucherCustomer(query) {
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+    }
+
+    async function  getVoucherCustomer() {
         const AxiosMethod = new AxiosCall()
+        let query = route.query
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}${paramsQuery}`
+        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data
         }
-    };
+    }
 
-    async function  getVoucherOrder(query) {
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+    async function  getVoucherOrder() {
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/get/orders/${route.params.voucherId}${paramsQuery}`
+        AxiosMethod.end_point = `voucher/get/orders/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data
         }
-    };
-
-    function addPerPageCustomer(number){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push(route.path+ filter.query_maker())
-
-    }
-    function addPerPageOrder(number){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push(route.path+ filter.query_maker())
-
     }
 
-    function addPaginationCustomer(page){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path + filter.query_maker())
-    }
-    function addPaginationOrder(page){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path + filter.query_maker())
-    }
-    return {headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
-        filterField , page , voucherList, filterFieldPeerToPeer
-    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-        getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
-        addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder}
+    return {headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers, filterField ,
+        page , voucherList, filterFieldPeerToPeer,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList ,
+        getVoucherCustomer , getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField ,
+        headerOrder , getVoucherOrder}
 }
 

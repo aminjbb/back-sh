@@ -1,9 +1,8 @@
-import {ref,watch} from 'vue';
+import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
-import {useRouter,useRoute} from 'vue-router'
+import {useRoute} from 'vue-router'
 import {onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter_notification.js'
 
 export default function setup() {
     const notifications = ref([]);
@@ -11,7 +10,6 @@ export default function setup() {
     const dataTableLength = ref(25)
     const page = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const pageLength = ref(1)
 
@@ -61,7 +59,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new PanelFilter()
 
     async function getNotifications(store) {
         loading.value = true
@@ -139,16 +136,6 @@ export default function setup() {
             notification.value = data.data;
         }
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value = true
-            page.value = 1
-            filter.page = 1
-        }
-        await getNotifications(to)
-    })
 
     return {
         pageLength,

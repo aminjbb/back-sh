@@ -45,23 +45,11 @@
     </v-card>
 <!--
     <v-card height="70" class="mx-5 br-12" max-height="70">
-      <v-row
-          justify="end"
-          align="center"
-          class="px-10 py-5">
-
-
-        <v-col cols="6">
-          <v-row justify="end">
-
-            <PanelFilter path="admin/index" :filterField="[]"/>
-          </v-row>
-        </v-col>
-      </v-row>
     </v-card>
 -->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          @resetPage="resetPage"
           class="flex-grow-1"
           :header="headerOrder"
           :items="voucher?.data"
@@ -76,7 +64,6 @@
         <v-row class="pr-5">
           <v-col cols="3">
             <ModalExcelDownload :getEndPoint="`voucher/export/orders/${voucherId}`" />
-
           </v-col>
 
           <v-col cols="6">
@@ -97,16 +84,14 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5"> تعداد سطر در هر صفحه</span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]"/>
-                        </span>
+                 <v-select
+                     v-model="dataTableLength"
+                     class="t1330"
+                     variant="outlined"
+                     :items="[25,50,100]"/>
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -122,35 +107,92 @@ const ModalExcelDownload= defineAsyncComponent(()=> import ("@/components/Public
 import Voucher from "@/composables/Voucher";
 
 export default {
-  data() {
-    return {
-      voucherId: this.$route.params.voucherId,
-    }
-  },
-  setup() {
-    const {headerOrder ,getVoucherOrder,voucher , dataTableLength ,
-      pageLength,page , getVoucherDetail , voucherDetail , addPaginationOrder , addPerPageOrder} = new Voucher()
-    return {headerOrder,getVoucherOrder,voucher,dataTableLength ,
-      pageLength,page,getVoucherDetail , voucherDetail , addPaginationOrder , addPerPageOrder}
-  },
   components: {
     Table,
     ModalExcelDownload
   },
+
+  data() {
+    return {
+      voucherId: this.$route.params.voucherId,
+      perPageFilter:false
+    }
+  },
+
+  setup() {
+    const {
+      headerOrder ,
+      getVoucherOrder,
+      voucher ,
+      dataTableLength ,
+      pageLength,
+      page ,
+      getVoucherDetail ,
+      voucherDetail ,
+      addPaginationOrder ,
+      addPerPageOrder
+    } = new Voucher()
+
+    return {
+      headerOrder,
+      getVoucherOrder,
+      voucher,
+      dataTableLength ,
+      pageLength,
+      page,
+      getVoucherDetail ,
+      voucherDetail ,
+      addPaginationOrder ,
+      addPerPageOrder
+    }
+  },
+
   mounted() {
     this.getVoucherOrder()
     this.getVoucherDetail()
   },
 
+  methods: {
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
   watch:{
-    dataTableLength(val){
-      this.addPerPageOrder(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    $route(to){
-      this.getVoucherOrder(to)
+
+    $route(){
+      this.getVoucherOrder()
     },
-    page(val){
-      this.addPaginationOrder(val)
+
+    page(){
+      if (!this.perPageFilter){
+        this.addPaginationOrder()
+      }
     }
   }
 }

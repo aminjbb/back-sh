@@ -241,18 +241,8 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-    openToast,
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast, openConfirm, isOdd} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -333,7 +323,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
