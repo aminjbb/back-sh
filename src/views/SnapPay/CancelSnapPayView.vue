@@ -126,7 +126,6 @@ export default {
     },
 
     removeItem(index){
-      console.log(index)
       this.orderList.splice(index , 1)
     }
   }
