@@ -39,7 +39,7 @@ export default {
 <template>
   <v-layout class="bg-gray" v-if="screenType==='desktop'">
     <DashboardLayout />
-    <v-main class="h-100vh">
+    <v-main>
       <Header />
       <OrderList />
     </v-main>

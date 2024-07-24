@@ -8,7 +8,7 @@ const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main class="h-100vh">
+    <v-main>
       <Header/>
       <TicketList/>
     </v-main>

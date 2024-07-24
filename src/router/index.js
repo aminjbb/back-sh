@@ -1867,7 +1867,7 @@ const router = createRouter({
                 // },
                 {
                     path: 'index',
-                    name: 'detail-info',
+                    name: 'order-detail-info',
                     component: OrderDetailView,
                     meta: {
                         name: ' بسته بندی سفارش ها'
