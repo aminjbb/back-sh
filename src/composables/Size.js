@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
+import {useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 

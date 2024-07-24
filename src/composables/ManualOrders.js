@@ -1,7 +1,6 @@
 import {ref} from "vue";
 import {AxiosCall} from "@/assets/js/axios_call";
-import {PanelFilter} from "@/assets/js/filter_order";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import {useCookies} from "vue3-cookies";
 
 export default function setup() {
@@ -50,12 +49,8 @@ export default function setup() {
     ]
 
     const route = useRoute()
-    const router = useRouter()
     const cookies = useCookies()
-    const filter = new PanelFilter()
-
     const manualOrderList = ref([])
-    const shpsProductList = ref([])
 
     const page = ref(1)
     const pageLength = ref(1)
@@ -102,19 +97,51 @@ export default function setup() {
         }
     }
 
-    async function getOrderList(query) {
+    async function getOrderList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-
-        else  paramsQuery = filter.params_generator(route.query)
-
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
 
         if (data) {
@@ -128,19 +155,51 @@ export default function setup() {
         }
     }
 
-    async function getShpsList(query) {
+    async function getShpsList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-
-        else  paramsQuery = filter.params_generator(route.query)
-
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/order/crud/index${paramsQuery}`
+        AxiosMethod.end_point = `admin/order/crud/index`
         let data = await AxiosMethod.axios_get()
 
         if (data) {

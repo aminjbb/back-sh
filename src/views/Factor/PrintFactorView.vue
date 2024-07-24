@@ -164,8 +164,8 @@
 
                 <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            <template v-if="shps.sum_buying_price !== null">
-                                                {{shps.sum_buying_price}}
+                                            <template v-if="shps.received_buying_price_sum !== null">
+                                                {{shps.received_buying_price_sum}}
                                             </template>
                                             <template v-else>
                                                 -
@@ -175,8 +175,8 @@
 
                 <div class="c-table__contents__item justify-center" style="width:12.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            <template v-if="shps.sum_customer_price !== null">
-                                                {{shps.sum_customer_price}}
+                                            <template v-if="shps.received_customer_price_sum !== null">
+                                                {{shps.received_customer_price_sum}}
                                             </template>
                                             <template v-else>
                                                 -
@@ -186,8 +186,8 @@
 
                 <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
                                         <span class="t12300 text-gray500 py-5 number-font">
-                                            <template v-if="shps.profit !== null">
-                                                {{shps.profit}}
+                                            <template v-if="shps.received_profit_percent !== null">
+                                                {{shps.received_profit_percent}}
                                             </template>
                                             <template v-else>
                                                 -
@@ -245,24 +245,24 @@
             </template>
           </div>
           <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
-            <template v-if="factorSkuData && factorSkuData.total_buying_price >= 0">
-              {{factorSkuData.total_buying_price}}
+            <template v-if="factorSkuData && factorSkuData.total_received_buying_price_sum >= 0">
+              {{factorSkuData.total_received_buying_price_sum}}
             </template>
             <template v-else>
               -
             </template>
           </div>
           <div class="text-center c-table__header__item t12500 text-black number-font" style="width:12.1111%;padding:15px 10px">
-            <template v-if="factorSkuData && factorSkuData.total_customer_price >= 0">
-              {{factorSkuData.total_customer_price}}
+            <template v-if="factorSkuData && factorSkuData.total_received_customer_price_sum >= 0">
+              {{factorSkuData.total_received_customer_price_sum}}
             </template>
             <template v-else>
               -
             </template>
           </div>
           <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
-            <template v-if="factorSkuData && factorSkuData.total_profit >= 0">
-              {{factorSkuData.total_profit}}
+            <template v-if="factorSkuData && factorSkuData.total_received_profit_percent !== 0">
+              {{factorSkuData.total_received_profit_percent}}
             </template>
             <template v-else>
               -

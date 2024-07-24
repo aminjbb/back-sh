@@ -151,17 +151,9 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ActivationModal from "@/components/Public/ActivationModal.vue";
-import {
-    isOdd,
-    convertDateToJalai
-} from "@/assets/js/functions";
+import { isOdd, convertDateToJalai } from "@/assets/js/functions";
 
 export default {
     components: {
@@ -243,7 +235,6 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
@@ -288,7 +279,6 @@ export default {
                 var active = false
                 if (element.is_active == 1) active = true
                 this.active.push(active)
-
             });
         }
     },
@@ -308,9 +298,6 @@ export default {
 
         },
         convertDateToJalai,
-        changeValue(index, value) {
-            this.active[index] = value
-        },
 
         /**
          * Get row index in table

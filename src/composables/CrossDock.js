@@ -2,7 +2,6 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
 export default function setup() {
     const crossDock =ref([])
@@ -58,7 +57,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
     async function getCrossDockListing(query) {
         filter.factor = route.params.factorId
         loading.value = true

@@ -15,7 +15,7 @@
                     <template v-slot:prepend>
                         <v-icon>mdi-plus</v-icon>
                     </template>
-                    افزودن تکی 
+                    افزودن تکی
                 </v-btn>
             </v-col>
 
@@ -29,6 +29,7 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="SliderHeader"
             :items="sliderList.data"
@@ -94,75 +95,117 @@ import {
     openToast
 } from "@/assets/js/functions";
 export default {
-    setup() {
-        const {
-            pageLength,
-            getSliderList,
-            sliderList,
-            filterField,
-            dataTableLength,
-            page,
-            SliderHeader,
+  setup() {
+    const {
+      pageLength,
+      getSliderList,
+      sliderList,
+      filterField,
+      dataTableLength,
+      page,
+      SliderHeader,
 
-            addPerPage,
-            loading,
-          addPerPageSlider
-        } = Page();
-        return {
-            pageLength,
-            getSliderList,
-            sliderList,
-            filterField,
-            dataTableLength,
-            page,
-            SliderHeader,
-            addPerPage,
-            loading,
-          addPerPageSlider
-        };
-    },
-
-    components: {
-        Table,
-        ModalGroupAdd,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.SliderHeader[index].show = value
-        },
-
-    },
-
-    mounted() {
-        this.getSliderList();
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPageSlider(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSliderList();
-                    openToast(
-                        this.$store,
-                        'اسلایدر مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+      addPerPage,
+      loading,
+      addPerPageSlider
+    } = Page();
+    return {
+      pageLength,
+      getSliderList,
+      sliderList,
+      filterField,
+      dataTableLength,
+      page,
+      SliderHeader,
+      addPerPage,
+      loading,
+      addPerPageSlider
     }
+  },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
+  components: {
+    Table,
+    ModalGroupAdd,
+    ModalColumnFilter,
+    ModalExcelDownload,
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.SliderHeader[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
+  mounted() {
+    this.getSliderList();
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getSliderList()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getSliderList()
+      }
+    },
+
+    confirmModal(val) {
+      if (this.$cookies.get('deleteItem')) {
+        if (!val) {
+          this.getSliderList();
+          openToast(
+              this.$store,
+              'اسلایدر مورد نظر با موفقیت حذف شد',
+              "success"
+          );
+          this.$cookies.remove('deleteItem')
+        }
+      }
+    },
+  }
 }
 </script>
