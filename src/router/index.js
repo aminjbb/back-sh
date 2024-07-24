@@ -307,6 +307,8 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
+import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
+import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 
 
 const router = createRouter({
@@ -2210,6 +2212,41 @@ const router = createRouter({
                 }
             ],
         },
+
+        {
+            path: '/sms-notification',
+            meta: {
+                name: ' پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSNotificationListView',
+                    component: SmsNotificationListView,
+                    meta: {
+                        name: 'لیست پیامک ها'
+                    }
+                }
+            ],
+        },
+
+        {
+            path: '/sms-setting',
+            meta: {
+                name: ' تنظیمات پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSSettingListView',
+                    component: SmsSettingListView,
+                    meta: {
+                        name: 'تنظیمات پیامک'
+                    }
+                }
+            ],
+        },
+
         {
             path: '/wastage', // wastage
             meta: {
