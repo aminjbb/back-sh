@@ -95,20 +95,8 @@
 </template>
 
 <script>
-import {
-  convertDateToJalai,
-  isOdd
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    openConfirm
-} from "@/assets/js/functions";
-import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
+import {isOdd} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import SmsSettingModal from "@/components/SmsSetting/Modal/SmsSettingModal.vue";
 export default {
   components: {SmsSettingModal},
