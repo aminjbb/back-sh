@@ -276,6 +276,7 @@ import DetailVocherListView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import DetailsDiscountCodeView from "@/views/Voucher/DetailsDiscountCodeView.vue";
 import InitilizeWarehouse from "@/views/Warehouse/Initialize/InitilizeWarehouse.vue";
 import InitialBulkLabelPrintListView from "@/views/BulkLabelPrint/InitialBulkLabelPrintListView.vue";
+import CancelSnapPayView from "@/views/SnapPay/CancelSnapPayView.vue";
 
 /* Zone */
 import ZoneListView from '../views/Zone/ZoneListView.vue'
@@ -2481,7 +2482,23 @@ const router = createRouter({
                     }
                 },
             ]
-        }
+        },
+        {
+            path: '/snap-pay', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'cancel',
+                    name: 'CancelSnapPayView',
+                    component: CancelSnapPayView,
+                    meta: {
+                        name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
     ]
 })
 router.beforeEach((to, from, next) => {
