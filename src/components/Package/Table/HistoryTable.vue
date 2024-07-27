@@ -106,14 +106,7 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {isOdd} from "@/assets/js/functions";
 import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
 
 export default {
@@ -171,9 +164,7 @@ export default {
             order_type: "desc",
             ordering: {},
             per_page: '25',
-            filter: [],
-            panelFilter: new PanelFilter(),
-
+            filter: []
         }
     },
 
@@ -289,7 +280,7 @@ export default {
          */
         oddIndex(index) {
             return isOdd(index)
-        },
-    },
+        }
+    }
 }
 </script>

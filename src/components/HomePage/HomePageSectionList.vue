@@ -18,6 +18,7 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="sectionsHeader"
             :items="homeSections.data"
@@ -70,66 +71,108 @@ import {
     openToast
 } from "@/assets/js/functions";
 export default {
-    setup() {
-        const {
-            sectionsHeader,
-            getHomeSections,
-            homeSections,
-            dataTableLength,
-            page,
-            filterField
-        } = new Home();
-        return {
-            sectionsHeader,
-            getHomeSections,
-            homeSections,
-            dataTableLength,
-            page,
-            filterField
-        };
-    },
+  components: {
+    Table,
+    ModalGroupAdd,
+    ModalColumnFilter,
+    ModalExcelDownload,
+  },
 
-    components: {
-        Table,
-        ModalGroupAdd,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
+  setup() {
+    const {
+      sectionsHeader,
+      getHomeSections,
+      homeSections,
+      dataTableLength,
+      page,
+      filterField
+    } = new Home();
+    return {
+      sectionsHeader,
+      getHomeSections,
+      homeSections,
+      dataTableLength,
+      page,
+      filterField
+    };
+  },
 
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.sectionsHeader[index].show = value
-        },
-    },
-
-    mounted() {
-        this.getHomeSections()
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getMenus();
-                    openToast(
-                        this.$store,
-                        'منو مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+  data() {
+    return {
+      perPageFilter:false
     }
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.sectionsHeader[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
+  mounted() {
+    this.getHomeSections()
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getHomeSections()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getHomeSections()
+      }
+    },
+
+    confirmModal(val) {
+      if (this.$cookies.get('deleteItem')) {
+        if (!val) {
+          this.getMenus();
+          openToast(
+              this.$store,
+              'منو مورد نظر با موفقیت حذف شد',
+              "success"
+          );
+          this.$cookies.remove('deleteItem')
+        }
+      }
+    },
+  }
 }
 </script>

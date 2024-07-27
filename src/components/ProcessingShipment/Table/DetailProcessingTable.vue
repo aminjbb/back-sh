@@ -139,17 +139,7 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  openConfirm,
-  isOdd, convertDateToJalai, splitChar
-} from "@/assets/js/functions";
+import {isOdd, convertDateToJalai, splitChar} from "@/assets/js/functions";
 export default {
   props: {
     detail:null,

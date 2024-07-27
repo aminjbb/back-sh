@@ -230,10 +230,6 @@
 
 <script>
 import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
   openConfirm,
   isOdd
 } from "@/assets/js/functions";
@@ -310,9 +306,6 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      panelFilter: new PanelFilter(),
-
-
     }
   },
 

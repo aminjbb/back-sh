@@ -106,12 +106,7 @@
 </template>
 
 <script>
-import {
-  isOdd, openConfirm,
-  splitChar
-} from "@/assets/js/functions";
-import {th} from "vuetify/locale";
-
+import { isOdd, splitChar} from "@/assets/js/functions";
 export default {
 
   props: {

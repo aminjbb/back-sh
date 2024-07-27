@@ -220,19 +220,9 @@
 </template>
 
 <script>
-import {
-    isOdd
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    openToast,
-    openConfirm
-} from "@/assets/js/functions";
+import { isOdd } from '@/assets/js/functions'
+import { AxiosCall } from '@/assets/js/axios_call.js'
+import { openConfirm } from "@/assets/js/functions";
 export default {
 
     props: {
@@ -316,7 +306,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
         }
     },

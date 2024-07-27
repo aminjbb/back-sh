@@ -98,9 +98,7 @@ import {
   isOdd
 } from '@/assets/js/functions'
 
-import {
-  PeerToPeerVoucherFilter
-} from "@/assets/js/filter_voucher_peer_to_peer"
+
 
 export default {
 
@@ -162,7 +160,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan: [],
-      PeerToPeerVoucherFilter: new PeerToPeerVoucherFilter(),
     }
   },
 

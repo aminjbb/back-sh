@@ -230,8 +230,8 @@
             </template>
           </div>
           <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
-            <template v-if="factorSkuData && factorSkuData.total_buying_price >= 0">
-              {{factorSkuData.total_buying_price}}
+            <template v-if="factorSkuData && factorSkuData.total_received_buying_price_sum >= 0">
+              {{factorSkuData.total_received_buying_price_sum}}
             </template>
             <template v-else>
               -
