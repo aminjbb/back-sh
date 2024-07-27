@@ -173,32 +173,36 @@ export default {
          * Submit form
          */
         async decreaseWallet() {
-            this.loading = true
-            var formdata = new FormData();
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.end_point = 'finance/admin/wallet/decrease'
-            AxiosMethod.form = formdata;
+            try {
+                this.loading = true
+                var formdata = new FormData();
+                const AxiosMethod = new AxiosCall()
+                AxiosMethod.end_point = 'finance/admin/wallet/decrease'
+                AxiosMethod.form = formdata;
 
-            formdata.append('user_id', this.$route.query.user_id)
-            formdata.append('amount', this.form.amount);
-            formdata.append('description', this.form.description);
-            formdata.append('reason', this.form.reason);
+                formdata.append('user_id', this.$route.query.user_id)
+                formdata.append('amount', this.form.amount);
+                formdata.append('description', this.form.description);
+                formdata.append('reason', this.form.reason);
 
-            AxiosMethod.store = this.$store
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            let data = await AxiosMethod.axios_post()
-            if (data) {
-                this.data = data.data;
-                openToast(this.$store,
-                    'موجودی با موفقیت کاهش یافت',
-                    "success")
-                this.closeModal();
-                this.loading = false;
-                this.getTransactionList()
-                this.$refs.wallet.reset()
+                AxiosMethod.store = this.$store
+                AxiosMethod.using_auth = true
+                AxiosMethod.token = this.$cookies.get('adminToken')
+                let data = await AxiosMethod.axios_post()
+                if (data) {
+                    this.data = data.data;
+                    openToast(this.$store,
+                        'موجودی با موفقیت کاهش یافت',
+                        "success")
+                    this.closeModal();
+                    this.loading = false;
+                    this.getTransactionList()
+                    this.$refs.wallet.reset()
 
-            } else {
+                } else {
+                    this.loading = false
+                }
+            } catch{
                 this.loading = false
             }
         },
