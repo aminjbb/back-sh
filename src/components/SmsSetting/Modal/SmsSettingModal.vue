@@ -27,6 +27,7 @@
           <v-card-actions class="my-4">
             <v-row justify="space-between" no-gutters>
               <v-btn
+                  :loading="loading"
                   @click="confirmed()"
                   height="40"
                   rounded
@@ -77,7 +78,8 @@ export default {
   data() {
     return {
       dialog: false,
-      textForm: ''
+      textForm: '',
+      loading: false,
     }
   },
 
@@ -93,19 +95,25 @@ export default {
     },
 
     async confirmed() {
-      let formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'system/admin/sms/setting/crud/update/' + this.id
-      if (this.smsSettingData.value) formdata.append('value', 1)
-      else formdata.append('value', 0)
-      formdata.append('text', this.textForm)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
+      try {
+        this.loading = true
+        let formdata = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = 'system/admin/sms/setting/crud/update/' + this.id
+        if (this.smsSettingData.value) formdata.append('value', 1)
+        else formdata.append('value', 0)
+        formdata.append('text', this.textForm)
+        AxiosMethod.store = this.$store
+        AxiosMethod.form = formdata
 
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      this.$emit('getSettingData', this.smsSettingData)
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        let data = await AxiosMethod.axios_post()
+        this.$emit('getSettingData', this.smsSettingData)
+
+      } catch (error) {
+        this.loading = false
+      }
     },
   }
 }
