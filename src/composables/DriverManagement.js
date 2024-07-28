@@ -20,7 +20,7 @@ export default function setup() {
         { title: ' شماره موبایل', show: true,  key:'phone_number' , order: false },
         { title: ' تاریخ ایجاد ', show: true, key:'created_at_fa' , order: false },
         { title: ' تاریخ ویرایش', show: true, key:'updated_at_fa' , order: false },
-        { title: 'عملیات', key:'action_driver'},
+        { title: 'عملیات', key:'action'},
        
     ]);
 

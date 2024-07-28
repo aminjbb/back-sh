@@ -35,17 +35,18 @@
 
        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
            <ShTable
-
                class="flex-grow-1"
                :headers="headerDriver"
                :items="DriverManagementList.data"
                :page="page"
                :perPage="dataTableLength"
-               activePath="page/crud/update/activation/"
                :loading="loading"
+               :delete="deleteTable"
+               :menuTable="menuTable"
+
                updateUrl="page/csv/mass-update"
-               deletePath="driver/crud/delete/"
-               model="page" > </ShTable>
+               activePath="page/crud/update/activation/"
+           > </ShTable>
 
            <v-divider />
 
@@ -108,7 +109,11 @@
        return {
          perPageFilter:false,
 
-         loading: false
+         loading: false,
+         deleteTable: { text: "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", title: "حذف راننده", path: "driver/crud/delete/" },
+         menuTable: [
+             {icon: "mdi-pen", text: "ویرایش", to:"/driver-management/update/", params: true},
+         ]
        }
      },
        setup() {
