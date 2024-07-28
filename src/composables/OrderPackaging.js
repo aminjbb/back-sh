@@ -1,5 +1,4 @@
 import {ref} from 'vue';
-import {PanelFilter} from '@/assets/js/filter.js'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 
@@ -44,7 +43,7 @@ export default function setup() {
     ]);
     const item = []
     const loading = ref(false)
-    const filter = new PanelFilter()
+
     async function getOrderListDetail(packageId = null) {
         loading.value = true;
         const AxiosMethod = new AxiosCall();

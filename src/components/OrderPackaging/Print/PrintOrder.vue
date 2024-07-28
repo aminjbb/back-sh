@@ -228,10 +228,7 @@
 
 <script>
 import Barcode from "@/components/OrderPackaging/Barcode/OrderPackagingBarcode.vue";
-
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
 
@@ -244,8 +241,6 @@ export default {
       },
     }
   },
-
-
 
   components: {
     Barcode

@@ -130,249 +130,192 @@
 
     </div>
     </template>
-    
-    <script>
- 
 
+<script>
+import { AxiosCall} from '@/assets/js/axios_call.js'
+import { openConfirm,isOdd} from "@/assets/js/functions";
 
-    import {
-        AxiosCall
-    } from '@/assets/js/axios_call.js'
-    import {
-        SupplierPanelFilter
-    } from "@/assets/js/filter_supplier"
-    
-    import {
-        openToast,
-        openConfirm,
-        isOdd
-    } from "@/assets/js/functions";
-    import {
-        openModal
-    } from "@/assets/js/functions_seller";
-    export default {
-        components: {
+export default {
+  props: {
+    /**
+     * List Items for header
+     */
+    header: [],
 
-        },
-    
-        props: {
-            /**
-             * List Items for header
-             */
-            header: [],
-    
-            /**
-             * List of items
-             */
-             items: {
+    /**
+     * List of items
+     */
+    items: {
       type: Array,
       default: () => []
     },
-    
-            /**
-             * Model
-             */
-            model: '',
-    
-            /**
-             * Height
-             */
-            height: {
-                type: String,
-                default: '500',
-            },
-    
-            /**
-             * Delete endpoint for change filter
-             */
-            deletePath: {
-                type: String,
-                default: ''
-            },
-    
-            /**
-             * Page on table
-             */
-            page: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * PerPage of data
-             */
-            perPage: {
-                type: Number,
-                default: 1
-            },
-    
-            /**
-             * Active loading
-             */
-            loading: {
-                type: Boolean,
-                default: false
-            },
-    
-          
-    
-        },
-    
-        data() {
-            return {
-                order_type: "desc",
-                ordering: {},
-                per_page: '25',
-                filter: [],
-                active: [],
-                panelFilter: new SupplierPanelFilter(),
-                activeColumn: false,
 
-             
-            }
-        },
-    
-        computed: {
-            /**
-             * Get each items table based of header length
-             */
-            itemsWidth() {
-                let headerLength = 0;
-                if (this.header && this.header.length > 0) {
-                    this.header.forEach(element => {
-                        if (element.show == true) {
-                            headerLength++;
-                        }
-                    });
-                    const width = 100 / (headerLength + 1);
-                    return `${width}%`;
-                }
-                return 'auto';
-            },
-        },
-        watch: {
-        
-  },
-        methods: {
+    /**
+     * Model
+     */
+    model: '',
 
-          translateType(type) {
-            const translations = {
-              'post': 'پست',
-              'tipax': 'تیپاکس ',
-              'nafis': 'نفیس'
-            };
-            return translations[type] || type;
-          },
-            /**
-             * Open Basic Discount modal
-             * @param {*} id
-             */
-            /**
-             * Open Basic Discount modal
-             * translation
-             */
+    /**
+     * Height
+     */
+    height: {
+      type: String,
+      default: '500',
+    },
 
-          
-            async getDetailModal(item) {
-          
-          const AxiosMethod = new AxiosCall()
-          AxiosMethod.using_auth = true
-          AxiosMethod.token = this.$cookies.get('adminToken')
-          AxiosMethod.end_point = `admin/order/print/label/${item.id}`
-          let data = await AxiosMethod.axios_get()
-         
-          if (data) {
-    
-            const form = {
-              dialog :true,
-              object : data.data
-            }
-            
-            this.$store.commit('set_modalPrintOrder' , form)
-          }
-        },
-          
-  
-    
-            /**
-             * Get row index in table
-             * @param {*} index
-             */
-  
-            /**
-       * LostShpss modal
-       */
-    
-  
-  
-  
-  
-            rowIndexTable(index) {
-                let rowIndex = 0
-                if (this.page === 1) {
-                    rowIndex = (1 + index)
-                    return rowIndex
-                } else {
-                    rowIndex = ((this.page - 1) * this.perPage) + index + 1
-                    return rowIndex
-                }
-            },
-    
-            /**
-             * Create ordering
-             * @param {*} index
-             * @param { boolean } order
-             */
-            createOrdering(index, order) {
-                if (order === true) {
-                  if (index) {
-                    let query = this.$route.query
-                    if (this.order_type === 'desc') {
-                      this.order_type = 'asc'
-                    } else {
-                      this.order_type = 'desc'
-                    }
-                    this.$router.replace({
-                      query: {
-                        ...query,
-                        order_type :this.order_type,
-                        order :index
-                      }
-                    })
+    /**
+     * Delete endpoint for change filter
+     */
+    deletePath: {
+      type: String,
+      default: ''
+    },
 
-                    this.ordering = {};
-                    this.ordering[index] = !this.ordering[index];
-                  }
-                }
-            },
-    
-            /**
-             * Get icon
-             * @param {*} column
-             */
-            getIcon(column) {
-                return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-            },
-    
-            /**
-             * Return odd index
-             * @param {*} index
-             */
-            oddIndex(index) {
-                return isOdd(index)
-            },
-    
-            /**
-             * Remove Item
-             * @param {*} id
-             */
-            removeItem(id) {
-                console.log("Removing item with ID:", id);
-                    console.log("Delete path:", this.deletePath + id);
-  
-                    openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
-            },
-        },
+    /**
+     * Page on table
+     */
+    page: {
+      type: Number,
+      default: 1
+    },
+
+    /**
+     * PerPage of data
+     */
+    perPage: {
+      type: Number,
+      default: 1
+    },
+
+    /**
+     * Active loading
+     */
+    loading: {
+      type: Boolean,
+      default: false
     }
-    </script>
+  },
+
+  data() {
+    return {
+      order_type: "desc",
+      ordering: {},
+      per_page: '25',
+      filter: [],
+      active: [],
+      activeColumn: false,
+    }
+  },
+
+  computed: {
+    /**
+     * Get each items table based of header length
+     */
+    itemsWidth() {
+      let headerLength = 0;
+      if (this.header && this.header.length > 0) {
+        this.header.forEach(element => {
+          if (element.show == true) {
+            headerLength++;
+          }
+        });
+        const width = 100 / (headerLength + 1);
+        return `${width}%`;
+      }
+      return 'auto';
+    },
+  },
+
+  methods: {
+    translateType(type) {
+      const translations = {
+        'post': 'پست',
+        'tipax': 'تیپاکس ',
+        'nafis': 'نفیس'
+      };
+      return translations[type] || type;
+    },
+
+    async getDetailModal(item) {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `admin/order/print/label/${item.id}`
+      let data = await AxiosMethod.axios_get()
+
+      if (data) {
+
+        const form = {
+          dialog :true,
+          object : data.data
+        }
+
+        this.$store.commit('set_modalPrintOrder' , form)
+      }
+    },
+
+    rowIndexTable(index) {
+      let rowIndex = 0
+      if (this.page === 1) {
+        rowIndex = (1 + index)
+        return rowIndex
+      } else {
+        rowIndex = ((this.page - 1) * this.perPage) + index + 1
+        return rowIndex
+      }
+    },
+
+    /**
+     * Create ordering
+     * @param {*} index
+     * @param { boolean } order
+     */
+    createOrdering(index, order) {
+      if (order === true) {
+        if (index) {
+          let query = this.$route.query
+          if (this.order_type === 'desc') {
+            this.order_type = 'asc'
+          } else {
+            this.order_type = 'desc'
+          }
+          this.$router.replace({
+            query: {
+              ...query,
+              order_type :this.order_type,
+              order :index
+            }
+          })
+          this.ordering = {};
+          this.ordering[index] = !this.ordering[index];
+        }
+      }
+    },
+
+    /**
+     * Get icon
+     * @param {*} column
+     */
+    getIcon(column) {
+      return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
+    },
+
+    /**
+     * Return odd index
+     * @param {*} index
+     */
+    oddIndex(index) {
+      return isOdd(index)
+    },
+
+    /**
+     * Remove Item
+     * @param {*} id
+     */
+    removeItem(id) {
+      openConfirm(this.$store, "با حذف راننده دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف راننده","delete", this.deletePath + id, true)
+    },
+  },
+}
+</script>
     

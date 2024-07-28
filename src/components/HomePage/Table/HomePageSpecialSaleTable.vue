@@ -162,23 +162,11 @@
 </template>
 
 <script>
-import {
-    convertDateToJalai,
-    isOdd
-} from '@/assets/js/functions'
-import {
-    openConfirm
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+import {convertDateToJalai, isOdd} from '@/assets/js/functions'
+import {openConfirm} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    SkuPanelFilter
-} from "@/assets/js/filter_sku"
+
 export default {
     components: {
         ModalMassUpdate,
@@ -304,8 +292,6 @@ export default {
             active: [],
             sellable: [],
             filter: [],
-            panelFilter: new PanelFilter(),
-            skuPanelFilter: new SkuPanelFilter(),
             activeColumn: false,
         }
     },

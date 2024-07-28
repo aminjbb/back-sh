@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_lost.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -42,9 +40,6 @@ export default function setup() {
         {name:'تعداد شانس' , type:'text', value:'turn_per_user'},
     ];
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getLuckyWheelList() {
         loading.value = true

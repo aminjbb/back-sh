@@ -194,7 +194,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.status)
     if (this.status == 'edit') this.setForm()
   },
   computed: {

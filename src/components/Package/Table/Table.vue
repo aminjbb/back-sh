@@ -146,20 +146,9 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
-
+import {openConfirm, isOdd} from "@/assets/js/functions";
 import ModalPrint from '@/components/Package/Modal/PrintModal.vue'
-
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+import { openModal} from "@/assets/js/functions_seller";
 
 export default {
 
@@ -213,13 +202,7 @@ export default {
         loading: {
             type: Boolean,
             default: false
-        },
-
-        /**
-         * Edit endpoint for change active
-         */
-
-
+        }
     },
 
     data() {
@@ -228,7 +211,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
         }
     },

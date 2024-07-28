@@ -1,15 +1,13 @@
 <template>
   <div class="text-center c-modal-table-filter">
-    <v-btn
+    <sh-btn
         @click="dialog=true"
-        variant="outlined"
-        rounded
-        class="px-3 mt-1 mr-4">
-      <template v-slot:prepend>
-        <img src="../../assets/img/Fillter.svg" alt="shavaz-img">
-      </template>
-      فیلتر
-    </v-btn>
+        :title="`فیلتر`"
+        :flat="true"
+        :variant="`outlined`"
+        :rounded="true"
+        :prependImg="true"
+        class="px-3 mt-1 mr-4" />
 
     <v-dialog
         v-if="dialog"
@@ -49,8 +47,8 @@
               <!-- Text fields -->
               <v-col v-if="filter.type === 'text'" cols="4">
                 <div class="t13300 text-right mb-2">{{filter.name}}</div>
-                <v-text-field
-                    variant="outlined"
+                <sh-textfield
+                    :variant="`outlined`"
                     :placeholder="filter.place"
                     :name="filter.value"
                     v-model="values[index].value"
@@ -60,25 +58,29 @@
               <!-- Number fields -->
               <v-col v-if="filter.type === 'number'" cols="4">
                 <div class="t13300 text-right mb-2">{{filter.name}}</div>
-                <v-text-field
+                <sh-textfield
                     v-if="filter.value == 'phone_number'"
-                    variant="outlined"
+                    :variant="`outlined`"
+                    :placeholder="`برای مثال : ۰۹۱۲۱۱۱۱۱۱۱`"
                     :name="filter.value"
-                    placeholder="برای مثال : ۰۹۱۲۱۱۱۱۱۱۱"
-                    v-model="values[index].value" />
+                    v-model="values[index].value"
+                />
 
-                <v-text-field
+                <sh-textfield
                     v-if="filter.value == 'phone'"
-                    variant="outlined"
+                    :variant="`outlined`"
+                    :placeholder="`برای مثال : ۷۷۷۷۷۷۷۷-۰۲۱`"
                     :name="filter.value"
-                    placeholder="برای مثال : ۷۷۷۷۷۷۷۷-۰۲۱"
-                    v-model="values[index].value" />
+                    v-model="values[index].value"
+                />
 
-                <v-text-field
+                <sh-textfield
                     v-if="filter.value == 'identification_code'"
-                    variant="outlined"
+                    :variant="`outlined`"
+                    :placeholder="`برای مثال : ۷۷۷۷۷۷۷۷-۰۲۱`"
                     :name="filter.value"
-                    v-model="values[index].value" />
+                    v-model="values[index].value"
+                />
               </v-col>
 
               <!-- Auto complete fields -->
@@ -87,92 +89,91 @@
                   <v-col cols="4">
                     <div class="t13300 text-right mb-1">{{filter.name}}</div>
                     <!-- product Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'product'"
                         :items="productList"
                         v-model='values[index].value'
-                        item-title="label"
-                        item-value="value"
-                        single-line
-                        clearable
-                        v-debounce="searchProduct"
-                        variant="outlined"
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="true"
+                        :clearable="true"
+                        :v-debounce="searchProduct"
+                        :variant="`outlined`"
                     />
 
                     <!-- colors Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'color_id'"
                         :items="colorsList"
                         v-model='values[index].value'
-                        item-title="label"
-                        item-value="value"
-                        single-line
-                        clearable
-                        variant="outlined"
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="true"
+                        :clearable="true"
+                        :variant="`outlined`"
                     />
 
                     <!-- group Fields -->
-                    <v-autocomplete
-                      v-if="filter.value === 'group'"
-                      :items="skuGroupList"
-                      v-model='values[index].value'
-                      item-title="label"
-                      item-value="value"
-                      single-line
-                      clearable
-                      variant="outlined"
-                  />
+                    <sh-autocomplete
+                        v-if="filter.value === 'group'"
+                        :items="skuGroupList"
+                        v-model='values[index].value'
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="true"
+                        :clearable="true"
+                        :variant="`outlined`"
+                    />
 
                     <!-- product Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'product_id'"
                         :items="productList"
                         v-model='values[index].value'
-                        item-title="label"
-                        item-value="value"
-                        single-line
-                        clearable
-                        variant="outlined"
-                        v-debounce="searchProductList"
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="true"
+                        :clearable="true"
+                        :v-debounce="searchProductList"
+                        :variant="`outlined`"
                     />
 
                     <!-- brand Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'brand_id'"
                         :items="brandsList"
                         v-model='values[index].value'
-                        item-title="label"
-                        item-value="value"
-                        single-line
-                        clearable
-                        variant="outlined"
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="true"
+                        :clearable="true"
+                        :variant="`outlined`"
                     />
 
                     <!-- admin Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'admin' || filter.value === 'creator_id' || filter.value === 'admin_id'"
                         :items="adminList"
                         v-model='values[index].value'
                         item-title="label"
                         item-value="value"
-                        single-line
-                        clearable
-                        no-data-text="ادمین را جستوجو کنید"
+                        :single-line="true"
+                        :clearable="true"
+                        :no-data-text="`ادمین را جستوجو کنید`"
                         v-debounce="searchAdmin"
-                        variant="outlined"
+                        :variant="`outlined`"
                     />
 
                     <!-- userId Fields -->
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'user_id'"
-                        placeholder="شماره تلفن کاربر را وارد کنید"
-                        variant="outlined"
+                        :placeholder="`شماره تلفن کاربر را وارد کنید`"
+                        :variant="`outlined`"
                         prepend-inner-icon-cb="mdi-map-marker"
-                        rounded="lg"
                         v-model='values[index].value'
                         :items="userList"
-                        item-title="name"
-                        item-value="value"
+                        :item-title="`name`"
+                        :item-value="`value`"
                         v-debounce="searchUser"
                     />
                   </v-col>
@@ -182,315 +183,321 @@
                   {{disableCategory}}
                   <v-col cols="4">
                     <div class="t13300 text-right mb-1">{{filter.name}}</div>
-                    <v-autocomplete
+                    <sh-autocomplete
                         v-if="filter.value === 'category_id'"
                         :items="categoriesList"
                         v-model='values[index].value'
-                        item-title="label"
-                        item-value="value"
-                        single-line
-                        clearable
-                        variant="outlined"
+                        :item-title="`label`"
+                        :item-value="`value`"
+                        :single-line="`single-line`"
+                        :clearable="`clearable`"
+                        :variant="`outlined`"
                     />
+
+<!--                    <v-autocomplete-->
+<!--                        v-if="filter.value === 'category_id'"-->
+<!--                        :items="categoriesList"-->
+<!--                        v-model='values[index].value'-->
+<!--                        item-title="label"-->
+<!--                        item-value="value"-->
+<!--                        single-line-->
+<!--                        clearable-->
+<!--                        variant="outlined"-->
+<!--                    />-->
                   </v-col>
                 </template>
               </template>
 
               <!-- Select fields -->
               <v-col cols="4" v-else-if="filter.type === 'select' && this.path !== 'product/get/skugroups/index'">
-                  <div class="t13300 text-right mb-1">{{filter.name}}</div>
-                  <!-- Active status -->
-                  <v-select
-                      v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_filterable' || filter.value === 'is_index' || filter.value === 'is_follow'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="statusItems"
-                      v-model="values[index].value"
-                  />
+                <div class="t13300 text-right mb-1">{{filter.name}}</div>
+                <!-- Active status -->
+                <sh-select
+                    v-if=" this.path !== 'product/get/skugroups/index' && filter.value === 'is_active' || filter.value === 'is_filterable' || filter.value === 'is_index' || filter.value === 'is_follow'"
+                    :items="statusItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- hasOption status -->
-                  <v-select
-                      v-if="filter.value === 'icon' || filter.value === 'image_id' || filter.value==='device'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="statusHasOption"
-                      v-model="values[index].value"
-                  />
+                <!-- hasOption status -->
+                <sh-select
+                    v-if="filter.value === 'icon' || filter.value === 'image_id' || filter.value==='device'"
+                    :items="statusHasOption"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- menu status -->
-                  <v-autocomplete
-                      v-if="filter.value === 'menu_id'"
-                      clearable
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="title"
-                      item-value="value"
-                      :items="menuList"
-                      v-model="values[index].value" />
+                <!-- menu status -->
+                <sh-autocomplete
+                    v-if="filter.value === 'menu_id'"
+                    :items="menuList"
+                    v-model="values[index].value"
+                    :single-line="true"
+                    :clearable="true"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
 
-                  <!-- page_type status -->
-                  <v-select
-                      v-if="filter.value === 'page_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="typeItems"
-                      v-model="values[index].value"
-                  />
+                <!-- page_type status -->
+                <sh-select
+                    v-if="filter.value === 'page_type'"
+                    :items="typeItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- status -->
-                  <v-select
-                      v-if="filter.value === 'status'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="statusItems"
-                      v-model="values[index].value"
-                  />
+                <!-- status -->
+                <sh-select
+                    v-if="filter.value === 'status'"
+                    :items="statusItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- type -->
-                  <v-select
-                        v-if="filter.value === 'type'"
-                        density="compact"
-                        variant="outlined"
-                        single-line
-                        item-title="label"
-                        item-value="value"
-                        :items="typeItems"
-                        v-model="values[index].value"
-                    />
+                <!-- type -->
+                <sh-select
+                    v-if="filter.value === 'type'"
+                    :items="typeItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- priority -->
-                  <v-select
-                      v-if="filter.value === 'priority'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="priorityItems"
-                      v-model="values[index].value"
-                  />
+                <!-- priority -->
+                <sh-select
+                    v-if="filter.value === 'priority'"
+                    :items="priorityItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- type_package -->
-                  <v-select
-                      v-if="filter.value === 'type_package'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="typeItems"
-                      v-model="values[index].value"
-                  />
+                <!-- type_package -->
+                <sh-select
+                    v-if="filter.value === 'type_package'"
+                    :items="typeItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- shipment_type status -->
-                  <v-select
-                      v-if="filter.value === 'shipment_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="shipmentTypeItems"
-                      v-model="values[index].value"
-                  />
+                <!-- shipment_type status -->
+                <sh-select
+                    v-if="filter.value === 'shipment_type'"
+                    :items="shipmentTypeItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- province fields -->
-                  <v-autocomplete
-                      v-if="filter.value == 'receive_state_id' || filter.value === 'state_id'"
-                      :items="provinceList"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      v-model="values[index].value"
-                      @update:modelValue="getCities(values[index].value)" />
+                <!-- province fields -->
+                <sh-autocomplete
+                    v-if="filter.value == 'receive_state_id' || filter.value === 'state_id'"
+                    :items="provinceList"
+                    v-model="values[index].value"
+                    @update:modelValue="getCities(values[index].value)"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :clearable="true"
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
 
-                  <!-- cities fields -->
-                  <v-autocomplete
-                      v-if="filter.value == 'receive_city_id' || filter.value === 'city_id'"
-                      :items="cityList"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      v-model="values[index].value" />
+                <!-- cities fields -->
+                <sh-autocomplete
+                    v-if="filter.value == 'receive_city_id' || filter.value === 'city_id'"
+                    :items="cityList"
+                    v-model="values[index].value"
+                    :clearable="`clearable`"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    single-line
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
 
-                  <!-- payment_type status -->
-                  <v-select
-                      v-if="filter.value === 'payment_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="paymentType"
-                      v-model="values[index].value"
-                  />
+                <!-- payment_type status -->
+                <sh-select
+                    v-if="filter.value === 'payment_type'"
+                    :items="paymentType"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- charge_type status -->
-                  <v-select
-                      v-if="filter.value === 'charge_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      item-title="label"
-                      item-value="value"
-                      :items="chargeType"
-                      v-model="values[index].value"
-                  />
+                <!-- charge_type status -->
+                <sh-select
+                    v-if="filter.value === 'charge_type'"
+                    :items="chargeType"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- supplier fields -->
-                  <v-autocomplete
-                      v-if="filter.value === 'supplier_id'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      :items="dataSupplier"
-                      v-model="values[index].value"
-                      item-title="label"
-                      item-value="value" />
+                <!-- supplier fields -->
+                <sh-autocomplete
+                    v-if="filter.value === 'supplier_id'"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :items="dataSupplier"
+                    v-model="values[index].value"
+                    :item-title="`label`"
+                    :item-value="`value`"
+                />
 
-                  <!-- creator fields -->
-                  <v-autocomplete
-                      v-if="filter.value === 'creator_id'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      :items="dataCreator"
-                      v-model="values[index].value"
-                      item-title="label"
-                      item-value="value" />
+                <!-- creator fields -->
+                <sh-autocomplete
+                    v-if="filter.value === 'creator_id'"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    single-line
+                    :items="dataCreator"
+                    v-model="values[index].value"
+                    :item-title="`label`"
+                    :item-value="`value`"
+                />
 
-                  <!-- admin fields -->
-                  <v-autocomplete
-                      v-if="filter.value === 'admin'"
-                      :items="adminList"
-                      v-model='admin'
-                      item-title="label"
-                      item-value="value"
-                      single-line
-                      clearable
-                      no-data-text="ادمین را جستوجو کنید"
-                      v-debounce="searchAdmin"
-                      variant="outlined"
-                  />
+                <!-- admin fields -->
+                <sh-autocomplete
+                    v-if="filter.value === 'admin'"
+                    :items="adminList"
+                    v-model='admin'
+                    :v-debounce="searchAdmin"
+                    :no-data-text="`ادمین را جستوجو کنید`"
+                    :single-line="true"
+                    :clearable="true"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
 
-                  <!-- voucher_type status -->
-                  <v-select
-                      v-if="filter.value ==='voucher_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      :items="typeItems"
-                      v-model="values[index].value" />
+                <!-- voucher_type status -->
+                <sh-select
+                    v-if="filter.value ==='voucher_type'"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :items="typeItems"
+                    v-model="values[index].value"/>
 
-                  <!-- discount_type status -->
-                  <v-select
-                      v-if="filter.value ==='discount_type'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      :items="voucherAmountTypes"
-                      v-model="values[index].value" />
+                <!-- discount_type status -->
+                <sh-select
+                    v-if="filter.value ==='discount_type'"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :items="voucherAmountTypes"
+                    v-model="values[index].value"/>
 
-                  <!-- sending_method status -->
-                  <v-select
-                      v-if="filter.value ==='sending_method'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      :items="sendingItems"
-                      v-model="values[index].value" />
+                <!-- sending_method status -->
+                <sh-select
+                    v-if="filter.value ==='sending_method'"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :items="sendingItems"
+                    v-model="values[index].value"/>
 
-                  <!-- payment_status status -->
-                  <v-select
-                      v-if="filter.value ==='payment_status'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      item-title="label"
-                      item-value="value"
-                      :items="paymentStatuses"
-                      v-model="values[index].value"/>
+                <!-- payment_status status -->
+                <sh-select
+                    v-if="filter.value ==='payment_status'"
+                    :items="paymentStatuses"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- payment_method status -->
-                  <v-select
-                      v-if="filter.value ==='payment_method'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      item-title="label"
-                      item-value="value"
-                      :items="paymentMethods"
-                      v-model="values[index].value"/>
+                <!-- payment_method status -->
+                <sh-select
+                    v-if="filter.value ==='payment_method'"
+                    :items="paymentMethods"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- packed status -->
-                  <v-select
-                      v-if="filter.value ==='packed_status'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      item-title="label"
-                      item-value="value"
-                      :items="packedStatus"
-                      v-model="values[index].value"/>
+                <!-- packed status -->
+                <sh-select
+                    v-if="filter.value ==='packed_status'"
+                    :items="packedStatus"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
 
-                  <!-- sku_id status -->
-                  <v-autocomplete
-                      v-if="filter.value === 'sku_id'"
-                      :items="skuList"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      item-title="name"
-                      item-value="id"
-                      v-model="values[index].value"
-                      v-debounce="searchSku" />
+                <!-- sku_id status -->
+                <sh-autocomplete
+                    v-if="filter.value === 'sku_id'"
+                    :items="skuList"
+                    v-model="values[index].value"
+                    :v-debounce="searchSku"
+                    :clearable="true"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
 
-                  <!-- user_id status -->
-                  <v-autocomplete
-                      v-if="filter.value === 'user_id'"
-                      :items="userList"
-                      density="compact"
-                      variant="outlined"
-                      placeholder="شماره تلفن کاربر را وارد کنید"
-                      single-line
-                      hide-details
-                      item-title="name"
-                      item-value="value"
-                      v-model="values[index].value"
-                      v-debounce="searchUser" />
+                <!-- user_id status -->
+                <sh-autocomplete
+                    v-if="filter.value === 'user_id'"
+                    :items="userList"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :placeholder="`شماره تلفن کاربر را وارد کنید`"
+                    :single-line="true"
+                    :item-title="`name`"
+                    :item-value="`value`"
+                    v-model="values[index].value"
+                    v-debounce="searchUser"
+                />
 
-                  <!-- score -->
-                  <v-select
-                      v-if="filter.value ==='score'"
-                      density="compact"
-                      variant="outlined"
-                      single-line
-                      hide-details
-                      item-title="name"
-                      item-value="value"
-                      :items="scoreItems"
-                      v-model="values[index].value" />
-                </v-col>
+                <!-- score -->
+                <sh-select
+                    v-if="filter.value ==='score'"
+                    :items="scoreItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`label`"
+                    :item-value="`value`"/>
+              </v-col>
 
               <!-- Date fields -->
               <v-col
@@ -499,14 +506,9 @@
                   class="mt-3">
                 <div class="t13300 text-right mb-1">{{filter.name}}</div>
                 <div align="center" class="d-flex pb-5 align-center">
-                  <date-picker
-                      range
-                      clearable
-                      class="d--rtl flex-grow-1 c-modal-table-filter__date-picker number-font"
-                      format="jYYYY-jMM-jDD"
-                      display-format="jYYYY-jMM-jDD"
+                  <sh-datepicker
                       v-model="values[index].value"
-                      variant="outlined" />
+                      :variant="`variant`"/>
 
                   <v-icon @click="createdAtModel= [] ;gregorianCreateDate =[]">mdi-close</v-icon>
                 </div>
@@ -524,25 +526,27 @@
             align="center"
             class="px-5 py-5">
           <v-col cols="6">
-            <v-btn
+            <sh-btn
                 @click="removeAllFilters()"
-                variant="text" height="40"
-                rounded
-                class="px-5 mt-1 mr-5">
-              حذف همه فیلترها
-            </v-btn>
+                :title="`حذف همه فیلترها`"
+                :flat="true"
+                :height="40"
+                :variant="`text`"
+                :rounded="true"
+                class="px-5 mt-1 mr-5"
+            />
           </v-col>
 
           <v-col cols="6">
-            <div class="text-right" >
-              <v-btn
+            <div class="text-right">
+              <sh-btn
                   @click="setFilter()"
-                  color="primary500"
-                  height="40"
-                  rounded
-                  class="px-5 mt-1 mr-5">
-                مشاهده
-              </v-btn>
+                  :title="`مشاهده`"
+                  :color="`primary500`"
+                  :flat="true"
+                  :height="40"
+                  :rounded="true"
+                  class="px-5 mt-1 mr-5" />
             </div>
           </v-col>
         </v-row>
@@ -557,8 +561,15 @@ import Supplier from "@/composables/Supplier";
 import Admin from "@/composables/Admin";
 import Menu from "@/composables/Menu";
 import {jalaliToGregorian} from "@/assets/js/functions";
+import {defineAsyncComponent} from "vue";
+const ShBtn = defineAsyncComponent(()=> import ('@/components/Components/Kits/Buttons/sh-btn.vue'))
+const ShDatepicker = defineAsyncComponent(()=> import ('@/components/Components/Kits/DatePicker/sh-datepicker.vue'))
+const ShSelect = defineAsyncComponent(()=> import ('@/components/Components/Kits/Select/sh-select.vue'))
+const ShAutocomplete = defineAsyncComponent(()=> import ('@/components/Components/Kits/AutoComplete/sh-autocomplete.vue'))
+const ShTextfield = defineAsyncComponent(()=> import ('@/components/Components/Kits/TextField/sh-textfield.vue'))
 
 export default {
+  components: {ShBtn, ShDatepicker, ShSelect, ShAutocomplete, ShTextfield},
   props: {
     filterField: [],
     statusItems: [],

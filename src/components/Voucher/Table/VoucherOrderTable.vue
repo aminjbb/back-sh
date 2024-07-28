@@ -111,13 +111,8 @@
 </template>
 
 <script>
-import {
-  isOdd
-} from '@/assets/js/functions'
+import { isOdd} from '@/assets/js/functions'
 
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 export default {
 
   props: {
@@ -177,8 +172,7 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      isBan:[],
-      panelFilter: new PanelFilter(),
+      isBan:[]
     }
   },
 
