@@ -38,26 +38,22 @@
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> موبایل :</span>
-            <div class="pr-2 mt-2 number-font">{{ oneTicket.user.phone_number }}</div>
+            <v-btn @click="redirect()" variant="text">
+              <span class="number-font">{{ oneTicket.user.phone_number }}</span>
+            </v-btn>
           </div>
 
-          <v-btn :loading="loading" @click="updateTicket()" color="primary500" height="40" rounded
-                 class="px-8 mt-1 w-50">
+          <v-btn
+              :loading="loading"
+              @click="updateTicket()"
+              color="primary500"
+              height="40"
+              rounded
+              class="px-8 mt-1 w-50">
             ثبت
           </v-btn>
         </div>
       </v-col>
-
-      <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
-        <span class="title"> موبایل :</span>
-        <v-btn @click="redirect()" variant="text">
-                  <span class="number-font">
-                      {{ oneTicket.user.phone_number }}
-                  </span>
-        </v-btn>
-      </div>
-
-      <v-divider color="black"/>
 
       <v-col md="9" class="vh-100">
         <div class="stretch-table">
@@ -67,15 +63,13 @@
                 min-height="100"
                 class="mb-10">
               <div class="d-flex justify-space-between pa-6">
-                  <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
+                <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
                     <template v-if="oneTicket.user.first_name">
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
-                      {{ convertDate(oneTicket.created_at) }}
-                  </span>
+                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">{{ convertDate(oneTicket.created_at) }}</span>
               </div>
 
               <v-card v-if="oneTicket && oneTicket.files" min-height="100" class="mb-10">
@@ -90,31 +84,22 @@
                     v-if="oneTicket && oneTicket.files"
                     min-height="100"
                     class="mb-10">
-                  <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
-                    <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                    <video v-else-if="file.type === 'video'" :src="file.url" controls/>
-                  </div>
                   <v-divider color="black"/>
 
                   <p class="text-justify pa-5" v-html="oneTicket.content"/>
                 </v-card>
 
-
                 <template v-if="oneTicket && oneTicket.threads">
-                  <div v-for="ticket in oneTicket.threads"
-                       :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
+                  <div
+                      v-for="ticket in oneTicket.threads"
+                      :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
                     <v-card
                         min-height="100"
                         class="mb-10"
                         :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                       <div class="d-flex justify-space-between pa-6">
-                    <span class="t14500 text-gray500 ml-10">
-                      {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
-                    </span>
-
-                        <span class="t14500 text-gray500 mr-10 number-font">
-                      {{ convertDate(ticket.created_at) }}
-                    </span>
+                        <span class="t14500 text-gray500 ml-10">{{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}</span>
+                        <span class="t14500 text-gray500 mr-10 number-font">{{ convertDate(ticket.created_at) }}</span>
                       </div>
 
                       <v-divider color="black"/>
@@ -134,11 +119,18 @@
 
                   <ckeditor v-model="content" :config="editorConfig" class="cke_rtl mb-15"/>
 
-                  <v-btn :loading="sendMsgLoading" @click="sendMessage()" color="primary500" height="40" rounded
-                         class="px-8 mt-1">
+                  <v-btn
+                      :loading="sendMsgLoading"
+                      @click="sendMessage()"
+                      color="primary500"
+                      height="40"
+                      rounded
+                      class="px-8 mt-1">
                     ارسال پیام
                   </v-btn>
                 </div>
+              </v-card>
+            </v-card>
           </div>
         </div>
       </v-col>
