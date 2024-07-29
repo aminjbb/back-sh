@@ -799,7 +799,7 @@ const router = createRouter({
                 {
                     path: 'create',
                     name: 'CreateRolePermissionView',
-                    component: CreateRolePermissionView,
+                    component: EditRolePermissionView,
                     meta: {
                         name: 'ساخت نقش'
                     }
@@ -807,7 +807,7 @@ const router = createRouter({
                 {
                     path: 'edit/:roleId',
                     name: 'EditRolePermissionView',
-                    component: EditRolePermissionView,
+                    component: CreateRolePermissionView,
                     meta: {
                         name: 'ویرایش نقش'
                     }
@@ -1870,7 +1870,7 @@ const router = createRouter({
                 // },
                 {
                     path: 'index',
-                    name: 'detail-info',
+                    name: 'order-detail-info',
                     component: OrderDetailView,
                     meta: {
                         name: ' بسته بندی سفارش ها'
