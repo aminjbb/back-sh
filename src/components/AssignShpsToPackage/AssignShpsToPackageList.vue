@@ -48,7 +48,11 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <PanelFilter @resetPage="resetPage" path="up-coming/index" :filterField="filterField" :statusItems="statusItems"/>
+            <PanelFilter
+                @resetPage="resetPage"
+                path="up-coming/index"
+                :filterField="filterField"
+                :statusItems="statusItems"/>
           </v-row>
         </v-col>
       </v-row>
@@ -56,6 +60,7 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          @resetPage="resetPage"
           :getShipmentRequestsList="getUpComingList"
           class="flex-grow-1"
           :header="header"
@@ -120,6 +125,7 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
 import { openToast } from "@/assets/js/functions"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 import ModalDetaiShipment from "@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue"
+
 export default {
   data() {
     return {
@@ -148,7 +154,8 @@ export default {
     const {
       pageLength,
       filterField,
-      getConfirmedShipment ,confirmedShipmentList,
+      getConfirmedShipment ,
+      confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -157,7 +164,8 @@ export default {
     return {
       pageLength,
       filterField,
-      getConfirmedShipment ,confirmedShipmentList,
+      getConfirmedShipment ,
+      confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -201,6 +209,14 @@ export default {
     validate() {
       this.$router.push(`/assign-shps-package/${this.splitShipmentId}/accept`)
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
   },
 
   mounted() {
@@ -229,11 +245,17 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
-        this.getUpComingList()
+        this.getConfirmedShipment()
       }
     },
+
+    $route(){
+      this.getConfirmedShipment();
+    },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -246,9 +268,6 @@ export default {
           this.$cookies.remove('deleteItem')
         }
       }
-    },
-    $route(to){
-      this.getUpComingList(to);
     }
   }
 }

@@ -20,7 +20,7 @@
                       single-line
                       label="نام"
                       :rules="persianRule"
-                      v-model="form.fistName"
+                      v-model="form.firstName"
                   />
               </v-col>
 
@@ -188,7 +188,7 @@ export default {
   data() {
     return {
       form: {
-        fistName: '',
+        firstName: '',
         lastName: '',
         phoneNumber:'',
         email:'',
@@ -240,7 +240,7 @@ export default {
      */
     setForm() {
       try {
-        this.form.fistName = this.admin.first_name
+        this.form.firstName = this.admin.first_name
         this.form.lastName = this.admin.last_name
         this.form.phoneNumber = this.admin.phone_number
         this.form.email = this.admin.email

@@ -1,9 +1,8 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import { useRouter, useRoute } from 'vue-router'
-import {UserPanelFilter} from "@/assets/js/filter_user";
-import {UserWalletFilter} from "@/assets/js/wallet_filter";
+import { useRoute } from 'vue-router'
+
 export default function setup() {
     const users = ref([]);
     const user = ref(null);
@@ -59,13 +58,10 @@ export default function setup() {
         { name: ' علت تراکنش', type:'select', value:'charge_type'},
     ];
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new UserPanelFilter()
-    const walletFilter = new UserWalletFilter()
 
     async function getUsers (filter) {
         const AxiosMethod = new AxiosCall()

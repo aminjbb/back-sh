@@ -107,18 +107,17 @@ import Supplier from "@/composables/Supplier";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
+
 export default {
   data() {
     return {
       perPageFilter:false
     }
   },
-    setup(props) {
+    setup() {
       const supplierTypeFilter = [
         {
           label: 'همه',

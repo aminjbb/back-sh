@@ -92,14 +92,8 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
-
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 
 export default {
@@ -172,7 +166,6 @@ export default {
           loading:false
         }
       ],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
     }
   },

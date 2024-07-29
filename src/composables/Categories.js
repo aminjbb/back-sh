@@ -1,6 +1,4 @@
-import { ref, onMounted, watch } from 'vue';
-import { onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
@@ -11,7 +9,6 @@ export default function setup() {
     const cookies = useCookies()
     const dataTableLength = ref(25)
     const pageLength = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const page = ref(1)
 
@@ -37,7 +34,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getCategories() {
         loading.value = true

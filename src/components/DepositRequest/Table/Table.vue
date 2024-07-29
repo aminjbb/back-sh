@@ -190,26 +190,15 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import DetailModalTest from "@/components/DepositRequest/Modal/Modal.vue";
 import ModalRejectWithdrawRequest from "@/components/DepositRequest/Modal/ModalRejectedWithdraw.vue";
-
-import {
-    openToast,
-    isOdd
-} from "@/assets/js/functions";
+import { openToast, isOdd} from "@/assets/js/functions";
 
 export default {
     components: {
         ModalRejectWithdrawRequest,
         DetailModalTest,
-
     },
 
     props: {
@@ -226,8 +215,6 @@ export default {
          */
         items: [],
 
-
-
         /**
          * Height
          */
@@ -235,9 +222,6 @@ export default {
             type: String,
             default: '500',
         },
-
-
-
 
         /**
          * Page on table
@@ -271,12 +255,7 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            active: [],
-
-
-            panelFilter: new SupplierPanelFilter(),
-
-
+            active: []
         }
     },
 
@@ -297,7 +276,6 @@ export default {
             }
             return 'auto';
         },
-
     },
 
     methods: {

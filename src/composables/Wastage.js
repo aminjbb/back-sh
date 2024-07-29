@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_waste.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -11,7 +9,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([
@@ -54,7 +51,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getWasteAndLostList() {
         loading.value = true
@@ -100,7 +96,6 @@ export default function setup() {
                     report_type:"wastage"
                 }
             }
-
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `report/crud/index`

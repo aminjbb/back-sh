@@ -171,12 +171,8 @@
 
 <script>
 import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    openConfirm,
-    isOdd
+  openConfirm,
+  isOdd
 } from "@/assets/js/functions";
 export default {
 

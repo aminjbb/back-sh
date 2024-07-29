@@ -6,19 +6,21 @@
                align="center"
                class="px-10 py-3">
                <v-col cols="6">
-                <v-btn
-                    @click="$router.push('/driver-management/create')"
-                    color="primary500"
-                    height="40"
-                    rounded
-                    class="px-8 mt-1">
-                    <template v-slot:prepend>
-                        <v-icon>mdi-plus</v-icon>
-                    </template>
-                    افزودن
-                </v-btn>
+
+                 <sh-btn
+                     title="افزودن"
+                     prepend-icon="mdi-plus"
+                     color="primary500"
+                     :height="40"
+                     :to="'/driver-management/create'"
+                     rounded="xl"
+                     :width="120"
+                     :hasIcon="true"
+                     class="mt-1"
+
+                 />
             </v-col>
-   
+
                <v-col cols="6">
                    <v-row justify="end">
                      <PanelFilter
@@ -30,12 +32,12 @@
                </v-col>
            </v-row>
        </v-card>
-   
+
        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-           <Table
-               :getDriverList="getDriverList"
+           <ShTable
+
                class="flex-grow-1"
-               :header="header"
+               :headers="headerDriver"
                :items="DriverManagementList.data"
                :page="page"
                :perPage="dataTableLength"
@@ -43,16 +45,16 @@
                :loading="loading"
                updateUrl="page/csv/mass-update"
                deletePath="driver/crud/delete/"
-               model="page" />
-   
+               model="page" > </ShTable>
+
            <v-divider />
-   
+
            <v-card-actions class="pb-3">
                <v-row class="px-8">
                    <v-col cols="3" class="d-flex justify-start">
                        <ModalExcelDownload getEndPoint="cargo/csv/requested/cargo/export" />
                    </v-col>
-   
+
                    <v-col cols="6" class="d-flex justify-center">
                        <div class="text-center">
                            <v-pagination
@@ -65,7 +67,7 @@
                                next-icon="mdi-chevron-left" />
                        </div>
                    </v-col>
-   
+
                    <v-col cols="3" class="d-flex justify-end">
                        <div
                            align="center"
@@ -88,7 +90,7 @@
        </v-card>
    </div>
    </template>
-   
+
    <script>
    import Table from '@/components/DriverManagement/Table/Table.vue'
    import DriverManagement from "@/composables/DriverManagement";
@@ -97,10 +99,16 @@
    import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
    import { openToast} from "@/assets/js/functions";
    import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+   import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
+   import ShTable from "@/components/Components/Table/sh-table.vue";
+
+
    export default {
      data() {
        return {
-         perPageFilter:false
+         perPageFilter:false,
+
+         loading: false
        }
      },
        setup() {
@@ -111,10 +119,12 @@
                filterField,
                dataTableLength,
                page,
-               header,
+             headerDriver,
                addPagination,
                addPerPage,
-               loading
+               loading,
+             consignmentPrintList,
+             headerConsignmentShipmentList
            } = DriverManagement();
            return {
                pageLength,
@@ -123,28 +133,36 @@
                filterField,
                dataTableLength,
                page,
-               header,
+             headerDriver,
                addPagination,
                addPerPage,
-               loading
+               loading,
+             consignmentPrintList,
+             headerConsignmentShipmentList
            };
        },
-   
+
        components: {
+         shBtn,
          PanelFilter,
            Table,
            ModalGroupAdd,
            ModalColumnFilter,
            ModalExcelDownload,
+            ShTable,
+
+
        },
-   
+
        computed: {
             confirmModal() {
                 return this.$store.getters['get_confirmForm'].confirmModal
             }
        },
-   
+
        methods: {
+         editItem(item) {
+         },
             changeHeaderShow(index, value) {
                 this.header[index].show = value
             },
@@ -156,11 +174,11 @@
            }, 1000)
          }
        },
-   
+
        mounted() {
             this.getDriverList();
        },
-   
+
        watch: {
          dataTableLength() {
            this.perPageFilter = true
@@ -209,8 +227,7 @@
        }
    }
    </script>
-   
 
 
 
-  
+

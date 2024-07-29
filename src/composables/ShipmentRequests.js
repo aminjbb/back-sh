@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
-
 
 export default function setup() {
     const ShipmentRequestsList = ref([]);
@@ -12,7 +10,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Page table header
@@ -49,36 +46,24 @@ export default function setup() {
         { name: 'تعداد کالا', show: true, value:'number' , order: false},
         { name: ' قیمت خرید کل  ', show: true, value:'number' , order: false},
         { name: ' قیمت مصرف کل  ', show: true, value:'number' , order: false},
-        { name: ' درصد سود ', show: true, value:'number' , order: false},
-        
-
+        { name: ' درصد سود ', show: true, value:'number' , order: false}
     ]);
     const headerQrcode =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه shps', show: true , value:'shps', order: false},
         { name: 'نام کالا', show: true , value:'label', order: false},
         { name: ' تعداد کلا ', show: true , value:'number', order: false},
-
-      
-        
-
     ]);
-    
 
-
-  
-    
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
 
     /**
      * Get page list
      * @param {*} query 
      */
     async function getShipmentRequestsList() {
-        filter.factor = route.params.factorId
         const AxiosMethod = new AxiosCall()
         let query = route.query
         AxiosMethod.using_auth = true
@@ -128,7 +113,6 @@ export default function setup() {
             ShipmentRequestsList.value = data.data
             shipmentRequest.value = data.data.id
 
-
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -138,8 +122,17 @@ export default function setup() {
     }
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList , getShipmentRequestsList,
-        dataTableLength, page, header, loading, shipmentRequest
-         }
+        pageLength,
+        filterField,
+        headerShps,
+        headerQrcode,
+        ShipmentRequestsList ,
+        getShipmentRequestsList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        shipmentRequest
+    }
 }
 
