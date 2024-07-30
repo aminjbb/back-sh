@@ -10,7 +10,7 @@
             <template v-slot:prepend>
                 <img src="@/assets/img/Setting.svg" alt="shavaz image">
             </template>
-              ستون ها
+            ستون ها
         </v-btn>
 
         <v-dialog
@@ -39,7 +39,7 @@
                     </v-col>
                 </v-row>
                 <div class="mt-3 mb-8  px-5">
-                    <v-divider />
+                    <v-divider/>
                 </div>
 
                 <div>
@@ -62,7 +62,7 @@
                             <v-col cols="10">
                                 <div class="text-right">
                                     <span class=t14500>
-                                        {{head.name}}
+                                        {{ head.name }}
                                     </span>
                                 </div>
                             </v-col>
@@ -71,9 +71,8 @@
                 </div>
 
                 <div class="mt-3 mb-5  px-5">
-                    <v-divider />
+                    <v-divider/>
                 </div>
-
                 <v-row
                     justify="center"
                     align="center"
@@ -100,7 +99,7 @@
                                 rounded
                                 class="px-5 mt-1 mr-5"
                             >
-                                نمایش                    
+                                نمایش
                             </v-btn>
                         </div>
                     </v-col>
@@ -113,7 +112,7 @@
 export default {
     props: {
         header: [],
-        changeHeaderShow: { type: Function }
+        changeHeaderShow: {type: Function},
     },
 
     data() {
@@ -121,7 +120,7 @@ export default {
             dialog: false,
             categoryName: '',
             label: '',
-            active: []
+            active: [],
         }
     },
 
@@ -140,11 +139,10 @@ export default {
                 if (Object.hasOwnProperty.call(this.active, key)) {
                     this.active[key] = true;
                 }
-                this.changeHeaderShow(key,true);
+                this.changeHeaderShow(key, true);
             }
-
             this.dialog = false;
-        }
-    }
+        },
+    },
 }
 </script>

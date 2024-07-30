@@ -38,19 +38,22 @@ export default function setup(posts) {
         {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
         {name:'وضعیت' , show:true, value:'is_active', order: false},
     ]);
+
     const headerSku =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه کالا', show: true, value: 'id', order:true },
-        { name: 'شناسه shps', show: true, value: 'unique_code', order:true },
-        { name:'نام کالا' , show:true ,  value:'label', order:false},
-        { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:true },
-        { name: 'موجودی سایت', show: true, value: 'site_stock', order:true },
-        { name: ' قیمت مصرف کننده', show: true, value: 'customer_price', order:true },
-        { name: ' تخفیف پایه', show: true, value: 'base_discount', order:true },
-        { name: 'تخفیف مارکتینگ', show: true , value:'marketing_discount', order:true},
-        { name: 'قیمت فروش', show: true , value:'site_price', order:false},
-        { name: 'وضعیت', show: true , value:'is_active', order:false},
-    ]
+            { name: 'ردیف',title: 'ردیف', show: true, key: 'row', align:'center', sortable: false},
+            { name: 'شناسه کالا',title: 'شناسه کالا', show: true, key: 'sku_id', align:'center'},
+            { name: 'شناسه shps',title: 'شناسه shps', show: true, key: 'id', align:'center'},
+            { name: 'تصویر کالا',title: 'تصویر کالا', show: true, key: 'image', align:'center', sortable: false},
+            { name: 'نام کالا',title: 'نام کالا' , show:true ,  key:'label', align:'center', sortable: false, minWidth:'300'},
+            { name: 'موجودی انبار',title: 'موجودی انبار', show: true, key: 'warehouse_stock', align:'center'},
+            { name: 'موجودی سایت',title: 'موجودی سایت', show: true, key: 'site_stock', align:'center'},
+            { name: ' قیمت مصرف کننده',title: ' قیمت مصرف کننده', show: true, key: 'customer_price', align:'center'},
+            { name: ' تخفیف پایه',title: ' تخفیف پایه', show: true, key: 'base_discount', align:'center'},
+            { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true , key:'marketing_discount', align:'center'},
+            { name: 'قیمت فروش',title: 'قیمت فروش', show: true , key:'site_price', align:'center', sortable: false},
+            { name: 'وضعیت',title: 'وضعیت', show: true , key:'is_active', align:'center', sortable: false},
+            { name: 'عملیات',title: 'عملیات', key:'action', align:'center'},
+        ]
     );
     const headerWarehouseInventoryHistory =ref([
         { name: 'ردیف', show: true, value: null, order:false },
