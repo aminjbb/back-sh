@@ -28,7 +28,7 @@ export default function setup() {
         { name: ' اندازه', show: true, value: 'volume', order:false },
         { name: ' رنگ', show: true, value: 'color', order:false },
         { name: 'فعال سازی', show: true , value:'is_active', order:false},
-        { name: 'قابل فروش', show: true , value:'is_sellable', order:false},
+        { name: 'قابل فروش', show: true , value:'switch', order:false},
         { name: 'محصول', show: true , value:'product', order:false},
     ]);
 

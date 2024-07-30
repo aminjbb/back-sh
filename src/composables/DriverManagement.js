@@ -13,15 +13,14 @@ export default function setup() {
     const route = useRoute()
 
     const headerDriver =ref([
-        { title: 'ردیف', show: true , key: 'row', order:false},
-        { title: ' شناسه راننده ', show: true , key:'id', order: false},
-        { title: ' نام راننده', show: true,  key:'full_name', order: false},
-        { title: '  کد ملی', show: true ,  key:'identification_code', order: false},
-        { title: ' شماره موبایل', show: true,  key:'phone_number' , order: false },
-        { title: ' تاریخ ایجاد ', show: true, key:'created_at_fa' , order: false },
-        { title: ' تاریخ ویرایش', show: true, key:'updated_at_fa' , order: false },
-        { title: 'عملیات', key:'action_driver'},
-       
+        { title: 'ردیف', show: true , key: 'row', sortable: false, align:'center' },
+        { title: ' شناسه راننده ', show: true , key:'id', sortable: false, align:'center'},
+        { title: ' نام راننده', show: true,  key:'full_name', sortable: false, align:'center' },
+        { title: '  کد ملی', show: true ,  key:'identification_code', sortable: false, align:'center' },
+        { title: ' شماره موبایل', show: true,  key:'phone_number' , align:'center', sort: 'test' },
+        { title: ' تاریخ ایجاد ', show: true, key:'created_at_fa' , sortable: false, align:'center' },
+        { title: ' تاریخ ویرایش', show: true, key:'updated_at_fa' , sortable: false, align:'center' },
+        { title: 'عملیات', key:'action', align:'center'},
     ]);
 
     const filterField = [
