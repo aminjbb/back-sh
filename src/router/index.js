@@ -308,6 +308,8 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
+import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
+import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 
 
 const router = createRouter({
@@ -797,7 +799,7 @@ const router = createRouter({
                 {
                     path: 'create',
                     name: 'CreateRolePermissionView',
-                    component: CreateRolePermissionView,
+                    component: EditRolePermissionView,
                     meta: {
                         name: 'ساخت نقش'
                     }
@@ -805,7 +807,7 @@ const router = createRouter({
                 {
                     path: 'edit/:roleId',
                     name: 'EditRolePermissionView',
-                    component: EditRolePermissionView,
+                    component: CreateRolePermissionView,
                     meta: {
                         name: 'ویرایش نقش'
                     }
@@ -1868,7 +1870,7 @@ const router = createRouter({
                 // },
                 {
                     path: 'index',
-                    name: 'detail-info',
+                    name: 'order-detail-info',
                     component: OrderDetailView,
                     meta: {
                         name: ' بسته بندی سفارش ها'
@@ -2211,6 +2213,41 @@ const router = createRouter({
                 }
             ],
         },
+
+        {
+            path: '/sms-notification',
+            meta: {
+                name: ' پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSNotificationListView',
+                    component: SmsNotificationListView,
+                    meta: {
+                        name: 'لیست پیامک ها'
+                    }
+                }
+            ],
+        },
+
+        {
+            path: '/sms-setting',
+            meta: {
+                name: ' تنظیمات پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSSettingListView',
+                    component: SmsSettingListView,
+                    meta: {
+                        name: 'تنظیمات پیامک'
+                    }
+                }
+            ],
+        },
+
         {
             path: '/wastage', // wastage
             meta: {

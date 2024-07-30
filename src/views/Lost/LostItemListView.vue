@@ -8,7 +8,7 @@ const LostItemList = defineAsyncComponent(() => import('@/components/Lost/LostIt
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main class="h-100vh">
+    <v-main>
       <Header />
       <LostItemList />
     </v-main>
