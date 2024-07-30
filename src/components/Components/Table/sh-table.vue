@@ -25,7 +25,7 @@
 
         <template v-slot:item.image="{item}">
             <v-img v-if="item.image" :src="item.image" cover height="50" width="50"></v-img>
-            <img v-else src="@/assets/img/noFile.PNG" height="50" width="50" alt="noImage"/>
+            <img v-else src="@/assets/img/noFile.png" height="50" width="50" alt="noImage"/>
         </template>
 
         <template v-slot:item.is_active="{item}">
