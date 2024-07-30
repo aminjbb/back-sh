@@ -52,7 +52,7 @@ export default function setup(posts) {
             { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true , key:'marketing_discount', align:'center'},
             { name: 'قیمت فروش',title: 'قیمت فروش', show: true , key:'site_price', align:'center', sortable: false},
             { name: 'وضعیت',title: 'وضعیت', show: true , key:'is_active', align:'center', sortable: false},
-            { name: 'عملیات',title: 'عملیات', key:'action', align:'center'},
+            { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center'},
         ]
     );
     const headerWarehouseInventoryHistory =ref([
