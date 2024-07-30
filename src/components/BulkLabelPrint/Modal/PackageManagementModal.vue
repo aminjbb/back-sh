@@ -143,6 +143,7 @@ export default {
           openToast(this.$store , 'بسته با موفقیت ساخته شد' , 'success')
           this.getShpsList(this.packageId , this.$store)
           this.close()
+          this.loading= false
         }
         else {
           this.loading = false

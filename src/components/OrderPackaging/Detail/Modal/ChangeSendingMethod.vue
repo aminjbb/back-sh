@@ -85,7 +85,6 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                console.log(data?.data)
                 this.loading = false
                 this.dialogSendingMethod = false
                 this.currentMethod = null
@@ -98,7 +97,6 @@ export default {
                         'خطا در دریافت بارکد.',
                         "error",
                     );
-                    console.log(data?.data?.is_completed)
                 }
             }
             else {
