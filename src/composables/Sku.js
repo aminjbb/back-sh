@@ -45,7 +45,7 @@ export default function setup() {
         { name: 'فعال سازی', title: 'فعال سازی', show: true , align:'center', sortable:false, key: 'is_active', minWidth:'150'},
         { name: 'قابل فروش', title: 'قابل فروش', show: true , align:'center', sortable:false, key: 'switch', minWidth:'150'},
         { name: 'محصول', title: 'محصول', show: true, align:'center', sortable:false, key :'product',  minWidth:'150'},
-        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50'},
+        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50', fixed: true},
 
     ]);
 
