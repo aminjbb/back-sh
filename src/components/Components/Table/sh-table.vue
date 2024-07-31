@@ -2,7 +2,7 @@
     <v-data-table-server
         hover
         id="sh-table"
-        class="table c-table rounded-t-lg"
+        class="table c-table rounded-t-lg number-font t14300 "
         :headers="headers.filter((header) => header.show)"
         :items="items"
         :items-per-page="perPage"
@@ -29,28 +29,38 @@
         </template>
 
         <template v-slot:item.is_active="{item}">
-            <span class="t14300 ">
+            <div class=" d-flex justify-center align-center">
                 <v-switch
-                    :true-value="1"
-                    :false-value="0"
-                    v-model="item.is_active"
-                    inset
-                    color="success"
-                    @change="changeActive(item,item.is_active_id)"/>
-            </span>
+                        :true-value="1"
+                        :false-value="0"
+                        v-model="item.is_active"
+                        inset
+                        color="success"
+                        @change="changeActive(item,item.is_active_id)"/>
+            </div>
+        </template>
+<!--SLOTS-->
+        <template v-slot:item.switch="{ item, index }">
+            <div class=" d-flex justify-center align-center">
+                <slot name="switchSlot" :data="item" :index="index"></slot>
+            </div>
+        </template>
+
+        <template v-slot:item.color="{ item, index }">
+            <slot name="colorSlot" :data="item" :index="index"></slot>
+        </template>
+
+        <template v-slot:item.custom="{ item, index }">
+            <slot name="customSlot" :data="item" :index="index"></slot>
         </template>
 
         <template v-slot:item.action="{ item, index }">
             <slot name="actionSlot" :data="item" :index="index"></slot>
         </template>
 
-        <template v-slot:item.switch="{ item, index }">
-            <slot name="switchSlot" :data="item" :index="index"></slot>
-        </template>
-
 
         <template v-slot:no-data>
-            <div class="d-flex justify-center align-center flex-column py-14">
+            <div class="d-flex justify-center align-center flex-column py-14 bg-white">
                 <img src="@/assets/img/NullTable.png" alt="shavaz image">
                 <div class="d-flex justify-center align-center flex-column">
                     <span class="text-gray500 text-center text-body-1">اطلاعاتی برای نمایش وجود ندارد.</span>
@@ -86,11 +96,7 @@ export default {
             default: '',
         },
     },
-    data() {
-        return {
-            computedHeaders: [],
-        }
-    },
+
     methods: {
         getItemsWithSort(sort) {
             this.$router.replace({
@@ -136,21 +142,17 @@ export default {
     width: 5px;
     height: 5px;
 }
-
 #sh-table ::-webkit-scrollbar-track {
     border-radius: 3px;
     background-color: #F8BBD0;
 }
-
 #sh-table ::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color: #F06292;
 }
-
 #sh-table ::-webkit-scrollbar-thumb:hover {
     background-color: #ef588b;
 }
-
 tbody tr:nth-of-type(odd) {
     background-color: rgba(251, 251, 252);
 }

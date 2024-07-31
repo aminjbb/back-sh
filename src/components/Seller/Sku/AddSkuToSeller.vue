@@ -126,7 +126,7 @@
                                     <div class="ma-5 pointer" @click="openInventoryManagementModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
                                         <span class="mr-2 text-grey-darken-1 t14300">
-                                            مدیریت موجودی سایت {{item.data.sku_id}}
+                                            مدیریت موجودی سایت
                                         </span>
                                     </div>
                                 </v-list-item-title>

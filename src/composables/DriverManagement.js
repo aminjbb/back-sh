@@ -20,7 +20,7 @@ export default function setup() {
         { title: ' شماره موبایل', show: true,  key:'phone_number' , align:'center', sort: 'test' },
         { title: ' تاریخ ایجاد ', show: true, key:'created_at_fa' , sortable: false, align:'center' },
         { title: ' تاریخ ویرایش', show: true, key:'updated_at_fa' , sortable: false, align:'center' },
-        { title: 'عملیات', key:'action', align:'center'},
+        { title: 'عملیات', key:'action', show: true, align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
