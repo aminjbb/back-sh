@@ -17,7 +17,7 @@ export default function setup() {
     const cookies = useCookies()
     const route = useRoute()
 
-    const header = ref([
+/*    const header = ref([
         { name: 'ردیف', show: true, value: null, order:false },
         { name: 'شناسه', show: true, value: 'id', order:true },
         { name:'نام انگلیسی' , show:true , value:'name', order:true},
@@ -30,6 +30,23 @@ export default function setup() {
         { name: 'فعال سازی', show: true , value:'is_active', order:false},
         { name: 'قابل فروش', show: true , value:'switch', order:false},
         { name: 'محصول', show: true , value:'product', order:false},
+    ]);*/
+
+    const header = ref([
+        { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row',minWidth:'50'},
+        { name: 'شناسه', title: 'شناسه', show: true, align:'center', key: 'id',minWidth:'50'},
+        { name:'نام انگلیسی', title:'نام انگلیسی' , show:true, align:'center', key:'name', minWidth:'200'},
+        { name:'نام فارسی', title:'نام فارسی' , show:true, align:'center', key:'label', minWidth:'200'},
+        { name: 'گروه', title: 'گروه', show: true, align:'center', sortable:false, key: 'sku_group', minWidth:'200'},
+        { name: 'دسته‌بندی', title: 'دسته‌بندی', show: true, align:'center', sortable:false, key: 'category',  minWidth:'100'},
+        { name: ' برند', title: ' برند', show: true, align:'center', sortable:false, key: 'brand', minWidth:'100'},
+        { name: ' اندازه', title: ' اندازه', show: true, align:'center', sortable:false,  key: 'custom', minWidth:'100'},
+        { name: ' رنگ', title: ' رنگ', show: true, align:'center', sortable:false, key: 'color', minWidth:'100'},
+        { name: 'فعال سازی', title: 'فعال سازی', show: true , align:'center', sortable:false, key: 'is_active', minWidth:'150'},
+        { name: 'قابل فروش', title: 'قابل فروش', show: true , align:'center', sortable:false, key: 'switch', minWidth:'150'},
+        { name: 'محصول', title: 'محصول', show: true, align:'center', sortable:false, key :'product',  minWidth:'150'},
+        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50'},
+
     ]);
 
     const skuGroupsHeader = ref([
