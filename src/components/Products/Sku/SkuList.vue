@@ -142,7 +142,7 @@
                         <v-list-item-title >
                             <div class="ma-5 pointer" >
 <!-- cant Getting all data of skue item of row  ?!     -->
-                                <ModalFinancialInfo :id="item.data.id" :financialInfo="item.data.id" @getFinancialData="financialData"/>
+                                <ModalFinancialInfo :id="item.data.id" :financialInfo="item.data.data" @getFinancialData="financialData"/>
                             </div>
                         </v-list-item-title>
                         </v-list>
@@ -396,6 +396,7 @@ export default {
             this.skues.forEach((item) =>
                 this.itemListTable.push(
                     {
+                        data : item,    /* for modal data binding*/
                         id: item.id,
                         name: item.name,
                         label: item.label,
