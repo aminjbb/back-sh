@@ -518,6 +518,7 @@ export default {
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
             ],
             support: [
+                ['کنسل اسنپ پی', '/snap-pay/cancel', 'mdi-checkbox-blank-circle-outline'],
                 ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
