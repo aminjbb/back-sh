@@ -224,7 +224,7 @@ export default {
                     if (err.response.status == 400) {
                         openToast(
                             this.$store,
-                            'خطا در دریافت بارکد، لطفا از ابتدا تلاش کنید',
+                            err.response.message,
                             "error",
                         );
                     }
