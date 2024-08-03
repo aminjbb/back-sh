@@ -28,6 +28,23 @@
             <img v-else src="@/assets/img/noFile.png" height="50" width="50" alt="noImage"/>
         </template>
 
+        <template v-slot:item.score="{item}">
+            <v-rating
+                style="direction: ltr!important;"
+                v-model="item.score"
+                size="18"
+                half-increments
+                readonly>
+                <template v-slot:item="props">
+                    <v-icon
+                        size="large"
+                        :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                        mdi-star
+                    </v-icon>
+                </template>
+            </v-rating>
+        </template>
+
         <template v-slot:item.is_active="{item}">
             <div class=" d-flex justify-center align-center">
                 <v-switch
