@@ -504,11 +504,7 @@ export default{
                  this.rejectedPickUp = false
                  this.partialCompletedPickUp = false
                  this.completedPickUp = false
-
-                 this.myTasks()
-                 /*
-                              this.$route.push('warehouse-orders/pick-up')
-                 */
+                 window.location.reload()
              }
              else {
              }
