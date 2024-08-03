@@ -57,11 +57,10 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             AxiosMethod.end_point = `warehouse/order/pickup/my-tasks`
             let data = await AxiosMethod.axios_get()
-
-            if (data.warehouse_mode === 'item_base') {
+            if (data.data.warehouse_mode === 'item_base') {
                 this.itemBase = true
             }
-            else if (data.warehouse_mode === 'order_base') {
+            else if (data.data.warehouse_mode === 'order_base') {
                 this.orderBase = true
             }
             else if (data.data.length === 0){
