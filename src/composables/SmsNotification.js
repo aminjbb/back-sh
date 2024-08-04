@@ -25,9 +25,10 @@ export default function setup() {
     ])
 
     const headerSmsSetting =ref( [
-        {name:'ردیف' , show:true, value:null, order:false},
-        {name:'توضیحات' , show:true, value:'description', order:false},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', align:'center', sortable: false},
+        {name:'توضیحات' ,title:'توضیحات' , show:true, key:'text', align:'center', sortable: false},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'switch', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true}
     ])
 
     async function getSmsNotificationList() {

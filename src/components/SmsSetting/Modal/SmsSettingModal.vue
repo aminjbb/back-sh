@@ -109,7 +109,6 @@ export default {
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
-        this.$emit('getSettingData', this.smsSettingData)
 
       } catch (error) {
         this.loading = false

@@ -8,16 +8,6 @@
           :page="page"
           :perPage="dataTableLength"
           :loading="loading" />
-
-<!--        <Table-->
-<!--            @resetPage="resetPage"-->
-<!--            class="flex-grow-1"-->
-<!--            :header="header"-->
-<!--            :items="smsList"-->
-<!--            :page="page"-->
-<!--            :perPage="dataTableLength"-->
-<!--            :loading="loading"/>-->
-
         <v-divider />
 
         <v-card-actions class="pb-3">
@@ -62,11 +52,10 @@
 
 <script>
 import ShTable from "@/components/Components/Table/sh-table.vue";
-import Table from '@/components/SmsNotification/Table/SmsNotificationTable.vue'
 import SmsNotification from "@/composables/SmsNotification"
 
 export default {
-  components: { Table, ShTable },
+  components: { ShTable },
 
   setup() {
     const {
