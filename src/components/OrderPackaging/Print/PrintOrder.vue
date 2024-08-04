@@ -104,7 +104,7 @@
               <v-card height="12" variant="outlined" color="black"
                       class="rounded-0 d-flex justify-center align-center">
                                       <span class="t8400">
-                                         {{ printObject?.order_factor_id }}
+                                         {{ printObject?.order_number }}
                                       </span>
               </v-card>
             </v-col>
@@ -205,7 +205,7 @@
             <v-col class="pa-0 ma-0" cols="3">
               <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
-                          {{ printObject.order_factor_id }}
+                          {{ printObject.order_number }}
                            </span>
               </v-card>
             </v-col>
