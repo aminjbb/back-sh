@@ -48,19 +48,55 @@
                 </v-card>
 
                 <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-                    <Table
+                    <ShTable
                         class="flex-grow-1"
-                        :header="header"
-                        :items="supplierList.data"
+                        :headers="header"
+                        :items="itemListTable"
                         :page="page"
                         :perPage="dataTableLength"
-                        editUrl="/supplier/edit/"
                         activePath="supplier/crud/update/activation/"
-                        changeStatusUrl="supplier/crud/update/contract/"
                         :loading="loading"
-                        @updateList = "updateList"
-                        updateUrl="supplier/csv/mass-update"
-                        model="Supplier" />
+                         >
+                        <template v-slot:actionSlot="item">
+                            <div class="text-center">
+                                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                                    mdi-dots-vertical
+                                </v-icon>
+                            </div>
+                            <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                                <v-list class="c-table__more-options">
+                                    <v-list-item>
+                                        <v-list-item-title>
+                                            <div class="ma-5 pointer" @click="$router.push(`/supplier/edit/${item.data.id}`)">
+                                                <v-icon size="small" class="text-grey-darken-1">
+                                                    mdi-pen
+                                                </v-icon>
+                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                    ویرایش
+                                                </span>
+                                            </div>
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item>
+                                        <v-list-item-title>
+                                            <div class="ma-5 pointer" @click="changeStatus(item.data)">
+                                                <template v-if="item.data.contract_status === 'associate'">
+                                                    <v-icon class="text-grey-darken-1">mdi-close-circle-outline</v-icon>
+                                                    <span class="mr-2 text-grey-darken-1 t14300">توقف همکاری </span>
+                                                </template>
+
+                                                <template v-if="item.data.contract_status === 'disassociate'">
+                                                    <v-icon class="text-grey-darken-1">mdi-check-circle-outline</v-icon>
+                                                    <span class="mr-2 text-grey-darken-1 t14300">شروع همکاری </span>
+                                                </template>
+                                            </div>
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
+                        </template>
+                    </ShTable>
 
                     <v-divider />
 
@@ -114,18 +150,20 @@ const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
 import {ref} from "vue";
-import Table from '@/components/Supplier/Table/Table.vue'
 import Supplier from "@/composables/Supplier";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
     data() {
         return {
-            perPageFilter:false
+            perPageFilter:false,
+            itemListTable:[]
         }
     },
     setup() {
@@ -204,10 +242,10 @@ export default {
         DashboardLayout,
         Header,
         PanelFilter,
-        Table,
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
+        ShTable
     },
 
     computed: {
@@ -233,7 +271,47 @@ export default {
             setTimeout(()=>{
                 this.perPageFilter = false
             }, 1000)
-        }
+        },
+
+        getType(type) {
+            if (type === 'legal') {
+                return 'حقوقی';
+            }
+            if (type === 'genuine') {
+                return 'حقیقی';
+            }
+            return 'نامعلوم';
+        },
+
+        async changeStatus(item) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = `supplier/crud/update/contract/${item.id}`
+            if (item.contract_status === 'associate') formdata.append('contract_status', 'disassociate')
+            else if (item.contract_status === 'disassociate') formdata.append('contract_status', 'associate')
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+
+            if (data) {
+                openToast(
+                    this.$store,
+                    'عملیات مورد نظر با موفقیت انجام شد.',
+                    "success"
+                );
+
+                await this.getSupplierList();
+            } else {
+                openToast(
+                    this.$store,
+                    'عملیات مورد نظر با مشکل مواجه شد.',
+                    "error"
+                );
+            }
+        },
     },
 
     mounted() {
@@ -282,7 +360,32 @@ export default {
         },
         $route(){
             this.getSupplierList()
+        },
+
+        supplierList() {
+            this.itemListTable = []
+
+            this.supplierList.data.forEach((item) =>
+                this.itemListTable.push(
+                    {
+                        id: item.id,
+                        kosar_id: item.kosar_id !== null ? item.kosar_id : 'نامعلوم',
+                        full_name: item.full_name ,
+                        shopping_name: item.shopping_name ,
+                        supplier_type: this.getType(item.type) ,
+                        state_label: item.state.label ,
+                        city_label: item.city.label ,
+                        phone: item.phone ,
+                        payment_period: item.payment_period +' '+'روز' ,
+                        created_at: item.created_at_fa,
+                        is_active: item.is_active,
+                        is_active_id: item.id,
+                        contract_status: item.contract_status
+                    },
+                ),
+            )
         }
+
     }
 }
 
