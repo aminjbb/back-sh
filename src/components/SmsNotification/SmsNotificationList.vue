@@ -1,14 +1,22 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
-            @resetPage="resetPage"
-            class="flex-grow-1"
-            :header="header"
-            :items="smsList"
-            :page="page"
-            :perPage="dataTableLength"
-            :loading="loading"/>
+      <ShTable
+          class="flex-grow-1"
+          :headers="header"
+          :items="itemListTable"
+          :page="page"
+          :perPage="dataTableLength"
+          :loading="loading" />
+
+<!--        <Table-->
+<!--            @resetPage="resetPage"-->
+<!--            class="flex-grow-1"-->
+<!--            :header="header"-->
+<!--            :items="smsList"-->
+<!--            :page="page"-->
+<!--            :perPage="dataTableLength"-->
+<!--            :loading="loading"/>-->
 
         <v-divider />
 
@@ -53,11 +61,12 @@
 </template>
 
 <script>
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Table from '@/components/SmsNotification/Table/SmsNotificationTable.vue'
 import SmsNotification from "@/composables/SmsNotification"
 
 export default {
-  components: { Table },
+  components: { Table, ShTable },
 
   setup() {
     const {
@@ -83,7 +92,8 @@ export default {
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable:[]
     }
   },
 
@@ -92,6 +102,18 @@ export default {
   },
 
   methods: {
+    convertStatus(status) {
+      if (status === 'order_status') {
+        return 'تغییر وضعیت سفارش'
+      }
+      else if (status === 'sms_automation') {
+        return 'کمپین پیامکی'
+      }
+      else if (status === 'mass') {
+        return 'ارسال گروهی'
+      }
+    },
+
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
@@ -106,6 +128,22 @@ export default {
   },
 
   watch: {
+    smsList() {
+      this.itemListTable = []
+
+      this.smsList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                phone_number: item.phone_number,
+                full_name: item.user.first_name + ' ' +item.user.last_name,
+                type: this.convertStatus(item.type),
+                created_at: item.user.created_at.split('T')[1].split('.')[0] + ' ' +item.user.created_at_fa,
+                sms: item.message,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

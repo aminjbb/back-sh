@@ -16,12 +16,12 @@ export default function setup() {
     const isFilterPage =ref(false)
 
     const header =ref( [
-        {name:'ردیف' , show:true, value:null, order:false},
-        {name:'شماره تماس کاربر' , show:true, value:'phone_number', order:false},
-        {name:'نام و نام خانوادگی کاربر' , show:true, value:'full_name', order:false},
-        {name:'نوع پیامک' , show:true, value:'sending-stage', order:false},
-        {name:'متن اس ام اس' , show:true, value:'sms', order:false},
-        {name:'تاریخ ارسال' , show:true, value:'created_at', order:true},
+        {name:'ردیف', title:'ردیف' , show:true, key:'row', align:'center', sortable: false},
+        {name:'شماره تماس کاربر' , title:'شماره تماس کاربر' , show:true, key:'phone_number', align:'center', sortable: false},
+        {name:'نام و نام خانوادگی کاربر', title:'نام و نام خانوادگی کاربر' , show:true, key:'full_name', align:'center', sortable: false},
+        {name:'نوع پیامک', title:'نوع پیامک' , show:true, key:'type', align:'center', sortable: false},
+        {name:'متن اس ام اس', title:'متن اس ام اس' , show:true, key:'sms', align:'center', sortable: false},
+        {name:'تاریخ ارسال', title:'تاریخ ارسال' , show:true, key:'created_at', align:'center', sortable: false},
     ])
 
     const headerSmsSetting =ref( [
