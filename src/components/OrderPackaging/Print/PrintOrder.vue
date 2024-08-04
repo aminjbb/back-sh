@@ -91,9 +91,9 @@
 
             <v-col cols="6" class="pa-0 ma-0">
               <v-card height="12" variant="outlined" color="black"
-                      class="rounded-0 d-flex justify-center align-center">
+                      class="rounded-0 d-flex justify-center align-center pt-1">
                                       <span class="t8400">
-                                         {{ printObject?.order_factor_id }}
+                                         {{ printObject?.order_number }}
                                       </span>
               </v-card>
             </v-col>
@@ -192,9 +192,9 @@
               </v-card>
             </v-col>
             <v-col class="pa-0 ma-0" cols="3">
-              <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+              <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center pt-1">
                            <span class="t8400 mx-1">
-                          {{ printObject.order_factor_id }}
+                          {{ printObject.order_number }}
                            </span>
               </v-card>
             </v-col>
@@ -263,7 +263,7 @@ export default {
 
           setTimeout(() => {
             let myElement = document.getElementById('printableArea-order');
-            window.onafterprint = function() {window.close()};
+            // window.onafterprint = function() {window.close()};
             window.print(myElement);
           }, 2000)
 
