@@ -13,10 +13,11 @@ export default function setup() {
     const cookies = useCookies()
     const route = useRoute()
     const header = ref([
-        {name: 'ردیف', show: true},
-        {name: 'شناسه', show: true},
-        {name: 'عنوان', show: true},
-        {name: 'نام فارسی', show: true},
+        {name: 'ردیف', title:'ردیف', key:'row', show: true, align:'right', sortable: false},
+        {name: 'شناسه', title:'شناسه', key:'id', show: true, align:'right', sortable: false},
+        {name: 'عنوان', title:'عنوان', key:'title', show: true, align:'right', sortable: false},
+        {name: 'نام فارسی', title:'نام فارسی', key:'name', show: true, align:'right', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true, minWidth:'5'}
     ]);
     const loading = ref(false)
 
