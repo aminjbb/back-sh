@@ -15,9 +15,9 @@ export default function setup() {
 
     const header = ref([
         {name:'ردیف' ,title:'ردیف' , show:true , key:'row', align:'center', sortable: false},
-        {name:'شناسه' ,title:'شناسه' , show:true , key:'id', align:'center', sortable: false},
-        {name:'نام انگلیسی' ,title:'نام انگلیسی' , show:true , key:'name', align:'center', sortable: false},
-        {name:'نام فارسی' ,title:'نام فارسی' , show:true ,  key:'color', align:'center', sortable: false},
+        {name:'شناسه' ,title:'شناسه' , show:true , key:'id', align:'center'},
+        {name:'نام انگلیسی' ,title:'نام انگلیسی' , show:true , key:'name', align:'center'},
+        {name:'نام فارسی' ,title:'نام فارسی' , show:true ,  key:'color', align:'center'},
         {name:'گروه' ,title:'گروه' , show:true, key:'group', align:'center', sortable: false},
         {name:'فعال سازی ',title:'فعال سازی ' , show:true, key:'is_active',align:'center', sortable: false},
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true}

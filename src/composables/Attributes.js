@@ -12,13 +12,14 @@ export default function setup() {
     const route = useRoute()
 
     const header = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه' , show:true , value:'id', order: true},
-        {name:'نام انگلیسی' , show:true , value:'name', order: true},
-        {name:'نام فارسی' , show:true,  value:'label', order: true},
-        {name:'نوع' , show:true, value:'type', order: false},
-        {name:'مقدار ویژگی' , show:true, order: false},
-        {name:'فیلتر' , show:true, order: false},
+        {name:'ردیف',title:'ردیف' , show:true , key:'row',align:'center', sortable: false},
+        {name:'شناسه',title:'شناسه' , show:true , key:'id'},
+        {name:'نام انگلیسی',title:'نام انگلیسی' , show:true , key:'name'},
+        {name:'نام فارسی',title:'نام فارسی' , show:true,  key:'label',},
+        {name:'نوع' ,title:'نوع' , show:true, key:'type', align:'center', sortable: false},
+        {name:'مقدار ویژگی',title:'مقدار ویژگی' , show:true, key:'custom', align:'center', sortable: false},
+        {name:'فیلتر',title:'فیلتر' , show:true, key:'is_active', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true}
     ]);
 
     const filterField =  [
