@@ -49,8 +49,7 @@
                 :items="itemListTable"
                 :page="page"
                 :perPage="dataTableLength"
-                :loading="loading"
-                :activePath="'admin/crud/update/ban/'">
+                :loading="loading">
 
               <template v-slot:switchSlot="item">
                 <v-switch
@@ -231,7 +230,7 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (!data) {
-        item.switch = false
+        banItem.switch = false
       }
     },
 
