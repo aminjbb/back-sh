@@ -14,15 +14,16 @@ export default function setup() {
     const pageLength =ref(1)
     const pageLengthWallet =ref(1)
     const header = ref([
-        {name:'ردیف' , show:true, value:null, order:false},
-        {name: 'شناسه', show: true, value: 'id', order: true},
-        {name:'نام' , show:true, value:'first_name', order:false},
-        {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
-        {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
-        {name:'تاریخ ساخت' , show:true, value:'created_at', order:true},
-        {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
-        {name:'ایمیل' , show:true, value:'email', order:false},
-        {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
+        {name:'ردیف', title:'ردیف', show:true, key:'row', order:false, align:'center', sortable: false,},
+        {name: 'شناسه', title: 'شناسه', show: true, key: 'id', order: true, align:'center'},
+        {name:'نام', title:'نام', show:true, key:'first_name', order:false, align:'center', sortable: false},
+        {name:'نام خانوادگی', title:'نام خانوادگی', show:true, key:'last_name', order:false, align:'center', sortable: false},
+        {name:'شماره موبایل', title:'شماره موبایل', show:true, key:'phone_number', order:false, align:'center', sortable: false},
+        {name:'تاریخ ساخت', title:'تاریخ ساخت', show:true, key:'created_at', order:true, align:'center'},
+        {name:'تاریخ لاگین', title:'تاریخ لاگین', show:false, key:'last_login', order:false, align:'center', sortable: false},
+        {name:'ایمیل', title:'ایمیل' , show:true, key:'email', order:false, align:'center', sortable: false},
+        {name:'مسدود کردن', title:'مسدود کردن', show:true, key:'switch', order:false, align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ])
     const headerTransaction = ref([
         {name:'ردیف' , show:true, value:null, order:false},
@@ -220,6 +221,6 @@ export default function setup() {
 
     return {pageLength, pageLengthWallet,  users, getUsers , dataTableLength , page  , header , userList , getUserList ,
         filterField , filterFieldWallet, user , getUser , getUserAddress , userAddress, headerTransaction,
-        getTransactionList, transactionList}
+        getTransactionList, transactionList, loading}
 }
 
