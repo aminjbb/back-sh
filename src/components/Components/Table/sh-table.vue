@@ -13,6 +13,15 @@
         :loading="loading"
         @update:sort-by="getItemsWithSort"
     >
+        <template v-for="header in headers.filter((item) => item.model)" v-slot:[`item.${header.key}`]="props">
+            <v-icon v-if="header.model === 'icon'"
+                :color="props.item[header.key].split('|')[1]">
+                     {{ props.item[header.key].split('|')[0] }}
+            </v-icon>
+        </template>
+
+
+
         <template v-slot:loading>
             <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
         </template>
@@ -159,21 +168,26 @@ export default {
     width: 5px;
     height: 5px;
 }
+
 #sh-table ::-webkit-scrollbar-track {
     border-radius: 3px;
     background-color: #F8BBD0;
 }
+
 #sh-table ::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color: #F06292;
 }
+
 #sh-table ::-webkit-scrollbar-thumb:hover {
     background-color: #ef588b;
 }
+
 tbody tr:nth-of-type(odd) {
     background-color: rgba(251, 251, 252);
 }
-.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > td, .v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > th{
+
+.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > td, .v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > th {
     border-bottom: none;
 }
 
