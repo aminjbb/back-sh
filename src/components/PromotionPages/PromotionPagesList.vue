@@ -33,18 +33,56 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="promotions.data"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
-          activePath="page/promotion/crud/update/activation/"
-          deletePath="page/promotion/crud/delete/"
           :loading="loading"
-          updateUrl="page/csv/mass-update"
-          model="promotionPage" />
+          activePath="page/promotion/crud/update/activation/"
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
 
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item>
+                          <v-list-item-title>
+                              <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                  <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        حذف
+                                    </span>
+                              </div>
+                          </v-list-item-title>
+
+                          <v-list-item-title>
+                              <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.data.id}`)">
+                                  <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        ویرایش
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+
+                          <v-list-item-title>
+                              <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.data.id}/sku-group/add`)">
+                                  <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        مدیریت محصولات
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+                      </v-list-item>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -89,18 +127,20 @@
 </template>
 
 <script>
-import
-  Table from '@/components/PromotionPages/Table/PromotionPageTable.vue'
 import PromotionPage from "@/composables/PromotionPage";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
+
 export default {
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+        itemListTable: []
     }
   },
   setup() {
@@ -147,10 +187,10 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
+    ShTable
   },
 
   computed: {
@@ -163,14 +203,17 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete",  "page/promotion/crud/delete/"+id, true)
+    },
   },
 
   mounted() {
@@ -219,8 +262,24 @@ export default {
     },
     $route(){
       this.getPromotions()
-    }
-    
+    },
+
+      promotions() {
+          this.itemListTable = []
+          this.promotions.data.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      name: item.name,
+                      label: item.label,
+                      created_at_fa: item.created_at_fa,
+                      updated_at_fa: item.updated_at_fa,
+                      is_active: item.is_active,
+                      is_active_id: item.id,
+                  }
+              )
+          })
+      },
   }
 }
 </script>
