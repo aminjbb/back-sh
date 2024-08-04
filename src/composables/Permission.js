@@ -14,10 +14,10 @@ export default function setup() {
     const pageLength = ref(1)
     const loading = ref(false)
     const header = ref([
-        {name: 'ردیف', show: true},
-        {name: 'شناسه', show: true},
-        {name: 'عنوان', show: true},
-        {name: 'نام فارسی', show: true},
+        {name: 'ردیف', title:'ردیف', key:'row', show: true, align:'right', sortable: false},
+        {name: 'شناسه', title:'شناسه', key:'id', show: true, align:'right', sortable: false},
+        {name: 'عنوان', title:'عنوان', key:'title', show: true, align:'right', sortable: false},
+        {name: 'نام فارسی', title:'نام فارسی', key:'name', show: true, align:'right', sortable: false},
     ]);
 
     async function getPermissions() {
