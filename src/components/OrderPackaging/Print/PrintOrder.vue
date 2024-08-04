@@ -7,11 +7,7 @@
                  class="pa-3 ">
             <v-col class="pa-0 ma-0" cols="3">
               <v-card height="30" variant="outlined" color="black" class="rounded-0 text-center">
-                <div class="d-flex justify-center">
-                  <span class="t24800">
-                    {{ printObject.box_size }}
-                  </span>
-                </div>
+
               </v-card>
             </v-col>
 
@@ -49,7 +45,7 @@
                   <v-row justify="center">
                     <v-col cols="6" class="pa-0 ma-0">
                       <v-card height="12" variant="outlined" color="black"
-                              class="rounded-0 d-flex justify-center align-center pt-1">
+                              class="rounded-0 d-flex justify-center align-center">
                                               <span class="t8400 d--rtl">
                                                گرم {{ printObject?.weight }}
                                               </span>
@@ -72,7 +68,7 @@
                     </v-col>
                     <v-col cols="6" class="pa-0 ma-0">
                       <v-card height="12" variant="outlined" color="black"
-                              class="rounded-0 d-flex justify-center align-center pt-1">
+                              class="rounded-0 d-flex justify-center align-center">
                                               <span class="t8400">
                                                {{ printObject?.date }}
                                               </span>
@@ -83,28 +79,21 @@
               </v-row>
             </v-col>
             <v-col class="pa-0 ma-0" cols="12">
-              <v-card height="65" variant="outlined" color="black" class="rounded-0 text-right px-1">
-                <div class="my-0">
-                   <span class="t10600">
-                    {{ printObject?.state?.label }}
-                   </span>
-                  <span class="t10600">-</span>
-                  <span class="t10600">
-                    {{ printObject?.city?.label }}
-                   </span>
-                </div>
-                <div  class="my-0 line-h-12">
-                  <span class="t10600 ">  آدرس :</span> <span class="t10600 "> {{ printObject.receiver_address }}</span> <span class="t10600 d--rtl">  کدپستی :</span> <span class="t10600 d--rtl">  {{ printObject.receiver_postal_code }}</span>
-                </div>
-
+              <v-card height="75" variant="outlined" color="black" class="rounded-0 text-right px-1">
+                <p>
+                  <span class="t10600">{{ printObject.receiver_address }} : آدرس</span>
+                </p>
+                <p>
+                  <span class="t10400">  {{ printObject.receiver_postal_code }} : کدپستی</span>
+                </p>
               </v-card>
             </v-col>
 
             <v-col cols="6" class="pa-0 ma-0">
               <v-card height="12" variant="outlined" color="black"
-                      class="rounded-0 d-flex justify-center align-center">
+                      class="rounded-0 d-flex justify-center align-center pt-1">
                                       <span class="t8400">
-                                         {{ printObject?.order_factor_id }}
+                                         {{ printObject?.order_number }}
                                       </span>
               </v-card>
             </v-col>
@@ -112,7 +101,7 @@
               <v-card height="12" variant="outlined" color="black"
                       class="rounded-0 d-flex justify-center align-center">
                                       <span class="t8400">
-                                         کاربر عادی {{ index + 1 }}/{{ modalPrintOrderObject?.length }}
+                                         کاربر عادی {{ index+1 }}/{{ modalPrintOrderObject?.length }}
                                       </span>
               </v-card>
             </v-col>
@@ -130,7 +119,7 @@
             </v-col>
 
             <v-col cols="12" class="pa-0 ma-0">
-              <v-card height="80" variant="outlined" color="black"
+              <v-card height="70" variant="outlined" color="black"
                       class="rounded-0 d-flex justify-center align-center pa-0 pt-1">
                 <barcode
                     :barcodeValue="printObject.logistic_barcode"
@@ -198,28 +187,28 @@
             <v-col class="pa-0 ma-0" cols="5">
               <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
-                            {{ printObject?.date }}
+                            {{printObject?.date}}
                            </span>
               </v-card>
             </v-col>
             <v-col class="pa-0 ma-0" cols="3">
-              <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
+              <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center pt-1">
                            <span class="t8400 mx-1">
-                          {{ printObject.order_factor_id }}
+                          {{ printObject.order_number }}
                            </span>
               </v-card>
             </v-col>
             <v-col class="pa-0 ma-0" cols="4">
               <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
                            <span class="t8400 mx-1">
-                       کاربر عادی {{ index + 1 }}/{{ modalPrintOrderObject?.length }}
+                       کاربر عادی {{ index+1 }}/{{ modalPrintOrderObject?.length }}
                            </span>
               </v-card>
             </v-col>
             <v-col cols="12" class="pa-0 ma-0">
 
               <v-card height="70" variant="outlined" color="black"
-                      class="rounded-0 d-flex justify-center align-center pa-0 pt-1" :key="'logistic_barcode'+index">
+                      class="rounded-0 d-flex justify-center align-center pa-0 pt-1"  :key="'logistic_barcode'+index" >
                 <barcode
                     :barcodeValue="printObject.logistic_barcode"
                     :format="'CODE128'"
@@ -239,10 +228,7 @@
 
 <script>
 import Barcode from "@/components/OrderPackaging/Barcode/OrderPackagingBarcode.vue";
-
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
 
@@ -255,7 +241,6 @@ export default {
       },
     }
   },
-
 
   components: {
     Barcode
@@ -278,7 +263,7 @@ export default {
 
           setTimeout(() => {
             let myElement = document.getElementById('printableArea-order');
-            window.onafterprint = function() {window.close()};
+            // window.onafterprint = function() {window.close()};
             window.print(myElement);
           }, 2000)
 
