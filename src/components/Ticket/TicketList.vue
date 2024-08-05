@@ -108,19 +108,15 @@
 </template>
 
 <script>
-//components
-import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
-import {openConfirm, openToast} from "@/assets/js/functions";
 
 
 export default {
   components: {
     PanelFilter,
-    Table,
     ModalColumnFilter,
     ShTable
   },

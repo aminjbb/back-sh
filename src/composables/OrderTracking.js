@@ -10,10 +10,11 @@ export default function setup() {
     const store = useStore()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه سفارش', show: true , value:'order_id', order: false},
-        { name: 'شماره سفارش', show: true , value:'order_number', order: false},
-        { name: 'وضعیت سفارش', show: true, value:'order_status' , order: false},
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row',align:'center', sortable: false},
+        {name: 'شناسه سفارش', title: 'شناسه سفارش', show: true , key:'order_id', align:'center', sortable: false},
+        {name: 'شماره سفارش', title: 'شماره سفارش', show: true , key:'order_number', align:'center', sortable: false},
+        {name: 'وضعیت سفارش', title: 'وضعیت سفارش', show: true, key:'order_status', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'show', show: true , align:'center', sortable: false},
     ]);
 
 
