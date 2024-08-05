@@ -243,7 +243,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
 
         }
     },
