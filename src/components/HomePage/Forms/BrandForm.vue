@@ -34,7 +34,7 @@
             :rules="rule"
             v-model="form.priority" />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" md="6">
         <div class="text-right my-5">
                 <span class="t14500">
                     لینک
@@ -48,6 +48,21 @@
             single-line
             :rules="rule"
             v-model="form.link" />
+      </v-col>
+      <v-col cols="12" md="6">
+        <div class="text-right my-5">
+                <span class="t14500">
+                    توضیحات
+                  <span class="text-error">*</span>
+                </span>
+        </div>
+        <v-text-field
+            placeholder="توضیحات"
+            density="compact"
+            variant="outlined"
+            single-line
+            :rules="rule"
+            v-model="form.desc" />
       </v-col>
 
       <v-col cols="12">
@@ -67,6 +82,7 @@ import {
 } from "@/assets/js/functions";
 
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+import {log10} from "chart.js/helpers";
 export default {
 
   props: {
@@ -84,7 +100,8 @@ export default {
         title: '',
         priority: '',
         link: '',
-        image:''
+        image:'',
+        desc:''
       },
       rule: [v => !!v || 'این فیلد الزامی است'],
       valid: false,
@@ -108,11 +125,11 @@ export default {
      */
     setForm() {
       try {
-
         this.form.title = this.bannerObject.label
         this.form.priority = this.bannerObject.priority
         this.form.link = this.bannerObject.link
         this.form.image = this.bannerObject.image_id
+        this.form.desc = this.bannerObject.description
 
       } catch (error) {}
     },

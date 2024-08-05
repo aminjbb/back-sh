@@ -103,6 +103,7 @@ export  default {
       formData.append(`link`, this.$refs.BrandForm.form.link)
       formData.append('image_id', this.$refs.BrandForm.form.image)
       formData.append('priority', this.$refs.BrandForm.form.priority)
+      formData.append('description', this.$refs.BrandForm.form.desc)
       AxiosMethod.form = formData
       formData.append('is_active', 0)
       AxiosMethod.store = this.$store
