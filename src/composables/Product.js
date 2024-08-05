@@ -15,7 +15,7 @@ export default function setup() {
         {name: 'شناسه', title: 'شناسه', show: true, key: 'id', align:'center'},
         {name: 'نام انگلیسی', title: 'نام انگلیسی', show: true, key: 'name', align:'center'},
         {name: 'نام فارسی', title: 'نام فارسی', show: true, key: 'label', align:'center'},
-        {name: ' ساخت کالا', title: ' ساخت کالا', show: true, key:'create', align:'center', sortable: false},
+        {name: ' ساخت کالا', title: ' ساخت کالا', show: true, key:'custom', align:'center', sortable: false},
         {name: ' کالا ها', title: ' کالا ها', show: true, key:'show', align:'center', sortable: false},
         {name: 'فعال سازی ', title: 'فعال سازی ', show: true, key:'is_active', align:'center', sortable: false},
         {name: 'عملیات',title: 'عملیات', key:'action', show: true, align:'center', sortable: false, fixed: true}

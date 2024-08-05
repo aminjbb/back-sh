@@ -20,13 +20,11 @@
             </v-icon>
         </template>
 
-
-
         <template v-slot:loading>
             <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
         </template>
 
-        <template v-slot:item.row="{  index }">
+        <template v-slot:item.row="{index}">
             <span class="t14300  number-font">
                 {{ rowIndexTable(index) }}
             </span>
@@ -54,16 +52,8 @@
             </v-rating>
         </template>
 
-        <template v-slot:item.show="{item}">
-          <v-btn :href=" model === 'product'? `/product/get/${item.id}/sku/index/` : `${item.id}/sku/index`" variant="icon">
-            <v-icon color="success">mdi-eye</v-icon>
-          </v-btn>
-        </template>
-
-        <template v-slot:item.create="{item}">
-          <v-btn :href=" model === 'product'? `/product/create/sku/${item.id}` : `/product/get/${item.product_id}/skugroup/${item.id}/create/sku`" variant="icon">
-            <v-icon color="success">mdi-plus</v-icon>
-          </v-btn>
+        <template v-slot:item.show="{item, index}">
+          <slot name="showSlot" :data="item" :index="index"></slot>
         </template>
 
         <template v-slot:item.is_active="{item}">
@@ -95,7 +85,6 @@
         <template v-slot:item.action="{ item, index }">
             <slot name="actionSlot" :data="item" :index="index"></slot>
         </template>
-
 
         <template v-slot:no-data>
             <div class="d-flex justify-center align-center flex-column py-14 bg-white">
@@ -130,10 +119,6 @@ export default {
         default: 25,
       },
       activePath: {
-        type: String,
-        default: '',
-      },
-      model: {
         type: String,
         default: '',
       }

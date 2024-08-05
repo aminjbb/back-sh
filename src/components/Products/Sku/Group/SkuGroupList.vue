@@ -44,8 +44,19 @@
           :loading="skuGroupLoading"
           :page="page"
           :perPage="dataTableLength"
-          activePath="product/crud/update/activation/"
-          model="product">
+          activePath="product/crud/update/activation/">
+        <template v-slot:showSlot="item">
+          <v-btn :href="`${item.data.id}/sku/index`" variant="icon">
+            <v-icon color="success">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:customSlot="item">
+          <v-btn :href="`/product/get/${item.data.product_id}/skugroup/${item.data.id}/create/sku`" variant="icon">
+            <v-icon color="success">mdi-plus</v-icon>
+          </v-btn>
+        </template>
+
         <template v-slot:actionSlot="item">
           <div class="text-center">
             <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
@@ -105,19 +116,18 @@
             <div
                 align="center"
                 id="rowSection"
-                class="d-flex align-center"
-            >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
-              <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+                class="d-flex align-center">
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
+              <span
+                  class="mt-2"
+                  id="row-selector">
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -233,6 +243,7 @@ export default {
       this.allSkuGroups.data.forEach((item) =>
           this.itemListTable.push(
               {
+                product_id : item.product_id,
                 id: item.id,
                 name: item.name,
                 label: item.label,

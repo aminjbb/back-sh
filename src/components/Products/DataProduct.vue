@@ -59,8 +59,19 @@
           :loading="loading"
           :page="page"
           :perPage="dataTableLength"
-          activePath="product/crud/update/activation/"
-          model="product">
+          activePath="product/crud/update/activation/">
+        <template v-slot:showSlot="item">
+          <v-btn :href="`/product/get/${item.data.id}/sku/index/`" variant="icon">
+            <v-icon color="success">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:customSlot="item">
+          <v-btn :href="`/product/create/sku/${item.data.id}`" variant="icon">
+            <v-icon color="success">mdi-plus</v-icon>
+          </v-btn>
+        </template>
+
         <template v-slot:actionSlot="item">
           <div class="text-center">
             <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
@@ -119,20 +130,19 @@
             <div
                 align="center"
                 id="rowSection"
-                class="d-flex align-center"
-            >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
+                class="d-flex align-center">
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
 
-              <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+              <span
+                  class="mt-2"
+                  id="row-selector">
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>
