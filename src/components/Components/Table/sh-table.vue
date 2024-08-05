@@ -54,6 +54,18 @@
             </v-rating>
         </template>
 
+        <template v-slot:item.show="{item}">
+          <v-btn :href=" model === 'product'? `/product/get/${item.id}/sku/index/` : `${item.id}/sku/index`" variant="icon">
+            <v-icon color="success">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:item.create="{item}">
+          <v-btn :href=" model === 'product'? `/product/create/sku/${item.id}` : `/product/get/${item.product_id}/skugroup/${item.id}/create/sku`" variant="icon">
+            <v-icon color="success">mdi-plus</v-icon>
+          </v-btn>
+        </template>
+
         <template v-slot:item.is_active="{item}">
             <div class=" d-flex justify-center align-center">
                 <v-switch
@@ -65,7 +77,7 @@
                         @change="changeActive(item,item.is_active_id)"/>
             </div>
         </template>
-<!--SLOTS-->
+        <!--SLOTS-->
         <template v-slot:item.switch="{ item, index }">
             <div class=" d-flex justify-center align-center">
                 <slot name="switchSlot" :data="item" :index="index"></slot>
@@ -102,25 +114,29 @@ import {AxiosCall} from "@/assets/js/axios_call";
 export default {
     name: "shTable",
     props: {
-        headers: {
-            type: Array,
-            default: () => [],
-        },
-        items: Array,
-        loading: Boolean,
-        isSelect: Boolean,
-        page: {
-            type: Number,
-            default: 1,
-        },
-        perPage: {
-            type: Number,
-            default: 25,
-        },
-        activePath: {
-            type: String,
-            default: '',
-        },
+      headers: {
+        type: Array,
+        default: () => [],
+      },
+      items: Array,
+      loading: Boolean,
+      isSelect: Boolean,
+      page: {
+        type: Number,
+        default: 1,
+      },
+      perPage: {
+        type: Number,
+        default: 25,
+      },
+      activePath: {
+        type: String,
+        default: '',
+      },
+      model: {
+        type: String,
+        default: '',
+      }
     },
 
     methods: {

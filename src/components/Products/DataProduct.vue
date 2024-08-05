@@ -52,20 +52,46 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          activePath="product/crud/update/activation/"
-          editUrl="/product/edit/"
-          model="product"
-          deletePath="product/crud/delete/"
-          :header="header"
-          :items="productData"
-          updateUrl="product/csv/mass-update"
+          :headers="header"
+          :items="itemListTable"
+          :loading="loading"
           :page="page"
           :perPage="dataTableLength"
-          :loading="loading"
-          uploadImageUrl="/product/get/image/"
-      />
+          activePath="product/crud/update/activation/"
+          model="product">
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/product/edit/${item.data.id}`)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-pen
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -115,7 +141,8 @@
   </div>
 </template>
 <script>
-import Table from '@/components/Public/Table.vue'
+import {openToast, openConfirm} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -126,7 +153,7 @@ import {ref} from "vue";
 export default {
   components: {
     PanelFilter,
-    Table,
+    ShTable,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload
@@ -134,7 +161,13 @@ export default {
 
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      itemListTable:[],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "product/crud/delete/",
+      },
     }
   },
 
@@ -172,22 +205,15 @@ export default {
       page,
       header,
       item,
-      filterField
-      , loading,
+      filterField,
+      loading,
       activeStatus
     };
   },
+
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
-    },
-
-    productData() {
-      try {
-        return this.product.data
-      } catch (error) {
-        return []
-      }
     }
   },
 
@@ -195,13 +221,48 @@ export default {
     this.getProduct()
   },
 
+  methods: {
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
+
+    resetPage() {
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(() => {
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+  },
+
   watch: {
+    product(){
+      this.itemListTable = []
+
+      this.product.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                name: item.name,
+                label: item.label,
+                is_active: item.is_active,
+                is_active_id: item.id,
+              },
+          ),
+      )
+    },
+
     confirmModal(val) {
-      if (localStorage.getItem('deleteObject') == 'done') {
+      if (localStorage.getItem('deleteObject')) {
         if (!val) {
           this.getProduct()
+          openToast(this.$store, 'آیتم مورد نظر با موفقیت حذف شد', "success")
+          localStorage.removeItem('deleteObject')
         }
-        localStorage.removeItem('deleteObject')
       }
     },
 
@@ -236,18 +297,5 @@ export default {
       }
     }
   },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
-    resetPage() {
-      this.perPageFilter = true
-      this.page = 1
-      setTimeout(() => {
-        this.perPageFilter = false
-      }, 1000)
-    }
-  }
 }
 </script>
