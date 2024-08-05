@@ -125,17 +125,9 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter_page"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    openToast,
-    isOdd
-} from "@/assets/js/functions";
+import {openToast, isOdd} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -215,7 +207,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
             priorityModal: [],
         }
@@ -356,8 +347,6 @@ export default {
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
-
-
 
         /**
          * Return odd index

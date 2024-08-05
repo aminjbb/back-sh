@@ -160,19 +160,9 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter_placement"
-
-import {
-    isOdd
-} from "@/assets/js/functions";
-
+import {isOdd} from "@/assets/js/functions";
 import ModalPrint from '@/components/Placement/Modal/PrintModal.vue'
 
-import {
-    openModal
-} from "@/assets/js/functions_seller";
 export default {
 
     props: {
@@ -230,14 +220,12 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
         }
     },
 
     components: {
         ModalPrint
     },
-
 
     computed: {
         /**
@@ -259,7 +247,6 @@ export default {
     },
 
     methods: {
-
         /**
          * Get row index in table
          * @param {*} index
@@ -310,8 +297,6 @@ export default {
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
-
-
 
         /**
          * Return odd index

@@ -134,14 +134,7 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import { openConfirm, isOdd} from "@/assets/js/functions";
 export default {
 
     props: {
@@ -208,9 +201,7 @@ export default {
             order_type: "desc",
             ordering: {},
             per_page: '25',
-            filter: [],
-            panelFilter: new PanelFilter(),
-
+            filter: []
         }
     },
 

@@ -20,6 +20,7 @@
   </v-card>
   <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="pricingHeader"
             :items="priceList.shps_list"
@@ -156,34 +157,36 @@ import Factor from "@/composables/Factor";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 export default {
-    data() {
-        return {
-            showSaveButton: false,
-        }
-    },
-    setup() {
-        const {
-            getPricingList,
-            priceList,
-            filterField,
-            dataTableLength,
-            pricingHeader,
-            loading
-        } = Factor();
-        return {
-            getPricingList,
-            priceList,
-            filterField,
-            dataTableLength,
-            pricingHeader,
-            loading
-        };
+  components: {
+    ModalGroupAdd,
+    ModalExcelDownload,
+    Table,
+  },
+
+  data() {
+      return {
+        showSaveButton: false,
+        perPageFilter:false
+      }
     },
 
-    components: {
-      ModalGroupAdd,
-      ModalExcelDownload,
-        Table,
+    setup() {
+      const {
+        getPricingList,
+        priceList,
+        filterField,
+        dataTableLength,
+        pricingHeader,
+        loading
+      } = Factor();
+      return {
+        getPricingList,
+        priceList,
+        filterField,
+        dataTableLength,
+        pricingHeader,
+        loading
+      };
     },
 
     computed: {
@@ -193,22 +196,31 @@ export default {
     },
 
     methods: {
-        splitChar,
-        updateList(status) {
-            if (status === 'true') {
-                this.getPricingList();
-            }
-        },
+      splitChar,
 
-        showSave(status) {
-            if (status === 'true') {
-                this.showSaveButton = true;
-            }
-        },
-
-        formatProfit(num) {
-            return Number(num.toFixed(2));
+      updateList(status) {
+        if (status === 'true') {
+          this.getPricingList();
         }
+      },
+
+      showSave(status) {
+        if (status === 'true') {
+          this.showSaveButton = true;
+        }
+      },
+
+      formatProfit(num) {
+        return Number(num.toFixed(2));
+      },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
 
     mounted() {
@@ -216,9 +228,37 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      $route(){
+        this.getPricingList()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getPricingList()
+        }
+      },
     }
 }
 </script>

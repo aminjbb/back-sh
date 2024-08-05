@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 export default function setup() {
     const supplierList = ref([]);
@@ -43,12 +42,10 @@ export default function setup() {
         {name: 'وضعیت ', type: 'select', value: 'is_active'},
     ];
     
-    const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new SupplierPanelFilter()
     
     async function getSupplierList() {
         loading.value = true

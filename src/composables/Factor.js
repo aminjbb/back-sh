@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_factor.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,7 +11,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Factor table header
@@ -56,7 +53,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get factor list
@@ -127,14 +123,48 @@ export default function setup() {
      * Get Price list of a factor
      * @param {*} query 
      */
-    async function getPricingList(query) {
+    async function getPricingList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `factor/crud/detail/${route.params.id}`
@@ -148,11 +178,21 @@ export default function setup() {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
     }
 
-    return {templates, pageLength, filterField, factorList, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
+    return {
+        templates,
+        pageLength,
+        filterField,
+        factorList,
+        getFactorList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        pricingHeader,
+        getPricingList,
+        priceList
+    }
 }
 

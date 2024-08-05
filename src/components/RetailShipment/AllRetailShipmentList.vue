@@ -87,10 +87,27 @@ import { openToast} from "@/assets/js/functions";
 export default {
   setup() {
     const {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = RetailShipment();
+
     return {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     };
   },
 
@@ -98,6 +115,7 @@ export default {
     Table,
     ModalColumnFilter,
     ModalExcelDownload,
+    PanelFilter
   },
 
   computed: {
@@ -121,6 +139,7 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
