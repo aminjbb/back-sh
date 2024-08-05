@@ -39,16 +39,43 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="manualOrderList"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
-          @updateList="updateList"
-          deletePath="order/crud/delete/"
-          model="order" />
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item-title>
+                          <DetailsModal :id="item.data.id"/>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.data.id}/edit`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  ویرایش سفارش
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <FactorModal :id="item.data.id" />
+                      </v-list-item-title>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
 
       <v-divider />
 
@@ -95,15 +122,20 @@
 
 <script>
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import Table from "@/components/ManualOrder/ManualOrderTable/ManualOrderTable.vue";
 import ManualOrders from "@/composables/ManualOrders";
 import Orders from "@/composables/Orders";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import DetailsModal from "@/components/Orders/Modal/DetailsModal.vue";
+import FactorModal from "@/components/Orders/Modal/FactorModal.vue";
+import {splitChar} from "@/assets/js/functions";
+
 
 export default {
   data() {
     return {
-      perPageFilter:false
+        perPageFilter:false,
+        itemListTable:[]
     }
   },
   setup() {
@@ -191,26 +223,61 @@ export default {
     }
   },
 
-  components: { PanelFilter, ModalColumnFilter, Table },
+  components: {
+        PanelFilter,
+        ModalColumnFilter,
+        ShTable,
+        FactorModal,
+        DetailsModal
+  },
 
   methods:{
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-
-    updateList(status) {
-      if (status === 'true') {
-        this.getManualOrderList();
-      }
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+
+    splitChar,
+    SendingMethod(method) {
+      if (method === 'post') {
+          return 'پست'
+      } else if (method === 'nafis') {
+          return 'نفیس اکپرس'
+      }
+      else if (method === 'pishtaz') {
+          return 'پست پیشتاز'
+      } else if (method === 'tipax') {
+          return 'تیپاکس'
+      }
+    },
+    OrderStatus(status) {
+        if (status === 'processing') {
+            return 'در حال پردازش'
+        } else if (status === 'cancelled') {
+            return 'لغو شده'
+        } else if (status === 'paid') {
+            return 'پرداخت شده'
+        } else if (status === 'received') {
+            return 'تحویل شده'
+        } else if (status === 'payment_in_progress') {
+            return 'در انتظار پرداخت'
+        } else if (status === 'returned') {
+            return 'مرجوعی'
+        } else if (status === 'sending') {
+            return 'در حال ارسال'
+        } else if (status === 'payment_out_date') {
+            return 'انقضای سفارش'
+        } else if (status === 'pre_progress') {
+            return 'پیش پردازش'
+        }
+      },
   },
 
   mounted() {
@@ -247,11 +314,28 @@ export default {
     $route(){
       this.getManualOrderList()
 
-    }
+    },
+
+      manualOrderList() {
+          this.itemListTable = []
+          this.manualOrderList.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      order_number: item.order_number ? item.order_number : '-',
+                      creator: item.creator ? item.creator.first_name +' '+ item.creator.last_name : '-',
+                      user: item.user ? item.user.first_name +' '+ item.user.last_name : '-',
+                      phone_number: item.user.phone_number ? item.user.phone_number : '-',
+                      shps_count: item.shps_count ? item.shps_count : '-',
+                      statusOrder: this.OrderStatus(item.status),
+                      paid_price: splitChar(item.paid_price),
+                      packed_status: item.packed_status === 1 ? 'mdi-check-bold|success' : 'mdi-close-thick|error',
+                      sending_method: this.SendingMethod(item.sending_method),
+                      submit_date_fa: item.submit_date_fa +' '+ item.submit_date.split(' ')[1],
+                  }
+              )
+          })
+      },
   }
 }
 </script>
-
-<style scoped>
-
-</style>
