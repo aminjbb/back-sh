@@ -330,7 +330,7 @@ export default{
             autoSendShelf: 'automate',
             pickUpTasks: null,
             pickUpCount: null,
-            lastBarcode: '',
+            lastBarcode: null,
             shpssBarcode: '',
             shelfBarcode: '',
         }
@@ -385,68 +385,64 @@ export default{
         },
 /* scan item*/
         scanQrCode() {
-            if (this.lastBarcode !== this.shpssBarCode){
-                this.lastBarcode = this.shpssBarCode
-                this.pickUpShpss(this.shpssBarCode)
+            if (this.lastBarcode !== this.shpssBarcode){
+                this.lastBarcode = this.shpssBarcode
+                this.pickUpShpss(this.shpssBarcode)
             }
         },
         async pickUpShpss (barcode){
             try {
-                if (this.lastBarcode !== this.shpssBarCode) {
-                    this.lastBarcode = this.shpssBarCode
+                this.loadingProgress = true
+                const formData = new FormData()
+                formData.append('barcode', barcode)
+                await axios
+                    .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/get`, formData, {
+                        headers: {
+                            Authorization:
+                                "Bearer " + this.$cookies.get('adminToken')
+                        },
+                    })
+                    .then((response) => {
+                        this.loadingProgress = false
+                        this.shpssBarcode = ''
 
-                    this.loadingProgress = true
-                    const formData = new FormData()
-                    formData.append('barcode', barcode)
-                    await axios
-                        .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/get`, formData, {
-                            headers: {
-                                Authorization:
-                                    "Bearer " + this.$cookies.get('adminToken')
-                            },
-                        })
-                        .then((response) => {
-                            this.loadingProgress = false
-                            this.shpssBarCode = ''
-
+                        this.myTasks()
+                        /*if (this.pickUpCount > 1) {
                             this.myTasks()
-                            /*if (this.pickUpCount > 1) {
-                                this.myTasks()
-                            } else {
-                                this.pickUp = false
-                                this.completedPickUp = true
-                            }*/
-                        })
-                        .catch((err) => {
-                            if (err.response.status === 401) {
-                                this.$router.push('/login')
-                            } else if (err.response.status === 403) {
-                                openToast(
-                                    this.$store,
-                                    'مجاز به عملیات نیستید',
-                                    "error"
-                                );
-                            } else if (err.response.status === 418) {
-                                openToast(
-                                    this.$store,
-                                    err.response.data.message,
-                                    "error"
-                                );
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 4000)
-                            } else {
-                                openToast(
-                                    this.$store,
-                                    err.response.data.message,
-                                    "error"
-                                );
-                            }
-                        });
-                }
+                        } else {
+                            this.pickUp = false
+                            this.completedPickUp = true
+                        }*/
+                    })
+                    .catch((err) => {
+                        if (err.response.status === 401) {
+                            this.$router.push('/login')
+                        } else if (err.response.status === 403) {
+                            openToast(
+                                this.$store,
+                                'مجاز به عملیات نیستید',
+                                "error"
+                            );
+                        } else if (err.response.status === 418) {
+                            openToast(
+                                this.$store,
+                                err.response.data.message,
+                                "error"
+                            );
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 4000)
+                        } else {
+                            openToast(
+                                this.$store,
+                                err.response.data.message,
+                                "error"
+                            );
+                        }
+                    });
             }
             catch (error) {
-                this.shpssBarCode = ''
+                this.shpssBarcode = ''
                 this.loadingProgress = false
             }
         },
