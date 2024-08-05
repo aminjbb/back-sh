@@ -350,14 +350,11 @@ export default{
                 AxiosMethod.end_point = `warehouse/order/pickup/my-tasks`
                 let data = await AxiosMethod.axios_get()
                 if (data) {
-                    this.pickUp = true
-                    this.loadingProgress = false
                     this.loadingProgress = false
 
                     if (data.data.length === 0) {
                         this.pickUpIsNull = true
                     } else if (data.data.order_pickup_status === 'pickup_completed') {
-                        this.pickUp = false
                         this.completedPickUp = true
                     } else {
                         this.pickUp = true
@@ -391,60 +388,60 @@ export default{
             }
         },
         async pickUpShpss (barcode){
-            try {
-                this.loadingProgress = true
-                const formData = new FormData()
-                formData.append('barcode', barcode)
-                await axios
-                    .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/get`, formData, {
-                        headers: {
-                            Authorization:
-                                "Bearer " + this.$cookies.get('adminToken')
-                        },
-                    })
-                    .then((response) => {
-                        this.loadingProgress = false
-                        this.shpssBarcode = ''
+            this.loadingProgress = true
+            const formData = new FormData()
+            formData.append('barcode', barcode)
+            await axios
+                .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/get`, formData, {
+                    headers: {
+                        Authorization:
+                            "Bearer " + this.$cookies.get('adminToken')
+                    },
+                })
+                .then((response) => {
+                    this.loadingProgress = false
+                    this.shpssBarcode = ''
 
+                    this.myTasks()
+                    /*if (this.pickUpCount > 1) {
                         this.myTasks()
-                        /*if (this.pickUpCount > 1) {
-                            this.myTasks()
-                        } else {
-                            this.pickUp = false
-                            this.completedPickUp = true
-                        }*/
-                    })
-                    .catch((err) => {
-                        if (err.response.status === 401) {
-                            this.$router.push('/login')
-                        } else if (err.response.status === 403) {
-                            openToast(
-                                this.$store,
-                                'مجاز به عملیات نیستید',
-                                "error"
-                            );
-                        } else if (err.response.status === 418) {
-                            openToast(
-                                this.$store,
-                                err.response.data.message,
-                                "error"
-                            );
-                            setTimeout(() => {
-                                window.location.reload()
-                            }, 4000)
-                        } else {
-                            openToast(
-                                this.$store,
-                                err.response.data.message,
-                                "error"
-                            );
-                        }
-                    });
-            }
-            catch (error) {
-                this.shpssBarcode = ''
-                this.loadingProgress = false
-            }
+                    } else {
+                        this.pickUp = false
+                        this.completedPickUp = true
+                    }*/
+                })
+                .catch((err) => {
+                    this.loadingProgress = false
+                    this.shpssBarcode = ''
+
+                    if (err.response.status === 401) {
+                        this.$router.push('/login')
+                    }
+                    else if (err.response.status === 403) {
+                        openToast(
+                            this.$store,
+                            'مجاز به عملیات نیستید',
+                            "error"
+                        );
+                    }
+                    else if (err.response.status === 418) {
+                        openToast(
+                            this.$store,
+                            err.response.data.message,
+                            "error"
+                        );
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 4000)
+                    }
+                    else {
+                        openToast(
+                            this.$store,
+                            err.response.data.message,
+                            "error"
+                        );
+                    }
+                });
         },
 /*scan shelf*/
         async scanShelf(){
