@@ -86,6 +86,7 @@
             editUrl="/seller/edit/"
             activePath="seller/crud/update/activation/"
             :deletePath="`page/home/section/${$route.params.sectionId}/sku/detach/`"
+            :updateSkuUrl="`page/home/section/${$route.params.sectionId}/sku/attach/`"
             changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
             @updateList="updateList"
