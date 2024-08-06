@@ -48,15 +48,12 @@
     </v-card>
 -->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
-          @resetPage="resetPage"
+      <ShTable
           class="flex-grow-1"
-          :header="headerOrder"
-          :items="voucher?.data"
+          :headers="headerOrder"
+          :items="itemListTable"
           :page="page"
           :perPage="pageLength"
-          :loading="false"
-          model="customer"
       />
 
       <v-divider/>
@@ -101,21 +98,22 @@
 </template>
 <script>
 import {defineAsyncComponent} from "vue";
-const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherOrderTable.vue"))
 const ModalExcelDownload= defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
 
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Voucher from "@/composables/Voucher";
 
 export default {
   components: {
-    Table,
+    ShTable,
     ModalExcelDownload
   },
 
   data() {
     return {
       voucherId: this.$route.params.voucherId,
-      perPageFilter:false
+      perPageFilter:false,
+        itemListTable: []
     }
   },
 
@@ -184,16 +182,35 @@ export default {
       }
       this.perPageFilter = false
     },
-
     $route(){
       this.getVoucherOrder()
     },
-
     page(){
       if (!this.perPageFilter){
         this.addPaginationOrder()
       }
-    }
+    },
+
+    voucher() {
+      if(this.voucher.data) {
+
+          this.itemListTable = []
+          this.voucher.data.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      first_name: item.users.first_name ? item.users.first_name : '-',
+                      last_name: item.users.last_name ? item.users.last_name : '-',
+                      phone_number: item.users.phone_number ? item.users.phone_number : '-',
+                      order_number: item.order_number,
+                      details_count: item.details_count,
+                      total_price: item.total_price,
+                      created_at_fa: item.created_at_fa,
+                  }
+              )
+          })
+      }
+},
   }
 }
 </script>
