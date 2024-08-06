@@ -26,16 +26,16 @@ export default function setup() {
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ])
     const headerTransaction = ref([
-        {name:'ردیف' , show:true, value:null, order:false},
-        {name:'شماره مشتری' , show:true, value:'first_name', order:false},
-        {name:'نام مشتری' , show:true, value:'last_name', order:false},
-        {name:'کد رهگیری' , show:true, value:'phone_number', order:false},
-        {name:' وضعیت تراکنش' , show:true, value:'email', order:false},
-        {name:'علت تراکنش' , show:true, value:'last_login', order:false},
-        {name:'برداشت از کیف پول' , show:true, value:'email', order:false},
-        {name:' شارژ کیف پول' , show:true, value:'is_ban', order:false},
-        {name:' موجودی کیف پول' , show:true, value:'is_ban', order:false},
-        {name:' تاریخ تراکنش' , show:true, value:'is_ban', order:false},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', align: 'center', sortable: false},
+        {name:'شماره مشتری' ,title:'شماره مشتری' , show:true, key:'phone_number', align: 'center', sortable: false},
+        {name:'نام مشتری' ,title:'نام مشتری' , show:true, key:'name', align: 'center', sortable: false},
+        {name:'کد رهگیری' ,title:'کد رهگیری' , show:true, key:'refid', align: 'center', sortable: false},
+        {name:' وضعیت تراکنش' ,title:' وضعیت تراکنش' , show:true, key:'status', align: 'center', sortable: false},
+        {name:'علت تراکنش' ,title:'علت تراکنش' , show:true, key:'reason', align: 'center', sortable: false},
+        {name:'برداشت از کیف پول' ,title:'برداشت از کیف پول' , show:true, key:'custom', align: 'center', sortable: false},
+        {name:' شارژ کیف پول' ,title:' شارژ کیف پول' , show:true, key:'custom2', align: 'center', sortable: false},
+        {name:' موجودی کیف پول' ,title:' موجودی کیف پول' , show:true, key:'wallet_value', align: 'center', sortable: false},
+        {name:' تاریخ تراکنش' ,title:' تاریخ تراکنش' , show:true, key:'create_at', align: 'center', sortable: false},
     ])
     const filterField = [
         { name: 'نام', type:'text', value:'first_name'},

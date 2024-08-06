@@ -82,6 +82,10 @@
             <slot name="customSlot" :data="item" :index="index"></slot>
         </template>
 
+        <template v-slot:item.custom2="{ item, index }">
+            <slot name="customSlot2" :data="item" :index="index"></slot>
+        </template>
+
         <template v-slot:item.action="{ item, index }">
             <slot name="actionSlot" :data="item" :index="index"></slot>
         </template>
