@@ -43,11 +43,11 @@ export default function setup() {
         { name: ' کد تخفیف', show: true, value: 'code', order: false},
     ]);
     const headerPeerToPeerVoucherList = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: ' کد تخفیف', show: true, value: 'code', order: false},
-        { name: ' شماره تماس کاربر', show: true, value: 'phone_number', order: false},
-        { name: ' نام کاربر', show: true, value: 'first_name', order: false},
-        { name: ' نام خانوادگی کاربر', show: true, value: 'last_name', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: ' کد تخفیف',title: ' کد تخفیف', show: true, key: 'voucherCode', sortable: false, align:'center'},
+        { name: ' شماره تماس کاربر',title: ' شماره تماس کاربر', show: true, key: 'phone_number', sortable: false, align:'center'},
+        { name: ' نام کاربر',title: ' نام کاربر', show: true, key: 'first_name', sortable: false, align:'center'},
+        { name: ' نام خانوادگی کاربر',title: ' نام خانوادگی کاربر', show: true, key: 'last_name', sortable: false, align:'center'},
     ]);
     const headerCustomer =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
