@@ -39,8 +39,8 @@ export default function setup() {
         { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
     ]);
     const headerPublicVoucherList = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: ' کد تخفیف', show: true, value: 'code', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: ' کد تخفیف',title: ' کد تخفیف', show: true, key: 'voucherCode', sortable: false, align:'center'},
     ]);
     const headerPeerToPeerVoucherList = ref([
         { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
