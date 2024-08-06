@@ -19,15 +19,16 @@ export default function setup() {
 
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'نوع صفحه ', show: true, value:'type' , order: false},
-        { name: 'شناسه صفحه', show: true , value:'id', order: false},
-        { name: 'تاریخ ساخت ', show: true, value:'created_at', order: true },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: true },
-        { name: 'ایندکس', show: true, value:'is_index', order: false },
-        { name: 'follow', show: true, value:'is_follow', order: false },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
+        {name: 'عنوان', title: 'عنوان', show: true , key:'label', align:'center', sortable: false},
+        {name: 'نوع صفحه ', title: 'نوع صفحه ', show: true, key:'type' , align:'center', sortable: false},
+        {name: 'شناسه صفحه', title: 'شناسه صفحه', show: true , key:'id', align:'center', sortable: false},
+        {name: 'تاریخ ساخت ',  title: 'تاریخ ساخت ', show: true, key:'created_at', align:'center'},
+        {name: 'تاریخ ویرایش ', title: 'تاریخ ویرایش ', show: true, key:'updated_at', align:'center'},
+        {name: 'ایندکس', title: 'ایندکس', show: true, key:'switch', align:'center', sortable: false},
+        {name: 'follow', title: 'follow', show: true, key:'custom', align:'center', sortable: false},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
