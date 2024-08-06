@@ -50,11 +50,11 @@ export default function setup() {
         { name: ' نام خانوادگی کاربر',title: ' نام خانوادگی کاربر', show: true, key: 'last_name', sortable: false, align:'center'},
     ]);
     const headerCustomer =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه مشتری', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس', show: true, value: 'phone', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , order: false, align:'center'},
+        { name: 'شناسه مشتری',title: 'شناسه مشتری', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس',title: ' شماره تماس', show: true, key: 'phone_number', sortable: false, align:'center'},
     ]);
     const headerOrder =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
