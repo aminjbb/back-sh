@@ -14,10 +14,25 @@
         @update:sort-by="getItemsWithSort"
     >
         <template v-for="header in headers.filter((item) => item.model)" v-slot:[`item.${header.key}`]="props">
-            <v-icon v-if="header.model === 'icon'"
+            <v-icon
+                v-if="header.model === 'icon'"
                 :color="props.item[header.key].split('|')[1]">
-                     {{ props.item[header.key].split('|')[0] }}
+              {{ props.item[header.key].split('|')[0] }}
             </v-icon>
+
+          <v-select
+              v-if="header.model === 'select'"
+              v-model="props.item[header.key]"
+              variant="outlined"
+              :items="dataSelect" />
+
+          <v-text-field
+              v-if="header.model === 'number_input'"
+              v-model="props.item[header.key]"
+              hide-details
+              variant="outlined"
+              class="number-font"
+              type="number" />
         </template>
 
         <template v-slot:loading>
@@ -112,6 +127,7 @@ export default {
         default: () => [],
       },
       items: Array,
+      dataSelect: Array,
       loading: Boolean,
       isSelect: Boolean,
       page: {

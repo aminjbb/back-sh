@@ -43,22 +43,23 @@ export default function setup() {
 
      // image table header
     const imageHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر', show: true , value:'label', order: false},
-        { name: 'دستگاه', show: true, value:'type' , order: false},
-        { name: 'موقعیت', show: true , value:'id', order: false},
-        { name: 'ترتیب نمایش ', show: true, value:'created_at', order: true },
-        { name: 'ذخیره ', show: true, value:'updated_at', order: true },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
+        {name: 'تصویر', title: 'تصویر', show: true , key:'custom', align:'center', sortable: false},
+        {name: 'دستگاه', title: 'دستگاه', show: true, key:'deviceType', align:'center', sortable: false, model:'select' },
+        {name: 'موقعیت', title: 'موقعیت', show: true , key:'location', align:'center', sortable: false, model:'select'},
+        {name: 'ترتیب نمایش ', title: 'ترتیب نمایش ', show: true, key:'show_order', align:'center', sortable: false, model:'number_input', width:'200'},
+        {name: 'ذخیره ', title: 'ذخیره ', show: true, key:'custom2', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     // slider table header
     const SliderHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام انگلیسی', show: true , value:'name', order: false},
-        { name: 'نام فارسی', show: true, value:'label' , order: false},
-        { name: 'جایگاه', show: true , value:'position', order: false},
-        { name: 'آیکن', show: true, value:'icon', order: false },
-        //{ name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'نام انگلیسی', title: 'نام انگلیسی', show: true , key:'name',  sortable: false, align: 'center'},
+        {name: 'نام فارسی', title: 'نام فارسی', show: true, key:'label' ,  sortable: false, align: 'center'},
+        {name: 'جایگاه', title: 'جایگاه', show: true , key:'position',  sortable: false, align: 'center'},
+        {name: 'آیکن', title: 'آیکن', show: true, key:'icon',  sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
      // slider skus table header
