@@ -340,7 +340,7 @@ export default{
 /* get my task*/
         async myTasks(){
             try {
-
+                this.pickUp = false
                 this.loadingProgress = true
                 const AxiosMethod = new AxiosCall()
                 AxiosMethod.using_auth = true
