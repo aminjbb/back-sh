@@ -53,7 +53,6 @@
         <div class="text-right my-5">
                 <span class="t14500">
                     توضیحات
-                  <span class="text-error">*</span>
                 </span>
         </div>
         <v-text-field
@@ -61,7 +60,6 @@
             density="compact"
             variant="outlined"
             single-line
-            :rules="rule"
             v-model="form.desc" />
       </v-col>
 
