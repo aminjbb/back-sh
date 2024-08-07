@@ -12,11 +12,11 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه بسته', show: true , value:'id', order: false},
-        { name: 'نوع بسته', show: true, value:'type' , order: false},
-        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه بسته', title: 'شناسه بسته', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'نوع بسته', title: 'نوع بسته', show: true, key:'type' , sortable: false, align: 'center'},
+        {name: 'تعداد کالا', title: 'تعداد کالا', show: true , key:'shps_count', sortable: false, align: 'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center', width:'200' },
     ]);
 
     const filterField = [
