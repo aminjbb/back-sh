@@ -14,14 +14,15 @@ export default function setup() {
     const cookies = useCookies()
 
     const header = [
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'نام انبار' , show:true, value:'name', order: false},
-        {name:'آدرس' , show:true, value:'address', order: false},
-        {name:'شماره تماس' , show:true, value:'phone_number', order: false},
-        {name:'نوع انبار' , show:true, value:'type', order: false},
-        {name:'ظرفیت مارکت' , show:true, value:'market_storage_count', order: false},
-        {name:'ظرفیت Retail' , show:true, value:'retail_storage_count', order: false},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' , title:'ردیف' , show:true, key:'row', sortable: false, align: 'center'},
+        {name:'نام انبار' , title:'نام انبار' , show:true, key:'name', sortable: false, align: 'center'},
+        {name:'آدرس' , title:'آدرس' , show:true, key:'address', sortable: false, align: 'center'},
+        {name:'شماره تماس' , title:'شماره تماس' , show:true, key:'phone_number', sortable: false, align: 'center'},
+        {name:'نوع انبار' , title:'نوع انبار' , show:true, key:'custom', sortable: false, align: 'center'},
+        {name:'ظرفیت مارکت' , title:'ظرفیت مارکت' , show:true, key:'market_storage_count', sortable: false, align: 'center'},
+        {name:'ظرفیت Retail' , title:'ظرفیت Retail' , show:true, key:'retail_storage_count', sortable: false, align: 'center'},
+        {name:'وضعیت' , title:'وضعیت' , show:true, key:'is_active', sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ];
     const pickupHeader = [
         {name:'ردیف' , show:true, value:null, order: false},
