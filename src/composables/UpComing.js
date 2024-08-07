@@ -13,16 +13,17 @@ export default function setup() {
     const route = useRoute()
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'label', order: false},
-        { name: 'نوع محموله', show: true, value:'type' , order: false},
-        { name: ' تعداد آیتم', show: true , value:'id', order: false},
-        { name: 'تنوع آیتم', show: true, value:'created_at', order: false },
-        { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
-        { name: 'نام تامین کننده', show: true , value:'shopping_name', order: false},
-        { name: 'نام سازنده', show: true, value:'is_index', order: false },
-        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه محموله', title: 'شناسه محموله', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'نوع محموله', title: 'نوع محموله', show: true, key:'type' , sortable: false, align: 'center'},
+        {name: ' تعداد آیتم', title: ' تعداد آیتم', show: true , key:'shps_count', sortable: false, align: 'center'},
+        {name: 'تنوع آیتم', title: 'تنوع آیتم', show: true, key:'shps_variety', osortable: false, align: 'center'},
+        {name: 'نام فروشگاه ', title: 'نام فروشگاه ', show: true, key:'shopping_name', sortable: false, align: 'center'},
+        {name: 'نام تامین کننده', title: 'نام تامین کننده', show: true , key:'supplier_name', sortable: false, align: 'center'},
+        {name: 'نام سازنده', title: 'نام سازنده', show: true, key:'creator_name', sortable: false, align: 'center'},
+        {name: 'تاریخ ارسال', title: 'تاریخ ارسال', show: true, key:'sent_at', sortable: false, align: 'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const filterField = [
         {name:'شناسه محموله' , type:'text', value:'id' , place:'شناسه محموله'},
