@@ -28,16 +28,40 @@
         </v-card>
 
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="header"
-              :items="vehicleList.data"
-              :page="page"
-              :perPage="dataTableLength"
+              :headers="header"
+              :items="itemListTable"
               :loading="loading"
-              @updateList="updateList"
-              deletePath="vehicle/crud/delete/"
-              model="vehicle"/>
+              :page="page"
+              :perPage="dataTableLength">
+            <template v-slot:customSlot="item">
+              <span class="t14300 py-5 number-font">
+                 ایران
+                <span class="t14300 number-font" style="letter-spacing: 1.5px !important;">{{ item.data.custom }}</span>
+              </span>
+            </template>
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                        <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
 
           <v-divider/>
 
@@ -89,23 +113,26 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/Vehicle/Table/Table.vue'
 import Vehicle from "@/composables/Vehicle";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalCreateVehicle from '@/components/Vehicle/CreateModal/CreateModal.vue'
-
-import {
-  openToast
-} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import { openToast, openConfirm } from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      itemListTable: [],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: 'vehicle/crud/delete/',
+      },
     }
   },
-  setup(props) {
+  setup() {
     const {
       pageLength,
       getVehicleList,
@@ -134,11 +161,11 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
     ModalColumnFilter,
     ModalCreateVehicle,
     DashboardLayout,
-    Header
+    Header,
+    ShTable
   },
 
   computed: {
@@ -157,13 +184,18 @@ export default {
         this.getVehicleList();
       }
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
       setTimeout(() => {
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   },
 
   mounted() {
@@ -171,6 +203,21 @@ export default {
   },
 
   watch: {
+    vehicleList(){
+      this.itemListTable = []
+
+      this.vehicleList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                vehicle_type: item.vehicle_type,
+                custom: item.license,
+                created_at: item.created_at_fa,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
