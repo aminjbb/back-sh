@@ -198,6 +198,8 @@ import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementL
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
 import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/ShpsListLocatingToShelfView.vue";
+import SmsNotificationListViwe from "@/views/SmsNotification/SmsNotificationListView.vue";
+import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
@@ -905,6 +907,40 @@ const router = createRouter({
                     }
                 },
             ]
+        },
+
+        {
+            path: '/sms-notification',
+            meta: {
+                name: ' پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSNotificationListView',
+                    component: SmsNotificationListViwe,
+                    meta: {
+                        name: 'لیست پیامک ها'
+                    }
+                }
+            ],
+        },
+
+        {
+            path: '/sms-setting',
+            meta: {
+                name: ' تنظیمات پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSSettingListView',
+                    component: SmsSettingListView,
+                    meta: {
+                        name: 'تنظیمات پیامک'
+                    }
+                }
+            ],
         },
 
         {

@@ -182,6 +182,38 @@
 
             </v-list-group>
 
+            <v-list-group value="smsNotification">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-chart-line</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                           پیامک ها
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in smsNotification"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
             <v-list-group value="orders">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
@@ -594,6 +626,10 @@ export default {
                 ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
                 ['گردونه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            smsNotification: [
+                ['لیست پیامک ها', '/sms-notification/index', 'mdi-checkbox-blank-circle-outline'],
+                ['تنظیمات پیامک', '/sms-setting/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
                 ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
