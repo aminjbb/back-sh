@@ -13,7 +13,7 @@
           <v-divider/>
           <v-row align="center" class="px-3 my-5">
             <v-col cols="6">
-              <div class="text-right ">
+              <div class="text-right">
                 <span class="text-gray600 t14500">شناسه محموله</span>
                 <span class="text-error">*</span>
               </div>
@@ -82,13 +82,27 @@
                 </v-icon>
               </div>
 
-              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
                 <v-list class="c-table__more-options">
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-3 pointer d--rtl" @click="printBarcode(item.data.id)">
-                        <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">پرینت برچسب</span>
+                      <div class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.data.id}/shps-list`)">
+                        <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                        پردازش محموله
+                      </span>
+                      </div>
+
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class=" pointer" @click="print(item.data.id)">
+                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                         پرینت محموله
+                      </span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -96,15 +110,6 @@
               </v-menu>
             </template>
           </ShTable>
-
-<!--          <Table-->
-<!--              :getShipmentRequestsList="getUpComingList"-->
-<!--              class="flex-grow-1"-->
-<!--              :header="header"-->
-<!--              :items="upComingList?.data"-->
-<!--              activePath="page/crud/update/activation/"-->
-<!--              updateUrl="page/csv/mass-update"-->
-<!--              model="page" />-->
 
           <v-divider />
 
@@ -153,12 +158,11 @@
 
 </template>
 
-<script >
+<script>
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import ShTable from "@/components/Components/Table/sh-table.vue";
-import Table from '@/components/UpComing/Table/Table.vue'
 import UpComing from "@/composables/UpComing"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
@@ -220,7 +224,6 @@ export default {
   components: {
     ModalDetaiShipment,
     PanelFilter,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
@@ -267,6 +270,10 @@ export default {
 
     validate() {
       this.$router.push(`/processing-shipment/${this.splitShipmentId}/shps-list`)
+    },
+
+    print(id) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${id}/print`, '_blank');
     },
   },
 
