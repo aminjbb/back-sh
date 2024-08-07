@@ -9,7 +9,7 @@
         </div>
         <v-main class="vh-100 ">
 <!-- pickUp -->
-            <template v-if="pickUp">
+            <template v-if="pages.pickUp">
                 <div class="d-flex justify-space-between align-center">
                     <div class="pa-3 d-flex">
                         <HandheldDrawer/>
@@ -86,7 +86,6 @@
                 <div class="mx-10 mb-5 bottom-0 right-0 left-0 position-absolute">
                     <v-btn
                         color="primary500"
-                        :loading="loading"
                         height="40"
                         block
                         rounded
@@ -97,7 +96,7 @@
                 </div>
             </template>
             <!-- scan shelf -->
-            <template v-if="shelf">
+            <template v-if="pages.shelf">
 
                 <div class="d-flex justify-space-between align-center">
                     <div class="pa-3 d-flex">
@@ -107,7 +106,7 @@
                         </span>
                     </div>
                     <div class="pa-3">
-                        <v-icon size="30" @click="goToMyTasks">
+                        <v-icon size="30" @click="$router.push('/locating/dashboard')">
                             mdi-chevron-left
                         </v-icon>
                     </div>
@@ -140,7 +139,6 @@
                 <div class="mx-10 mb-5 bottom-0 right-0 left-0 position-absolute">
                     <v-btn
                         color="primary500"
-                        :loading="loading"
                         height="40"
                         block
                         rounded
@@ -151,85 +149,7 @@
                 </div>
             </template>
             <!--Result Pages-->
-            <template v-if="rejectedPickUp">
-                <div class="h-100 bg-warning d-flex justify-center align-center" >
-
-                    <div class=" text-center mx-15">
-                        <v-icon size="40">
-                            mdi-alert-circle
-                        </v-icon>
-                        <div class="mt-15 mb-7 t20700">
-                            جمع آوری سفارش انجام نشد.
-                        </div>
-                        <div class="t20400">
-                            کالایی برای جمع آوری یافت نشد.
-                        </div>
-                    </div>
-
-                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
-                        <v-btn
-                            variant="outlined"
-                            height="40"
-                            width="40%"
-                            rounded
-                            @click="$router.push('/locating/dashboard')"
-                            class="px-8 mt-5 me-3">
-                            بازگشت به داشبورد
-                        </v-btn>
-
-                        <v-btn
-                            height="40"
-                            width="40%"
-                            flat
-                            rounded
-                            @click="getNextTask()"
-                            class="px-8 mt-5 ms-3">
-                            سفارش بعدی
-                        </v-btn>
-                    </div>
-
-                </div>
-            </template>
-            <template v-if="partialCompletedPickUp">
-                <div class="h-100 bg-yellow-custom d-flex justify-center align-center" >
-
-                    <div class=" text-center text-black mx-15">
-                        <v-icon size="40" color="black">
-                            mdi-check-circle
-                        </v-icon>
-                        <div class="mt-15 mb-7 t20700">
-                            جمع آوری سفارش با کسری بسته شد.
-                        </div>
-                        <div class="t20400">
-                            جمع آوری سفارش با شناسه {{pickUpTasks?.order_id}} با کسری انجام شد.
-                        </div>
-                    </div>
-
-                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
-                        <v-btn
-                            variant="outlined"
-                            height="40"
-                            width="40%"
-                            rounded
-                            @click="$router.push('/locating/dashboard')"
-                            class="px-8 mt-5 me-3">
-                            بازگشت به داشبورد
-                        </v-btn>
-
-                        <v-btn
-                            height="40"
-                            width="40%"
-                            flat
-                            rounded
-                            @click="getNextTask()"
-                            class="px-8 mt-5 ms-3">
-                            سفارش بعدی
-                        </v-btn>
-                    </div>
-
-                </div>
-            </template>
-            <template v-if="completedPickUp">
+            <template v-if="pages.completedPickUp">
                 <div class="h-100 bg-success d-flex justify-center align-center" >
 
                     <div class=" text-center mx-15">
@@ -268,7 +188,85 @@
 
                 </div>
             </template>
-            <template v-if="pickUpIsNull">
+            <template v-if="pages.rejectedPickUp">
+                <div class="h-100 bg-warning d-flex justify-center align-center" >
+
+                    <div class=" text-center mx-15">
+                        <v-icon size="40">
+                            mdi-alert-circle
+                        </v-icon>
+                        <div class="mt-15 mb-7 t20700">
+                            جمع آوری سفارش انجام نشد.
+                        </div>
+                        <div class="t20400">
+                            کالایی برای جمع آوری یافت نشد.
+                        </div>
+                    </div>
+
+                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                        <v-btn
+                            variant="outlined"
+                            height="40"
+                            width="40%"
+                            rounded
+                            @click="$router.push('/locating/dashboard')"
+                            class="px-8 mt-5 me-3">
+                            بازگشت به داشبورد
+                        </v-btn>
+
+                        <v-btn
+                            height="40"
+                            width="40%"
+                            flat
+                            rounded
+                            @click="getNextTask()"
+                            class="px-8 mt-5 ms-3">
+                            سفارش بعدی
+                        </v-btn>
+                    </div>
+
+                </div>
+            </template>
+            <template v-if="pages.partialCompletedPickUp">
+                <div class="h-100 bg-yellow-custom d-flex justify-center align-center" >
+
+                    <div class=" text-center text-black mx-15">
+                        <v-icon size="40" color="black">
+                            mdi-check-circle
+                        </v-icon>
+                        <div class="mt-15 mb-7 t20700">
+                            جمع آوری سفارش با کسری بسته شد.
+                        </div>
+                        <div class="t20400">
+                            جمع آوری سفارش با شناسه {{pickUpTasks?.order_id}} با کسری انجام شد.
+                        </div>
+                    </div>
+
+                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                        <v-btn
+                            variant="outlined"
+                            height="40"
+                            width="40%"
+                            rounded
+                            @click="$router.push('/locating/dashboard')"
+                            class="px-8 mt-5 me-3">
+                            بازگشت به داشبورد
+                        </v-btn>
+
+                        <v-btn
+                            height="40"
+                            width="40%"
+                            flat
+                            rounded
+                            @click="getNextTask()"
+                            class="px-8 mt-5 ms-3">
+                            سفارش بعدی
+                        </v-btn>
+                    </div>
+
+                </div>
+            </template>
+            <template v-if="pages.pickUpIsNull">
                 <div class="h-100 bg-warning d-flex justify-center align-center" >
 
                     <div class=" text-center mx-15">
@@ -294,7 +292,7 @@
 
                 </div>
             </template>
-            <template v-if="pendingPickUp"></template>
+            <template v-if="pages.pendingPickUp"></template>
 
         </v-main>
     </v-layout>
@@ -312,24 +310,17 @@ export default{
         HandheldDrawer
     },
 
+    props: {
+        pages: Object,
+        pickUpTasks: null,
+        pickUpCount: null,
+    },
+
     data() {
         return {
             loadingProgress: false,
-            pickUp: false,
-            shelf: false,
-
-            completedPickUp: false,
-            rejectedPickUp: false,
-            partialCompletedPickUp: false,
-
-            pickUpIsNull: false,
-            pendingPickUp: false,
-            loading: false,
-
             autoSendBarcode: 'automate',
             autoSendShelf: 'automate',
-            pickUpTasks: null,
-            pickUpCount: null,
             lastBarcode: null,
             shpssBarcode: '',
             shelfBarcode: '',
@@ -337,49 +328,6 @@ export default{
     },
 
     methods: {
-/* get my task*/
-        async myTasks(){
-            try {
-                this.pickUp = false
-                this.loadingProgress = true
-                const AxiosMethod = new AxiosCall()
-                AxiosMethod.using_auth = true
-                AxiosMethod.toast_error = true
-                AxiosMethod.store = this.$store
-                AxiosMethod.token = this.$cookies.get('adminToken')
-                AxiosMethod.end_point = `warehouse/order/pickup/my-tasks`
-                let data = await AxiosMethod.axios_get()
-                if (data) {
-                    this.loadingProgress = false
-
-                    if (data.data.length === 0) {
-                        this.pickUpIsNull = true
-                    } else if (data.data.order_pickup_status === 'pickup_completed') {
-                        this.completedPickUp = true
-                    } else {
-                        this.pickUp = true
-                        this.pickUpTasks = data.data
-                        this.pickUpCount = parseInt(data.data.count) - parseInt(data.data.picked_count)
-                    }
-                } else {
-                    this.loadingProgress = false
-                }
-            }
-            catch (err) {
-                this.loadingProgress = false
-
-                if (err.response.status === 401) {
-                    this.$router.push('/login')
-                }  if (err.response.status === 421) {
-                    this.rejectedPickUp = true
-                } else if (err.response.status === 420) {
-                    this.partialCompletedPickUp = true
-                }
-                /*                else if (data.data.order_pickup_status === 'pending' or 422) {
-                                    this.pendingPickUp = true
-                }*/
-            }
-        },
 /* scan item*/
         scanQrCode() {
             if (this.lastBarcode !== this.shpssBarcode){
@@ -401,14 +349,13 @@ export default{
                 .then((response) => {
                     this.loadingProgress = false
                     this.shpssBarcode = ''
-
-                    this.myTasks()
-                    /*if (this.pickUpCount > 1) {
-                        this.myTasks()
-                    } else {
-                        this.pickUp = false
-                        this.completedPickUp = true
-                    }*/
+/*                    setTimeout( ()=>
+                        openToast(
+                            this.$store,
+                            response.data.message,
+                            "success"
+                        ),1500)*/
+                    this.$emit('recallMyTasks')
                 })
                 .catch((err) => {
                     this.loadingProgress = false
@@ -460,8 +407,8 @@ export default{
                     if (data) {
                         this.loadingProgress = false
                         this.shelfBarcode = ''
-                        this.shelf = false
-                        this.myTasks()
+                        this.pages.shelf = false
+                        this.$emit('recallMyTasks')
                     }
                     else {
                         this.loadingProgress = false
@@ -476,17 +423,9 @@ export default{
         goToShelfScan(){
             this.lastBarcode = ''
             this.shpssBarcode= ''
-            this.pickUp = false
-            this.shelf = true
+            this.$emit('openShelf')
         },
-/*btn switch from shelf to myTasks*/
-        goToMyTasks(){
-            this.lastBarcode = ''
-            this.shelfBarcode = ''
-            this.shelf = false
-            this.myTasks()
-        },
-
+/*next tasks*/
          async getNextTask(){
              const AxiosMethod = new AxiosCall()
              AxiosMethod.using_auth = true
@@ -494,18 +433,12 @@ export default{
              AxiosMethod.end_point = `warehouse/order/pickup/complete-order`
              let data = await AxiosMethod.axios_get()
              if (data) {
-                 this.rejectedPickUp = false
-                 this.partialCompletedPickUp = false
-                 this.completedPickUp = false
-                 window.location.reload()
-             }
-             else {
+                 this.pages.rejectedPickUp = false
+                 this.pages.partialCompletedPickUp = false
+                 this.pages.completedPickUp = false
+                 this.$emit('recallMyTasks')
              }
          },
-    },
-
-    mounted() {
-        this.myTasks()
     },
 }
 </script>
