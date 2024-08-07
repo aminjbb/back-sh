@@ -158,20 +158,11 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 
-import {
-    openToast,
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {openToast, openConfirm, isOdd} from "@/assets/js/functions";
 export default {
     components: {
         ModalMassUpdate,
@@ -252,7 +243,6 @@ export default {
             filter: [],
             active: [],
             priorities: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
@@ -320,7 +310,6 @@ export default {
                 );
             }
         },
-
 
         /**
          * Mass update modal
@@ -413,8 +402,6 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            console.log("Removing item with ID:", id);
-            console.log("Delete path:", this.deletePath + id);
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
 

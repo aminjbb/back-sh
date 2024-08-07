@@ -126,17 +126,10 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter_notification"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
+
 export default {
     components: {
         ModalMassUpdate,
@@ -217,8 +210,7 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            activeColumn: false,
-            panelFilter: new PanelFilter(),
+            activeColumn: false
         }
     },
 
@@ -275,7 +267,6 @@ export default {
     },
 
     methods: {
-
         /**
          * Mass update modal
          */

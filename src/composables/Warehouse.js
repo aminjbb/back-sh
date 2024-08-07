@@ -1,7 +1,6 @@
 import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {UserPanelFilter} from "@/assets/js/filter_user";
 import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
 
 export default function setup() {
@@ -43,7 +42,6 @@ export default function setup() {
         {name:'ظرفیت Retail', show:true} ,
     ];
 
-    const router = useRouter()
     const route = useRoute()
 
     const filterField = [
@@ -56,8 +54,7 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new UserPanelFilter()
-    
+
     async function getWarehouseList(query) {
         loading.value = true
 
@@ -140,35 +137,49 @@ export default function setup() {
         }
     };
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/warehouse/index/'+ filter.params_generator(route.query))
+    // function addPagination(page){
+    //     filter.page = page
+    //     filter.per_page = dataTableLength.value
+    //     router.push('/warehouse/index/'+ filter.params_generator(route.query))
+    //
+    // }
+    // function addPerPage(number){
+    //     filter.page = 1
+    //     filter.per_page =number
+    //     router.push('/warehouse/index'+ filter.params_generator(route.query))
+    // }
+    // onBeforeRouteUpdate(async (to, from) => {
+    //
+    //     if (!isFilterPage.value) {
+    //         isFilter.value =true
+    //         page.value = 1
+    //         filter.page = 1
+    //     }
+    //     await getWarehouseList(to)
+    // })
+    //
+    // watch(page, function(val) {
+    //     if (!isFilter.value){
+    //         isFilterPage.value = true
+    //         addPagination(val)
+    //     }
+    // })
 
+    return {
+        pageLength,
+        getWarehouseList,
+        warehouseList,
+        filterField,
+        dataTableLength,
+        page,
+        header,
+        SpecialCapacityHeader,
+        loading,
+        getWarehouseExitCapacityList,
+        warehouseExitCapacityList,
+        exitCapacityPageLength ,
+        pickupHeader ,
+        getPickUpTask ,
+        pickUpTask
     }
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/warehouse/index'+ filter.params_generator(route.query))
-    }
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getWarehouseList(to)
-    })
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return {pageLength, getWarehouseList, warehouseList, filterField, dataTableLength, page, header, addPagination,
-        addPerPage,SpecialCapacityHeader, loading, getWarehouseExitCapacityList, warehouseExitCapacityList,
-        exitCapacityPageLength , pickupHeader , getPickUpTask ,pickUpTask}
 }

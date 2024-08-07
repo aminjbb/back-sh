@@ -40,6 +40,7 @@
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="headerPriceHistory"
             :items="priceHistory.data"
@@ -104,71 +105,105 @@ import Seller from "@/composables/Seller";
 import Sku from "@/composables/Sku";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
 export default {
-    setup(props) {
-        const {
-            getSkue,
-            sku
-        } = new Sku()
-        const {
-            pageLength,
-            priceHistory,
-            filterPriceHistory,
-            dataTableLength,
-            priceHistoryPage,
-            headerPriceHistory,
-            addPerPage,
-            loading,
-            getPriceHistory
-        } = Seller();
-        return {
-            pageLength,
-            priceHistory,
-            filterPriceHistory,
-            dataTableLength,
-            priceHistoryPage,
-            headerPriceHistory,
-            addPerPage,
-            loading,
-            getPriceHistory,
-            getSkue,
-            sku
-        };
-    },
+  setup() {
+    const {getSkue, sku} = new Sku()
+    const {
+      pageLength,
+      priceHistory,
+      filterPriceHistory,
+      dataTableLength,
+      priceHistoryPage,
+      headerPriceHistory,
+      addPerPage,
+      loading,
+      getPriceHistory
+    } = Seller();
+    return {
+      pageLength,
+      priceHistory,
+      filterPriceHistory,
+      dataTableLength,
+      priceHistoryPage,
+      headerPriceHistory,
+      addPerPage,
+      loading,
+      getPriceHistory,
+      getSkue,
+      sku
+    };
+  },
 
-    components: {
-        Table,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
+  components: {
+    Table,
+    ModalColumnFilter,
+    ModalExcelDownload,
+    PanelFilter
+  },
 
-    computed: {
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.headerPriceHistory[index].show = value
-        },
-
-        updateList(status) {
-            if (status === 'true') {
-                this.getPriceHistory();
-            }
-        },
-    },
-
-    mounted() {
-        this.getPriceHistory()
-        this.getSkue()
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+  data() {
+    return {
+      perPageFilter:false
     }
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.headerPriceHistory[index].show = value
+    },
+
+    updateList(status) {
+      if (status === 'true') {
+        this.getPriceHistory();
+      }
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
+  mounted() {
+    this.getPriceHistory()
+    this.getSkue()
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getPriceHistory()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getPriceHistory()
+      }
+    },
+  }
 }
 </script>

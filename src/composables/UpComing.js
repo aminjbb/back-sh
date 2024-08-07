@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
-
 
 export default function setup() {
     const upComingList = ref([]);
@@ -12,7 +10,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
     // Page table header
     const header =ref([
@@ -41,14 +38,12 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
 
     /**
      * Get page list
      * @param {*} query
      */
     async function getUpComingList() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -70,7 +65,6 @@ export default function setup() {
                     per_page : dataTableLength.value,
                 }
             }
-
         }
         else{
             if (!route.query.order && !route.query.order_type){
@@ -89,7 +83,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/upcoming/`
@@ -105,7 +98,6 @@ export default function setup() {
         }
     }
     async function getConfirmedShipment() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -127,7 +119,6 @@ export default function setup() {
                     per_page : dataTableLength.value,
                 }
             }
-
         }
         else{
             if (!route.query.order && !route.query.order_type){
@@ -146,7 +137,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/shps/confirmed/index`
@@ -164,8 +154,16 @@ export default function setup() {
 
 
     return {
-        pageLength, filterField,upComingList, getUpComingList,
-        dataTableLength, page, header, loading ,getConfirmedShipment ,confirmedShipmentList
+        pageLength,
+        filterField,
+        upComingList,
+        getUpComingList,
+        dataTableLength,
+        page,
+        header,
+        loading ,
+        getConfirmedShipment ,
+        confirmedShipmentList
     }
 }
 

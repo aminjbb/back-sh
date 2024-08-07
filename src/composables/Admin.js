@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {UserPanelFilter} from "@/assets/js/filter_user";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 export default function setup() {
     const admin = ref([]);
@@ -16,7 +15,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new UserPanelFilter()
 
     const header =ref( [
         {name:'ردیف' , show:true, value:null, order:false},

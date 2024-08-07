@@ -225,9 +225,7 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
+
 
 import {
     openConfirm,
@@ -298,7 +296,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
         }
     },
 

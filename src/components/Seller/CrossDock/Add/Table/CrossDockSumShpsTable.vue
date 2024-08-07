@@ -72,12 +72,7 @@ import {
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-import {
-  SkuPanelFilter
-} from "@/assets/js/filter_sku"
+
 import {
   openToast
 } from "@/assets/js/functions";
@@ -183,8 +178,6 @@ export default {
       active: [],
       sellable: [],
       filter: [],
-      panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuPanelFilter(),
       activeColumn: false,
     }
   },

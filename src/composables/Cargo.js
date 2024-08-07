@@ -1,5 +1,4 @@
 import { ref, watch } from 'vue';
-import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
@@ -67,7 +66,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getCargoList() {
         loading.value = true
@@ -125,6 +123,7 @@ export default function setup() {
             } , 2000)
         }
     };
+
     async function  getCargoReceivingList(id , store) {
         loading.value = true
 
@@ -140,8 +139,8 @@ export default function setup() {
 
         }
     };
-    async function getCargo() {
 
+    async function getCargo() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =true
@@ -152,6 +151,7 @@ export default function setup() {
             loading.value = false
         }
     };
+
     async function getPackageCargo(){
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -163,28 +163,23 @@ export default function setup() {
         }
     }
 
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
-    }
-
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header  , filterField ,
-        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,
-        detailCargoHeader ,  getCargoReceivingList , cargoReceivingList}
+    return {
+        pageLength,
+        cargoList,
+        getCargoList,
+        dataTableLength ,
+        page  ,
+        header  ,
+        filterField ,
+        loading ,
+        packageHeader ,
+        cargoReceivingHeader ,
+        getCargo ,
+        cargo ,
+        getPackageCargo ,
+        packageCargo ,
+        detailCargoHeader ,
+        getCargoReceivingList ,
+        cargoReceivingList}
 }
 

@@ -161,25 +161,11 @@
     <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
   </div>
 </template>
+
 <script>
-
-
-
-
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  openToast,
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import { openToast, openConfirm,isOdd} from "@/assets/js/functions";
 import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
-
 
 export default {
   components: {
@@ -259,7 +245,6 @@ export default {
       ordering: {},
       per_page: '25',
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
       paramsQuery: [],
       filter: [],
@@ -269,13 +254,10 @@ export default {
       submittedItemId: null,
       shipmentId: null,
       shps_id:null
-
-
     }
   },
 
   computed: {
-
     /**
      * Get each items table based of header length
      */
@@ -295,7 +277,6 @@ export default {
   },
 
   methods: {
-
     packageManagement(shipment){
       this.shipmentId = shipment.shipment_id
       this.shps_id = shipment.shps
@@ -308,8 +289,6 @@ export default {
     /**
      * sending data in save btn
      */
-
-
     async submitShipmentsForm(itemId, shipmentId , shps) {
       let packageId = null
       if (this.packageId.includes('-')) {
