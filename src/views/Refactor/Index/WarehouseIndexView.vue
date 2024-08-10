@@ -33,18 +33,72 @@
         </v-card>
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
-              @resetPage="resetPage"
+          <ShTable
               class="flex-grow-1"
-              :header="header"
-              :items="warehouseList.data"
+              :headers="header"
+              :items="itemListTable"
+              :loading="loading"
               :page="page"
               :perPage="dataTableLength"
-              editUrl="/warehouse/edit/"
-              activePath="warehouse/crud/update/activation/"
-              deletePath="warehouse/crud/delete/"
-              :loading="loading"
-              model="Warehouse" />
+              :activePath="'warehouse/crud/update/activation/'">
+            <template v-slot:customSlot="item">
+              <template v-for="(volume,i) in item.data.custom" :key="i">
+                {{ getType(volume.type) }}
+              </template>
+            </template>
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/warehouse/edit/${item.data.id}`)">
+                        <v-icon size="small" class="text-grey-darken-1">
+                          mdi-pen
+                        </v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push('/warehouse/special-capacity/' + item.data.id )">
+                        <v-icon class="text-grey-darken-1">mdi-timer-sand</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">ظرفیت ویژه</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push('/warehouse/special-exit-capacity/' + item.data.id )">
+                        <v-icon class="text-grey-darken-1">mdi-exit-to-app</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">ظرفیت ویژه خروج</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                        <v-icon size="small" class="text-grey-darken-1">
+                          mdi-trash-can-outline
+                        </v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
 
           <v-divider />
 
@@ -97,19 +151,17 @@ import {defineAsyncComponent} from "vue";
 const WarehouseList = defineAsyncComponent(()=> import ('@/components/Warehouse/WarehouseList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-
-import Table from '@/components/Warehouse/Table/Table.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Warehouse from "@/composables/Warehouse";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-  openToast
-} from "@/assets/js/functions";
+import { openToast, openConfirm } from "@/assets/js/functions";
+
 export default {
   components: {
     ModalExcelDownload,
-    Table,
     Header,
-    DashboardLayout
+    DashboardLayout,
+    ShTable
   },
 
   setup() {
@@ -141,7 +193,13 @@ export default {
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "warehouse/crud/delete/",
+      },
+      itemListTable: []
     }
   },
 
@@ -158,7 +216,21 @@ export default {
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    getType(type) {
+      if (type == 'receiver') {
+        return 'دریافت کننده';
+      }
+      if (type == 'sender') {
+        return 'ارسال کننده';
+      }
+      return 'نامعلوم';
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   },
 
   mounted() {
@@ -166,6 +238,26 @@ export default {
   },
 
   watch: {
+    warehouseList(){
+      this.itemListTable = []
+
+      this.warehouseList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                name: item.name,
+                address: item.address,
+                phone_number: item.phone_number,
+                custom: item.types,
+                market_storage_count: item.market_storage_count,
+                retail_storage_count: item.retail_storage_count,
+                is_active: item.is_active,
+                is_active_id: item.id,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
@@ -199,15 +291,11 @@ export default {
     },
 
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
           this.getWarehouseList();
-          openToast(
-              this.$store,
-              'انبار با موفقیت حذف شد',
-              "success"
-          );
-          this.$cookies.remove('deleteItem')
+          openToast(this.$store, 'انبار با موفقیت حذف شد', "success");
+          localStorage.removeItem('deleteObject')
         }
       }
     },

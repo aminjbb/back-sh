@@ -5,19 +5,20 @@ import {useCookies} from "vue3-cookies";
 
 export default function setup() {
    const header =ref( [
-       { name: 'ردیف', show: true , value:null, order:false},
-       { name: 'شناسه سفارش', show: true , value:'id', order: false},
-       { name: 'شماره سفارش', show: true , value:'order_number', order: false},
-       { name: 'سازنده', show: true , value:'creator', order: false},
-       { name: 'نام کاربر', show: true, value:'user' , order: false},
-       { name: 'شماره کاربر', show: true, value:'phone_number' , order: false},
-       { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
-       { name: 'وضعیت سفارش', show: true, value:'status', order: false },
-       { name: 'مبلغ پرداختی', show: true, value:'paid_price', order: false },
-       { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
-       { name: 'روش ارسال', show: true, value:'shipping_method', order: false },
-       { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
-    ])
+       { name: 'ردیف',title: 'ردیف', show: true , key:'row', sortable:false, align:'center'},
+       { name: 'شناسه سفارش',title: 'شناسه سفارش', show: true , key:'id', sortable: false, align:'center'},
+       { name: 'شماره سفارش',title: 'شماره سفارش', show: true , key:'order_number', sortable: false, align:'center'},
+       { name: 'سازنده',title: 'سازنده', show: true , key:'creator', sortable: false, align:'center'},
+       { name: 'نام کاربر',title: 'نام کاربر', show: true, key:'user' , sortable: false, align:'center'},
+       { name: 'شماره کاربر',title: 'شماره کاربر', show: true, key:'phone_number' , sortable: false, align:'center'},
+       { name: 'تعداد کالا',title: 'تعداد کالا', show: true , key:'shps_count', sortable: false, align:'center'},
+       { name: 'وضعیت سفارش',title: 'وضعیت سفارش', show: true, key:'statusOrder', sortable: false, align:'center'},
+       { name: 'مبلغ پرداختی',title: 'مبلغ پرداختی', show: true, key:'paid_price', sortable: false, align:'center'},
+       { name: 'وضعیت بارگیری',title: 'وضعیت بارگیری', show: true, key:'packed_status', sortable: false, align:'center',   model:'icon'},
+       { name: 'روش ارسال',title: 'روش ارسال', show: true, key:'sending_method', sortable: false, align:'center'},
+       { name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: true, key:'submit_date_fa', align:'center'},
+       { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action', fixed: true},
+   ])
    const headerSelectProduct =ref( [
        { name: 'ردیف', show: true , value:null, order:false},
        { name: 'تصویر کالا', show: true , value:'image', order: false},

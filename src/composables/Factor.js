@@ -15,13 +15,14 @@ export default function setup() {
 
     // Factor table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه فاکتور', show: true , value:'id', order: true},
-        { name: 'تامین کننده ', show: true, value:'supplier' , order: false},
-        { name: 'سازنده', show: true , value:'creator', order: false},
-        { name: 'شماره فاکتور تامین کننده ', show: true, value:'factor_number', order: false },
-        { name: 'تاریخ ساخت', show: true, value:'created_at_fa', order: false },
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        { name: 'ردیف', title: 'ردیف', show: true , sortable:false, align:'center', key:'row'},
+        { name: 'شناسه فاکتور', title: 'شناسه فاکتور', show: true, align:'center', key:'id' },
+        { name: 'تامین کننده', title: 'تامین کننده', show: true, sortable: false, align:'center', key:'supplier'},
+        { name: 'سازنده', title: 'سازنده', show: true , sortable: false, align:'center', key:'creator'},
+        { name: 'شماره فاکتور تامین کننده', title: 'شماره فاکتور تامین کننده', show: true, sortable: false, align:'center', key:'factor_number' },
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, sortable: false, align:'center', key:'created_at_fa' },
+        { name: 'وضعیت', title: 'وضعیت', show: true, sortable: false, align:'center', key:'custom' },
+        { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action' ,fixed: true},
     ]);
 
     const pricingHeader =ref([
@@ -116,6 +117,7 @@ export default function setup() {
         }
 
         else {
+            loading.value = false
         }
     };
 

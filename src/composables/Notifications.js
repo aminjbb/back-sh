@@ -13,34 +13,13 @@ export default function setup() {
     const route = useRoute()
     const pageLength = ref(1)
 
-    const header = ref([{
-            name: 'ردیف',
-            show: true
-        },
-        {
-            name: 'شناسه',
-            show: true,
-            value: 'id',
-            order: false
-        },
-        {
-            name: 'عنوان',
-            show: true,
-            value: 'title',
-            order: false
-        },
-        {
-            name: 'مشاهده',
-            show: true,
-            value: 'url',
-            order: false
-        },
-        {
-            name: 'تاریخ ایجاد',
-            show: true,
-            value: 'created_at',
-            order: true
-        },
+    const header =ref([
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه', title: 'شناسه', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'عنوان', title: 'عنوان', show: true , key:'title', sortable: false, align: 'center'},
+        {name: ' مشاهده', title: 'مشاهده', show: true, key:'show' , sortable: false, align: 'center'},
+        {name: ' تاریخ ایجاد', title: ' تاریخ ایجاد', show: true, key:'created_at', align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [{

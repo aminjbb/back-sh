@@ -8,12 +8,8 @@
         <v-col cols="5">
 
           <div class="text-right ">
-                 <span class="text-gray600 t14500">
-                 شناسه کارگو
-                 </span>
-            <span class="text-error">
-                  *
-                </span>
+            <span class="text-gray600 t14500">شناسه کارگو</span>
+            <span class="text-error">*</span>
           </div>
           <div>
             <v-text-field :autofocus="true" @keyup.enter="addQrCode()" variant="outlined" :rules="rule" v-model="cargo"/>
@@ -22,23 +18,30 @@
 
       </v-row>
     </v-card>
-    <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-        height="580"
-    >
-      <Table
-          :checkDisabledCloseCargo="checkDisabledCloseCargo"
+    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <ShTable
           class="flex-grow-1"
-          editUrl="/categories/edit/"
-          activePath="category/crud/update/activation/"
-          deletePath="category/crud/delete/"
-          :header="cargoReceivingHeader"
-          :items="cargoReceivingList"
-          updateUrl="category/csv/mass-update"
+          :headers="cargoReceivingHeader"
+          :items="itemsListTable"
           :page="1"
-          :perPage="1000"
-          :loading="loading"
-      />
+          :perPage="dataTableLength"
+          :loading="loading">
+
+        <template v-slot:customSlot="item">
+          <v-progress-circular
+              v-if="form[item.index].loading"
+              indeterminate
+              color="primary"></v-progress-circular>
+          <div
+              v-else
+              @click="updatePackage(item , item.index)"
+              class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+            <v-icon size="15" v-if="!form[item.index].sent_to_warehouse">mdi-dots-horizontal</v-icon>
+            <v-icon size="15" v-else>mdi-check</v-icon>
+          </div>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -63,7 +66,6 @@
 
 <script>
 //Components
-import Table from '@/components/Cargo/Receiving/Table/Table.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -71,14 +73,15 @@ import CreateCargo from '@/components/Cargo/Modal/CreateCargo.vue'
 import Cargo from '@/composables/Cargo';
 import {AxiosCall} from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   components: {
-    Table,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
-    CreateCargo
+    CreateCargo,
+    ShTable
   },
 
   data() {
@@ -88,16 +91,29 @@ export default {
       rule: [v => !!v || 'این فیلد الزامی است'],
       loading: false,
       valid: true,
-      closeCargoDisabled: false
+      closeCargoDisabled: false,
+      itemsListTable: [],
+      form:[
+        {
+          sent_to_warehouse:false,
+          loading:false
+        }
+      ],
     }
   },
 
   setup() {
     const {
-       getCargoReceivingList, cargoReceivingList, dataTableLength, cargoReceivingHeader
+       getCargoReceivingList,
+      cargoReceivingList,
+      dataTableLength,
+      cargoReceivingHeader
     } = Cargo();
     return {
-       getCargoReceivingList, cargoReceivingList, dataTableLength, cargoReceivingHeader
+       getCargoReceivingList,
+      cargoReceivingList,
+      dataTableLength,
+      cargoReceivingHeader
     };
   },
 
@@ -156,9 +172,65 @@ export default {
       } catch (e) {
         this.loading = false
       }
-    }
+    },
+
+    async updatePackage(item , index) {
+      try {
+        this.form[index].loading = true
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.toast_error = true
+        AxiosMethod.store = this.$store
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `package/received/${item.data.id}`
+        let data = await AxiosMethod.axios_post()
+        if (data) {
+          this.form[index].loading = false
+          this.form[index].sent_to_warehouse = true
+          this.checkDisabledCloseCargo( this.form)
+        }
+        else{
+          this.form[index].loading = false
+        }
+      }
+      catch (e) {
+        this.form[index].loading = false
+      }
+    },
   },
 
+  watch: {
+    cargoReceivingList() {
+      this.itemsListTable = [];
+
+      this.cargoReceivingList.forEach((element) => {
+        let form = {};
+
+        if (element.status == 'received_by_warehouse') {
+          form = {
+            sent_to_warehouse: true,
+            loading: false
+          };
+        } else {
+          form = {
+            sent_to_warehouse: false,
+            loading: false
+          };
+        }
+
+        this.form.push(form);
+
+        this.itemsListTable.push({
+          id: element.id,
+          shps_variety: element.shps_variety,
+          shps_count: element.shps_count,
+          custom: element.status,
+        });
+
+        this.checkDisabledCloseCargo(this.form);
+      });
+    },
+  }
 
 }
 </script>

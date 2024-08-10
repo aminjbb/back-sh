@@ -35,17 +35,62 @@
       </v-card>
   
       <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-
-        <Table
+          <ShTable
             class="flex-grow-1"
-            :header="headerFreeDelivery"
-            :items="freeDeliveryList"
+            :headers="headerFreeDelivery"
+            :items="itemListTable"
             :page="page"
             :perPage="dataTableLength"
             activePath="admin/delivery-discount/activation/"
-            @updateList="updateList"
-            deletePath="admin/delivery-discount/crud/delete/"
-            model="order" />
+            >
+              <template v-slot:actionSlot="item">
+                  <div class="text-center">
+                      <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                      </v-icon>
+                  </div>
+
+                  <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                      <v-list class="c-table__more-options">
+                          <v-list-item-title>
+                              <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/shps`)">
+                                  <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                    نمایش کالاهای تخفیف
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+
+                          <v-list-item-title>
+                              <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/customer`)">
+                                  <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        نمایش مشتری های تخفیف
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+
+                          <v-list-item-title>
+                              <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/orderList`)">
+                                  <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        لیست سفارشات
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+
+                          <v-list-item-title>
+                              <div class="ma-3 pointer d--rtl" @click="removeItem(item.data.id)">
+                                  <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        حذف
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+                      </v-list>
+                  </v-menu>
+              </template>
+          </ShTable>
   
         <v-divider />
   
@@ -89,14 +134,16 @@
   </template>
   
   <script>
-  import Table from '@/components/FreeDelivery/Table/Table.vue'
   import FreeDelivery from "@/composables/FreeDelivery";
   import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-  
+  import ShTable from "@/components/Components/Table/sh-table.vue";
+  import {openConfirm, splitChar} from "@/assets/js/functions";
+
   export default {
     data() {
       return {
-        perPageFilter:false
+        perPageFilter:false,
+        itemListTable: []
       }
     },
     setup() {
@@ -164,30 +211,27 @@
     },
   
     components: {
-      PanelFilter,
-      Table
-    },
-  
-    computed: {
-
+    PanelFilter,
+    ShTable
     },
   
     methods: {
-
-  
       updateList(status) {
         if (status === 'true') {
           this.getFreeDeliveryList();
         }
       },
-
       resetPage(){
         this.perPageFilter = true
         this.page = 1
         setTimeout(()=>{
           this.perPageFilter = false
         }, 1000)
-      }
+      },
+
+        removeItem(id) {
+            openConfirm(this.$store, "از حذف آیتم مورد نظر اطمینان دارید؟", "حذف", "delete", 'admin/delivery-discount/crud/delete/' + id, true);
+        },
     },
   
     mounted() {
@@ -223,7 +267,28 @@
         if (!this.perPageFilter){
           this.getFreeDeliveryList()
         }
-      }
+      },
+
+        freeDeliveryList() {
+            this.itemListTable = []
+            this.freeDeliveryList.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        id: item.id,
+                        name: item.name,
+                        nafis: item.nafis === true ? 'mdi-check|success' : 'mdi-close|error',
+                        pishtaz: item.pishtaz === true ? 'mdi-check|success' : 'mdi-close|error',
+                        post: item.post === true ? 'mdi-check|success' : 'mdi-close|error',
+                        tpax: item.tpax === true ? 'mdi-check|success' : 'mdi-close|error',
+                        start_time_fa: item.start_time_fa,
+                        end_time_fa: item.end_time_fa,
+                        is_active: item.is_active === true ? 1 : 0,
+                        is_active_id: item.id,
+                    }
+                )
+            })
+        },
+
     }
   }
   </script>

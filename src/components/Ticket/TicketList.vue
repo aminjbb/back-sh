@@ -24,7 +24,60 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch">
-        <Table class="flex-grow-1" model="ticet" :header="header" :items="allTickets" :page="page" :perPage="dataTableLength" :loading="loading" />
+      <ShTable
+          class="flex-grow-1"
+          :headers="header"
+          :items="itemListTable"
+          :loading="loading"
+          :page="page"
+          :perPage="dataTableLength"
+          activePath="product/crud/update/activation/">
+        <template v-slot:showSlot="item">
+          <v-btn :href="`/ticket/get/${item.data.id}`" variant="icon">
+            <v-icon color="error">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:customSlot="item">
+          <v-chip
+              class="ma-2 rounded-lg t10400"
+              :color="getStatusColor(item.data.custom)"
+              text-color="white">
+            {{getStatusText(item.data.custom)}}
+          </v-chip>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/product/get/skugroups/update/${item.data.id}`)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-pen
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
         <v-divider />
 
@@ -55,22 +108,24 @@
 </template>
 
 <script>
-//components
-import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import Ticket from '@/composables/Ticket';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 
 export default {
+  components: {
+    PanelFilter,
+    ModalColumnFilter,
+    ShTable
+  },
+
     data() {
-        return {
-            perPageFilter: false
-        }
-    },
-    components: {
-        PanelFilter,
-        Table,
-        ModalColumnFilter,
+      return {
+        perPageFilter: false,
+        itemListTable: []
+      }
     },
 
     setup() {
@@ -144,17 +199,73 @@ export default {
     },
 
     mounted() {
-        this.getTicketList();
-        this.setEcho();
-
+      this.getTicketList();
+      this.setEcho();
     },
 
     methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
-        },
+      getStatusColor(status) {
+        const color = '';
 
-        setEcho() {
+        if (status == 'open') {
+          return 'blue';
+        }
+        if (status == 'answered') {
+          return 'green';
+        }
+        if (status == 'resolved') {
+          return 'grey-lighten-1';
+        }
+        if (status == 'pending') {
+          return 'warning';
+        }
+
+        return '';
+      },
+
+      getPriorityText(priority) {
+        const text = '';
+
+        if (priority == 'urgent') {
+          return 'ضروری';
+        }
+        if (priority == 'low') {
+          return 'پایین';
+        }
+        if (priority == 'high') {
+          return 'بالا';
+        }
+        if (priority == 'medium') {
+          return 'متوسط';
+        }
+
+        return 'معمولی';
+      },
+
+      getStatusText(status) {
+        const text = '';
+
+        if (status == 'open') {
+          return 'باز';
+        }
+        if (status == 'answered') {
+          return 'پاسخ داده شده';
+        }
+        if (status == 'resolved') {
+          return 'بسته شده';
+        }
+        if (status == 'pending') {
+          return 'در حال بررسی';
+        }
+
+        return 'نامعلوم';
+      },
+
+      changeHeaderShow(index, value) {
+        this.header[index].show = value
+      },
+
+      setEcho() {
             if (this.$cookies.get('adminToken')) {
                 setTimeout(() => {
                     window.Echo.channel(`admin.ticket`).listen('TicketCreated', (event) => {
@@ -164,7 +275,7 @@ export default {
             }
         },
 
-        resetPage() {
+      resetPage() {
             this.perPageFilter = true
             this.page = 1
             setTimeout(() => {
@@ -174,7 +285,27 @@ export default {
     },
 
     watch: {
-        dataTableLength() {
+      allTickets() {
+        this.itemListTable = []
+
+        this.allTickets.forEach((item) =>
+            this.itemListTable.push(
+                {
+                  ticket_number: '#' + item.code,
+                  id: item.id,
+                  title: item.title,
+                  priority: this.getPriorityText(item.priority),
+                  custom: item.status,
+                  user_name: item.user.first_name+ ' ' + item.user.last_name,
+                  mobile: item.user.phone_number,
+                  created_at: item.created_at_fa + ' ' + item.updated_at.split('T')[1].split('.')[0],
+                  latest_date: item.latest_date_fa ,
+                },
+            ),
+        )
+      },
+
+      dataTableLength() {
             this.perPageFilter = true
             this.page = 1
             let query = this.$route.query
@@ -194,12 +325,14 @@ export default {
             }
             this.perPageFilter = false
         },
-        page() {
+
+      page() {
             if (!this.perPageFilter) {
                 this.getTicketList()
             }
         },
-        $route() {
+
+      $route() {
             this.getTicketList()
         }
     }

@@ -4,7 +4,7 @@
     <v-main class="h-100vh">
       <Header/>
       <div class="h-100 d-flex flex-column align-stretch seller">
-        <v-card max-height="400" class="mx-5   pb-15">
+        <v-card max-height="400" class="mx-5 pb-15">
           <div class="text-center my-3">
         <span>
           پردازش محموله
@@ -13,17 +13,12 @@
           <v-divider/>
           <v-row align="center" class="px-3 my-5">
             <v-col cols="6">
-              <div class="text-right ">
-                      <span class="text-gray600 t14500">
-                          شناسه محموله
-                      </span>
-                <span class="text-error">
-                          *
-                      </span>
+              <div class="text-right">
+                <span class="text-gray600 t14500">شناسه محموله</span>
+                <span class="text-error">*</span>
               </div>
               <div>
                 <v-text-field
-
                     variant="outlined"
                     :rules="rule"
                     :autofocus="true"
@@ -65,17 +60,56 @@
         </v-card>
 
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
-              :getShipmentRequestsList="getUpComingList"
+          <ShTable
               class="flex-grow-1"
-              :header="header"
-              :items="upComingList?.data"
-              :page="page"
-              :perPage="dataTableLength"
-              activePath="page/crud/update/activation/"
+              :headers="header"
+              :items="itemListTable"
               :loading="loading"
-              updateUrl="page/csv/mass-update"
-              model="page" />
+              :page="page"
+              :perPage="dataTableLength">
+            <template v-slot:customSlot="item">
+              <div
+                  class="factor-dropdown__selected"
+                  :style="{ backgroundColor: BgSelected(item.data.custom) }">
+                <span style="font-size: 9px " > در حال ارسال به انبار</span>
+              </div>
+            </template>
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/processing-shipment/${item.data.id}/shps-list`)">
+                        <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                        پردازش محموله
+                      </span>
+                      </div>
+
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class=" pointer" @click="print(item.data.id)">
+                        <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                         پرینت محموله
+                      </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
 
           <v-divider />
 
@@ -119,25 +153,24 @@
           </v-card-actions>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
 
 </template>
 
-<script >
+<script>
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-
-import Table from '@/components/UpComing/Table/Table.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import UpComing from "@/composables/UpComing"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
-import { openToast} from "@/assets/js/functions"
+import { openToast, convertDateToJalai } from "@/assets/js/functions"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 import ModalDetaiShipment from "@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue";
+
 export default {
   data() {
     return {
@@ -145,9 +178,11 @@ export default {
       loading: false,
       shipmentId: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      valid: true
+      valid: true,
+      itemListTable: []
     }
   },
+
   setup() {
     const statusItems= [
       {
@@ -189,12 +224,12 @@ export default {
   components: {
     ModalDetaiShipment,
     PanelFilter,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
     DashboardLayout,
-    Header
+    Header,
+    ShTable
   },
 
   computed: {
@@ -220,8 +255,25 @@ export default {
       this.header[index].show = value
     },
 
+    BgSelected(status) {
+      if (status === 'in_review') {
+        return '#EDE7F6';  // Light purple
+      }
+      if (status === 'approved') {
+        return '#E8F5E9';  // Light green
+      }
+      if (status === 'rejected') {
+        return '#FFEBEE';  // Light red
+      }
+      return 'transparent';  // Default background
+    },
+
     validate() {
       this.$router.push(`/processing-shipment/${this.splitShipmentId}/shps-list`)
+    },
+
+    print(id) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${id}/print`, '_blank');
     },
   },
 
@@ -230,6 +282,26 @@ export default {
   },
 
   watch: {
+    upComingList(){
+      this.itemListTable = []
+
+      this.upComingList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                type: item.type,
+                shps_count: item.shps_count,
+                shps_variety: item.shps_variety,
+                shopping_name: item.seller? item.seller.shopping_name : 'شاواز',
+                supplier_name: item?.factor?.supplier?.shopping_name,
+                creator_name:  item.creator.first_name + ' ' + item.creator.last_name,
+                sent_at: convertDateToJalai(item.sent_to_warehouse_at , '-' , false),
+                custom: item.status,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
@@ -251,11 +323,13 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
         this.getUpComingList()
       }
     },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -269,6 +343,7 @@ export default {
         }
       }
     },
+
     $route(to){
       this.getUpComingList(to);
     }

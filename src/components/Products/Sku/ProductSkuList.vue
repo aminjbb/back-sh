@@ -34,15 +34,6 @@
                             :header="header"
                             :changeHeaderShow="changeHeaderShow"
                         />
-
-                        <PanelFilter
-                            :path="`product/get/${$route.params.productId}/sku/index`"
-                            :filterField="filterField"
-                            :brandsList="brandsList"
-                            :colorsList="colorsList"
-                            :categoriesList="categoriesList"
-                            :disable-category = true
-                        />
                     </v-row>
                 </v-col>
      
@@ -50,23 +41,89 @@
         </v-card>   
         <v-card 
             class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-            height="580"
-        >
-            <Table 
-                class="flex-grow-1"
-                activePath="product/sku/crud/update/activation/" 
-                sellablePath="product/sku/crud/update/sellable/"
-                editUrl="/product/edit/" 
-                model="sku" 
-                :header="header" 
-                :items="skues"
-                :loading="loading"
-                :page="page"
-                :perPage="dataTableLength"
-                updateUrl="product/sku/csv/mass-update"
-                uploadImageUrl="/product/get/sku/image/"
-            />
+            height="580">
+          <ShTable
+              class="flex-grow-1"
+              :headers="header"
+              :items="itemListTable"
+              :loading="loading"
+              :page="page"
+              :perPage="dataTableLength"
+              activePath="product/sku/crud/update/activation/"
+          >
+            <template v-slot:colorSlot="item">
+                   <span class=" pointer">
+                            <v-icon
+                                icon="mdi-circle"
+                                size="small"
+                                :style="{ color: item.data.color.value }"
+                                :class="item.data.color.value == '#FFFFFF' ? 'icon-bordered' : ''" />
 
+                            <v-tooltip
+                                activator="parent"
+                                location="top"
+                                class="d--rtl">
+                                {{item.data.color.label}}
+                            </v-tooltip>
+                        </span>
+            </template>
+
+            <template v-slot:customSlot="item">
+              <template v-for="(volume,i) in item.data.custom" :key="i">
+                {{volume.value}} {{volume.label}}
+              </template>
+            </template>
+
+            <template v-slot:switchSlot="item">
+              <v-switch
+                  :true-value="1"
+                  :false-value="0"
+                  v-model="item.data.switch"
+                  inset
+                  color="success"
+                  @change="changeSellable(item.data,item.data.switch_id)"/>
+            </template>
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/product/edit/${item.data.id}`)">
+                        <v-icon size="small" class="text-grey-darken-1">
+                          mdi-pen
+                        </v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                        <v-icon size="small" class="text-grey-darken-1">
+                          mdi-trash-can-outline
+                        </v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item-title >
+                    <div class="ma-5 pointer" >
+                      <ModalFinancialInfo :id="item.data.id" :financialInfo="item.data.data" @getFinancialData="financialData"/>
+                    </div>
+                  </v-list-item-title>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
             <v-divider/>
 
             <v-card-actions class="pb-3">
@@ -119,124 +176,170 @@
     </div>
 </template>
 <script>
-import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
+import ModalFinancialInfo from "@/components/Products/Sku/Modal/ModalFinancialInfo.vue";
 import Sku from '@/composables/Sku';
 import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Categories from '@/composables/Categories';
-import {openToast} from "@/assets/js/functions";
+import {openToast, openConfirm} from "@/assets/js/functions";
 
 export default {
-    components: {
-        Table,
-        ModalGroupAdd,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
+  components: {
+    ModalGroupAdd,
+    ModalColumnFilter,
+    ModalExcelDownload,
+    ModalFinancialInfo,
+    ShTable
+  },
 
-    setup() {
-        const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
-        const { allBrands, getAllBrands } = Brands();
-        const { allColors, getAllColor } = Colors();
-        const { allCategories, getAllCategories } = Categories();
+  setup() {
+    const { pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading } = Sku();
+    const { allBrands, getAllBrands } = Brands();
+    const { allColors, getAllColor } = Colors();
+    const { allCategories, getAllCategories } = Categories();
 
-        return { 
-            allBrands, getAllBrands,
-            allColors, getAllColor,
-            allCategories, getAllCategories,
-            pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading
-        };
-    },
+    return {
+      allBrands, getAllBrands,
+      allColors, getAllColor,
+      allCategories, getAllCategories,
+      pageLength, skues, addPerPage, getSkues, dataTableLength, page, header, item, filterField, loading
+    };
+  },
 
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        },
-
-        categoriesList() {
-            try {
-                const categories = []
-                this.allCategories.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    categories.push(form)
-                });
-                return categories
-            } catch (error) {
-                return []
-            }
-        },
-
-        brandsList() {
-            try {
-                const brands = []
-                this.allBrands.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id
-                    }
-                    brands.push(form)
-                });
-                return brands
-            } catch (error) {
-                return []
-            }
-        },
-
-        colorsList() {
-            try {
-                const colors = []
-                this.allColors.data.forEach(element => {
-                    const form = {
-                        label: element.label,
-                        value: element.id,
-                    }
-                    colors.push(form)
-                });
-                return colors
-            } catch (error) {
-                return []
-            }
-        },
-    },
-
-    mounted() {
-        this.getSkues();
-        this.getAllBrands();
-        this.getAllColor();
-        this.getAllCategories();
-    },
-
-    watch: {
-      confirmModal(val) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-          if (!val) {
-            this.getSkues();
-            openToast(
-                this.$store,
-                'محصول با موفقیت حذف شد',
-                "success"
-            );
-            localStorage.removeItem('deleteObject')
-          }
-        }
+  data(){
+    return{
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "product/sku/crud/delete/",
       },
+      itemListTable: []
+    }
+  },
 
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
     },
 
-    methods: {
-        changeHeaderShow(index, value) {
-            this.header[index].show = value
+    categoriesList() {
+      try {
+        const categories = []
+        this.allCategories.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id
+          }
+          categories.push(form)
+        });
+        return categories
+      } catch (error) {
+        return []
+      }
+    },
+
+    brandsList() {
+      try {
+        const brands = []
+        this.allBrands.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id
+          }
+          brands.push(form)
+        });
+        return brands
+      } catch (error) {
+        return []
+      }
+    },
+
+    colorsList() {
+      try {
+        const colors = []
+        this.allColors.data.forEach(element => {
+          const form = {
+            label: element.label,
+            value: element.id,
+          }
+          colors.push(form)
+        });
+        return colors
+      } catch (error) {
+        return []
+      }
+    },
+  },
+
+  mounted() {
+    this.getSkues();
+    this.getAllBrands();
+    this.getAllColor();
+    this.getAllCategories();
+  },
+
+  methods: {
+    financialData(v) {
+      this.getSkues()
+    },
+
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+  },
+
+  watch: {
+    skues(){
+      this.itemListTable = []
+
+      this.skues.forEach((item) =>
+          this.itemListTable.push(
+              {
+                data : item,    /* for modal data binding*/
+                id: item.id,
+                name: item.name,
+                label: item.label,
+                sku_group: item.s_k_u_group.name,
+                category: item.product.category.label,
+                brand: item.brand.label,
+                color: item.color,
+                is_active: item.is_active,
+                is_active_id: item.id,
+                switch: item.is_sellable,
+                switch_id: item.id,
+                product: item.product.label,
+                custom: item.volumes
+
+              },
+          ),
+      )
+    },
+
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getSkues();
+          openToast(
+              this.$store,
+              'محصول با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
         }
-    }
+      }
+    },
+
+    dataTableLength(val) {
+      this.addPerPage(val)
+    },
+  }
 }
 </script>

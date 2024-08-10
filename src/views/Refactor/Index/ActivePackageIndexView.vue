@@ -23,16 +23,19 @@
         </v-card>
 
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="header"
-              :items="packageList.data"
-              :page="page"
-              :perPage="dataTableLength"
+              :headers="header"
+              :items="itemListTable"
               :loading="loading"
-              @updateList="updateList"
-              deletePath="package/crud/delete/"
-              model="package" />
+              :page="page"
+              :perPage="dataTableLength">
+            <template v-slot:customSlot="item">
+              <span class="t13500 text-black py-5 expanded-background" style="background-color: #F5F5F5;">
+               {{ renameStatus(item.data.custom) }}
+              </span>
+            </template>
+          </ShTable>
 
           <v-divider />
 
@@ -83,16 +86,18 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/ActivePackage/Table/Table.vue'
 import ActivePackage from "@/composables/ActivePackage";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
     }
   },
+
   setup() {
     const typeList= [
       {
@@ -152,22 +157,18 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
     Header,
-    DashboardLayout
+    DashboardLayout,
+    ShTable
   },
 
   computed: {
-
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     }
-
   },
 
   methods: {
-
-
     updateList(status) {
       if (status === 'true') {
         this.getPackageList()
@@ -180,7 +181,33 @@ export default {
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    renameStatus(status) {
+      if (status === 'loading') {
+        return 'لودینگ'
+      } else if (status === 'luggage') {
+        return 'در حال بارگیری'
+      } else if (status === 'sent_to_warehouse') {
+        return 'انتقال به انبار اصلی'
+      } else if (status === 'received_by_warehouse') {
+        return 'رسیده به انبار اصلی'
+      }
+      else if (status === 'completed') {
+        return 'پر شده'
+      } else {
+        return 'خالی';
+      }
+
+    },
+
+    getPackageType(type){
+      if(type === 'bulk'){
+        return 'بالک'
+      }else{
+        return 'پالت'
+      }
+    },
   },
 
   mounted() {
@@ -188,6 +215,21 @@ export default {
   },
 
   watch: {
+    packageList(){
+      this.itemListTable = []
+
+      this.packageList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                type: item.type? this.getPackageType(item.type) : '---',
+                shps_count: item.shps_count ? item.shps_count : '---',
+                custom: item.status,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
@@ -209,6 +251,7 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
         this.getPackageList()

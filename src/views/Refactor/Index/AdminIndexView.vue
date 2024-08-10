@@ -12,7 +12,6 @@
                 class="px-10 py-5">
               <v-col cols="6">
                 <v-row justify="start">
-
                   <sh-btn
                       title="ساخت ادمین"
                       prepend-icon="mdi-plus"
@@ -44,18 +43,55 @@
           </v-card>
 
           <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-            <Table
-                @resetPage="resetPage"
+            <ShTable
                 class="flex-grow-1"
-                :header="header"
-                :items="adminList"
+                :headers="header"
+                :items="itemListTable"
                 :page="page"
                 :perPage="dataTableLength"
-                :loading="loading"
-                editUrl="/admin/edit/"
-                updateUrl="admin/csv/mass-update/"
-                deletePath="admin/crud/delete/"
-                banPath="admin/crud/update/ban/"/>
+                :loading="loading">
+
+              <template v-slot:switchSlot="item">
+                <v-switch
+                    :true-value="1"
+                    :false-value="0"
+                    v-model="item.data.switch"
+                    inset
+                    color="success"
+                    @change="changeBan(item.data.id,item.data.switch)"/>
+              </template>
+
+              <template v-slot:actionSlot="item">
+                <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                    mdi-dots-vertical
+                  </v-icon>
+                </div>
+                <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+                  <v-list class="c-table__more-options">
+                    <v-list-item>
+                      <v-list-item-title>
+                        <div class="ma-5 pointer" @click="$router.push(`/admin/edit/${item.data.id}`)">
+                          <v-icon size="small" class="text-grey-darken-1">
+                            mdi-pen
+                          </v-icon>
+                          <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                        </div>
+                      </v-list-item-title>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-title>
+                        <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                          <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                          <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        </div>
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </template>
+            </ShTable>
 
             <v-divider />
 
@@ -108,14 +144,17 @@ import {defineAsyncComponent} from "vue";
 import shBtn from "@/components/Components/Kits/Buttons/sh-btn.vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-
-import Table from '@/components/Admin/AdminTable/AdminTable.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {openConfirm} from "@/assets/js/functions";
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Admin from "@/composables/Admin";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
+import { convertDateToJalai } from '@/assets/js/functions'
+import { AxiosCall } from "../../../assets/js/axios_call";
+
 export default {
   setup() {
     const {
@@ -140,19 +179,25 @@ export default {
     };
   },
   components: {
+    ShTable,
     DashboardLayout,
     Header,
     ModalExcelDownload,
     PanelFilter,
     ModalGroupAdd,
     ModalColumnFilter,
-    Table,
     shBtn
   },
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: [],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: `admin/crud/delete/`,
+      },
     }
   },
 
@@ -160,17 +205,38 @@ export default {
     this.$store.commit('set_avatar', null)
     this.getAdminList()
   },
+
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    async changeBan(id, banItem) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = "admin/crud/update/ban/"+id
+      formdata.append('is_ban', banItem)
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (!data) {
+        banItem.switch = false
+      }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   },
 
   computed: {
@@ -180,6 +246,25 @@ export default {
   },
 
   watch: {
+    adminList() {
+      this.itemListTable = []
+
+      this.adminList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                first_name:item.first_name,
+                last_name:item.last_name,
+                phone_number:item.phone_number,
+                role: item.role.label,
+                created_at: convertDateToJalai(item.created_at , '-' , true),
+                email:item.email,
+                switch: item.is_ban,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

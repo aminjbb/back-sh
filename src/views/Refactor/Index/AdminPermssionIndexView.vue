@@ -20,17 +20,13 @@
         </v-card>
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
-              @resetPage="resetPage"
+          <ShTable
               class="flex-grow-1"
-              :header="header"
-              :items="permissions"
+              :headers="header"
+              :items="itemListTable"
               :page="page"
               :perPage="dataTableLength"
-              :loading="loading"
-              editUrl="/admin/edit/"
-              deletePath="admin/crud/delete/"
-              model="permission" />
+              :loading="loading"/>
 
           <v-divider />
 
@@ -81,9 +77,9 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import Permission from "@/composables/Permission";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   setup() {
@@ -110,15 +106,16 @@ export default {
   },
 
   components: {
+    ShTable,
     ModalColumnFilter,
-    Table,
     DashboardLayout,
     Header
   },
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
     }
   },
 
@@ -147,6 +144,20 @@ export default {
   },
 
   watch: {
+    permissions() {
+      this.itemListTable = []
+
+      this.permissions.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                title: item.name,
+                name:item.label,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

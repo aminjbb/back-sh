@@ -21,12 +21,13 @@ export default function setup() {
     const router = useRouter()
     const route = useRoute()
     const sectionsHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام', show: true , value:'label', order: false},
-        { name: 'عنوان', show: true, value:'title' , order: false},
-        { name: 'نوع', show: true , value:'type', order: false},
-        { name: 'تاریخ ویرایش', show: true, value:'updated_at', order: true },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'نام', title: 'نام', show: true , key:'label', sortable: false, align: 'center'},
+        {name: 'عنوان', title: 'عنوان', show: true, key:'title' , sortable: false, align: 'center'},
+        {name: 'نوع',  title: 'نوع', show: true , key:'type', sortable: false, align: 'center'},
+        {name: 'تاریخ ویرایش', title: 'تاریخ ویرایش', show: true, key:'updated_at', align: 'center' },
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center' },
+        {name: 'عملیات', title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const bannerHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},

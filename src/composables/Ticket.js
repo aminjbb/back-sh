@@ -14,16 +14,17 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true, value:null, order:false},
-        { name: 'شماره', show: true, value:'ticket_number', order: false},
-        { name: 'شناسه', show: true, value:'id', order: false},
-        { name: 'عنوان', show: true, value:'label', order: false},
-        { name: 'اولویت', show: true, value:'priority', order: false},
-        { name: 'وضعیت', show: true, value:'status', order: false},
-        { name: 'ایجاد کننده', show: true, value:'user_name', order: false},
-        { name: 'موبایل', show: true, value:'mobile', order: false},
-        { name: 'تاریخ ایجاد', show: true, value:'created_at', order: true},
-        { name: 'تاریخ آخرین پیام', show: true, value:'latest_date', order: true},
+        { name: 'ردیف', title: 'ردیف', show: true, key:'row', align:'center', sortable: false},
+        { name: 'شماره', title: 'شماره', show: true, key:'ticket_number', align:'center', sortable: false},
+        { name: 'شناسه', title: 'شناسه', show: true, key:'id', align:'center', sortable: false},
+        { name: 'عنوان', title: 'عنوان', show: true, key:'title', align:'center', sortable: false},
+        { name: 'اولویت', title: 'اولویت', show: true, key:'priority', align:'center', sortable: false,},
+        { name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', align:'center', sortable: false},
+        { name: 'ایجاد کننده', title: 'ایجاد کننده', show: true, key:'user_name', align:'center', sortable: false,},
+        { name: 'موبایل', title: 'موبایل', show: true, key:'mobile', align:'center', sortable: false},
+        { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, key:'created_at', align:'center'},
+        { name: 'تاریخ آخرین پیام', title: 'تاریخ آخرین پیام', show: true, key:'latest_date', align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'show', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [

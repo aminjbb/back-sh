@@ -16,16 +16,16 @@ export default function setup() {
     const cookies = useCookies()
     const route = useRoute()
     const headerFreeDelivery =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'id', order: false},
-        { name: ' نفیس اکسپرس', show: true, value: 'nafis', order: false},
-        { name: ' پست پیشتاز', show: true, value: 'pishtaz', order: false},
-        { name: ' پست', show: true, value: 'post', order: false},
-        { name: 'تیپاکس', show: true, value: 'tpax', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
-        { name: 'استان', show: false, value: 'state', order: true},
-        { name: 'وضعیت', show: true, value: 'is_active', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , sortable: false,align:'center' ,key: 'row'},
+        { name: 'عنوان',title: 'عنوان', show: true, sortable: false,align:'center' ,key: 'name'},
+        { name: ' نفیس اکسپرس',title: ' نفیس اکسپرس', show: true, sortable: false,align:'center' ,key: 'nafis',model: 'icon'},
+        { name: ' پست پیشتاز',title: ' پست پیشتاز', show: true, sortable: false,align:'center' ,key: 'pishtaz',model: 'icon'},
+        { name: ' پست',title: ' پست', show: true, sortable: false,align:'center' ,key: 'post',model: 'icon'},
+        { name: 'تیپاکس',title: 'تیپاکس', show: true, sortable: false,align:'center' ,key: 'tpax',model: 'icon'},
+        { name: 'تاریخ شروع',title: 'تاریخ شروع', show: true,align:'center' ,key: 'start_time_fa'},
+        { name: 'تاریخ پایان',title: 'تاریخ پایان', show: true,align:'center' ,key: 'end_time_fa'},
+        { name: 'وضعیت',title: 'وضعیت', show: true, sortable: false,align:'center' ,key: 'is_active'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
   
     const headerShps = ref([

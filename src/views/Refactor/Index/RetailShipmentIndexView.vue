@@ -32,17 +32,65 @@
                 </v-card>
 
                 <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-                    <Table
-                        :getRetailShipmentList="getRetailShipmentList"
+                    <ShTable
                         class="flex-grow-1"
-                        :header="header"
-                        :items="retailShipments"
+                        :headers="header"
+                        :items="itemListTable"
                         :page="page"
                         :perPage="dataTableLength"
-                        deletePath="shipment/consignment/crud/delete/"
                         :loading="loading"
-                        updateUrl="seller/csv/mass-update"
-                        model="seller" />
+                    >
+                        <template v-slot:actionSlot="item">
+                            <div class="text-center">
+                                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                                    mdi-dots-vertical
+                                </v-icon>
+                            </div>
+
+                            <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                                <v-list class="c-table__more-options">
+                                    <v-list-item>
+                                        <v-list-item-title>
+                                            <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.data.id}/edit/shps`)">
+                                                <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                    مدیریت کالاها
+                                                </span>
+                                            </div>
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item :disabled="checkPermission(item.data.originalStatus)">
+                                        <v-list-item-title>
+                                            <ModalRequestShipment :id="item.data.id" :getRetailShipmentList="getRetailShipmentList"/>
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item>
+                                        <v-list-item-title>
+                                            <div class=" pointer" @click="print(item.data.id)">
+                                                <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
+                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                    نمایش جزئیات
+                                                </span>
+                                            </div>
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item :disabled="checkPermission(item.data.originalStatus )">
+                                        <v-list-item-title>
+                                            <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                                <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                    حذف
+                                                </span>
+                                            </div>
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
+                        </template>
+                    </ShTable>
                     <v-divider />
 
                     <v-card-actions class="pb-3">
@@ -94,23 +142,25 @@ import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
-import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
 
 export default {
     components: {
+        ModalRequestShipment,
         DashboardLayout,
         Header,
         PanelFilter,
         ModalRetailShipmentDetail,
-        Table,
         ModalColumnFilter,
         ModalExcelDownload,
+        ShTable
     },
 
     setup() {
@@ -194,7 +244,58 @@ export default {
 
     data() {
         return {
-            perPageFilter:false
+            perPageFilter:false,
+            itemListTable: [],
+            statusItems: [
+                {
+                    label: 'در انتظار',
+                    value: 'waiting',
+                },
+                {
+                    label: 'کنسل شده',
+                    value: 'canceled',
+                },
+                {
+                    label: 'در حال بررسی',
+                    value: 'in_review',
+                },
+                {
+                    label: 'رد شده',
+                    value: 'rejected',
+                }, {
+                    label: 'تایید شده',
+                    value: 'approved',
+                }, {
+                    label: 'در حال ارسال به انبار',
+                    value: 'sending_warehouse',
+                }, {
+                    label: 'رسیده به انبار',
+                    value: 'received_by_warehouse',
+                }, {
+                    label: 'در حال شمارش',
+                    value: 'counting',
+                }, {
+                    label: 'تایید شده انبار',
+                    value: 'approved_by_warehouse',
+                }, {
+                    label: 'به سمت انبار اصلی',
+                    value: 'sending_base_warehouse',
+                }, {
+                    label: 'رسیده به انبار اصلی',
+                    value: 'received_base_warehouse',
+                }, {
+                    label: 'در حال جایگذاری',
+                    value: 'locating',
+                },
+                {
+                    label: 'موجود شده در انبار',
+                    value: 'available_in_warehouse',
+                },
+            ],
+            permissions: ['approved', 'sending_warehouse', 'received_by_warehouse',
+                'counting', 'approved_by_warehouse', 'sending_base_warehouse',
+                'received_base_warehouse', 'locating', 'located', 'canceled']
+
         }
     },
 
@@ -214,7 +315,25 @@ export default {
             setTimeout(()=>{
                 this.perPageFilter = false
             }, 1000)
-        }
+        },
+
+        removeItem(id) {
+            openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'shipment/consignment/crud/delete/'+id, true)
+        },
+        getStatus(status) {
+            const persianStatus = this.statusItems.find(element => element.value === status)
+            if (persianStatus){
+                return persianStatus.label
+            }
+        },
+        checkPermission(status) {
+            const index = this.permissions.findIndex(permission => permission === status)
+            if (index > -1) return true
+            return false
+        },
+        print(id) {
+            window.open(`${ import.meta.env.VITE_API_SITEURL}retail-shipment/${id}/print`, '_blank');
+        },
     },
 
     mounted() {
@@ -243,13 +362,11 @@ export default {
             }
             this.perPageFilter = false
         },
-
         page(){
             if (!this.perPageFilter){
                 this.getRetailShipmentList()
             }
         },
-
         confirmModal(val) {
             if (localStorage.getItem('deleteObject') === 'done') {
                 if (!val) {
@@ -265,7 +382,26 @@ export default {
         },
         $route(){
             this.getRetailShipmentList()
-        }
+        },
+
+        retailShipments() {
+            this.itemListTable = []
+            this.retailShipments.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        id: item.id,
+                        factor_id: item.factor_id ? item.factor_id : '-',
+                        shps_count: item.shps_count,
+                        shps_variety: item.shps_variety,
+                        creator: item.creator.first_name && item.creator?.last_name ? item.creator?.first_name +' '+item.creator?.last_name : '--',
+                        created_at_fa: item.created_at_fa,
+                        updated_at_fa: item.updated_at_fa,
+                        status: this.getStatus(item.status),
+                        originalStatus: item.status
+                    }
+                )
+            })
+        },
     }
 }
 </script>
