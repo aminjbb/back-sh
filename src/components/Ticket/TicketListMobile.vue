@@ -99,6 +99,7 @@
           </v-col>
 
           <v-col cols="12">
+
             <div
                 id="rowSection"
                 class="d-flex justify-center align-center">
