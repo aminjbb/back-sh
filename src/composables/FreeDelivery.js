@@ -43,15 +43,15 @@ export default function setup() {
         { name: ' شماره تماس', show: true, value: 'phone', order: false},
     ]);
     const headerOrderList =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه سفارش', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس مشتری', show: true, value: 'phone', order: false},
-        { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
-        { name: 'تعداد ایتم', show: true, value: 'item_number', order: false},
-        { name: 'مبلغ سفارش(ریال)', show: true, value: 'order_price', order: false},
-        { name: 'تاریخ ثبت سفارش', show: true, value: 'order_date', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'شناسه سفارش',title: 'شناسه سفارش', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس مشتری',title: ' شماره تماس مشتری', show: true, key: 'phone_number', sortable: false, align:'center'},
+        { name: 'چندمین سفارش',title: 'چندمین سفارش', show: true, key: 'order_number', sortable: false, align:'center'},
+        { name: 'تعداد ایتم',title: 'تعداد ایتم', show: true, key: 'details_count', sortable: false, align:'center'},
+        { name: 'مبلغ سفارش(ریال)',title: 'مبلغ سفارش(ریال)', show: true, key: 'paid_price', sortable: false, align:'center'},
+        { name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: true, key: 'created_at_fa', sortable: false, align:'center'},
     ]);
 
     const indexFilterField =ref( [
