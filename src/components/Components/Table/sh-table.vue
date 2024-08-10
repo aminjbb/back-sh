@@ -89,6 +89,12 @@
             </div>
         </template>
 
+        <template v-slot:item.save="{ item, index }">
+            <div class=" d-flex justify-center align-center">
+                <slot name="saveSlot" :data="item" :index="index"></slot>
+            </div>
+        </template>
+
         <template v-slot:item.color="{ item, index }">
             <slot name="colorSlot" :data="item" :index="index"></slot>
         </template>

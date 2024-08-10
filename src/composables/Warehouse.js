@@ -25,15 +25,15 @@ export default function setup() {
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ];
     const pickupHeader = [
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسهshps' , show:true, value:'shps', order: false},
-        {name:'جایگاه' , show:true, value:'placement', order: false},
-        {name:'وضعیت' , show:true, value:'status', order: false},
-        {name:'شماره نوبت' , show:true, value:'turn', order: false},
-        {name:'تعداد' , show:true, value:'count', order: false},
-        {name:'اولویت' , show:true, value:'priority', order: false},
-        {name:'ذخیره' , show:true, value:'save', order: false},
-        {name:'سفارشات' , show:true, value:'orders', order: false},
+        {name:'ردیف' , title:'ردیف' , show:true, key:'row', sortable: false, align:'center'},
+        {name:'شناسهshps' , title:'شناسهshps' , show:true, key:'shps', sortable: false, align:'center'},
+        {name:'جایگاه' , title:'جایگاه' , show:true, key:'placement', sortable: false, align:'center'},
+        {name:'وضعیت' , title:'وضعیت' , show:true, key:'status', sortable: false, align:'center'},
+        {name:'شماره نوبت' , title:'شماره نوبت' , show:true, key:'turn', sortable: false, align:'center'},
+        {name:'تعداد' , title:'تعداد' , show:true, key:'count', sortable: false, align:'center'},
+        {name:'اولویت' , title:'اولویت' , show:true, key:'custom', sortable: false, align:'center'},
+        {name:'ذخیره' , title:'ذخیره' , show:true, key:'save', sortable: false, align:'center'},
+        {name:'سفارشات' , title:'سفارشات' , show:true, key:'show', sortable: false, align:'center'},
 
     ];
     
