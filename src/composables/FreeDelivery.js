@@ -29,11 +29,11 @@ export default function setup() {
     ]);
   
     const headerShps = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه کالا', show: true, value: 'id', order: true},
-        { name: 'نام کالا', show: true, value: 'label', order: true},
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order: true},
-        { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'key' , sortable: false, align:'center'},
+        { name: 'شناسه کالا',title: 'شناسه کالا', show: true, key: 'sku_label',align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true, key: 'sku_label',align:'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price',align:'center'},
+        { name: ' قیمت فروش',title: ' قیمت فروش', show: true, key: 'buying_price', sortable: false, align:'center'},
     ]);
     const headerCustomer =ref( [
         { name: 'ردیف', show: true, value: null , order: false},
