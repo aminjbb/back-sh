@@ -97,6 +97,7 @@
                 prev-icon="mdi-chevron-right"
                 next-icon="mdi-chevron-left"/>
           </v-col>
+
           <v-col cols="12">
             <div
                 id="rowSection"
