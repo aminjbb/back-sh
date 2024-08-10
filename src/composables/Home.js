@@ -2,7 +2,6 @@ import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {HomePageFilter} from "@/assets/js/homePage_filter";
 
 export default function setup() {
     const homeSections = ref([]);
@@ -113,7 +112,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new HomePageFilter()
 
     async function getHomeSections() {
         loading.value = true
@@ -152,31 +150,63 @@ export default function setup() {
         else {
         }
     };
-    async function getHomePageBanner(query) {
-        let paramsQuery = null
+    async function getHomePageBanner() {
         loading.value = true
-        filter.homepage_section_id =  route.params.sectionId
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/home/section/banner/index${paramsQuery}`
+        AxiosMethod.end_point = `page/home/section/banner/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             loading.value = false
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homePageBanner.value = data.data
         }
-
         else {
             loading.value = false
         }
-    };
-    async function getHomeSlider() {
+    }
 
+    async function getHomeSlider() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -186,12 +216,9 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homeSlider.value = data.data
         }
+    }
 
-        else {
-        }
-    };
     async function getHomeBrand() {
-
         const filter = {
             homepage_section_id: route.params.sectionId
         }
@@ -205,10 +232,8 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homeBrand.value = data.data
         }
+    }
 
-        else {
-        }
-    };
     async function getHomePageCategory() {
 
         const filter = {
@@ -224,9 +249,6 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homePageCategory.value = data.data
         }
-
-        else {
-        }
     };
     async function getHomePageSingleCategory() {
         const AxiosMethod = new AxiosCall()
@@ -236,9 +258,6 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             homePageSingleCategory.value = data.data
-        }
-
-        else {
         }
     };
     async function getHomePageSingleSlider() {
@@ -250,10 +269,8 @@ export default function setup() {
         if (data) {
             homePageSingleSlider.value = data.data
         }
-
-        else {
-        }
     };
+
     async function getHomePartitionSlider(sliderId) {
         const filter = {
             slider_id: sliderId
@@ -267,9 +284,6 @@ export default function setup() {
             pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             homePartitionSlider.value = data.data
         }
-
-        else {
-        }
     };
 
     async function getHomeSinglePartitionSlider() {
@@ -282,28 +296,25 @@ export default function setup() {
         if (data) {
             homeSinglePartitionSlider.value = data.data
         }
-
-        else {
-        }
     };
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/home-page/index'+ filter.params_generator(route.query))
-    }
+    // function addPerPage(number){
+    //     filter.page = 1
+    //     filter.per_page =number
+    //     router.push('/home-page/index'+ filter.params_generator(route.query))
+    // }
+    //
+    // function addPagination(page){
+    //     filter.page = page
+    //     filter.per_page = dataTableLength.value
+    //     router.push('/home-page/index'+ filter.params_generator(route.query))
+    // }
 
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/home-page/index'+ filter.params_generator(route.query))
-    }
 
-
-    return {getHomeSection, getHomeSections,pageLength,filterBannerField, homeSection,homeSections
-        ,addPerPage, dataTableLength, page, sectionsHeader,loading , bannerHeader ,specialSalesHeader
-        ,specialSalesShpsHeader,getHomeBrand , homeBrand , getHomeSlider, homeSlider , brandHeader ,
-        getHomePartitionSlider , homePartitionSlider , getHomePageCategory , homePageCategory , categoryHeader ,
-        getHomePageSingleCategory , homePageSingleCategory , homePageSkuHeader , getHomePageBanner ,homePageBanner ,
-        homePageSingleSlider ,getHomePageSingleSlider , getHomeSinglePartitionSlider , homeSinglePartitionSlider , blogHeader}
+    return {getHomeSection, getHomeSections,pageLength,filterBannerField, homeSection,homeSections,
+        dataTableLength, page, sectionsHeader,loading , bannerHeader ,specialSalesHeader,specialSalesShpsHeader,
+        getHomeBrand , homeBrand , homeSlider , brandHeader , getHomePartitionSlider , homePartitionSlider ,
+        getHomePageCategory , homePageCategory , categoryHeader , getHomePageSingleCategory , homePageSingleCategory ,
+        homePageSkuHeader , getHomePageBanner ,homePageBanner , homePageSingleSlider ,getHomePageSingleSlider ,
+        getHomeSinglePartitionSlider , homeSinglePartitionSlider , blogHeader}
 }
 

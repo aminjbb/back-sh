@@ -69,7 +69,6 @@ export  default {
   },
   data(){
     return{
-      dialog:false,
       loading:false
     }
   },
@@ -101,7 +100,7 @@ export  default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
-        this.dialog = false
+      this.close()
       }
       else{
         this.loading=false

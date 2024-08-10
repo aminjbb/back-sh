@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
 export default function setup() {
     const retailShipments =ref([])
@@ -10,7 +9,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const header =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -46,9 +44,8 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
+
     async function getRetailShipmentList() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -89,7 +86,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
 
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -106,7 +102,16 @@ export default function setup() {
         }
     }
 
-    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength , dataTableLength, page, header,
-        loading ,headerShps }
+    return {
+        filterFieldAllRetail,
+        getRetailShipmentList,
+        retailShipments,
+        pageLength ,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        headerShps
+    }
 }
 

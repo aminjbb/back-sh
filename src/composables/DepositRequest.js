@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {PanelFilter} from "../assets/js/filter_deposit_request";
-
 
 export default function setup() {
     const WithdrawRequestList = ref([]);
@@ -12,7 +10,6 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Page table header
@@ -48,8 +45,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
-
     /**
      * Get page list
      * @param {*} query

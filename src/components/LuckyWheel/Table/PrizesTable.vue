@@ -176,23 +176,15 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
 import {defineAsyncComponent} from "vue";
-
-
 const ModalEditLuckyWheelPrize = defineAsyncComponent(() => import('@/components/LuckyWheel/Edit/ModalEditLuckyWheelPrize.vue'))
 
 export default {
   components:{
     ModalEditLuckyWheelPrize
   },
+
   props: {
     getLuckyWheelPrize:{type:Function},
     status: '',
@@ -261,9 +253,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
-      panelFilter: new PanelFilter(),
-
+      filter: []
     }
   },
 

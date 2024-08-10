@@ -140,19 +140,10 @@
 </template>
   
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    openConfirm,
-    isOdd,
-    splitChar
-} from "@/assets/js/functions";
+import {openConfirm, isOdd, splitChar} from "@/assets/js/functions";
 import DetailsModal from '@/components/Orders/Modal/DetailsModal.vue'
 import FactorModal from '@/components/Orders/Modal/FactorModal.vue'
-import {
-    AxiosCall
-} from "@/assets/js/axios_call";
+import { AxiosCall} from "@/assets/js/axios_call";
 
 export default {
 
@@ -228,7 +219,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
             active: [],
         }

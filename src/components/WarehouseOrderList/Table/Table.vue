@@ -99,16 +99,6 @@
 
 <script>
 import ModalFactorPrint from '@/components/WarehouseOrderList/Modal/ModalFactorPrint.vue'
-import {
-  PanelFilter
-} from "@/assets/js/filter"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
-import {
-  openModal
-} from "@/assets/js/functions_seller";
 import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
@@ -117,8 +107,7 @@ export default {
       order_type: "desc",
       ordering: {},
       per_page: '25',
-      filter: [],
-      panelFilter: new PanelFilter(),
+      filter: []
     }
   },
 

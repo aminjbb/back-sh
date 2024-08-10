@@ -111,9 +111,7 @@
 </template>
 
 <script>
-import {
-  PanelFilter
-} from "@/assets/js/filter"
+
 
 import {
   openConfirm,
@@ -190,7 +188,6 @@ export default {
       ordering: {},
       per_page: '25',
       values: [],
-      panelFilter: new PanelFilter(),
 
     }
   },
