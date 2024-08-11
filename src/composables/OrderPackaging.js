@@ -37,8 +37,8 @@ export default function setup() {
     ]);
 
     const printLabelHeader = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
+        {name: 'ردیف',title: 'ردیف', show: true, value:  'row', sortable: false,align: 'center'},
+        {name: ' شناسه shps',title: ' شناسه shps', show: true, value: 'shpsId', sortable: false,align: 'center'},
 
     ]);
     const item = []
