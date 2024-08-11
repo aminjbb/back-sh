@@ -2,7 +2,7 @@
     <v-bottom-sheet v-model="deleteModal">
         <v-card class="rounded-t-lg px-6 ">
 
-            <div class="d-flex justify-space-between t16500 pt-6 px-2">
+            <div class="d-flex justify-space-between t16 w500 pt-6 px-2">
                 <v-icon   @click="deleteModal = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
                     mdi-close
                 </v-icon>

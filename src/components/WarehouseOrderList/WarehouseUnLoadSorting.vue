@@ -3,7 +3,7 @@
     <div class="d-flex justify-space-between align-center">
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
-        <span class="t20400">
+        <span class="t20 w400">
          تخلیه جایگاه سورتینگ
         </span>
       </div>
@@ -23,7 +23,7 @@
             </v-icon>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-black t20400">
+            <span class="text-black t20 w400">
             شناسه شلف را اسکن کنید.
             </span>
           </div>
@@ -69,12 +69,12 @@
             </v-icon>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-white t20400">
+            <span class="text-white t20 w400">
            وضعیت جایگاه تغییر کرد.
             </span>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-white t18400">
+            <span class="text-white t18 w400">
                  سفارش از جایگاه سورتینگ با شناسه شلف {{ shelfBarcode }}
                   با موفقیت تخلیه شد.
             </span>
@@ -104,12 +104,12 @@
             </v-icon>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-white t20400">
+            <span class="text-white t20 w400">
            امکان اسکن بارکد وجود ندارد.
             </span>
           </div>
           <div class=" mt-8 d-flex justify-center px-10 text-center">
-            <span class="text-white t18400">
+            <span class="text-white t18 w400">
                   لطفا بارکد را بررسی کنید و دوباره اسکن کنید.
             </span>
           </div>

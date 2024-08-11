@@ -548,3 +548,15 @@ span.v-autocomplete__selection-text,
 .red-background {
   background-color: var(--Red-95, #FFEBEE);
 }
+
+// Main
+
+h1, h2, h3, h4, h5, h6, p, span {
+  letter-spacing: -0.1px !important;
+  white-space: normal;
+  font-family: IRANSans !important;
+}
+
+.b, strong {
+  font-weight: unset !important;
+}

@@ -3,14 +3,14 @@
     <div class="px-5 pt-8 text-right">
       <img src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
     </div>
-    <div class="text-center mb-5 t16700">
+    <div class="text-center mb-5 t16 w700">
       صورت حساب الکترونیکی فروش
     </div>
     <div>
       <v-row justify="end" class="px-6">
         <v-col cols="1" class="pa-1">
           <div class="border-header-box bg-gray200">
-                  <span class="rotate-span text-center mt-4 mr-3 t16500">
+                  <span class="rotate-span text-center mt-4 mr-3 t16 w500">
                     حق العمل کار
                   </span>
 
@@ -358,42 +358,42 @@
         <div class="factor-footer">
           <div class="d-flex justify-space-between px-5 pt-2">
             <div>
-                    <span class="t16500">
+                    <span class="t16 w500">
                       مهر و امضای فروشنده :
                      </span>
             </div>
             <div>
               <div>
-                    <span class="t16500">
+                    <span class="t16 w500">
                       تاریخ تحویل :
                     </span>
               </div>
               <div>
-                    <span class="t16500 number-font">
+                    <span class="t16 w500 number-font">
                        1402/09/23
                     </span>
               </div>
             </div>
             <div>
               <div>
-                    <span class="t16500">
+                    <span class="t16 w500">
                        روش های پرداخت :
                     </span>
               </div>
               <div>
-                    <span class="t16500 number-font">
+                    <span class="t16 w500 number-font">
                       نقدی:13,000,000
                     </span>
               </div>
 
             </div>
             <div>
-                    <span class="t16500">
+                    <span class="t16 w500">
                       مهر و امضای خریدار :
                     </span>
             </div>
             <div>
-                    <span class="t16500">
+                    <span class="t16 w500">
                      بارکد
                     </span>
             </div>

@@ -3,7 +3,7 @@
     <div class="d-flex justify-space-between align-center">
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
-        <span class="t20400">
+        <span class="t20 w400">
         لیست محصولات
         </span>
       </div>
@@ -25,7 +25,7 @@
           </v-icon>
         </div>
         <div class=" mt-8 d-flex justify-center">
-        <span class="text-black t20600">
+        <span class="text-black t20 w600">
          جایگذاری بسته با موفقیت به اتمام رسید.
         </span>
         </div>

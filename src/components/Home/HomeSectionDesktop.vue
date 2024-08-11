@@ -9,7 +9,7 @@
               <v-row  justify="space-between" align="center">
                 <v-col cols="6">
                   <div>
-                    <h2>روز</h2>
+                    <h2 class="t24">روز</h2>
                     <div class="d-flex align-center my-5">
                       <span class="text-h6 number-font">{{ dashboardData?.order?.last_day_order }}</span>
                       <span class="text-h8 text-gray500 t14 w300 pr-1">سفارش </span>
@@ -29,7 +29,7 @@
               <v-row  justify="space-between" align="center">
                 <v-col cols="6">
                   <div>
-                    <h2>ماه</h2>
+                    <h2 class="t24">ماه</h2>
                     <div class="d-flex align-center my-5">
                       <span class="text-h6 number-font">{{ dashboardData?.order?.last_month_order }}</span>
                       <span class="text-h8 text-gray500 t14 w300 pr-1">سفارش </span>
@@ -50,7 +50,7 @@
               <v-row  justify="space-between" align="center">
                 <v-col cols="6">
                   <div>
-                    <h2>سال</h2>
+                    <h2 class="t24">سال</h2>
                     <div class="d-flex align-center my-5">
                       <span class="text-h6 number-font">{{ dashboardData?.order?.last_year_order }}</span>
                       <span class="text-h8 text-gray500 t14 w300 pr-1">سفارش </span>
@@ -72,7 +72,7 @@
       <div class="d-flex justify-space-between">
         <v-col class="py-0"  cols="6">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg" height="203">
-            <span class="text-gray600 t16500">فروش جاری</span>
+            <span class="text-gray600 t16 w500">فروش جاری</span>
             <v-col cols="12">
               <BarChart v-if="showChart" :chart-data="dataChartCurrentSale" :options="optionCurrentSale" :height="145"/>
             </v-col>
@@ -81,7 +81,7 @@
 
         <v-col class="py-0"  cols="6">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg"  height="203">
-            <span class="text-gray600 t16500">درگاه</span>
+            <span class="text-gray600 t16 w500">درگاه</span>
             <v-row justify="center" align="center">
               <v-col cols="7">
                 <v-row justify="space-between" align="center" class="my-3">
@@ -120,7 +120,7 @@
       <div class="d-flex justify-space-between">
         <v-col  cols="6" class="d-flex justify-space-between py-0">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
-            <span class="text-gray600 t16500">موجودی</span>
+            <span class="text-gray600 t16 w500">موجودی</span>
             <v-col cols="12">
               <v-row justify="space-between" align="center" class="my-3">
                 <span class="text-gray500 t14 w300">انبار: </span>
@@ -139,7 +139,7 @@
             </v-col>
           </v-card>
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
-            <span class="text-gray600 t16500">ارزش انبار</span>
+            <span class="text-gray600 t16 w500">ارزش انبار</span>
             <v-col cols="12">
               <v-row justify="end" align="center" class="my-3">
                 <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.warehouse?.value)) }}</span>
@@ -150,7 +150,7 @@
             </v-col>
           </v-card>
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg">
-            <span class="text-gray600 t16500">خروج انبار</span>
+            <span class="text-gray600 t16 w500">خروج انبار</span>
             <v-col cols="12">
               <v-row justify="space-between" align="center" class="my-3">
                 <span class="text-gray500 t14 w300">روز: </span>
@@ -172,7 +172,7 @@
 
         <v-col  cols="6" class="d-flex justify-space-between flex-grow-1 py-0">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg  pt-10">
-            <span class="text-gray600 t16500">کاربر فعال</span>
+            <span class="text-gray600 t16 w500">کاربر فعال</span>
             <v-row justify="center" align="center" class="pr-5">
               <v-col cols="7">
                 <v-row align="start">
@@ -190,7 +190,7 @@
             </v-row>
           </v-card>
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg pt-10">
-            <span class="text-gray600 t16500">خریدار</span>
+            <span class="text-gray600 t16 w500">خریدار</span>
             <v-row justify="center" align="center" class="pr-5">
               <v-col cols="7">
                 <v-row align="start">
@@ -216,21 +216,21 @@
       <div class="d-flex justify-space-between">
         <v-col cols="6">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg" height="205">
-            <span class="text-gray600 t16500">سود بازرگانی</span>
+            <span class="text-gray600 t16 w500">سود بازرگانی</span>
             <div class="d-flex justify-space-between align-center">
               <v-col cols="8">
                 <BarChart v-if="showChart" :chart-data="dataChartBusinessProfit" :options="optionBusinessProfit" :height="145"/>
               </v-col>
               <v-col cols="4">
                 <v-row align="start" justify="end" class="my-1">
-                    <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.month)) }}</span>
+                    <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16 w500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.month)) }}</span>
                     <span class="text-gray500 t14 w300 pr-2">تومان</span>
-                    <span class=" t16500 pr-2">: ماه</span>
+                    <span class=" t16 w500 pr-2">: ماه</span>
                 </v-row>
                 <v-row align="start" justify="end" class="my-3">
-                    <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.day)) }}</span>
+                    <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16 w500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.day)) }}</span>
                     <span class="text-gray500 t14 w300 pr-2 ">تومان</span>
-                  <span class=" t16500 pr-2">: روز</span>
+                  <span class=" t16 w500 pr-2">: روز</span>
                 </v-row>
               </v-col>
             </div>
@@ -239,7 +239,7 @@
 
         <v-col cols="6" class="d-flex justify-space-between">
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg pt-10">
-            <span class="text-gray600 t16500">تخفیف پایه</span>
+            <span class="text-gray600 t16 w500">تخفیف پایه</span>
             <v-col cols="12">
               <v-row justify="space-between" align="center" class="my-3">
                 <span class="text-gray500 t14 w300">روز: </span>
@@ -260,7 +260,7 @@
           </v-card>
 
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg  pt-10">
-            <span class="text-gray600 t16500">تخفیف مارکتینگ</span>
+            <span class="text-gray600 t16 w500">تخفیف مارکتینگ</span>
             <v-col cols="12">
               <v-row justify="space-between" align="center" class="my-3">
                 <span class="text-gray500 t14 w300">روز: </span>
@@ -280,7 +280,7 @@
           </v-card>
 
           <v-card class="ma-5 px-5 py-5 flex-grow-1 rounded-lg pt-10">
-            <span class="text-gray600 t16500">کد تخفیف</span>
+            <span class="text-gray600 t16 w500">کد تخفیف</span>
             <v-col cols="12">
               <v-row justify="space-between" align="center" class="my-3">
                 <span class="text-gray500 t14 w300">روز: </span>
@@ -302,7 +302,7 @@
       </div>
 
       <div>
-        <span class="text-gray600 t16500 mx-8">سفارشات ماه گذشته </span>
+        <span class="text-gray600 t16 w500 mx-8">سفارشات ماه گذشته </span>
         <v-col cols="12">
           <v-card class="ma-5 px-10 py-5 flex-grow-1 rounded-lg">
            <v-col cols="12">

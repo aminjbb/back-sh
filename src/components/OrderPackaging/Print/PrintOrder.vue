@@ -8,7 +8,7 @@
             <v-col class="pa-0 ma-0" cols="3">
               <v-card height="30" variant="outlined" color="black" class="rounded-0 text-center">
                 <div class="d-flex justify-center">
-                  <span class="t24800">
+                  <span class="t24 w800">
                     {{ printObject.box_size }}
                   </span>
                 </div>
@@ -93,7 +93,7 @@
                     {{ printObject?.city?.label }}
                    </span>
                 </div>
-                <div  class="my-0 line-h-12">
+                <div  class="my-0" style="line-height: 12px;">
                   <span class="t10 w600 ">  آدرس :</span> <span class="t10 w600 "> {{ printObject.receiver_address }}</span> <span class="t10 w600 d--rtl">  کدپستی :</span> <span class="t10 w600 d--rtl">  {{ printObject.receiver_postal_code }}</span>
                 </div>
 

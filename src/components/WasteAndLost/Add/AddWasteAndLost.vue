@@ -5,7 +5,7 @@
         height="360"
         style="flex:0 0 360px">
         <header class="modal__header d-flex justify-center align-center">
-            <span class="t16400 pa-6">
+            <span class="t16 w400 pa-6">
                 ثبت کالای مفقودی یا ضایعات
             </span>
         </header>
