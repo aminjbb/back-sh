@@ -47,7 +47,7 @@
                 width="115"
                 @click="$router.go(-1)"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                 انصراف
               </span>
             </v-btn>
@@ -63,7 +63,7 @@
                 @click="editSku"
             >
                   <span
-                      class="t14300"
+                      class="t14 w300"
                   >
                  ذخیره
               </span>

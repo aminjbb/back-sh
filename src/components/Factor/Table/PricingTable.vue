@@ -41,7 +41,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         {{ item.shps }}
                     </span>
                 </div>
@@ -76,7 +76,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_requested_count">
                             {{ item.shps_requested_count }}
                         </template>
@@ -91,7 +91,7 @@
                   style="padding: 3px 5px;"
                   class="c-table__contents__item justify-center"
                   :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_received_count">
                             {{ item.shps_received_count }}
                         </template>
@@ -163,7 +163,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.sum_buying_price || item.sum_buying_price == 0">
                             {{ splitChar(item.sum_buying_price) }}
                         </template>
@@ -178,7 +178,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.sum_customer_price || item.sum_customer_price == 0">
                             {{ splitChar(item.sum_customer_price) }}
                         </template>
@@ -193,7 +193,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.profit || item.profit == 0">
                             {{ item.profit }}
                         </template>
@@ -225,7 +225,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t13400 text-gray500">تاکنون داده‌ای به این لیست افزوده نشده است.</span>
+                <span class="t13 w400 text-gray500">تاکنون داده‌ای به این لیست افزوده نشده است.</span>
             </div>
         </div>
     </div>

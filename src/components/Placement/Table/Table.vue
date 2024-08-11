@@ -36,7 +36,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -45,7 +45,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.row_number">
                             {{ item.row_number }}
                         </template>
@@ -68,7 +68,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.placement_number">
                             {{item.placement_number}}
                         </template>
@@ -82,7 +82,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.step_number">
                             {{ item.step_number }}
                         </template>
@@ -96,7 +96,7 @@
                     v-if="header[5].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.shelf_number">
                             {{ item.shelf_number }}
                         </template>
@@ -110,7 +110,7 @@
                     v-if="header[6].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -132,7 +132,7 @@
                             <v-list-item-title>
                                 <div class="ma-5 pointer d--rtl" @click="$router.push(`/placement/${item.id}/shpss`)">
                                     <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                         مدیریت کالاها
                                     </span>
                                 </div>
@@ -150,7 +150,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

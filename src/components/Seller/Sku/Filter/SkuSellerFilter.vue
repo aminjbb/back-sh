@@ -31,7 +31,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-10">
-                            <span class="t14300">
+                            <span class="t14 w300">
                                 فیلتر
                             </span>
             </div>

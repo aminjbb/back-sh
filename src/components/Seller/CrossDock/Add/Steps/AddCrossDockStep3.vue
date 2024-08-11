@@ -1,7 +1,7 @@
 <template>
   <div class="px-2 py-2 h-100">
     <div class="d-flex justify-center my-5">
-            <span class="t14500">
+            <span class="t14 w500">
               ارسال به انبار
             </span>
     </div>
@@ -20,7 +20,7 @@
         </v-col>
         <v-col cols="6">
           <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                    انبار
                   <span class="text-error">
                     *
@@ -42,10 +42,10 @@
 
         <v-col cols="6">
           <div class="d-flex text-right mt-15">
-                <span class="t14500">
+                <span class="t14 w500">
                     تاریخ ارسال فروشنده به انبار :
                 </span>
-                <span class="t14500 mr-2 text-gray500">
+                <span class="t14 w500 mr-2 text-gray500">
                    {{ minDate }}
                 </span>
           </div>

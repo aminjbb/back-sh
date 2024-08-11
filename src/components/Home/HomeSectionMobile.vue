@@ -1,7 +1,7 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
     <div class="home-info-box scroller">
-      <span class="text-gray600 t14500 mx-3">تعداد سفارش </span>
+      <span class="text-gray600 t14 w500 mx-3">تعداد سفارش </span>
 
       <v-row justify="space-between" align="center">
         <v-col cols="4">
@@ -78,24 +78,24 @@
             <v-row justify="center" align="center">
               <v-col cols="7">
                 <v-row justify="space-between" align="center" class="my-3">
-                  <span class="text-gray500 t14300 pr-3">تعداد کاربر: </span>
+                  <span class="text-gray500 t14 w300 pr-3">تعداد کاربر: </span>
                   <div class="d-flex justify-start">
-                    <span class="t14500 number-font">{{ dashboardData?.payment_in_progress?.user_count }}</span>
-                    <span class="text-gray500 t14300 pr-2">کاربر</span>
+                    <span class="t14 w500 number-font">{{ dashboardData?.payment_in_progress?.user_count }}</span>
+                    <span class="text-gray500 t14 w300 pr-2">کاربر</span>
                   </div>
                 </v-row>
                 <v-row justify="space-between" align="center" class="my-3">
-                  <span class="text-gray500 t14300 pr-3">تعداد آیتم: </span>
+                  <span class="text-gray500 t14 w300 pr-3">تعداد آیتم: </span>
                   <div  class="d-flex justify-start">
-                    <span class="t14500 number-font">{{ dashboardData?.payment_in_progress?.item_count }}</span>
-                    <span class="text-gray500 t14300 pr-2">آیتم</span>
+                    <span class="t14 w500 number-font">{{ dashboardData?.payment_in_progress?.item_count }}</span>
+                    <span class="text-gray500 t14 w300 pr-2">آیتم</span>
                   </div>
                 </v-row>
                 <v-row justify="space-between" align="center">
-                  <span class="text-gray500 t14300 pr-3">ارزش سفارشات: </span>
+                  <span class="text-gray500 t14 w300 pr-3">ارزش سفارشات: </span>
                   <div  class="d-flex justify-start">
-                    <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.payment_in_progress?.order_value)) }}</span>
-                    <span class="text-gray500 t14300 pr-2">تومان</span>
+                    <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.payment_in_progress?.order_value)) }}</span>
+                    <span class="text-gray500 t14 w300 pr-2">تومان</span>
                   </div>
                 </v-row>
               </v-col>
@@ -117,17 +117,17 @@
 
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">انبار: </span>
+                <span class="text-gray500 t14 w300">انبار: </span>
                 <div class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ dashboardData?.stock?.warehouse }}</span>
-                  <span class="text-gray500 t14300 pr-2">آیتم</span>
+                  <span class="t14 w500 number-font">{{ dashboardData?.stock?.warehouse }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">آیتم</span>
                 </div>
               </div>
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">سایت: </span>
+                <span class="text-gray500 t14 w300">سایت: </span>
                 <div  class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ dashboardData?.stock?.site }}</span>
-                  <span class="text-gray500 t14300 pr-2">آیتم</span>
+                  <span class="t14 w500 number-font">{{ dashboardData?.stock?.site }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">آیتم</span>
                 </div>
               </div>
             </div>
@@ -141,8 +141,8 @@
             <v-row justify="space-between" align="center" class="px-3">
               <span class="text-gray600 t16500">ارزش انبار</span>
               <div class="">
-                <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.warehouse?.value)) }}</span>
-                <span class="text-gray500 t14300 mr-2">تومان</span>
+                <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.warehouse?.value)) }}</span>
+                <span class="text-gray500 t14 w300 mr-2">تومان</span>
               </div>
             </v-row>
           </v-card>
@@ -156,17 +156,17 @@
 
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">روز: </span>
+                <span class="text-gray500 t14 w300">روز: </span>
                 <div class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{dashboardData?.warehouse?.exit?.day}}</span>
-                  <span class="text-gray500 t14300 pr-2">سفارش</span>
+                  <span class="t14 w500 number-font">{{dashboardData?.warehouse?.exit?.day}}</span>
+                  <span class="text-gray500 t14 w300 pr-2">سفارش</span>
                 </div>
               </div>
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">ماه: </span>
+                <span class="text-gray500 t14 w300">ماه: </span>
                 <div  class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{dashboardData?.warehouse?.exit?.month}}</span>
-                  <span class="text-gray500 t14300 pr-2">سفارش</span>
+                  <span class="t14 w500 number-font">{{dashboardData?.warehouse?.exit?.month}}</span>
+                  <span class="text-gray500 t14 w300 pr-2">سفارش</span>
                 </div>
               </div>
             </div>
@@ -180,8 +180,8 @@
             <div class="">
               <span class="text-gray600 t16500">کاربر فعال</span>
               <v-row align="start">
-                <span class="t14500 number-font mt-3 mr-3">{{ dashboardData?.user?.active }}</span>
-                <span class="text-gray500 t14300 mt-3 mr-2">کاربر</span>
+                <span class="t14 w500 number-font mt-3 mr-3">{{ dashboardData?.user?.active }}</span>
+                <span class="text-gray500 t14 w300 mt-3 mr-2">کاربر</span>
               </v-row>
             </div>
             <div>
@@ -194,8 +194,8 @@
             <div class="">
               <span class="text-gray600 t16500">خریدار</span>
               <v-row align="start">
-                <span class="t14500 number-font mt-3 mr-3">{{ dashboardData?.user?.with_orders }}</span>
-                <span class="text-gray500 t14300 mt-3 mr-2">کاربر</span>
+                <span class="t14 w500 number-font mt-3 mr-3">{{ dashboardData?.user?.with_orders }}</span>
+                <span class="text-gray500 t14 w300 mt-3 mr-2">کاربر</span>
               </v-row>
             </div>
             <div>
@@ -214,12 +214,12 @@
             </v-row>
             <v-row align="start" justify="end" class="my-1 mt-8">
               <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.month)) }}</span>
-              <span class="text-gray500 t14300 pr-2">تومان</span>
+              <span class="text-gray500 t14 w300 pr-2">تومان</span>
               <span class=" t16500 pr-2">: ماه</span>
             </v-row>
             <v-row align="start" justify="end" class="my-3">
                 <span :class="parseInt(dashboardData?.profit?.month) > 0 ? 'success-text' : 'text-error'" class="t16500 number-font d--ltr">{{ splitChar(toRial(dashboardData?.profit?.day)) }}</span>
-                <span class="text-gray500 t14300 pr-2 ">تومان</span>
+                <span class="text-gray500 t14 w300 pr-2 ">تومان</span>
                 <span class=" t16500 pr-2">: روز</span>
               </v-row>
           </v-card>
@@ -232,17 +232,17 @@
             <span class="text-gray600 t16500">تخفیف پایه</span>
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">روز: </span>
+                <span class="text-gray500 t14 w300">روز: </span>
                 <div class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{splitChar(toRial(dashboardData?.discount?.base?.day))}}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{splitChar(toRial(dashboardData?.discount?.base?.day))}}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">ماه: </span>
+                <span class="text-gray500 t14 w300">ماه: </span>
                 <div  class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.discount?.base?.month)) }}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.discount?.base?.month)) }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
             </div>
@@ -257,17 +257,17 @@
             <span class="text-gray600 t16500">تخفیف مارکتینگ</span>
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">روز: </span>
+                <span class="text-gray500 t14 w300">روز: </span>
                 <div class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.discount?.marketing?.day)) }}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.discount?.marketing?.day)) }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">ماه: </span>
+                <span class="text-gray500 t14 w300">ماه: </span>
                 <div  class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.discount?.marketing?.month)) }}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.discount?.marketing?.month)) }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
             </div>
@@ -281,17 +281,17 @@
             <span class="text-gray600 t16500">کد تخفیف</span>
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">روز: </span>
+                <span class="text-gray500 t14 w300">روز: </span>
                 <div class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.discount?.voucher?.day)) }}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.discount?.voucher?.day)) }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
               <div class="d-flex justify-start">
-                <span class="text-gray500 t14300">ماه: </span>
+                <span class="text-gray500 t14 w300">ماه: </span>
                 <div  class="d-flex justify-start mr-5">
-                  <span class="t14500 number-font">{{ splitChar(toRial(dashboardData?.discount?.voucher?.month)) }}</span>
-                  <span class="text-gray500 t14300 pr-2">تومان</span>
+                  <span class="t14 w500 number-font">{{ splitChar(toRial(dashboardData?.discount?.voucher?.month)) }}</span>
+                  <span class="text-gray500 t14 w300 pr-2">تومان</span>
                 </div>
               </div>
             </div>

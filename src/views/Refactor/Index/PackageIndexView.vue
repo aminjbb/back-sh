@@ -55,7 +55,7 @@
                     <v-list-item-title>
                       <div class="ma-3 pointer d--rtl" @click="printBarcode(item.data.id)">
                         <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">پرینت برچسب</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">پرینت برچسب</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -64,7 +64,7 @@
                     <v-list-item-title>
                       <div class="ma-3 pointer d--rtl" @click="$router.push(`/package/history/${item.data.id}`)">
                         <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">مشاهده تاریخچه</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">مشاهده تاریخچه</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -75,7 +75,7 @@
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-trash-can-outline
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>

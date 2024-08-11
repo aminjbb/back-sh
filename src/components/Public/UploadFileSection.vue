@@ -8,7 +8,7 @@
             <img src="@/assets/img/UploadImage.svg" alt="shavaz image">
             <div>
                 <div class="pa-3" @drop.prevent="onDrop">
-                    <span class="t14500 text-gray500">
+                    <span class="t14 w500 text-gray500">
                         فایل خود را بکشید یا از فایل‌های سیستم انتخاب کنید
                     </span>
                 </div>

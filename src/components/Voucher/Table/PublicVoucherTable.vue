@@ -36,7 +36,7 @@
               class="c-table__contents__item justify-center "
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               >
-                    <span class="t14300 text-gray500 py-5 number-font ">
+                    <span class="t14 w300 text-gray500 py-5 number-font ">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -46,7 +46,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
               >
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.code }}
                     </span>
           </div>
@@ -57,7 +57,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

@@ -60,7 +60,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" v-if="item.data.voucher_type === 'گروهی'" @click="$router.push(`/voucher/${item.data.id}/list`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   لیست کد های تخفیف
                               </span>
                           </div>
@@ -69,7 +69,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" v-if="item.data.voucher_type === 'نظیر به نظیر'" @click="$router.push(`/voucher/${item.data.id}/peer`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   لیست کد های تخفیف
                               </span>
                           </div>
@@ -79,7 +79,7 @@
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/edit`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-pen-minus</v-icon>
 
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                     ویرایش
                               </span>
                           </div>
@@ -88,7 +88,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/shps`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   نمایش کالاهای تخفیف
                               </span>
                           </div>
@@ -97,7 +97,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/customer`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   نمایش مشتری های تخفیف
                               </span>
                           </div>
@@ -106,7 +106,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/get`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                  جزئیات کد تخفیف
                               </span>
                           </div>
@@ -115,7 +115,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/order`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   لیست سفارشات
                               </span>
                           </div>
@@ -124,7 +124,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="removeItem(item.data.id)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                     حذف
                               </span>
                           </div>

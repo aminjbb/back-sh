@@ -34,7 +34,7 @@
                   <img src="@/assets/img/productImge.png" width="100" height="100" alt="">
                 </div>
                 <div class="d-flex justify-space-evenly py-5">
-                  <span class="t14400">
+                  <span class="t14 w400">
                      کد محصول:
                   </span>
                   <span class="t16400">
@@ -42,12 +42,12 @@
                   </span>
                 </div>
                 <div class="d-flex justify-center mb-5">
-                  <span class="t14400 number-font">
+                  <span class="t14 w400 number-font">
                       کرم ضد آفتاب شنل 12 میل
                   </span>
                 </div>
                 <div class="d-flex justify-center mb-5">
-                  <span class="t14400 text-primary500 number-font">
+                  <span class="t14 w400 text-primary500 number-font">
                      کالا خط و خش دارد
                   </span>
                 </div>

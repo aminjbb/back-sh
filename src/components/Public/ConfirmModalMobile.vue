@@ -10,7 +10,7 @@
             </div>
 
 
-            <div class="text-right py-15 px-2 t14500" >
+            <div class="text-right py-15 px-2 t14 w500" >
                     {{text}}
             </div>
 
@@ -19,7 +19,7 @@
                     <v-btn
                         @click="deleteModal = false"
                         color="primary500 "
-                        class="px-3 t14500"
+                        class="px-3 t14 w500"
                         rounded
                         block
 
@@ -34,7 +34,7 @@
                         :loading="loading"
                         variant="outlined"
                         color="primary500"
-                        class="px-3 t14500"
+                        class="px-3 t14 w500"
                         rounded
                         block
                     >

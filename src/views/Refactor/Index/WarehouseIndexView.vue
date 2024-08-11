@@ -62,7 +62,7 @@
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-pen
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -71,7 +71,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push('/warehouse/special-capacity/' + item.data.id )">
                         <v-icon class="text-grey-darken-1">mdi-timer-sand</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">ظرفیت ویژه</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">ظرفیت ویژه</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -80,7 +80,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push('/warehouse/special-exit-capacity/' + item.data.id )">
                         <v-icon class="text-grey-darken-1">mdi-exit-to-app</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">ظرفیت ویژه خروج</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">ظرفیت ویژه خروج</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -91,7 +91,7 @@
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-trash-can-outline
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>

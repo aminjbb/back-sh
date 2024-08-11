@@ -36,9 +36,9 @@
               :page="page"
               :perPage="dataTableLength">
             <template v-slot:customSlot="item">
-              <span class="t14300 py-5 number-font">
+              <span class="t14 w300 py-5 number-font">
                  ایران
-                <span class="t14300 number-font" style="letter-spacing: 1.5px !important;">{{ item.data.custom }}</span>
+                <span class="t14 w300 number-font" style="letter-spacing: 1.5px !important;">{{ item.data.custom }}</span>
               </span>
             </template>
 
@@ -54,7 +54,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                         <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>

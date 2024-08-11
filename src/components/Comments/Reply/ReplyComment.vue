@@ -15,7 +15,7 @@
         <v-row justify="center" align="center" class="t16500">
             <v-col cols="8" >
               نام کالا :
-              <span class="t14500 text-gray500" >
+              <span class="t14 w500 text-gray500" >
                 {{userComment?.sku?.label}}
               </span>
             </v-col>
@@ -38,13 +38,13 @@
             </v-col>
             <v-col cols="4">
               SKU شناسه :
-              <span class="t14500 text-gray500 number-font" >
+              <span class="t14 w500 text-gray500 number-font" >
                 {{userComment?.sku_id}}
               </span>
             </v-col>
             <v-col cols="4">
               برند :
-              <span class="t14500 text-gray500" >
+              <span class="t14 w500 text-gray500" >
                 {{userComment?.sku?.brand?.label}}
               </span>
             </v-col>
@@ -88,7 +88,7 @@
         <span class="ma-2 t16400 " >
           {{userComment?.user?.first_name}} {{userComment?.user?.last_name}}
         </span>
-        <v-sheet  variant="solo-inverted" min-height="120" color="gray" class="pa-3 br-12 t14500 text-gray500">
+        <v-sheet  variant="solo-inverted" min-height="120" color="gray" class="pa-3 br-12 t14 w500 text-gray500">
           {{userComment?.comment }}
         </v-sheet>
         <span class="text-end number-font ma-2 ">

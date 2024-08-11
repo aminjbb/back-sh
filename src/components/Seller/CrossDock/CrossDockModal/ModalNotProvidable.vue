@@ -15,7 +15,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-5">
-              <span class="t14500">
+              <span class="t14 w500">
                            عدم توانایی تامین
               </span>
             </div>
@@ -28,7 +28,7 @@
           <v-row justify="center" align="center">
             <v-col cols="11">
               <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                   تعداد کالا
                   <span class="text-error">
                     *

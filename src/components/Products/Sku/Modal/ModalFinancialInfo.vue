@@ -2,7 +2,7 @@
   <div class="text-right">
     <div class=" pointer" @click="dialog= true">
       <v-icon class="text-grey-darken-1">mdi-currency-usd</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">اطلاعات مالی</span>
+      <span class="mr-2 text-grey-darken-1 t14 w300">اطلاعات مالی</span>
     </div>
     <v-dialog
         v-model="dialog"
@@ -17,7 +17,7 @@
 
           <v-col cols="8">
             <div class="text-left pl-5">
-              <span class="t14500">اطلاعات مالی</span>
+              <span class="t14 w500">اطلاعات مالی</span>
             </div>
           </v-col>
         </v-row>

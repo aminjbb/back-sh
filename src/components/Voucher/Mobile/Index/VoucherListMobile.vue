@@ -77,7 +77,7 @@
                         @click="openDetails(voucher.id)"
                         variant="outlined"
                         color="primary500 "
-                        rounded class="px-3 mt-1 t14500"
+                        rounded class="px-3 mt-1 t14 w500"
                         block
                     >
                         نمایش بیشتر
@@ -89,7 +89,7 @@
                         @click="openOperation(voucher.id)"
                         variant="outlined"
                         color="primary500"
-                        class="px-3 mt-1 t14500"
+                        class="px-3 mt-1 t14 w500"
                         rounded
                         block
                     >

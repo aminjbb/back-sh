@@ -41,7 +41,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -51,10 +51,10 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.name">
+                    <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.name">
                         {{ item.name }}
                     </span>
-            <span class="t14300 text-gray500 py-5 number-font" v-else>
+            <span class="t14 w300 text-gray500 py-5 number-font" v-else>
                           ---
                     </span>
           </div>
@@ -66,7 +66,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.discount_type">
                             <span v-if="item.discount_type === 'percent'">
                               درصدی
@@ -85,16 +85,16 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font" v-if="item.voucher_type === 'regular'">
+                    <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.voucher_type === 'regular'">
                           عادی
                     </span>
-            <span class="t14300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'group'">
+            <span class="t14 w300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'group'">
                         گروهی
                     </span>
-            <span class="t14300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'peer_to_peer'">
+            <span class="t14 w300 text-gray500 py-5 number-font" v-else-if="item.voucher_type === 'peer_to_peer'">
                         نظیر به نظیر
                     </span>
-            <span class="t14300 text-gray500 py-5 number-font" v-else>
+            <span class="t14 w300 text-gray500 py-5 number-font" v-else>
                           ---
                     </span>
           </div>
@@ -103,7 +103,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.code">
                             {{ item.code }}
                         </template>
@@ -129,7 +129,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.order_limit">
                             {{ item.order_limit }}
                         </template>
@@ -144,7 +144,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.user_limit">
                             {{ item.user_limit }}
                         </template>
@@ -159,7 +159,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.min_order_price">
                             {{ splitChar(item.min_order_price) }}
                         </template>
@@ -174,7 +174,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font" v-if="item.order_count">
+                    <span class="t13 w400 text-gray500 py-5 number-font" v-if="item.order_count">
                       {{ item.order_count }}
                     </span>
             <span v-else>-</span>
@@ -185,7 +185,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.start_time_fa">
                             {{ item.start_time_fa }}
                         </template>
@@ -200,7 +200,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.end_time_fa">
                             {{ item.end_time_fa }}
                         </template>
@@ -214,7 +214,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.state_id">
                             {{ item.state_id }}
                         </template>
@@ -228,7 +228,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                             <v-switch
                                 v-model="active[index]"
                                 inset
@@ -249,7 +249,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" v-if="item.voucher_type === 'group'" @click="$router.push(`/voucher/${item.id}/list`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       لیست کد های تخفیف
                     </span>
                   </div>
@@ -257,7 +257,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" v-if="item.voucher_type === 'peer_to_peer'" @click="$router.push(`/voucher/${item.id}/peer`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       لیست کد های تخفیف
                     </span>
                   </div>
@@ -266,7 +266,7 @@
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pen-minus</v-icon>
 
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       ویرایش
                     </span>
                   </div>
@@ -274,7 +274,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/shps`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       نمایش کالاهای تخفیف
                     </span>
                   </div>
@@ -283,7 +283,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/customer`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       نمایش مشتری های تخفیف
                     </span>
                   </div>
@@ -292,7 +292,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/get`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                         جزئیات کد تخفیف
                     </span>
                   </div>
@@ -301,7 +301,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.id}/order`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                       لیست سفارشات
                     </span>
                   </div>
@@ -309,7 +309,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                         حذف
                     </span>
                   </div>
@@ -323,7 +323,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

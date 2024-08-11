@@ -24,7 +24,7 @@
           </v-row>
 
           <div class="d-flex align-center justify-center  ">
-                        <span class="t14500 ">
+                        <span class="t14 w500 ">
                             پیام کاربر
                         </span>
           </div>

@@ -21,7 +21,7 @@
                     <img class="ml-5" src="@/assets/img/Dasboard.svg" alt="shavaz image">
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     داشبورد
                 </span>
             </v-list-item>
@@ -35,7 +35,7 @@
                     <v-icon>{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>
@@ -47,7 +47,7 @@
                             <v-icon size="large">mdi-account-box-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             مدیریت ادمین
                         </span>
                     </v-list-item>
@@ -65,7 +65,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -80,7 +80,7 @@
                     <v-icon size="large">{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>
@@ -92,7 +92,7 @@
                             <img class="ml-5" src="@/assets/img/ProductIcon.svg" alt="shavaz image">
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             محصولات
                         </span>
                     </v-list-item>
@@ -110,7 +110,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -123,7 +123,7 @@
                             <v-icon>mdi-cart-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             بازرگانی
                         </span>
                     </v-list-item>
@@ -141,7 +141,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -155,7 +155,7 @@
                             <v-icon>mdi-chart-line</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             مارکتینگ
                         </span>
                     </v-list-item>
@@ -173,7 +173,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -187,7 +187,7 @@
                             <v-icon>mdi-shopping-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             سفارش ها
                         </span>
                     </v-list-item>
@@ -205,7 +205,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -219,7 +219,7 @@
                             <v-icon>mdi-face-agent</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             پشتیبانی
                         </span>
                     </v-list-item>
@@ -237,7 +237,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -251,7 +251,7 @@
                   <v-icon size="large">mdi-account-credit-card-outline</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     مالی
                 </span>
               </v-list-item>
@@ -269,7 +269,7 @@
                     <v-icon size="x-small">{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                             {{title}}
                         </span>
                 </v-list-item>
@@ -284,7 +284,7 @@
                     <v-icon size="large">{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>
@@ -298,7 +298,7 @@
                     <v-icon>{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>
@@ -310,7 +310,7 @@
                             <v-icon>mdi-cog-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             تنظیمات
                         </span>
                     </v-list-item>
@@ -328,7 +328,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -342,7 +342,7 @@
                             <v-icon>mdi-package-variant</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             انبار
                         </span>
                     </v-list-item>
@@ -360,7 +360,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -375,7 +375,7 @@
 
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                                 ویرایش گروهی
                             </span>
               </v-list-item>
@@ -393,7 +393,7 @@
                 <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                             {{title}}
                         </span>
             </v-list-item>
@@ -408,7 +408,7 @@
 
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                                گزارشات
                             </span>
               </v-list-item>
@@ -426,7 +426,7 @@
                 <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                             {{title}}
                         </span>
             </v-list-item>
@@ -440,7 +440,7 @@
                   <v-icon>mdi-message-reply-text-outline</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                             پیام ها
                         </span>
               </v-list-item>
@@ -458,7 +458,7 @@
                 <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                         {{title}}
                     </span>
             </v-list-item>
@@ -474,7 +474,7 @@
                     <v-icon>{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>

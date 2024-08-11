@@ -14,7 +14,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
-          <span class="t14500">
+          <span class="t14 w500">
                        آپلود تصاویر
                     </span>
         </header>
@@ -27,13 +27,13 @@
                   <img src="@/assets/img/UploadImage.svg" alt="shavaz image">
                   <div>
                     <div class="pa-3">
-                                            <span class="t14500">
+                                            <span class="t14 w500">
                                                 لطفا فایل خود را بکشید و رها کنید.
                                             </span>
                     </div>
 
                     <div class="pr-3">
-                                            <span class="t14300">
+                                            <span class="t14 w300">
                                                 فرمت های : JPEG , PNG , jpg (حداکثر سایز 12 MG )
                                             </span>
                     </div>

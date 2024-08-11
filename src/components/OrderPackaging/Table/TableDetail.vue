@@ -33,7 +33,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -42,7 +42,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.admin_name}}
                         </span>
           </div>
@@ -50,7 +50,7 @@
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.sorting_placement}}
                         </span>
           </div>
@@ -58,7 +58,7 @@
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.packing_status}}
                         </span>
           </div>
@@ -74,7 +74,7 @@
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5">
+                        <span class="t14 w300 text-black py-5">
                             <template v-if="item.sku_label">
                                 {{ item.sku_label }}
                             </template>
@@ -88,7 +88,7 @@
               v-if="header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` , height: '85px'}">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             <template v-if="item.shpss_barcode">
                                 {{ item.shpss_barcode}}
                             </template>
@@ -101,7 +101,7 @@
               v-if="header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                            <img width="70" height="70" :src="item?.sku_image?.image_url">
                         </span>
           </div>
@@ -113,7 +113,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

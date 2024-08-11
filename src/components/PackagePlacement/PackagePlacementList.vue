@@ -8,7 +8,7 @@
         <v-col cols="5">
           <div>
             <div class="text-right d-block mb-2">
-              <span class="text-gray600 t14500">شناسه بسته</span>
+              <span class="text-gray600 t14 w500">شناسه بسته</span>
               <span class="text-error">*</span>
             </div>
             <div>
@@ -19,7 +19,7 @@
         <v-col cols="5">
           <div>
             <div class="text-right d-block mb-2">
-              <span class="text-gray600 t14500">
+              <span class="text-gray600 t14 w500">
                 شماره جایگاه
               </span>
               <span class="text-error">*</span>

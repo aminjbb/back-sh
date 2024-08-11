@@ -25,7 +25,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-5">
-              <span class="t14500">
+              <span class="t14 w500">
                            افزودن  دسته بندی
               </span>
             </div>

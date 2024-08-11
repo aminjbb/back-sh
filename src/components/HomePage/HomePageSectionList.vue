@@ -39,7 +39,7 @@
                     <v-icon size="small" class="text-grey-darken-1">
                       mdi-pen
                     </v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>

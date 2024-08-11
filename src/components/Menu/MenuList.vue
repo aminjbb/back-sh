@@ -67,7 +67,7 @@
                     <v-icon size="small" class="text-grey-darken-1">
                       mdi-pen
                     </v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -78,14 +78,14 @@
                     <v-icon size="small" class="text-grey-darken-1">
                       mdi-trash-can-outline
                     </v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
 
               <v-list-item-title>
                 <div class="ma-5 pointer" @click="$router.push(`/menu/${item.data.id}/add/image`)">
-                  <span class="mr-2 text-grey-darken-1 t14300">بارگذاری تصویر</span>
+                  <span class="mr-2 text-grey-darken-1 t14 w300">بارگذاری تصویر</span>
                   <v-icon class="text-grey-darken-1">mdi-image</v-icon>
                 </div>
               </v-list-item-title>

@@ -9,7 +9,7 @@
       <div>
         <v-card min-height="70" class="ma-5 br-12">
           <div class="text-rigth pr-10 pt-6">
-            <span class="t14500">
+            <span class="t14 w500">
                 ساخت پیام
             </span>
           </div>

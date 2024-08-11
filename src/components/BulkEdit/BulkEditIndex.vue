@@ -2,7 +2,7 @@
 <div class="h-100 d-flex flex-column align-stretch">
     <v-card class="ma-5 br-12 stretch-card-header-90">
         <v-row justify="center" align="start" class="px-10 py-5">
-            <v-col cols="12" class="d-flex justify-center align-center t14500 d--ltr">
+            <v-col cols="12" class="d-flex justify-center align-center t14 w500 d--ltr">
                  shps ویرایش گروهی
             </v-col>
             <v-divider color="grey" />
@@ -17,12 +17,12 @@
             <v-col cols="12" class="mb-7">
                 <v-row justify="center">
                     <v-btn :loading="templateLoading" @click="getTemplate()" width="166" variant="outlined" color="black" rounded class="mx-5">
-                        <span class="t14300">
+                        <span class="t14 w300">
                             دانلود فایل نمونه
                         </span>
                     </v-btn>
                     <v-btn :loading="uploadFileLoading" @click="selectFile()" width="166" color="primary500" rounded class="mx-5">
-                        <span class="t14300">
+                        <span class="t14 w300">
                             انتخاب فایل
                         </span>
                     </v-btn>
@@ -31,7 +31,7 @@
 
             <v-col cols="6" class="mb-5">
                 <div class="text-right mb-3">
-                    <span class="text-gray600 t14500">
+                    <span class="text-gray600 t14 w500">
                         تاریخ شروع بازرگانی
                     </span>
                 </div>
@@ -42,7 +42,7 @@
             </v-col>
             <v-col cols="6" class="mb-5">
                 <div class="text-right mb-3">
-                    <span class="text-gray600 t14500">
+                    <span class="text-gray600 t14 w500">
                         تاریخ پایان بازرگانی
                     </span>
                 </div>
@@ -54,7 +54,7 @@
 
             <v-col cols="6" class="mb-5">
                 <div class="text-right mb-3">
-                    <span class="text-gray600 t14500">
+                    <span class="text-gray600 t14 w500">
                         تاریخ شروع مارکتینگ
                     </span>
 
@@ -67,7 +67,7 @@
 
             <v-col cols="6" class="mb-5">
                 <div class="text-right mb-3">
-                    <span class="text-gray600 t14500">
+                    <span class="text-gray600 t14 w500">
                         تاریخ پایان مارکتینگ
                     </span>
 
@@ -81,7 +81,7 @@
             <v-col cols="12">
                 <v-row justify="space-between pa-5">
                     <v-btn :loading="loading" @click="validate()" width="166" color="primary500" rounded>
-                        <span class="t14300">
+                        <span class="t14 w300">
                             اعمال تغییرات
                         </span>
                     </v-btn>

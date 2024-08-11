@@ -12,7 +12,7 @@
         </v-card-title>
         <v-divider v-if="notification.title"></v-divider>
 
-        <v-card-text v-if="notification.content" class="mt-5 t14500">
+        <v-card-text v-if="notification.content" class="mt-5 t14 w500">
           {{notification.content}}
         </v-card-text>
       </v-card>

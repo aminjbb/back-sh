@@ -30,7 +30,7 @@
 
         <v-col cols="6">
           <div  class="text-right my-2">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                     {{ labels.phoneNumber }}
                 </span>
           </div>

@@ -26,7 +26,7 @@
         </v-col>
         <v-col cols="3">
 
-            <span class="t13400 color-grey">
+            <span class="t13 w400 color-grey">
 <!--                     {{ orderDetail.id }}   شناسه سفارش :-->
             </span>
         </v-col>

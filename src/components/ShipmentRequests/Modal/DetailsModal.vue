@@ -21,29 +21,29 @@
 
                     <div class="mx-10">
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             تاریخ ارسال :
                         </span>
-                        <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500 modal__content__txt number-font d--ltr">
+                        <span v-if="retailObject.sent_to_warehouse_at " class="t13 w400 text-gray500 modal__content__txt number-font d--ltr">
                             {{convertDateToJalai(retailObject.sent_to_warehouse_at ,  '-' , false) }}
                         </span>
-                        <span v-else class="t13400 text-gray500">
+                        <span v-else class="t13 w400 text-gray500">
                             ----
                         </span>
                     </div>
                     <div class="mx-10">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             شناسه محموله :
                         </span>
-                        <span class="t13400 text-gray500 number-font ">
+                        <span class="t13 w400 text-gray500 number-font ">
                             {{ retailObject.id }}
                         </span>
                     </div>
                     <div class="mx-10">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             نام فروشگاه :
                         </span>
-                        <span class="t13400 text-gray500">
+                        <span class="t13 w400 text-gray500">
                             {{ retailObject.shopping_name }}
                         </span>
                     </div>

@@ -49,7 +49,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/cargo-management/${item.data.id}/package`)">
                         <v-icon class="text-grey-darken-1" size="small">mdi-package-variant-closed</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">بسته های کارگو</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">بسته های کارگو</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -58,7 +58,7 @@
                     <v-list-item-title>
                       <div class=" pointer" @click="print(item.data.id)">
                         <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">پرینت بسته های کارگو</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">پرینت بسته های کارگو</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -67,7 +67,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                         <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>

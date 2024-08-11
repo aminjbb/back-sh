@@ -2,7 +2,7 @@
 <div class="text-right">
   <div class="ma-3 pointer d--rtl" @click="dialog = true">
     <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-    <span class="mr-2 text-grey-darken-1 t14300">پرینت برچسب</span>
+    <span class="mr-2 text-grey-darken-1 t14 w300">پرینت برچسب</span>
   </div>
     <v-dialog v-model="dialog" width="468" @input="dialogToggle">
         <v-card class="rounded-lg">

@@ -57,7 +57,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               style="padding: 3px; width: 17%; flex: 0 0 17%">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.shps">
                             {{ item.shps?.sku?.label }}
                         </template>
@@ -71,7 +71,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               style="padding: 3px; width: 7%; flex: 0 0 7%;">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.count">
                             {{ item.count }}
                         </template>
@@ -86,7 +86,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.price">
                             {{ item.price }}
                         </template>
@@ -101,7 +101,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.total_price">
                             {{ item.total_price }}
                         </template>
@@ -116,7 +116,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.price">
                             {{ item.price }}
                         </template>
@@ -131,7 +131,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.total_price_after_discount">
                             {{ item.total_price_after_discount }}
                         </template>
@@ -146,7 +146,7 @@
               class="c-table__contents__item justify-center"
               style="padding:3px"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.total_price_after_tax">
                             {{ item.total_price_after_tax }}
                         </template>
@@ -160,7 +160,7 @@
               v-if="header[9].show"
               class="c-table__contents__item justify-center"
               style="padding: 3px; width: 13%; flex: 0 0 13%;">
-            <span class="t13400 text-gray500 py-5 number-font">
+            <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
                             {{ item.paid_price }}
                         </template>

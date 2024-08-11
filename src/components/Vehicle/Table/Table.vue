@@ -42,7 +42,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -60,7 +60,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.vehicle_type">
                             {{ item.vehicle_type }}
                         </template>
@@ -74,10 +74,10 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.license">
                             ایران
-                            <span class="t14300 text-gray500 number-font" style="letter-spacing: 1.5px !important;">{{ item.license }}</span>
+                            <span class="t14 w300 text-gray500 number-font" style="letter-spacing: 1.5px !important;">{{ item.license }}</span>
                         </template>
                         <template v-else>
                             نامعلوم
@@ -89,7 +89,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -111,7 +111,7 @@
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
                                     <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                         حذف
                                     </span>
                                 </div>
@@ -125,7 +125,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

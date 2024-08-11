@@ -21,7 +21,7 @@
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
                 <div v-if="header[0].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5 number-font">
+                    <span class="t14 w300 text-gray-darken-1 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -71,7 +71,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray-darken-1">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray-darken-1">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
