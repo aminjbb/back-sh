@@ -19,7 +19,7 @@
 
                 <v-row>
                     <v-spacer></v-spacer>
-                    <v-radio-group   v-model="currentMethod" inline class="me-7 t12300" >
+                    <v-radio-group   v-model="currentMethod" inline class="me-7 t12 w300" >
                         <v-radio v-for="(method, i) in sendingMethods" :key="i"     :label="method.title" :value="method.value"  class="ms-5"></v-radio>
                     </v-radio-group>
                     <v-spacer></v-spacer>

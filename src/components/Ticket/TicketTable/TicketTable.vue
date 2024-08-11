@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500"
+                class="text-center c-table__header__item t12 w500"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -104,7 +104,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-chip
-                        class="ma-2 rounded-lg t10400"
+                        class="ma-2 rounded-lg t10 w400"
                         :color="getStatusColor(item.status)"
                         text-color="white">
                         {{getStatusText(item.status)}}

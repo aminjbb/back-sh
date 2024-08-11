@@ -4,7 +4,7 @@
         <template v-for="(head, index) in header">
             <div
                 v-if="head.show"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 style="padding:10px 3px;"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
@@ -33,7 +33,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 6%; flex: 0 0 6%;">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -42,7 +42,7 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 7%; flex: 0 0 7%;">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                         <template v-if="item.shps_id">
                             {{ item.shps_id }}
                         </template>
@@ -175,8 +175,8 @@
     <v-divider color="grey" />
 
     <div class="d-flex align-center justify-space-between pa-5">
-        <span class="t12500 text-black">جمع کل:</span>
-        <span class="t12500 text-black"></span>
+        <span class="t12 w500 text-black">جمع کل:</span>
+        <span class="t12 w500 text-black"></span>
     </div>
 
     <v-divider color="grey" />

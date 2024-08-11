@@ -15,7 +15,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-right c-table__header__item t10400 px-0"
+                class="text-right c-table__header__item t10 w400 px-0"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -25,7 +25,7 @@
           <template v-else>
             <div
                 v-if="head.show"
-                class="text-right pointer c-table__header__item t12500"
+                class="text-right pointer c-table__header__item t12 w500"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               {{head.name}}
@@ -68,7 +68,7 @@
                 v-if=" header[2].show"
                 class="c-table__contents__item text-right"
                 :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                      <span class="t12500 text-gray500 py-5 number-font">
+                      <span class="t12 w500 text-gray500 py-5 number-font">
                           {{ item.sku_label }}
                       </span>
             </div>

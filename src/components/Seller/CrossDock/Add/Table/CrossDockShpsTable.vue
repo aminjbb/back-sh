@@ -12,7 +12,7 @@
     <header class="c-table__header d-flex justify-start">
       <div
           v-if="model === 'crossDockShps'"
-          class="text-right c-table__header__item t12500 px-0"
+          class="text-right c-table__header__item t12 w500 px-0"
           :style="{ width: itemsWidth, flex:`0 0 ${itemsWidth}`}">
           <v-checkbox @change="selectAllShp()" v-model="allShps" color="success" />
       </div>
@@ -20,7 +20,7 @@
         <template v-if="head.value">
           <div
               v-if="head.show"
-              class="text-right c-table__header__item t12500 px-0"
+              class="text-right c-table__header__item t12 w500 px-0"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -31,7 +31,7 @@
         <template v-else>
           <div
               v-if="head.show"
-              class="text-right c-table__header__item t12500"
+              class="text-right c-table__header__item t12 w500"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -42,7 +42,7 @@
 
       </template>
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <span class="t12500 text-black">عملیات</span>
+        <span class="t12 w500 text-black">عملیات</span>
       </div>
     </header>
     <div class="stretch-table">
@@ -54,7 +54,7 @@
             class="d-flex justify-start">
           <div
               v-if="model === 'crossDockShps'"
-              class="text-right c-table__header__item t12500 px-0"
+              class="text-right c-table__header__item t12 w500 px-0"
               :style="{ width: itemsWidth, flex:`0 0 ${itemsWidth}`}">
             <v-checkbox :disabled="isNotProvidableCount(index)" v-model="selectedShps[index]" color="success" @change="selectShp(index  ,item)"/>
           </div>

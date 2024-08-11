@@ -40,7 +40,7 @@
 
         <template v-slot:customSlot="item">
           <v-chip
-              class="ma-2 rounded-lg t10400"
+              class="ma-2 rounded-lg t10 w400"
               :color="getStatusColor(item.data.custom)"
               text-color="white">
             {{getStatusText(item.data.custom)}}

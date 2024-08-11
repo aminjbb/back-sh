@@ -40,12 +40,12 @@
                     <div class="pb-3 d-block" style="min-height: 135px;">
                         <div class="px-8 w-100">
                             <div class="d-flex justify-between align-center">
-                                <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding:15px 10px">
                                     جمع:
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_shps_count >= 0">
                                         {{priceList.total_shps_count}}
                                     </template>
@@ -53,7 +53,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_buying_price >= 0">
                                         {{splitChar(priceList.total_buying_price)}}
                                     </template>
@@ -61,7 +61,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_customer_price >= 0">
                                         {{splitChar(priceList.total_customer_price)}}
                                     </template>
@@ -70,7 +70,7 @@
                                     </template>
                                 </div>
 
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_requested_buying_price_sum >= 0">
                                         {{splitChar(priceList.total_requested_buying_price_sum)}}
                                     </template>
@@ -78,7 +78,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_received_buying_price_sum >= 0">
                                         {{splitChar(priceList.total_received_buying_price_sum)}}
                                     </template>
@@ -87,7 +87,7 @@
                                     </template>
                                 </div>
 
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_requested_customer_price_sum >= 0">
                                         {{splitChar(priceList.total_requested_customer_price_sum)}}
                                     </template>
@@ -96,7 +96,7 @@
                                     </template>
                                 </div>
 
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_received_customer_price_sum >= 0">
                                         {{splitChar(priceList.total_received_customer_price_sum)}}
                                     </template>
@@ -104,7 +104,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.sum_total_buying_price >= 0">
                                         {{splitChar(priceList.sum_total_buying_price)}}
                                     </template>
@@ -112,7 +112,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.sum_total_customer_price >= 0">
                                         {{splitChar(priceList.sum_total_customer_price)}}
                                     </template>
@@ -120,7 +120,7 @@
                                         -
                                     </template>
                                 </div>
-                                <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                                <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                                     <template v-if="priceList && priceList.total_profit">
                                         {{formatProfit(priceList.total_profit)}}
                                     </template>
@@ -129,7 +129,7 @@
                                     </template>
                                 </div>
 
-                                <!--                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>-->
+                                <!--                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>-->
                             </div>
                         </div>
 

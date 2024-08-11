@@ -42,7 +42,7 @@
             </div>
 
             <div class="text-right pa-5">
-                <span class="t12300 modal__label">
+                <span class="t12 w300 modal__label">
                     قیمت مصرف کننده (ریال)
                 </span>
                 <v-text-field

@@ -33,7 +33,7 @@
         <v-card v-for="(voucher, i) in voucherList" :key="i"
                 class=" pa-3 mx-5 my-2 br-12 flex-grow-1 d-flex flex-column align-stretch">
 
-            <v-row no-gutters class="t12500 number-font " >
+            <v-row no-gutters class="t12 w500 number-font " >
                 <v-col cols="12" class="my-1">
                     <v-row no-gutters>
                         <v-icon>mdi-circle-small</v-icon>
@@ -114,7 +114,7 @@
                         next-icon="mdi-chevron-left" />
                 </v-col>
 
-                <div class="d-flex align-center  t12300">
+                <div class="d-flex align-center  t12 w300">
                    <span class="ml-5">
                      تعداد سطر در هر صفحه
                    </span>

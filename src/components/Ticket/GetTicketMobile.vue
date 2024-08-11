@@ -19,11 +19,11 @@
             <div
                 v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
                 class="d-flex align-center ga-3">
-              <span class="title t12400">وضعیت در حال بررسی شود </span>
+              <span class="title t12 w400">وضعیت در حال بررسی شود </span>
               <v-switch v-model="isSwitchActive"  inset color="success"/>
             </div>
             <v-chip
-                class="ma-2 rounded-lg t10400"
+                class="ma-2 rounded-lg t10 w400"
                 :color="getStatusColor(ticketStatus)"
                 text-color="white">
               {{getStatusText(ticketStatus)}}
@@ -32,19 +32,19 @@
 
           <div class="d-flex justify-space-between align-center">
             <div v-if="oneTicket && oneTicket.priority" class="d-flex align-center ticket-single__sidebar__item">
-              <span class="title t12400">اولویت : </span>
-              <div class="pr-2 t12400">{{ getPriorityText(oneTicket.priority) }}</div>
+              <span class="title t12 w400">اولویت : </span>
+              <div class="pr-2 t12 w400">{{ getPriorityText(oneTicket.priority) }}</div>
             </div>
             <div v-if="oneTicket && oneTicket.created_at" class="d-flex justify-space-between align-center ticket-single__sidebar__item">
-              <span class="title t12400"> تاریخ ساخت : </span>
-              <div class="pr-2 number-font t12400">{{ convertDate(oneTicket.created_at) }}</div>
+              <span class="title t12 w400"> تاریخ ساخت : </span>
+              <div class="pr-2 number-font t12 w400">{{ convertDate(oneTicket.created_at) }}</div>
             </div>
           </div>
 
           <div class="d-flex justify-space-between align-center">
             <div v-if="oneTicket && oneTicket.user" class="d-flex align-center ticket-single__sidebar__item">
-              <span class="title t12400"> کاربر :</span>
-              <div class="pr-2 t12400">
+              <span class="title t12 w400"> کاربر :</span>
+              <div class="pr-2 t12 w400">
                 <template v-if="oneTicket.user.first_name">
                   {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                 </template>
@@ -55,9 +55,9 @@
             </div>
 
             <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
-              <span class="title t12400"> موبایل :</span>
+              <span class="title t12 w400"> موبایل :</span>
               <v-btn @click="redirect()" variant="text" >
-                  <span class="number-font t12400">
+                  <span class="number-font t12 w400">
                       {{ oneTicket.user.phone_number }}
                   </span>
               </v-btn>

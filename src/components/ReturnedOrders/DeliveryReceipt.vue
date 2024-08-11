@@ -6,11 +6,11 @@
 
     <v-row style="padding:40px 15%">
         <v-col cols="6">
-            <div class="t12500 text-grey mb-3">تصویر فیش ارسالی</div>
+            <div class="t12 w500 text-grey mb-3">تصویر فیش ارسالی</div>
             <ReceiptModal imageAddress="" />
         </v-col>
         <v-col cols="6">
-            <div class="t12500 text-grey mb-3">وضعیت فیش ارسالی</div>
+            <div class="t12 w500 text-grey mb-3">وضعیت فیش ارسالی</div>
             <v-select
                 density="compact"
                 variant="outlined"
@@ -43,7 +43,7 @@
                     variant="elevated"
                     width="115">
 
-                    <span class="t12400">
+                    <span class="t12 w400">
                         تایید
                     </span>
                 </v-btn>

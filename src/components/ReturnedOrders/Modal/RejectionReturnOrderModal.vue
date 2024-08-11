@@ -7,7 +7,7 @@
         variant="elevated"
         width="180"
         class="ml-2">
-      <span class="t12400"> رد درخواست محصول</span>
+      <span class="t12 w400"> رد درخواست محصول</span>
     </v-btn>
 
     <v-dialog
@@ -21,14 +21,14 @@
               variant="icon">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <span class="t12500 ma-2">
+          <span class="t12 w500 ma-2">
             دلیل رد مرجوعی
           </span>
 
         </div>
           <v-divider class="my-5"/>
         <div class="text-right" style="padding:20px 10% 80px">
-          <h2 class="t12300 text-grey mb-3">دلیل رد مرجوعی <span class="text-red">*</span></h2>
+          <h2 class="t12 w300 text-grey mb-3">دلیل رد مرجوعی <span class="text-red">*</span></h2>
           <v-textarea variant="outlined" v-model="rejectModel"/>
         </div>
 
@@ -40,7 +40,7 @@
               variant="elevated"
               width="180"
               class="ml-2">
-            <span class="t12400"> تایید</span>
+            <span class="t12 w400"> تایید</span>
           </v-btn>
           <v-btn
               @click="dialog = false"
@@ -49,7 +49,7 @@
               variant="elevated"
               width="180"
               class="ml-2">
-            <span class="t12400"> اتصراف</span>
+            <span class="t12 w400"> اتصراف</span>
           </v-btn>
         </div>
       </v-card>

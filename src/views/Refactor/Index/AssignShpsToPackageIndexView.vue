@@ -77,7 +77,7 @@
                 جمع:
               </v-col>
               <v-col cols="1" class="mr-12 pr-8">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRequestCount }}
             </span>
               </v-col>

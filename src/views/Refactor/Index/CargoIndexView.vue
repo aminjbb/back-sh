@@ -32,7 +32,7 @@
               :perPage="dataTableLength">
             <template v-slot:customSlot="item">
               <div class="retail-status-box d-flex align-center pr-2">
-                <span class="t12500 text-gray500 py-5 ">{{renameStatus(item.data.custom)}}</span>
+                <span class="t12 w500 text-gray500 py-5 ">{{renameStatus(item.data.custom)}}</span>
               </div>
             </template>
 

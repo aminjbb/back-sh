@@ -29,7 +29,7 @@
           <div class="mt-3 mb-8 px-5">
             <v-col cols="12">
               <div class="text-right mt-4 mb-2">
-                <span class="t12300">میزان مالیات</span>
+                <span class="t12 w300">میزان مالیات</span>
               </div>
               <v-text-field
                   density="compact"
@@ -40,7 +40,7 @@
             </v-col>
             <v-col cols="12">
               <div class="text-right mt-4 mb-2">
-                <span class="t12300">شناسه ملی</span>
+                <span class="t12 w300">شناسه ملی</span>
               </div>
               <v-text-field
                   density="compact"

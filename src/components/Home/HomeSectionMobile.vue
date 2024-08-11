@@ -20,7 +20,7 @@
               <span class="t13300 number-font">{{ dashboardData?.order?.last_day_order }}</span>
             </v-row>
             <v-row justify="center">
-              <span class="text-h8 text-gray500 t12300 pr-1">سفارش </span>
+              <span class="text-h8 text-gray500 t12 w300 pr-1">سفارش </span>
             </v-row>
           </v-card>
         </v-col>
@@ -38,7 +38,7 @@
               <span class="t13300 number-font">{{ dashboardData?.order?.last_month_order }}</span>
             </v-row>
             <v-row justify="center">
-              <span class="text-h8 text-gray500 t12300 pr-1">سفارش </span>
+              <span class="text-h8 text-gray500 t12 w300 pr-1">سفارش </span>
             </v-row>
           </v-card>
         </v-col>
@@ -56,7 +56,7 @@
               <span class="t13300 number-font">{{ dashboardData?.order?.last_year_order }}</span>
             </v-row>
             <v-row justify="center">
-              <span class="text-h8 text-gray500 t12300 pr-1">سفارش </span>
+              <span class="text-h8 text-gray500 t12 w300 pr-1">سفارش </span>
             </v-row>
           </v-card>
         </v-col>

@@ -25,19 +25,19 @@
                   <div style="display: flex;justify-content: center;margin: 14px;">
                     <div>
                       <!-- shelf number-->
-                      <span class=" t12400 text-black number-font">{{ data?.shelf_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.shelf_number }}/</span>
                       <!-- step number-->
-                      <span class=" t12400 text-black number-font">{{ data?.step_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.step_number }}/</span>
                       <!-- placement number -->
-                      <span class=" t12400 text-black number-font">{{ data?.placement_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.placement_number }}/</span>
                       <!-- row number-->
-                      <span class="t12400 text-black number-font">{{ data?.row_number }}</span>
+                      <span class="t12 w400 text-black number-font">{{ data?.row_number }}</span>
                     </div>
                   </div>
 
                   <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
 
-                  <div v-if="data && data.barcode" class="number-font text-black t12500 mt-2" style="text-align:center">{{ data.barcode }}</div>
+                  <div v-if="data && data.barcode" class="number-font text-black t12 w500 mt-2" style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 
