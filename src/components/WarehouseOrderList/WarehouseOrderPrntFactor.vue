@@ -19,27 +19,27 @@
         <v-col cols="7" class="pa-1">
           <div class="border-header-box">
             <div class="d-flex justify-space-between pa-2">
-              <div class="t11500">
+              <div class="t11 w500">
                 نام فروشگاه : {{ factorDetail.company_name }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شناسه ملی : {{ factorDetail.identification_code }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شماره ثبت : {{ factorDetail.company_registration_number }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شماره اقتصادی : {{ factorDetail.economic_code }}
               </div>
             </div>
             <div class="d-flex justify-space-between pa-2">
-              <div class="t11500">
+              <div class="t11 w500">
                 نشانی شرکت : {{ factorDetail.address }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 کد پستی : {{ factorDetail.postal_code }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 تلفن : {{ factorDetail.phone }}
               </div>
 
@@ -49,29 +49,29 @@
         <v-col cols="4" class="pa-1">
           <div class="border-header-box pa-1">
             <div class="d-flex justify-space-between">
-                <span class="t11500">
+                <span class="t11 w500">
                   شماره فاکتور :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                   {{ factorDetail.order_factor_id }}
                 </span>
             </div>
             <div class="d-flex justify-space-between mt-1">
-                <span class="t11500">
+                <span class="t11 w500">
                   تاریخ :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                   {{ factorDetail.created_at_fa }}
                 </span>
             </div>
             <div class="d-flex justify-space-between mt-1">
-                <span class="t11500">
+                <span class="t11 w500">
                   پیگیری :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                  {{ factorDetail.order_factor_id }}
                 </span>
             </div>
@@ -84,7 +84,7 @@
 
         <v-col cols="1" class="pa-1">
           <div class="border-header-box bg-gray200">
-                  <span class="rotate-span text-center mt-6 mr-3 t12500">
+                  <span class="rotate-span text-center mt-6 mr-3 t12 w500">
                     خریدار
                   </span>
           </div>
@@ -92,28 +92,28 @@
         <v-col cols="7" class="pa-1">
           <div class="border-header-box">
             <div class="d-flex justify-space-between pt-1 px-2">
-              <div class="t11500">
+              <div class="t11 w500">
                 خریدار : {{ factorUser.first_name }} {{ factorUser.last_name }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شماره اقتصادی/شماره ملی : {{ factorUser.national_code }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شناسه ملی : {{ factorUser.national_code }}
               </div>
-              <div class="t11500">
+              <div class="t11 w500">
                 شماره ثبت : {{ factorUser.id }}
               </div>
             </div>
-            <div class="text-right t11500 pt-1 px-2">
+            <div class="text-right t11 w500 pt-1 px-2">
               نشانی : {{ factorDetail?.state?.label }} - {{ factorDetail?.city?.label }} - نبش خیابان بیست و یکم - پلاک
               ۲۳
             </div>
             <div class="d-flex justify-space-between pt-1 px-2">
-              <div class="t11500">
+              <div class="t11 w500">
                 شماره تماس : {{ factorUser?.phone_number }}
               </div>
-              <div class="t11500 ml-15 pl-15">
+              <div class="t11 w500 ml-15 pl-15">
                 کد پستی : ۰۰۲۳۴۸۷۸۷
               </div>
             </div>
@@ -122,29 +122,29 @@
         <v-col cols="4" class="pa-1">
           <div class="border-header-box pa-1">
             <div class="d-flex justify-space-between">
-                <span class="t11500">
+                <span class="t11 w500">
                  شماره مالیاتی :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                   {{ factorDetail.tax_code }}
                 </span>
             </div>
             <div class="d-flex justify-space-between mt-1">
-                <span class="t11500">
+                <span class="t11 w500">
                   سریال حافظه مالیاتی :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                   {{ factorDetail?.tax_memory_code }}
                 </span>
             </div>
             <div class="d-flex justify-space-between mt-1">
-                <span class="t11500">
+                <span class="t11 w500">
                  سریال پایانه فروشگاهی :
                 </span>
 
-              <span class="t11500 number-font">
+              <span class="t11 w500 number-font">
                   {{ factorDetail?.shopping_terminal_code }}
                 </span>
             </div>
@@ -231,7 +231,7 @@
       <v-row v-for="(item , index) in factorDetail?.shavaz?.data" justify="end" class="px-6 mt-0">
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box  d-flex justify-center align-center">
-                  <span class="t11500">
+                  <span class="t11 w500">
                     {{ item.id }}
                   </span>
           </div>
@@ -239,49 +239,49 @@
 
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center">
-                <span class="t11500 px-1">
+                <span class="t11 w500 px-1">
                  {{ item?.shps?.id }}
                 </span>
           </div>
         </v-col>
         <v-col cols="3" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center px-2">
-                <span class="t11500 px-1">
+                <span class="t11 w500 px-1">
                    {{ item?.shps?.sku?.label }}
                 </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box  d-flex justify-center align-center px-2 text-center">
-                  <span class="t11500">
+                  <span class="t11 w500">
                       {{ item.count }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center px-2">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                     {{ splitChar(item?.price) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                      {{ splitChar(item?.total_price) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                    {{ splitChar(item.discount) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                   {{ splitChar(item.total_price_after_discount) }}
                   </span>
           </div>
@@ -289,14 +289,14 @@
 
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                       {{ splitChar(item.total_price_after_tax) }}
                   </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-box d-flex justify-center align-center text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                     {{ splitChar(item.total_price) }}
                   </span>
           </div>
@@ -314,14 +314,14 @@
         </v-col>
         <v-col cols="5" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-right">
-                <span class="t11500">
+                <span class="t11 w500">
                   جمع کل پس از کسر تخفیف با احتساب مالیات و عوارض (ریال) :
                 </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                    {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount) }}
                   </span>
           </div>
@@ -338,14 +338,14 @@
         </v-col>
         <v-col cols="5" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-right">
-                <span class="t11500">
+                <span class="t11 w500">
                   جمع کل پس از کسر تخفیف با احتساب مالیات و عوارض (ریال) :
                 </span>
           </div>
         </v-col>
         <v-col cols="1" class="px-0 pt-0">
           <div class="border-header-sum bg-gray200 text-center">
-                  <span class="t11500 number-font">
+                  <span class="t11 w500 number-font">
                    {{ splitChar(factorDetail?.shavaz?.sum_total_price_after_discount) }}
                   </span>
           </div>

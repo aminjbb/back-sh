@@ -40,7 +40,7 @@
                     <br />
                     <div
                         v-if="data && data.barcode"
-                        class="number-font text-black t12500 mt-2"
+                        class="number-font text-black t12 w500 mt-2"
                         style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>

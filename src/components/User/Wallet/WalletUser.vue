@@ -48,13 +48,13 @@
           :page="page"
           :perPage="dataTableLength">
         <template v-slot:customSlot="item">
-         <span v-if="item.data.type == 'withdraw'" class="t14300 text-error py-5 number-font">  {{splitChar(item.data.custom ) }} - </span>
-         <span v-else class="t14300 text-black py-5 number-font">  --- </span>
+         <span v-if="item.data.type == 'withdraw'" class="t14 w300 text-error py-5 number-font">  {{splitChar(item.data.custom ) }} - </span>
+         <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
         </template>
 
         <template v-slot:customSlot2="item">
-          <span v-if="item.data.type == 'deposit'" class="t14300 text-success py-5 number-font d--ltr">  {{splitChar(item.data.custom ) }} +</span>
-          <span v-else class="t14300 text-black py-5 number-font">  --- </span>
+          <span v-if="item.data.type == 'deposit'" class="t14 w300 text-success py-5 number-font d--ltr">  {{splitChar(item.data.custom ) }} +</span>
+          <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
         </template>
       </ShTable>
 

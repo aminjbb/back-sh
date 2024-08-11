@@ -7,13 +7,13 @@
           class="px-10 py-5">
         <v-col
             cols="12"
-            class="d-flex justify-center align-center t14500">
+            class="d-flex justify-center align-center t14 w500">
           اسکن شناسه بسته
         </v-col>
         <v-divider color="grey"/>
         <v-col cols="12" md="6">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه بسته</span>
+            <span class="text-gray600 t14 w500">شناسه بسته</span>
             <span class="text-error">*</span>
           </div>
           <div>
@@ -27,7 +27,7 @@
         </v-col>
         <v-col cols="3">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه کالا</span>
+            <span class="text-gray600 t14 w500">شناسه کالا</span>
             <span class="text-error">*</span>
           </div>
           <div>

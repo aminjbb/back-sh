@@ -3,7 +3,7 @@
     <v-progress-linear color="primary500" indeterminate reverse v-if="loading"/>
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
-        <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12500 text-black " style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12 w500 text-black " style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
           {{head.name}}
         </div>
@@ -17,7 +17,7 @@
           <div v-if="header[0].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font justify-end">
+                        <span class="t14 w300 text-gray500 py-5 number-font justify-end">
                             {{ rowIndexTable(index) }}
                         </span>
             </div>
@@ -85,13 +85,13 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/best-selling-categories/${item.id}/best-selling-edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pen</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش </span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش </span>
                   </div>
                 </v-list-item-title>
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-delete</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف </span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف </span>
                   </div>
                 </v-list-item-title>
               </v-list>
@@ -103,7 +103,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

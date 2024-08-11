@@ -106,7 +106,7 @@
                                                     <v-icon size="x-small" class="text-grey-darken-1">
                                                         mdi-text-box-multiple-outline
                                                     </v-icon>
-                                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                                         نمایش جزئیات
                                                     </span>
                                                 </div>
@@ -121,7 +121,7 @@
                                                 <v-icon size="small" class="text-grey-darken-1">
                                                     mdi-package-variant-closed
                                                 </v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     مدیریت محموله‌های انبارش
                                                 </span>
                                             </div>
@@ -136,7 +136,7 @@
                                                 <v-icon size="small" class="text-grey-darken-1">
                                                     mdi-package-variant-closed
                                                 </v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     ساخت محموله انبارش
                                                 </span>
                                             </div>
@@ -149,7 +149,7 @@
                                             <div class="ma-5 pointer" @click="$router.push(`details/${item.data.id}`)">
                                                 <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd
                                                 </v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     قیمت گذاری
                                                 </span>
                                             </div>
@@ -161,7 +161,7 @@
                                             <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                                                 <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline
                                                 </v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     حذف
                                                 </span>
                                             </div>

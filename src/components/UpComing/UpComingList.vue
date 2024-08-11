@@ -10,7 +10,7 @@
       <v-row align="center" class="px-3 my-5">
         <v-col cols="6">
           <div class="text-right ">
-                      <span class="text-gray600 t14500">
+                      <span class="text-gray600 t14 w500">
                           شناسه محموله
                       </span>
             <span class="text-error">

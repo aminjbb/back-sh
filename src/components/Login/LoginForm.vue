@@ -12,7 +12,7 @@
 
                         <div class="mt-6">
                             <div class="text-right mb-2 pr-1">
-                                <span class="t12300">
+                                <span class="t12 w300">
                                     لطفا شماره همراه خود را وارد کنید.
                                 </span>
                             </div>
@@ -28,7 +28,7 @@
 
                         <div class="mt-6">
                             <div class="text-right mb-2 pr-1">
-                                <span class="t12300">
+                                <span class="t12 w300">
                                     لطفا رمز عبور خود را وارد کنید.
                                 </span>
                             </div>
@@ -58,7 +58,7 @@
                                 @click="validate('/')"
 
                             >
-                                <span class="t12300">
+                                <span class="t12 w300">
                                     ورود
                                 </span>
                             </v-btn>
@@ -71,7 +71,7 @@
                               @click="validate('/locating/dashboard')"
                               class="mt-5 d-md-none d-block"
                           >
-                                <span class="t12300">
+                                <span class="t12 w300">
                                   ورود با هندهلد
                                 </span>
                           </v-btn>
@@ -83,7 +83,7 @@
                                 @click="forgotPassword"
                                 variant="text"
                             >
-                                <span class="t12300 text-primary500">
+                                <span class="t12 w300 text-primary500">
                                     رمز خود را فراموش کرده اید؟
                                 </span>
                             </v-btn>

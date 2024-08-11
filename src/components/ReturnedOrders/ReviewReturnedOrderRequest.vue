@@ -1,7 +1,7 @@
 <template>
 <section class="review-order flex-column d-flex h-100">
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
-        <h3 class="t14400 create-product__header">اطلاعات درخواست مرجوعی</h3>
+        <h3 class="t14 w400 create-product__header">اطلاعات درخواست مرجوعی</h3>
         <v-divider color="grey" />
 
         <ReviewRequestStep1  :content="returnedOrder" />
@@ -15,7 +15,7 @@
                             variant="outlined"
                             width="115"
                             @click="$router.go(-1)">
-                            <span class="t14300">
+                            <span class="t14 w300">
                                 بازگشت
                             </span>
                         </v-btn>
@@ -27,7 +27,7 @@
                             variant="outlined"
                             width="115"
                             @click="decreaseStep()">
-                            <span class="t14300">
+                            <span class="t14 w300">
                                 مرحله قبل
                             </span>
                         </v-btn>
@@ -42,7 +42,7 @@
                         width="115"
                         class="ml-2"
                         >
-                        <span class="t12400">رد درخواست</span>
+                        <span class="t12 w400">رد درخواست</span>
                     </v-btn>
 
                     <v-btn
@@ -51,7 +51,7 @@
                         color="light-green-lighten-4"
                         variant="elevated"
                         width="115">
-                        <span class="t12400">
+                        <span class="t12 w400">
                             تایید درخواست
                         </span>
                     </v-btn>

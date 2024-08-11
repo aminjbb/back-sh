@@ -11,7 +11,7 @@
                     <v-list >
                         <template v-if="voucherDetail?.order_count">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.order_count}}
                                 </span>
@@ -26,7 +26,7 @@
 
                         <template v-if="voucherDetail?.user_limit">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.user_limit}}
                                 </span>
@@ -41,7 +41,7 @@
 
                         <template v-if="voucherDetail?.min_order_price">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.min_order_price}}
                                 </span>
@@ -56,7 +56,7 @@
 
                         <template v-if="voucherDetail?.order_limit">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.order_limit}}
                                 </span>
@@ -71,7 +71,7 @@
 
                         <template v-if="voucherDetail?.order_limit">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.order_limit}}
                                 </span>
@@ -86,7 +86,7 @@
 
                         <template v-if="voucherDetail?.start_time_fa">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.start_time_fa}}
                                 </span>
@@ -101,7 +101,7 @@
 
                         <template v-if="voucherDetail?.end_time_fa">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.end_time_fa}}
                                 </span>
@@ -116,7 +116,7 @@
 
                         <template v-if="voucherDetail?.state?.label">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1">
                                      {{voucherDetail?.state?.label}}
                                 </span>
@@ -131,7 +131,7 @@
 
                         <template v-if="voucherDetail?.sending_price">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     <span v-if="voucherDetail?.sending_price === 'free' "> رایگان </span>
                                     <span v-if="voucherDetail?.sending_price === 'default' "> عادی </span>
@@ -147,7 +147,7 @@
 
                         <template v-if="voucherDetail?.max_discount">
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between t12500 my-4">
+                                <div class="d-flex justify-space-between t12 w500 my-4">
                                 <span class="text-grey-lighten-1 number-font">
                                     {{voucherDetail?.max_discount}}
                                 </span>
@@ -162,7 +162,7 @@
 
                     <!-- change status -->
                             <v-list-item-title>
-                                <div class="d-flex justify-space-between align-center t12500 my-4">
+                                <div class="d-flex justify-space-between align-center t12 w500 my-4">
 
                                     <v-switch  v-model="status" @change="changeStatus" inset  hide-details  color="success"></v-switch>
                                     <div>

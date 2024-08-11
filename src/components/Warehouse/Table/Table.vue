@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500"
+                class="text-center c-table__header__item t12 w500"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 style="padding:3px"
@@ -45,7 +45,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -55,7 +55,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.name && (item.name !== null || item.name !== '')">
                             {{ item.name }}
                         </template>
@@ -70,7 +70,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.address && (item.address !== null || item.address !== '')">
                             {{ item.address }}
                         </template>
@@ -85,7 +85,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.phone_number && (item.phone_number !== null || item.phone_number !== '')">
                             {{ item.phone_number }}
                         </template>
@@ -101,7 +101,7 @@
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-for="content in item.types" :key="content.id">
-                        <div class="t14300 text-gray500 py-2">
+                        <div class="t14 w300 text-gray500 py-2">
                             {{ getType(content.type) }}
                         </div>
                     </template>
@@ -111,7 +111,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-2">
+                    <div class="t14 w300 text-gray500 py-2">
                         نامشخص
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.market_storage_count && (item.market_storage_count !== null || item.market_storage_count !== '')">
                             {{ item.market_storage_count }}
                         </template>
@@ -136,7 +136,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.retail_storage_count && (item.retail_storage_count !== null || item.retail_storage_count !== '')">
                             {{ item.retail_storage_count }}
                         </template>
@@ -151,7 +151,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     style="padding:3px"
                     class="c-table__contents__item  justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -173,7 +173,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
                                     </div>
@@ -181,7 +181,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push('/warehouse/special-capacity/' + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-timer-sand</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ظرفیت ویژه
                                         </span>
                                     </div>
@@ -189,7 +189,7 @@
                               <v-list-item-title>
                                 <div class="ma-5 pointer" @click="$router.push('/warehouse/special-exit-capacity/' + item.id )">
                                   <v-icon class="text-grey-darken-1">mdi-exit-to-app</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ظرفیت ویژه خروج
                                         </span>
                                 </div>
@@ -197,7 +197,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -212,7 +212,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

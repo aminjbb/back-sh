@@ -5,7 +5,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 style="padding:20px 3px"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
@@ -31,7 +31,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 10.6667%; flex: 0 0 10.6667%;">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -40,7 +40,7 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 22.6667%; flex: 0 0 22.6667%">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.name">
                             {{ item.name }}
                         </template>
@@ -55,7 +55,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.code">
                             {{ item.code }}
                         </template>
@@ -70,7 +70,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.discount_amount">
                             {{ item.discount_amount }}
                         </template>
@@ -85,7 +85,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.start_time_fa">
                             {{ item.start_time_fa }}
                         </template>
@@ -100,7 +100,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.end_time_fa">
                             {{ item.end_time_fa }}
                         </template>

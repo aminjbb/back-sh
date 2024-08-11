@@ -4,10 +4,10 @@
         <v-row justify="space-between" align="center" class="px-7 py-5 order-tracking__search">
             <template v-if="orderDetails && orderDetails?.user">
                 <div class="d-flex align-center mt-1">
-                    <div class="t12500 text-right ml-2 mt-1">
+                    <div class="t12 w500 text-right ml-2 mt-1">
                         :نام و نام خانوادگی
                     </div>
-                    <div class="t14500 text-right ml-2 mt-1">
+                    <div class="t14 w500 text-right ml-2 mt-1">
                         {{ orderDetails?.user?.first_name }} {{ orderDetails?.user?.last_name }}
                     </div>
 
@@ -16,20 +16,20 @@
                     </v-btn>
                 </div>
 
-                <div class="t14500" @click="backStep1()" style="cursor: pointer;">
+                <div class="t14 w500" @click="backStep1()" style="cursor: pointer;">
                     جستجو مجدد
                 </div>
                
             </template>
 
             <template v-else>
-                <div class="t12500 text-right ml-2 mt-1">
+                <div class="t12 w500 text-right ml-2 mt-1">
                     جستجو بر اساس:
                 </div>
                 <div class="d-flex align-center justify-center flex-grow-1 mt-1">
                     <v-row class="align-center">
                         <v-col cols="2" class="d-flex align-cneter">
-                            <v-text-field variant="outlined" placeholder="نام" name="name" v-model="user.first_name" class="t12500" />
+                            <v-text-field variant="outlined" placeholder="نام" name="name" v-model="user.first_name" class="t12 w500" />
                         </v-col>
 
                         <v-col cols="2" class="d-flex align-cneter">

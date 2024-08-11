@@ -40,7 +40,7 @@
                 <v-col cols="8">
                   <div>
                     <div class="text-right ">
-                 <span class="text-gray600 t14500">
+                 <span class="text-gray600 t14 w500">
                    شناسه بسته
                  </span>
                       <span class="text-error">

@@ -7,13 +7,13 @@
           class="px-10 py-5">
         <v-col
             cols="12"
-            class="d-flex justify-center align-center t14500">
+            class="d-flex justify-center align-center t14 w500">
           ثبت ضایعات
         </v-col>
         <v-divider color="grey"/>
         <v-col cols="12" md="6" >
           <div class="text-right">
-            <span class="text-gray600 t14500">اسکن سریال کالا</span>
+            <span class="text-gray600 t14 w500">اسکن سریال کالا</span>
             <span class="text-error">*</span>
           </div>
           <div class="d-flex justify-between">

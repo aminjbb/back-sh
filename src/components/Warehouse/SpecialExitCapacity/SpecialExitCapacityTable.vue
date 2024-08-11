@@ -8,7 +8,7 @@
 
       <div
           v-for="(head, index) in header"
-          class="text-right pointer c-table__header__item t12500"
+          class="text-right pointer c-table__header__item t12 w500"
           :key="index"
           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
         {{head.name}}
@@ -28,7 +28,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-grey-darken-3 py-5 number-font">
+                        <span class="t14 w300 text-grey-darken-3 py-5 number-font">
                             {{convertDateToJalai(item.date , '-' , false)}}
                         </span>
 
@@ -40,7 +40,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-grey-darken-3 py-5">
+                        <span class="t14 w300 text-grey-darken-3 py-5">
                             {{ item.count }}
                         </span>
             </div>

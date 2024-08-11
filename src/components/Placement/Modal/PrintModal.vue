@@ -2,7 +2,7 @@
 <div class="text-right">
   <div class="ma-3 pointer d--rtl" @click="dialog = true">
     <v-icon class="text-grey-darken-1">mdi-printer-outline</v-icon>
-    <span class="mr-2 text-grey-darken-1 t14300">پرینت برچسب</span>
+    <span class="mr-2 text-grey-darken-1 t14 w300">پرینت برچسب</span>
   </div>
     <v-dialog v-model="dialog" width="468" @input="dialogToggle">
         <v-card class="rounded-lg">
@@ -25,19 +25,19 @@
                   <div style="display: flex;justify-content: center;margin: 14px;">
                     <div>
                       <!-- shelf number-->
-                      <span class=" t12400 text-black number-font">{{ data?.shelf_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.shelf_number }}/</span>
                       <!-- step number-->
-                      <span class=" t12400 text-black number-font">{{ data?.step_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.step_number }}/</span>
                       <!-- placement number -->
-                      <span class=" t12400 text-black number-font">{{ data?.placement_number }}/</span>
+                      <span class=" t12 w400 text-black number-font">{{ data?.placement_number }}/</span>
                       <!-- row number-->
-                      <span class="t12400 text-black number-font">{{ data?.row_number }}</span>
+                      <span class="t12 w400 text-black number-font">{{ data?.row_number }}</span>
                     </div>
                   </div>
 
                   <img v-if="data && data.barcode_image" alt="Barcode" :src="`${url}${data.barcode_image}`" width="270" height="103" style="margin:0 auto;display: block;">
 
-                  <div v-if="data && data.barcode" class="number-font text-black t12500 mt-2" style="text-align:center">{{ data.barcode }}</div>
+                  <div v-if="data && data.barcode" class="number-font text-black t12 w500 mt-2" style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>
 

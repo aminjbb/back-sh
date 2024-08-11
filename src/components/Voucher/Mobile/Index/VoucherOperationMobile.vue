@@ -11,7 +11,7 @@
 
             <v-list>
                 <v-list-item-title @click="openEdit">
-                    <div class="d-flex justify-space-between t12400 my-4">
+                    <div class="d-flex justify-space-between t12 w400 my-4">
                         <v-icon>mdi-chevron-left</v-icon>
                         <div>
 
@@ -25,7 +25,7 @@
                 >
                     <v-divider/>
 
-                    <div class="d-flex justify-space-between t12400 my-4">
+                    <div class="d-flex justify-space-between t12 w400 my-4">
                         <v-icon>mdi-chevron-left</v-icon>
 
                         <div>

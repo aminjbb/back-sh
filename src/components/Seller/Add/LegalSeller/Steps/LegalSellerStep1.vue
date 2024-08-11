@@ -14,7 +14,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.name }}
                         </span>
@@ -32,7 +32,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ labels.birthDate }}
                         </span>
           </div>
@@ -56,7 +56,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.mobile }}
                         </span>
@@ -74,7 +74,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.email }}
                         </span>
@@ -92,7 +92,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.nationalCode }}
                         </span>
@@ -110,7 +110,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.certificateNumber }}
                         </span>
@@ -128,7 +128,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.nationalCard }}
                         </span>
@@ -145,7 +145,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.certificate }}
                         </span>

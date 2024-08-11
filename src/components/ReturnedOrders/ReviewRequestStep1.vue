@@ -4,7 +4,7 @@
       <v-col cols="3">
         <span class="title">شناسه سفارش : </span>
 
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]">{{ content[0]?.order.id }}</template>
                 <template v-else> - </template>
             </span>
@@ -12,7 +12,7 @@
 
       <v-col cols="3">
         <span class="title">شناسه مرجوعی : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content.returned_order">{{ content?.returned_order?.id }}</template>
                 <template v-else> - </template>
             </span>
@@ -20,7 +20,7 @@
 
       <v-col cols="3">
         <span class="title">نام مشتری : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template
                     v-if="content && content[0]">{{ content[0].user.first_name }} {{ content[0].user.last_name }}</template>
                 <template v-else> - </template>
@@ -29,7 +29,7 @@
 
       <v-col cols="3">
         <span class="title">روش پرداخت : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]">
                   <span v-if="content[0]?.order.payment_method === 'wallet'">
                       کیف پول
@@ -47,7 +47,7 @@
 
       <v-col cols="3">
         <span class="title">مبلغ پرداختی : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]" class="number-font">{{ splitChar(content[0]?.order?.paid_price) }}</template>
                 <template v-else> - </template>
             </span>
@@ -55,7 +55,7 @@
 
       <v-col cols="3">
         <span class="title">تاریخ ثبت سفارش : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]">{{ content[0]?.order?.submit_date_fa }}</template>
                 <template v-else> - </template>
             </span>
@@ -63,7 +63,7 @@
 
       <v-col cols="3">
         <span class="title">تاریخ ارسال سفارش : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]">{{ content[0]?.order?.receive_date_fa }}</template>
                 <template v-else> - </template>
             </span>
@@ -71,7 +71,7 @@
 
       <v-col cols="3">
         <span class="title">تاریخ ثبت مرجوعی : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
                 <template v-if="content && content[0]">{{ content[0]?.returned_order?.created_at_fa }}</template>
                 <template v-else> - </template>
             </span>
@@ -81,14 +81,14 @@
     <div v-for="(returnOrder , index) in content">
       <div class="mt-8">
         <span class="title">نام محصول : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
             <template v-if="returnOrder && returnOrder.shps">{{ returnOrder.shps?.sku?.label }}</template>
             <template v-else> - </template>
         </span>
       </div>
       <div class="mt-8">
         <span class="title">علت مرجوعی : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
             <template v-if="returnOrder && returnOrder.return_reason">{{ returnOrder.return_reason }}</template>
             <template v-else> - </template>
         </span>
@@ -96,7 +96,7 @@
 
       <div class="mt-8">
         <span class="title">توضیحات : </span>
-        <span class="desc text-grey t12400">
+        <span class="desc text-grey t12 w400">
             <template v-if="returnOrder && returnOrder.description">{{ returnOrder.description }}</template>
             <template v-else> - </template>
         </span>
@@ -143,7 +143,7 @@
             variant="elevated"
             width="115"
             class="ml-2">
-      <span class="t12400">
+      <span class="t12 w400">
         تایید
       </span>
         </v-btn>

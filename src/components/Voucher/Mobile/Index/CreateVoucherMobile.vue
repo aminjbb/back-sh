@@ -17,7 +17,7 @@
                         :loading="loading"
                         @click="validate"
                         color="primary500 "
-                        class="px-3 t14500"
+                        class="px-3 t14 w500"
                         rounded
                         block
                     >
@@ -30,7 +30,7 @@
                         @click="createModal = false"
                         color="primary500"
                         variant="outlined"
-                        class="px-3 t14500"
+                        class="px-3 t14 w500"
                         rounded
                         block
                     >

@@ -55,7 +55,7 @@
                           <v-list-item-title>
                               <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/shps`)">
                                   <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                     نمایش کالاهای تخفیف
                                   </span>
                               </div>
@@ -64,7 +64,7 @@
                           <v-list-item-title>
                               <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/customer`)">
                                   <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         نمایش مشتری های تخفیف
                                   </span>
                               </div>
@@ -73,7 +73,7 @@
                           <v-list-item-title>
                               <div class="ma-3 pointer d--rtl" @click="$router.push(`/free-delivery/${item.data.id}/orderList`)">
                                   <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         لیست سفارشات
                                   </span>
                               </div>
@@ -82,7 +82,7 @@
                           <v-list-item-title>
                               <div class="ma-3 pointer d--rtl" @click="removeItem(item.data.id)">
                                   <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         حذف
                                   </span>
                               </div>

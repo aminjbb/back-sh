@@ -23,7 +23,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-15" >
-                            <span class="t14500">
+                            <span class="t14 w500">
                               ثبت مغایرت
                             </span>
             </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="text-center pa-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             از ثبت عملیات مطمئن هستید؟
                         </span>
         </div>

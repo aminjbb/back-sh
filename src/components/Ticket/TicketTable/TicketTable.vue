@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500"
+                class="text-center c-table__header__item t12 w500"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -38,7 +38,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5 number-font">
+                    <span class="t14 w300 text-gray-darken-1 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -75,7 +75,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5">
+                    <span class="t14 w300 text-gray-darken-1 py-5">
                         <template v-if="item.title">
                             {{ item.title }}
                         </template>
@@ -89,7 +89,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="py-5" :class="item.priority == 'urgent' ? 't14500 text-red-darken-4' : item.priority == 'high' ? 't14500 text-red-darken-2' : 't14300 text-gray-darken-1 '" :style="{ 'text-shadow': item.priority === 'urgent' ? '0px 0px 7px #CE0202' : '' }">
+                    <span class="py-5" :class="item.priority == 'urgent' ? 't14 w500 text-red-darken-4' : item.priority == 'high' ? 't14 w500 text-red-darken-2' : 't14 w300 text-gray-darken-1 '" :style="{ 'text-shadow': item.priority === 'urgent' ? '0px 0px 7px #CE0202' : '' }">
                         <template v-if="item.priority">
                             {{getPriorityText(item.priority)}}
                         </template>
@@ -104,7 +104,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <v-chip
-                        class="ma-2 rounded-lg t10400"
+                        class="ma-2 rounded-lg t10 w400"
                         :color="getStatusColor(item.status)"
                         text-color="white">
                         {{getStatusText(item.status)}}
@@ -115,7 +115,7 @@
                     v-if="header[6].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5">
+                    <span class="t14 w300 text-gray-darken-1 py-5">
                         <template v-if="item.user && item.user.first_name   ">
                             {{ item.user.first_name }} {{ item.user.last_name }}
                         </template>
@@ -129,7 +129,7 @@
                     v-if="header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray-darken-1 py-5 number-font">
+                        <span class="t14 w300 text-gray-darken-1 py-5 number-font">
                             <template v-if="item.user && item.user.phone_number   ">
                                 {{ item.user.phone_number }}
                             </template>
@@ -143,7 +143,7 @@
                     v-if=" header[8].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5 number-font">
+                    <span class="t14 w300 text-gray-darken-1 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{item.updated_at.split('T')[1].split('.')[0]}}
                             {{ item.created_at_fa }}
@@ -158,7 +158,7 @@
                         v-if="header[9].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray-darken-1 py-5 number-font">
+                    <span class="t14 w300 text-gray-darken-1 py-5 number-font">
                         <template v-if="item.latest_date_fa">
                             {{ item.latest_date_fa.split(' ')[1] }}
                             {{ item.latest_date_fa.split(' ')[0] }}
@@ -180,7 +180,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray-darken-1">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray-darken-1">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

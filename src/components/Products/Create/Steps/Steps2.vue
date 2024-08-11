@@ -7,7 +7,7 @@
       <v-row class="volume-list">
         <v-col cols="12" md="4">
           <div class="text-right my-2 w-100">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.height }}
 
             </span>
@@ -39,7 +39,7 @@
 
         <v-col cols="12" md="4">
           <div class="text-right my-2">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.width }}
             </span>
           </div>
@@ -69,7 +69,7 @@
 
         <v-col cols="12" md="4">
           <div class="text-right my-2">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.length }}
             </span>
           </div>
@@ -100,7 +100,7 @@
 
         <v-col cols="12" md="4">
           <div class="text-right my-2">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.weight }}
             </span>
           </div>
@@ -131,7 +131,7 @@
 
         <v-col cols="12" md="4">
           <div class="text-right my-2">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.volume }}
             </span>
           </div>
@@ -163,7 +163,7 @@
 
       <div>
         <div class="text-right my-2 w-100">
-          <span class="t12500">
+          <span class="t12 w500">
               {{ lables.specifications }}
           </span>
         </div>
@@ -174,7 +174,7 @@
 
       <div>
         <div class="text-right my-2 w-100">
-          <span class="t12500">
+          <span class="t12 w500">
               {{ lables.advantages }}
           </span>
         </div>
@@ -190,7 +190,7 @@
 
       <div>
         <div class="text-right my-2 w-100">
-          <span class="t12500">
+          <span class="t12 w500">
               {{ lables.disAdvantages }}
           </span>
         </div>
@@ -206,7 +206,7 @@
 
       <div>
         <div class="text-right my-2 w-100">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.instructions }}
             </span>
         </div>
@@ -222,7 +222,7 @@
 
       <div>
         <div class="text-right my-2 w-100">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.usage }}
             </span>
         </div>

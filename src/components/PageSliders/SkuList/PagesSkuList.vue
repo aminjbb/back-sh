@@ -32,7 +32,7 @@
                                         :max-lines='1'
                                         autoResize
                                         location="start"
-                                        class="text-gray500 t14300 text-right" />
+                                        class="text-gray500 t14 w300 text-right" />
                                 </v-col>
                             </v-row>
                         </v-list-item>

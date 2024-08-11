@@ -7,7 +7,7 @@
           class="px-10 py-5">
         <v-col cols="4">
           <div class="text-right ">
-            <span class="text-gray600 t14500">
+            <span class="text-gray600 t14 w500">
              شناسه کالا
             </span>
             <span class="text-error">
@@ -37,7 +37,7 @@
         </v-col>
         <v-col v-if="shipmentType === 'seller'" cols="5">
           <div class="text-right">
-                        <span class="text-gray600 t14500">
+                        <span class="text-gray600 t14 w500">
                             شناسه کالا
                         </span>
           </div>
@@ -77,22 +77,22 @@
             جمع:
           </v-col>
           <v-col cols="1" class="mr-12 pr-8">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRequestCount }}
             </span>
           </v-col>
           <v-col cols="1" class="pr-5">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumMinToleranceCount }}
             </span>
           </v-col>
           <v-col cols="1" class="pr-2">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumMaxToleranceCount }}
             </span>
           </v-col>
           <v-col cols="1" class="pr-0">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRemainedCount }}
             </span>
           </v-col>
@@ -103,7 +103,7 @@
                 variant="outlined"
                 width="115"
                 @click="finishedPack()">
-              <span class="t14300">اتمام شمارش</span>
+              <span class="t14 w300">اتمام شمارش</span>
             </v-btn>
           </v-col>
         </v-row>

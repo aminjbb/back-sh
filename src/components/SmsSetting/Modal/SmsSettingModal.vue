@@ -2,7 +2,7 @@
   <div>
     <div class="ma-5 pointer" @click="dialog= true">
       <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+      <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
     </div>
 
     <v-dialog v-model="dialog" width="auto">

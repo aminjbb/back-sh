@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -36,7 +36,7 @@
                                 variant="text"
                                 height="40"
                                 rounded
-                                class="px-5 mt-1 text-grey-darken-1 t14300">
+                                class="px-5 mt-1 text-grey-darken-1 t14 w300">
                                 <template v-slot:append>
                                     <v-icon>mdi-pen-minus</v-icon>
                                 </template>
@@ -61,7 +61,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -71,12 +71,12 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                    <template v-if="item.label != null">
-                      <span class="t14300 text-gray500 py-5" >
+                      <span class="t14 w300 text-gray500 py-5" >
                         {{ item.label }}
                     </span>
                    </template>
                     <template  v-else>
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                         ---
                     </span>
                     </template>
@@ -86,7 +86,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.type">
                             {{ item.type }}
                         </template>
@@ -100,7 +100,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.id">
                             {{ item.id }}
                         </template>
@@ -114,7 +114,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -128,7 +128,7 @@
                     v-if="header[5].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.updated_at_fa">
                             {{ item.updated_at_fa }}
                         </template>
@@ -142,7 +142,7 @@
                     v-if="(item.is_index  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="isIndex[index]"
                             inset
@@ -155,7 +155,7 @@
                     v-if="(item.is_follow  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="isFollow[index]"
                             inset
@@ -168,7 +168,7 @@
                     v-if="(item.is_active  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -190,7 +190,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/template`)">
                                         <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             قالب صفحه
                                         </span>
                                     </div>
@@ -201,7 +201,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/seo`)">
                                         <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تنظیمات سئو
                                         </span>
                                     </div>
@@ -212,7 +212,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/image`)">
                                         <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تصاویر
                                         </span>
                                     </div>
@@ -223,7 +223,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/update/content`)">
                                         <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             محتوا
                                         </span>
                                     </div>
@@ -234,7 +234,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/page/${item.id}/sliders/index`)">
                                         <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             مدیریت محصولات
                                         </span>
                                     </div>
@@ -249,7 +249,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

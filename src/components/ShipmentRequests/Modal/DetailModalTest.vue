@@ -2,7 +2,7 @@
   <div class="text-right  ">
     <div class="ma-3 pointer" @click="requestShipmentDetailShipmentDetail()">
       <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">
+      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             نمایش جزئیات
                                         </span>
     </div>
@@ -24,38 +24,38 @@
         <div class="text-center  ">
           <v-card class="d-flex justify-center align-center px-10 ma-5  " height="82">
             <div class="mx-10">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             تاریخ ارسال :
                         </span>
-              <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500 number-font d--ltr">
+              <span v-if="retailObject.sent_to_warehouse_at " class="t13 w400 text-gray500 number-font d--ltr">
                             {{ convertDateToJalai(retailObject.sent_to_warehouse_at, '-', false) }}
                         </span>
-              <span v-else class="t13400 text-gray500">
+              <span v-else class="t13 w400 text-gray500">
                             ----
                         </span>
             </div>
             <div class="mx-10">
-                        <span class="t14500 ">
+                        <span class="t14 w500 ">
                             شناسه محموله :
                         </span>
-              <span class="t13400 text-gray500 number-font">
+              <span class="t13 w400 text-gray500 number-font">
                             {{ retailObject.id }}
                         </span>
             </div>
             <div class="mx-10" v-if="retailObject.supplier">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             نام فروشگاه:
                         </span>
-              <span class="t13400 text-gray500">
+              <span class="t13 w400 text-gray500">
                             {{ retailObject?.supplier?.shopping_name }}
                         </span>
             </div>
 
             <div class="mx-10" v-else>
-                        <span class="t14500">
+                        <span class="t14 w500">
                             نام تامین کننده :
                         </span>
-              <span class="t13400 text-gray500">
+              <span class="t13 w400 text-gray500">
                             {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
             </div>
@@ -86,11 +86,11 @@
             </div>
             <v-divider />
             <div class="calculate-all d-flex justify-end align-center">
-              <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px">
+              <div class="text-center c-table__header__item t12 w500 text-black" style="width:17.1111%;padding:15px 10px">
                 جمع:
               </div>
 
-              <div class="justify-center  c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
+              <div class="justify-center  c-table__header__item t12 w500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
                 <template v-if="retailObject && retailObject.shps_list.buying_price >= 0">
                   {{retailObject.buying_price}}
                 </template>
@@ -98,7 +98,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_list.customer_price >= 0">
                   {{retailObject.shps_list.customer_price }}
                 </template>
@@ -106,7 +106,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black " style="width:11.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_list.sum_customer_price ">
                   {{retailObject.shps_list.sum_customer_price}}
                 </template>
@@ -114,7 +114,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black mr-15" style="width:11.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black mr-15" style="width:11.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_count >= 0">
                   {{retailObject.shps_count}}
                 </template>
@@ -122,7 +122,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black mr-10" style="width:11.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black mr-10" style="width:11.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_count >= 0">
                   {{retailObject.total_buying_price}}
                 </template>
@@ -130,7 +130,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black " style="width:11.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_count >= 0">
                   {{retailObject.total_customer_price}}
                 </template>
@@ -138,7 +138,7 @@
                   -
                 </template>
               </div>
-              <div class="justify-center c-table__header__item t12500 text-black " style="width:11.1111%;padding:15px 10px">
+              <div class="justify-center c-table__header__item t12 w500 text-black " style="width:11.1111%;padding:15px 10px">
                 <template v-if="retailObject && retailObject.shps_count >= 0">
                   {{retailObject.total_profit}}%
                 </template>

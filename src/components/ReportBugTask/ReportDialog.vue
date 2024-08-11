@@ -4,7 +4,7 @@
       <v-icon class="text-grey-darken-1 pointer"  >
               mdi-close-octagon-outline
       </v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300 pointer" @click="dialog= true">
+      <span class="mr-2 text-grey-darken-1 t14 w300 pointer" @click="dialog= true">
             توقف اختصاص به پیک آپر
       </span>
     </div>
@@ -31,7 +31,7 @@
                 variant="outlined">
             </v-textarea>
 
-            <div class="text-center t14400" >
+            <div class="text-center t14 w400" >
               آیا از انجام این عملیات اطمینان دارید ؟
             </div>
           </div>

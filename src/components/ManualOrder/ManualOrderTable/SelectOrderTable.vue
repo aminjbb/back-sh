@@ -4,12 +4,12 @@
 
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
-        <div v-if="head.show" class="text-center c-table__header__item t12500 text-black" style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        <div v-if="head.show" class="text-center c-table__header__item t12 w500 text-black" style="padding:20px 3px" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           {{ head.name }}
         </div>
       </template>
 
-      <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" style="padding:20px 3px">
+      <div class="text-center c-table__header__item t12 w500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }" style="padding:20px 3px">
         عملیات
       </div>
     </header>
@@ -17,7 +17,7 @@
       <div v-if="items && items.length > 0/*  && !loading */ " class="c-table__contents">
         <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
           <div v-if="header[0].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -27,7 +27,7 @@
           </div>
 
           <div v-if="header[2].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.label">
                           {{ item.label }}
                         </template>
@@ -38,7 +38,7 @@
           </div>
 
           <div v-if="header[3].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.customerPrice">
                             {{ item.customerPrice}}
                         </template>
@@ -49,7 +49,7 @@
           </div>
 
           <div v-if="header[4].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.sitePrice">
                             {{ item.sitePrice }}
                         </template>
@@ -60,7 +60,7 @@
           </div>
 
           <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.siteStock">
                             {{ item.siteStock }}
                         </template>
@@ -86,7 +86,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl"  @click="removeItem(item.id)">
                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list>
@@ -98,7 +98,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون کالایی به لیست، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون کالایی به لیست، افزوده نشده است.</span>
         </div>
       </div>
     </div>

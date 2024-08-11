@@ -61,17 +61,17 @@
                 <div>
                   <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
                     <div>
-                                    <span class="t12400">
+                                    <span class="t12 w400">
                                         شماره ردیف :
-                                        <span class="t12400 text-gray600 number-font">
+                                        <span class="t12 w400 text-gray600 number-font">
                                             {{ placementDetail?.row_number }}
                                         </span>
                                     </span>
                     </div>
                     <div>
-                                    <span class="t12400">
+                                    <span class="t12 w400">
                                         شماره قفسه :
-                                        <span class=" t12400 text-gray600 number-font">
+                                        <span class=" t12 w400 text-gray600 number-font">
                                             {{ placementDetail?.placement_number }}
                                         </span>
                                     </span>
@@ -79,17 +79,17 @@
                   </div>
                   <div class="text-right  px-5 d-flex justify-space-between px-10">
                     <div>
-                                    <span class="t12400">
+                                    <span class="t12 w400">
                                         شماره طبقه :
-                                        <span class=" t12400 text-gray600 number-font">
+                                        <span class=" t12 w400 text-gray600 number-font">
                                             {{ placementDetail?.step_number }}
                                         </span>
                                     </span>
                     </div>
                     <div>
-                                    <span class="t12400">
+                                    <span class="t12 w400">
                                         شماره شلف :
-                                        <span class=" t12400 text-gray600 number-font">
+                                        <span class=" t12 w400 text-gray600 number-font">
                                             {{ placementDetail?.shelf_number }}
                                         </span>
                                     </span>

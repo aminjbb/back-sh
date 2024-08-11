@@ -33,14 +33,14 @@
             >
               <span
                   v-if="step < 4"
-                  class="t14300"
+                  class="t14 w300"
               >
                تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300"
+                  class="t14 w300"
               >
                  تایید و ثبت
               </span>

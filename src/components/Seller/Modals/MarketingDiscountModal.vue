@@ -113,7 +113,7 @@
             <v-row class="mt-1 d--rtl">
                 <v-col cols="6">
                     <div class="text-right px-5">
-                        <span class="t12300 modal__label">
+                        <span class="t12 w300 modal__label">
                             تاریخ شروع
                         </span>
                         <div align="center" class="d--ltr d-flex pb-5 align-center">
@@ -132,7 +132,7 @@
 
                 <v-col cols="6">
                     <div class="text-right px-5">
-                        <span class="t12300 modal__label">
+                        <span class="t12 w300 modal__label">
                             تاریخ پایان
                         </span>
                         <div align="center" class="d--ltr d-flex pb-5 align-center">
@@ -150,7 +150,7 @@
 
                 <v-col cols="6">
                     <div class="text-right px-5">
-                        <span class="t12300 modal__label">
+                        <span class="t12 w300 modal__label">
                             نوع تخفیف
                         </span>
                         <v-select
@@ -166,7 +166,7 @@
 
                 <v-col cols="6">
                     <div class="text-right px-5">
-                        <span class="t12300 modal__label">
+                        <span class="t12 w300 modal__label">
                             مقدار تخفیف
                         </span>
                         <v-text-field

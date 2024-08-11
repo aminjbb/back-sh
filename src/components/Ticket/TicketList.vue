@@ -40,7 +40,7 @@
 
         <template v-slot:customSlot="item">
           <v-chip
-              class="ma-2 rounded-lg t10400"
+              class="ma-2 rounded-lg t10 w400"
               :color="getStatusColor(item.data.custom)"
               text-color="white">
             {{getStatusText(item.data.custom)}}
@@ -61,7 +61,7 @@
                     <v-icon size="small" class="text-grey-darken-1">
                       mdi-pen
                     </v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -70,7 +70,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                     <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>

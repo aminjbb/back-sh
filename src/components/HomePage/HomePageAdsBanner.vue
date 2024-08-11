@@ -3,7 +3,7 @@
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" min-height="500">
         <div class="create-form__info-form scroller">
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     دسکتاپ
                 </span>
             </div>
@@ -15,7 +15,7 @@
                     device="desktop" />
             </div>
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     تبلت
                 </span>
             </div>
@@ -27,7 +27,7 @@
                     device="tablet" />
             </div>
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     موبایل
                 </span>
             </div>

@@ -71,7 +71,7 @@
                                                 <v-icon size="small" class="text-grey-darken-1">
                                                     mdi-pen
                                                 </v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     ویرایش
                                                 </span>
                                             </div>
@@ -83,12 +83,12 @@
                                             <div class="ma-5 pointer" @click="changeStatus(item.data)">
                                                 <template v-if="item.data.contract_status === 'associate'">
                                                     <v-icon class="text-grey-darken-1">mdi-close-circle-outline</v-icon>
-                                                    <span class="mr-2 text-grey-darken-1 t14300">توقف همکاری </span>
+                                                    <span class="mr-2 text-grey-darken-1 t14 w300">توقف همکاری </span>
                                                 </template>
 
                                                 <template v-if="item.data.contract_status === 'disassociate'">
                                                     <v-icon class="text-grey-darken-1">mdi-check-circle-outline</v-icon>
-                                                    <span class="mr-2 text-grey-darken-1 t14300">شروع همکاری </span>
+                                                    <span class="mr-2 text-grey-darken-1 t14 w300">شروع همکاری </span>
                                                 </template>
                                             </div>
                                         </v-list-item-title>

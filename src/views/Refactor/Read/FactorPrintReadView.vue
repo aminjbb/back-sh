@@ -53,34 +53,34 @@
                 <div class="modal__content d--rtl">
                     <y-row class="c-table">
                         <header class="c-table__header d-flex justify-between">
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:7.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:7.1111%;padding: 20px 5px;">
                                 ردیف
                             </div>
-                            <div class="text-right c-table__header__item t12500 text-black" style="width:17.1111%;padding: 20px 5px;">
+                            <div class="text-right c-table__header__item t12 w500 text-black" style="width:17.1111%;padding: 20px 5px;">
                                 نام کالا
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 شناسه shps
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 قیمت خرید
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 قیمت مصرف
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 تعداد درخواستی
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding: 20px 5px;">
                                 تعداد دریافتی
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 قیمت خرید کل
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:12.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:12.1111%;padding: 20px 5px;">
                                 قیمت مصرف کل
                             </div>
-                            <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding: 20px 5px;">
+                            <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding: 20px 5px;">
                                 درصد سود
                             </div>
                         </header>
@@ -92,13 +92,13 @@
                                     :key="index"
                                     class="d-flex justify-between c-table__contents__row">
                                     <div class="c-table__contents__item justify-center" style="width:7.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             {{rowIndexTable(index)}}
                                         </span>
                                     </div>
 
                                     <div class="c-table__contents__item justify-start" style="width:17.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.sku">
                                                 {{shps.sku}}
                                             </template>
@@ -109,7 +109,7 @@
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.shps !== null">
                                                 {{shps.shps}}
                                             </template>
@@ -120,7 +120,7 @@
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.buying_price !== null">
                                                 {{shps.buying_price}}
                                             </template>
@@ -131,7 +131,7 @@
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.customer_price !== null">
                                                 {{shps.customer_price}}
                                             </template>
@@ -142,7 +142,7 @@
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.shps_requested_count !== null">
                                                 {{shps.shps_requested_count}}
                                             </template>
@@ -152,7 +152,7 @@
                                         </span>
                                     </div>
                                     <div class="c-table__contents__item justify-center" style="width:10.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                             <template v-if="shps.shps_received_count !== null">
                                                 {{shps.shps_received_count}}
                                             </template>
@@ -163,19 +163,19 @@
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                                 {{shps?.received_buying_price_sum}}
                                         </span>
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:12.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                                 {{shps?.received_customer_price_sum}}
                                         </span>
                                     </div>
 
                                     <div class="c-table__contents__item justify-center" style="width:11.1111%;padding:3px 10px">
-                                        <span class="t12300 text-gray500 py-5 number-font">
+                                        <span class="t12 w300 text-gray500 py-5 number-font">
                                                 {{shps?.received_profit_percent}}
                                         </span>
                                     </div>
@@ -185,19 +185,19 @@
                                 <img src="@/assets/img/NullTable.png" alt="shavaz image">
                                 <div class="d-flex justify-center align-center flex-column">
                                     <span class="title4 text-black mb-5">لیست خالی!</span>
-                                    <span class="t14300 text-grey-darken-3">تاکنون کالایی به این لیست، افزوده نشده است.</span>
+                                    <span class="t14 w300 text-grey-darken-3">تاکنون کالایی به این لیست، افزوده نشده است.</span>
                                 </div>
                             </div>
                         </div>
                     </y-row>
 
                     <div class="calculate-all d-flex justify-between align-center">
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:7.1111%;padding:15px 10px">
                             جمع:
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:17.1111%;padding:15px 10px"></div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:17.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.sum_total_buying_price >=0">
                                 {{factorSkuData.sum_total_buying_price}}
                             </template>
@@ -205,7 +205,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.sum_total_customer_price >= 0">
                                 {{factorSkuData.sum_total_customer_price}}
                             </template>
@@ -213,7 +213,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_requested_count >= 0">
                                 {{factorSkuData.total_requested_count}}
                             </template>
@@ -221,7 +221,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                             <template v-if="factorSkuData && factorSkuData.total_received_count >= 0">
                                 {{factorSkuData.total_received_count}}
                             </template>
@@ -229,13 +229,13 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                                 {{factorSkuData?.total_received_buying_price_sum}}
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:12.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:12.1111%;padding:15px 10px">
                                 {{factorSkuData?.total_received_customer_price_sum}}
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black number-font" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:11.1111%;padding:15px 10px">
                                 {{factorSkuData?.total_received_profit_percent}}
                         </div>
                     </div>

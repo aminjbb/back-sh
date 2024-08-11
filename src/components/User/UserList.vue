@@ -81,7 +81,7 @@
                     <v-icon size="small" class="text-grey-darken-1">
                       mdi-pen
                     </v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -90,7 +90,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push('/wallet/index?user_id='+item.id)">
                     <v-icon class="text-grey-darken-1">mdi-wallet-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">کیف پول</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">کیف پول</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -99,7 +99,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                     <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -165,6 +165,14 @@ import { AxiosCall } from "../../assets/js/axios_call";
 import {openConfirm, openToast} from "@/assets/js/functions";
 
 export default {
+
+  components:{
+    ShTable,
+    PanelFilter,
+    ModalExcelDownload,
+    ModalColumnFilter,
+  },
+
   setup() {
     const {
       pageLength,
@@ -190,13 +198,6 @@ export default {
       filterField,
       loading
     };
-  },
-
-  components:{
-    ShTable,
-    PanelFilter,
-    ModalExcelDownload,
-    ModalColumnFilter,
   },
 
   data() {

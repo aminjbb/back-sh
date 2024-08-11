@@ -76,7 +76,7 @@
                 <v-row justify="center" align="center" class="pa-5">
                     <v-col cols="12">
                         <div class="text-center pl-5">
-                            <span class="t14500">
+                            <span class="t14 w500">
                               از تغییر وضعیت مطمئن هستید
                             </span>
                         </div>

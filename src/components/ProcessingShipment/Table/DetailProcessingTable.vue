@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t10400 text-black"
+            class="text-center c-table__header__item t10 w400 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -31,45 +31,45 @@
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
           </div>
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.sku_label }}
                     </span>
           </div>
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ splitChar(item?.customer_price) }}
                     </span>
           </div>
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="model==='shipmentDetail'" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="model==='shipmentDetail'" class="t14 w300 text-gray500 py-5 number-font">
                         {{ item?.shps_count }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5 number-font">
+            <span v-else class="t14 w300 text-gray500 py-5 number-font">
                         {{ item?.shps_packed_count }}
                     </span>
           </div>
           <div
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{splitChar( item?.sum_customer_price )}}
                     </span>
           </div>
@@ -87,7 +87,7 @@
 
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
+                    <span class="t14 w300 text-black py-5 number-font">
                         جمع
                     </span>
             </div>
@@ -107,7 +107,7 @@
 
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
+                    <span class="t14 w300 text-black py-5 number-font">
                        {{ splitChar(detail?.sum_shps_customer_price) }}
                     </span>
             </div>
@@ -115,7 +115,7 @@
 
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
+                    <span class="t14 w300 text-black py-5 number-font">
                          {{ detail.shps_count }}
                     </span>
             </div>
@@ -123,7 +123,7 @@
 
                 class="c-table__contents__item justify-center"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-black py-5 number-font">
+                    <span class="t14 w300 text-black py-5 number-font">
                         {{ splitChar(detail.total_customer_price )}}
                     </span>
             </div>

@@ -57,7 +57,7 @@
                         <v-list-item-title>
                             <div class="ma-3 pointer d--rtl" @click="$router.push(`/returned-orders/request/${item.data.id}`)">
                                 <v-icon class="text-grey-darken-1" size="x-small">mdi-keyboard-return</v-icon>
-                                <span class="mr-2 text-grey-darken-1 t14300">
+                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                         بررسی درخواست مرجوعی
                                 </span>
                             </div>
@@ -66,7 +66,7 @@
                         <v-list-item-title>
                             <div class="ma-3 pointer d--rtl" @click="showDetails(item.data.id)">
                                 <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-                                <span class="mr-2 text-grey-darken-1 t14300">
+                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                         نمایش جزئیات
                                 </span>
                             </div>
@@ -75,7 +75,7 @@
                         <v-list-item-title>
                             <div class="ma-3 pointer d--rtl" @click="showFactor(item.data.id)">
                                 <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                                <span class="mr-2 text-grey-darken-1 t14300">
+                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                         نمایش فاکتور مالی
                                 </span>
                             </div>
@@ -84,7 +84,7 @@
                         <v-list-item-title>
                             <div class="ma-3 pointer d--rtl" @click="$router.push(`/returned-orders/receipt/${item.data.id}`)">
                                 <v-icon class="text-grey-darken-1" size="x-small">mdi-email-outline</v-icon>
-                                <span class="mr-2 text-grey-darken-1 t14300">
+                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                         رسید ارسال
                                 </span>
                             </div>

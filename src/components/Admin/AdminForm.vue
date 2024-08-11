@@ -10,7 +10,7 @@
             </v-col>
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           نام
                       </span>
                   </div>
@@ -26,7 +26,7 @@
 
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           نام خانوادگی
                       </span>
                   </div>
@@ -42,7 +42,7 @@
 
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                           شماره موبایل
                         </span>
                 </div>
@@ -58,7 +58,7 @@
 
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           ایمیل
                       </span>
                   </div>
@@ -75,7 +75,7 @@
 
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           سطح دسترسی
                       </span>
                   </div>
@@ -94,7 +94,7 @@
 
               <v-col cols="12" md="4">
                   <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           تاریخ تولد
                       </span>
                   </div>
@@ -121,7 +121,7 @@
 
             <v-col cols="12" md="5">
               <div class="text-right my-5">
-                  <span class="t14500">
+                  <span class="t14 w500">
                       گذر واژه
                   </span>
               </div>
@@ -140,7 +140,7 @@
 
             <v-col cols="12" md="5">
               <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           تکرار گذر واژه
                       </span>
               </div>

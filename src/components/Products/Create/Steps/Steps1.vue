@@ -13,7 +13,7 @@
                     class="brands-list"
                 >
                     <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ labels.product }}
                         </span>
                     </div>
@@ -38,7 +38,7 @@
                     class="colors-list"
                 >
                   <div class="text-right my-2">
-                      <span class="t12500">
+                      <span class="t12 w500">
                           {{ labels.skuGroup }}
                       </span>
                   </div>
@@ -75,7 +75,7 @@
                 </v-row>
 
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
                         {{ labels.brand }}
                     </span>
                 </div>
@@ -109,7 +109,7 @@
                     </v-col>
                 </v-row>
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
                         {{ labels.color }}
                     </span>
                 </div>
@@ -194,7 +194,7 @@
 
                 <v-col cols="4">
                     <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ labels.attributes }}
                         </span>
                     </div>
@@ -227,7 +227,7 @@
                 >
                     <div class="flex-grow-1 pl-5">
                         <div class="text-right my-2">
-                            <span class="t12500">
+                            <span class="t12 w500">
                                 {{ labels.attributes_value }}
                             </span>
                         </div>
@@ -269,7 +269,7 @@
 
                     <div>
                         <div class="text-right my-2">
-                            <span class="t12500">
+                            <span class="t12 w500">
                                 {{ labels.variety }}
                             </span>
                         </div>
@@ -306,7 +306,7 @@
             <v-row class="align-end units-list">
                 <v-col cols="4">
                     <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ labels.unit }}
                         </span>
                     </div>
@@ -388,7 +388,7 @@
                         </span>
                     </v-chip>
                     <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ labels.operator }}
                         </span>
                     </div>

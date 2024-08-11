@@ -40,7 +40,7 @@
                     <template v-for="(filter, index) in filterField" :key="index">
                         <!-- Text filds -->
                         <v-col v-if="filter.type === 'text'" cols="6">
-                            <div class="t12300 text-right mb-1 text-grey">{{filter.name}}</div>
+                            <div class="t12 w300 text-right mb-1 text-grey">{{filter.name}}</div>
 
                             <v-text-field
                                 variant="outlined"

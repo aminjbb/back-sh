@@ -2,7 +2,7 @@
     <v-data-table-server
         hover
         id="sh-table"
-        class="table c-table rounded-t-lg number-font t14300 "
+        class="table c-table rounded-t-lg number-font t14 w300 "
         :headers="headers.filter((header) => header.show)"
         :items="items"
         :items-per-page="perPage"
@@ -40,7 +40,7 @@
         </template>
 
         <template v-slot:item.row="{index}">
-            <span class="t14300  number-font">
+            <span class="t14 w300  number-font">
                 {{ rowIndexTable(index) }}
             </span>
         </template>

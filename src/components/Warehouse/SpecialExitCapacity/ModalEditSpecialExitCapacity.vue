@@ -32,7 +32,7 @@
         <v-row justify="center" class="my-10">
           <v-col cols="12" class="px-15">
             <div class="text-right my-5">
-                      <span class="t14500 text-gray600">
+                      <span class="t14 w500 text-gray600">
                         ظرفیت ویژه خروج
                       </span>
             </div>

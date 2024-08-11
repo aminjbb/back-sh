@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -20,7 +20,7 @@
         </div>
       </template>
 
-      <div class="text-center c-table__header__item t12500 text-black"
+      <div class="text-center c-table__header__item t12 w500 text-black"
            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
         عملیات
       </div>
@@ -37,7 +37,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -46,7 +46,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.shps }}
                         </span>
           </div>
@@ -55,7 +55,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             <template v-if="item.sku.label">
                                 {{ item.sku.label }}
                             </template>
@@ -69,7 +69,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             <template v-if="item.packed_count">
                                 {{ item.packed_count }}
                             </template>
@@ -82,7 +82,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             <template v-if="item.shipment_id">
                                 {{ item.shipment_id }}
                             </template>
@@ -122,7 +122,7 @@
                         class="ma-5 pointer"
                         @click=packageManagement(item)>
                       <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                               مدیریت بسته
                                                 </span>
                     </div>
@@ -134,7 +134,7 @@
                         class="ma-5 pointer"
                         @click=print(item)>
                       <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                               پرینت
                       </span>
                     </div>
@@ -154,7 +154,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

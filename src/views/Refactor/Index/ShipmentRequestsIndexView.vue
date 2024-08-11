@@ -39,23 +39,23 @@
                                     class="factor-dropdown__selected"
                                     @click="showDropDown(item.index)"
                                     :style="{ backgroundColor: BgSelectedStatus(item.data.custom) }">
-                                    <span class="t10400">{{ factorSelectedTitleStatus(item.data.custom) }}</span>
+                                    <span class="t10 w400">{{ factorSelectedTitleStatus(item.data.custom) }}</span>
                                     <v-icon icon="mdi-chevron-down"></v-icon>
                                 </div>
                                 <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${item.index}`">
                                     <div
-                                        class="factor-dropdown__item my-2 t10400"
+                                        class="factor-dropdown__item my-2 t10 w400"
                                         id="factor-dropdown__item--1">
                                         {{ translateType(item.data.custom) }}
                                     </div>
                                     <div
-                                        class="factor-dropdown__item my-2 t10400"
+                                        class="factor-dropdown__item my-2 t10 w400"
                                         id="factor-dropdown__item--2"
                                         @click="openRejectModal(item.data)">
                                         رد شده
                                     </div>
                                     <div
-                                        class="factor-dropdown__item retail-status-box my-2 t10400"
+                                        class="factor-dropdown__item retail-status-box my-2 t10 w400"
                                         id="factor-dropdown__item--3"
                                         @click="updateStatus('approved',item.data.id)">
                                         تایید شده
@@ -80,7 +80,7 @@
                                         <v-list-item-title>
                                             <div class="ma-3 pointer" @click="printDetailesRoute(item.data.id)">
                                                 <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     نمایش جزئیات
                                                 </span>
                                             </div>

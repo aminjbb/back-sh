@@ -198,6 +198,7 @@ import PackagePlacementListView from "@/views/PackagePlacement/PackagePlacementL
 import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementScanView.vue";
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
 import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/ShpsListLocatingToShelfView.vue";
+import SmsNotificationListViwe from "@/views/SmsNotification/SmsNotificationListView.vue";
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
@@ -310,6 +311,7 @@ import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
+import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
 
 
 const router = createRouter({
@@ -675,6 +677,36 @@ const router = createRouter({
             ],
         },
         {
+            path: '/delivery-code', // Notification routes
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [{
+                path: 'index',
+                name: 'DeliveryCode',
+                component: DeliveryCodeView,
+                meta: {
+                    name: 'ویرایش کد ارسال'
+                }
+            },
+                {
+                    path: 'create',
+                    name: 'createTicket',
+                    component: CreateNewTickets,
+                    meta: {
+                        name: 'ساخت تیکت'
+                    }
+                }, {
+                    path: 'get/:ticketId',
+                    name: 'getTicket',
+                    component: GetTicketView,
+                    meta: {
+                        name: 'تیکت'
+                    }
+                },
+            ],
+        },
+        {
             path: '/change-password', // Change password
             meta: {
                 name: 'پشتیبانی'
@@ -908,6 +940,40 @@ const router = createRouter({
                     }
                 },
             ]
+        },
+
+        {
+            path: '/sms-notification',
+            meta: {
+                name: ' پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSNotificationListView',
+                    component: SmsNotificationListViwe,
+                    meta: {
+                        name: 'لیست پیامک ها'
+                    }
+                }
+            ],
+        },
+
+        {
+            path: '/sms-setting',
+            meta: {
+                name: ' تنظیمات پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSSettingListView',
+                    component: SmsSettingListView,
+                    meta: {
+                        name: 'تنظیمات پیامک'
+                    }
+                }
+            ],
         },
 
         {

@@ -2,7 +2,7 @@
 <div class="text-right">
   <div class="ma-5 pointer" @click="withdrawDetail(item)">
     <v-icon size="small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-    <span class="mr-2 text-grey-darken-1 t14300">
+    <span class="mr-2 text-grey-darken-1 t14 w300">
                                             مشاهده دلیل رد </span>
   </div>
     <v-dialog v-model="dialog" width="1060">
@@ -17,7 +17,7 @@
                 </v-row>
 
                 <div class="d-flex align-center justify-center  ">
-                    <span class="t14500 ">
+                    <span class="t14 w500 ">
                         دلیل رد درخواست
                     </span>
                 </div>

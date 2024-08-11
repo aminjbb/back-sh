@@ -53,7 +53,7 @@
             </div>
           </div>
           <div v-else class=" pt-8 px-10 text-center">
-            <span class="t14400">
+            <span class="t14 w400">
               برای مشخص شدن اطلاعات جایگاه، شناسه شلف را اسکن کنید.
           </span>
           </div>

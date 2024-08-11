@@ -3,10 +3,10 @@
         <PickUpItemBase/>
     </template>
     <template v-if="orderBase">
-        <PickUpOrderBase/>
+        <PickUpOrderBase @recallMyTasks="myTasks()" @openShelf="openShelf()" :pages="pages" :pickUpTasks="pickUpTasks" :pickUpCount="pickUpCount"/>
     </template>
 
-    <template v-if="pickUpIsNull">
+    <template v-if="pages.pickUpIsNull">
         <div class="h-100 bg-warning d-flex justify-center align-center" >
             <div class=" text-center mx-15">
                 <v-icon size="40">
@@ -36,7 +36,7 @@
 <script>
 import PickUpItemBase from "@/components/WarehouseOrderList/PickUpItemBase.vue";
 import PickUpOrderBase from "@/components/WarehouseOrderList/PickUpOrderBase.vue";
-import {AxiosCall} from "@/assets/js/axios_call";
+import axios from "axios";
 
 export default {
   components: {
@@ -47,30 +47,72 @@ export default {
     return{
         itemBase: false,
         orderBase: false,
-        pickUpIsNull: false
+
+        pages: {
+            pickUp: false,
+            shelf: false,
+            completedPickUp: false,
+            rejectedPickUp: false,
+            partialCompletedPickUp: false,
+            pickUpIsNull: false,
+            pendingPickUp: false,
+        },
+
+        pickUpTasks: null,
+        pickUpCount: null,
     }
   },
     methods: {
-        async getTasks(){
-            const AxiosMethod = new AxiosCall()
-            AxiosMethod.using_auth = true
-            AxiosMethod.token = this.$cookies.get('adminToken')
-            AxiosMethod.end_point = `warehouse/order/pickup/my-tasks`
-            let data = await AxiosMethod.axios_get()
-            if (data.data.warehouse_mode === 'item_base') {
-                this.itemBase = true
-            }
-            else if (data.data.warehouse_mode === 'order_base') {
-                this.orderBase = true
-            }
-            else if (data.data.length === 0){
-                this.pickUpIsNull = true
-            }
-        },
-    },
+        async myTasks(){
+            this.pages.pickUp = false
 
+            await axios
+                .get(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/order/pickup/my-tasks`, {
+                    headers: {
+                        Authorization:
+                            "Bearer " + this.$cookies.get('adminToken')
+                    },
+                })
+                .then((res) => {
+    console.log(res.data.data)
+
+                    if (res.data.data.length === 0){
+                        this.pages.pickUpIsNull = true
+                    } else if (res.data.data.warehouse_mode === 'item_base') {
+                        this.itemBase = true
+                    }
+                    else if (res.data.data.warehouse_mode === 'order_base' && res.data.data.order_pickup_status === 'pickup_completed') {
+                        this.pickUpTasks = res.data.data
+                        this.orderBase = true
+                        this.pages.pickUp = true
+                        this.pages.completedPickUp = true
+                    } else if (res.data.data.warehouse_mode === 'order_base'){
+                        this.pickUpTasks = res.data.data
+                        this.orderBase = true
+                        this.pages.pickUp = true
+                        this.pickUpCount = parseInt(res.data.data.count) - parseInt(res.data.data.picked_count)
+                    }
+                }).catch((err) => {
+    console.log(err)
+                    if (err.response.status === 401) {
+                        this.$router.push('/login')
+                    }  if (err.response.status === 421) {
+                        this.pages.rejectedPickUp = true
+                    } else if (err.response.status === 420) {
+                        this.pages.partialCompletedPickUp = true
+                    } else if (err.response.status === 422) {
+                        this.pages.pendingPickUp = true
+                    }
+                })
+        },
+
+        openShelf(){
+            this.pages.pickUp = false
+            this.pages.shelf = true
+        }
+    },
   mounted() {
-      this.getTasks()
+      this.myTasks()
   },
 }
 </script>

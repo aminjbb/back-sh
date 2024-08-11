@@ -8,7 +8,7 @@
       <v-row align="center" class="px-3 my-5">
         <v-col cols="6">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه محموله</span>
+            <span class="text-gray600 t14 w500">شناسه محموله</span>
             <span class="text-error">*</span>
           </div>
           <div>
@@ -83,7 +83,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/assign-shps-package/${item.data.id}/accept`)">
                     <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                         پردازش محموله
                       </span>
                   </div>
@@ -94,7 +94,7 @@
                 <v-list-item-title>
                   <div class=" pointer" @click="print(item.data.id)">
                     <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                          پرینت محموله
                       </span>
                   </div>

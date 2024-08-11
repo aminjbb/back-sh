@@ -21,7 +21,7 @@
                 class="px-15">
                 <v-col cols="12" md="6">
                     <div class="text-right my-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             شناسه بسته <span class="text-red">*</span>
                         </span>
                     </div>
@@ -35,7 +35,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right my-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نوع بسته
                         </span>
                     </div>
@@ -49,7 +49,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right mb-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نوع گزارش <span class="text-red">*</span>
                         </span>
                     </div>
@@ -66,7 +66,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right mb-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نام کالا <span class="text-red">*</span>
                         </span>
                     </div>

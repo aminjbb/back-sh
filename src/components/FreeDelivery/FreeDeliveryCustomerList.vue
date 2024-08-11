@@ -3,18 +3,18 @@
     <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
             <div>
-              <span class="t14500">عنوان:</span>
-              <span class="t14500 text-gray500">{{ detailData?.name }}</span>
+              <span class="t14 w500">عنوان:</span>
+              <span class="t14 w500 text-gray500">{{ detailData?.name }}</span>
             </div>
           <div>
-            <span class="t14500">روش ارسال:</span>
-            <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+            <span class="t14 w500">روش ارسال:</span>
+            <span v-if="detailData?.tipax" class="t14 w500 text-gray500">تیپاکس</span>
             &nbsp
-            <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+            <span v-if="detailData?.post" class="t14 w500 text-gray500">پست</span>
             &nbsp
-            <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+            <span v-if="detailData?.pishtaz" class="t14 w500 text-gray500">پیشتاز </span>
             &nbsp
-            <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
+            <span v-if="detailData?.nafis" class="t14 w500 text-gray500">نفیس اکسپرس</span>
           </div>
         </div>
     </v-card>

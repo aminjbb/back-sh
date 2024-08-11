@@ -38,22 +38,22 @@
                 class="factor-dropdown__selected"
                 @click="showDropDown(item.index)"
                 :style="{ backgroundColor: BgSelected(item.data.custom) }">
-              <span class="t10400">{{ factorSelectedTitle(item.data.custom) }}</span>
+              <span class="t10 w400">{{ factorSelectedTitle(item.data.custom) }}</span>
               <v-icon icon="mdi-chevron-down"></v-icon>
             </div>
 
             <div class="factor-dropdown__items  align-center pr-2" :id="`factor-dropdown__items-${item.index}`">
-              <div class="factor-dropdown__item my-2 t10400" id="factor-dropdown__item--1">
+              <div class="factor-dropdown__item my-2 t10 w400" id="factor-dropdown__item--1">
                 {{ translateType(item.data.custom) }}
               </div>
               <div
-                  class="factor-dropdown__item my-2 t10400"
+                  class="factor-dropdown__item my-2 t10 w400"
                   id="factor-dropdown__item--2"
                   @click="openRejectModal(item)">
                 رد شده
               </div>
               <div
-                  class="factor-dropdown__item retail-status-box my-2 t10400"
+                  class="factor-dropdown__item retail-status-box my-2 t10 w400"
                   id="factor-dropdown__item--3"
                   @click="updateStatus(item.index,'approved',item)">
                 تایید شده

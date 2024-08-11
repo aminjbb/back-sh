@@ -29,7 +29,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-16">
-              <span class="t14500">انتخاب عملیات</span>
+              <span class="t14 w500">انتخاب عملیات</span>
             </div>
           </v-col>
         </v-row>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="text-right px-6">
-          <span class="t14500 text-gray600">.عملیات مورد نظر را انتخاب کنید</span>
+          <span class="t14 w500 text-gray600">.عملیات مورد نظر را انتخاب کنید</span>
         </div>
 
         <div class="d-flex text-right mt-5 mx-3">
@@ -98,7 +98,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-12">
-              <span class="t14500">خالی کردن شلف سورتینگ</span>
+              <span class="t14 w500">خالی کردن شلف سورتینگ</span>
             </div>
           </v-col>
         </v-row>
@@ -107,8 +107,8 @@
         </div>
 
         <div class="text-center px-6">
-          <div class="t14500 text-gray600"> .با خالی کردن شلف سورتینگ دیگر به جزئیات آن دسترسی نخواهید داشت  </div>
-          <div class="t14500 text-gray600 mt-2">آیا از انجام این کار اطمینان دارید؟</div>
+          <div class="t14 w500 text-gray600"> .با خالی کردن شلف سورتینگ دیگر به جزئیات آن دسترسی نخواهید داشت  </div>
+          <div class="t14 w500 text-gray600 mt-2">آیا از انجام این کار اطمینان دارید؟</div>
         </div>
 
 
@@ -151,7 +151,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-12">
-              <span class="t14500">اتمام سفارش </span>
+              <span class="t14 w500">اتمام سفارش </span>
             </div>
           </v-col>
         </v-row>
@@ -160,8 +160,8 @@
         </div>
 
         <div class="text-center px-6">
-          <div class="t14500 text-gray600"> .با اتمام سفارش، جایگاه سورتینگ تخلیه خواهد شد  </div>
-          <div class="t14500 text-gray600 mt-2">آیا از انجام این کار اطمینان دارید؟</div>
+          <div class="t14 w500 text-gray600"> .با اتمام سفارش، جایگاه سورتینگ تخلیه خواهد شد  </div>
+          <div class="t14 w500 text-gray600 mt-2">آیا از انجام این کار اطمینان دارید؟</div>
         </div>
 
 

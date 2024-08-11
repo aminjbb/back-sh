@@ -32,7 +32,7 @@
 
                     <v-col cols="10">
                         <div class="text-center pr-5">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 تنظیمات ستون های جدول
                             </span>
                         </div>
@@ -61,7 +61,7 @@
                             </v-col>
                             <v-col cols="10">
                                 <div class="text-right">
-                                    <span class=t14500>
+                                    <span class=t14 w500>
                                         {{ head.name }}
                                     </span>
                                 </div>

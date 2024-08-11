@@ -5,7 +5,7 @@
         min-height="500"
     >
       <div class="text-center py-5">
-          <span class="t14500">
+          <span class="t14 w500">
             افزودن صفحه پروموشن
           </span>
       </div>
