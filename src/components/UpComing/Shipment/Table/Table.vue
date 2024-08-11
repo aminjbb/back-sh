@@ -45,7 +45,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
               <template v-if="checkbox">
@@ -58,7 +58,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                        {{ item.sku_label }}
                     </span>
           </div>
@@ -68,7 +68,7 @@
               v-if=" header[2].show"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14 w300 text-gray500 py-5 number-font">
                        {{ item.shps_count }}
                     </span>
           </div>
@@ -76,7 +76,7 @@
               v-if=" header[3].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14 w300 text-gray500 py-5 number-font">
                 {{ item.min_tolerance }}
               </span>
 
@@ -85,7 +85,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14 w300 text-gray500 py-5 number-font">
                 {{ item.max_tolerance }}
               </span>
           </div>
@@ -94,7 +94,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14 w300 text-gray500 py-5 number-font">
              <v-text-field :min="0" type="number" v-if="form[index]" v-model="form[index].count" variant="outlined"/>
               </span>
           </div>
@@ -120,7 +120,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

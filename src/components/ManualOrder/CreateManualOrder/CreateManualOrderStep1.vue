@@ -3,7 +3,7 @@
   <v-row justify="center" align="center">
     <v-col cols="12">
       <div class="text-center py-6">
-        <span class="t14500">اطلاعات سفارش</span>
+        <span class="t14 w500">اطلاعات سفارش</span>
       </div>
     </v-col>
   </v-row>
@@ -15,7 +15,7 @@
       <v-row justify="center" class="mt-10">
         <v-col cols="4">
           <div class="d-flex align-center text-right my-5">
-            <span class="t14500 text-gray600"> شماره سفارش </span>
+            <span class="t14 w500 text-gray600"> شماره سفارش </span>
           </div>
           <v-text-field
               variant="outlined"
@@ -35,8 +35,8 @@
 
         <v-col cols="5">
           <div class="d-flex align-center text-right my-5">
-            <span class="t14500 text-gray600"> کاربر</span>
-            <span class="t14500 text-red-accent-3 mr-1">*</span>
+            <span class="t14 w500 text-gray600"> کاربر</span>
+            <span class="t14 w500 text-red-accent-3 mr-1">*</span>
           </div>
           <v-autocomplete
               placeholder="شماره تلفن کاربر را وارد کنید"
@@ -100,8 +100,8 @@
         <v-col cols="10">
           <v-col cols="6" class="brands-list">
             <div class="d-flex align-center text-right my-5">
-              <span class="t14500 text-gray600"> توضیحات</span>
-              <span class="t14500 text-red-accent-3 mr-1">*</span>
+              <span class="t14 w500 text-gray600"> توضیحات</span>
+              <span class="t14 w500 text-red-accent-3 mr-1">*</span>
             </div>
             <v-text-field
                 :rules="rule"

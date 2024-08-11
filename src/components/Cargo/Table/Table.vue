@@ -135,7 +135,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/cargo-management/${item.id}/package`)">
                                         <v-icon class="text-grey-darken-1" size="small">mdi-package-variant-closed</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             بسته های کارگو
                                         </span>
 
@@ -146,7 +146,7 @@
                                 <v-list-item-title>
                                   <div class=" pointer" @click="print(item)">
                                     <v-icon class="text-grey-darken-1" size="small">mdi-printer-outline</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                             پرینت بسته های کارگو
                                         </span>
                                   </div>
@@ -157,7 +157,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon class="text-grey-darken-1" size="small">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
 

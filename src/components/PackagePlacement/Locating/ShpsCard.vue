@@ -13,7 +13,7 @@
       <div>
         <text-clamp :text='shps?.sku?.label' :max-lines='2'
                     autoResize
-                    class="text-gray500 t14300 text-right"/>
+                    class="text-gray500 t14 w300 text-right"/>
       </div>
 
     </div>

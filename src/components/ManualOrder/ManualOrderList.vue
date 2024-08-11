@@ -63,7 +63,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.data.id}/edit`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                   ویرایش سفارش
                               </span>
                           </div>

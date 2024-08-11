@@ -53,7 +53,7 @@
                                         <v-list-item-title>
                                             <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.data.id}/edit/shps`)">
                                                 <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     مدیریت کالاها
                                                 </span>
                                             </div>
@@ -70,7 +70,7 @@
                                         <v-list-item-title>
                                             <div class=" pointer" @click="print(item.data.id)">
                                                 <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     نمایش جزئیات
                                                 </span>
                                             </div>
@@ -81,7 +81,7 @@
                                         <v-list-item-title>
                                             <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                                                 <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     حذف
                                                 </span>
                                             </div>

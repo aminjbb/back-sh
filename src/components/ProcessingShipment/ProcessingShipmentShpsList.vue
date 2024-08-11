@@ -7,7 +7,7 @@
           class="px-10 py-5">
         <v-col cols="4">
           <div class="text-right ">
-            <span class="text-gray600 t14500">
+            <span class="text-gray600 t14 w500">
              شناسه کالا
             </span>
             <span class="text-error">
@@ -37,7 +37,7 @@
         </v-col>
         <v-col v-if="shipmentType === 'seller'" cols="5">
           <div class="text-right">
-                        <span class="text-gray600 t14500">
+                        <span class="text-gray600 t14 w500">
                             شناسه کالا
                         </span>
           </div>
@@ -103,7 +103,7 @@
                 variant="outlined"
                 width="115"
                 @click="finishedPack()">
-              <span class="t14300">اتمام شمارش</span>
+              <span class="t14 w300">اتمام شمارش</span>
             </v-btn>
           </v-col>
         </v-row>

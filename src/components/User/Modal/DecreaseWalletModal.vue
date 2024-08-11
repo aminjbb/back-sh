@@ -32,7 +32,7 @@
                             </v-col>
                             <v-col cols="7">
                                 <div class=" pl-2">
-                                    <span class="t14500">
+                                    <span class="t14 w500">
                                         برداشت از کیف پول
                                     </span>
                                 </div>
@@ -45,7 +45,7 @@
                                     <span class="text-error">
                                         *
                                     </span>
-                                    <span class="t14500">
+                                    <span class="t14 w500">
                                         علت تراکنش
                                     </span>
 
@@ -64,7 +64,7 @@
                                     <span class="text-error">
                                         *
                                     </span>
-                                    <span class="t14500">
+                                    <span class="t14 w500">
                                         مبلغ کاهش موجودی (ریال)
                                     </span>
 
@@ -79,7 +79,7 @@
                             </v-col>
                             <v-col cols="12" md="12">
                                 <div class="text-right my-5">
-                                    <span class="t14500">
+                                    <span class="t14 w500">
                                          توضیحات
                                     </span>
                                 </div>

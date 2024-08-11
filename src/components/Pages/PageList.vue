@@ -64,7 +64,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/template`)">
                     <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">قالب صفحه</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">قالب صفحه</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -73,7 +73,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/seo`)">
                     <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">تنظیمات سئو</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">تنظیمات سئو</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -82,7 +82,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/image`)">
                     <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">تصاویر</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">تصاویر</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -91,7 +91,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/content`)">
                     <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">محتوا</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">محتوا</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -100,7 +100,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/sliders/index`)">
                     <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">مدیریت محصولات</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">مدیریت محصولات</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>

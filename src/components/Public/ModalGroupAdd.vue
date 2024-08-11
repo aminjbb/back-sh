@@ -33,7 +33,7 @@
 
           <v-col cols="9">
             <div class="text-left pl-15">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 افزودن گروهی
                             </span>
             </div>
@@ -51,7 +51,7 @@
               width="166"
               variant="text"
           >
-                        <span class="t14300 text-primary500">
+                        <span class="t14 w300 text-primary500">
                             دانلود فایل نمونه
                         </span>
           </v-btn>
@@ -65,7 +65,7 @@
               color="primary500"
               rounded
           >
-                        <span class="t14300">
+                        <span class="t14 w300">
                             انتخاب فایل
                         </span>
           </v-btn>

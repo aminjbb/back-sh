@@ -55,7 +55,7 @@
                           <v-list-item-title>
                               <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                                   <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         حذف
                                     </span>
                               </div>
@@ -64,7 +64,7 @@
                           <v-list-item-title>
                               <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.data.id}`)">
                                   <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         ویرایش
                                   </span>
                               </div>
@@ -73,7 +73,7 @@
                           <v-list-item-title>
                               <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.data.id}/sku-group/add`)">
                                   <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
                                         مدیریت محصولات
                                   </span>
                               </div>

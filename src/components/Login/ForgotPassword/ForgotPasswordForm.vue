@@ -84,11 +84,11 @@
                             :disabled="counter > 0"
                             variant="text"
                         >
-                            <span class="text-gray500 t14300" v-if="counter > 0">
+                            <span class="text-gray500 t14 w300" v-if="counter > 0">
                                 {{counter}} ثانیه مانده تا دریافت مجدد کد
                             </span>
 
-                            <span class="text-primary500 t14300" v-else>
+                            <span class="text-primary500 t14 w300" v-else>
                                 دریافت مجدد کد
                             </span>
                         </v-btn>

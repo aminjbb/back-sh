@@ -34,7 +34,7 @@
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center justify-center w-100">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
                         </span>
                     </div>
@@ -45,10 +45,10 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span v-if="item.previous_site_stock" class="t14300 text-center text-gray500 py-5 number-font">
+                            <span v-if="item.previous_site_stock" class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{splitChar(item.previous_site_stock)}}
                             </span>
-                            <span class="text-center t14300 text-gray500" v-else>
+                            <span class="text-center t14 w300 text-gray500" v-else>
                                 -
                             </span>
                         </div>
@@ -58,7 +58,7 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center py-5 number-font" :class="item.change_type === 'increase' ? 'text-success' : 'text-error'">
+                            <span class="t14 w300 text-center py-5 number-font" :class="item.change_type === 'increase' ? 'text-success' : 'text-error'">
 
                                 {{splitChar(item.change_amount)}}
                             </span>
@@ -75,7 +75,7 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{ splitChar(item.site_stock)}}
                             </span>
                         </div>
@@ -85,7 +85,7 @@
                         class="c-table__contents__item justify-center"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{convertDateToJalai(item.created_at ,'-' , true) }}
                             </span>
                         </div>
@@ -98,7 +98,7 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{splitChar(item.customer_price)}}
                             </span>
                         </div>
@@ -108,7 +108,7 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{item.base_discount}}
                             </span>
                         </div>
@@ -118,7 +118,7 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{item.marketing_discount}}
                             </span>
                         </div>
@@ -128,7 +128,7 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{splitChar(item.site_price)}}
                             </span>
                         </div>
@@ -138,7 +138,7 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <div class="d-flex align-center justify-center w-100">
-                            <span class="t14300 text-center text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-center text-gray500 py-5 number-font">
                                 {{item.created_at_fa}}
                             </span>
                         </div>
@@ -151,7 +151,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

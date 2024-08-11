@@ -45,7 +45,7 @@
                                         <span>
                                             <v-checkbox v-model="tables[index].skuStatus[tableIndex]"  @change="selectSku(index , tableIndex ,item.id)" />
                                         </span>
-                                        <span class="t14300">{{ item.id }}</span>
+                                        <span class="t14 w300">{{ item.id }}</span>
                                     </v-row>
                                 </td>
                                 <td style="width: 800px;">

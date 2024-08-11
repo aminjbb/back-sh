@@ -16,7 +16,7 @@
               </v-col>
               <v-col cols="9">
                 <div class="text-left pl-15">
-                  <span class="t14500">غیرفعال کردن منو</span>
+                  <span class="t14 w500">غیرفعال کردن منو</span>
                 </div>
               </v-col>
             </v-row>

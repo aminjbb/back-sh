@@ -1,6 +1,6 @@
 <template>
 <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" style="height:calc(100vh - 100px)">
-    <h3 class="t14400 create-product__header">رسید ارسال</h3>
+    <h3 class="t14 w400 create-product__header">رسید ارسال</h3>
 
     <v-divider color="grey" />
 
@@ -29,7 +29,7 @@
                     variant="outlined"
                     width="115"
                     @click="$router.go(-1)">
-                    <span class="t14300">
+                    <span class="t14 w300">
                         بازگشت
                     </span>
                 </v-btn>

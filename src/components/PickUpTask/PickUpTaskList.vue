@@ -14,7 +14,7 @@
         </template>
 
         <template v-slot:saveSlot="item">
-           <span class="t14300 text-gray500 py-5 number-font">
+           <span class="t14 w300 text-gray500 py-5 number-font">
              <v-btn @click="savePickupChange(item.index , item.data.id)" variant="text">
                <v-icon color="success">mdi-plus</v-icon>
              </v-btn>
@@ -22,7 +22,7 @@
         </template>
 
         <template v-slot:showSlot="item">
-          <span class="t14300 text-gray500 py-5 number-font">
+          <span class="t14 w300 text-gray500 py-5 number-font">
             <ModalOrdersShow :orders="item.data.orders"/>
           </span>
         </template>

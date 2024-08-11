@@ -8,12 +8,12 @@
             </div>
 
             <div class="text-right px-10">
-              <span class="t14500 text-DarkJungle">
+              <span class="t14 w500 text-DarkJungle">
                 فروشنده حقیقی
               </span>
             </div>
             <div class="text-justify px-10 mt-3">
-              <p class="t14300 text-CharcoalGrey">
+              <p class="t14 w300 text-CharcoalGrey">
                 فروشنده حقیقی، یک فرد است که مشخصاتی مانند نام، نام خانوادگی، تاریخ تولد، کد ملی، شماره شناسنامه و... دارد، اما شرکت و کد اقتصادی ندارد.
               </p>
             </div>
@@ -33,12 +33,12 @@
             </div>
 
             <div class="text-right px-10">
-              <span class="t14500 text-DarkJungle">
+              <span class="t14 w500 text-DarkJungle">
                 فروشنده حقوقی
               </span>
             </div>
             <div class="text-justify px-10 mt-3">
-              <p class="t14300 text-CharcoalGrey">
+              <p class="t14 w300 text-CharcoalGrey">
                 فروشنده حقوقی یک موسسه یا شرکت است که به صورت قانونی ثبت شده و مشخصاتی مانند تاریخ ثبت، شماره ثبت، کد شناسایی و کد اقتصادی دارد.
               </p>
             </div>

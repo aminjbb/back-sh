@@ -52,7 +52,7 @@
                       <v-icon size="small" class="text-grey-darken-1">
                         mdi-trash-can-outline
                       </v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                      <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                     </div>
                   </v-list-item-title>
                 </v-list-item>
@@ -61,7 +61,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="$router.push(`${item.data.id}/skus`)">
                       <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">افزودن کالا</span>
+                      <span class="mr-2 text-grey-darken-1 t14 w300">افزودن کالا</span>
                     </div>
                   </v-list-item-title>
                 </v-list-item>

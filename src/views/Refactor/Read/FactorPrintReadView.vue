@@ -185,7 +185,7 @@
                                 <img src="@/assets/img/NullTable.png" alt="shavaz image">
                                 <div class="d-flex justify-center align-center flex-column">
                                     <span class="title4 text-black mb-5">لیست خالی!</span>
-                                    <span class="t14300 text-grey-darken-3">تاکنون کالایی به این لیست، افزوده نشده است.</span>
+                                    <span class="t14 w300 text-grey-darken-3">تاکنون کالایی به این لیست، افزوده نشده است.</span>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,7 @@
                                                         :max-lines='1'
                                                         autoResize
                                                         location="start"
-                                                        class="text-gray500 t14300 text-right" />
+                                                        class="text-gray500 t14 w300 text-right" />
                                                 </v-col>
                                             </v-row>
                                         </v-list-item>
@@ -90,7 +90,7 @@
                                     <v-list-item  :disabled="retailShipment?.status === 'in_review' || retailShipment?.status === 'approved'">
                                         <div  class="ma-5 pointer d--rtl"  @click=" removeItem(item.data.id)">
                                             <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t13400">
+                                            <span class="mr-2 text-grey-darken-1 t13 w400">
                                                 حذف
                                             </span>
                                         </div>
@@ -120,7 +120,7 @@
                                         width="115"
                                         @click="$router.go(-1)"
                                     >
-                <span class="t14300">
+                <span class="t14 w300">
                 انصراف
               </span>
                                     </v-btn>
@@ -133,7 +133,7 @@
                                         @click="$router.go(-1)"
                                     >
 
-                <span class="t14300">
+                <span class="t14 w300">
                 تایید
               </span>
                                     </v-btn>

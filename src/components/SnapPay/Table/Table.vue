@@ -60,7 +60,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           1
                         </span>
             </div>
@@ -69,7 +69,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.id }}
                         </span>
             </div>
@@ -78,7 +78,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.order_number }}
                         </span>
             </div>
@@ -87,7 +87,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.user.first_name }}
                         </span>
             </div>
@@ -96,7 +96,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.user.phone_number }}
                         </span>
             </div>
@@ -105,7 +105,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.items_count }}
                         </span>
             </div>
@@ -114,7 +114,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{getOrderStatus(item.status )}}
                         </span>
             </div>
@@ -123,7 +123,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           <v-chip :color="chipColor(statuses[index])">
                           {{ statuses[index] }}
                           </v-chip>
@@ -134,13 +134,13 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font" v-if="item.pay_type === 'wallet'">
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.pay_type === 'wallet'">
                           کیف پول
                         </span>
-              <span class="t14300 text-gray500 py-5 number-font" v-else-if="item.pay_type === 'snapp'">
+              <span class="t14 w300 text-gray500 py-5 number-font" v-else-if="item.pay_type === 'snapp'">
                           اسنپ پی
                         </span>
-              <span class="t14300 text-gray500 py-5 number-font" v-else>
+              <span class="t14 w300 text-gray500 py-5 number-font" v-else>
                          پرداخت اینترنتی
                         </span>
             </div>
@@ -149,7 +149,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ splitChar(item.paid_price) }}
                         </span>
 
@@ -159,10 +159,10 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font" v-if="item.shipping">
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.shipping">
                           <v-icon color="success" size="30">mdi-check</v-icon>
                         </span>
-                        <span class="t14300 text-gray500 py-5 number-font" v-else>
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-else>
                           <v-icon color="error" size="30">mdi-close</v-icon>
                         </span>
 
@@ -172,13 +172,13 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font" v-if="item.sending_method === 'nafis'">
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.sending_method === 'nafis'">
                           نفیس اکسپرس
                         </span>
-                        <span class="t14300 text-gray500 py-5 number-font" v-if="item.sending_method === 'post'">
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.sending_method === 'post'">
                          پست
                         </span>
-                        <span class="t14300 text-gray500 py-5 number-font" v-if="item.sending_method === 'pishtaz'">
+                        <span class="t14 w300 text-gray500 py-5 number-font" v-if="item.sending_method === 'pishtaz'">
                           پست پیشتاز
                         </span>
 
@@ -189,7 +189,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center ">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           {{ item.submit_date }}
                         </span>
 
@@ -212,7 +212,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="cancelSnapPayOrder(item.order_number , index)">
                       <v-icon class="text-grey-darken-1">mdi-pencil-box-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             کنسل سفارش
                                         </span>
                     </div>
@@ -223,7 +223,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="removeItem(index)">
                       <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                     </div>
@@ -239,7 +239,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

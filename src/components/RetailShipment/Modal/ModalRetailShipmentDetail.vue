@@ -28,21 +28,21 @@
 
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             تاریخ تحویل :
                         </span>
-              <span v-if="retailObject.sent_to_warehouse_at " class="t13400 text-gray500 number-font"  style="font-size: 7px; direction: ltr">
+              <span v-if="retailObject.sent_to_warehouse_at " class="t13 w400 text-gray500 number-font"  style="font-size: 7px; direction: ltr">
                             {{ convertDateToJalai(retailObject.sent_to_warehouse_at, '-', false) }}
                         </span>
-              <span v-else class="t13400 text-gray500">
+              <span v-else class="t13 w400 text-gray500">
                             ----
                         </span>
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             شناسه محموله :
                         </span>
-              <span class="t13400 text-gray500 number-font">
+              <span class="t13 w400 text-gray500 number-font">
                             {{ retailObject.id }}
                         </span>
             </div>
@@ -50,7 +50,7 @@
                         <span class="t12 w500">
                             تامین کننده :
                         </span>
-              <span class="t13400 text-gray500">
+              <span class="t13 w400 text-gray500">
                             {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
             </div>
@@ -58,7 +58,7 @@
                         <span class="t10 w500">
                             شناسه فاکتور :
                         </span>
-              <span class="t13400 text-gray500">
+              <span class="t13 w400 text-gray500">
                             {{ retailObject.factor_id}}
                         </span>
             </div>

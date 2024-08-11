@@ -10,7 +10,7 @@
 
 <!-- fields-->
             <v-form ref="addVoucher" class="px-5">
-                <div class="t14500 text-gray600 text-right my-2">
+                <div class="t14 w500 text-gray600 text-right my-2">
                    عنوان *
                 </div>
                 <v-text-field
@@ -21,7 +21,7 @@
 
                 </v-text-field>
 
-              <div class="t14500 text-gray600 text-right my-3 mt-6">
+              <div class="t14 w500 text-gray600 text-right my-3 mt-6">
                   تاریخ پایان
               </div>
                 <v-text-field

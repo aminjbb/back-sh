@@ -34,7 +34,7 @@
                                                 :max-lines='1'
                                                 autoResize
                                                 location="start"
-                                                class="text-gray500 t14300 text-right"/>
+                                                class="text-gray500 t14 w300 text-right"/>
                                         </v-col>
                                     </v-row>
                                 </v-list-item>
@@ -103,7 +103,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer">
                                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه‌ی موجودی انبار
                                         </span>
                                     </div>
@@ -114,7 +114,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.data.sku_id}`)">
                                         <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه‌ی موجودی سایت
                                         </span>
                                     </div>
@@ -125,7 +125,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openInventoryManagementModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             مدیریت موجودی سایت
                                         </span>
                                     </div>
@@ -136,7 +136,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openConsumerPriceModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-currency-usd" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             قیمت مصرف کننده
                                         </span>
                                     </div>
@@ -147,7 +147,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openBasicDiscountModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تخفیف پایه
                                         </span>
                                     </div>
@@ -158,7 +158,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تخفیف مارکتینگ
                                         </span>
                                     </div>
@@ -169,7 +169,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openOrderLimitModal(item.data.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             محدودیت سفارش
                                         </span>
                                     </div>
@@ -180,7 +180,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.data.sku_id}`)">
                                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه ی قیمت
                                         </span>
                                     </div>
@@ -191,7 +191,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.data.sku_id)">
                                         <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                                 حذف
                                             </span>
                                     </div>

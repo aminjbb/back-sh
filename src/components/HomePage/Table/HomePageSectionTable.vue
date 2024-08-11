@@ -35,7 +35,7 @@
                                 variant="text"
                                 height="40"
                                 rounded
-                                class="px-5 mt-1 text-grey-darken-1 t14300">
+                                class="px-5 mt-1 text-grey-darken-1 t14 w300">
                                 <template v-slot:append>
                                     <v-icon>mdi-pen-minus</v-icon>
                                 </template>
@@ -60,7 +60,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -69,7 +69,7 @@
                     v-if="item.name && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.name }}
                     </span>
                 </div>
@@ -77,7 +77,7 @@
                     v-if="item.label && header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.label }}
                     </span>
                 </div>
@@ -85,7 +85,7 @@
                     v-if="item.type && header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.type }}
                     </span>
                 </div>
@@ -93,7 +93,7 @@
                     v-if="item.updated_at && header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{convertDateToJalai(item.updated_at ,'-',true )  }}
                     </span>
 
@@ -103,7 +103,7 @@
                     v-if="(item.is_active  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -125,7 +125,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
 
@@ -143,7 +143,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

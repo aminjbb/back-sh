@@ -8,7 +8,7 @@
         <v-col cols="5">
 
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه کارگو</span>
+            <span class="text-gray600 t14 w500">شناسه کارگو</span>
             <span class="text-error">*</span>
           </div>
           <div>

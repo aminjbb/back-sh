@@ -80,7 +80,7 @@
                                         <v-list-item-title>
                                             <div class="ma-3 pointer" @click="printDetailesRoute(item.data.id)">
                                                 <v-icon size="x-small" class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                                                <span class="mr-2 text-grey-darken-1 t14300">
+                                                <span class="mr-2 text-grey-darken-1 t14 w300">
                                                     نمایش جزئیات
                                                 </span>
                                             </div>

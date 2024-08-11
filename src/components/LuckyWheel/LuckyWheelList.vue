@@ -53,7 +53,7 @@
                       <v-list-item-title>
                           <div class="ma-3 pointer d--rtl" @click="$router.push(`/lucky-wheel/${item.data.id}/prize-edit`)">
                               <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                              <span class="mr-2 text-grey-darken-1 t14300">
+                              <span class="mr-2 text-grey-darken-1 t14 w300">
                                     ویرایش جایزه
                               </span>
                           </div>

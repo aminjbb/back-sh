@@ -145,13 +145,13 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="deletePrize(index)"  v-if="status != 'edit'">
                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                    <span class="mr-1 text-grey-darken-1 t13400">
+                    <span class="mr-1 text-grey-darken-1 t13 w400">
                                         حذف
                     </span>
                   </div>
                   <div class="ma-3 pointer d--rtl" @click="deletePrize(item.id)"  v-if="status === 'edit'">
                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                    <span class="mr-1 text-grey-darken-1 t13400">
+                    <span class="mr-1 text-grey-darken-1 t13 w400">
                                         حذف
                     </span>
                   </div>
@@ -168,7 +168,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

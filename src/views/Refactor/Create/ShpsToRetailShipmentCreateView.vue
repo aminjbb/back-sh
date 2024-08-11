@@ -39,7 +39,7 @@
                                                         :max-lines='1'
                                                         autoResize
                                                         location="start"
-                                                        class="text-gray500 t14300 text-right" />
+                                                        class="text-gray500 t14 w300 text-right" />
                                                 </v-col>
                                             </v-row>
                                         </v-list-item>
@@ -96,7 +96,7 @@
                                         width="115"
                                         @click="$router.go(-1)"
                                     >
-                <span class="t14300">
+                <span class="t14 w300">
                 انصراف
               </span>
                                     </v-btn>
@@ -109,7 +109,7 @@
                                         @click="sendShps()"
                                     >
 
-                <span class="t14300">
+                <span class="t14 w300">
                 تایید
               </span>
                                     </v-btn>

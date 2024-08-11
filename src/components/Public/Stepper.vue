@@ -16,7 +16,7 @@
             >
               <v-row justify="center">
                 <div :class="step >= index + 1 ? 'stepper__value__box--active' : 'stepper__value__box'">
-                        <span class="text-white t14500">
+                        <span class="text-white t14 w500">
                             {{ index + 1 }}
                         </span>
                 </div>
@@ -24,7 +24,7 @@
 
               <v-row justify="center" class="mt-5">
                 <div>
-                        <span class="t14500">
+                        <span class="t14 w500">
                            {{ item }}
                         </span>
                 </div>

@@ -51,7 +51,7 @@
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-trash-can-outline
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>

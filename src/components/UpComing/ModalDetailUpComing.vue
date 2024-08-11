@@ -2,7 +2,7 @@
   <div class="text-right ">
     <div class=" pointer" @click="requestShipmentDetailShipmentDetail()">
       <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">
+      <span class="mr-2 text-grey-darken-1 t14 w300">
                          پرینت محموله
                       </span>
     </div>

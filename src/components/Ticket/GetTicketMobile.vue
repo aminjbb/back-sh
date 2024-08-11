@@ -84,13 +84,13 @@
                 min-height="100"
                 class="mb-10">
               <div class="d-flex justify-space-between pa-6">
-                  <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
+                  <span v-if="oneTicket.user" class="t14 w500 text-gray500 mrl10">
                     <template v-if="oneTicket.user.first_name">
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
+                <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">
                       {{ convertDate(oneTicket.created_at) }}
                   </span>
               </div>
@@ -122,11 +122,11 @@
                     class="mb-10"
                     :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                   <div class="d-flex justify-space-between pa-6">
-                    <span class="t14500 text-gray500 ml-10">
+                    <span class="t14 w500 text-gray500 ml-10">
                       {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
                     </span>
 
-                    <span class="t14500 text-gray500 mr-10 number-font">
+                    <span class="t14 w500 text-gray500 mr-10 number-font">
                       {{ convertDate(ticket.created_at) }}
                     </span>
                   </div>
@@ -144,7 +144,7 @@
             </template>
 
             <div>
-              <div class="text-right mb-3 t14500">ارسال پیام</div>
+              <div class="text-right mb-3 t14 w500">ارسال پیام</div>
 
               <ckeditor
                   v-model="content"

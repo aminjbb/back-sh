@@ -19,19 +19,19 @@
       <div v-if="items && items.length > 0/*  && !loading */ " class="c-table__contents">
         <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
           <div v-if="header[0].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
 
           <div v-if="item.id && header[1].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
           </div>
 
           <div v-if="header[2].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.order_number">
                           {{ item.order_number }}
                         </template>
@@ -41,7 +41,7 @@
                     </span>
           </div>
           <div v-if="header[3].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.creator">
                           {{ item.creator.first_name }} {{ item.creator.last_name }}
                         </template>
@@ -52,7 +52,7 @@
           </div>
 
           <div v-if="header[4].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.user && item.user.first_name && item.user.last_name">
                             {{ item.user.first_name }} {{ item.user.last_name }}
                         </template>
@@ -63,7 +63,7 @@
           </div>
 
           <div v-if="header[5].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.user && item.user.phone_number">
                             {{ item.user.phone_number }}
                         </template>
@@ -74,7 +74,7 @@
           </div>
 
           <div v-if="header[6].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_count">
                             {{ item.shps_count }}
                         </template>
@@ -85,7 +85,7 @@
           </div>
 
           <div v-if="header[7].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.status">
                           <span class="t10 w400">
                                {{getOrderStatus(item.status) }}
@@ -98,7 +98,7 @@
           </div>
 
           <div v-if="header[8].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.paid_price">
                             {{ splitChar(item.paid_price) }}
                         </template>
@@ -109,13 +109,13 @@
           </div>
 
           <div v-if="header[9].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <v-icon :icon="setIcon(item.packed_status)" :color="item.packed_status === 1 ? 'green' : 'red'" />
                     </span>
           </div>
 
           <div v-if="header[10].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5">
+                    <span class="t13 w400 text-gray500 py-5">
                         <template v-if="item.sending_method">
                             {{ getSendingMethod(item.sending_method) }}
                         </template>
@@ -126,7 +126,7 @@
           </div>
 
           <div v-if="header[11].show" class="c-table__contents__item justify-center" style="padding:3px" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font text-center">
+                    <span class="t13 w400 text-gray500 py-5 number-font text-center">
                         <template v-if="item.submit_date_fa">
                             {{ item.submit_date_fa }} {{splitTime(item.submit_date)}}
                         </template>
@@ -152,7 +152,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/orders/manual-order-list/${item.id}/edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-pencil-box-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">ویرایش سفارش</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش سفارش</span>
                   </div>
                 </v-list-item-title>
 
@@ -168,7 +168,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

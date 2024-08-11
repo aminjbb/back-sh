@@ -7,13 +7,13 @@
         <v-row justify="center" align="center">
           <v-col cols="12">
             <div class="text-center">
-              <span class="t14500">بازگردانی سفارش</span>
+              <span class="t14 w500">بازگردانی سفارش</span>
             </div>
             <v-divider class="my-5"/>
           </v-col>
           <v-col cols="6">
             <div class="text-right mb-3">
-                      <span class="t14500 text-gray600">
+                      <span class="t14 w500 text-gray600">
                           شناسه سفارش
                       </span>
             </div>

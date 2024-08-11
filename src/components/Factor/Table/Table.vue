@@ -36,7 +36,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -45,7 +45,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.supplier">
                             {{ item.supplier.shopping_name }}
                         </template>
@@ -68,7 +68,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.creator">
                             {{ item.creator.first_name }} {{ item.creator.last_name }}
                         </template>
@@ -82,7 +82,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.factor_number">
                             {{ item.factor_number }}
                         </template>
@@ -96,7 +96,7 @@
                     v-if="header[5].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -171,7 +171,7 @@
                                   <div  class="ml-16">
                                     <div class=" pointer" @click=print(item)>
                                       <v-icon size="x-small" class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
-                                      <span class="mr-2 text-grey-darken-1 t14300">
+                                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             نمایش جزئیات
                                         </span>
                                     </div>
@@ -183,7 +183,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/index?factor_id=${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             مدیریت محموله‌های انبارش
                                         </span>
                                     </div>
@@ -194,7 +194,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/retail-shipment/${item.id}/add/shps`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ساخت محموله انبارش
                                         </span>
                                     </div>
@@ -205,7 +205,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`details/${item.id}`)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-currency-usd</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             قیمت گذاری
                                         </span>
                                     </div>
@@ -216,7 +216,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon size="small" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -231,7 +231,7 @@
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
                 <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>

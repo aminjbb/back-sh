@@ -19,7 +19,7 @@
           <div v-if="header[0].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font justify-end">
+                        <span class="t14 w300 text-gray500 py-5 number-font justify-end">
                             {{ rowIndexTable(index) }}
                         </span>
             </div>
@@ -82,7 +82,7 @@
                 <v-list-item-title>
                   <div class="ma-3 pointer d--rtl" @click="$router.push(`/lucky-wheel/${item.id}/prize-edit`)">
                     <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                         ویرایش جایزه
                                     </span>
                   </div>
@@ -96,7 +96,7 @@
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
           <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

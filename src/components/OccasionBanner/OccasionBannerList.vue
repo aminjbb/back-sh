@@ -56,7 +56,7 @@
                 <v-list-item-title>
                   <div class="ma-5 pointer" @click="removeItem(item.data.id)">
                     <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
