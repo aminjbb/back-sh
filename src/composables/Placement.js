@@ -15,13 +15,14 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه شلف', show: true , value:'id', order: false},
-        { name: 'شماره ردیف', show: true, value:'row_number' , order: false},
-        { name: 'شماره قفسه', show: true , value:'placement_number', order: false},
-        { name: 'شماره طبقه', show: true, value:'step_number', order: false },
-        { name: 'شماره شلف', show: true, value:'shelf_number', order: false },
-        { name: 'تاریخ ایجاد', show: true, value:'created_at', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'شناسه شلف',title: 'شناسه شلف', show: true , key:'id', sortable: false, align:'center'},
+        { name: 'شماره ردیف',title: 'شماره ردیف', show: true, key:'row_number' , sortable: false, align:'center'},
+        { name: 'شماره قفسه',title: 'شماره قفسه', show: true , key:'placement_number', sortable: false, align:'center'},
+        { name: 'شماره طبقه',title: 'شماره طبقه', show: true, key:'step_number', sortable: false, align:'center'},
+        { name: 'شماره شلف',title: 'شماره شلف', show: true, key:'shelf_number', sortable: false, align:'center'},
+        { name: 'تاریخ ایجاد',title: 'تاریخ ایجاد', show: true, key:'created_at_fa', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
