@@ -42,7 +42,7 @@
                         width="115"
                         class="ml-2"
                         >
-                        <span class="t12400">رد درخواست</span>
+                        <span class="t12 w400">رد درخواست</span>
                     </v-btn>
 
                     <v-btn
@@ -51,7 +51,7 @@
                         color="light-green-lighten-4"
                         variant="elevated"
                         width="115">
-                        <span class="t12400">
+                        <span class="t12 w400">
                             تایید درخواست
                         </span>
                     </v-btn>

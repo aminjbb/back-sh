@@ -14,7 +14,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.accountNumber }}
                         </span>
@@ -33,7 +33,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.shebaNumber }}
                         </span>
@@ -81,7 +81,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.contract }}
                         </span>

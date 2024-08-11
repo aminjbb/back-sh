@@ -12,7 +12,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
@@ -66,7 +66,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t10400 text-black py-5 number-font">
+                        <span class="t10 w400 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>

@@ -81,22 +81,22 @@
                 جمع:
               </v-col>
               <v-col cols="1" class="mr-12 pr-8">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRequestCount }}
             </span>
               </v-col>
               <v-col cols="1" class="pr-5">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumMinToleranceCount }}
             </span>
               </v-col>
               <v-col cols="1" class="pr-2">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumMaxToleranceCount }}
             </span>
               </v-col>
               <v-col cols="1" class="pr-0">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRemainedCount }}
             </span>
               </v-col>

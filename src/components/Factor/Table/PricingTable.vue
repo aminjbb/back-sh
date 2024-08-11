@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 style="padding:20px 5px"
@@ -22,7 +22,7 @@
         </template>
 
         <div
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
             style="padding:20px 5px">
             ذخیره
@@ -61,7 +61,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5">
+                    <span class="t12 w500 text-gray500 py-5">
                         <template v-if="item.sku">
                             {{ item.sku }}
                         </template>

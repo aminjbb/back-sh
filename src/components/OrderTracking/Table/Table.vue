@@ -4,7 +4,7 @@
 
     <header class="c-table__header d-flex justify-between">
         <template v-for="(head, index) in header">
-            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12500" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12 w500" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
             </div>

@@ -541,7 +541,7 @@
               variant="text"
               height="40"
               rounded
-              class="px-5 mr-5 t12500">
+              class="px-5 mr-5 t12 w500">
             حذف همه فیلترها
           </v-btn>
           <v-btn
@@ -549,7 +549,7 @@
               color="primary500"
               height="40"
               rounded
-              class="px-5 mr-5 t12500">
+              class="px-5 mr-5 t12 w500">
             مشاهده
           </v-btn>
         </div>

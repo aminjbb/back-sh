@@ -19,7 +19,7 @@
             </div>
 
             <div class="text-right pa-5">
-                <span class="t12300 modal__label">
+                <span class="t12 w300 modal__label">
                     حداکثر تعداد در هر سبد
                 </span>
                 <v-text-field

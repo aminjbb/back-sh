@@ -21,7 +21,7 @@
             <v-row justify="center" class="px-15 pt-10">
               <v-col cols="3" class="py-0">
                 <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ lables.title }}
                         </span>
                 </div>
@@ -36,7 +36,7 @@
 
               <v-col cols="3" class="py-0">
                 <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ lables.priority }}
                         </span>
                 </div>
@@ -52,7 +52,7 @@
 
               <v-col cols="3" class="py-0">
                 <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ lables.type }}
                         </span>
                 </div>
@@ -68,7 +68,7 @@
 
               <v-col cols="4" class="py-0">
                 <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             {{ lables.admin }}
                         </span>
                 </div>
@@ -91,7 +91,7 @@
                     <div class="d-flex align-center justify-start">
                       <v-checkbox v-model="hasSchedule" style="flex: inherit;"/>
                       <div class="text-right my-2 mt-5">
-                                    <span class="t12500">
+                                    <span class="t12 w500">
                                         {{ lables.schedule }}
                                     </span>
                       </div>
@@ -100,7 +100,7 @@
 
                   <v-col v-if="hasSchedule" cols="3">
                     <div class="text-right my-2">
-                                <span class="t12500">
+                                <span class="t12 w500">
                                     {{ lables.scheduleDate }}
                                 </span>
                     </div>
@@ -131,7 +131,7 @@
                     <div class="d-flex align-center justify-start">
                       <v-checkbox hide-details v-model="hasAttachment" style="flex: inherit;"/>
                       <div class="text-right my-2 mt-5">
-                                    <span class="t12500">
+                                    <span class="t12 w500">
                                         {{ lables.hasAttachment }}
                                     </span>
                       </div>

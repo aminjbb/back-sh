@@ -64,7 +64,7 @@
                                         align="center"
                                         class="px-5 py-5"
                                         @click="gotoNotification(item)">
-                                        <span class="t12400 mr-1">{{ item.title }}</span>
+                                        <span class="t12 w400 mr-1">{{ item.title }}</span>
                                         <v-icon size="xsmall">mdi-cloud-download</v-icon>
                                     </v-row>
                                 </div>

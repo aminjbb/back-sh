@@ -153,7 +153,7 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
               <span class="t14300 text-gray500 py-5 px-15">
                   <template v-if="item.user.email">
-                    <span class="t10600">
+                    <span class="t10 w600">
                          {{item.user.email}}
                     </span>
                   </template>

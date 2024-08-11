@@ -45,7 +45,7 @@
                   <v-col class="pa-0 ma-0" cols="12">
                     <v-card height="12" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center">
-                                      <span class="t8400">
+                                      <span class="t8 w400">
                                       </span>
                     </v-card>
                   </v-col>
@@ -54,7 +54,7 @@
                       <v-col cols="3" class="pa-0 ma-0">
                         <v-card height="24" variant="outlined" color="black"
                                 class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400">
+                                              <span class="t8 w400">
                                               </span>
                         </v-card>
                       </v-col>
@@ -63,7 +63,7 @@
                           <v-col cols="6" class="pa-0 ma-0">
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400 d--rtl">
+                                              <span class="t8 w400 d--rtl">
                                                گرم {{ modalPrintOrderObject?.weight }}
                                               </span>
                             </v-card>
@@ -71,7 +71,7 @@
                           <v-col cols="6" class="pa-0 ma-0">
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400">
+                                              <span class="t8 w400">
                                                {{ modalPrintOrderObject?.state?.label }}
                                               </span>
                             </v-card>
@@ -79,14 +79,14 @@
                           <v-col cols="6" class="pa-0 ma-0">
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400">
+                                              <span class="t8 w400">
                                               </span>
                             </v-card>
                           </v-col>
                           <v-col cols="6" class="pa-0 ma-0">
                             <v-card height="12" variant="outlined" color="black"
                                     class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8400">
+                                              <span class="t8 w400">
                                                {{ modalPrintOrderObject?.date }}
                                               </span>
                             </v-card>
@@ -98,10 +98,10 @@
                   <v-col class="pa-0 ma-0" cols="12">
                     <v-card height="75" variant="outlined" color="black" class="rounded-0 text-right px-1">
                       <p>
-                        <span class="t8400">{{ modalPrintOrderObject.receiver_address }} : آدرس</span>
+                        <span class="t8 w400">{{ modalPrintOrderObject.receiver_address }} : آدرس</span>
                       </p>
                       <p>
-                        <span class="t8400">  {{ modalPrintOrderObject.receiver_postal_code }} : کدپستی</span>
+                        <span class="t8 w400">  {{ modalPrintOrderObject.receiver_postal_code }} : کدپستی</span>
                       </p>
                     </v-card>
                   </v-col>
@@ -109,7 +109,7 @@
                   <v-col cols="6" class="pa-0 ma-0">
                     <v-card height="12" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center">
-                                      <span class="t8400">
+                                      <span class="t8 w400">
                                          {{ modalPrintOrderObject?.order_factor_id }}
                                       </span>
                     </v-card>
@@ -117,7 +117,7 @@
                   <v-col cols="6" class="pa-0 ma-0">
                     <v-card height="12" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center">
-                                      <span class="t8400">
+                                      <span class="t8 w400">
                                          کاربر عادی 1/1
                                       </span>
                     </v-card>
@@ -125,11 +125,11 @@
                   <v-col class="pa-0 ma-0" cols="12">
                     <v-card height="12" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center d--rtl">
-                                      <span class="t8400 mx-1">
+                                      <span class="t8 w400 mx-1">
                                           {{ modalPrintOrderObject.receiver_name }}
                                       </span>
 
-                      <span class="t8400 mx-1">
+                      <span class="t8 w400 mx-1">
                                           {{ modalPrintOrderObject.receiver_mobile }}
                                       </span>
                     </v-card>
@@ -161,11 +161,11 @@
                                src="@/assets/img/nafis-image.png" width="32" height="30" alt="post image">
                         </v-col>
                         <v-col cols="8" class="text-right pa-0">
-                          <p class="t8400">
+                          <p class="t8 w400">
                             <span> {{ modalPrintOrderObject?.state?.label }} - </span>
                             <span> {{ modalPrintOrderObject?.city?.label }} </span>
                           </p>
-                          <p class="t8400">
+                          <p class="t8 w400">
                             <span> {{ modalPrintOrderObject.receiver_address }} </span>
                           </p>
                         </v-col>
@@ -175,49 +175,49 @@
                   <v-col class="pa-0 ma-0" cols="4">
                     <v-card height="22" variant="outlined" color="black"
                             class="rounded-0 d-flex justify-center align-center">
-                      <span class="t8400">
+                      <span class="t8 w400">
                         {{ modalPrintOrderObject?.weight }}
                       </span>
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="8">
                     <v-card height="22" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                        <span class="t12400" v-if="modalPrintOrderObject.sending_method === 'tipax'">
+                        <span class="t12 w400" v-if="modalPrintOrderObject.sending_method === 'tipax'">
                           تیپاکس
                         </span>
-                      <span class="t12400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
+                      <span class="t12 w400" v-else-if="modalPrintOrderObject.sending_method === 'nafis'">
                           نفیس
                         </span>
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="12">
                     <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center d--rtl">
-                           <span class="t8400 mx-1">
+                           <span class="t8 w400 mx-1">
                             {{ modalPrintOrderObject.receiver_name }}
                            </span>
 
-                      <span class="t8400 mx-1">
+                      <span class="t8 w400 mx-1">
                             {{ modalPrintOrderObject.receiver_mobile }}
                           </span>
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="5">
                     <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                           <span class="t8400 mx-1">
+                           <span class="t8 w400 mx-1">
                             {{modalPrintOrderObject?.date}}
                            </span>
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="3">
                     <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                           <span class="t8400 mx-1">
+                           <span class="t8 w400 mx-1">
                           {{ modalPrintOrderObject.order_factor_id }}
                            </span>
                     </v-card>
                   </v-col>
                   <v-col class="pa-0 ma-0" cols="4">
                     <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                           <span class="t8400 mx-1">
+                           <span class="t8 w400 mx-1">
                          کاربر عادی 1/1
                            </span>
                     </v-card>

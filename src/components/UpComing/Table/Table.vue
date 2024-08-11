@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -21,7 +21,7 @@
       </template>
 
       <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-        <span class="t12500 text-black">عملیات</span>
+        <span class="t12 w500 text-black">عملیات</span>
       </div>
     </header>
 

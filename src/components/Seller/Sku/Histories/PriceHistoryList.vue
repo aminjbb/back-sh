@@ -8,20 +8,20 @@
             <v-col cols="6">
                 <div class="d-flex justify-start align-center pt-1">
                     <div>
-                        <span class="t12500">
+                        <span class="t12 w500">
                             شناسه کالا :
                         </span>
 
-                        <span class="t12500 text-grey number-font">
+                        <span class="t12 w500 text-grey number-font">
                             {{sku?.id}}
                         </span>
                     </div>
                     <div class="mr-5">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             نام کالا :
                         </span>
 
-                        <span class="t12500 text-grey">
+                        <span class="t12 w500 text-grey">
                             {{sku?.label}}
                         </span>
                     </div>

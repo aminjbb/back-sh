@@ -22,7 +22,7 @@
             </div>
             <v-card class="mx-5 mb-2 br-15" max-height="116">
                 <div class="d-flex justify-center my-3">
-          <span class="t12400">
+          <span class="t12 w400">
             جایگاه کالا
           </span>
                 </div>
@@ -92,7 +92,7 @@
                                 rounded
                                 @click="notFound = true"
                                 class="px-8 mt-5">
-             <span class="t11500">
+             <span class="t11 w500">
                 محصولی برای جمع آوری وجود ندارد
              </span>
                             </v-btn>
@@ -181,7 +181,7 @@
                         rounded
                         @click="notFoundTask"
                         class="px-8 mt-5">
-             <span class="t11500">
+             <span class="t11 w500">
                 تایید
              </span>
                     </v-btn>

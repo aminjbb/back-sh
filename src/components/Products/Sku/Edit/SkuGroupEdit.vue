@@ -10,7 +10,7 @@
         <v-row align="center" class="mt-15">
           <v-col cols="12">
             <div class="text-right my-2 w-100">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.label }}
 
             </span>

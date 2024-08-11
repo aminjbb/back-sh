@@ -14,7 +14,7 @@
                         </span>
         </div>
         <div class="mx-10">
-                        <span class="t10500 ">
+                        <span class="t10 w500 ">
                             شناسه محموله :
                         </span>
           <span class="t13400 text-gray500 number-font">
@@ -22,18 +22,18 @@
                         </span>
         </div>
         <div class="mx-10" v-if="retailObject.supplier">
-                        <span class="t10500">
+                        <span class="t10 w500">
                             نام فروشگاه:
                         </span>
-          <span class="t10500 text-gray500">
+          <span class="t10 w500 text-gray500">
                             {{ retailObject?.supplier?.shopping_name }}
                         </span>
         </div>
         <div class="mx-10" v-else>
-                        <span class="t10500">
+                        <span class="t10 w500">
                             نام تامین کننده :
                         </span>
-          <span class="t10400 text-gray500">
+          <span class="t10 w400 text-gray500">
                             {{ retailObject?.factor?.supplier?.shopping_name }}
                         </span>
         </div>

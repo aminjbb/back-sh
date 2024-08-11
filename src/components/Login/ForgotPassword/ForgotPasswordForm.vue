@@ -9,7 +9,7 @@
 
                <div class="mt-6">
                    <div class="text-right mb-2 pr-1">
-                       <span class="t12300">
+                       <span class="t12 w300">
                          رمز عبور جدید را وارد کنید.
                        </span>
                    </div>
@@ -40,7 +40,7 @@
 
                <div class="mt-6">
                    <div class="text-right mb-2 pr-1">
-                       <span class="t12300">
+                       <span class="t12 w300">
                          رمز عبور جدید را مجدد وارد کنید.
                        </span>
                    </div>
@@ -66,7 +66,7 @@
 
                <div class="mt-6">
                     <div class="text-right mb-2 pr-1">
-                        <span class="t12300">
+                        <span class="t12 w300">
                             کد ارسال شده به شماره {{userPhone}} را وارد کنید
                         </span>
                     </div>
@@ -103,7 +103,7 @@
                         block rounded="xl"
                         @click="validate()"
                     > 
-                        <span class="t12300" >
+                        <span class="t12 w300" >
                             تایید رمز عبور جدید
                         </span>
                     </v-btn>

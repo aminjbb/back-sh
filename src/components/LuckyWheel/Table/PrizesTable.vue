@@ -5,7 +5,7 @@
     <header class="c-table__header d-flex justify-between">
       <template v-for="(head, index) in header">
         <div v-if="head.show" @click="createOrdering(head.value, head.order)"
-             class="text-center c-table__header__item t12500 text-black" :class="head.order == true ? 'pointer' : ''"
+             class="text-center c-table__header__item t12 w500 text-black" :class="head.order == true ? 'pointer' : ''"
              :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
           {{ head.name }}
         </div>
@@ -24,14 +24,14 @@
              class="d-flex justify-between c-table__contents__row">
           <div v-if="header[0].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
 
           <div v-if="header[1].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                       <template v-if="status === 'edit'">
                          <template v-if="item.voucher_id">
                           {{ item.voucher_id }}
@@ -54,7 +54,7 @@
 
           <div v-if="header[2].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                        <template v-if="status === 'edit'">
                         <template v-if="item.name">
                           {{ item.name }}
@@ -77,7 +77,7 @@
 
           <div v-if="header[3].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                        <template v-if="status === 'edit'">
 
                       </template>
@@ -95,7 +95,7 @@
 
           <div v-if="header[4].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                        <template v-if="status === 'edit'">
 
                       </template>
@@ -113,7 +113,7 @@
 
           <div v-if="header[5].show" class="c-table__contents__item justify-center"
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5 number-font">
+                    <span class="t12 w500 text-gray500 py-5 number-font">
                         <template v-if="status === 'edit'">
                         <template v-if="item.deadline_for_use">
                           {{ item.deadline_for_use }}

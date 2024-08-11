@@ -47,7 +47,7 @@
                         </span>
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t12500">
+                        <span class="t12 w500">
                             تامین کننده :
                         </span>
               <span class="t13400 text-gray500">
@@ -55,7 +55,7 @@
                         </span>
             </div>
             <div class="mx-10 d--rtl">
-                        <span class="t10500">
+                        <span class="t10 w500">
                             شناسه فاکتور :
                         </span>
               <span class="t13400 text-gray500">

@@ -24,10 +24,10 @@
               <v-divider />
             </div>
             <div class="text-center pa-5" >
-              <span class="t12500">با غرفعال کردن این آیتم در منو، تمام زیرمجموعه‌های متصل نیز غیرفعال میشوند.</span>
+              <span class="t12 w500">با غرفعال کردن این آیتم در منو، تمام زیرمجموعه‌های متصل نیز غیرفعال میشوند.</span>
             </div>
             <div class="text-center px-5 mb-5" >
-              <span class="t12500">آیا از انجام این کار اطمینان دارید؟</span>
+              <span class="t12 w500">آیا از انجام این کار اطمینان دارید؟</span>
             </div>
             <div class="mt-3 mb-8  px-5">
               <v-divider />

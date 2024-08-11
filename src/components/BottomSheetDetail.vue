@@ -7,7 +7,7 @@
         width="142"
         height="24"
         rounded
-        class="text-primary500 t12500">
+        class="text-primary500 t12 w500">
       {{ title }}
     </v-btn>
 
@@ -34,13 +34,13 @@
                       v-for="(item,index) in generalDetails"
                       :key="`general-${index}`"
                       class="d-flex justify-space-between align-center mb-3">
-                    <div class="t12500 number-font">
+                    <div class="t12 w500 number-font">
                           <span class="number-font text-gray600">
                             {{ item.value }}
                           </span>
                     </div>
                     <div class="">
-                      <span class="t12500"> {{ item.label}}</span>
+                      <span class="t12 w500"> {{ item.label}}</span>
                       <v-icon icon="mdi-circle-small"/>
                     </div>
                   </div>
@@ -59,13 +59,13 @@
                       v-for="(item,index) in userDetails"
                       :key="`user-${index}`"
                       class="d-flex justify-space-between align-center mb-3">
-                    <div class="t12500 number-font">
+                    <div class="t12 w500 number-font">
                           <span class="number-font text-gray600">
                             {{ item.value }}
                           </span>
                     </div>
                     <div class="">
-                      <span class="t12500">{{ item.label}}</span>
+                      <span class="t12 w500">{{ item.label}}</span>
                       <v-icon icon="mdi-circle-small"/>
                     </div>
                   </div>
@@ -84,13 +84,13 @@
                       v-for="(item,index) in paymentDetails"
                       :key="`user-${index}`"
                       class="d-flex justify-space-between align-center mb-3">
-                    <div class="t12500 number-font">
+                    <div class="t12 w500 number-font">
                           <span class="number-font text-gray600">
                             {{ item.value }}
                           </span>
                     </div>
                     <div class="">
-                      <span class="t12500"> {{ item.label}}</span>
+                      <span class="t12 w500"> {{ item.label}}</span>
                       <v-icon icon="mdi-circle-small"/>
                     </div>
                   </div>
@@ -109,54 +109,54 @@
                       v-for="(item,index) in discountDetails"
                       :key="`user-${index}`">
                     <div class="d-flex justify-end align-center mb-3 ga-2">
-                      <div class="t12500 number-font">
+                      <div class="t12 w500 number-font">
                         <span class="number-font text-gray600"> {{ item.name }} </span>
                       </div>
                       <div class="">
-                        <span class="t12500"> : عنوان </span>
+                        <span class="t12 w500"> : عنوان </span>
                         <v-icon icon="mdi-circle-small"/>
                       </div>
                     </div>
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.discount_amount">{{ item.discount_amount }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : مقدار تخفیف </span>
+                          <span class="t12 w500">  : مقدار تخفیف </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.code">{{ item.code }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: کد تخفیف </span>
+                          <span class="t12 w500">: کد تخفیف </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                     </div>
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.start_time_fa">{{ item.start_time_fa }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: تاریخ شروع </span>
+                          <span class="t12 w500">: تاریخ شروع </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.end_time_fa">{{ item.end_time_fa }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: تاریخ پایان </span>
+                          <span class="t12 w500">: تاریخ پایان </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
@@ -178,55 +178,55 @@
                       :key="`user-${index}`">
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.shps.sku.seller.shopping_name">{{ item.shps.sku.seller.shopping_name }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : فروشگاه </span>
+                          <span class="t12 w500">  : فروشگاه </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.shps.id">{{ item.shps.id }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : شناسه کالا </span>
+                          <span class="t12 w500">  : شناسه کالا </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                     </div>
 
                     <div class="d-flex justify-end align-center mb-3">
-                      <div class="t12500 number-font">
+                      <div class="t12 w500 number-font">
                         <span class="number-font text-gray600"> {{ item.shps.sku.label }} </span>
                       </div>
                       <div class="d-flex">
-                        <span class="t12500"> : نام کالا </span>
+                        <span class="t12 w500"> : نام کالا </span>
                         <v-icon icon="mdi-circle-small"/>
                       </div>
                     </div>
 
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.shps.sku.seller.shopping_name">{{ item.shps.sku.seller.shopping_name }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : فروشگاه </span>
+                          <span class="t12 w500">  : فروشگاه </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.count">{{ item.count }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: تعداد کالا</span>
+                          <span class="t12 w500">: تعداد کالا</span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
@@ -234,22 +234,22 @@
 
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.base_discount">{{ splitChar(item.base_discount) }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: تخفیف پایه</span>
+                          <span class="t12 w500">: تخفیف پایه</span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.customer_price">{{ splitChar(item.customer_price) }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : قیمت کالا </span>
+                          <span class="t12 w500">  : قیمت کالا </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
@@ -257,34 +257,34 @@
 
                     <div class="d-flex justify-space-between align-center">
                       <div class="d-flex justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.discount_code">{{ item.discount_code }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">  : کد تخفیف </span>
+                          <span class="t12 w500">  : کد تخفیف </span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                       <div class="d-flex justify-justify-end align-center mb-3 ga-2">
-                        <div class="t12500 number-font">
+                        <div class="t12 w500 number-font">
                           <span class="number-font text-gray600" v-if="item.marketing_discount">{{ splitChar(item.marketing_discount) }}</span>
                           <span class="number-font text-gray600" v-else>-</span>
                         </div>
                         <div class="">
-                          <span class="t12500">: تخفیف مارکتینگ</span>
+                          <span class="t12 w500">: تخفیف مارکتینگ</span>
                           <v-icon icon="mdi-circle-small"/>
                         </div>
                       </div>
                     </div>
 
                     <div class="d-flex justify-end align-center mb-3">
-                      <div class="t12500 number-font">
+                      <div class="t12 w500 number-font">
                         <span class="number-font text-gray600" v-if="item.paid_price">{{ splitChar(item.paid_price) }}</span>
                         <span class="number-font text-gray600" v-else>-</span>
                       </div>
                       <div class="">
-                        <span class="t12500">: پرداخت نهایی</span>
+                        <span class="t12 w500">: پرداخت نهایی</span>
                         <v-icon icon="mdi-circle-small"/>
                       </div>
                     </div>
@@ -304,13 +304,13 @@
                         v-for="(item,index) in orderInfoObject.details"
                         :key="`user-${index}`"
                         class="d-flex justify-space-between align-center mb-3">
-                      <div class="t12500 number-font">
+                      <div class="t12 w500 number-font">
                           <span class="number-font text-gray600">
                             {{ item.value }}
                           </span>
                       </div>
                       <div class="">
-                        <span class="t12500"> {{ item.label}}</span>
+                        <span class="t12 w500"> {{ item.label}}</span>
                         <v-icon icon="mdi-circle-small"/>
                       </div>
                     </div>
@@ -323,13 +323,13 @@
                         v-for="(item,index) in orderInfoObject.shippingDetail"
                         :key="`user-${index}`"
                         class="d-flex justify-space-between align-center mb-3">
-                      <div class="t12500 number-font">
+                      <div class="t12 w500 number-font">
                           <span class="number-font text-gray600">
                             {{ item.value }}
                           </span>
                       </div>
                       <div class="">
-                        <span class="t12500"> {{ item.label}}</span>
+                        <span class="t12 w500"> {{ item.label}}</span>
                         <v-icon icon="mdi-circle-small"/>
                       </div>
                     </div>

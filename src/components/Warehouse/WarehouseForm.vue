@@ -134,7 +134,7 @@
         <v-col cols="12">
             <v-row>
                 <v-col cols="2">
-                    <span class="t12500 text-gray500">
+                    <span class="t12 w500 text-gray500">
                         روز کاری فعال
                     </span>
                     <div>
@@ -150,7 +150,7 @@
                     </div>
                 </v-col>
                 <v-col cols="3">
-                    <span class="t12500 text-gray500">
+                    <span class="t12 w500 text-gray500">
                         شروع
                     </span>
                     <div>
@@ -173,7 +173,7 @@
                     </div>
                 </v-col>
                 <v-col cols="3">
-                    <span class="t12500 text-gray500">
+                    <span class="t12 w500 text-gray500">
                         پایان
                     </span>
                     <div>

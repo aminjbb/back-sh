@@ -41,7 +41,7 @@
               </v-col>
               <v-col cols="12">
                 <div class="text-right mt-4 mb-2">
-                            <span class="t12300">
+                            <span class="t12 w300">
                                 دلیل
                             </span>
                   <span class="text-error">

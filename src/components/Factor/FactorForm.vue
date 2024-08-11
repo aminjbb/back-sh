@@ -7,7 +7,7 @@
             class="px-15">
             <v-col cols="12" md="6">
                 <div class="text-right my-5">
-                    <span class="t12500">
+                    <span class="t12 w500">
                         تامین کننده
                     </span>
                 </div>

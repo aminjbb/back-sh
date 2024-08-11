@@ -4,7 +4,7 @@
         <template v-for="(head, index) in header">
             <div
                 v-if="head.show"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 style="padding:20px 3px"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"

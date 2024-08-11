@@ -60,11 +60,11 @@
 
                     <v-divider />
                     <div class="calculate-all d-flex justify-end align-center">
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:17.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:17.1111%;padding:15px 10px">
                             جمع:
                         </div>
 
-                        <div class="text-center  c-table__header__item t12500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
+                        <div class="text-center  c-table__header__item t12 w500 text-black" style="width:7.1111%;padding:15px 10px;margin-right: 300px;">
                             <template v-if="retailObject && retailObject.shps_list.buying_price >= 0">
                                 {{retailObject.shps_list.buying_price}}
                             </template>
@@ -72,7 +72,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_list.customer_price >= 0">
                                 {{retailObject.sum_buying_price }}
                             </template>
@@ -80,7 +80,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.sum_buying_price}}
                             </template>
@@ -88,7 +88,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.shps_count}}
                             </template>
@@ -96,7 +96,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.total_buying_price}}
                             </template>
@@ -104,7 +104,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.total_customer_price}}
                             </template>
@@ -112,7 +112,7 @@
                                 -
                             </template>
                         </div>
-                        <div class="text-center c-table__header__item t12500 text-black" style="width:11.1111%;padding:15px 10px">
+                        <div class="text-center c-table__header__item t12 w500 text-black" style="width:11.1111%;padding:15px 10px">
                             <template v-if="retailObject && retailObject.shps_count >= 0">
                                 {{retailObject.total_profit}}%
                             </template>

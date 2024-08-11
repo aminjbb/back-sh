@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="c-table__header__item t12500 text-black"
+                class="c-table__header__item t12 w500 text-black"
                 :class="head.order === true ? 'pointer' : ''"
                 :key="index"
                 style="padding: 20px 5px !important"
@@ -25,7 +25,7 @@
             </div>
         </template>
 
-        <div class="c-table__header__item t12500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
+        <div class="c-table__header__item t12 w500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
             عملیات
         </div>
     </header>

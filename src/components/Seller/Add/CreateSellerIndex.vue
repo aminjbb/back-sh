@@ -19,7 +19,7 @@
             </div>
             <div class="d-flex justify-end pa-5" >
               <v-btn @click="$router.push('/seller/create/natural-seller')" color="primary500" rounded>
-                <span class="text-white t12500">
+                <span class="text-white t12 w500">
                   ثبت فروشنده حقیقی
                 </span>
               </v-btn>
@@ -44,7 +44,7 @@
             </div>
             <div class="d-flex justify-end pa-5" >
               <v-btn @click="$router.push('/seller/create/legal-seller')" color="primary500" rounded>
-                <span class="text-white t12500">
+                <span class="text-white t12 w500">
                   ثبت فروشنده حقوقی
                 </span>
               </v-btn>
