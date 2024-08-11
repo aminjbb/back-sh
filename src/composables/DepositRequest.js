@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {PanelFilter} from "../assets/js/filter_deposit_request";
-
 
 export default function setup() {
     const WithdrawRequestList = ref([]);
@@ -12,24 +10,23 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: ' شناسه ', show: true , value:'id', order: true},
-        { name: ' شناسه مشتری', show: true , value:'user_id', order: true},
-        { name: ' نام مشتری', show: true , value:'name', order: false},
-        { name: ' شماره مشتری', show: true , value:'phone_number', order: false},
-        { name: '  مبلغ درخواستی', show: true , value:'id', order: false},
-        { name: ' شماره شبا مشتری', show: true, value:'type' , order: false},
-        { name: ' موجودی قابل برداشت', show: true, value:'value', order: false },
-        { name: ' موجودی  کل', show: true, value:'value', order: false },
-        { name: ' تاریخ درخواست ', show: true, value:'created_at', order: true },
-        { name: ' تاریخ بروز‌رسانی ', show: true, value:'updated_at', order: true },
-        // { name: 'نام ادمین ', show: true, value:'updated_at', order: false },
-        { name: 'وضعیت تراکنش', show: true, value:'is_active', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row',align:'center', sortable: false},
+        { name: ' شناسه ',title: ' شناسه ', show: true , key:'id',align:'center'},
+        { name: ' شناسه مشتری',title: ' شناسه مشتری', show: true , key:'user_id',align:'center'},
+        { name: ' نام مشتری',title: ' نام مشتری', show: true , key:'name',align:'center', sortable: false},
+        { name: ' شماره مشتری',title: ' شماره مشتری', show: true , key:'phone_number',align:'center', sortable: false},
+        { name: '  مبلغ درخواستی',title: '  مبلغ درخواستی', show: true , key:'amount',align:'center', sortable: false},
+        { name: ' شماره شبا مشتری' ,title: ' شماره شبا مشتری', show: true, key:'card_number' ,align:'center', sortable: false},
+        { name: ' موجودی قابل برداشت', title: ' موجودی قابل برداشت', show: true, key:'wallet_value', align:'center', sortable: false},
+        { name: ' موجودی  کل',title: ' موجودی  کل', show: true, key:'total_inventory', align:'center', sortable: false},
+        { name: ' تاریخ درخواست ',title: ' تاریخ درخواست ', show: true, key:'created_at', align:'center'},
+        { name: ' تاریخ بروز‌رسانی ',title: ' تاریخ بروز‌رسانی ', show: true, key:'updated_at', align:'center'},
+        { name: 'وضعیت تراکنش',title: 'وضعیت تراکنش', show: true, key:'custom', align:'center', sortable: false},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
@@ -48,8 +45,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
-
     /**
      * Get page list
      * @param {*} query

@@ -40,17 +40,99 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="headerVouchers"
-          :items="voucherList"
+          :headers="headerVouchers"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           activePath="voucher/activation/"
-          @updateList="updateList"
-          deletePath="voucher/crud/delete/"
-          model="order" />
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
 
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" v-if="item.data.voucher_type === 'گروهی'" @click="$router.push(`/voucher/${item.data.id}/list`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  لیست کد های تخفیف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" v-if="item.data.voucher_type === 'نظیر به نظیر'" @click="$router.push(`/voucher/${item.data.id}/peer`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  لیست کد های تخفیف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/edit`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-pen-minus</v-icon>
+
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                    ویرایش
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/shps`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  نمایش کالاهای تخفیف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/customer`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  نمایش مشتری های تخفیف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/get`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                 جزئیات کد تخفیف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/voucher/${item.data.id}/order`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                  لیست سفارشات
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="removeItem(item.data.id)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                    حذف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -95,17 +177,17 @@
 
 <script>
 import {defineAsyncComponent} from "vue";
-const Table = defineAsyncComponent(()=> import ('@/components/Voucher/Table/VoucherListTable.vue'))
 const ModalColumnFilter = defineAsyncComponent(()=> import ("@/components/Public/ModalColumnFilter.vue"))
 const PanelFilter = defineAsyncComponent(()=> import ("@/components/PanelFilter/PanelFilter.vue"))
-
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Voucher from "@/composables/Voucher";
-import {openToast} from "@/assets/js/functions";
+import {openConfirm, openToast, splitChar} from "@/assets/js/functions";
 
 export default {
   data() {
     return {
-      perPageFilter:false
+        perPageFilter:false,
+        itemListTable: []
     }
   },
 
@@ -200,8 +282,8 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
-    ModalColumnFilter
+    ModalColumnFilter,
+    ShTable
   },
 
   computed: {
@@ -214,20 +296,18 @@ export default {
     changeHeaderShow(index, value) {
       this.headerVouchers[index].show = value
     },
-
-    updateList(status) {
-      if (status === 'true') {
-        this.getVoucherList();
-      }
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    splitChar,
+    removeItem(id) {
+          openConfirm(this.$store, "آیا از حذف آیتم مورد نظر مظمئن هستید ؟", "حذف تخفیف", "delete", 'voucher/crud/delete/'+id, true);
+      },
   },
 
   mounted() {
@@ -277,7 +357,32 @@ export default {
       if (!this.perPageFilter){
         this.getVoucherList()
       }
-    }
+    },
+
+    voucherList() {
+          this.itemListTable = []
+          this.voucherList.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      name: item.name ? item.name : '---',
+                      discount_type: item.discount_type && item.discount_type === 'percent' ? 'درصدی' : item.discount_type ? 'ریالی' : '-',
+                      voucher_type: item.voucher_type === 'group' ? 'گروهی' : item.voucher_type === 'peer_to_peer' ? 'نظیر به نظیر' : item.voucher_type === 'regular' ? 'عادی' : null,
+                      voucherCode: item.code ? item.code : '-',
+                      discount: item.discount ? item.discount : '-',
+                      order_limit: item.order_limit ? item.order_limit : '-',
+                      user_limit: item.user_limit ? item.user_limit : '-',
+                      min_order_price: item.min_order_price ? this.splitChar(item.min_order_price) : '-',
+                      order_count: item.order_count ? item.order_count : '-',
+                      start_time_fa: item.start_time_fa ? item.start_time_fa : '-',
+                      end_time_fa: item.end_time_fa ? item.end_time_fa : '-',
+                      state_id: item.state_id ? item.state_id : '-',
+                      is_active: item.is_active,
+                      is_active_id: item.id,
+                  }
+              )
+          })
+      },
   }
 }
 </script>

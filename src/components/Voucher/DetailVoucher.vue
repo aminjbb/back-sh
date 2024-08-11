@@ -32,28 +32,14 @@
         </div>
       </div>
     </v-card>
-<!--    <v-card height="70" class="mx-5 br-12" max-height="70">
-      <v-row
-          justify="end"
-          align="center"
-          class="px-10 py-5">
-        <v-col cols="6">
-          <v-row justify="end">
-
-            <PanelFilter path="admin/index" :filterField="[]"/>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-card>-->
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="headerShps"
-          :items="voucher"
+          :headers="headerShps"
+          :items="itemListTable"
           :page="page"
           :perPage="pageLength"
-          :loading="false"
           />
 
       <v-divider/>
@@ -66,11 +52,16 @@
 </template>
 <script>
 import {defineAsyncComponent} from "vue";
-const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherDatailTable.vue"))
+const ShTable = defineAsyncComponent(()=> import ("@/components/Components/Table/sh-table.vue"))
 
 import Voucher from '@/composables/Voucher'
 
 export default {
+  data(){
+      return{
+          itemListTable: []
+      }
+  },
   setup() {
     const {
       headerShps,
@@ -93,11 +84,30 @@ export default {
       voucherDetail
     }
   },
-  components: {Table},
+
+  components: {
+    ShTable
+  },
 
   mounted() {
     this.getVoucherShps()
     this.getVoucherDetail()
-  }
+  },
+
+  watch: {
+        voucher() {
+            this.itemListTable = []
+            this.voucher.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        sku_id: item.sku.id,
+                        sku_label: item.sku.label,
+                        customer_price: item.customer_price ? item.customer_price : '-',
+                        site_price: item.site_price ? item.site_price : '-',
+                    }
+                )
+            })
+        },
+    }
 }
 </script>

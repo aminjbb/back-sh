@@ -43,32 +43,15 @@
         </div>
       </div>
     </v-card>
-<!--    <v-card height="70" class="mx-5 br-12" max-height="70">
-      <v-row
-          justify="end"
-          align="center"
-          class="px-10 py-5">
 
-
-        <v-col cols="6">
-          <v-row justify="end">
-
-            <PanelFilter path="admin/index" :filterField="[]"/>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-card>-->
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+        <ShTable
           class="flex-grow-1"
-          :header="headerCustomer"
-          :items="voucher?.data"
+          :headers="headerCustomer"
+          :items=" itemListTable"
           :page="page"
           :perPage="pageLength"
-          :loading="false"
-          model="customer"
       />
-
       <v-divider/>
 
       <v-card-actions class="pb-3">
@@ -112,9 +95,7 @@
   </div>
 </template>
 <script>
-import {defineAsyncComponent} from "vue";
-const Table= defineAsyncComponent(()=> import ("@/components/Voucher/Table/VoucherDatailCustomerTable.vue"))
-
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import Voucher from '@/composables/Voucher'
 
 export default {
@@ -145,7 +126,26 @@ export default {
     }
   },
 
-  components: {Table},
+  components: {
+      ShTable
+  },
+
+  data() {
+    return {
+        perPageFilter:false,
+        itemListTable: []
+    }
+  },
+
+  methods: {
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
 
   mounted() {
     this.getVoucherCustomer()
@@ -153,15 +153,52 @@ export default {
   },
 
   watch:{
-    dataTableLength(val){
-      this.addPerPageCustomer(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
-    $route(to){
-      this.getVoucherCustomer(to)
+    $route(){
+      this.getVoucherCustomer()
     },
-    page(val){
-      this.addPaginationCustomer(val)
-    }
+    page(){
+      if (!this.perPageFilter){
+        this.addPaginationCustomer()
+      }
+    },
+
+    voucher() {
+          if(this.voucher.data) {
+
+              this.itemListTable = []
+              this.voucher.data.forEach((item) => {
+                  this.itemListTable.push(
+                      {
+                          id: item.id,
+                          first_name: item.first_name ? item.first_name : '-',
+                          last_name: item.last_name ? item.last_name : '-',
+                          phone_number: item.phone_number ? item.phone_number : '---',
+                      }
+                  )
+              })
+          }
+      },
   }
 }
 </script>

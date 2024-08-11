@@ -97,7 +97,9 @@
                 prev-icon="mdi-chevron-right"
                 next-icon="mdi-chevron-left"/>
           </v-col>
+
           <v-col cols="12">
+
             <div
                 id="rowSection"
                 class="d-flex justify-center align-center">

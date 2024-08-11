@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_lost.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -16,14 +14,14 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'اسم گردونه', show: true , value:'label', order: false},
-        { name: 'لیبل', show: true, value:'name' , order: false},
-        { name: 'تاریخ شروع', show: true , value:'start_date', order: true},
-        { name: 'تاریخ پایان', show: true , value:'end_date', order: true},
-        { name: 'تعداد شانس', show: true , value:'chance', order: false},
-        { name: 'وضعیت', show: true , value:'is_active', order: false},
-        { name: 'عملیات', show: true , value:'is_active', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true ,sortable:false,align:'center', key:'row'},
+        { name: 'اسم گردونه',title: 'اسم گردونه', show: true,sortable: false,align:'center', key:'name'},
+        { name: 'لیبل',title: 'لیبل', show: true,sortable: false,align:'center', key:'label'},
+        { name: 'تاریخ شروع',title: 'تاریخ شروع', show: true ,align:'center', key:'start_time_fa'},
+        { name: 'تاریخ پایان',title: 'تاریخ پایان', show: true ,align:'center', key:'end_time_fa'},
+        { name: 'تعداد شانس',title: 'تعداد شانس', show: true ,sortable: false,align:'center', key:'turn_per_user'},
+        { name: 'وضعیت',title: 'وضعیت', show: true ,sortable: false,align:'center', key:'is_active'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true ,align:'center', sortable: false, fixed: true},
     ]);
     const prizesHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},
@@ -42,9 +40,6 @@ export default function setup() {
         {name:'تعداد شانس' , type:'text', value:'turn_per_user'},
     ];
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getLuckyWheelList() {
         loading.value = true

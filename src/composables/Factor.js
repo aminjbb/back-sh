@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_factor.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,18 +11,18 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Factor table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه فاکتور', show: true , value:'id', order: true},
-        { name: 'تامین کننده ', show: true, value:'supplier' , order: false},
-        { name: 'سازنده', show: true , value:'creator', order: false},
-        { name: 'شماره فاکتور تامین کننده ', show: true, value:'factor_number', order: false },
-        { name: 'تاریخ ساخت', show: true, value:'created_at_fa', order: false },
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        { name: 'ردیف', title: 'ردیف', show: true , sortable:false, align:'center', key:'row'},
+        { name: 'شناسه فاکتور', title: 'شناسه فاکتور', show: true, align:'center', key:'id' },
+        { name: 'تامین کننده', title: 'تامین کننده', show: true, sortable: false, align:'center', key:'supplier'},
+        { name: 'سازنده', title: 'سازنده', show: true , sortable: false, align:'center', key:'creator'},
+        { name: 'شماره فاکتور تامین کننده', title: 'شماره فاکتور تامین کننده', show: true, sortable: false, align:'center', key:'factor_number' },
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, sortable: false, align:'center', key:'created_at_fa' },
+        { name: 'وضعیت', title: 'وضعیت', show: true, sortable: false, align:'center', key:'custom' },
+        { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action' ,fixed: true},
     ]);
 
     const pricingHeader =ref([
@@ -56,7 +54,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get factor list
@@ -120,6 +117,7 @@ export default function setup() {
         }
 
         else {
+            loading.value = false
         }
     };
 
@@ -127,14 +125,48 @@ export default function setup() {
      * Get Price list of a factor
      * @param {*} query 
      */
-    async function getPricingList(query) {
+    async function getPricingList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `factor/crud/detail/${route.params.id}`
@@ -148,11 +180,21 @@ export default function setup() {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
     }
 
-    return {templates, pageLength, filterField, factorList, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
+    return {
+        templates,
+        pageLength,
+        filterField,
+        factorList,
+        getFactorList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        pricingHeader,
+        getPricingList,
+        priceList
+    }
 }
 

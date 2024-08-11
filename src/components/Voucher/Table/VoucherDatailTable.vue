@@ -91,13 +91,7 @@
 </template>
 
 <script>
-import {
-  isOdd
-} from '@/assets/js/functions'
-
-import {
-  PanelFilter
-} from "@/assets/js/filter"
+import {isOdd} from '@/assets/js/functions'
 
 export default {
 
@@ -155,8 +149,7 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      isBan: [],
-      panelFilter: new PanelFilter(),
+      isBan: []
     }
   },
 

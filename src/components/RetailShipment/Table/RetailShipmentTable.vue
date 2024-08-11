@@ -178,20 +178,12 @@
 </div>
 </template>
 <script>
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
 import ModalRequestShipment from "@/components/RetailShipment/Modal/ModalRequestShipment.vue";
+import {openConfirm, isOdd, convertDateToJalai} from "@/assets/js/functions";
 
-import {
-    openConfirm,
-    isOdd,
-    convertDateToJalai
-} from "@/assets/js/functions";
 export default {
     components: {
         ModalRequestShipment,
-
     },
 
     props: {
@@ -305,13 +297,11 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
 
     computed: {
-
         deleteAndShippingPermission() {
             return ['approved', 'sending_warehouse', 'received_by_warehouse',
                 'counting', 'approved_by_warehouse', 'sending_base_warehouse',

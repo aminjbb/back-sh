@@ -302,28 +302,11 @@
 </template>
 
 <script>
-import {
-  isOdd, splitChar
-} from '@/assets/js/functions'
-import {
-    openConfirm
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+import {isOdd, splitChar} from '@/assets/js/functions'
+import {openConfirm} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-  SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller"
-import {
-    openToast
-} from "@/assets/js/functions";
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+import {openModal} from "@/assets/js/functions_seller";
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
@@ -443,8 +426,6 @@ export default  {
             active: [],
             sellable: [],
             filter: [],
-            panelFilter: new PanelFilter(),
-            skuPanelFilter: new SkuSellerPanelFilter(),
             activeColumn: false,
         }
     },
@@ -465,12 +446,7 @@ export default  {
                 return `${width}%`;
             }
             return 'auto';
-        },
-
-        /**
-         * Check is_active is true or false for show in table
-         */
-
+        }
     },
 
     watch: {
@@ -573,7 +549,6 @@ export default  {
                 this.ordering[index] = !this.ordering[index];
               }
             }
-
         },
 
         /**
@@ -583,7 +558,6 @@ export default  {
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
-
 
         /**
          * Change Active

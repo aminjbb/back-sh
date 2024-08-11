@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_menu.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,17 +11,26 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
+    // const header =ref([
+    //     { name: 'ردیف', show: true , value:null, order:false},
+    //     { name: 'نام فارسی', show: true , value:'label', order: false},
+    //     { name: 'نام انگلیسی', show: true , value:'name', order: false},
+    //     { name: 'سطح', show: true, value:'level' , order: false},
+    //     { name: 'منو مادر', show: true , value:'menu', order: false},
+    //     { name: 'اولویت', show: true, value:'priority', order: true },
+    //     { name: 'وضعیت', show: true, value:'is_active', order: false },
+    // ]);
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام فارسی', show: true , value:'label', order: false},
-        { name: 'نام انگلیسی', show: true , value:'name', order: false},
-        { name: 'سطح', show: true, value:'level' , order: false},
-        { name: 'منو مادر', show: true , value:'menu', order: false},
-        { name: 'اولویت', show: true, value:'priority', order: true },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        { name: 'ردیف',  title: 'ردیف', show: true , key:'row', sortable: false, align: 'right'},
+        { name: 'نام فارسی',  title: 'نام فارسی', show: true , key:'label', sortable: false, align: 'right'},
+        { name: 'نام انگلیسی',  title: 'نام انگلیسی', show: true , key:'name', sortable: false, align: 'right'},
+        { name: 'سطح', title: 'سطح', show: true, key:'level' , sortable: false, align: 'right'},
+        { name: 'منو مادر', title: 'منو مادر', show: true , key:'menu', sortable: false, align: 'right'},
+        { name: 'اولویت', title: 'اولویت', show: true, key:'priority', align: 'right' },
+        { name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'right' },
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
 
@@ -41,7 +48,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getMenus() {
         loading.value = true

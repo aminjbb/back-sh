@@ -1,8 +1,6 @@
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
-import {onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter_order.js'
-import {useRouter, useRoute} from 'vue-router'
+import {useRoute} from 'vue-router'
 import {useCookies} from "vue3-cookies";
 
 export default function setup() {
@@ -12,30 +10,30 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: 'شناسه سفارش', show: true, value: 'id', order: false},
-        {name: 'شناسه مرجوعی', show: true, value: 'returned_id', order: false},
-        {name: 'نام مشتری', show: true, value: 'user', order: false},
-        {name: 'تعداد کالا', show: true, value: 'shps_count', order: false},
-        {name: 'وضعیت سفارش', show: false, value: 'status', order: false},
-        {name: 'وضعیت مرجوعی', show: true, value: 'returned_status', order: false},
-        {name: 'وضعیت پرداخت', show: false, value: 'payment_status', order: false},
-        {name: 'روش پرداخت', show: true, value: 'payment_method', order: false},
-        {name: 'مبلغ پرداختی', show: true, value: 'paid_price', order: false},
-        {name: 'بررسی درخواست', show: true, value: 'request_status', order: false},
-        {name: 'وضعیت بارگیری', show: false, value: 'packed_status', order: false},
-        {name: 'تاریخ ثبت سفارش', show: false, value: 'submit_date', order: true},
-        {name: 'تاریخ ارسال سفارش', show: true, value: 'receive_date', order: true},
-        {name: 'تاریخ ثبت مرجوعی', show: true, value: 'created_at', order: false},
-        {name: 'مبلغ تخفیف', show: false, value: 'discount', order: false},
-        {name: 'استان', show: false, value: 'state', order: false},
-        {name: 'شهر', show: false, value: 'city', order: false},
-        {name: 'کد معرف', show: false, value: 'identifier_code', order: false},
-        {name: 'شناسه بانکی', show: false, value: 'bank_id', order: false},
+        {name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable: false, align:'center'},
+        {name: 'شناسه سفارش',title: 'شناسه سفارش', show: true, key: 'id', sortable: false, align:'center'},
+        {name: 'شناسه مرجوعی',title: 'شناسه مرجوعی', show: true, key: 'returned_id', sortable: false, align:'center'},
+        {name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'user', sortable: false, align:'center'},
+        {name: 'تعداد کالا',title: 'تعداد کالا', show: true, key: 'shps_count', sortable: false, align:'center'},
+        {name: 'وضعیت سفارش',title: 'وضعیت سفارش', show: false, key: 'orderStatus', sortable: false, align:'center'},
+        {name: 'وضعیت مرجوعی',title: 'وضعیت مرجوعی', show: true, key: 'returned_status', sortable: false, align:'center'},
+        {name: 'وضعیت پرداخت',title: 'وضعیت پرداخت', show: false, key: 'payment_status', sortable: false, align:'center'},
+        {name: 'روش پرداخت',title: 'روش پرداخت', show: true, key: 'payment_method', sortable: false, align:'center'},
+        {name: 'مبلغ پرداختی',title: 'مبلغ پرداختی', show: true, key: 'paid_price', sortable: false, align:'center'},
+        {name: 'بررسی درخواست',title: 'بررسی درخواست', show: true, key: 'request_status', sortable: false, align:'center', model:'icon'},
+        {name: 'وضعیت بارگیری',title: 'وضعیت بارگیری', show: false, key: 'packed_status', sortable: false, align:'center', model:'icon'},
+        {name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: false, key: 'submit_date_fa', align:'center'},
+        {name: 'تاریخ ارسال سفارش',title: 'تاریخ ارسال سفارش', show: true, key: 'receive_date_fa', align:'center'},
+        {name: 'تاریخ ثبت مرجوعی',title: 'تاریخ ثبت مرجوعی', show: true, key: 'created_at_fa', sortable: false, align:'center'},
+        {name: 'مبلغ تخفیف',title: 'مبلغ تخفیف', show: false, key: 'discount', sortable: false, align:'center'},
+        {name: 'استان',title: 'استان', show: false, key: 'state', sortable: false, align:'center'},
+        {name: 'شهر',title: 'شهر', show: false, key: 'city', sortable: false, align:'center'},
+        {name: 'کد معرف',title: 'کد معرف', show: false, key: 'identifier_code', sortable: false, align:'center'},
+        {name: 'شناسه بانکی',title: 'شناسه بانکی', show: false, key: 'bank_id', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
@@ -113,7 +111,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new PanelFilter()
 
     async function getReturnedOrderList() {
         loading.value = true

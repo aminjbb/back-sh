@@ -165,9 +165,6 @@ import {
   openToast
 } from "@/assets/js/functions";
 import {
-  PanelFilter
-} from "@/assets/js/filter"
-import {
   openConfirm,
   convertDateToJalai,
   isOdd,
@@ -252,7 +249,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan:[],
-      panelFilter: new PanelFilter(),
     }
   },
 
@@ -290,6 +286,7 @@ export default {
         'waiting': 'در انتظار',
         'failed': 'ناموفق',
         'cancel': 'کنسل شده',
+        'operator_mistake': 'خطای اپراتور',
 
       };
       return translations[type] || type;

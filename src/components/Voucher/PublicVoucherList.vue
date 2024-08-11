@@ -51,16 +51,13 @@
 
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="headerPublicVoucherList"
-          :items="voucherGroup"
+          :headers="headerPublicVoucherList"
+          :items="itemListTable"
           :page="page"
           :perPage="pageLength"
-          :loading="false"
       />
-
       <v-divider/>
 
       <v-card-actions class="pb-3">
@@ -77,15 +74,16 @@
 </template>
 <script>
 import {defineAsyncComponent} from "vue";
-const Table = defineAsyncComponent(()=> import ("@/components/Voucher/Table/PublicVoucherTable.vue"))
 const ModalExcelDownload = defineAsyncComponent(()=> import ("@/components/Public/ModalExcelDownload.vue"))
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 import Voucher from '@/composables/Voucher';
 
 export default {
   data() {
     return {
-      voucherId: this.$route.params.voucherId,
+        voucherId: this.$route.params.voucherId,
+        itemListTable: []
     }
   },
   setup() {
@@ -99,13 +97,25 @@ export default {
     }
   },
   components: {
-    Table,
+    ShTable,
     ModalExcelDownload,
   },
   mounted() {
     this.getVoucherShps()
     this.getVoucherDetail()
     this.getVoucherGroup()
-  }
+  },
+    watch: {
+        voucherGroup() {
+            this.itemListTable = []
+            this.voucherGroup.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        voucherCode: item.code,
+                    }
+                )
+            })
+        }
+    }
 }
 </script>

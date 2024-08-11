@@ -37,15 +37,43 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          deletePath="notification/admin/crud/delete/"
-          model="notification"
-          :header="header"
-          :items="notifications.data"
+          :headers="header"
+          :items="itemListTable"
+          :loading="loading"
           :page="page"
           :perPage="dataTableLength"
-          :loading="loading"/>
+          :activePath="'category/best_selling/crud/update/activation/'">
+        <template v-slot:showSlot="item">
+          <v-btn :href="item.data.section ==='system' ? item.data.url :'/notifications/get/' + item.data.id" variant="icon">
+            <v-icon color="success">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-trash-can-outline
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -90,25 +118,32 @@
 
 <script>
 //Component
-import Table from '@/components/Notifications/Table/Table.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Notifications from '@/composables/Notifications';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {openConfirm} from "@/assets/js/functions";
 
 export default {
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      itemListTable: [],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "notification/admin/crud/delete/",
+      },
     }
   },
   components: {
     PanelFilter,
-    Table,
     ModalColumnFilter,
     ModalGroupAdd,
-    ModalExcelDownload
+    ModalExcelDownload,
+    ShTable
   },
 
   setup() {
@@ -147,6 +182,22 @@ export default {
   },
 
   watch: {
+    notifications(){
+      this.itemListTable = []
+
+      this.notifications.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                section: item.section,
+                url: item.url,
+                title: item.title,
+                created_at: item.created_at_fa,
+              },
+          ),
+      )
+    },
+
     confirmModal(val) {
       if (!val) {
         this.getNotifications()
@@ -164,7 +215,8 @@ export default {
             per_page: this.dataTableLength,
           }
         })
-      } else {
+      }
+      else {
         this.$router.push({
           query: {
             per_page: this.dataTableLength,
@@ -173,24 +225,33 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page() {
       if (!this.perPageFilter) {
         this.getNotifications()
       }
-    }
+    },
+    $route(){
+      this.getNotifications()
+    },
   },
 
   methods: {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
       setTimeout(() => {
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   }
 }
 </script>

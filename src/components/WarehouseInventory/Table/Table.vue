@@ -114,17 +114,9 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-
-import {
-    isOdd
-} from "@/assets/js/functions";
+import { isOdd} from "@/assets/js/functions";
 import InventoryReductionModal from "@/components/WarehouseInventory/Modal/InventoryReductionModal.vue";
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+import {openModal} from "@/assets/js/functions_seller";
 
 export default {
     data() {
@@ -133,7 +125,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
         }
     },

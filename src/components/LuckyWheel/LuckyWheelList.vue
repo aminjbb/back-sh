@@ -24,6 +24,7 @@
             <PanelFilter
                 @resetPage="resetPage"
                 :filterField="filterField"
+                path="lucky-wheel/index"
             />
           </v-row>
         </v-col>
@@ -31,19 +32,36 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="luckyWheel"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
-          @updateList="updateList"
-          deletePath="game/lucky-wheel/prize/crud/delete/"
           activePath="game/lucky-wheel/crud/update/activation/"
-          model="report" />
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
 
-
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="$router.push(`/lucky-wheel/${item.data.id}/prize-edit`)">
+                              <v-icon class="text-grey-darken-1" size="x-small">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                    ویرایش جایزه
+                              </span>
+                          </div>
+                      </v-list-item-title>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -89,21 +107,23 @@
 
 <script>
 import {defineAsyncComponent} from 'vue'
-const Table = defineAsyncComponent(()=> import('@/components/LuckyWheel/Table/Table.vue'))
 import LuckyWheel from "@/composables/LuckyWheel";
-import {openToast} from "@/assets/js/functions";
 const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {openConfirm} from "@/assets/js/functions";
+
 
 
 export default {
   data() {
     return {
-      perPageFilter:false
+    perPageFilter:false,
+    itemListTable: []
     }
   },
   components: {
     PanelFilter,
-    Table
+    ShTable
   },
 
   setup() {
@@ -151,20 +171,17 @@ export default {
   },
 
   methods: {
-
-
-    updateList(status) {
-      if (status === 'true') {
-        this.getLuckyWheelList();
-      }
-    },
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, "از حذف آیتم اطمینان دارید؟", "حذف آیتم", "delete", "game/lucky-wheel/prize/crud/delete/" + id, true);
+    },
   },
 
   mounted() {
@@ -193,16 +210,32 @@ export default {
       }
       this.perPageFilter = false
     },
-
     page(){
       if (!this.perPageFilter){
         this.getLuckyWheelList()
       }
     },
-
     $route(){
       this.getLuckyWheelList()
-    }
+    },
+
+    luckyWheel() {
+      this.itemListTable = []
+      this.luckyWheel.forEach((item) => {
+          this.itemListTable.push(
+              {
+                  id: item.id,
+                  name: item.name,
+                  label: item.label,
+                  start_time_fa: item.start_time_fa,
+                  end_time_fa: item.end_time_fa,
+                  turn_per_user: item.turn_per_user,
+                  is_active: item.is_active,
+                  is_active_id: item.id,
+              }
+          )
+      })
+    },
   }
 }
 </script>

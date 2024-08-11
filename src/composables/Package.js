@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -15,15 +13,15 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه بسته', show: true , value:'id', order: false},
-        { name: 'نوع بسته', show: true, value:'type' , order: false},
-        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه بسته', title: 'شناسه بسته', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'نوع بسته', title: 'نوع بسته', show: true, key:'type' , sortable: false, align: 'center'},
+        {name: 'تعداد کالا', title: 'تعداد کالا', show: true , key:'shps_count', sortable: false, align: 'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center' },
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
@@ -35,17 +33,16 @@ export default function setup() {
     ];
 
     const historyHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تاریخ آخرین وضعیت', show: true, value:'updated_at', order: false },
-        { name: 'نوع بسته', show: true, value:'type' , order: false},
-        { name: 'تعداد کالا', show: true , value:'shps_count', order: false},
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'تاریخ آخرین وضعیت', title: 'تاریخ آخرین وضعیت', show: true, key:'updated_at', sortable: false, align: 'center'},
+        {name: 'نوع بسته', title: 'نوع بسته', show: true, key:'type' , sortable: false, align: 'center'},
+        {name: 'تعداد کالا', title: 'تعداد کالا', show: true , key:'shps_count',sortable: false, align: 'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center' },
     ]);
 
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getPackageList() {
         loading.value = true

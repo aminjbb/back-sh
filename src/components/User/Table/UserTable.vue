@@ -219,9 +219,7 @@ import {
 import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-  PanelFilter
-} from "@/assets/js/filter"
+
 import {
   openConfirm
 } from "@/assets/js/functions";
@@ -317,7 +315,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan:[],
-      panelFilter: new PanelFilter(),
     }
   },
 

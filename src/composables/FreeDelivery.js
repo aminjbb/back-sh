@@ -1,10 +1,7 @@
-import { ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
-import { UserPanelFilter } from '@/assets/js/filter_free_delivery_user.js'
-import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {OrderListPanelFilter} from '@/assets/js/filter_free_delivery_order_list.js'
 
 export default function setup() {
     const freeDeliveryList = ref([]);
@@ -17,19 +14,18 @@ export default function setup() {
     let page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const headerFreeDelivery =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'id', order: false},
-        { name: ' نفیس اکسپرس', show: true, value: 'nafis', order: false},
-        { name: ' پست پیشتاز', show: true, value: 'pishtaz', order: false},
-        { name: ' پست', show: true, value: 'post', order: false},
-        { name: 'تیپاکس', show: true, value: 'tpax', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
-        { name: 'استان', show: false, value: 'state', order: true},
-        { name: 'وضعیت', show: true, value: 'is_active', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , sortable: false,align:'center' ,key: 'row'},
+        { name: 'عنوان',title: 'عنوان', show: true, sortable: false,align:'center' ,key: 'name'},
+        { name: ' نفیس اکسپرس',title: ' نفیس اکسپرس', show: true, sortable: false,align:'center' ,key: 'nafis',model: 'icon'},
+        { name: ' پست پیشتاز',title: ' پست پیشتاز', show: true, sortable: false,align:'center' ,key: 'pishtaz',model: 'icon'},
+        { name: ' پست',title: ' پست', show: true, sortable: false,align:'center' ,key: 'post',model: 'icon'},
+        { name: 'تیپاکس',title: 'تیپاکس', show: true, sortable: false,align:'center' ,key: 'tpax',model: 'icon'},
+        { name: 'تاریخ شروع',title: 'تاریخ شروع', show: true,align:'center' ,key: 'start_time_fa'},
+        { name: 'تاریخ پایان',title: 'تاریخ پایان', show: true,align:'center' ,key: 'end_time_fa'},
+        { name: 'وضعیت',title: 'وضعیت', show: true, sortable: false,align:'center' ,key: 'is_active'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
   
     const headerShps = ref([
@@ -90,9 +86,6 @@ export default function setup() {
         {name:'تاریخ ثبت سفارش ' , type:'date', value:'created_at'},
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
-    const UserFilter = new UserPanelFilter()
-    const OrderFilter = new OrderListPanelFilter()
 
     async function  getFreeDeliveryList() {
         loading.value = true
