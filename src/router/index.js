@@ -199,7 +199,6 @@ import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementS
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
 import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/ShpsListLocatingToShelfView.vue";
 import SmsNotificationListViwe from "@/views/SmsNotification/SmsNotificationListView.vue";
-import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
