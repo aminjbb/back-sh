@@ -28,15 +28,16 @@ export default function setup(posts) {
         { name: 'تلورانس بالا', show: false, value:'high_tolerance', order: false },
     ]);
     const header =ref([
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسه پنل' , show:true, value:'id', order: false},
-        {name:'شناسه کوثر' , show:true, value:'kosar_id', order: false},
-        {name:'نام فروشگاه' , show:true, value:'shopping_name', order: false},
-        {name:'نوع فروشنده' , show:true, value:'type', order: false},
-        { name: 'ایمیل', show:true, value:'email', order: false},
-        { name: 'یازه پرداخت', show:true, value:'payment_period', order: false},
-        {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', sortable: false, align:'center'},
+        {name:'شناسه پنل' ,title:'شناسه پنل' , show:true, key:'id', sortable: false, align:'center'},
+        {name:'شناسه کوثر' ,title:'شناسه کوثر' , show:true, key:'kosar_id', sortable: false, align:'center'},
+        {name:'نام فروشگاه' ,title:'نام فروشگاه' , show:true, key:'shopping_name', sortable: false, align:'center'},
+        {name:'نوع فروشنده' ,title:'نوع فروشنده' , show:true, key:'type', sortable: false, align:'center'},
+        {name: 'ایمیل',title: 'ایمیل', show:true, key:'email', sortable: false, align:'center'},
+        {name: 'یازه پرداخت',title: 'یازه پرداخت', show:true, key:'payment_period', sortable: false, align:'center'},
+        {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد' , show:true, key:'created_at_fa', align:'center'},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'is_active', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const headerSku =ref([
