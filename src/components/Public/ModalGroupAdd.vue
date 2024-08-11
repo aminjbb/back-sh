@@ -89,7 +89,7 @@ export default {
     condition: null,
     type: null,
     dataForm: null,
-    title:'افزودن گروهی',
+    title:{type:String , default:'افزودن گروهی'},
     btnColor:'',
     btnVariant:'outlined',
     plusIcon : false,

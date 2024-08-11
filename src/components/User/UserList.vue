@@ -165,6 +165,14 @@ import { AxiosCall } from "../../assets/js/axios_call";
 import {openConfirm, openToast} from "@/assets/js/functions";
 
 export default {
+
+  components:{
+    ShTable,
+    PanelFilter,
+    ModalExcelDownload,
+    ModalColumnFilter,
+  },
+
   setup() {
     const {
       pageLength,
@@ -190,13 +198,6 @@ export default {
       filterField,
       loading
     };
-  },
-
-  components:{
-    ShTable,
-    PanelFilter,
-    ModalExcelDownload,
-    ModalColumnFilter,
   },
 
   data() {

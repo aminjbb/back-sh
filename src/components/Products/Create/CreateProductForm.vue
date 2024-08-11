@@ -105,6 +105,12 @@ import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
 import { onUnmounted } from 'vue'
 export default {
+  components: {
+    CreateProductFromStep1,
+    CreateProductFromStep2,
+    CreateProductFromStep3,
+    Stepper
+  },
   setup() {
     onUnmounted(() =>  localStorage.removeItem('skuGroupDetail'))
     const {allBrands, getAllBrands} = Brands()
@@ -126,12 +132,7 @@ export default {
       skuGroup, getSkuGroup
     }
   },
-  components: {
-    CreateProductFromStep1,
-    CreateProductFromStep2,
-    CreateProductFromStep3,
-    Stepper
-  },
+
 
   data: () => ({
     step: 1,
@@ -559,9 +560,6 @@ export default {
     }
   },
 
-  beforeMount() {
-
-  },
 
 
   computed: {

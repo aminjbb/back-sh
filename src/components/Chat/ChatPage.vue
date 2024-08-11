@@ -134,10 +134,6 @@ export default {
 
   },
 
-  watch:{
-    $route(){
-    }
-  }
 
 }
 
