@@ -36,10 +36,10 @@ export default function setup() {
     ];
 
     const shpssHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'سریال shps', show: true , value:'shipment_id', order: false},
-        { name: 'نام کالا', show: true, value:'sku_label' , order: false},
-        { name: 'تعداد کالا', show: true , value:'count', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row', sortable:false, align:'center'},
+        { name: 'سریال shps',title: 'سریال shps', show: true , key:'id', sortable: false, align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true, key:'sku_label' , sortable: false, align:'center'},
+        { name: 'تعداد کالا',title: 'تعداد کالا', show: true , key:'placement_count', sortable: false, align:'center'},
     ]);
 
     const loading = ref(false)
