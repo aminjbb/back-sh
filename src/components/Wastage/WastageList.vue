@@ -51,17 +51,35 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="itemList"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
-          @updateList="updateList"
-          deletePath="report/crud/delete/"
-          model="report" />
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
 
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item-title>
+                          <div class="ma-3 pointer d--rtl" @click="removeItem(item.data.id)">
+                              <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                              <span class="mr-1 text-grey-darken-1 t13 w400">
+                                    حذف
+                              </span>
+                          </div>
+                      </v-list-item-title>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider />
 
 
@@ -108,32 +126,30 @@
 
 <script>
 //Components
-import Table from '@/components/Wastage/Table/Table.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Wastage from '@/composables/Wastage';
-import {openToast} from "@/assets/js/functions";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
+import {openConfirm, openToast} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   components: {
     PanelFilter,
-    Table,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
+    ShTable
   },
 
   data() {
     return {
       rule: [v => !!v || 'این فیلد الزامی است'],
       shps_s: null,
-
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
     }
   },
 
@@ -194,8 +210,6 @@ export default {
   },
 
   methods: {
-
-
     async addShps() {
      try {
        this.loading = true
@@ -220,19 +234,33 @@ export default {
        this.loading = false;
      }
     },
-    updateList(status) {
-      if (status === 'true') {
-        this.getWasteAndLostList();
-      }
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+          openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", 'report/crud/delete/' + id, true);
+      },
+    getPackageType(type){
+      if(type === 'bulk'){
+          return 'بالک'
+      }else{
+          return 'پالت'
+      }
+    },
+    getShipmentType(type){
+      if(type === 'cross_dock_marketplace'){
+          return 'فروش مارکت'
+      }else if(type === 'consignment_shavaz'){
+          return 'انبارش شاوز'
+      }else if(type === 'consignment_marketplace'){
+          return 'انبارش مارکت'
+      }
+    },
   },
 
   mounted() {
@@ -279,10 +307,30 @@ export default {
         this.getWasteAndLostList()
       }
     },
-
     $route(){
       this.getWasteAndLostList()
-    }
+    },
+
+    itemList() {
+          this.itemListTable = []
+          this.itemList.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      data: item,
+                      id: item.id,
+                      shpss: item.shps_s,
+                      shps_label: item.shps.label ? item.shps.label : '-',
+                      package_id: item.package_id ? item.package_id : '-',
+                      package_type: item.package_type ? this.getPackageType(item.package_type) : '-',
+                      shipment_id: item.shipment_id ? item.shipment_id : '-',
+                      shipment_type: item.shipment_type ? this.getShipmentType(item.shipment_type) : '-',
+                      shopping_name: item.shps.seller ? item.shps.seller.shopping_name : '-',
+                      creator: item.creator ? item.creator.first_name +' '+ item.creator.last_name : '-',
+                      created_at_fa: item.created_at_fa ? item.created_at_fa : '-',
+                  }
+              )
+          })
+      },
   }
 }
 </script>
