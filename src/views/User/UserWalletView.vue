@@ -122,20 +122,215 @@ import DecreaseWalletModal from "@/components/User/Modal/DecreaseWalletModal.vue
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
+import User from "@/composables/User";
+import {splitChar} from "@/assets/js/functions";
 const WalletUser = defineAsyncComponent(()=> import ('@/components/User/Wallet/WalletUser.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
 export default {
-  Header,
-  DashboardLayout,
-  PanelFilter,
-  ModalExcelDownload,
-  ModalGroupAdd,
-  ModalColumnFilter,
-  IncreseWalletModal,
-  DecreaseWalletModal,
-  ShTable
+  components:{
+    Header,
+    DashboardLayout,
+    PanelFilter,
+    ModalExcelDownload,
+    ModalGroupAdd,
+    ModalColumnFilter,
+    IncreseWalletModal,
+    DecreaseWalletModal,
+    ShTable
+  },
+
+  setup() {
+    const {
+      pageLength,
+      users,
+      getUsers,
+      dataTableLength,
+      pageLengthWallet,
+      page,
+      header,
+      userList,
+      getUserList,
+      filterField,
+      filterFieldWallet,
+      addPerPage,
+      headerTransaction,
+      getTransactionList,
+      transactionList,
+      loading
+    } = User()
+    return {
+      pageLength,
+      users,
+      getUsers ,
+      dataTableLength ,
+      pageLengthWallet,
+      page  ,
+      header ,
+      userList ,
+      getUserList ,
+      filterField ,
+      filterFieldWallet,
+      addPerPage,
+      headerTransaction,
+      getTransactionList,
+      transactionList,
+      loading
+    }
+  },
+
+  data() {
+    return {
+      userId: this.$route.params.userId,
+      statusItems: [
+        {
+          label: 'در انتظار',
+          value: 'waiting',
+        },
+        {
+          label: 'کنسل شده',
+          value: 'cancel',
+        },
+        {
+          label: '  ناموفق',
+          value: 'failed ',
+        },
+        {
+          label: 'موفق',
+          value: 'success  ',
+        }
+      ],
+      transactionReason: [
+        {
+          label: 'هزینه پستی',
+          value: 'post_cost',
+        },
+        {
+          label: 'انصراف از خرید',
+          value: ' cancel_order',
+        },
+        {
+          label: 'مغایرت',
+          value: 'difference_order',
+        },
+        {
+          label: 'سایر',
+          value: 'other',
+        },
+        {
+          label: 'مرجوعی سفارش',
+          value: 'return_order',
+        },
+      ],
+      perPageFilter:false,
+      itemListTable: [],
+    }
+  },
+
+  mounted() {
+    this.getTransactionList()
+    this.getUsers()
+  },
+
+  methods: {
+    splitChar,
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    translateType(type) {
+      const translations = {
+        'post_cost': 'هزینه پستی',
+        'difference_order': 'مغایرت',
+        'cancel_order': ' انصراف از خرید',
+        'return_order': ' مرجوعی سفارش',
+        'other': ' سایر',
+        'success': 'موفق ',
+        'waiting': 'در انتظار',
+        'failed': 'ناموفق',
+        'cancel': 'کنسل شده',
+        'operator_mistake': 'خطای اپراتور',
+
+      };
+      return translations[type] || type;
+    },
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  watch: {
+    transactionList() {
+      this.itemListTable = []
+
+      this.transactionList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                type: item.type,
+                phone_number: item?.user?.phone_number,
+                name: item?.user?.first_name + ' ' + item?.user?.last_name,
+                refid : item.refid ? item.refid.substring(0,15) : '---' ,
+                status: this.translateType(item.status),
+                reason: item.charge_type ? this.translateType(item.charge_type) : '---',
+                custom: item.amount? item.amount : '---' ,
+                custom2: item.amount? item.amount : '---',
+                wallet_value: splitChar(item.wallet.value),
+                create_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
+              },
+          ),
+      )
+    },
+
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getTransactionList()
+      }
+    },
+    confirmModal(val) {
+      if (this.$cookies.get('deleteItem')) {
+        if (!val) {
+          this.getUserList();
+          this.$cookies.remove('deleteItem')
+        }
+      }
+    },
+    $route(to){
+      this.getTransactionList(to)
+    }
+  }
 }
 </script>
 
