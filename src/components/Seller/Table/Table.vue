@@ -50,6 +50,7 @@
         </div>
     </header>
 
+
     <div class="stretch-table">
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div
