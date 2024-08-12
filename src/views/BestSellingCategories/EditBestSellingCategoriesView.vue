@@ -60,6 +60,7 @@ import {AxiosCall} from "@/assets/js/axios_call";
 // const EditBestSellingCategories = defineAsyncComponent(()=> import ('@/components/BestSellingCategories/Edit/EditBestSellingCategories.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+const BestSellingCategoriesForm = defineAsyncComponent(()=> import('@/components/BestSellingCategories/Form/BestSellingCategoriesForm.vue'))
 export default {
   components: {
     CategoryForm,
