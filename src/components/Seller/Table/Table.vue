@@ -179,15 +179,6 @@
                                         </template>
                                     </div>
                                 </v-list-item-title>
-
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`/seller/${item.id}/add/sku/`)">
-                                        <v-icon class="text-grey-darken-1">mdi-view-list-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
-                                            لیست کالا‌ها
-                                        </span>
-                                    </div>
-                                </v-list-item-title>
                               <v-list-item-title>
                                 <div class="ma-5 pointer" @click="$router.push(`/seller/consignment/index?seller_id=${item.id}`)">
                                   <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>

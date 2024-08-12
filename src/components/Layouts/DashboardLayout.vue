@@ -149,6 +149,37 @@
                 </v-list-item>
 
             </v-list-group>
+            <v-list-group value="marketplace">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-cart-outline</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            مارکت پلیس
+                        </span>
+                    </v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in marketplace"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
 
             <v-list-group value="marketing">
                 <template v-slot:activator="{ props }">
@@ -606,7 +637,11 @@ export default {
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
-                ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست کالاها', '/seller/1/add/sku', 'mdi-checkbox-blank-circle-outline'],
+
+            ],
+            marketplace: [
+              ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
                 ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],
