@@ -689,21 +689,7 @@ const router = createRouter({
                     name: 'ویرایش کد ارسال'
                 }
             },
-                {
-                    path: 'create',
-                    name: 'createTicket',
-                    component: CreateNewTickets,
-                    meta: {
-                        name: 'ساخت تیکت'
-                    }
-                }, {
-                    path: 'get/:ticketId',
-                    name: 'getTicket',
-                    component: GetTicketView,
-                    meta: {
-                        name: 'تیکت'
-                    }
-                },
+
             ],
         },
         {
