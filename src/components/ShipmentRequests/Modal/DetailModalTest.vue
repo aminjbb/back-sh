@@ -264,10 +264,12 @@ export default {
 
 
   },
-
-  computed: {
-
-
-  }
 }
 </script>
+
+<style lang="scss">
+.table-scroll-container {
+    max-height: 500px; 
+    overflow-y: auto; 
+}
+</style>

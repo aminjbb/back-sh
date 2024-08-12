@@ -16,7 +16,7 @@
             پرینت برچسب سفارش
           </v-col>
         </v-row>
-        <v-divider class="center-divider"/>
+        <v-divider class="spacing--mr-auto" style="width: 80%;"/>
         <div class=" px-5">
           <div>
             <div class=" mt-10 d-flex justify-center ">

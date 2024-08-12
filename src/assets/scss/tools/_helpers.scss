@@ -82,10 +82,49 @@
     }
   }
 
-//-----------------------------------------------------------------
 // Cursor
 //-----------------------------------------------------------------
 
 .pointer {
     cursor: pointer !important;
   }
+
+// Status
+//----------------------------------------------------------
+
+.bg-active { // should remove and use text-primary500
+  color: #E91E63 !important;
+}
+
+.red-background { // should be bg-disableRow
+  background-color: var(--Red-95, #FFEBEE);
+}
+
+.scan-error{ // should be bg-scanError
+  background: #EF5350 !important;
+}
+
+.scan-success{ // should be bg-scanSuccess
+  background: #43A047 !important;
+}
+
+
+// Table action
+//----------------------------------------------------------
+
+.table-action{
+    &__inner{
+        bottom:30px;
+        left: 30px;
+    }
+}
+
+// Spacing
+//---------------------------------------------------------
+
+.spacing{
+  &--mr-auto{
+      margin-left: auto;
+      margin-right: auto;
+  }
+}

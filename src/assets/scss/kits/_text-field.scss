@@ -56,3 +56,9 @@
         height: auto !important;
       }
   }
+
+  .v-text-field{
+    &__prefix{
+      opacity: 1 !important;
+    }
+  }
