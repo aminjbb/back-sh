@@ -14,10 +14,29 @@ body {
   line-height: 1.6;
   font-size: 13px !important;
   direction: rtl;
+
+  @media (min-width: 1024px) {
+      display: flex;
+      place-items: center;
+  }
 }
 
-.v-input__control {
-  direction: rtl !important;
+#app {
+  width: 100%;
+  padding: 0;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: hsla(160, 100%, 37%, 0.2);
+    }
+  }
 }
 
 .example {
@@ -29,16 +48,6 @@ body {
 
 .example .v-table__wrapper {
   overflow: hidden !important;
-}
-
-.d {
-  &--ltr {
-    direction: ltr !important;
-  }
-
-  &--rtl {
-    direction: rtl !important;
-  }
 }
 
 #row-selector {
@@ -59,11 +68,11 @@ body {
   height: 93vh !important;
 }
 
-.h-100vh {
+.h-100vh { // should be h-screen	
   height: 100vh !important;
 }
 
-.rounded-16 {
+.rounded-16 { // should change to br-16
   border-radius: 16px !important;
 }
 
@@ -84,44 +93,13 @@ body {
   padding-top: 0 !important;
 }
 
-.br-12 {
-  border-radius: 12px !important;
-}
-.br-4 {
-  border-radius: 4px !important;
-}
 
 .default-file-input {
   opacity: 0;
 }
 
 .bg-active {
-
   color: #E91E63 !important;
-}
-
-.position {
-  &__absolute {
-    position: absolute !important;
-  }
-
-  &__fixed {
-    position: fixed !important;
-  }
-
-  &__relative {
-    position: relative;
-  }
-
-  &__top-left {
-    top: 0;
-    left: 0;
-  }
-
-  &__bottom-left {
-    bottom: 41px;
-    right: 30%;
-  }
 }
 
 
@@ -135,11 +113,6 @@ body {
 
 .left {
   left: 20px
-}
-
-#app {
-  width: 100%;
-  padding: 0;
 }
 
 .v-application__wrap {
@@ -161,18 +134,6 @@ a,
   border-radius: 100px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-}
 
 .null-data-table {
   position: absolute;
@@ -180,31 +141,6 @@ a,
   right: 43%;
 }
 
-/*inputs styles*/
-
-.v-input {
-  font-variation-settings: "wght" 300 !important;
-  height: 42px !important;
-  min-height: 42px !important;
-
-  &__details {
-    font-variation-settings: "wght" 300 !important;
-  }
-
-  &.v-textarea {
-    height: auto !important;
-
-    textarea.v-field__input {
-      min-height: auto !important;
-      height: auto !important;
-      padding: 10px !important;
-    }
-  }
-
-  &__control {
-    height: 42px !important;
-  }
-}
 
 .br {
   &__8 {
@@ -216,34 +152,6 @@ a,
   &__12 {
     border-radius: 12px !important;
   }
-}
-
-.v-field {
-  height: 100%;
-
-  &__field {
-    direction: rtl !important;
-    height: 100%;
-  }
-
-  &__input {
-    padding: 5px !important;
-    height: 42px !important;
-    min-height: 42px !important;
-  }
-
-  &__outline__end,
-  &__outline__start {
-    border-color: #ccc !important;
-  }
-
-  &__loader {
-    z-index: 10 !important;
-  }
-}
-
-.v-textarea .v-input__control {
-  height: auto !important;
 }
 
 .create-sku-step2 .v-input.v-textarea {
@@ -519,6 +427,7 @@ span.v-autocomplete__selection-text,
  border-color: #000000; 
   
 }
+
 .border-nested-modal{
    padding: 20px;
    border-style: solid; 
@@ -539,12 +448,14 @@ span.v-autocomplete__selection-text,
   align-items: center;
   justify-content: center;
 }
+
 .seller__check-sku-btn- {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background: #FCE4EC;
 }
+
 .red-background {
   background-color: var(--Red-95, #FFEBEE);
 }

@@ -1,0 +1,58 @@
+// ----------------------------------------------------- //
+// Input
+// ---------------------------------------------------- //
+
+.v-input {
+    font-variation-settings: "wght" 300 !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  
+    &__details {
+        font-variation-settings: "wght" 300 !important;
+    }
+  
+    &.v-textarea {
+        height: auto !important;
+    
+        textarea.v-field__input {
+            min-height: auto !important;
+            height: auto !important;
+            padding: 10px !important;
+        }
+    }
+  
+    &__control {
+        height: 42px !important;
+        direction: rtl !important;
+    }
+}
+
+.v-field {
+    height: 100%;
+  
+    &__field {
+      direction: rtl !important;
+      height: 100%;
+    }
+  
+    &__input {
+      padding: 5px !important;
+      height: 42px !important;
+      min-height: 42px !important;
+    }
+  
+    &__outline__end,
+    &__outline__start {
+      border-color: #ccc !important;
+    }
+  
+    &__loader {
+      z-index: 10 !important;
+    }
+  }
+
+  .v-textarea{
+    .v-input__control {
+        height: auto !important;
+      }
+  }
