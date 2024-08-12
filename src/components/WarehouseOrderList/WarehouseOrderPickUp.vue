@@ -12,12 +12,12 @@
                 <v-icon size="40">
                     mdi-alert-circle
                 </v-icon>
-                <div class="mt-15 t20700">
+                <div class="mt-15 t20 w700">
                     کالایی برای جمع آوری یافت نشد.
                 </div>
             </div>
 
-            <div class="px-15 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+            <div class="px-15 d-flex justify-center t16 w500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
                 <v-btn
                     height="40"
                     flat

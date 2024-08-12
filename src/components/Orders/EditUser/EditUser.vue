@@ -2,7 +2,7 @@
 <div class="h-100 d-flex flex-column align-stretch">
     <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
         <header class="modal__header d-flex justify-center align-center pt-2">
-            <span class="t16400 pa-4">
+            <span class="t16 w400 pa-4">
                 ویرایش اطلاعات مشتری
             </span>
         </header>

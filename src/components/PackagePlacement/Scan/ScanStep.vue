@@ -6,7 +6,7 @@
 
        <div class="pa-3 d-flex">
          <HandheldDrawer/>
-        <span class="t20400">
+        <span class="t20 w400">
           جایگذاری بسته
         </span>
        </div>
@@ -17,7 +17,7 @@
        </div>
      </div>
      <div class="d-flex justify-center my-3">
-          <span class="t20400">
+          <span class="t20 w400">
             جایگذاری بسته
           </span>
      </div>
@@ -26,7 +26,7 @@
        <v-card @click="selectPackagePlacement(assignedPackage)" class="ma-5 br-15" min-height="100" v-for="(assignedPackage , index) in singlePackagePlacement">
          <div >
            <div class="text-right my-5 px-5">
-          <span class="t16400">
+          <span class="t16 w400">
            شناسه بسته :
             <span class="text-gray600">
              {{assignedPackage?.id }}
@@ -34,7 +34,7 @@
           </span>
            </div>
            <div class="text-right my-5 px-5">
-          <span class="t16400">
+          <span class="t16 w400">
            شماره جایگاه :
             <span class="text-gray600">
               {{ assignedPackage?.placement_id }}

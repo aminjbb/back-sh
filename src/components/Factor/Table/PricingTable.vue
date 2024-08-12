@@ -224,7 +224,7 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
                 <span class="t13 w400 text-gray500">تاکنون داده‌ای به این لیست افزوده نشده است.</span>
             </div>
         </div>

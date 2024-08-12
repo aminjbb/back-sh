@@ -16,7 +16,7 @@
               <v-icon @click="dialog=false" class="float-left  pointer align-center">
                   mdi-close
               </v-icon>
-              <div class="text-center t16700">
+              <div class="text-center t16 w700">
                   توقف اختصاص به پیک آپر
               </div>
             </div>
@@ -24,7 +24,7 @@
           <v-divider></v-divider>
 
           <div class=" my-4 py-5  ">
-            <div class="text-end me-2 t16400"> : علت </div>
+            <div class="text-end me-2 t16 w400"> : علت </div>
 
             <v-textarea
                 v-model="Description"

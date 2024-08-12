@@ -1,7 +1,7 @@
 <template>
     <v-bottom-sheet v-model="detailsModal" >
             <v-card class="rounded-t-lg px-5 ">
-                <div class="d-flex justify-space-between t16500  py-6">
+                <div class="d-flex justify-space-between t16 w500  py-6">
                     <v-icon   @click="detailsModal = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
                         mdi-close
                     </v-icon>

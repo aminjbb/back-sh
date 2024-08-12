@@ -8,7 +8,7 @@
     </div>
     <div class="ml-5">
       <div>
-        <span class="text-black t16400">{{ shps?.product?.lable }}</span>
+        <span class="text-black t16 w400">{{ shps?.product?.lable }}</span>
       </div>
       <div>
         <text-clamp :text='shps?.sku?.label' :max-lines='2'

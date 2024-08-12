@@ -6,7 +6,7 @@
     >
 
       <div class="text-right">
-        <span class="text-white t16400">
+        <span class="text-white t16 w400">
           در حال دریافت اطلاعات
         </span>
       </div>

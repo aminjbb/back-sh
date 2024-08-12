@@ -6,7 +6,7 @@
                 <v-icon @click="dialogSendingMethod=false" class="float-left  pointer align-center pt-1">
                     mdi-close
                 </v-icon>
-                <div class="text-center t18800 text-black">
+                <div class="text-center t18 w800 text-black">
                     تغییر روش ارسال
                 </div>
             </div>

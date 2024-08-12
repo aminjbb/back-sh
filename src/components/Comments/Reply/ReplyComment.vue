@@ -4,15 +4,15 @@
     <v-card
         height="70"
         class="mx-5 mt-3 rounded-t-lg rounded-b-0 d-flex justify-center align-center">
-      <span class="t16400">
+      <span class="t16 w400">
           اطلاعات کالا
       </span>
     </v-card>
 
 <!-- details-->
     <v-card class="mx-5 my-3 px-5 py-2 rounded-0 " >
-      <v-sheet width="80%" height="220" class="mx-auto d-flex t16400" >
-        <v-row justify="center" align="center" class="t16500">
+      <v-sheet width="80%" height="220" class="mx-auto d-flex t16 w400" >
+        <v-row justify="center" align="center" class="t16 w500">
             <v-col cols="8" >
               نام کالا :
               <span class="t14 w500 text-gray500" >
@@ -85,7 +85,7 @@
     <v-card class="mx-5 mt-3 px-5 py-2 rounded-t-0   scroller">
       <v-sheet class="d-flex flex-column mx-auto" width="60%">
 <!-- comment -->
-        <span class="ma-2 t16400 " >
+        <span class="ma-2 t16 w400 " >
           {{userComment?.user?.first_name}} {{userComment?.user?.last_name}}
         </span>
         <v-sheet  variant="solo-inverted" min-height="120" color="gray" class="pa-3 br-12 t14 w500 text-gray500">

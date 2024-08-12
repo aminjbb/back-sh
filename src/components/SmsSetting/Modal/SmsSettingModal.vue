@@ -11,7 +11,7 @@
 
           <div class="my-4">
             <v-icon @click="dialog=false" class="pointer align-center">mdi-close</v-icon>
-            <div class="text-center t16700">
+            <div class="text-center t16 w700">
               ویرایش متن
             </div>
           </div>

@@ -86,7 +86,7 @@
                     class="mb-10">
                   <v-divider color="black"/>
 
-                  <p class="text-justify pa-5" v-html="oneTicket.content"/>
+                  <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
                 </v-card>
 
                 <template v-if="oneTicket && oneTicket.threads">
@@ -109,7 +109,7 @@
                         <video v-else-if="file.type === 'video'" :src="file.url" controls/>
                       </div>
 
-                      <p class="text-justify pa-5" v-html="ticket.content"/>
+                      <p class="t14text-justify pa-5" v-html="ticket.content"/>
                     </v-card>
                   </div>
                 </template>

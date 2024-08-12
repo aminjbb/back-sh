@@ -17,7 +17,7 @@
         width="1000">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     فیلتر پیشرفته
                 </span>
 

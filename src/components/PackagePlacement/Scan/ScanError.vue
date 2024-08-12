@@ -7,12 +7,12 @@
         </v-icon>
       </div>
       <div class=" mt-8 d-flex justify-center">
-        <span class="text-white t20600">
+        <span class="text-white t20 w600">
           بسته تعریف نشده است.
         </span>
       </div>
       <div class=" mt-8 d-flex justify-center px-10 text-center">
-        <span class="text-white t20400">
+        <span class="text-white t20 w400">
          لطفا بارکد بسته را بررسی کنید و دوباره اسکن کنید.
         </span>
       </div>

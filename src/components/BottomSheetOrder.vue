@@ -18,7 +18,7 @@
         <v-card-text>
           <div class="d-flex justify-space-between align-center">
             <v-icon icon="mdi-close" @click="sheet = !sheet"/>
-            <span class="t16500">{{title}}</span>
+            <span class="t16 w500">{{title}}</span>
           </div>
           <br>
           <br>
