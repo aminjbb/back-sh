@@ -51,6 +51,8 @@ import {convertDateToGregorian} from "@/assets/js/functions";
 import User from '@/composables/User'
 
 export default {
+  components: {UserForm},
+
   setup(){
     const {user , getUser } = new User()
     return {user , getUser}
@@ -60,7 +62,6 @@ export default {
       loading: false,
     }
   },
-  components: {UserForm},
   methods:{
     validate(){
       this.$refs.AdminForm.$refs.addForm.validate()
