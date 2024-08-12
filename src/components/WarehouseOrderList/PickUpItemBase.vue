@@ -59,7 +59,7 @@
                 <div>
                     <div class="px-5">
                         <v-card min-height="92" class="d-flex justify-center align-center">
-                            <v-card class="ml-5 br br__12 d-flex justify-center align-center" height="52" width="52"
+                            <v-card class="ml-5 br br--12 d-flex justify-center align-center" height="52" width="52"
                                     color="primary500">
             <span class="text-white number-font">
              {{ pickUpCount }}

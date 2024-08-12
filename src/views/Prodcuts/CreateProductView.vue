@@ -8,7 +8,7 @@
 <!--      <CreateProductForm />-->
       <section class="create-product flex-column d-flex h-100">
         <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-        <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+        <v-card class="ma-5 br--12 pb-15 flex-grow-1">
           <h3 class="t14 w500 create-product__header">ساخت محصول یکتا</h3>
 
           <template v-if="step === 1">

@@ -1,7 +1,7 @@
 <template>
   <div class="create-product flex-column d-flex h-100">
 
-    <v-card class="mx-5 br-12 pb-15 flex-grow-1" height="600">
+    <v-card class="mx-5 br--12 pb-15 flex-grow-1" height="600">
 
       <LuckyWheelFormStep2 :getLuckyWheelPrize="getLuckyWheelPrize" :luckyWheelPrize="luckyWheelPrize" ref="LuckyWheelFormStep2" status="edit"/>
 

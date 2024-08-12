@@ -1,6 +1,6 @@
 <template >
     <div class="stretch-table">
-        <v-card  class="ma-5 br-12 pa-5" >
+        <v-card  class="ma-5 br--12 pa-5" >
             <div class="upload-box">
                 <v-row
                     justify="space-between"
@@ -47,7 +47,7 @@
                 </v-row>
             </div>
         </v-card>   
-        <v-card class="ma-5 br-12 scroller"  >
+        <v-card class="ma-5 br--12 scroller"  >
             <div class="example pa-15 mb-10">
               <v-row>
                 <v-col cols="6" v-for="(item, index) in images" :key="`image_${index}`">

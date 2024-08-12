@@ -7,7 +7,7 @@
                 color="purple">
             </v-progress-circular>
         </div>
-        <v-main class="vh-100 ">
+        <v-main class="h-100vh ">
 <!-- pickUp -->
             <template v-if="pages.pickUp">
                 <div class="d-flex justify-space-between align-center">

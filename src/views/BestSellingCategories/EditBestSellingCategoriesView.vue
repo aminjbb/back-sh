@@ -3,7 +3,7 @@
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
-    <v-main class="vh-100">
+    <v-main class="h-100vh">
       <Header/>
 <!--      <EditBestSellingCategories/>-->
       <div class="vh-100">

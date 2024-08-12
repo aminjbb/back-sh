@@ -56,7 +56,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-card class="mx-5 mt-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="mx-5 mt-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           :getShipmentShpslist="getAssignShpsAcceptList"
           ref="processingShipmentShps"

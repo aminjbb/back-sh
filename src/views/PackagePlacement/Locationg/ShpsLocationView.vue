@@ -7,7 +7,7 @@ const ShpsLocation = defineAsyncComponent(()=> import ('@/components/PackagePlac
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100vh">
-      <div class="vh-100 d-flex justify-center">
+      <div class="h-100vh d-flex justify-center">
         <ShpsLocation />
       </div>
     </v-main>

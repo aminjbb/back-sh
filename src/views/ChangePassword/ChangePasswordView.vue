@@ -6,7 +6,7 @@
       <Header/>
 <!--      <ChangePassword/>-->
       <div>
-        <v-card class="ma-16 br-12  " height="400">
+        <v-card class="ma-16 br--12  " height="400">
           <div class="ma-10 ">
             <v-btn
                 @click="getPassword()"

@@ -1,10 +1,10 @@
 <template>
 <div class="create-product flex-column d-flex v-field">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1 pt-10 v-field" min-height="500">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1 pt-10 v-field" min-height="500">
         <div class="px-15 mb-5">
             <UploadFileSection @getImage="assignImage" />
         </div>
-        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch v-field pb-16">
+        <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch v-field pb-16">
           <ShTable
               class="flex-grow-1"
               :headers="imageHeader"
@@ -14,7 +14,7 @@
               :dataSelect="positionImageList">
 
             <template v-slot:customSlot="item">
-              <img :src="itemListTable[item.index].imageUrl" width="68" height="28" alt="" class="br br__4">
+              <img :src="itemListTable[item.index].imageUrl" width="68" height="28" alt="" class="br br--4">
               <span>
                 <v-icon
                     color="gray500"

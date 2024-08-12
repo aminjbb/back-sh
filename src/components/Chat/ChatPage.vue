@@ -7,7 +7,7 @@
       </v-col>
       <v-col cols="9">
         <div class="pl-5">
-          <v-card class="ma-5 br-12 chat-page__message-list ma-0">
+          <v-card class="ma-5 br--12 chat-page__message-list ma-0">
             <MessageList :getConversationList="getConversationList" :getConversation="getConversation" :conversation="conversation" :conversationMessages="conversationMessages" />
           </v-card>
         </div>

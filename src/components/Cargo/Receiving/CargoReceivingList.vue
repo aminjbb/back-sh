@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="150" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="150" class="ma-5 br--12 stretch-card-header-90">
       <v-row
           justify="start"
           align="center"
@@ -18,7 +18,7 @@
 
       </v-row>
     </v-card>
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <ShTable
           class="flex-grow-1"
           :headers="cargoReceivingHeader"

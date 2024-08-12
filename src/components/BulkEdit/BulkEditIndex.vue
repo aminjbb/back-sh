@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch">
-    <v-card class="ma-5 br-12 stretch-card-header-90">
+    <v-card class="ma-5 br--12 stretch-card-header-90">
         <v-row justify="center" align="start" class="px-10 py-5">
             <v-col cols="12" class="d-flex justify-center align-center t14 w500 d--ltr">
                  shps ویرایش گروهی

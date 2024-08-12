@@ -5,7 +5,7 @@
         مجموع اقلام
         </span>
     </div>
-    <v-card class="br br__12 d-flex justify-center align-center" height="52" width="52" color="primary500">
+    <v-card class="br br--12 d-flex justify-center align-center" height="52" width="52" color="primary500">
             <span class="text-white">
               {{ allConstForPlace }}
             </span>

@@ -62,7 +62,7 @@
                     v-if="header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <img :src="form[index].imageUrl" width="68" height="28" alt="" class="br br__4">
+                    <img :src="form[index].imageUrl" width="68" height="28" alt="" class="br br--4">
                     <span>
                         <v-icon
                             color="gray500"

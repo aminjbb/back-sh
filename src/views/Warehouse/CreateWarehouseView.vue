@@ -5,8 +5,8 @@
     <v-main class="h-100vh">
       <Header />
 <!--      <CreateWarehouse />-->
-      <div class="create-product flex-column d-flex vh-100">
-        <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
+      <div class="create-product flex-column d-flex h-100vh">
+        <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
           <WarehouseForm ref="WarehouseForm" />
 
           <footer class="create-warehouse__actions">

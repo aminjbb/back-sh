@@ -6,7 +6,7 @@ const StockTaking = defineAsyncComponent(()=> import ('@/components/StockTaking/
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100vh">
-      <div class="vh-100">
+      <div class="h-100vh">
         <StockTaking />
       </div>
     </v-main>

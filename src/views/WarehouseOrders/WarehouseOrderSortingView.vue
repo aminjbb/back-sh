@@ -7,7 +7,7 @@ const WarehouseOrderSorting = defineAsyncComponent(()=> import ('@/components/Wa
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100vh ">
-      <div class="d-flex justify-center align-center vh-100">
+      <div class="d-flex justify-center align-center h-100vh">
         <WarehouseOrderSorting />
       </div>
     </v-main>

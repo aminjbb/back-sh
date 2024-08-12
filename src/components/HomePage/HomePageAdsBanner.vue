@@ -1,6 +1,6 @@
 <template>
 <section class="create-product flex-column d-flex h-100">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" min-height="500">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" min-height="500">
         <div class="create-form__info-form scroller">
             <div class="text-right pa-10">
                 <span class="t14 w500">

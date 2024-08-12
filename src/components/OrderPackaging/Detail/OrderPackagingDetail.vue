@@ -1,7 +1,7 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card
-            class="ma-5 br-12"
+            class="ma-5 br--12"
             height="160"
             style="flex:0 0 150px">
             <header class="modal__header d-flex justify-center align-center ">
@@ -47,7 +47,7 @@
             </v-row>
         </v-card>
 
-        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch">
+        <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch">
             <Table
                 ref="oredrDetailFunc"
                 class="flex-grow-1"

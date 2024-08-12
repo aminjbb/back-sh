@@ -1,6 +1,6 @@
 <template >
     <div class="mh-100">
-        <v-card class="ma-5 br-12 pa-10 position__relative" min-height="600">
+        <v-card class="ma-5 br--12 pa-10 position__relative" min-height="600">
             <DriverManagementForm ref="DriverManagementForm" />
     
             <v-row justify="end" class="position__absolute bottom left">

@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch order-tracking">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
         <v-row justify="space-between" align="center" class="px-7 py-5 order-tracking__search">
             <template v-if="orderDetails && orderDetails?.user">
                 <div class="d-flex align-center mt-1">
@@ -59,7 +59,7 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <ShTable
           class="flex-grow-1"
           :headers="header"

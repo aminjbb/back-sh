@@ -1,6 +1,6 @@
 <template>
     <v-card 
-        class="stepper ma-5 br-12"
+        class="stepper ma-5 br--12"
         height="103px"
     >
         <v-row
