@@ -88,7 +88,7 @@
         <span class="ma-2 t16 w400 " >
           {{userComment?.user?.first_name}} {{userComment?.user?.last_name}}
         </span>
-        <v-sheet  variant="solo-inverted" min-height="120" color="gray" class="pa-3 br-12 t14 w500 text-gray500">
+        <v-sheet  variant="solo-inverted" min-height="120" color="gray" class="pa-3 br--12 t14 w500 text-gray500">
           {{userComment?.comment }}
         </v-sheet>
         <span class="text-end number-font ma-2 ">

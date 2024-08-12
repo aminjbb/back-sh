@@ -217,7 +217,7 @@
                :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span >
                         <template v-if="item.status">
-                          <v-sheet  class="[ br-12 text-end py-2 px-7 ]"  :color="getStatusClass(item.status)" >
+                          <v-sheet  class="[ br--12 text-end py-2 px-7 ]"  :color="getStatusClass(item.status)" >
                             {{ getPersianStatus(item.status) }}
                           </v-sheet>
                         </template>

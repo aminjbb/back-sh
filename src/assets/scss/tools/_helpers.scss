@@ -1,5 +1,5 @@
 // ----------------------------------------------------- //
-// Helpers
+// Helper classes
 // ---------------------------------------------------- //
 
 
@@ -28,17 +28,13 @@
         border-radius: 4px !important;
     }
 
-    &--8{
-        border-radius: 8px;
-    }
-
-    &--16 { //rounded-16
+    &--16 {
         border-radius: 16px;
     }
 }
 
 // Position
-//------------------------------------------------
+// ------------------------------------------------
 
 .position { // change name to pos
     &__absolute {
@@ -62,4 +58,34 @@
       bottom: 41px;
       right: 30%;
     }
+  }
+
+// Scroll
+// ------------------------------------------------
+
+.scroller {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      border-radius: 3px;
+      background-color: #F8BBD0;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: #F06292;
+    }
+  }
+
+//-----------------------------------------------------------------
+// Cursor
+//-----------------------------------------------------------------
+
+.pointer {
+    cursor: pointer !important;
   }

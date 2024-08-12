@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-card min-height="70" class="ma-5 br-12">
+    <v-card min-height="70" class="ma-5 br--12">
         <div class="text-rigth pr-10 pt-6">
             <span class="t14 w500">
                 ساخت پیام
@@ -8,7 +8,7 @@
         </div>
     </v-card>
 
-    <v-card class="ma-5 br-12" height="580">
+    <v-card class="ma-5 br--12" height="580">
         <!-- notification type -->
         <v-form v-model="valid" ref="createNotification">
             <v-row justify="center" class="px-15 pt-10">

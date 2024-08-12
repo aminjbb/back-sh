@@ -2,8 +2,8 @@
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
 
 
-    <v-card height="120" class="ma-5 br-12 " max-height="120">
-      <div class="d-flex br-12 pt-5 pb-2 align-center justify-lg-space-evenly t14 w500">اطلاعات تخفیف</div>
+    <v-card height="120" class="ma-5 br--12 " max-height="120">
+      <div class="d-flex br--12 pt-5 pb-2 align-center justify-lg-space-evenly t14 w500">اطلاعات تخفیف</div>
       <v-divider></v-divider>
 
       <div class="d-flex align-center pt-5 justify-lg-space-evenly">
@@ -49,7 +49,7 @@
       </div>
     </v-card>
 
-    <v-card height="70" class="mx-5 br-12" max-height="70">
+    <v-card height="70" class="mx-5 br--12" max-height="70">
       <v-row
           justify="end"
           align="center"
@@ -63,7 +63,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
       <ShTable
           class="flex-grow-1"

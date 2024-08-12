@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card
         height="70"
-        class="ma-5 br-12 stretch-card-header-70">
+        class="ma-5 br--12 stretch-card-header-70">
 
       <v-row
           justify="end"
@@ -24,7 +24,7 @@
 
 
     <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+        class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
         height="580">
         <ShTable
             class="flex-grow-1"
@@ -36,7 +36,7 @@
         >
 
             <template v-slot:customSlot="item">
-                <v-sheet  class=" br-12 py-2 px-5 "  :color="getStatusClass(item.data.custom)" width="100">
+                <v-sheet  class=" br--12 py-2 px-5 "  :color="getStatusClass(item.data.custom)" width="100">
                     {{getPersianStatus(item.data.custom)}}
                 </v-sheet>
             </template>

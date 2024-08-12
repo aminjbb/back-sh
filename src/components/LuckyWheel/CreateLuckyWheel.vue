@@ -2,7 +2,7 @@
   <div class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
 
-    <v-card class="mx-5 br-12 pb-15 flex-grow-1" height="600">
+    <v-card class="mx-5 br--12 pb-15 flex-grow-1" height="600">
       <template v-if="step===1">
         <LuckyWheelFormStep1
             @label="getLabel"

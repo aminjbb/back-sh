@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="150" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="150" class="ma-5 br--12 stretch-card-header-90">
       <v-row
           justify="start"
           align="center"
@@ -53,7 +53,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="mx -5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="mx -5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
       <Table
           :getShipmentShpslist="getShipmentShpslist"

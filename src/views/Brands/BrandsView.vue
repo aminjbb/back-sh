@@ -7,7 +7,7 @@
       <div class="h-100 d-flex flex-column align-stretch">
         <v-card
             height="70"
-            class="ma-5 br-12 stretch-card-header-70">
+            class="ma-5 br--12 stretch-card-header-70">
           <v-row
               justify="center"
               align="center"
@@ -49,7 +49,7 @@
         </v-card>
 
         <v-card
-            class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+            class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
             height="580">
           <ShTable
               class="flex-grow-1"

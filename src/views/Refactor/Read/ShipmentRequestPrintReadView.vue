@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </v-card>
-                        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="580">
+                        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="580">
                             <div >
                                 <Table
                                     class="flex-grow-1"

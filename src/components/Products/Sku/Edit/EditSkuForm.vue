@@ -1,7 +1,7 @@
 <template>
   <div class="px-2 py-2 h-100 create-sku-step2">
     <v-card
-        class="ma-5 br-12"
+        class="ma-5 br--12"
         height="580"
     >
     <v-form

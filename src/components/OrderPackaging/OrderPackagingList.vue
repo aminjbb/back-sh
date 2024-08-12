@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="100" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="100" class="ma-5 br--12 stretch-card-header-90">
         <v-row justify="start" align="start" class="px-10 py-5">
             <v-col cols="12" md="6">
                 <v-form @submit.prevent="onFormSubmit" v-model="valid">
@@ -12,7 +12,7 @@
 
         </v-row>
     </v-card>
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch">
         <Table class="flex-grow-1" deletePath="category/crud/delete/" :header="orderListHeader" :items="orderList" :page="1" :perPage="dataTableLength" :loading="loading" />
 
         <v-divider />

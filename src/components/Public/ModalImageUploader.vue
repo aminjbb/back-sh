@@ -20,7 +20,7 @@
                     </span>
                 </header>
 
-                <div class="pa-2 br-12 pa-5 d--rtl">
+                <div class="pa-2 br--12 pa-5 d--rtl">
                     <div class="upload-box">
                         <v-row justify="space-between" align="center" class="pa-2">
                             <v-col cols="6" @drop.prevent="onDrop">

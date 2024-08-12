@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="200" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="200" class="ma-5 br--12 stretch-card-header-90">
       <v-row
           justify="start"
           align="start"
@@ -52,7 +52,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
           deletePath="category/crud/delete/"
