@@ -1,7 +1,7 @@
 <template>
   <div class="create-lucky-wheel__info-form scroller">
     <div class="text-center py-3 ">
-      <span class="t14500">
+      <span class="t14 w500">
         افزودن جایزه
       </span>
     </div>

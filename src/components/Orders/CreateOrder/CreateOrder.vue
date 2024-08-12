@@ -25,7 +25,7 @@
                 variant="outlined"
                 width="115"
                 @click="decreaseStep()">
-              <span class="t14300">
+              <span class="t14 w300">
                   بازگشت
               </span>
             </v-btn>
@@ -36,7 +36,7 @@
                 width="115"
                 @click="$router.go(-1)"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                  بازگشت
               </span>
             </v-btn>
@@ -51,13 +51,13 @@
                 @click="increaseStep()">
               <span
                   v-if="step < 3"
-                  class="t14300">
+                  class="t14 w300">
                 تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300">
+                  class="t14 w300">
                 تایید و ثبت
               </span>
             </v-btn>

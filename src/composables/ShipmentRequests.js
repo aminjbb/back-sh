@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
-
 
 export default function setup() {
     const ShipmentRequestsList = ref([]);
@@ -12,21 +10,21 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'id', order: true},
-        { name: 'نوع محموله', show: true, value:'type' , order: false},
-        { name: ' تعداد آیتم', show: true , value:'id', order: false},
-        { name: 'تنوع آیتم', show: true, value:'variant', order: false },
-        { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
-        { name: 'نام سازنده', show: true, value:'is_index', order: false },
-        { name: 'تاریخ ارسال', show: true, value:'created_at', order: true },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: true },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        { name: 'ردیف', title: 'ردیف' ,show: true , key:'row', sortable:false, align:'center'},
+        { name: 'شناسه محموله', title: 'شناسه محموله' ,show: true , key:'id', align:'center'},
+        { name: 'نوع محموله', title: 'نوع محموله' ,show: true, key:'type' , sortable: false, align:'center'},
+        { name: ' تعداد آیتم', title: ' تعداد آیتم' ,show: true , key:'shps_count', sortable: false, align:'center'},
+        { name: 'تنوع آیتم', title: 'تنوع آیتم' ,show: true, key:'shps_variety', sortable: false, align:'center' },
+        { name: 'نام فروشگاه', title: 'نام فروشگاه' ,show: true, key:'seller', sortable: false, align:'center' },
+        { name: 'نام سازنده', title: 'نام سازنده' ,show: true, key:'creator', sortable: false, align:'center' },
+        { name: 'تاریخ ارسال', title: 'تاریخ ارسال' ,show: true, key:'created_at_fa', align:'center' },
+        { name: 'تاریخ ویرایش', title: 'تاریخ ویرایش' ,show: true, key:'updated_at_fa', align:'center' },
+        { name: 'وضعیت', title: 'وضعیت' ,show: true, key:'custom', sortable: false, align:'center' },
+        { name: 'عملیات',title: 'عملیات', show: true ,key:'action', sortable: false, align:'center', fixed: true},
     ]);
 
     const filterField = [
@@ -49,36 +47,24 @@ export default function setup() {
         { name: 'تعداد کالا', show: true, value:'number' , order: false},
         { name: ' قیمت خرید کل  ', show: true, value:'number' , order: false},
         { name: ' قیمت مصرف کل  ', show: true, value:'number' , order: false},
-        { name: ' درصد سود ', show: true, value:'number' , order: false},
-        
-
+        { name: ' درصد سود ', show: true, value:'number' , order: false}
     ]);
     const headerQrcode =ref([
         { name: 'ردیف', show: true , value:null, order:false},
         { name: 'شناسه shps', show: true , value:'shps', order: false},
         { name: 'نام کالا', show: true , value:'label', order: false},
         { name: ' تعداد کلا ', show: true , value:'number', order: false},
-
-      
-        
-
     ]);
-    
 
-
-  
-    
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
 
     /**
      * Get page list
      * @param {*} query 
      */
     async function getShipmentRequestsList() {
-        filter.factor = route.params.factorId
         const AxiosMethod = new AxiosCall()
         let query = route.query
         AxiosMethod.using_auth = true
@@ -128,7 +114,6 @@ export default function setup() {
             ShipmentRequestsList.value = data.data
             shipmentRequest.value = data.data.id
 
-
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -138,8 +123,17 @@ export default function setup() {
     }
 
     return {   
-         pageLength, filterField, headerShps, headerQrcode, ShipmentRequestsList , getShipmentRequestsList,
-        dataTableLength, page, header, loading, shipmentRequest
-         }
+        pageLength,
+        filterField,
+        headerShps,
+        headerQrcode,
+        ShipmentRequestsList ,
+        getShipmentRequestsList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        shipmentRequest
+    }
 }
 

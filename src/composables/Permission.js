@@ -1,9 +1,8 @@
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
-import {useRouter, useRoute} from 'vue-router'
-import { onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter.js'
+import {useRoute} from 'vue-router'
+
 export default function setup() {
     const permissions = ref([]);
     const allPermission = ref([]);
@@ -11,31 +10,61 @@ export default function setup() {
     const dataTableLength = ref(25)
     const page = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const pageLength = ref(1)
-    const header = ref([
-        {name: 'ردیف', show: true},
-        {name: 'شناسه', show: true},
-        {name: 'عنوان', show: true},
-        {name: 'نام فارسی', show: true},
-    ]);
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
-    const filter = new PanelFilter()
-    async function getPermissions(query) {
+    const header = ref([
+        {name: 'ردیف', title:'ردیف', key:'row', show: true, align:'right', sortable: false},
+        {name: 'شناسه', title:'شناسه', key:'id', show: true, align:'right', sortable: false},
+        {name: 'عنوان', title:'عنوان', key:'title', show: true, align:'right', sortable: false},
+        {name: 'نام فارسی', title:'نام فارسی', key:'name', show: true, align:'right', sortable: false},
+    ]);
 
+    async function getPermissions() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `permission/crud/index${paramsQuery}`
+        let query = route.query
         AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `permission/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -44,8 +73,9 @@ export default function setup() {
         } else {
             loading.value = false
         }
-    };
-    async function getAllPermissions(query) {
+    }
+
+    async function getAllPermissions() {
         const form = {
             per_page:10000
         }
@@ -59,39 +89,11 @@ export default function setup() {
             allPermission.value = data.data.data
         }
     };
-    function addPerPage(number) {
-        filter.page = 1;
-        page.value = 1;
-        filter.per_page = number
-        router.push('/permission/index/' +  filter.params_generator(route.query))
-    }
 
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value =true
-            page.value = 1
-            filter.page = 1
-        }
-        await getPermissions(to)
-    })
-    function addPagination(page) {
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/permission/index/' + filter.query_maker())
-
-    }
-    watch(page, function (val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
     return {
         pageLength,
         permissions,
         permission,
-        addPerPage,
         getPermissions,
         dataTableLength,
         page,

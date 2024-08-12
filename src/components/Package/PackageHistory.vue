@@ -5,7 +5,7 @@
         class="ma-5 br-12"
         style="flex: 0 0 164px;">
         <header class="modal__header d-flex justify-center align-center">
-            <span class="t16400 pa-6">
+            <span class="t16 w400 pa-6">
                 اطلاعات بسته
             </span>
         </header>
@@ -14,8 +14,8 @@
 
         <div class="d-flex justify-center align-center">
             <div class="mt-8">
-                <span class="t12500 text-black ml-1">شناسه بسته :</span>
-                <span v-if="packageContent && packageContent.id" class="t14300 text-gray500 number-font">{{packageContent.id}}</span>
+                <span class="t12 w500 text-black ml-1">شناسه بسته :</span>
+                <span v-if="packageContent && packageContent.id" class="t14 w300 text-gray500 number-font">{{packageContent.id}}</span>
             </div>
         </div>
     </v-card>

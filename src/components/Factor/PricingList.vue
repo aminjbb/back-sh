@@ -20,6 +20,7 @@
   </v-card>
   <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="pricingHeader"
             :items="priceList.shps_list"
@@ -34,12 +35,12 @@
         <div class="pb-3 d-block" style="min-height: 135px;">
             <div class="px-8 w-100">
                 <div class="d-flex justify-between align-center">
-                    <div class="text-center c-table__header__item t12500 text-black" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black" style="width:10.1111%;padding:15px 10px">
                         جمع:
                     </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.total_shps_count >= 0">
                             {{priceList.total_shps_count}}
                         </template>
@@ -47,7 +48,7 @@
                             -
                         </template>
                     </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.total_buying_price >= 0">
                             {{splitChar(priceList.total_buying_price)}}
                         </template>
@@ -55,7 +56,7 @@
                             -
                         </template>
                     </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.total_customer_price >= 0">
                             {{splitChar(priceList.total_customer_price)}}
                         </template>
@@ -64,7 +65,7 @@
                         </template>
                     </div>
 
-                  <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                  <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                     <template v-if="priceList && priceList.total_requested_buying_price_sum >= 0">
                       {{splitChar(priceList.total_requested_buying_price_sum)}}
                     </template>
@@ -72,7 +73,7 @@
                       -
                     </template>
                   </div>
-                  <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                  <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                     <template v-if="priceList && priceList.total_received_buying_price_sum >= 0">
                       {{splitChar(priceList.total_received_buying_price_sum)}}
                     </template>
@@ -81,7 +82,7 @@
                     </template>
                   </div>
 
-                  <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                  <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                     <template v-if="priceList && priceList.total_requested_customer_price_sum >= 0">
                       {{splitChar(priceList.total_requested_customer_price_sum)}}
                     </template>
@@ -90,7 +91,7 @@
                     </template>
                   </div>
 
-                  <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                  <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                     <template v-if="priceList && priceList.total_received_customer_price_sum >= 0">
                       {{splitChar(priceList.total_received_customer_price_sum)}}
                     </template>
@@ -98,7 +99,7 @@
                       -
                     </template>
                   </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.sum_total_buying_price >= 0">
                             {{splitChar(priceList.sum_total_buying_price)}}
                         </template>
@@ -106,7 +107,7 @@
                             -
                         </template>
                     </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.sum_total_customer_price >= 0">
                             {{splitChar(priceList.sum_total_customer_price)}}
                         </template>
@@ -114,7 +115,7 @@
                             -
                         </template>
                     </div>
-                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px">
+                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px">
                         <template v-if="priceList && priceList.total_profit">
                             {{formatProfit(priceList.total_profit)}}
                         </template>
@@ -123,7 +124,7 @@
                         </template>
                     </div>
 
-<!--                    <div class="text-center c-table__header__item t12500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>-->
+<!--                    <div class="text-center c-table__header__item t12 w500 text-black number-font" style="width:10.1111%;padding:15px 10px"></div>-->
                 </div>
             </div>
 
@@ -156,34 +157,36 @@ import Factor from "@/composables/Factor";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 export default {
-    data() {
-        return {
-            showSaveButton: false,
-        }
-    },
-    setup() {
-        const {
-            getPricingList,
-            priceList,
-            filterField,
-            dataTableLength,
-            pricingHeader,
-            loading
-        } = Factor();
-        return {
-            getPricingList,
-            priceList,
-            filterField,
-            dataTableLength,
-            pricingHeader,
-            loading
-        };
+  components: {
+    ModalGroupAdd,
+    ModalExcelDownload,
+    Table,
+  },
+
+  data() {
+      return {
+        showSaveButton: false,
+        perPageFilter:false
+      }
     },
 
-    components: {
-      ModalGroupAdd,
-      ModalExcelDownload,
-        Table,
+    setup() {
+      const {
+        getPricingList,
+        priceList,
+        filterField,
+        dataTableLength,
+        pricingHeader,
+        loading
+      } = Factor();
+      return {
+        getPricingList,
+        priceList,
+        filterField,
+        dataTableLength,
+        pricingHeader,
+        loading
+      };
     },
 
     computed: {
@@ -193,22 +196,31 @@ export default {
     },
 
     methods: {
-        splitChar,
-        updateList(status) {
-            if (status === 'true') {
-                this.getPricingList();
-            }
-        },
+      splitChar,
 
-        showSave(status) {
-            if (status === 'true') {
-                this.showSaveButton = true;
-            }
-        },
-
-        formatProfit(num) {
-            return Number(num.toFixed(2));
+      updateList(status) {
+        if (status === 'true') {
+          this.getPricingList();
         }
+      },
+
+      showSave(status) {
+        if (status === 'true') {
+          this.showSaveButton = true;
+        }
+      },
+
+      formatProfit(num) {
+        return Number(num.toFixed(2));
+      },
+
+      resetPage(){
+        this.perPageFilter = true
+        this.page = 1
+        setTimeout(()=>{
+          this.perPageFilter = false
+        }, 1000)
+      }
     },
 
     mounted() {
@@ -216,9 +228,37 @@ export default {
     },
 
     watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
+      dataTableLength() {
+        this.perPageFilter = true
+        this.page = 1
+        let query = this.$route.query
+        if (query) {
+          this.$router.replace({
+            query: {
+              ...query,
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        else {
+          this.$router.push({
+            query: {
+              per_page: this.dataTableLength,
+            }
+          })
+        }
+        this.perPageFilter = false
+      },
+
+      $route(){
+        this.getPricingList()
+      },
+
+      page(){
+        if (!this.perPageFilter){
+          this.getPricingList()
+        }
+      },
     }
 }
 </script>

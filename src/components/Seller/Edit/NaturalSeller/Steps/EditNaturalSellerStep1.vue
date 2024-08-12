@@ -7,7 +7,7 @@
         <v-row justify="center" align="center">
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.name }}
                     </span>
@@ -21,7 +21,7 @@
             </v-col>
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.shopName }}
                     </span>
@@ -35,7 +35,7 @@
             </v-col>
             <v-col cols="12" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.logo }}
                     </span>
@@ -51,7 +51,7 @@
             </v-col>
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.mobile }}
                     </span>
@@ -65,7 +65,7 @@
             </v-col>
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.email }}
                     </span>
@@ -79,7 +79,7 @@
             </v-col>
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.nationalCode }}
                     </span>
@@ -93,7 +93,7 @@
             </v-col>
             <v-col cols="6" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.certificateNumber }}
                     </span>
@@ -107,7 +107,7 @@
             </v-col>
             <v-col cols="12" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.nationalCard }}
                     </span>
@@ -126,7 +126,7 @@
             </v-col>
             <v-col cols="12" class="brands-list">
                 <div class="text-right my-2">
-                    <span class="t12500">
+                    <span class="t12 w500">
 
                         {{ labels.certificate }}
                     </span>

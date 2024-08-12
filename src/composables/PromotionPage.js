@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,17 +13,18 @@ export default function setup() {
     const cookies = useCookies()
     const page = ref(1)
     const promotionPage = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام انگلیسی', show: true , value:'name', order: false},
-        { name: 'نام فارسی', show: true , value:'label', order: false},
-        { name: 'شناسه صفحه', show: true, value:'id' , order: true},
-        { name: 'تاریخ ساخت', show: true , value:'created_at', order: true},
-        { name: 'تاریخ ویرایش', show: true, value:'updated_at', order: true },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        { name: 'ردیف', title: 'ردیف', show: true , align:'center', sortable:false, key:'row',},
+        { name: 'نام انگلیسی', title: 'نام انگلیسی', show: true , align:'center', sortable: false, key:'name',},
+        { name: 'نام فارسی', title: 'نام فارسی', show: true , align:'center', sortable: false, key:'label',},
+        { name: 'شناسه صفحه', title: 'شناسه صفحه', show: true, align:'center', key:'id'},
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true , align:'center', key:'created_at_fa'},
+        { name: 'تاریخ ویرایش', title: 'تاریخ ویرایش', show: true, align:'center', key:'updated_at_fa'},
+        { name: 'وضعیت', title: 'وضعیت', show: true, align:'center', sortable: false, key:'is_active'},
+        { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action', fixed: true},
+
     ]);
     const skuGroupHeader =ref([
         { name: 'ردیف', show: true , value:null, order:false},

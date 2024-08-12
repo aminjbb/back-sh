@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 style="padding:20px 5px"
@@ -22,7 +22,7 @@
         </template>
 
         <div
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
             style="padding:20px 5px">
             ذخیره
@@ -41,7 +41,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         {{ item.shps }}
                     </span>
                 </div>
@@ -61,7 +61,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-5">
+                    <span class="t12 w500 text-gray500 py-5">
                         <template v-if="item.sku">
                             {{ item.sku }}
                         </template>
@@ -76,7 +76,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_requested_count">
                             {{ item.shps_requested_count }}
                         </template>
@@ -91,7 +91,7 @@
                   style="padding: 3px 5px;"
                   class="c-table__contents__item justify-center"
                   :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.shps_received_count">
                             {{ item.shps_received_count }}
                         </template>
@@ -163,7 +163,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.sum_buying_price || item.sum_buying_price == 0">
                             {{ splitChar(item.sum_buying_price) }}
                         </template>
@@ -178,7 +178,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.sum_customer_price || item.sum_customer_price == 0">
                             {{ splitChar(item.sum_customer_price) }}
                         </template>
@@ -193,7 +193,7 @@
                     style="padding: 3px 5px;"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t13400 text-gray500 py-5 number-font">
+                    <span class="t13 w400 text-gray500 py-5 number-font">
                         <template v-if="item.profit || item.profit == 0">
                             {{ item.profit }}
                         </template>
@@ -224,8 +224,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t13400 text-gray500">تاکنون داده‌ای به این لیست افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t13 w400 text-gray500">تاکنون داده‌ای به این لیست افزوده نشده است.</span>
             </div>
         </div>
     </div>

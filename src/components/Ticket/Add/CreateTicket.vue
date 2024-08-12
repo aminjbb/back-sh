@@ -8,7 +8,7 @@
             class="pa-5 pt-7">
             <v-col cols="3">
                 <div class="text-right mb-3">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         کاربر
                     </span>
                 </div>
@@ -24,7 +24,7 @@
 
             <v-col cols="3">
                 <div class="text-right mb-3">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         عنوان
                     </span>
                 </div>
@@ -37,7 +37,7 @@
 
             <v-col cols="3">
                 <div class="text-right mb-3">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         اولیت
                     </span>
                 </div>
@@ -53,7 +53,7 @@
         <v-row justify="center" class="mb-5">
             <v-col cols="10">
                 <div class="text-right mb-3">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         پیام
                     </span>
                 </div>

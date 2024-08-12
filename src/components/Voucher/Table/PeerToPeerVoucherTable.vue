@@ -10,7 +10,7 @@
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
-            class="text-center c-table__header__item t12500 ml-10"
+            class="text-center c-table__header__item t12 w500 ml-10"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -37,7 +37,7 @@
               class="c-table__contents__item justify-center "
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
           >
-                    <span class="t14300 text-gray500 py-5 number-font ">
+                    <span class="t14 w300 text-gray500 py-5 number-font ">
                         {{ rowIndexTable(index) }}
                     </span>
           </div>
@@ -47,7 +47,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
           >
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.code }}
                     </span>
           </div>
@@ -57,7 +57,7 @@
               class="c-table__contents__item justify-center "
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
           >
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.users[0].phone_number }}
                     </span>
           </div>
@@ -66,7 +66,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
           >
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                          {{ item.users[0].first_name }}
                     </span>
           </div>
@@ -75,7 +75,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }"
           >
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.users[0].last_name }}
                     </span>
           </div>
@@ -85,8 +85,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -98,9 +98,7 @@ import {
   isOdd
 } from '@/assets/js/functions'
 
-import {
-  PeerToPeerVoucherFilter
-} from "@/assets/js/filter_voucher_peer_to_peer"
+
 
 export default {
 
@@ -162,7 +160,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan: [],
-      PeerToPeerVoucherFilter: new PeerToPeerVoucherFilter(),
     }
   },
 

@@ -29,7 +29,7 @@
 
                     <v-col cols="8">
                         <div class="text-left pl-10">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 دانلود
                             </span>
                         </div>
@@ -47,7 +47,7 @@
                         >
                             <template v-slot:label>
                                 <div>
-                                    <span class="t14500">خروجی بهمراه اعمال فیلتر</span>
+                                    <span class="t14 w500">خروجی بهمراه اعمال فیلتر</span>
                                 </div>
                             </template>
                         </v-checkbox>
@@ -62,7 +62,7 @@
                         color="black"
                         rounded
                     >
-                        <span class="t14300" >
+                        <span class="t14 w300" >
                             خروجی اکسل 
                         </span>
                     </v-btn>

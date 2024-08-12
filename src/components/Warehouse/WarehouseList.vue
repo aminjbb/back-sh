@@ -30,6 +30,7 @@
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="header"
             :items="warehouseList.data"
@@ -93,69 +94,110 @@ import {
     openToast
 } from "@/assets/js/functions";
 export default {
-    setup() {
-        const {
-            pageLength,
-            getWarehouseList,
-            warehouseList,
-            filterField,
-            dataTableLength,
-            page,
-            header,
-            addPagination,
-            addPerPage,
-            loading
-        } = Warehouse();
-        return {
-            pageLength,
-            getWarehouseList,
-            warehouseList,
-            filterField,
-            dataTableLength,
-            page,
-            header,
-            addPagination,
-            addPerPage,
-            loading
-        };
-    },
+  components: {
+    ModalExcelDownload,
+    Table
+  },
 
-    components: {
-        ModalExcelDownload,
-        Table
-    },
+  setup() {
+    const {
+      pageLength,
+      getWarehouseList,
+      warehouseList,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      addPagination,
+      addPerPage,
+      loading
+    } = Warehouse();
+    return {
+      pageLength,
+      getWarehouseList,
+      warehouseList,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      addPagination,
+      addPerPage,
+      loading
+    };
+  },
 
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
-    },
-
-    methods: {
-
-    },
-
-    mounted() {
-        this.getWarehouseList();
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getWarehouseList();
-                    openToast(
-                    this.$store,
-                        'انبار با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+  data() {
+    return {
+      perPageFilter:false
     }
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  methods: {
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
+  mounted() {
+    this.getWarehouseList();
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getWarehouseList()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getWarehouseList()
+      }
+    },
+
+    confirmModal(val) {
+      if (this.$cookies.get('deleteItem')) {
+        if (!val) {
+          this.getWarehouseList();
+          openToast(
+              this.$store,
+              'انبار با موفقیت حذف شد',
+              "success"
+          );
+          this.$cookies.remove('deleteItem')
+        }
+      }
+    },
+  }
 }
 </script>

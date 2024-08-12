@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t14600"
+            class="text-center c-table__header__item t14 w600"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -43,7 +43,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -52,7 +52,7 @@
               v-if="header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.sku_id">
                     <span >
                          {{item.sku_id}}
@@ -68,7 +68,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{  width: itemsWidth, flex: `0 0 ${itemsWidth}`}">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.sku.label">
                     <span >
                          {{item.sku.label}}
@@ -103,7 +103,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.sku.brand.name">
                     <span >
                          {{item.sku.brand.name}}
@@ -119,7 +119,7 @@
               v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.user.first_name">
                     <span >
                          {{item.user.first_name}} {{item.user.last_name}}
@@ -135,7 +135,7 @@
               v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.user.phone_number">
                     <span >
                          {{item.user.phone_number}}
@@ -151,9 +151,9 @@
               v-if=" header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 px-15">
+              <span class="t14 w300 text-gray500 py-5 px-15">
                   <template v-if="item.user.email">
-                    <span class="t10600">
+                    <span class="t10 w600">
                          {{item.user.email}}
                     </span>
                   </template>
@@ -167,7 +167,7 @@
               v-if=" header[8].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.creator">
                     <span >
                          {{item.creator.first_name}} {{item.creator.last_name}}
@@ -183,7 +183,7 @@
               v-if=" header[9].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 ">
+              <span class="t14 w300 text-gray500 py-5 ">
                   <template v-if="item.created_at_fa">
                     <span class="number-font" >
                         {{ item.created_at_fa }}
@@ -199,7 +199,7 @@
               v-if=" header[10].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.updated_at_fa">
                     <span class="number-font" >
                         {{ item.updated_at_fa }}
@@ -242,7 +242,7 @@
                   <v-list-item-title>
                     <div class=" pointer" @click="$router.push( editUrl +  item.id )">
                       <v-icon class="text-grey-darken-1">mdi-eye-outline</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                               نمایش جزئیات
                       </span>
                     </div>
@@ -257,8 +257,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

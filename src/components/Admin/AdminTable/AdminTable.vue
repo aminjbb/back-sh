@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500"
+                class="text-center c-table__header__item t12 w500"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -62,7 +62,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -71,7 +71,7 @@
                     v-if="item.first_name && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.first_name }}
                     </span>
                 </div>
@@ -80,7 +80,7 @@
                     v-if="item.last_name && header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.last_name }}
                     </span>
                 </div>
@@ -89,7 +89,7 @@
                     v-if="item.phone_number && header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.phone_number }}
                     </span>
                 </div>
@@ -97,7 +97,7 @@
                     v-if=" header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.role" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.role" class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.role?.label }}
                     </span>
                     <span v-else>----</span>
@@ -106,7 +106,7 @@
                     v-if=" header[5].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ convertDateToJalai(item.created_at , '-' , true) }}
                     </span>
                 </div>
@@ -114,10 +114,10 @@
                     v-if=" header[6].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.last_logged_in" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.last_logged_in" class="t14 w300 text-gray500 py-5 number-font">
                         {{ convertDateToJalai(item.last_logged_in , '-' , true) }}
                     </span>
-                    <span v-else class="t14300 text-gray500 py-5 number-font">
+                    <span v-else class="t14 w300 text-gray500 py-5 number-font">
                         ---
                     </span>
                 </div>
@@ -126,10 +126,10 @@
                     v-if=" header[7].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.email" class="t14300 text-gray500 py-5">
+                    <span v-if="item.email" class="t14 w300 text-gray500 py-5">
                         {{ item.email }}
                     </span>
-                  <span v-else class="t14300 text-gray500 py-5">
+                  <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
                 </div>
@@ -157,7 +157,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
                                     </div>
@@ -166,7 +166,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -180,8 +180,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -197,9 +197,7 @@ import {
 import {
     AxiosCall
 } from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter"
+
 import {
     openConfirm
 } from "@/assets/js/functions";
@@ -295,7 +293,7 @@ export default {
             per_page: '25',
             filter: [],
             isBan:[],
-            panelFilter: new PanelFilter(),
+
         }
     },
 

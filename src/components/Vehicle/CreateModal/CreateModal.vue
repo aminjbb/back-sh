@@ -19,7 +19,7 @@
         width="468">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     افزودن خودرو
                 </span>
 
@@ -42,7 +42,7 @@
                     class="px-5">
                     <v-col cols="12">
                         <div class="text-right mt-4 mb-2">
-                            <span class="t12300">
+                            <span class="t12 w300">
                                 نوع خودرو
                             </span>
                         </div>
@@ -56,7 +56,7 @@
 
                     <v-col cols="12">
                         <div class="text-right mt-4 mb-2">
-                            <span class="t12300">
+                            <span class="t12 w300">
                                 شماره پلاک
                             </span>
                         </div>

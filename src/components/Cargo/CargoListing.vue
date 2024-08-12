@@ -7,8 +7,7 @@
       <v-row
           justify="center"
           align="center"
-          class="px-10 py-5"
-      >
+          class="px-10 py-5">
         <v-col cols="6">
           <v-row justify="start pt-2">
             <CreateCargo :getCargoList="getCargoList"/>
@@ -24,6 +23,7 @@
         height="580"
     >
       <Table
+          @resetPage="resetPage"
           class="flex-grow-1"
           deletePath="cargo/crud/delete/"
           :header="header"
@@ -95,15 +95,51 @@ export default {
 
   setup() {
     const {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item ,loading, filterField
+      pageLength,
+      cargoList,
+      addPerPage,
+      getCargoList,
+      dataTableLength ,
+      page  ,
+      header ,
+      item ,
+      loading,
+      filterField
     } = Cargo();
     return {
-      pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header , item  ,loading, filterField
+      pageLength,
+      cargoList,
+      addPerPage,
+      getCargoList,
+      dataTableLength ,
+      page  ,
+      header ,
+      item  ,
+      loading,
+      filterField
     };
   },
+
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
+  methods: {
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
   mounted() {
     this.getCargoList()
   },
+
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -111,6 +147,38 @@ export default {
   },
 
   watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getCargoList()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getHomePageBanner()
+      }
+    },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
@@ -123,15 +191,7 @@ export default {
           localStorage.removeItem('deleteObject')
         }
       }
-    },
-
-    dataTableLength(val) {
-      this.addPerPage(val)
-    },
-    $route(){
-      this.getCargoList()
     }
-
-  },
+  }
 }
 </script>

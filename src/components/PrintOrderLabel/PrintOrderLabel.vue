@@ -5,7 +5,7 @@
         height="160"
         style="flex:0 0 150px">
       <header class="modal__header d-flex justify-center align-center ">
-            <span class="t16400 pa-6">
+            <span class="t16 w400 pa-6">
               اطلاعات بارکد
             </span>
       </header>
@@ -26,7 +26,7 @@
         </v-col>
         <v-col cols="3">
 
-            <span class="t13400 color-grey">
+            <span class="t13 w400 color-grey">
 <!--                     {{ orderDetail.id }}   شناسه سفارش :-->
             </span>
         </v-col>
@@ -55,11 +55,7 @@ import {ref} from 'vue'
 import Table from '@/components/PrintOrderLabel/Table/Table.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
-
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {openToast , closeToast} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   components: {
@@ -76,6 +72,7 @@ export default {
       orderDetail:[]
     }
   },
+
   setup() {
     const {
       dataTableLength,
@@ -90,11 +87,7 @@ export default {
     };
   },
 
-  computed: {
-  },
-
   methods: {
-
     async orderItemPack() {
       this.loading = true
       var formdata = new FormData();
@@ -113,10 +106,8 @@ export default {
       } else {
         this.loading = false
       }
-    },
-
+    }
   },
-
 }
 </script>
   

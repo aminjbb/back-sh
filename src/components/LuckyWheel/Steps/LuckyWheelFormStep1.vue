@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center py-3">
-      <span class="t14500">
+      <span class="t14 w500">
         تعریف گردان شانس
       </span>
     </div>

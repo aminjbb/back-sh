@@ -36,21 +36,58 @@
 
     <v-card
         class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-        height="580"
-    >
-      <Table
+        height="580">
+      <ShTable
           class="flex-grow-1"
-          editUrl="/product/get/skugroups/update/"
-          model="skuGroup"
-          :header="skuGroupsHeader"
-          :items="allSkuGroups.data"
+          :headers="skuGroupsHeader"
+          :items="itemListTable"
           :loading="skuGroupLoading"
           :page="page"
           :perPage="dataTableLength"
-          updateUrl="product/sku/group/csv/mass-update"
-          uploadImageUrl="/product/get/skugroups/image/"
-          deletePath="product/sku/group/crud/delete/"
-      />
+          activePath="product/crud/update/activation/">
+        <template v-slot:showSlot="item">
+          <v-btn :href="`${item.data.id}/sku/index`" variant="icon">
+            <v-icon color="success">mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:customSlot="item">
+          <v-btn :href="`/product/get/${item.data.product_id}/skugroup/${item.data.id}/create/sku`" variant="icon">
+            <v-icon color="success">mdi-plus</v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/product/get/skugroups/update/${item.data.id}`)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-pen
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -79,19 +116,18 @@
             <div
                 align="center"
                 id="rowSection"
-                class="d-flex align-center"
-            >
-                            <span class="ml-5">
-                                تعداد سطر در هر صفحه
-                            </span>
-              <span class="mt-2" id="row-selector">
-                                <v-select
-                                    v-model="dataTableLength"
-                                    class="t1330"
-                                    variant="outlined"
-                                    :items="[25,50,100]"
-                                />
-                            </span>
+                class="d-flex align-center">
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
+              <span
+                  class="mt-2"
+                  id="row-selector">
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]"
+                />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -100,7 +136,8 @@
   </div>
 </template>
 <script>
-import Table from '@/components/Public/Table.vue'
+import {openToast, openConfirm} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -109,14 +146,9 @@ import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
 
 export default {
-  data() {
-    return {
-      perPageFilter: false
-    }
-  },
   components: {
     PanelFilter,
-    Table,
+    ShTable,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload
@@ -164,6 +196,18 @@ export default {
 
   },
 
+  data() {
+    return {
+      perPageFilter: false,
+      itemListTable:[],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "product/sku/group/crud/delete/",
+      },
+    }
+  },
+
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -174,15 +218,50 @@ export default {
     this.getAllSkuGroups();
   },
 
+  methods: {
+    changeHeaderShow(index, value) {
+      this.skuGroupsHeader[index].show = value
+    },
+
+    resetPage() {
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(() => {
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+  },
+
   watch: {
+    allSkuGroups(){
+      this.itemListTable = []
+
+      this.allSkuGroups.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                product_id : item.product_id,
+                id: item.id,
+                name: item.name,
+                label: item.label,
+              },
+          ),
+      )
+    },
+
     $route() {
       this.getAllSkuGroups()
     },
 
     confirmModal(val) {
-      if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject')) {
         if (!val) {
-          this.getAllSkuGroups();
+          this.getAllSkuGroups()
+          openToast(this.$store, 'آیتم مورد نظر با موفقیت حذف شد', "success")
+          localStorage.removeItem('deleteObject')
         }
       }
     },
@@ -212,19 +291,6 @@ export default {
       if (!this.perPageFilter) {
         this.getAllSkuGroups()
       }
-    }
-  },
-
-  methods: {
-    changeHeaderShow(index, value) {
-      this.skuGroupsHeader[index].show = value
-    },
-    resetPage() {
-      this.perPageFilter = true
-      this.page = 1
-      setTimeout(() => {
-        this.perPageFilter = false
-      }, 1000)
     }
   }
 }

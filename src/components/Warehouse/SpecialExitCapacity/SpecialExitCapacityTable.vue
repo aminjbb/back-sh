@@ -8,7 +8,7 @@
 
       <div
           v-for="(head, index) in header"
-          class="text-right pointer c-table__header__item t12500"
+          class="text-right pointer c-table__header__item t12 w500"
           :key="index"
           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
         {{head.name}}
@@ -28,7 +28,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-grey-darken-3 py-5 number-font">
+                        <span class="t14 w300 text-grey-darken-3 py-5 number-font">
                             {{convertDateToJalai(item.date , '-' , false)}}
                         </span>
 
@@ -40,7 +40,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-grey-darken-3 py-5">
+                        <span class="t14 w300 text-grey-darken-3 py-5">
                             {{ item.count }}
                         </span>
             </div>
@@ -65,11 +65,7 @@
 <script>
 import {convertDateToJalai, isOdd} from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
-import { openConfirm } from '@/assets/js/functions'
-import { AxiosCall } from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import { PanelFilter } from  "@/assets/js/filter"
-import { SkuPanelFilter } from  "@/assets/js/filter_sku"
 import ModalEditSpecialExitCapacity from "@/components/Warehouse/SpecialExitCapacity/ModalEditSpecialExitCapacity.vue";
 export default {
   components: {
@@ -105,8 +101,6 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      panelFilter: new PanelFilter(),
-      skuPanelFilter: new SkuPanelFilter(),
     }
   },
 

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-space-between align-center pa-5">
     <div >
-        <span class="t20400">
+        <span class="t20 w400">
         مجموع اقلام
         </span>
     </div>

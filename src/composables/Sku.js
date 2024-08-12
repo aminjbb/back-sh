@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { SkuPanelFilter } from '@/assets/js/filter_sku.js'
-import { useRouter, useRoute } from 'vue-router'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 export default function setup() {
     const skues = ref([]);
@@ -17,10 +15,9 @@ export default function setup() {
     const page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
 
-    const header = ref([
+/*    const header = ref([
         { name: 'ردیف', show: true, value: null, order:false },
         { name: 'شناسه', show: true, value: 'id', order:true },
         { name:'نام انگلیسی' , show:true , value:'name', order:true},
@@ -31,17 +28,35 @@ export default function setup() {
         { name: ' اندازه', show: true, value: 'volume', order:false },
         { name: ' رنگ', show: true, value: 'color', order:false },
         { name: 'فعال سازی', show: true , value:'is_active', order:false},
-        { name: 'قابل فروش', show: true , value:'is_sellable', order:false},
+        { name: 'قابل فروش', show: true , value:'switch', order:false},
         { name: 'محصول', show: true , value:'product', order:false},
+    ]);*/
+
+    const header = ref([
+        { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row',minWidth:'50'},
+        { name: 'شناسه', title: 'شناسه', show: true, align:'center', key: 'id',minWidth:'50'},
+        { name:'نام انگلیسی', title:'نام انگلیسی' , show:true, align:'center', key:'name', minWidth:'200'},
+        { name:'نام فارسی', title:'نام فارسی' , show:true, align:'center', key:'label', minWidth:'200'},
+        { name: 'گروه', title: 'گروه', show: true, align:'center', sortable:false, key: 'sku_group', minWidth:'200'},
+        { name: 'دسته‌بندی', title: 'دسته‌بندی', show: true, align:'center', sortable:false, key: 'category',  minWidth:'100'},
+        { name: ' برند', title: ' برند', show: true, align:'center', sortable:false, key: 'brand', minWidth:'100'},
+        { name: ' اندازه', title: ' اندازه', show: true, align:'center', sortable:false,  key: 'custom', minWidth:'100'},
+        { name: ' رنگ', title: ' رنگ', show: true, align:'center', sortable:false, key: 'color', minWidth:'100'},
+        { name: 'فعال سازی', title: 'فعال سازی', show: true , align:'center', sortable:false, key: 'is_active', minWidth:'150'},
+        { name: 'قابل فروش', title: 'قابل فروش', show: true , align:'center', sortable:false, key: 'switch', minWidth:'150'},
+        { name: 'محصول', title: 'محصول', show: true, align:'center', sortable:false, key :'product',  minWidth:'150'},
+        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50', fixed: true},
+
     ]);
 
     const skuGroupsHeader = ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه', show: true, value: 'id', order:true },
-        { name:'نام انگلیسی' , show:true , value:'name', order:true},
-        { name:'نام فارسی' , show:true ,  value:'label', order:true},
-        { name:'ساخت کالا' , show:true ,  value:'create_sku', order:false},
-        { name:'مشاهده کالا' , show:true ,  value:'sku_list', order:false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', align:'center', sortable: false},
+        { name: 'شناسه',title: 'شناسه', show: true, key: 'id', align:'center'},
+        { name:'نام انگلیسی',title:'نام انگلیسی' , show:true , key:'name', align:'center'},
+        { name:'نام فارسی' ,title:'نام فارسی' , show:true ,  key:'label', align:'center'},
+        { name:'ساخت کالا' ,title:'ساخت کالا' , show:true ,  key:'custom',align:'center', sortable: false,},
+        { name:'مشاهده کالا' ,title:'مشاهده کالا' , show:true ,  key:'show', align:'center', sortable: false,},
+        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50', fixed: true},
     ]);
 
     const skuGroupLoading =ref(false)
@@ -65,7 +80,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new SkuPanelFilter()
 
     async function getSkues() {
         loading.value = true

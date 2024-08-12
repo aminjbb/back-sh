@@ -12,7 +12,7 @@
         </v-col>
         <v-col cols="9">
           <div class="text-left pl-15">
-            <span class="t14500">ذخیره اطلاعات</span>
+            <span class="t14 w500">ذخیره اطلاعات</span>
           </div>
         </v-col>
       </v-row>
@@ -21,15 +21,15 @@
       </div>
 
       <div class="text-center pa-5">
-        <span class="t14500">
+        <span class="t14 w500">
           با ذخیره اطلاعات کیف پول کاربر به مبلغ {{splitChar(cancelOrderAccept.refund_amount)}} ریال شارژ خواهد شد.
         </span>
       </div>
       <div class="text-center pa-5">
-        <span class="t14500">آیا از انجام این کار اطمینان دارید؟</span>
+        <span class="t14 w500">آیا از انجام این کار اطمینان دارید؟</span>
       </div>
       <div class="d-flex justify-center ">
-         <span class="t14300 ">
+         <span class="t14 w300 ">
            <v-switch
                inset
                color="success"

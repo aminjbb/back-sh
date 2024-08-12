@@ -15,7 +15,7 @@
                     <template v-slot:prepend>
                         <v-icon>mdi-plus</v-icon>
                     </template>
-                    افزودن تکی 
+                    افزودن تکی
                 </v-btn>
             </v-col>
 
@@ -28,15 +28,48 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
-            class="flex-grow-1"
-            :header="SliderHeader"
-            :items="sliderList.data"
-            :page="page"
-            :perPage="dataTableLength"
-            :loading="loading"
-            updateUrl="page/csv/mass-update"
-            model="sliderPage" />
+      <ShTable
+          class="flex-grow-1"
+          :headers="SliderHeader"
+          :items="itemListTable"
+          :loading="loading"
+          :page="page"
+          :perPage="dataTableLength"
+      >
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                      <v-icon size="small" class="text-grey-darken-1">
+                        mdi-trash-can-outline
+                      </v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title>
+                    <div class="ma-5 pointer" @click="$router.push(`${item.data.id}/skus`)">
+                      <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
+                      <span class="mr-2 text-grey-darken-1 t14 w300">افزودن کالا</span>
+                    </div>
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
         <v-divider />
 
@@ -85,84 +118,146 @@
     
     
 <script>
-import Table from '@/components/PageSliders/Table/Table.vue'
 import Page from "@/composables/Page";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import { openToast, openConfirm } from "@/assets/js/functions";
+
 export default {
-    setup() {
-        const {
-            pageLength,
-            getSliderList,
-            sliderList,
-            filterField,
-            dataTableLength,
-            page,
-            SliderHeader,
-
-            addPerPage,
-            loading,
-          addPerPageSlider
-        } = Page();
-        return {
-            pageLength,
-            getSliderList,
-            sliderList,
-            filterField,
-            dataTableLength,
-            page,
-            SliderHeader,
-            addPerPage,
-            loading,
-          addPerPageSlider
-        };
-    },
-
-    components: {
-        Table,
-        ModalGroupAdd,
-        ModalColumnFilter,
-        ModalExcelDownload,
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.SliderHeader[index].show = value
-        },
-
-    },
-
-    mounted() {
-        this.getSliderList();
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPageSlider(val)
-        },
-        confirmModal(val) {
-            if (this.$cookies.get('deleteItem')) {
-                if (!val) {
-                    this.getSliderList();
-                    openToast(
-                        this.$store,
-                        'اسلایدر مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    this.$cookies.remove('deleteItem')
-                }
-            }
-        },
+  setup() {
+    const {
+      pageLength,
+      getSliderList,
+      sliderList,
+      filterField,
+      dataTableLength,
+      page,
+      SliderHeader,
+      addPerPage,
+      loading,
+      addPerPageSlider
+    } = Page();
+    return {
+      pageLength,
+      getSliderList,
+      sliderList,
+      filterField,
+      dataTableLength,
+      page,
+      SliderHeader,
+      addPerPage,
+      loading,
+      addPerPageSlider
     }
+  },
+
+  data() {
+    return {
+      perPageFilter:false,
+      itemListTable: [],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "page/slider/crud/delete/",
+      },
+    }
+  },
+
+  components: {
+    ModalGroupAdd,
+    ModalColumnFilter,
+    ModalExcelDownload,
+    ShTable
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.SliderHeader[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+  },
+
+  mounted() {
+    this.getSliderList();
+  },
+
+  watch: {
+    sliderList(){
+      this.itemListTable = []
+
+      this.sliderList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                name: item.name,
+                label: item.label,
+                position: item.position,
+                icon: item.icon,
+              },
+          ),
+      )
+    },
+
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getSliderList()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getSliderList()
+      }
+    },
+
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getSliderList();
+          openToast(this.$store, 'اسلایدر مورد نظر با موفقیت حذف شد', "success");
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
+  }
 }
 </script>

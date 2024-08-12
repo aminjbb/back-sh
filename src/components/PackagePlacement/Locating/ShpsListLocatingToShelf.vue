@@ -9,7 +9,7 @@
     <div class="d-flex justify-space-between align-center">
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
-        <span class="t20400">
+        <span class="t20 w400">
           جایگذاری بسته
         </span>
       </div>
@@ -22,14 +22,14 @@
 
     <v-card class="ma-5 br-15" max-height="116">
       <div class="d-flex justify-center my-1">
-          <span class="t18400">
+          <span class="t18 w400">
             اطلاعات جایگذاری
           </span>
       </div>
       <v-divider/>
       <div class="text-right my-2 px-5 d-flex justify-space-between px-10">
         <div>
-           <span class="t16400">
+           <span class="t16 w400">
            آدرس :
               <span class="text-gray600">
               {{ placement?.shelf_number }} -
@@ -75,7 +75,7 @@
               {{ placeCount }}
             </span>
             </v-card>
-            <span class="t16400 text-black">عدد از {{ allCount }} عدد اسکن شده</span>
+            <span class="t16 w400 text-black">عدد از {{ allCount }} عدد اسکن شده</span>
           </v-card>
           <v-card class="mt-2">
             <div class="d-flex justify-center">

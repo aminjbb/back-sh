@@ -13,7 +13,7 @@
           </v-col>
           <v-col cols="9">
             <div class="text-left pl-16">
-              <span class="t14500">هشدار</span>
+              <span class="t14 w500">هشدار</span>
             </div>
           </v-col>
         </v-row>
@@ -22,8 +22,8 @@
         </div>
 
         <div class="text-center px-6 my-5">
-          <div class="t14500 text-gray600">. سفارش داری کسری می باشد  </div>
-          <div class="t14500 text-gray600 mt-2"> .با تیم پشتیبانی تماس گرفته و کالای دارای کسری را حذف نمایید</div>
+          <div class="t14 w500 text-gray600">. سفارش داری کسری می باشد  </div>
+          <div class="t14 w500 text-gray600 mt-2"> .با تیم پشتیبانی تماس گرفته و کالای دارای کسری را حذف نمایید</div>
         </div>
         <div class="px-5">
           <v-divider/>

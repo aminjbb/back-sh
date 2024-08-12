@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -32,7 +32,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -41,7 +41,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.seller_sku_id }}
                     </span>
           </div>
@@ -49,7 +49,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-5 number-font d--ltrsho">
+                    <div class="t14 w300 text-gray500 py-5 number-font d--ltrsho">
                         {{ item.placement?.row_number }} -
                         {{ item.placement?.placement_number }} -
                         {{item.placement?.step_number}} -
@@ -61,7 +61,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.status }}
 
                     </span>
@@ -70,7 +70,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
+                    <div class="t14 w300 text-gray500 py-5 number-font" style="width: 100%;">
                       <span>
                         {{item.turn}}
                       </span>
@@ -80,7 +80,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
+                    <div class="t14 w300 text-gray500 py-5 number-font" style="width: 100%;">
                       <span>
                         {{item.count}}
                       </span>
@@ -90,7 +90,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <div class="t14300 text-gray500 py-5 number-font" style="width: 100%;">
+                    <div class="t14 w300 text-gray500 py-5 number-font" style="width: 100%;">
                       <v-text-field variant="outlined" v-model="form[index].priority"></v-text-field>
 
                     </div>
@@ -99,7 +99,7 @@
               v-if="header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                      <v-btn @click="savePickupChange(index , item.id)" variant="text">
                        <v-icon color="success">
                          mdi-plus
@@ -111,7 +111,7 @@
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                       <ModalOrdersShow :orders="item.orders"/>
                     </span>
           </div>
@@ -123,8 +123,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="../../../assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

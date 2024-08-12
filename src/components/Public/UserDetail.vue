@@ -30,7 +30,7 @@
             <v-list-item-title @click="logOut()">
               <div class="ma-5 pointer">
                 <v-icon class="text-grey-darken-1">mdi-exit-to-app</v-icon>
-                <span class="mr-2 text-grey-darken-1 t14300">
+                <span class="mr-2 text-grey-darken-1 t14 w300">
                   خروج
                 </span>
               </div>
@@ -64,7 +64,7 @@
                                         align="center"
                                         class="px-5 py-5"
                                         @click="gotoNotification(item)">
-                                        <span class="t12400 mr-1">{{ item.title }}</span>
+                                        <span class="t12 w400 mr-1">{{ item.title }}</span>
                                         <v-icon size="xsmall">mdi-cloud-download</v-icon>
                                     </v-row>
                                 </div>
@@ -82,7 +82,7 @@
         <div class="pt-2">
             <v-row justify="center" align="center">
                 <div class="mr-3">
-                    <span class="t14300 number-font">
+                    <span class="t14 w300 number-font">
                         {{ date }}
                     </span>
                 </div>

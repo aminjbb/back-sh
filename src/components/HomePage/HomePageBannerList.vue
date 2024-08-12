@@ -23,6 +23,7 @@
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
+            @resetPage="resetPage"
             class="flex-grow-1"
             :header="bannerHeader"
             :items="homePageBanner.data"
@@ -74,72 +75,111 @@ import {openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
-    setup() {
-        const {
-            bannerHeader,
-            getHomePageBanner,
-            homePageBanner,
-            dataTableLength,
-            page,
-            filterBannerField,
-            loading,
-        } = new Home();
-        return {
-            bannerHeader,
-            getHomePageBanner,
-            homePageBanner,
-            dataTableLength,
-            page,
-            filterBannerField,
-            loading
-        };
-    },
+  setup() {
+    const {
+      bannerHeader,
+      getHomePageBanner,
+      homePageBanner,
+      dataTableLength,
+      page,
+      filterBannerField,
+      loading,
+    } = new Home();
+    return {
+      bannerHeader,
+      getHomePageBanner,
+      homePageBanner,
+      dataTableLength,
+      page,
+      filterBannerField,
+      loading
+    };
+  },
 
-    components: {
-      PanelFilter,
-        ModalAddBanner,
-        Table,
-        ModalGroupAdd,
-        ModalColumnFilter,
-
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal
-        }
-    },
-
-    methods: {
-        changeHeaderShow(index, value) {
-            this.bannerHeader[index].show = value
-        },
-    },
-
-    mounted() {
-        this.getHomePageBanner()
-    },
-
-    watch: {
-        dataTableLength(val) {
-            this.addPerPage(val)
-        },
-        confirmModal(val) {
-            if (localStorage.getItem('deleteObject')) {
-                if (!val) {
-                    this.getHomePageBanner()
-                    openToast(
-                        this.$store,
-                        'منو مورد نظر با موفقیت حذف شد',
-                        "success"
-                    );
-                    localStorage.removeItem('deleteObject')
-                }
-            }
-        },
-        $route(to, from) {
-            this.getHomePageBanner()
-        }
+  data() {
+    return {
+      perPageFilter:false
     }
+  },
+
+  components: {
+    PanelFilter,
+    ModalAddBanner,
+    Table,
+    ModalGroupAdd,
+    ModalColumnFilter
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.bannerHeader[index].show = value
+    },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+  },
+
+  mounted() {
+    this.getHomePageBanner()
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    $route(){
+      this.getHomePageBanner()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getHomePageBanner()
+      }
+    },
+
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject')) {
+        if (!val) {
+          this.getHomePageBanner()
+          openToast(
+              this.$store,
+              'منو مورد نظر با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    }
+  }
 }
 </script>

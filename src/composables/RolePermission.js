@@ -1,8 +1,8 @@
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
-import {useRouter, useRoute} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter.js'
+import {useRoute} from 'vue-router'
+
 export default function setup() {
     const rolePermissions = ref([]);
     const rolePermission = ref({});
@@ -12,25 +12,58 @@ export default function setup() {
     const dataTableLength = ref(25);
     const cookies = useCookies()
     const route = useRoute()
-    const router = useRouter()
     const header = ref([
-        {name: 'ردیف', show: true},
-        {name: 'شناسه', show: true},
-        {name: 'عنوان', show: true},
-        {name: 'نام فارسی', show: true},
+        {name: 'ردیف', title:'ردیف', key:'row', show: true, align:'right', sortable: false},
+        {name: 'شناسه', title:'شناسه', key:'id', show: true, align:'right', sortable: false},
+        {name: 'عنوان', title:'عنوان', key:'title', show: true, align:'right', sortable: false},
+        {name: 'نام فارسی', title:'نام فارسی', key:'name', show: true, align:'right', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true, minWidth:'5'}
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
-    async function getRolePermissions(query) {
-        loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
 
+    async function getRolePermissions() {
+        loading.value = true
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `role/crud/index${paramsQuery}`
+        let query = route.query
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+        AxiosMethod.end_point = `role/crud/index`
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         let data = await AxiosMethod.axios_get()
@@ -41,9 +74,9 @@ export default function setup() {
         } else {
             loading.value = false
         }
-    };
+    }
 
-    async function getAllRolePermission(query) {
+    async function getAllRolePermission() {
         const form ={
             per_page:10000
         }
@@ -56,9 +89,9 @@ export default function setup() {
         if (data) {
             allRolePermission.value = data.data.data
         }
-    };
-    async function getRolePermission(query) {
+    }
 
+    async function getRolePermission() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = `role/crud/get/${route.params.roleId}`
         AxiosMethod.using_auth = true
@@ -67,21 +100,8 @@ export default function setup() {
         if (data) {
             rolePermission.value = data.data
         }
-    };
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page = number
-        router.push('/role-permission/index'+ filter.params_generator(route.query))
     }
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push('/role-permission/index/'+ filter.params_generator(route.query))
 
-    }
-    watch(page, function(val) {
-        addPagination(val)
-    })
     return {
         getRolePermissions,
         header,
@@ -94,7 +114,6 @@ export default function setup() {
         getAllRolePermission,
         pageLength,
         dataTableLength,
-        addPerPage
     }
 }
 

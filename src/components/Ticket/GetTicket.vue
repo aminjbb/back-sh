@@ -8,11 +8,10 @@
             <div class="pr-2 mt-2">{{ getStatusText(ticketStatus) }}</div>
           </div>
 
-          <div
-              v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
-              class="ticket-single__sidebar__item d-flex align-center ga-3">
+          <div v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
+               class="ticket-single__sidebar__item d-flex align-center ga-3">
             <span class="title">وضعیت در حال بررسی شود </span>
-            <v-switch v-model="isSwitchActive"  inset color="success"/>
+            <v-switch v-model="isSwitchActive" inset color="success"/>
           </div>
 
           <div v-if="oneTicket && oneTicket.priority" class="ticket-single__sidebar__item">
@@ -39,10 +38,8 @@
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> موبایل :</span>
-            <v-btn @click="redirect()" variant="text" >
-                  <span class="number-font">
-                      {{ oneTicket.user.phone_number }}
-                  </span>
+            <v-btn @click="redirect()" variant="text">
+              <span class="number-font">{{ oneTicket.user.phone_number }}</span>
             </v-btn>
           </div>
 
@@ -66,83 +63,74 @@
                 min-height="100"
                 class="mb-10">
               <div class="d-flex justify-space-between pa-6">
-                  <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
+                <span v-if="oneTicket.user" class="t14 w500 text-gray500 mrl10">
                     <template v-if="oneTicket.user.first_name">
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
-                      {{ convertDate(oneTicket.created_at) }}
-                  </span>
+                <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">{{ convertDate(oneTicket.created_at) }}</span>
               </div>
 
-              <v-divider color="black"/>
+              <v-card v-if="oneTicket && oneTicket.files" min-height="100" class="mb-10">
+                <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
+                  <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                  <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                </div>
 
-              <p class="text-justify pa-5" v-html="oneTicket.content"/>
-            </v-card>
+                <v-divider color="black"/>
 
-            <v-card
-                v-if="oneTicket && oneTicket.files"
-                min-height="100"
-                class="mb-10">
-              <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
-                <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                <video v-else-if="file.type === 'video'" :src="file.url" controls/>
-              </div>
-              <v-divider color="black"/>
-
-              <p class="text-justify pa-5" v-html="oneTicket.content"/>
-            </v-card>
-
-
-            <template v-if="oneTicket && oneTicket.threads">
-              <div v-for="ticket in oneTicket.threads"
-                   :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
                 <v-card
+                    v-if="oneTicket && oneTicket.files"
                     min-height="100"
-                    class="mb-10"
-                    :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
-                  <div class="d-flex justify-space-between pa-6">
-                    <span class="t14500 text-gray500 ml-10">
-                      {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
-                    </span>
-
-                    <span class="t14500 text-gray500 mr-10 number-font">
-                      {{ convertDate(ticket.created_at) }}
-                    </span>
-                  </div>
-
+                    class="mb-10">
                   <v-divider color="black"/>
 
-                  <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
-                    <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                    <video v-else-if="file.type === 'video'" :src="file.url" controls/>
-                  </div>
-
-                  <p class="text-justify pa-5" v-html="ticket.content"/>
+                  <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
                 </v-card>
-              </div>
-            </template>
 
-            <div>
-              <div class="text-right mb-3 t14500">ارسال پیام</div>
+                <template v-if="oneTicket && oneTicket.threads">
+                  <div
+                      v-for="ticket in oneTicket.threads"
+                      :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
+                    <v-card
+                        min-height="100"
+                        class="mb-10"
+                        :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
+                      <div class="d-flex justify-space-between pa-6">
+                        <span class="t14 w500 text-gray500 ml-10">{{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}</span>
+                        <span class="t14 w500 text-gray500 mr-10 number-font">{{ convertDate(ticket.created_at) }}</span>
+                      </div>
 
-              <ckeditor
-                  v-model="content"
-                  :config="editorConfig"
-                  class="cke_rtl mb-15"/>
+                      <v-divider color="black"/>
 
-              <v-btn
-                  :loading="sendMsgLoading"
-                  @click="sendMessage()"
-                  color="primary500"
-                  height="40"
-                  rounded
-                  class="px-8 mt-1">
-                ارسال پیام
-              </v-btn>
-            </div>
+                      <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
+                        <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                        <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                      </div>
+
+                      <p class="t14text-justify pa-5" v-html="ticket.content"/>
+                    </v-card>
+                  </div>
+                </template>
+
+                <div>
+                  <div class="text-right mb-3 t14 w500">ارسال پیام</div>
+
+                  <ckeditor v-model="content" :config="editorConfig" class="cke_rtl mb-15"/>
+
+                  <v-btn
+                      :loading="sendMsgLoading"
+                      @click="sendMessage()"
+                      color="primary500"
+                      height="40"
+                      rounded
+                      class="px-8 mt-1">
+                    ارسال پیام
+                  </v-btn>
+                </div>
+              </v-card>
+            </v-card>
           </div>
         </div>
       </v-col>
@@ -151,12 +139,20 @@
 </template>
 
 <script>
-import {AxiosCall} from "@/assets/js/axios_call";
-import {openToast} from "@/assets/js/functions";
+import {
+  AxiosCall
+} from "@/assets/js/axios_call";
+import {
+  openToast
+} from "@/assets/js/functions";
 
 import Ticket from '@/composables/Ticket'
-import {gregorian_to_jalali} from "@/assets/js/functions";
-import {component as ckeditor} from '@mayasabha/ckeditor4-vue3'
+import {
+  gregorian_to_jalali
+} from "@/assets/js/functions";
+import {
+  component as ckeditor
+} from '@mayasabha/ckeditor4-vue3'
 
 export default {
   setup() {
@@ -192,18 +188,16 @@ export default {
       if (newVal.status === 'pending') {
         this.statusModel = 'pending'
         this.isSwitchActive = true
-      }
-      else {
+      } else {
         this.statusModel = 'open'
-        this.isSwitchActive =false
+        this.isSwitchActive = false
       }
     },
 
     isSwitchActive(newVal) {
       if (newVal) {
         this.statusModel = 'pending'
-      }
-      else {
+      } else {
         this.statusModel = 'open'
       }
     }
@@ -350,7 +344,6 @@ export default {
 
       return 'معمولی';
     },
-
     redirect() {
       window.open(`${import.meta.env.VITE_API_SITEURL}orders/index?user_id=${this.oneTicket.user.id}`, '_blank');
 

@@ -35,16 +35,45 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="bestSellCategories"
+          :headers="header"
+          :items="itemListTable"
+          :loading="loading"
           :page="page"
           :perPage="dataTableLength"
-          :loading="loading"
-          deletePath="category/best_selling/crud/delete/"
-          activePath="category/best_selling/crud/update/activation/"
-          model="bestSellCategory" />
+          :activePath="'category/best_selling/crud/update/activation/'">
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/best-selling-categories/${item.data.id}/best-selling-edit`)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-pen
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider />
 
@@ -89,24 +118,30 @@
 
 <script>
 import {defineAsyncComponent} from 'vue'
-const Table = defineAsyncComponent(()=> import('@/components/BestSellingCategories/Table/Table.vue'))
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import BestSellingCategories from "@/composables/BestSellingCategories";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import {openToast} from "@/assets/js/functions";
+import {openToast, openConfirm} from "@/assets/js/functions";
 const PanelFilter = defineAsyncComponent(() => import('@/components/PanelFilter/PanelFilter.vue'));
 
 
 export default {
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: [],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "category/best_selling/crud/delete/",
+      },
     }
   },
 
   components: {
     ModalColumnFilter,
     PanelFilter,
-    Table
+    ShTable
   },
 
   setup() {
@@ -168,6 +203,16 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
+    translateDevice(device) {
+      if (device==='desktop') return 'دسکتاپ'
+      else if (device==='mobile') return 'موبایل'
+      else if (device==='tablet') return 'تبلت'
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   },
 
   mounted() {
@@ -175,6 +220,25 @@ export default {
   },
 
   watch: {
+    bestSellCategories(){
+      this.itemListTable = []
+
+      this.bestSellCategories.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                label: item.label,
+                image: item?.image?.image_url,
+                device: this.translateDevice(item.device),
+                link: item?.link,
+                creator_id: item?.creator?.full_name,
+                is_active: item.is_active,
+                is_active_id: item.id,
+              },
+          ),
+      )
+    },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {

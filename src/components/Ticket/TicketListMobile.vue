@@ -21,12 +21,12 @@
           <div class="d-flex align-center justify-space-between">
                 <div class="">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> عنوان : </span>
-                  <span class="t12500 number-font"> {{ item.title }} </span>
+                  <span class="t12 w500"> عنوان : </span>
+                  <span class="t12 w500 number-font"> {{ item.title }} </span>
                 </div>
                 <div class="">
                   <v-chip
-                      class="ma-2 rounded-lg t10400"
+                      class="ma-2 rounded-lg t10 w400"
                       :color="getStatusColor(item.status)"
                       text-color="white">
                     {{getStatusText(item.status)}}
@@ -37,34 +37,34 @@
           <div class="d-flex align-center justify-space-between">
                 <div class="mt-3">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> شماره تیکت : </span>
-                  <span class="t12500 number-font"> {{ item.code }} </span>
+                  <span class="t12 w500"> شماره تیکت : </span>
+                  <span class="t12 w500 number-font"> {{ item.code }} </span>
                 </div>
                 <div class="mt-3">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> شناسه تیکت : </span>
-                  <span class="t12500">  {{ item.id }} </span>
-                </div>
-              </div>
-
-          <div class="d-flex align-center justify-space-between">
-                <div class="mt-3">
-                  <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> اولویت: </span>
-                  <span class="t12500 number-font"> {{ getPriorityText(item.priority) }} </span>
-                </div>
-                <div class="mt-3">
-                  <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> کاربر: </span>
-                  <span class="t12500 number-font">  {{ item.user.first_name }} {{ item.user.last_name }}</span>
+                  <span class="t12 w500"> شناسه تیکت : </span>
+                  <span class="t12 w500">  {{ item.id }} </span>
                 </div>
               </div>
 
           <div class="d-flex align-center justify-space-between">
                 <div class="mt-3">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12500"> امتیاز: </span>
-                  <span class="t12500 number-font"> یسرا فیلی </span>
+                  <span class="t12 w500"> اولویت: </span>
+                  <span class="t12 w500 number-font"> {{ getPriorityText(item.priority) }} </span>
+                </div>
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12 w500"> کاربر: </span>
+                  <span class="t12 w500 number-font">  {{ item.user.first_name }} {{ item.user.last_name }}</span>
+                </div>
+              </div>
+
+          <div class="d-flex align-center justify-space-between">
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12 w500"> امتیاز: </span>
+                  <span class="t12 w500 number-font"> یسرا فیلی </span>
                 </div>
               </div>
 
@@ -76,7 +76,7 @@
                 width="142"
                 height="24"
                 rounded
-                class="text-white t12500">
+                class="text-white t12 w500">
               <v-icon icon="mdi-eye" class="mx-1"/>
               نمایش
             </v-btn>
@@ -97,7 +97,9 @@
                 prev-icon="mdi-chevron-right"
                 next-icon="mdi-chevron-left"/>
           </v-col>
+
           <v-col cols="12">
+
             <div
                 id="rowSection"
                 class="d-flex justify-center align-center">
