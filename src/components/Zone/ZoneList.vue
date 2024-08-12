@@ -27,7 +27,11 @@
                                        ویرایش ناحیه
                                     </span>
                                   </div>
+                                  <ModalPickUpper :ref="`pickUpper`" :id="item.data.id" :rowList="rowList"/>
+
                               </v-list-item-title>
+
+
                               <v-list-item-title>
                                   <div class="ma-3 pointer d--rtl" @click="openEditAdminModal(item.data.id)">
                                       <v-icon class="text-grey-darken-1">mdi-account</v-icon>
@@ -35,8 +39,6 @@
                                        ویرایش پیکاپر
                                     </span>
                                   </div>
-
-                                  <ModalPickUpper :ref="`pickUpper`" :id="item.data.id" :rowList="rowList"/>
                                   <ModalUpdateAdmin :ref="`updateAdminZone`" :id="item.data.id" :rowList="rowList"/>
 
                               </v-list-item-title>
