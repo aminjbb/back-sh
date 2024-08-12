@@ -1,13 +1,4 @@
 <template>
-  <div>
-    <div >
-      <v-icon class="text-grey-darken-1 pointer"  >
-              mdi-close-octagon-outline
-      </v-icon>
-      <span class="mr-2 text-grey-darken-1 t14 w300 pointer" @click="dialog= true">
-            توقف اختصاص به پیک آپر
-      </span>
-    </div>
     <v-dialog v-model="dialog" width="auto">
       <template v-slot:default="{ isActive }">
         <v-card width="450" class="px-10 ">
@@ -66,7 +57,6 @@
       </v-card>
     </template>
   </v-dialog>
-  </div>
 </template>
 
 <script >
@@ -91,10 +81,10 @@ export default {
   },
 
   methods: {
-   async sendBug() {
-     await this.sendReportBug(this.id, this.Description)
-      this.dialog = false
-     this.$emit ( 'reloadNewReports')
+    async sendBug() {
+        await this.sendReportBug(this.id, this.Description)
+        this.dialog = false
+        this.$emit( 'reload-reports')
     }
   }
 }
