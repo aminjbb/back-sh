@@ -7,6 +7,13 @@
 @import "./general/main";
 @import "./general/container";
 
+// Tools
+@import "./tools/typo";
+@import "./tools/helpers";
+
+// Kits
+@import "./kits/text-field";
+
 // Components
 @import "./components/menu";
 @import "./components/table";
@@ -25,10 +32,3 @@
 @import "./views/factor";
 @import "./views/ticket";
 @import "./views/chat-page";
-
-// Tools
-@import "./tools/typo";
-@import "./tools/helpers";
-
-// Kits
-@import "./kits/text-field";

@@ -39,9 +39,16 @@ a,
   }
 }
 
-.h-100vh { 	
-  height: 100vh !important;
+.h{
+  &-100vh { 	
+    height: 100vh !important;
+  }
+
+  &-93vh {
+    height: 93vh !important;
+  }
 }
+
 
 .number-font,
 .v-pagination__item .v-btn__content,
@@ -70,10 +77,10 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .example {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .example .v-table__wrapper {
@@ -81,21 +88,21 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 #row-selector {
-  .v-select {
-    height: 40px !important;
-  }
+    .v-select {
+      height: 40px !important;
+    }
 
-  .v-field {
-    height: 40px !important;
-  }
+    .v-field {
+      height: 40px !important;
 
-  .v-field__append-inner {
-    height: 40px !important;
-  }
-}
+      &__input {
+        padding-top: 0 !important;
+      }
+    }
 
-.h-93vh {
-  height: 93vh !important;
+    .v-field__append-inner {
+      height: 40px !important;
+    }
 }
 
 .v-messages__message {
@@ -111,19 +118,9 @@ h1, h2, h3, h4, h5, h6, p, span {
   font-variation-settings: "wght" 300
 }
 
-#rowSection .v-field__input {
-  padding-top: 0 !important;
-}
-
-
 .default-file-input {
   opacity: 0;
 }
-
-.bg-active {
-  color: #E91E63 !important;
-}
-
 
 .bottom {
   bottom: 30px;
@@ -147,12 +144,6 @@ h1, h2, h3, h4, h5, h6, p, span {
   height: 30px;
   background-color: #fff;
   border-radius: 100px;
-}
-
-.null-data-table {
-  position: absolute;
-  top: 30%;
-  right: 43%;
 }
 
 .create-sku-step2 .v-input.v-textarea {
@@ -219,10 +210,6 @@ h1, h2, h3, h4, h5, h6, p, span {
   }
 }
 
-.fill-height {
-  height: calc(100% - 85px) !important;
-}
-
 .upload-box {
   width: 100%;
   height: 80px;
@@ -240,7 +227,7 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .chat__user-box {
-  background: #fff;
+  background: #3f2f2f;
   height: 100% !important;
   width: 250px;
   position: absolute;
@@ -267,59 +254,9 @@ h1, h2, h3, h4, h5, h6, p, span {
   border-radius: 50%;
   background: #FCE4EC;
 }
-.check__barcode-box {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
 
 .seller__add-sku-btn:hover {
   cursor: pointer;
-}
-
-
-
-.slider_status{
-  padding: 7px 12px 7px 8px;
-  border-radius: 8px;
-  height: 30px;
-  &__waiting{
-    background: #FFF3E0;
-  }
-  &__progress{
-    background: #E8F5E9;
-  }
-  &__expire{
-    background: #FFEBEE;
-  }
-}
-.retailShipment--work-days-card{
-  &__active{
-    background: #EEE !important;
-    border: unset;
-    span{
-      color: black;
-    }
-  }
-  &__disable{
-    background: #FAFAFA !important;
-    border: unset;
-    span{
-      color: #E0E0E0;
-    }
-  }
-  &__free{
-
-    background: #ffff !important;
-    border: 1px solid #E0E0E0 !important;
-    span{
-      color: black;
-    }
-  }
-  &__free:hover{
-        background: #ffff !important;
-       border: 1px solid #110833 !important;
-     }
 }
 
 .retail-status-box{
@@ -328,6 +265,7 @@ h1, h2, h3, h4, h5, h6, p, span {
   border-radius: 8px;
   background: #F5F5F5;
 }
+
 .expanded-background {
   display: flex;
   justify-content: space-between;
@@ -337,64 +275,6 @@ h1, h2, h3, h4, h5, h6, p, span {
   padding: 8px;
   width: 100%;
   align-content: center;
-}
-.v-text-field__prefix{
-  opacity: 1 !important;
-
-}
-
-.qr-code-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; 
-  max-height: 400px; 
-  overflow-y: auto;
-  direction: rtl
-}
-
-.qr-code-item {
-  flex-basis: calc(20% - 20px); 
-  margin: 10px; 
-  
-}
-.table-scroll-container {
-  max-height: 500px; 
-  overflow-y: auto; 
-}
-
-.scan-success{
-  background: #43A047 !important;
-}
-
-
-.scan-error{
-  background: #EF5350 !important;
-}
-
-.center-divider {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-}
-
-.main-body-modal {
-  padding: 30px;
-   width: 550px;
-   border-style: solid; 
- border-width: 2px; 
- border-color: #000000; 
-  
-}
-
-.border-nested-modal{
-   padding: 20px;
-   border-style: solid; 
-   border-width: 1px;
-   border-radius: 10px;
-   border-color: #e9dcdcb6;
-  width: 277px;
-  height: 199px;
 }
 
 .loading_modal{
@@ -415,6 +295,3 @@ h1, h2, h3, h4, h5, h6, p, span {
   background: #FCE4EC;
 }
 
-.red-background {
-  background-color: var(--Red-95, #FFEBEE);
-}
