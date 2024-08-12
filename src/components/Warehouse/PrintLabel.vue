@@ -1,6 +1,6 @@
 <template>
-  <div class="create-product flex-column d-flex vh-100">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="500">
+  <div class="create-product flex-column d-flex h-100vh">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="500">
       <div class="d-flex justify-center my-5">
             <span class="t14 w500">
                پرینت برچسب

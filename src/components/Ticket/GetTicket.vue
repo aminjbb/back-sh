@@ -55,7 +55,7 @@
         </div>
       </v-col>
 
-      <v-col md="9" class="vh-100">
+      <v-col md="9" class="h-100vh">
         <div class="stretch-table">
           <div class="pl-6">
             <v-card

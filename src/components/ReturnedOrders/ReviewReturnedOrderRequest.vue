@@ -1,6 +1,6 @@
 <template>
 <section class="review-order flex-column d-flex h-100">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
         <h3 class="t14 w400 create-product__header">اطلاعات درخواست مرجوعی</h3>
         <v-divider color="grey" />
 

@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <ShTable
           class="flex-grow-1"
           :headers="headerSmsSetting"

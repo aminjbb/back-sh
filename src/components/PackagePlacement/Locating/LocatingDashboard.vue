@@ -9,7 +9,7 @@
        </div>
 
      </div>
-       <v-card min-height="92" class="br__12 d-flex justify-space-between align-center mx-5 px-3" >
+       <v-card min-height="92" class="br--12 d-flex justify-space-between align-center mx-5 px-3" >
           <div class="d-flex">
             <v-icon size="44" color="primary600">
               mdi-account-circle
@@ -22,7 +22,7 @@
              1402/08/16
            </span>
        </v-card>
-       <v-card class="mx-5 br__12 mt-2 py-10 ">
+       <v-card class="mx-5 br--12 mt-2 py-10 ">
          <div class="d-flex py-5 px-8 align-center">
           <span class="t16 w400 text-gray600">
             نمایش فعالیت های

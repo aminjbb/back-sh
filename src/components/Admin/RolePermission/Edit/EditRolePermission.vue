@@ -1,6 +1,6 @@
 <template>
-<div class="vh-100 ">
-    <v-card class="ma-5 br-12 pa-10 h-100  scroller">
+<div class="h-100vh ">
+    <v-card class="ma-5 br--12 pa-10 h-100  scroller">
         <RolePermissionForm ref="RolePermissionForm" :role="rolePermission" />
         <v-card-actions>
         <v-row justify="end" >

@@ -48,7 +48,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <span class="t14 w300 text-gray500">
-                      <img width="100" height="28" class="br-4"  :src="item?.desktop_image?.image_url">
+                      <img width="100" height="28" class="br--4"  :src="item?.desktop_image?.image_url">
                     </span>
           </div>
           <div

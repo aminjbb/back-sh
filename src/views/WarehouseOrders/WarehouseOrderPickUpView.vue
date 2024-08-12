@@ -7,7 +7,7 @@ const WarehouseOrderPickUp = defineAsyncComponent(()=> import ('@/components/War
 <template>
   <v-layout class="bg-gray">
     <v-main class="h-100 ">
-      <div class="vh-100 " >
+      <div class="h-100vh " >
         <WarehouseOrderPickUp />
       </div>
     </v-main>

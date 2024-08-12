@@ -3,9 +3,9 @@
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-      <div class="vh-100">
+      <div class="h-100vh">
         <v-card
-            class="ma-5 br-12 pa-10 position__relative"
+            class="ma-5 br--12 pa-10 position__relative"
             min-height="600"
         >
           <AdminForm

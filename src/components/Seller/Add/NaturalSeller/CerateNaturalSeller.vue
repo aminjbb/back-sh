@@ -1,7 +1,7 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1">
       <template v-if="step === 1">
         <NaturalSellerStep1 ref="step1"/>
       </template>

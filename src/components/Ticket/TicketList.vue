@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
         <v-row justify="center" align="center" class="px-10 py-5">
             <v-col cols="6">
                 <v-row justify="start">
@@ -23,7 +23,7 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch">
       <ShTable
           class="flex-grow-1"
           :headers="header"
