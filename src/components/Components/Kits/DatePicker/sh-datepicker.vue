@@ -1,6 +1,6 @@
 <template>
   <date-picker
-      range
+      :range="haseRange"
       clearable
       class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
       format="jYYYY-jMM-jDD"
@@ -32,12 +32,22 @@ export default {
     customInput:{
       type: String,
       default: null
+    },
+    haseRange:{
+      type: Boolean,
+      default: true
     }
   },
 
   data() {
     return {
       value: null
+    }
+  },
+
+  methods:{
+    changeValue(){
+      this.$emit('changeValue' , this.value)
     }
   }
 }
