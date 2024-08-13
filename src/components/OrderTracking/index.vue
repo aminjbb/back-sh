@@ -162,5 +162,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/views/order-tracking.scss';
+@import '@/assets/scss/custom/views/order-tracking.scss';
 </style>

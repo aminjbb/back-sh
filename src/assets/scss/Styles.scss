@@ -5,7 +5,6 @@
 // General
 @import "./general/font";
 @import "./general/main";
-@import "./general/container";
 
 // Tools
 @import "./tools/typo";
@@ -25,10 +24,13 @@
 @import "./components/modal";
 @import "./components/accordion";
 
-// Views
-@import "./views/products";
-@import "./views/supplier";
-@import "./views/role-prmission";
-@import "./views/factor";
-@import "./views/ticket";
-@import "./views/chat-page";
+// Custom
+@import "./custom/custom";
+
+// Custom - Views
+@import "./custom/views/products";
+@import "./custom/views/supplier";
+@import "./custom/views/role-prmission";
+@import "./custom/views/factor";
+@import "./custom/views/ticket";
+@import "./custom/views/chat-page";
