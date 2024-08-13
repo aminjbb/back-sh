@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 export default function setup() {
     const supplierList = ref([]);
@@ -13,18 +12,19 @@ export default function setup() {
     const cookies = useCookies()
 
     const header =ref([
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسه پنل' , show:true, value:'id', order: true},
-        {name:'شناسه کوثر' , show:true, value:'kosar_id', order: false},
-        {name:'نام و نام خانوادگی' , show:false, value:'full_name', order: false},
-        {name:'نام فروشگاه' , show:true, value:'shopping_name', order: false},
-        {name:'نوع تامین‌کننده' , show:true, value:'type', order: false},
-        {name:'استان' , show:false, value:'state_label', order: false},
-        {name:'شهر' , show:false, value:'city_label', order: false},
-        {name:'شماره ثابت' , show:true, value:'phone', order: false},
-        {name:'بازده پرداخت' , show:true, value:'payment_period', order: false},
-        {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' ,title:'ردیف', show:true, sortable: false,  align:'center',  key:'row'},
+        {name:'شناسه پنل' ,title:'شناسه پنل', show:true, align:'center',  key:'id'},
+        {name:'شناسه کوثر' ,title:'شناسه کوثر', show:true, align:'center',  key:'kosar_id'},
+        {name:'نام و نام خانوادگی' ,title:'نام و نام خانوادگی', show:false, sortable: false, align:'center',  key:'full_name'},
+        {name:'نام فروشگاه' ,title:'نام فروشگاه', show:true, sortable: false, align:'center',  key:'shopping_name'},
+        {name:'نوع تامین‌کننده' ,title:'نوع تامین‌کننده', show:true, sortable: false, align:'center',  key:'supplier_type'},
+        {name:'استان' ,title:'استان', show:false, sortable: false, align:'center',  key:'state_label'},
+        {name:'شهر' ,title:'شهر', show:false, sortable: false, align:'center',  key:'city_label'},
+        {name:'شماره ثابت' ,title:'شماره ثابت', show:true, sortable: false, align:'center',  key:'phone'},
+        {name:'بازده پرداخت' ,title:'بازده پرداخت' ,show:true, sortable: false, align:'center',  key:'payment_period'},
+        {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد' ,show:true, align:'center',  key:'created_at'},
+        {name:'وضعیت' ,title:'وضعیت', show:true, sortable: false, align:'center',  key:'is_active'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
@@ -43,12 +43,10 @@ export default function setup() {
         {name: 'وضعیت ', type: 'select', value: 'is_active'},
     ];
     
-    const router = useRouter()
     const route = useRoute()
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new SupplierPanelFilter()
     
     async function getSupplierList() {
         loading.value = true

@@ -3,7 +3,7 @@
     <v-row justify="center" align="center" >
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             اسم انگلیسی
                         </span>
         </div>
@@ -19,7 +19,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             اسم فارسی
                         </span>
         </div>
@@ -36,7 +36,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             دسته بندی مادر
                         </span>
         </div>
@@ -52,7 +52,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             اولویت
                         </span>
         </div>

@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_voucher.js'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
 
@@ -16,56 +15,57 @@ export default function setup() {
     const router = useRouter()
     const route = useRoute()
     const headerVouchers =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'name', order: false},
-        { name: 'نوع مقدار تخفیف', show: true, value: 'label', order: false},
-        { name: 'نوع  تخفیف', show: true, value: 'discount_type', order: false},
-        { name: 'کد تخفیف', show: true, value: 'code', order: false},
-        { name: ' مقدار تخفیف', show: true, value: 'discount', order: false},
-        { name: ' تعداد استفاده سفارش', show: true, value: 'order_limit', order: false},
-        { name: ' تعداد استفاده مشتری', show: true, value: 'user_limit', order: false},
-        { name: 'حداقل هزینه سفارش', show: true, value: 'min_order_price', order: false},
-        { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
-        { name: 'استان', show: false, value: 'state_id', order: false},
-        { name: 'وضعیت', show: true, value: 'is_active', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'عنوان',title: 'عنوان', show: true, key: 'name', sortable: false, align:'center', minWidth:'120'},
+        { name: 'نوع مقدار تخفیف',title: 'نوع مقدار تخفیف', show: true, key: 'discount_type', sortable: false, align:'center'},
+        { name: 'نوع  تخفیف',title: 'نوع  تخفیف', show: true, key: 'voucher_type', sortable: false, align:'center'},
+        { name: 'کد تخفیف',title: 'کد تخفیف', show: true, key: 'voucherCode', sortable: false, align:'center'},
+        { name: ' مقدار تخفیف',title: ' مقدار تخفیف', show: true, key: 'discount', sortable: false, align:'center'},
+        { name: ' تعداد استفاده سفارش',title: ' تعداد استفاده سفارش', show: true, key: 'order_limit', sortable: false, align:'center'},
+        { name: ' تعداد استفاده مشتری',title: ' تعداد استفاده مشتری', show: true, key: 'user_limit', sortable: false, align:'center'},
+        { name: 'حداقل هزینه سفارش',title: 'حداقل هزینه سفارش', show: true, key: 'min_order_price', sortable: false, align:'center'},
+        { name: 'چندمین سفارش',title: 'چندمین سفارش', show: true, key: 'order_count', sortable: false, align:'center'},
+        { name: 'تاریخ شروع',title: 'تاریخ شروع', show: true, key: 'start_time_fa', align:'center'},
+        { name: 'تاریخ پایان',title: 'تاریخ پایان', show: true, key: 'end_time_fa', align:'center'},
+        { name: 'استان',title: 'استان', show: false, key: 'state_id', sortable: false, align:'center'},
+        { name: 'وضعیت',title: 'وضعیت', show: true, key: 'is_active', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const headerShps = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه کالا', show: true, value: 'id', order: true},
-        { name: 'نام کالا', show: true, value: 'label', order: true},
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order: true},
-        { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'شناسه کالا',title: 'شناسه کالا', show: true, key: 'sku_id', align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true, key: 'sku_label', align:'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price', align:'center'},
+        { name: ' قیمت فروش',title: ' قیمت فروش', show: true, key: 'site_price', sortable: false, align:'center'},
     ]);
     const headerPublicVoucherList = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: ' کد تخفیف', show: true, value: 'code', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: ' کد تخفیف',title: ' کد تخفیف', show: true, key: 'voucherCode', sortable: false, align:'center'},
     ]);
     const headerPeerToPeerVoucherList = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: ' کد تخفیف', show: true, value: 'code', order: false},
-        { name: ' شماره تماس کاربر', show: true, value: 'phone_number', order: false},
-        { name: ' نام کاربر', show: true, value: 'first_name', order: false},
-        { name: ' نام خانوادگی کاربر', show: true, value: 'last_name', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: ' کد تخفیف',title: ' کد تخفیف', show: true, key: 'voucherCode', sortable: false, align:'center'},
+        { name: ' شماره تماس کاربر',title: ' شماره تماس کاربر', show: true, key: 'phone_number', sortable: false, align:'center'},
+        { name: ' نام کاربر',title: ' نام کاربر', show: true, key: 'first_name', sortable: false, align:'center'},
+        { name: ' نام خانوادگی کاربر',title: ' نام خانوادگی کاربر', show: true, key: 'last_name', sortable: false, align:'center'},
     ]);
     const headerCustomer =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه مشتری', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس', show: true, value: 'phone', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , order: false, align:'center'},
+        { name: 'شناسه مشتری',title: 'شناسه مشتری', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس',title: ' شماره تماس', show: true, key: 'phone_number', sortable: false, align:'center'},
     ]);
     const headerOrder =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شماره سفارش', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس', show: true, value: 'phone', order: false},
-        { name: ' چندمین سفارش', show: true, value: 'order_number', order: false},
-        { name: ' تعداد آیتم', show: true, value: 'variant', order: false},
-        { name: 'مبلغ', show: true, value: 'price', order: false},
-        { name: 'تاریخ ثبت', show: true, value: 'created_at', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'شماره سفارش',title: 'شماره سفارش', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس',title: ' شماره تماس', show: true, key: 'phone_number', sortable: false, align:'center'},
+        { name: ' چندمین سفارش',title: ' چندمین سفارش', show: true, key: 'order_number', sortable: false, align:'center'},
+        { name: ' تعداد آیتم',title: ' تعداد آیتم', show: true, key: 'details_count', sortable: false, align:'center'},
+        { name: 'مبلغ',title: 'مبلغ', show: true, key: 'total_price', sortable: false, align:'center'},
+        { name: 'تاریخ ثبت',title: 'تاریخ ثبت', show: true, key: 'created_at_fa', sortable: false, align:'center'},
     ]);
 
     const indexFilterField =ref( [
@@ -105,9 +105,6 @@ export default function setup() {
 
     ]);
     const loading = ref(false)
-    const isFilter =ref(false)
-    const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function  getVoucherList() {
         loading.value = true
@@ -160,8 +157,9 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucherList.value = data.data.data
         }
-    };
-    async function  getVoucherDetail(query) {
+    }
+
+    async function  getVoucherDetail() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -171,8 +169,9 @@ export default function setup() {
         if (data) {
             voucherDetail.value = data.data
         }
-    };
-    async function  getVoucherShps(query) {
+    }
+
+    async function  getVoucherShps() {
 
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -184,10 +183,10 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data.data
         }
-    };
+    }
+
     async function  getVoucherGroup() {
         loading.value = true
-        let paramsQuery = null
         let query = route.query
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
@@ -239,120 +238,115 @@ export default function setup() {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucherGroup.value = data.data.data
         }
-    };
-    async function  getVoucherCustomer(query) {
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+    }
+
+    async function  getVoucherCustomer() {
         const AxiosMethod = new AxiosCall()
+        let query = route.query
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}${paramsQuery}`
+        AxiosMethod.end_point = `voucher/get/users/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data
         }
-    };
+    }
 
-    async function  getVoucherOrder(query) {
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+    async function  getVoucherOrder() {
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `voucher/get/orders/${route.params.voucherId}${paramsQuery}`
+        AxiosMethod.end_point = `voucher/get/orders/${route.params.voucherId}`
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value =  Math.ceil(data.data.total / data.data.per_page)
             voucher.value = data.data
         }
-    };
-
-    function addPerPageCustomer(number){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push(route.path+ filter.query_maker())
-
-    }
-    function addPerPageOrder(number){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = 1;
-        page = 1;
-        filter.per_page = number
-        router.push(route.path+ filter.query_maker())
-
     }
 
-    function addPaginationCustomer(page){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path + filter.query_maker())
-    }
-    function addPaginationOrder(page){
-        const filter = new PanelFilter()
-        if (route.query.name) {
-            filter.name =route.query.name
-        }
-        if (route.query.label) {
-            filter.label =route.query.label
-        }
-        if (route.query.active) {
-            filter.active =route.query.active
-        }
-        if (route.query.id) {
-            filter.id =route.query.id
-        }
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        router.push(route.path + filter.query_maker())
-    }
-    return {headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers,
-        filterField , page , voucherList, filterFieldPeerToPeer
-    ,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList , getVoucherCustomer ,
-        getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField , addPerPageCustomer ,
-        addPaginationCustomer, headerOrder , getVoucherOrder , addPaginationOrder , addPerPageOrder}
+    return {headerShps , headerPublicVoucherList, headerPeerToPeerVoucherList, headerCustomer , headerVouchers, filterField ,
+        page , voucherList, filterFieldPeerToPeer,dataTableLength ,pageLength , getVoucherShps , voucher , getVoucherList ,
+        getVoucherCustomer , getVoucherDetail , voucherDetail, getVoucherGroup, voucherGroup, indexFilterField ,
+        headerOrder , getVoucherOrder}
 }
 

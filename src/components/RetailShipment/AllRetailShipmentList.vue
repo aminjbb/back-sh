@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -19,7 +19,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
           :header="header"
@@ -87,10 +87,27 @@ import { openToast} from "@/assets/js/functions";
 export default {
   setup() {
     const {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     } = RetailShipment();
+
     return {
-      filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength ,addPerPage, dataTableLength, page, header, loading
+      filterFieldAllRetail,
+      getRetailShipmentList,
+      retailShipments,
+      pageLength ,
+      addPerPage,
+      dataTableLength,
+      page,
+      header,
+      loading
     };
   },
 
@@ -98,6 +115,7 @@ export default {
     Table,
     ModalColumnFilter,
     ModalExcelDownload,
+    PanelFilter
   },
 
   computed: {
@@ -121,6 +139,7 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {

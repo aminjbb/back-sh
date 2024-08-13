@@ -34,7 +34,7 @@
                     
                     <v-col cols="7">
                         <div class="text-left pl-2">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 مقدار ویژگی ها
                             </span>
                         </div>

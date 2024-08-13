@@ -3,7 +3,7 @@
     <v-row justify="center" align="center">
       <v-col cols="12">
         <div class="text-center py-6">
-          <span class="t14500">اطلاعات سفارش</span>
+          <span class="t14 w500">اطلاعات سفارش</span>
         </div>
       </v-col>
     </v-row>
@@ -11,7 +11,7 @@
     <v-row justify="center" class="mt-10">
       <v-col cols="4">
         <div class="d-flex align-center text-right my-5">
-          <span class="t14500 text-gray600"> شماره سفارش </span>
+          <span class="t14 w500 text-gray600"> شماره سفارش </span>
         </div>
         <v-text-field
             variant="outlined"
@@ -24,8 +24,8 @@
       </v-col>
       <v-col cols="5">
         <div class="d-flex align-center text-right my-5">
-          <span class="t14500 text-gray600"> کاربر</span>
-          <span class="t14500 text-red-accent-3 mr-1">*</span>
+          <span class="t14 w500 text-gray600"> کاربر</span>
+          <span class="t14 w500 text-red-accent-3 mr-1">*</span>
         </div>
         <v-autocomplete
             variant="outlined"
@@ -78,7 +78,7 @@
                       :max-lines='1'
                       autoResize
                       location="start"
-                      class="text-gray500 t14300 text-right" />
+                      class="text-gray500 t14 w300 text-right" />
                 </v-col>
               </v-row>
             </v-list-item>
@@ -94,7 +94,7 @@
             <img width="100" src="@/assets/img/productImge.png">
           </div>
           <div>
-            <span class="t12500 text-gray600">
+            <span class="t12 w500 text-gray600">
               {{shps?.shps?.sku.label}}
             </span>
           </div>
@@ -110,14 +110,14 @@
 
     <v-row justify="center" class="mt-10">
       <div class="text-center mb-5">
-        <span class="t12500">
+        <span class="t12 w500">
           کاربر و آدرس
         </span>
       </div>
       <v-divider></v-divider>
       <v-col cols="8">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                     انتخاب کاربر
                 </span>
         </div>
@@ -158,48 +158,48 @@
                 >
                   <div>
                     <div class="text-right">
-                        <span class="t12500">
+                        <span class="t12 w500">
                           آدرس :
                         </span>
                     </div>
                     <div class="text-right mt-4">
-                        <span class="t12500">
+                        <span class="t12 w500">
                          {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
                         </span>
                     </div>
                   </div>
                   <div>
                     <div class="text-right">
-                        <span class="t12500">
+                        <span class="t12 w500">
                           کد پستی :
                         </span>
                     </div>
                     <div class="text-right mt-4">
-                        <span class="t12500">
+                        <span class="t12 w500">
                        {{ address?.postal_code }}
                         </span>
                     </div>
                   </div>
                   <div>
                     <div class="text-right">
-                        <span class="t12500">
+                        <span class="t12 w500">
                           شماره تماس گیرنده :
                         </span>
                     </div>
                     <div class="text-right mt-4">
-                        <span class="t12500">
+                        <span class="t12 w500">
                        {{ address?.phone_number }}
                         </span>
                     </div>
                   </div>
                   <div>
                     <div class="text-right">
-                        <span class="t12500">
+                        <span class="t12 w500">
                           نام و نام خانواگی گیرنده :
                         </span>
                     </div>
                     <div class="text-right mt-4">
-                        <span class="t12500">
+                        <span class="t12 w500">
                        {{ address?.first_name }} {{ address?.last_name }}
                         </span>
                     </div>
@@ -214,7 +214,7 @@
 
     <v-row justify="center" class="mt-10">
       <div class="text-center mb-5">
-        <span class="t12500">
+        <span class="t12 w500">
          روش ارسال
         </span>
       </div>

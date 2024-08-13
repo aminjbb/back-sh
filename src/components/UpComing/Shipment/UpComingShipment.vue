@@ -1,13 +1,13 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="150" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="150" class="ma-5 br--12 stretch-card-header-90">
       <v-row
           justify="start"
           align="center"
           class="px-10 py-5">
         <v-col cols="5">
           <div class="text-right ">
-                        <span class="text-gray600 t14500">
+                        <span class="text-gray600 t14 w500">
                             شناسه بسته
                         </span>
             <span class="text-error">
@@ -40,7 +40,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
 
       <Table
           ref="processingShipmentShps"
@@ -70,7 +70,7 @@
                   variant="text"
                   width="115"
                   @click="finishedPack()">
-                            <span class="t14300">
+                            <span class="t14 w300">
                                 اتمام محموله
                             </span>
               </v-btn>

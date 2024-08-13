@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column align-stretch">
     <v-card
         height="70"
-        class="ma-5 br-12 stretch-card-header-70"
+        class="ma-5 br--12 stretch-card-header-70"
     >
       <v-row
           justify="center"
@@ -47,23 +47,58 @@
         </v-col>
       </v-row>
     </v-card>
+
     <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-        height="580"
-    >
-      <Table
+        class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
+        height="580">
+      <ShTable
           class="flex-grow-1"
-          editUrl="/color/edit/"
-          activePath="product/color/crud/update/activation/"
-          deletePath="product/color/crud/delete/"
-          :header="header"
-          :items="color.data"
-          model="color"
-          updateUrl="product/color/csv/mass-update"
+          :headers="header"
+          :items="itemListTable"
+          :loading="loading"
           :page="page"
           :perPage="dataTableLength"
-          :loading="loading"
-      />
+          activePath="product/color/crud/update/activation/">
+        <template v-slot:colorSlot="item">
+          <v-icon
+              icon="mdi-circle"
+              size="small"
+              :style="{ color: item.data.color }"
+              :class="item.data.color == '#FFFFFF' ? 'icon-bordered' : ''" />
+          {{ item.data.label }}
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/color/edit/${item.data.id}`)">
+                    <v-icon size="small" class="text-grey-darken-1">
+                      mdi-pen
+                    </v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -114,27 +149,34 @@
 </template>
 
 <script>
-//Components
-import Table from '@/components/Public/Table.vue'
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import Colors from '@/composables/Colors';
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import {openToast, openConfirm} from "@/assets/js/functions";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import {ref} from "vue";
 
 export default {
-  data() {
-    return {
-      perPageFilter: false
-    }
-  },
   components: {
     PanelFilter,
-    Table,
+    ShTable,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload
+  },
+
+  data() {
+    return {
+      perPageFilter: false,
+      itemListTable:[],
+      removeTableItem: {
+        text: "آیا از حذف آیتم مطمئن هستید؟",
+        title: "حذف آیتم",
+        path: "product/color/crud/delete/",
+      },
+    }
   },
 
   setup() {
@@ -156,7 +198,6 @@ export default {
     return {pageLength, filterField, color, getColor, dataTableLength, page, header, item, loading, activeStatus};
   },
 
-
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -176,21 +217,45 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
       setTimeout(() => {
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
   },
 
   watch: {
+    color(){
+      this.itemListTable = []
+
+      this.color.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                name: item.name,
+                label: item.label,
+                group: item.group,
+                is_active: item.is_active,
+                is_active_id: item.id,
+                color: item.value,
+              },
+          ),
+      )
+    },
+
     confirmModal(val) {
-      if (!val) {
-        if (this.$cookies.get('deleteItem')) {
+      if (localStorage.getItem('deleteObject')) {
+        if (!val) {
           this.getColor()
-          this.$cookies.remove('deleteItem')
+          openToast(this.$store, 'آیتم مورد نظر با موفقیت حذف شد', "success")
+          localStorage.removeItem('deleteObject')
         }
       }
     },

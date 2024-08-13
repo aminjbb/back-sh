@@ -1,9 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/filter_request_shipment";
-
 
 export default function setup() {
     const upComingList = ref([]);
@@ -12,20 +10,20 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'label', order: false},
-        { name: 'نوع محموله', show: true, value:'type' , order: false},
-        { name: ' تعداد آیتم', show: true , value:'id', order: false},
-        { name: 'تنوع آیتم', show: true, value:'created_at', order: false },
-        { name: 'نام فروشگاه ', show: true, value:'updated_at', order: false },
-        { name: 'نام تامین کننده', show: true , value:'shopping_name', order: false},
-        { name: 'نام سازنده', show: true, value:'is_index', order: false },
-        { name: 'تاریخ ارسال', show: true, value:'sent_at', order: false },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه محموله', title: 'شناسه محموله', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'نوع محموله', title: 'نوع محموله', show: true, key:'type' , sortable: false, align: 'center'},
+        {name: ' تعداد آیتم', title: ' تعداد آیتم', show: true , key:'shps_count', sortable: false, align: 'center'},
+        {name: 'تنوع آیتم', title: 'تنوع آیتم', show: true, key:'shps_variety', osortable: false, align: 'center'},
+        {name: 'نام فروشگاه ', title: 'نام فروشگاه ', show: true, key:'shopping_name', sortable: false, align: 'center'},
+        {name: 'نام تامین کننده', title: 'نام تامین کننده', show: true , key:'supplier_name', sortable: false, align: 'center'},
+        {name: 'نام سازنده', title: 'نام سازنده', show: true, key:'creator_name', sortable: false, align: 'center'},
+        {name: 'تاریخ ارسال', title: 'تاریخ ارسال', show: true, key:'sent_at', sortable: false, align: 'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const filterField = [
         {name:'شناسه محموله' , type:'text', value:'id' , place:'شناسه محموله'},
@@ -41,14 +39,12 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
 
     /**
      * Get page list
      * @param {*} query
      */
     async function getUpComingList() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -70,7 +66,6 @@ export default function setup() {
                     per_page : dataTableLength.value,
                 }
             }
-
         }
         else{
             if (!route.query.order && !route.query.order_type){
@@ -89,7 +84,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/upcoming/`
@@ -105,7 +99,6 @@ export default function setup() {
         }
     }
     async function getConfirmedShipment() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -127,7 +120,6 @@ export default function setup() {
                     per_page : dataTableLength.value,
                 }
             }
-
         }
         else{
             if (!route.query.order && !route.query.order_type){
@@ -146,7 +138,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `shipment/shps/confirmed/index`
@@ -164,8 +155,16 @@ export default function setup() {
 
 
     return {
-        pageLength, filterField,upComingList, getUpComingList,
-        dataTableLength, page, header, loading ,getConfirmedShipment ,confirmedShipmentList
+        pageLength,
+        filterField,
+        upComingList,
+        getUpComingList,
+        dataTableLength,
+        page,
+        header,
+        loading ,
+        getConfirmedShipment ,
+        confirmedShipmentList
     }
 }
 

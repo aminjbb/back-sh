@@ -15,7 +15,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-5">
-              <span class="t14500">
+              <span class="t14 w500">
                            ویرایش برند
               </span>
             </div>
@@ -36,6 +36,7 @@
         <div class="d-flex justify-space-between pb-5 px-10">
           <v-btn
               width="80"
+              :loading="loading"
               @click="validate()"
               color="primary500"
               height="40"
@@ -68,7 +69,7 @@ export  default {
   },
   data(){
     return{
-      dialog:false
+      loading:false
     }
   },
 
@@ -90,6 +91,7 @@ export  default {
       formData.append(`link`, this.$refs.BrandForm.form.link)
       formData.append('image_id', this.$refs.BrandForm.form.image)
       formData.append('priority', this.$refs.BrandForm.form.priority)
+      formData.append('description', this.$refs.BrandForm.form.desc)
       AxiosMethod.form = formData
       formData.append('is_active', 0)
       AxiosMethod.store = this.$store
@@ -98,7 +100,7 @@ export  default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading=false
-        this.dialog = false
+      this.close()
       }
       else{
         this.loading=false

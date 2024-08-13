@@ -33,7 +33,7 @@
 
           <v-col cols="9">
             <div class="text-left pl-15">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 افزودن گروهی
                             </span>
             </div>
@@ -51,7 +51,7 @@
               width="166"
               variant="text"
           >
-                        <span class="t14300 text-primary500">
+                        <span class="t14 w300 text-primary500">
                             دانلود فایل نمونه
                         </span>
           </v-btn>
@@ -65,7 +65,7 @@
               color="primary500"
               rounded
           >
-                        <span class="t14300">
+                        <span class="t14 w300">
                             انتخاب فایل
                         </span>
           </v-btn>
@@ -89,11 +89,12 @@ export default {
     condition: null,
     type: null,
     dataForm: null,
-    title:'افزودن گروهی',
+    title:{type:String , default:'افزودن گروهی'},
     btnColor:'',
     btnVariant:'outlined',
     plusIcon : false,
-    isSnap : false
+    isSnap : false,
+    isDeliveryCode : false
   },
 
   data() {
@@ -185,6 +186,9 @@ export default {
           this.updateShps(data.data.shps_list)
         }
         else if(this.isSnap) this.$emit('updateList' , data.data)
+        else if (this.isDeliveryCode) {
+          this.$emit('updateList',  data.data)
+        }
 
         this.templateLoading = false
 

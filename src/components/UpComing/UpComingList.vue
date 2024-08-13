@@ -10,7 +10,7 @@
       <v-row align="center" class="px-3 my-5">
         <v-col cols="6">
           <div class="text-right ">
-                      <span class="text-gray600 t14500">
+                      <span class="text-gray600 t14 w500">
                           شناسه محموله
                       </span>
             <span class="text-error">
@@ -43,7 +43,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -60,7 +60,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           :getShipmentRequestsList="getUpComingList"
           class="flex-grow-1"

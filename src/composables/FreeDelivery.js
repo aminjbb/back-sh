@@ -1,10 +1,7 @@
-import { ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
-import { UserPanelFilter } from '@/assets/js/filter_free_delivery_user.js'
-import { PanelFilter } from '@/assets/js/filter_free_delivery.js'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {OrderListPanelFilter} from '@/assets/js/filter_free_delivery_order_list.js'
 
 export default function setup() {
     const freeDeliveryList = ref([]);
@@ -17,45 +14,44 @@ export default function setup() {
     let page = ref(1)
     const pageLength = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const headerFreeDelivery =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'عنوان', show: true, value: 'id', order: false},
-        { name: ' نفیس اکسپرس', show: true, value: 'nafis', order: false},
-        { name: ' پست پیشتاز', show: true, value: 'pishtaz', order: false},
-        { name: ' پست', show: true, value: 'post', order: false},
-        { name: 'تیپاکس', show: true, value: 'tpax', order: false},
-        { name: 'تاریخ شروع', show: true, value: 'start_time', order: true},
-        { name: 'تاریخ پایان', show: true, value: 'end_time', order: true},
-        { name: 'استان', show: false, value: 'state', order: true},
-        { name: 'وضعیت', show: true, value: 'is_active', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , sortable: false,align:'center' ,key: 'row'},
+        { name: 'عنوان',title: 'عنوان', show: true, sortable: false,align:'center' ,key: 'name'},
+        { name: ' نفیس اکسپرس',title: ' نفیس اکسپرس', show: true, sortable: false,align:'center' ,key: 'nafis',model: 'icon'},
+        { name: ' پست پیشتاز',title: ' پست پیشتاز', show: true, sortable: false,align:'center' ,key: 'pishtaz',model: 'icon'},
+        { name: ' پست',title: ' پست', show: true, sortable: false,align:'center' ,key: 'post',model: 'icon'},
+        { name: 'تیپاکس',title: 'تیپاکس', show: true, sortable: false,align:'center' ,key: 'tpax',model: 'icon'},
+        { name: 'تاریخ شروع',title: 'تاریخ شروع', show: true,align:'center' ,key: 'start_time_fa'},
+        { name: 'تاریخ پایان',title: 'تاریخ پایان', show: true,align:'center' ,key: 'end_time_fa'},
+        { name: 'وضعیت',title: 'وضعیت', show: true, sortable: false,align:'center' ,key: 'is_active'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
   
     const headerShps = ref([
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه کالا', show: true, value: 'id', order: true},
-        { name: 'نام کالا', show: true, value: 'label', order: true},
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order: true},
-        { name: ' قیمت فروش', show: true, value: 'site_price', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'key' , sortable: false, align:'center'},
+        { name: 'شناسه کالا',title: 'شناسه کالا', show: true, key: 'sku_label',align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true, key: 'sku_label',align:'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price',align:'center'},
+        { name: ' قیمت فروش',title: ' قیمت فروش', show: true, key: 'buying_price', sortable: false, align:'center'},
     ]);
     const headerCustomer =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه مشتری', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس', show: true, value: 'phone', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'شناسه مشتری',title: 'شناسه مشتری', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس',title: ' شماره تماس', show: true, key: 'phone_number', sortable: false, align:'center'},
     ]);
     const headerOrderList =ref( [
-        { name: 'ردیف', show: true, value: null , order: false},
-        { name: 'شناسه سفارش', show: true, value: 'id', order: true},
-        { name: 'نام مشتری', show: true, value: 'first_name', order: true},
-        { name: 'نام خانوادگی مشتری', show: true, value: 'last_name', order: true},
-        { name: ' شماره تماس مشتری', show: true, value: 'phone', order: false},
-        { name: 'چندمین سفارش', show: true, value: 'order_count', order: false},
-        { name: 'تعداد ایتم', show: true, value: 'item_number', order: false},
-        { name: 'مبلغ سفارش(ریال)', show: true, value: 'order_price', order: false},
-        { name: 'تاریخ ثبت سفارش', show: true, value: 'order_date', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row' , sortable: false, align:'center'},
+        { name: 'شناسه سفارش',title: 'شناسه سفارش', show: true, key: 'id', align:'center'},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key: 'first_name', align:'center'},
+        { name: 'نام خانوادگی مشتری',title: 'نام خانوادگی مشتری', show: true, key: 'last_name', align:'center'},
+        { name: ' شماره تماس مشتری',title: ' شماره تماس مشتری', show: true, key: 'phone_number', sortable: false, align:'center'},
+        { name: 'چندمین سفارش',title: 'چندمین سفارش', show: true, key: 'order_number', sortable: false, align:'center'},
+        { name: 'تعداد ایتم',title: 'تعداد ایتم', show: true, key: 'details_count', sortable: false, align:'center'},
+        { name: 'مبلغ سفارش(ریال)',title: 'مبلغ سفارش(ریال)', show: true, key: 'paid_price', sortable: false, align:'center'},
+        { name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: true, key: 'created_at_fa', sortable: false, align:'center'},
     ]);
 
     const indexFilterField =ref( [
@@ -90,9 +86,6 @@ export default function setup() {
         {name:'تاریخ ثبت سفارش ' , type:'date', value:'created_at'},
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
-    const UserFilter = new UserPanelFilter()
-    const OrderFilter = new OrderListPanelFilter()
 
     async function  getFreeDeliveryList() {
         loading.value = true

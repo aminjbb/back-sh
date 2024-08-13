@@ -1,24 +1,24 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
+    <v-card height="70" class="ma-5 br--12 pt-5" max-height="70">
       <div class="d-flex align-center justify-lg-space-evenly">
         <div>
-          <span class="t14500">عنوان:</span>
-          <span class="t14500 text-gray500">{{ detailData?.name }}</span>
+          <span class="t14 w500">عنوان:</span>
+          <span class="t14 w500 text-gray500">{{ detailData?.name }}</span>
         </div>
         <div>
-          <span class="t14500">روش ارسال:</span>
-          <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+          <span class="t14 w500">روش ارسال:</span>
+          <span v-if="detailData?.tipax" class="t14 w500 text-gray500">تیپاکس</span>
           &nbsp
-          <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+          <span v-if="detailData?.post" class="t14 w500 text-gray500">پست</span>
           &nbsp
-          <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+          <span v-if="detailData?.pishtaz" class="t14 w500 text-gray500">پیشتاز </span>
           &nbsp
-          <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
+          <span v-if="detailData?.nafis" class="t14 w500 text-gray500">نفیس اکسپرس</span>
         </div>
       </div>
     </v-card>
-    <v-card height="70" class="mx-5 br-12" max-height="70">
+    <v-card height="70" class="mx-5 br--12" max-height="70">
       <v-row
           justify="end"
           align="center"
@@ -37,13 +37,12 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="headerOrderList"
-          :items="orderList"
+          :headers="headerOrderList"
+          :items="itemListTable"
           :page="page"
           :perPage="pageLength"
-          :loading="false"
       />
 
       <v-divider/>
@@ -87,9 +86,11 @@
   </div>
 </template>
 <script>
-import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
+
 export default {
   setup() {
     const {
@@ -128,13 +129,15 @@ export default {
   data() {
     return{
       freeDeliveryId:this.$route.params.freeDeliveryId,
-      perPageFilter:false
+      perPageFilter:false,
+        itemListTable: []
+
     }
   },
 
   components: {
     PanelFilter,
-    Table
+    ShTable
   },
 
   mounted() {
@@ -171,7 +174,26 @@ export default {
       if (!this.perPageFilter){
         this.geOrderList()
       }
-    }
+    },
+
+    orderList() {
+        this.itemListTable = []
+        this.orderList.forEach((item) => {
+          this.itemListTable.push(
+              {
+                  data: item,
+                  id: item.id ? item.id : '---',
+                  first_name: item.user.first_name ? item.user.first_name : '---',
+                  last_name: item.user.last_name ? item.user.last_name : '---',
+                  phone_number: item.user.phone_number ? item.user.phone_number : '---',
+                  order_number: item.order_number ? item.order_number : '---',
+                  details_count: item.details_count ? item.details_count : '---',
+                  paid_price: item.paid_price ? item.paid_price : '---',
+                  created_at_fa: item.created_at_fa ? item.created_at_fa : '---',
+              }
+          )
+        })
+      },
   }
 }
 </script>

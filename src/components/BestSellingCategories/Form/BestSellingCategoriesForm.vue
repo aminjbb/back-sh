@@ -6,7 +6,7 @@
     <v-row justify="center" align="center" class="pa-15">
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-          <span class="t14500">عنوان</span>
+          <span class="t14 w500">عنوان</span>
           <span class="text-error">*</span>
         </div>
         <v-text-field
@@ -19,7 +19,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-          <span class="t14500">اولویت</span>
+          <span class="t14 w500">اولویت</span>
           <span class="text-error">*</span>
         </div>
         <v-text-field
@@ -32,7 +32,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-          <span class="t14500">دستگاه</span>
+          <span class="t14 w500">دستگاه</span>
           <span class="text-error">*</span>
         </div>
         <v-select
@@ -46,7 +46,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-          <span class="t14500">alt</span>
+          <span class="t14 w500">alt</span>
           <span class="text-error">*</span>
         </div>
         <v-text-field
@@ -60,7 +60,7 @@
 
       <v-col cols="12">
         <div class="text-right my-5">
-          <span class="t14500">لینک</span>
+          <span class="t14 w500">لینک</span>
           <span class="text-error">*</span>
         </div>
         <v-text-field

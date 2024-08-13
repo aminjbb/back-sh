@@ -10,7 +10,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -18,7 +18,7 @@
           {{ head.name }}
         </div>
       </template>
-      <div class="text-center c-table__header__item t12500 text-black"
+      <div class="text-center c-table__header__item t12 w500 text-black"
            :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
         عملیات
       </div>
@@ -34,7 +34,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -42,7 +42,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.shps }}
                         </span>
           </div>
@@ -50,7 +50,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             <template v-if="item.sku.label">
                                 {{ item.sku.label }}
                             </template>
@@ -63,7 +63,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             <template v-if="item.packed_count">
                                 {{ item.packed_count }}
                             </template>
@@ -76,7 +76,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             <template v-if="item.shipment_id">
                                 {{ item.shipment_id }}
                             </template>
@@ -120,7 +120,7 @@
                         class="ma-5 pointer"
                         @click=getDetail(item)>
                       <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                               پرینت
                       </span>
                     </div>
@@ -134,29 +134,30 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
-    <ModalInitialBulkPrintLabel v-if="dialog" :shpsId="shps_id" :packageId="packageId" :shipmentId="shipmentId" :placerId="currentItem.placer_id" :placementId="currentItem.placement_id"/>
-    <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id"
-                            :shipmentId="shipmentId"/>
+    <ModalInitialBulkPrintLabel
+        v-if="dialog"
+        :shpsId="shps_id"
+        :packageId="packageId"
+        :shipmentId="shipmentId"
+        :placerId="currentItem.placer_id"
+        :placementId="currentItem.placement_id"/>
+
+    <PackageManagementModal
+        :getShpsList="getShpsList"
+        :packageId="packageId"
+        :shpsId="shps_id"
+        :shipmentId="shipmentId"/>
   </div>
 </template>
 <script>
 import ModalInitialBulkPrintLabel from "@/components/BulkLabelPrint/Modal/ModalInitialBulkPrintLabel.vue";
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  openToast,
-  isOdd
-} from "@/assets/js/functions";
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast, isOdd} from "@/assets/js/functions";
 import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
 
 export default {
@@ -217,8 +218,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-
   },
 
   data() {
@@ -229,7 +228,6 @@ export default {
       ordering: {},
       per_page: '25',
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
       fetchCargoData: [],
       paramsQuery: [],
@@ -242,8 +240,6 @@ export default {
       submittedItemId: null,
       shipmentId: null,
       shps_id: null
-
-
     }
   },
 
@@ -269,11 +265,6 @@ export default {
   },
 
   methods: {
-    packageManagement(shipment) {
-      this.shipmentId = shipment.shipment_id
-      this.shps_id = shipment.shps
-      this.$store.commit('set_packageManagementModal', true)
-    },
     async getDetail(shipment) {
       this.currentItem = shipment
       this.shipmentId = shipment.shipment_id
@@ -316,29 +307,6 @@ export default {
         this.$store.commit('set_modalLostShpss', form)
       }
     },
-    async getShpssDetailWastage(item) {
-
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `package/shps/items/${item.package_id}?shps=${item.shps}&shipment_id=${item.shipment_id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-
-        const form = {
-          dialog: true,
-          object: data.data
-        }
-        this.$store.commit('set_shps_s', item.sku.id);
-        this.$store.commit('set_reportType', 'wastage');
-        this.$store.commit('set_modalLostShpss', form)
-
-      }
-    },
-
-    /**
-     * sending data in save btn
-     */
 
     async submitShipmentsForm(itemId, shipmentId, shps, placerId,placementId) {
 

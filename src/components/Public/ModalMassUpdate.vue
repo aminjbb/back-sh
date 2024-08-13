@@ -15,7 +15,7 @@
 
           <v-col cols="9">
             <div class="text-left pl-15">
-              <span class="t14500">
+              <span class="t14 w500">
                     ویرایش گروهی
               </span>
             </div>
@@ -34,7 +34,7 @@
             color="primary500"
             rounded
           >
-            <span class="t14300" >
+            <span class="t14 w300" >
                 انتخاب فایل
             </span>
           </v-btn>

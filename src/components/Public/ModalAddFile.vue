@@ -27,7 +27,7 @@
 
                     <v-col cols="9">
                         <div class="text-left pl-15">
-                            <span class="t14500">
+                            <span class="t14 w500">
                             {{title}}
                             </span>
                         </div>
@@ -57,7 +57,7 @@
                             >
                                 <template v-slot:label>
                                     <div>
-                                        <span class="t14500">تایین عرض و ارتفاع</span>
+                                        <span class="t14 w500">تایین عرض و ارتفاع</span>
                                     </div>
                                 </template>
                             </v-checkbox>
@@ -68,7 +68,7 @@
                             >
                                 <template v-slot:label>
                                     <div>
-                                        <span class="t14500">تغییر فرمت عکس</span>
+                                        <span class="t14 w500">تغییر فرمت عکس</span>
                                     </div>
                                 </template>
                             </v-checkbox>

@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="580" @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     مدیریت ناحیه بندی
                 </span>
 

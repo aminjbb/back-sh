@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -33,7 +33,7 @@
                           :max-lines='1'
                           autoResize
                           location="start"
-                          class="text-gray500 t14300 text-right" />
+                          class="text-gray500 t14 w300 text-right" />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -57,17 +57,48 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+      <ShTable
           class="flex-grow-1"
-          :header="skuGroupHeader"
-          :items="promotionShpsList.data"
+          :headers="skuGroupHeader"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           activePath="system/menu/crud/update/activation/"
-          :deletePath="`page/promotion/${$route.params.promotionId}/seller-sku/detach/`"
           :loading="loading"
-          updateUrl="page/csv/mass-update"
-          model="skuPromotionPage" />
+      >
+          <template v-slot:customSlot="item">
+              <v-text-field variant="outlined" v-model="item.data.custom" type="number" />
+          </template>
+          <template v-slot:customSlot2="item">
+              <div @click="saveSkuToPromotion(item.data, item.index)"
+                   class="seller__add-sku-btn d-flex justify-center align-center pointer">
+                  <v-icon size="15"> {{item.data.custom2}}</v-icon>
+              </div>
+          </template>
+
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item>
+                          <v-list-item-title>
+                              <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                  <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14300">
+                                        حذف
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+                      </v-list-item>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider />
 
       <v-card-actions class="pb-3">
@@ -114,13 +145,15 @@
 </template>
 
 <script>
-import Table from '@/components/PromotionPages/Table/PromotionPageTable.vue'
 import PromotionPage from "@/composables/PromotionPage";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
+
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 export default {
   setup() {
@@ -167,16 +200,16 @@ export default {
   data(){
     return{
       skuSearchList:[],
-      perPageFilter:false
-
+      perPageFilter:false,
+      itemListTable: []
     }
   },
   components: {
     PanelFilter,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
+    ShTable
   },
 
   computed: {
@@ -203,7 +236,6 @@ export default {
   },
 
   methods: {
-
     async searchSku(search) {
       this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
@@ -215,7 +247,6 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
-
     async sendShps(item){
       try {
         this.loading = true
@@ -245,6 +276,32 @@ export default {
         this.loading = false
       }
     },
+
+    removeItem(id) {
+          openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", `page/promotion/${this.$route.params.promotionId}/seller-sku/detach/`+id, true)
+      },
+    async saveSkuToPromotion(item, index) {
+          const formData = new FormData();
+          const AxiosMethod = new AxiosCall();
+          AxiosMethod.using_auth = true;
+          AxiosMethod.store = this.$store;
+          AxiosMethod.token = this.$cookies.get('adminToken');
+          AxiosMethod.end_point = `page/promotion/${this.$route.params.promotionId}/seller-sku/attach`;
+          formData.append('seller_sku_id', item.id);
+          formData.append('is_active', 1);
+          formData.append('priority', item.custom);
+          AxiosMethod.form = formData;
+
+          let data = await AxiosMethod.axios_post();
+          if (data) {
+              openToast(
+                  this.$store,
+                  'کد کالا با موفقیت افزوده شد.',
+                  "success"
+              );
+          }
+      },
+
   },
 
   mounted() {
@@ -295,7 +352,25 @@ export default {
     $route(){
       this.getPromotionShpsList();
 
-    }
+    },
+
+      promotionShpsList() {
+          if(this.promotionShpsList.data) {
+
+              this.itemListTable = []
+              this.promotionShpsList.data.forEach((item) => {
+                  this.itemListTable.push(
+                      {
+                          /* custom === priority*/
+                          sku_label: item.sku?.label,
+                          id: item.id,
+                          custom: item?.pivot?.priority,
+                          custom2: 'mdi-plus',
+                      }
+                  )
+              })
+          }
+      },
   }
 }
 </script>

@@ -12,7 +12,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -32,7 +32,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -41,7 +41,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>
@@ -51,8 +51,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -62,17 +62,6 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
-
 export default {
   components: {},
 
@@ -140,7 +129,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       userInputs: [],
       loading: false,
       apiSuccess: {},
