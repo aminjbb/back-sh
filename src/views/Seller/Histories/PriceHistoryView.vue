@@ -111,6 +111,7 @@ import Sku from "@/composables/Sku";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
+import {splitChar} from "@/assets/js/functions";
 
 export default {
 

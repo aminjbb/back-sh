@@ -128,6 +128,7 @@ import { openToast } from "@/assets/js/functions";
 import Sku from "@/composables/Sku";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
+import {splitChar, convertDateToJalai} from "@/assets/js/functions";
 
 export default {
   data(){
