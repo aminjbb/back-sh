@@ -57,11 +57,11 @@ export default function setup(posts) {
         ]
     );
     const headerWarehouseInventoryHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'موجودی قبل', show: true, value: 'old_inventory', order:false },
-        { name: 'تغییر موجودی', show: true, value: 'change_inventory', order:false },
-        { name: 'موجودی جدید', show: true, value: 'new_inventory', order:false },
-        { name: 'تاریخ', show: true, value: 'created_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'موجودی قبل',title: 'موجودی قبل', show: true, key: 'previous_site_stock', sortable:false, align: 'center'},
+        { name: 'تغییر موجودی',title: 'تغییر موجودی', show: true, key: 'custom', sortable:false, align: 'center'},
+        { name: 'موجودی جدید',title: 'موجودی جدید', show: true, key: 'site_stock', sortable:false, align: 'center'},
+        { name: 'تاریخ',title: 'تاریخ', show: true, key: 'created_at', align: 'center'},
     ]
     );
     const headerSiteInventoryHistory =ref([
