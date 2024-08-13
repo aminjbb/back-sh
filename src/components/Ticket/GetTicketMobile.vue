@@ -78,7 +78,7 @@
 
       <v-col md="9" class="vh-100">
         <div class="">
-          <div class="pl-6">
+          <div class="">
             <v-card
                 v-if="oneTicket && oneTicket.content"
                 min-height="100"
@@ -104,9 +104,9 @@
                 v-if="oneTicket && oneTicket.files"
                 min-height="100"
                 class="mb-10">
-              <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
-                <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+              <div class="d-flex justify-center pa-6" v-for="file in oneTicket.files" :key="file.id">
+                <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
               </div>
               <v-divider color="black"/>
 
@@ -133,9 +133,9 @@
 
                   <v-divider color="black"/>
 
-                  <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
-                    <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                    <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                  <div class="d-flex justify-center pa-6" v-for="file in ticket.files" :key="file.id">
+                    <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                    <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
                   </div>
 
                   <p class="text-justify pa-5" v-html="ticket.content"/>
