@@ -409,7 +409,8 @@ export default {
                         switch: item.is_sellable,
                         switch_id: item.id,
                         product: item.product.label,
-                        custom: item.volumes
+                        custom: item.volumes,
+                        image: item?.image?.image_url,
 
                     },
                 ),
