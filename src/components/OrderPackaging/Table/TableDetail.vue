@@ -12,7 +12,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
@@ -33,7 +33,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ rowIndexTable(index) }}
                         </span>
           </div>
@@ -42,7 +42,7 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.admin_name}}
                         </span>
           </div>
@@ -50,7 +50,7 @@
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.sorting_placement}}
                         </span>
           </div>
@@ -58,7 +58,7 @@
               v-if=" header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             {{ item.packing_status}}
                         </span>
           </div>
@@ -66,7 +66,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t10400 text-black py-5 number-font">
+                        <span class="t10 w400 text-black py-5 number-font">
                             {{ item.shps}}
                         </span>
           </div>
@@ -74,7 +74,7 @@
               v-if="header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5">
+                        <span class="t14 w300 text-black py-5">
                             <template v-if="item.sku_label">
                                 {{ item.sku_label }}
                             </template>
@@ -88,7 +88,7 @@
               v-if="header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` , height: '85px'}">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                             <template v-if="item.shpss_barcode">
                                 {{ item.shpss_barcode}}
                             </template>
@@ -101,7 +101,7 @@
               v-if="header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}`, height: '85px' }">
-                        <span class="t14300 text-black py-5 number-font">
+                        <span class="t14 w300 text-black py-5 number-font">
                            <img width="70" height="70" :src="item?.sku_image?.image_url">
                         </span>
           </div>
@@ -112,8 +112,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -123,16 +123,7 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
-
-import {
-  isOdd
-} from "@/assets/js/functions";
+import { AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   components: {},
@@ -205,7 +196,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
       userInputs: [],
       loading: false,
@@ -245,24 +235,9 @@ export default {
   },
 
   methods: {
-    orderDetailProp(value, value2) {
-
-      const shpsOrderIndex = value.findIndex(shps=> shps.id == value2)
-      ++this.userInputs[shpsOrderIndex]
-    },
-
     /**
      * translation
      */
-    translateType(type) {
-      const translations = {
-        'consignment': 'انبارش',
-        'in_review': 'در حال بررسی'
-      };
-      return translations[type] || type;
-    },
-
-
     shpsId() {
       return this.$store.getters['get_shpsId']
     },
@@ -301,10 +276,7 @@ export default {
       } else {
         this.loading = false
       }
-    }
-    ,
-
-
+    },
     /**
      * Get row index in table
      * @param {*} index

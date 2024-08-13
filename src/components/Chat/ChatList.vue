@@ -30,7 +30,7 @@
 
                     <div>
                         <div>
-                            <span class="t14500 mr-5">
+                            <span class="t14 w500 mr-5">
                                 {{admin.user.first_name }} {{admin.user.last_name }}
                             </span>
                         </div>
@@ -63,10 +63,10 @@
 
                     <div>
                         <div>
-                            <span v-if="user.user == null" class="t14500 mr-5">
+                            <span v-if="user.user == null" class="t14 w500 mr-5">
                                 ناشناس
                             </span>
-                            <span v-else class="t14500 mr-5">
+                            <span v-else class="t14 w500 mr-5">
                                 {{ user.user.first_name }} {{ user.user.last_name }}
                             </span>
                         </div>

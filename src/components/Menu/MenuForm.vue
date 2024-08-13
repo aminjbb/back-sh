@@ -6,7 +6,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                           نام فارسی <span class="text-error">*</span>
                       </span>
         </div>
@@ -21,7 +21,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                         نام انگلیسی <span class="text-error">*</span>
                       </span>
         </div>
@@ -35,7 +35,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                        منو مادر <span class="text-error">*</span>
                       </span>
         </div>
@@ -52,7 +52,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                          اولویت
                       </span>
         </div>
@@ -66,7 +66,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                        آیکون
                       </span>
         </div>
@@ -79,7 +79,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                        منو URL <span class="text-error">*</span>
                       </span>
         </div>
@@ -94,7 +94,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                         موقعیت
                       </span>
         </div>
@@ -109,7 +109,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                         آیکون فلش
                       </span>
         </div>
@@ -124,7 +124,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                        نوع دستگاه
                       </span>
         </div>

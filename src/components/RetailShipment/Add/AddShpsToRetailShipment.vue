@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch ">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="start"
           align="center"
@@ -34,7 +34,7 @@
                           :max-lines='1'
                           autoResize
                           location="start"
-                          class="text-gray500 t14300 text-right" />
+                          class="text-gray500 t14 w300 text-right" />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -53,7 +53,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           :deleteFunction="deleteSku"
           ref="retailShipmentShps"
@@ -91,7 +91,7 @@
                   width="115"
                   @click="$router.go(-1)"
               >
-                <span class="t14300">
+                <span class="t14 w300">
                 انصراف
               </span>
               </v-btn>
@@ -104,7 +104,7 @@
                   @click="sendShps()"
               >
 
-                <span class="t14300">
+                <span class="t14 w300">
                 تایید
               </span>
               </v-btn>

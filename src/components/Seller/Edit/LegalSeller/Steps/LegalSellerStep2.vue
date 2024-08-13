@@ -14,7 +14,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.shopName }}
                         </span>
@@ -32,7 +32,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.shopType }}
                         </span>
@@ -53,7 +53,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.economicCode }}
                         </span>
@@ -71,7 +71,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.registrationNumber }}
                         </span>
@@ -89,7 +89,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.nationalID }}
                         </span>
@@ -107,7 +107,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.phone }}
                         </span>
@@ -126,7 +126,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.officialNewspaper }}
                         </span>
@@ -144,7 +144,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.taxCode }}
                         </span>
@@ -162,7 +162,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.validityDate }}
                         </span>
@@ -186,7 +186,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.signatory }}
                         </span>
@@ -205,7 +205,7 @@
             class="brands-list"
         >
           <div class="text-right my-2">
-                        <span class="t12500">
+                        <span class="t12 w500">
 
                             {{ labels.logo }}
                         </span>

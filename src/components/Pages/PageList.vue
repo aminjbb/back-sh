@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -22,17 +22,92 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="pageList.data"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
-          activePath="page/crud/update/activation/"
           :loading="loading"
-          updateUrl="page/csv/mass-update"
-          model="page"/>
+          :activePath="'page/crud/update/activation/'">
+
+        <template v-slot:switchSlot="item">
+          <v-switch
+              :true-value="1"
+              :false-value="0"
+              v-model="item.data.switch"
+              inset
+              color="success"
+              @change="changeIsIndex(item.data.id,item.data.switch)"/>
+        </template>
+
+        <template v-slot:customSlot="item">
+          <v-switch
+              :true-value="1"
+              :false-value="0"
+              v-model="item.data.custom"
+              inset
+              color="success"
+              @change="changeIsFollow(item.data.id,item.data.custom)"/>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/template`)">
+                    <v-icon class="text-grey-darken-1">mdi-page-layout-header-footer</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">قالب صفحه</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/seo`)">
+                    <v-icon class="text-grey-darken-1">mdi-cog</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">تنظیمات سئو</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/image`)">
+                    <v-icon class="text-grey-darken-1">mdi-image-area</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">تصاویر</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/update/content`)">
+                    <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">محتوا</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/page/${item.data.id}/sliders/index`)">
+                    <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">مدیریت محصولات</span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -79,20 +154,31 @@
 </template>
 
 <script>
-import Table from '@/components/Pages/Table/Table.vue'
 import Page from "@/composables/Page";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import {openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import { AxiosCall } from "../../assets/js/axios_call";
 
 export default {
+  components: {
+    PanelFilter,
+    ModalGroupAdd,
+    ModalColumnFilter,
+    ModalExcelDownload,
+    ShTable
+  },
+
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      itemListTable: []
     }
   },
+
   setup() {
     const status = [
       {
@@ -162,14 +248,6 @@ export default {
     };
   },
 
-  components: {
-    PanelFilter,
-    Table,
-    ModalGroupAdd,
-    ModalColumnFilter,
-    ModalExcelDownload,
-  },
-
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -177,6 +255,36 @@ export default {
   },
 
   methods: {
+    async changeIsIndex(id, index) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = "page/crud/update/index/"+id
+      formdata.append('is_index', index)
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (!data) {
+        index.switch = false
+      }
+    },
+
+    async changeIsFollow(id, follow) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = "page/crud/update/follow/"+id
+      formdata.append('is_follow', follow)
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (!data) {
+        follow.custom = false
+      }
+    },
+
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
@@ -186,6 +294,7 @@ export default {
         this.getPageList();
       }
     },
+
     resetPage() {
       this.perPageFilter = true
       this.page = 1
@@ -200,6 +309,28 @@ export default {
   },
 
   watch: {
+    pageList() {
+      this.itemListTable = []
+
+      this.pageList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                label: item.label? item.label : '---',
+                type: item.type,
+                id: item.id,
+                created_at: item.created_at_fa,
+                updated_at: item.updated_at_fa,
+                is_active: item.is_active,
+                is_active_id: item.id,
+                switch: item.is_index,
+                switch_id: item.id,
+                custom: item.is_follow,
+                custom_id: item.id,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

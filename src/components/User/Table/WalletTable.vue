@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500"
+            class="text-center c-table__header__item t12 w500"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -32,7 +32,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -41,10 +41,10 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item?.user?.phone_number" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item?.user?.phone_number" class="t14 w300 text-gray500 py-5 number-font">
                         {{ item?.user?.phone_number }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -54,10 +54,10 @@
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item?.user?.first_name" class="t14300 text-gray500 py-5">
+                    <span v-if="item?.user?.first_name" class="t14 w300 text-gray500 py-5">
                         {{ item?.user?.first_name }} {{ item?.user?.last_name }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -68,10 +68,10 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
             <button v-if="item.refid" type="button" v-clipboard:copy="item.refid" v-clipboard:success="onCopy" v-clipboard:error="onError" class=" text-right">
-              <span class="text-gray500 t14300 text-right"> {{ item.refid.substring(0,15) }}</span>
+              <span class="text-gray500 t14 w300 text-right"> {{ item.refid.substring(0,15) }}</span>
             </button>
 
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -80,10 +80,10 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.status" class="t14300 text-gray500 py-5">
+                    <span v-if="item.status" class="t14 w300 text-gray500 py-5">
                         {{ translateType(item.status) }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -91,11 +91,11 @@
               v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.status" class="t14300 text-gray500 py-5">
+                    <span v-if="item.status" class="t14 w300 text-gray500 py-5">
 
                         {{ translateType(item.charge_type) }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -103,10 +103,10 @@
               v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.type == 'withdraw'" class="t14300 text-error py-5 number-font">
+                    <span v-if="item.type == 'withdraw'" class="t14 w300 text-error py-5 number-font">
                         - {{splitChar(item.amount ) }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -115,10 +115,10 @@
               v-if=" header[7].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                      <span v-if="item.type === 'deposit'" class="t14300 text-success py-5 number-font d--ltr">
+                      <span v-if="item.type === 'deposit'" class="t14 w300 text-success py-5 number-font d--ltr">
                         + {{splitChar( item.amount)}}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -126,10 +126,10 @@
               v-if=" header[8].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.wallet" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.wallet" class="t14 w300 text-gray500 py-5 number-font">
                         {{ splitChar(item.wallet.value) }}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -137,10 +137,10 @@
               v-if=" header[9].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.created_at_fa" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.created_at_fa" class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.created_at_fa }} {{item.created_at.split('T')[1].split('.')[0]}}
                     </span>
-            <span v-else class="t14300 text-gray500 py-5">
+            <span v-else class="t14 w300 text-gray500 py-5">
                         ----
                     </span>
           </div>
@@ -151,8 +151,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -164,9 +164,6 @@
 import {
   openToast
 } from "@/assets/js/functions";
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 import {
   openConfirm,
   convertDateToJalai,
@@ -252,7 +249,6 @@ export default {
       per_page: '25',
       filter: [],
       isBan:[],
-      panelFilter: new PanelFilter(),
     }
   },
 
@@ -290,6 +286,7 @@ export default {
         'waiting': 'در انتظار',
         'failed': 'ناموفق',
         'cancel': 'کنسل شده',
+        'operator_mistake': 'خطای اپراتور',
 
       };
       return translations[type] || type;

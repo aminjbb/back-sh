@@ -1,25 +1,25 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-      <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
+      <v-card height="70" class="ma-5 br--12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
           <div>
-             <span class="t14500">عنوان:</span>
+             <span class="t14 w500">عنوان:</span>
 
-            <span class="t14500 text-gray500">{{ detailData?.name }}</span>
+            <span class="t14 w500 text-gray500">{{ detailData?.name }}</span>
           </div>
           <div>
-            <span class="t14500">روش ارسال:</span>
-            <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+            <span class="t14 w500">روش ارسال:</span>
+            <span v-if="detailData?.tipax" class="t14 w500 text-gray500">تیپاکس</span>
             &nbsp
-            <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+            <span v-if="detailData?.post" class="t14 w500 text-gray500">پست</span>
             &nbsp
-            <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+            <span v-if="detailData?.pishtaz" class="t14 w500 text-gray500">پیشتاز </span>
             &nbsp
-            <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
+            <span v-if="detailData?.nafis" class="t14 w500 text-gray500">نفیس اکسپرس</span>
           </div>
         </div>
       </v-card>
-      <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
+      <v-card height="70" class="mx-5 br--12" max-height="70" br--12 stretch-card-header-70>
         <v-row
             justify="end"
             align="center"
@@ -40,7 +40,7 @@
           </v-row>
         </v-row>
       </v-card>
-      <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
             class="flex-grow-1"
             :header="headerShps"

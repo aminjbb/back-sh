@@ -18,7 +18,7 @@
         </div>
 
         <div class=" mt-8 d-flex justify-center px-10 text-center">
-          <span class="text-black t20400">
+          <span class="text-black t20 w400">
           شناسه کالا را اسکن کنید.
           </span>
         </div>
@@ -35,7 +35,7 @@
       <div class="d-flex justify-space-between align-center">
         <div class="pa-3 d-flex">
           <HandheldDrawer/>
-          <span class="t20400">
+          <span class="t20 w400">
             جایگذاری تکی
           </span>
         </div>
@@ -48,7 +48,7 @@
 
       <v-card class="ma-5 br-15" min-height="196">
         <div class="d-flex justify-center my-3">
-          <span class="t20400">
+          <span class="t20 w400">
             جایگاه کالا
           </span>
         </div>
@@ -56,7 +56,7 @@
         <template v-if="pickUpShps.placement">
           <div class="text-right my-5 px-5 d-flex justify-space-between px-10">
             <div>
-           <span class="t16400">
+           <span class="t16 w400">
            شماره ردیف :
             <span class="text-gray600 number-font">
               {{ pickUpShps?.placement?.row_number }}
@@ -64,7 +64,7 @@
           </span>
             </div>
             <div>
-          <span class="t16400">
+          <span class="t16 w400">
            شماره قفسه  :
             <span class="text-gray600 number-font">
               {{ pickUpShps?.placement?.placement_number }}
@@ -74,7 +74,7 @@
           </div>
           <div class="text-right mt-10 px-5 d-flex justify-space-between px-10">
             <div>
-           <span class="t16400">
+           <span class="t16 w400">
            شماره طبقه :
             <span class="text-gray600 number-font">
                {{ pickUpShps?.placement?.step_number }}
@@ -82,7 +82,7 @@
           </span>
             </div>
             <div>
-          <span class="t16400">
+          <span class="t16 w400">
            شماره شلف   :
             <span class="text-gray600 number-font">
              {{ pickUpShps?.placement?.shelf_number }}
@@ -140,7 +140,7 @@
         </div>
 
         <div class=" mt-8 d-flex justify-center px-10 text-center">
-          <span class="text-black t20400">
+          <span class="text-black t20 w400">
          شناسه شلف را اسکن کنید.
           </span>
         </div>
@@ -163,12 +163,12 @@
           </v-icon>
         </div>
         <div class="text-center mt-15">
-            <span class="t20400">
+            <span class="t20 w400">
            جایگاه کالا تغییر کرد.
           </span>
         </div>
         <div class="text-center mt-15">
-          <span class="t18400 dir-rtl">
+          <span class="t18 w400 dir-rtl">
             کالا با شناسه {{ shpssSingeLocate }} به شلف با شناسه {{ placementSplitId }} منصوب شد.
           </span>
         </div>

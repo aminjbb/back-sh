@@ -25,7 +25,7 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7" class="t16400 ">
+          <v-col cols="7" class="t16 w400 ">
             مدیریت سبد ها
           </v-col>
         </v-row>

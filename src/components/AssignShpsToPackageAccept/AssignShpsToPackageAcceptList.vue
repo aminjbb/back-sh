@@ -11,7 +11,7 @@
           class="px-10 my-5">
         <v-col cols="6">
           <div class="text-right">
-            <span class="text-gray600 t14500">شناسه بسته</span>
+            <span class="text-gray600 t14 w500">شناسه بسته</span>
             <span class="text-error">*</span>
           </div>
           <div class="d-flex align-center">
@@ -36,7 +36,7 @@
 
         <v-col cols="6">
           <div class="text-right">
-            <span class="text-gray600 t14500">شناسه کالا</span>
+            <span class="text-gray600 t14 w500">شناسه کالا</span>
             <span class="text-error">*</span>
           </div>
           <div class="d-flex align-center">
@@ -56,7 +56,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-card class="mx-5 mt-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="mx-5 mt-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           :getShipmentShpslist="getAssignShpsAcceptList"
           ref="processingShipmentShps"
@@ -73,7 +73,7 @@
             جمع:
           </v-col>
           <v-col cols="1" class="mr-12 pr-8">
-            <span class="t12500 text-black number-font">
+            <span class="t12 w500 text-black number-font">
               {{ sumRequestCount }}
             </span>
           </v-col>
@@ -84,7 +84,7 @@
                 variant="outlined"
                 width="115"
                 @click="finishedPack()">
-              <span class="t14300">اتمام محموله</span>
+              <span class="t14 w300">اتمام محموله</span>
             </v-btn>
           </v-col>
         </v-row>

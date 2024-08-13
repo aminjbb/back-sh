@@ -15,7 +15,7 @@
                 <div
                     v-if="head.show"
                     @click="createOrdering(head.value, head.order)"
-                    class="text-right c-table__header__item t12500 px-0"
+                    class="text-right c-table__header__item t12 w500 px-0"
                     :class="head.order == true ? 'pointer' : ''"
                     :key="index"
                     :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -26,7 +26,7 @@
             <template v-else>
                 <div
                     v-if="head.show"
-                    class="text-right pointer c-table__header__item t12500"
+                    class="text-right pointer c-table__header__item t12 w500"
                     :key="index"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     {{head.name}}
@@ -34,7 +34,7 @@
             </template>
         </template>
         <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 ">
+            <span class="t12 w500 ">
                 عملیات
             </span>
         </div>
@@ -51,7 +51,7 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
                         </span>
                         <template v-if="checkbox">
@@ -64,7 +64,7 @@
                     v-if="item.sku && header[1].show"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.sku?.id }}
                     </span>
                 </div>
@@ -73,7 +73,7 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <template v-if="item.id">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.id }}
                         </span>
                     </template>
@@ -84,7 +84,7 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.sku?.label }}
                         </span>
                     </template>
@@ -94,13 +94,13 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.warehouse_stock">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.warehouse_stock }}
                         </span>
 
                     </template>
                     <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             -
                         </span>
 
@@ -112,7 +112,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.site_stock }}
                         </span>
                     </template>
@@ -123,7 +123,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ splitChar(item.customer_price) }}
                         </span>
                     </template>
@@ -134,7 +134,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.base_discount }}
                         </span>
                     </template>
@@ -145,7 +145,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.marketing_discount }}
                         </span>
                     </template>
@@ -156,7 +156,7 @@
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
                     <template v-if="item.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ splitChar(item.site_price) }}
                         </span>
                     </template>
@@ -166,7 +166,7 @@
                     v-if="(item.is_active  != undefined )"
                     :style="{ width: itemsWidth, flex: `0 0.3 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 ">
+                    <span class="t14 w300 ">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -187,7 +187,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer">
                                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه‌ی موجودی انبار
                                         </span>
                                     </div>
@@ -198,7 +198,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.sku?.id}`)">
                                         <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه‌ی موجودی سایت
                                         </span>
                                     </div>
@@ -209,7 +209,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openInventoryManagementModal(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             مدیریت موجودی سایت
                                         </span>
                                     </div>
@@ -220,7 +220,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openConsumerPriceModal(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-currency-usd" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             قیمت مصرف کننده
                                         </span>
                                     </div>
@@ -231,7 +231,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openBasicDiscountModal(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تخفیف پایه
                                         </span>
                                     </div>
@@ -242,7 +242,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تخفیف مارکتینگ
                                         </span>
                                     </div>
@@ -252,7 +252,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="openOrderLimitModal(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             محدودیت سفارش
                                         </span>
                                     </div>
@@ -262,7 +262,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.sku?.id}`)">
                                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه ی قیمت
                                         </span>
                                     </div>
@@ -272,7 +272,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.sku_id)">
                                         <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -286,8 +286,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -302,28 +302,11 @@
 </template>
 
 <script>
-import {
-  isOdd, splitChar
-} from '@/assets/js/functions'
-import {
-    openConfirm
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+import {isOdd, splitChar} from '@/assets/js/functions'
+import {openConfirm} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-  SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller"
-import {
-    openToast
-} from "@/assets/js/functions";
-import {
-    openModal
-} from "@/assets/js/functions_seller";
+import {openModal} from "@/assets/js/functions_seller";
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
@@ -443,8 +426,6 @@ export default  {
             active: [],
             sellable: [],
             filter: [],
-            panelFilter: new PanelFilter(),
-            skuPanelFilter: new SkuSellerPanelFilter(),
             activeColumn: false,
         }
     },
@@ -465,12 +446,7 @@ export default  {
                 return `${width}%`;
             }
             return 'auto';
-        },
-
-        /**
-         * Check is_active is true or false for show in table
-         */
-
+        }
     },
 
     watch: {
@@ -573,7 +549,6 @@ export default  {
                 this.ordering[index] = !this.ordering[index];
               }
             }
-
         },
 
         /**
@@ -583,7 +558,6 @@ export default  {
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
-
 
         /**
          * Change Active

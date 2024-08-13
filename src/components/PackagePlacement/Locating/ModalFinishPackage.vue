@@ -20,7 +20,7 @@
         <v-divider/>
         <v-row justify="center" class="my-10">
           <v-col cols="12" class="px-15">
-            <div class="text-center t12500">
+            <div class="text-center t12 w500">
               {{detail?.message}}
             </div>
           </v-col>

@@ -1,5 +1,4 @@
 import { ref, watch } from 'vue';
-import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
@@ -17,16 +16,17 @@ export default function setup() {
     const page = ref(1)
 
     const header = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه کارگو' , show:true , value:'id', order: false},
-        {name:'نوع خودرو' , show:true , value:'vehicle_type', order: false},
-        {name:'شماره پلاک' , show:true ,  value:'license', order: false},
-        {name:'نام راننده ' , show:true, value:'driver_name', order: false},
-        {name:'شماره موبایل راننده' , show:true, value:'phone_number', order: false},
-        {name:'تعداد بسته' , show:true, value:'package_count', order: false},
-        {name:'تاریخ ساخت' , show:true, value:'created_at_fa', order: false},
-        {name:'تاریخ ویرایش' , show:true, value:'updated_at_fa', order: true},
-        {name:'وضعیت' , show:true, value:'status', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true , key:'row', sortable: false, align: 'center'},
+        {name:'شناسه کارگو' ,title:'شناسه کارگو' , show:true , key:'id', sortable: false, align: 'center'},
+        {name:'نوع خودرو' ,title:'نوع خودرو' , show:true , key:'vehicle_type', sortable: false, align: 'center'},
+        {name:'شماره پلاک' ,title:'شماره پلاک' , show:true ,  key:'license', sortable: false, align: 'center'},
+        {name:'نام راننده ' ,title:'نام راننده ' , show:true, key:'driver_name', sortable: false, align: 'center'},
+        {name:'شماره موبایل راننده' ,title:'شماره موبایل راننده' , show:true, key:'phone_number', sortable: false, align: 'center'},
+        {name:'تعداد بسته' ,title:'تعداد بسته' , show:true, key:'package_count', sortable: false, align: 'center'},
+        {name:'تاریخ ساخت' ,title:'تاریخ ساخت' , show:true, key:'created_at_fa', sortable: false, align: 'center'},
+        {name:'تاریخ ویرایش' ,title:'تاریخ ویرایش' , show:true, key:'updated_at_fa', align: 'center'},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'custom', sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const packageHeader = ref([
@@ -44,12 +44,11 @@ export default function setup() {
     ]);
 
     const cargoReceivingHeader = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'id', order: false},
-        // {name:'نوع بسته' , show:true ,  value:'label', order: false},
-        {name:'تعداد آیتم ' , show:true, value:'shps_variety', order: false},
-        {name:'تعداد کالا ' , show:true, value:'shps_count', order: false},
-        {name:'وضعیت ' , show:true, value:'status', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true , key:'row', sortable: false, align: 'center'},
+        {name:'شناسه بسته' ,title:'شناسه بسته' , show:true , key:'id', sortable: false, align: 'center'},
+        {name:'تعداد آیتم ' ,title:'تعداد آیتم ' , show:true, key:'shps_variety', sortable: false, align: 'center'},
+        {name:'تعداد کالا ' ,title:'تعداد کالا ' , show:true, key:'shps_count', sortable: false, align: 'center'},
+        {name:'وضعیت ' , title:'وضعیت ' , show:true, key:'custom', sortable: false, align: 'center'},
     ]);
 
     const filterField = [
@@ -67,7 +66,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getCargoList() {
         loading.value = true
@@ -125,6 +123,7 @@ export default function setup() {
             } , 2000)
         }
     };
+
     async function  getCargoReceivingList(id , store) {
         loading.value = true
 
@@ -140,8 +139,8 @@ export default function setup() {
 
         }
     };
-    async function getCargo() {
 
+    async function getCargo() {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =true
@@ -152,6 +151,7 @@ export default function setup() {
             loading.value = false
         }
     };
+
     async function getPackageCargo(){
         const AxiosMethod = new AxiosCall()
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -163,28 +163,23 @@ export default function setup() {
         }
     }
 
-    function addPerPage(number){
-        filter.page = 1
-        filter.per_page =number
-        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
-    }
-
-    function addPagination(page){
-        filter.page = page
-        filter.per_page = dataTableLength.value
-        if (route.name === 'CargoListingView') router.push('/cargo-management/index'+ filter.params_generator(route.query))
-    }
-
-
-    watch(page, function(val) {
-        if (!isFilter.value){
-            isFilterPage.value = true
-            addPagination(val)
-        }
-    })
-
-    return { pageLength, cargoList, addPerPage, getCargoList, dataTableLength , page  , header  , filterField ,
-        loading , packageHeader , cargoReceivingHeader , getCargo , cargo , getPackageCargo , packageCargo ,
-        detailCargoHeader ,  getCargoReceivingList , cargoReceivingList}
+    return {
+        pageLength,
+        cargoList,
+        getCargoList,
+        dataTableLength ,
+        page  ,
+        header  ,
+        filterField ,
+        loading ,
+        packageHeader ,
+        cargoReceivingHeader ,
+        getCargo ,
+        cargo ,
+        getPackageCargo ,
+        packageCargo ,
+        detailCargoHeader ,
+        getCargoReceivingList ,
+        cargoReceivingList}
 }
 

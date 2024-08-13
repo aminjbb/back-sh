@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="c-table__header__item t12500 text-black"
+                class="c-table__header__item t12 w500 text-black"
                 :class="head.order === true ? 'pointer' : ''"
                 :key="index"
                 style="padding: 20px 5px !important"
@@ -25,7 +25,7 @@
             </div>
         </template>
 
-        <div class="c-table__header__item t12500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
+        <div class="c-table__header__item t12 w500 text-black" style="width: 5.33333%; flex: 0 0 5.33333%">
             عملیات
         </div>
     </header>
@@ -41,7 +41,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item"
                     style="width: 4.33333%; flex: 0 0 4.33333%;padding: 3px 5px;">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                         
                     </span>
@@ -52,7 +52,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -62,7 +62,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
+                    <span class="t12 w500text-gray500 py-5">
                         <template v-if="item.package_type">
                             {{ getPackageType(item.package_type) }}
                         </template>
@@ -77,7 +77,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         <template v-if="item.shipment_type">
                             {{getShipmentType(item.shipment_type)}}
                         </template>
@@ -92,7 +92,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
+                    <span class="t12 w500text-gray500 py-5">
                         <template v-if="item.shps && item.shps.seller">
                             {{ item.shps.seller.shopping_name }}
                         </template>
@@ -107,7 +107,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
+                    <span class="t12 w500text-gray500 py-5">
                         <template v-if="item.supplier && item.supplier.full_name">
                             {{ item.supplier.full_name }}
                         </template>
@@ -122,7 +122,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         <template v-if="item.shps_s">
                             {{ item.shps_s }}
                         </template>
@@ -136,7 +136,7 @@
                     v-if="header[7].show"
                     class="c-table__contents__item"
                     style="width: 15.33333%; flex: 0 0 15.33333%;padding: 3px 5px;">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         <template v-if="item.shps && item.shps.label">
                             {{ item.shps.label }}
                         </template>
@@ -151,7 +151,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
+                    <span class="t12 w500text-gray500 py-5">
                         <template v-if="item.report_type">
                             {{ getReportType(item.report_type) }}
                         </template>
@@ -166,7 +166,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5">
+                    <span class="t12 w500text-gray500 py-5">
                         <template v-if="item.creator">
                             {{ item.creator.first_name }} {{ item.creator.last_name }}
                         </template>
@@ -181,7 +181,7 @@
                     class="c-table__contents__item"
                     style="padding: 3px 5px;"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500text-gray500 py-5 number-font">
+                    <span class="t12 w500text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -203,7 +203,7 @@
                             <v-list-item-title>
                                 <div class="ma-3 pointer d--rtl" @click="removeItem(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                    <span class="mr-1 text-grey-darken-1 t13400">
+                                    <span class="mr-1 text-grey-darken-1 t13 w400">
                                         حذف
                                     </span>
                                 </div>
@@ -216,8 +216,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -225,9 +225,7 @@
 </template>
 
 <script>
-import {
-    PanelFilter
-} from "@/assets/js/filter"
+
 
 import {
     openConfirm,
@@ -298,7 +296,6 @@ export default {
             ordering: {},
             per_page: '25',
             filter: [],
-            panelFilter: new PanelFilter(),
         }
     },
 

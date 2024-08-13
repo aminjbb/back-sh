@@ -1,19 +1,19 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="200" class="ma-5 br-12 stretch-card-header-90">
+    <v-card height="200" class="ma-5 br--12 stretch-card-header-90">
       <v-row
           justify="start"
           align="start"
           class="px-10 py-5">
         <v-col
             cols="12"
-            class="d-flex justify-center align-center t14500">
+            class="d-flex justify-center align-center t14 w500">
           اسکن شناسه بسته
         </v-col>
         <v-divider color="grey"/>
         <v-col cols="12" md="6">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه بسته</span>
+            <span class="text-gray600 t14 w500">شناسه بسته</span>
             <span class="text-error">*</span>
           </div>
           <div>
@@ -27,7 +27,7 @@
         </v-col>
         <v-col cols="3">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه کالا</span>
+            <span class="text-gray600 t14 w500">شناسه کالا</span>
             <span class="text-error">*</span>
           </div>
           <div>
@@ -52,7 +52,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
           deletePath="category/crud/delete/"

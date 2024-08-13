@@ -6,7 +6,7 @@
       </v-icon>
 
         <v-row justify="end" class="pr-4" align="center">
-            <span class="t14300 mr-3 ml-4">
+            <span class="t14 w300 mr-3 ml-4">
                 {{ text }}
             </span>
 

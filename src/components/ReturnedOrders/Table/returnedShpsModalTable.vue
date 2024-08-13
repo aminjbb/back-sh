@@ -4,7 +4,7 @@
         <template v-for="(head, index) in header">
             <div
                 v-if="head.show"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 style="padding:20px 3px"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
@@ -30,7 +30,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 7.5%; flex: 0 0 7.5%;">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -40,7 +40,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -49,7 +49,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     style="padding: 3px; width: 13.5%; flex: 0 0 13.5%;">
-                    <span class="t12500 text-gray500 py-3">
+                    <span class="t12 w500 text-gray500 py-3">
                         <template v-if="item.shps && item.shps.sku && item.shps.sku.label">
                             {{ item.shps.sku.label }}
                         </template>
@@ -64,7 +64,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.count">
                             {{item.count}}
                         </template>
@@ -79,7 +79,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3">
+                    <span class="t12 w500 text-gray500 py-3">
                         <template v-if="item.shps && item.shps.sku && item.shps.sku.seller && item.shps.sku.seller.shopping_name">
                             {{ item.shps.sku.seller.shopping_name }}
                         </template>
@@ -94,7 +94,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.price">
                             {{ splitChar(item.price) }}
                         </template>
@@ -109,7 +109,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.base_discount">
                             {{ splitChar(item.base_discount) }} تومان
                         </template>
@@ -124,7 +124,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.marketing_discount">
                             {{ item.marketing_discount}}
                         </template>
@@ -139,7 +139,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.code">
                             {{ item.code }}
                         </template>
@@ -154,7 +154,7 @@
                     class="c-table__contents__item justify-center"
                     style="padding:3px"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t12500 text-gray500 py-3 number-font">
+                    <span class="t12 w500 text-gray500 py-3 number-font">
                         <template v-if="item.total_price">
                             {{ splitChar(item.total_price) }} تومان
                         </template>

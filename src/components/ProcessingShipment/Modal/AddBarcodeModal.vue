@@ -18,7 +18,7 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7" class="t16400 ">
+          <v-col cols="7" class="t16 w400 ">
            اسکن بارکد کالا
           </v-col>
         </v-row>
@@ -138,3 +138,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.check__barcode-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+</style>

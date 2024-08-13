@@ -1,7 +1,7 @@
 <template>
   <div class="px-2 py-2 h-100 create-sku-step2">
     <v-card
-        class="ma-5 br-12"
+        class="ma-5 br--12"
         height="580"
     >
       <v-form
@@ -10,7 +10,7 @@
         <v-row align="center" class="mt-15">
           <v-col cols="12">
             <div class="text-right my-2 w-100">
-            <span class="t12500">
+            <span class="t12 w500">
                 {{ lables.label }}
 
             </span>
@@ -47,7 +47,7 @@
                 width="115"
                 @click="$router.go(-1)"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                 انصراف
               </span>
             </v-btn>
@@ -63,7 +63,7 @@
                 @click="editSku"
             >
                   <span
-                      class="t14300"
+                      class="t14 w300"
                   >
                  ذخیره
               </span>

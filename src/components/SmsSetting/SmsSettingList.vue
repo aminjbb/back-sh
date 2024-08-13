@@ -1,25 +1,52 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
-          @getSmsSetting="getSmsSettingData"
-          @resetPage="resetPage"
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <ShTable
           class="flex-grow-1"
-          :header="headerSmsSetting"
-          :items="smsSettingList"
+          :headers="headerSmsSetting"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
-          :loading="loading"/>
+          :loading="loading">
+        <template v-slot:switchSlot="item">
+          <v-switch
+              :true-value="`1`"
+              :false-value="`0`"
+              v-model="item.data.switch"
+              inset
+              color="success"
+              @change="toggleActive(item.data.id, item.data.switch, item.data.description)"/>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <SmsSettingModal :smsSettingData="item.data" :id="item.data.id"/>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
     </v-card>
 </div>
 </template>
 
 <script>
-import Table from '@/components/SmsSetting/Table/SmsSettingTable.vue'
 import SmsNotification from "@/composables/SmsNotification"
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import { AxiosCall } from "../../assets/js/axios_call";
+import SmsSettingModal from "@/components/SmsSetting/Modal/SmsSettingModal.vue";
 
 export default {
-  components: {Table},
+  components: { SmsSettingModal,ShTable},
 
   setup() {
     const {
@@ -44,7 +71,8 @@ export default {
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
     }
   },
 
@@ -53,10 +81,6 @@ export default {
   },
 
   methods: {
-    getSmsSettingData(v) {
-      this.getSmsSettingList()
-    },
-
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
@@ -67,10 +91,41 @@ export default {
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    async toggleActive(id, banItem, text) {
+      console.log('banItem', banItem)
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = "system/admin/sms/setting/crud/update/"+id
+      formdata.append('value', banItem)
+      formdata.append('text', text)
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (!data) {
+        banItem.switch = false
+      }
+    },
   },
 
   watch: {
+    smsSettingList() {
+      this.itemListTable = []
+
+      this.smsSettingList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                text: item.text,
+                switch: item.value,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

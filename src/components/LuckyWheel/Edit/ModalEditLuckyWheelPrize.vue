@@ -2,7 +2,7 @@
   <div class="text-right">
     <div class="ma-3 pointer d--rtl" @click="dialog= true">
       <v-icon class="text-grey-darken-1" size="x-small">mdi-eye-outline</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+      <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
     </div>
     <v-dialog v-model="dialog">
       <v-card class="d--rtl">

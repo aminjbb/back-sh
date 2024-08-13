@@ -31,9 +31,9 @@
         </v-row>
 
         <v-card v-for="(voucher, i) in voucherList" :key="i"
-                class=" pa-3 mx-5 my-2 br-12 flex-grow-1 d-flex flex-column align-stretch">
+                class=" pa-3 mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch">
 
-            <v-row no-gutters class="t12500 number-font " >
+            <v-row no-gutters class="t12 w500 number-font " >
                 <v-col cols="12" class="my-1">
                     <v-row no-gutters>
                         <v-icon>mdi-circle-small</v-icon>
@@ -77,7 +77,7 @@
                         @click="openDetails(voucher.id)"
                         variant="outlined"
                         color="primary500 "
-                        rounded class="px-3 mt-1 t14500"
+                        rounded class="px-3 mt-1 t14 w500"
                         block
                     >
                         نمایش بیشتر
@@ -89,7 +89,7 @@
                         @click="openOperation(voucher.id)"
                         variant="outlined"
                         color="primary500"
-                        class="px-3 mt-1 t14500"
+                        class="px-3 mt-1 t14 w500"
                         rounded
                         block
                     >
@@ -100,7 +100,7 @@
         </v-card>
 
 
-        <v-card class=" py-3 mx-5 my-2  br-12">
+        <v-card class=" py-3 mx-5 my-2  br--12">
             <v-row class="px-8 align-center justify-center" no-gutters >
 
                 <v-col cols="12" class="mb-2 d-flex justify-center">
@@ -114,7 +114,7 @@
                         next-icon="mdi-chevron-left" />
                 </v-col>
 
-                <div class="d-flex align-center  t12300">
+                <div class="d-flex align-center  t12 w300">
                    <span class="ml-5">
                      تعداد سطر در هر صفحه
                    </span>

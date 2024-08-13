@@ -1,6 +1,6 @@
 <template>
 <section class="create-product flex-column d-flex h-100">
-    <v-card class="mx-5 br-12 py-5" height="250">
+    <v-card class="mx-5 br--12 py-5" height="250">
         <v-row
             justify="center"
             align="center"
@@ -36,10 +36,10 @@
             </v-col>
         </v-row>
     </v-card>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" min-height="500">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" min-height="500">
         <div class="create-form__info-form scroller">
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     دسکتاپ
                 </span>
             </div>
@@ -50,7 +50,7 @@
                     device="desktop" />
             </div>
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     تبلت
                 </span>
             </div>
@@ -61,7 +61,7 @@
                     device="tablet" />
             </div>
             <div class="text-right pa-10">
-                <span class="t14500">
+                <span class="t14 w500">
                     موبایل
                 </span>
             </div>

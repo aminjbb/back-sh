@@ -1,20 +1,22 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card
-            class="ma-5 br-12"
+            class="ma-5 br--12"
             height="160"
             style="flex:0 0 150px">
             <header class="modal__header d-flex justify-center align-center ">
-            <span class="t16400 pa-6">
-              اطلاعات سفارش
-            </span>
+                <span class="t16 w400 pa-6">
+                اطلاعات سفارش
+                </span>
             </header>
+
             <v-divider color="grey"/>
+
             <v-row align="center" class="pa-3">
                 <v-col cols="4">
-                    <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem"
-                                  variant="outlined"></v-text-field>
+                    <v-text-field @keyup.enter="orderItemPack()" :autofocus="true" v-model="shpsItem" variant="outlined"></v-text-field>
                 </v-col>
+
                 <v-col cols="3">
                     <v-btn
                         @click="orderItemPack()"
@@ -26,25 +28,26 @@
                         تایید
                     </v-btn>
                 </v-col>
+
                 <v-col cols="3">
                     <v-radio-group v-model="accept" inline @update:model-value="dialog = true">
                         <v-radio label="پردازش" :value="true"></v-radio>
                         <v-radio label="نمایش" :value="false"></v-radio>
                     </v-radio-group>
                 </v-col>
+
                 <v-col cols="2">
-          <span>
-            شناسه سفارش:
-          </span>
                     <span>
-           {{ orderId }}
-          </span>
+                        شناسه سفارش:
+                    </span>
+                    <span>
+                        {{ orderId }}
+                    </span>
                 </v-col>
             </v-row>
         </v-card>
 
-        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="200">
-
+        <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch">
             <Table
                 ref="oredrDetailFunc"
                 class="flex-grow-1"
@@ -55,6 +58,7 @@
             />
 
             <v-divider/>
+
             <v-card-actions class="pb-3">
                 <v-row class="px-5 py-2" justify="end">
                     <ModalRejectOrder :orderId="orderId" :accept="accept"/>
@@ -72,36 +76,38 @@
                 <v-row justify="center" align="center" class="pa-5">
                     <v-col cols="12">
                         <div class="text-center pl-5">
-                            <span class="t14500">
+                            <span class="t14 w500">
                               از تغییر وضعیت مطمئن هستید
                             </span>
                         </div>
                     </v-col>
                 </v-row>
+
                 <div class="mt-3 mb-8  px-5">
                     <v-divider/>
                 </div>
 
                 <div class="text-center pb-5">
-                    <v-btn color="primary500" @click="dialog = false" height="40" rounded
-                           class="px-5 mt-1 mr-15">
+                    <v-btn color="primary500" @click="dialog = false" height="40" rounded class="px-5 mt-1 mr-15">
                         <span>
                             تایید
                         </span>
                     </v-btn>
+
                     <v-btn @click="closeModal()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
                         انصراف
                     </v-btn>
                 </div>
             </v-card>
         </v-dialog>
+
         <ModalChangeMethod :orderId="orderId" ref='ModalChangeMethod' :sendingMethods="sendingMethods" :currentSendingMethod="currentSendingMethod"/>
-      <ModalNotAvailableOrder ref="ModalNotAvailable"/>
+
+        <ModalNotAvailableOrder ref="ModalNotAvailable"/>
     </div>
 </template>
 
 <script>
-
 import {ref} from 'vue'
 import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
@@ -109,7 +115,6 @@ import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
 import ModalChangeMethod from "@/components/OrderPackaging/Detail/Modal/ChangeSendingMethod.vue";
 
-import {AxiosCall,} from '@/assets/js/axios_call.js'
 import {openToast, closeToast} from "@/assets/js/functions";
 import axios from "axios";
 import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";

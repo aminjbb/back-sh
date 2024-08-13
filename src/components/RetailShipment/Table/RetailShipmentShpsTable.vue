@@ -15,7 +15,7 @@
           <div
               v-if="head.show"
               @click="createOrdering(head.value, head.order)"
-              class="text-right c-table__header__item t12500 px-0"
+              class="text-right c-table__header__item t12 w500 px-0"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex:head.value === 'label' ? `1 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
@@ -25,7 +25,7 @@
         <template v-else>
           <div
               v-if="head.show"
-              class="text-right pointer c-table__header__item t12500"
+              class="text-right pointer c-table__header__item t12 w500"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             {{ head.name }}
@@ -36,12 +36,12 @@
           v-if="model === 'editShpsRetail'"
           class="c-table__header__item"
           :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 ">
+            <span class="t12 w500 ">
                 عملیات
             </span>
       </div>
       <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 ">
+            <span class="t12 w500 ">
                 عملیات
             </span>
       </div>
@@ -78,10 +78,10 @@
               style="padding:0"
               class="c-table__contents__item text-right"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
-                    <span class="t11500 text-gray500 py-5 number-font" v-if="model==='editShpsRetail'">
+                    <span class="t11 w500 text-gray500 py-5 number-font" v-if="model==='editShpsRetail'">
                         {{ item.sku_label }}
                     </span>
-            <span class="t11500 text-gray500 py-5 number-font" v-else>
+            <span class="t11 w500 text-gray500 py-5 number-font" v-else>
                         {{ item.sku?.label }}
                     </span>
           </div>
@@ -123,14 +123,14 @@
               <v-list-item-title>
                 <div class="ma-5 pointer d--rtl" v-if="model === 'addShps'" @click="deleteFunction(item.id)">
                   <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
-                  <span class="mr-2 text-grey-darken-1 t13400">
+                  <span class="mr-2 text-grey-darken-1 t13 w400">
                                     حذف
                                 </span>
                 </div>
                 <v-list-item v-else :disabled="objectStatus == 'in_review' || objectStatus == 'approved'">
                   <div  class="ma-5 pointer d--rtl"  @click=" removeItem(item.id)">
                     <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t13400">
+                    <span class="mr-2 text-grey-darken-1 t13 w400">
                                     حذف
                                 </span>
                   </div>
@@ -145,7 +145,7 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
           <span class="t13300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>

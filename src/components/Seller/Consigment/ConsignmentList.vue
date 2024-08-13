@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -32,8 +32,9 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
+          @resetPage="resetPage"
           :getRetailShipmentList="getRetailShipmentList"
           class="flex-grow-1"
           :header="header"
@@ -73,16 +74,14 @@
                 align="center"
                 id="rowSection"
                 class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
               <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                 <v-select
+                     v-model="dataTableLength"
+                     class="t1330"
+                     variant="outlined"
+                     :items="[25,50,100]" />
+              </span>
             </div>
           </v-col>
         </v-row>
@@ -100,6 +99,7 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 export default {
   setup() {
     const statusItems= [
@@ -186,6 +186,12 @@ export default {
     ModalExcelDownload,
   },
 
+  data() {
+    return {
+      perPageFilter:false
+    }
+  },
+
   computed: {
     confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
@@ -197,6 +203,14 @@ export default {
       this.header[index].show = value
     },
 
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    }
+
   },
 
   mounted() {
@@ -204,9 +218,38 @@ export default {
   },
 
   watch: {
-    dataTableLength(val) {
-      this.addPerPage(val)
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
     },
+
+    $route(){
+      this.getRetailShipmentList();
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getRetailShipmentList()
+      }
+    },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
@@ -219,9 +262,6 @@ export default {
           localStorage.removeItem('deleteObject')
         }
       }
-    },
-    $route(){
-      this.getRetailShipmentList();
     }
   }
 }

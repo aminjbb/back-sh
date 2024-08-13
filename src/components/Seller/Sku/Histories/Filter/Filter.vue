@@ -28,7 +28,7 @@
 
                 <v-col cols="7">
                     <div class="text-left pl-10">
-                        <span class="t14300">
+                        <span class="t14 w300">
                             فیلتر
                         </span>
                     </div>
@@ -156,12 +156,7 @@
 </template>
 
 <script>
-import {
-    SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller";
-import {
-    jalaliToGregorian
-} from "@/assets/js/functions";
+import {jalaliToGregorian} from "@/assets/js/functions";
 
 export default {
     props: {

@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -26,7 +26,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           :getRetailShipmentList="getRetailShipmentList"
           class="flex-grow-1"
@@ -89,12 +89,16 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast} from "@/assets/js/functions";
 import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 export default {
-  data() {
-    return {
-      perPageFilter:false
-    }
+  components: {
+    PanelFilter,
+    ModalRetailShipmentDetail,
+    Table,
+    ModalColumnFilter,
+    ModalExcelDownload,
   },
+
   setup() {
     const status= [
       {
@@ -174,12 +178,10 @@ export default {
     }
   },
 
-  components: {
-    PanelFilter,
-    ModalRetailShipmentDetail,
-    Table,
-    ModalColumnFilter,
-    ModalExcelDownload,
+  data() {
+    return {
+      perPageFilter:false
+    }
   },
 
   computed: {
@@ -227,11 +229,13 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
         this.getRetailShipmentList()
       }
     },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {

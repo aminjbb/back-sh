@@ -2,7 +2,7 @@
     <v-bottom-sheet v-model="operations" >
         <v-card class="rounded-t-lg px-3 ">
 
-            <div class="d-flex justify-space-between t16500 py-6 mx-3">
+            <div class="d-flex justify-space-between t16 w500 py-6 mx-3">
                 <v-icon   @click="operations = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
                     mdi-close
                 </v-icon>
@@ -11,7 +11,7 @@
 
             <v-list>
                 <v-list-item-title @click="openEdit">
-                    <div class="d-flex justify-space-between t12400 my-4">
+                    <div class="d-flex justify-space-between t12 w400 my-4">
                         <v-icon>mdi-chevron-left</v-icon>
                         <div>
 
@@ -25,7 +25,7 @@
                 >
                     <v-divider/>
 
-                    <div class="d-flex justify-space-between t12400 my-4">
+                    <div class="d-flex justify-space-between t12 w400 my-4">
                         <v-icon>mdi-chevron-left</v-icon>
 
                         <div>

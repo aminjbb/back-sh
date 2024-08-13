@@ -2,7 +2,7 @@
     <div class="h-100 d-flex flex-column align-stretch data-sku">
         <v-card 
             min-height="70"
-            class="ma-5 br-12 stretch-card-header-70"
+            class="ma-5 br--12 stretch-card-header-70"
         >
             <v-row 
                 justify="center" 
@@ -45,11 +45,8 @@
             </v-row>
         </v-card>
 
-        <v-card 
-            class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-            height="580"
-        >
-            <Table
+        <v-card  class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"  height="580" >
+<!--            <Table
                 @getFinancial="getFinancialData"
                 class="flex-grow-1"
                 activePath="product/sku/crud/update/activation/" 
@@ -64,10 +61,95 @@
                 :perPage="dataTableLength"
                 updateUrl="product/sku/csv/mass-update"
                 uploadImageUrl="/product/get/sku/image/"
-            />
+            />-->
+            <ShTable
+                class="flex-grow-1"
+                :headers="header"
+                :items="itemListTable"
+                :loading="loading"
+                :page="page"
+                :perPage="dataTableLength"
+                activePath="product/sku/crud/update/activation/"
+            >
+                <template v-slot:colorSlot="item">
+                   <span class=" pointer">
+                            <v-icon
+                                icon="mdi-circle"
+                                size="small"
+                                :style="{ color: item.data.color.value }"
+                                :class="item.data.color.value == '#FFFFFF' ? 'icon-bordered' : ''" />
 
+                            <v-tooltip
+                                activator="parent"
+                                location="top"
+                                class="d--rtl">
+                                {{item.data.color.label}}
+                            </v-tooltip>
+                        </span>
+                </template>
+
+                <template v-slot:customSlot="item">
+                    <template v-for="(volume,i) in item.data.custom" :key="i">
+                            {{volume.value}} {{volume.label}}
+                    </template>
+                </template>
+
+                <template v-slot:switchSlot="item">
+                        <v-switch
+                        :true-value="1"
+                        :false-value="0"
+                        v-model="item.data.switch"
+                        inset
+                        color="success"
+                        @change="changeSellable(item.data,item.data.switch_id)"/>
+                </template>
+
+                <template v-slot:actionSlot="item">
+                    <div class="text-center">
+                        <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                            mdi-dots-vertical
+                        </v-icon>
+                    </div>
+
+                   <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                        <v-list class="c-table__more-options">
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <div class="ma-5 pointer" @click="$router.push(`/product/sku/update/${item.data.id}`)">
+                                        <v-icon size="small" class="text-grey-darken-1">
+                                            mdi-pen
+                                        </v-icon>
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                             ویرایش
+                                        </span>
+                                    </div>
+                                </v-list-item-title>
+                            </v-list-item>
+
+                        <v-list-item>
+                            <v-list-item-title>
+                                <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                    <v-icon size="small" class="text-grey-darken-1">
+                                        mdi-trash-can-outline
+                                    </v-icon>
+                                    <span class="mr-2 text-grey-darken-1 t14 w300">
+                                        حذف
+                                    </span>
+                                </div>
+                            </v-list-item-title>
+                        </v-list-item>
+
+                        <v-list-item-title >
+                            <div class="ma-5 pointer" >
+<!-- cant Getting all data of skue item of row  ?!     -->
+                                <ModalFinancialInfo :id="item.data.id" :financialInfo="item.data.data" @getFinancialData="financialData"/>
+                            </div>
+                        </v-list-item-title>
+                        </v-list>
+                    </v-menu>
+                </template>
+            </ShTable>
             <v-divider/>
-
             <v-card-actions class="pb-3">
                 <v-row class="pr-5">
                     <v-col cols="3"> 
@@ -122,22 +204,33 @@ import Sku from '@/composables/Sku';
 import Brands from '@/composables/Brands';
 import Colors from '@/composables/Colors';
 import Categories from '@/composables/Categories';
-import {openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import {ref} from "vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import ModalFinancialInfo from "@/components/Products/Sku/Modal/ModalFinancialInfo.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   data() {
     return {
-      perPageFilter:false
+        perPageFilter:false,
+        removeTableItem: {
+            text: "آیا از حذف آیتم مطمئن هستید؟",
+            title: "حذف آیتم",
+            path: "product/sku/crud/delete/",
+        },
+        itemListTable: []
     }
   },
     components: {
-      PanelFilter,
+          PanelFilter,
         Table,
         ModalGroupAdd,
         ModalColumnFilter,
         ModalExcelDownload,
+        ModalFinancialInfo,
+        ShTable
     },
 
     setup() {
@@ -295,11 +388,37 @@ export default {
         if (!this.perPageFilter){
           this.getSkues()
         }
-      }
+      },
+
+        skues(val){
+            this.itemListTable = []
+
+            this.skues.forEach((item) =>
+                this.itemListTable.push(
+                    {
+                        data : item,    /* for modal data binding*/
+                        id: item.id,
+                        name: item.name,
+                        label: item.label,
+                        sku_group: item.s_k_u_group.name,
+                        category: item.product.category.label,
+                        brand: item.brand.label,
+                        color: item.color,
+                        is_active: item.is_active,
+                        is_active_id: item.id,
+                        switch: item.is_sellable,
+                        switch_id: item.id,
+                        product: item.product.label,
+                        custom: item.volumes
+
+                    },
+                ),
+            )
+        }
     },
 
     methods: {
-      getFinancialData(v) {
+        financialData(v) {
         this.getSkues()
       },
 
@@ -313,7 +432,25 @@ export default {
         setTimeout(()=>{
           this.perPageFilter = false
         }, 1000)
-      }
+      },
+
+        removeItem(id) {
+            openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+        },
+        async changeSellable(item, id) {
+            var formdata = new FormData();
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.end_point = "product/sku/crud/update/sellable/"+id
+            formdata.append('is_sellable', item.switch)
+            AxiosMethod.store = this.$store
+            AxiosMethod.form = formdata
+            AxiosMethod.using_auth = true
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            let data = await AxiosMethod.axios_post()
+            if (!data) {
+                item.switch = false
+            }
+        },
     }
 }
 </script>

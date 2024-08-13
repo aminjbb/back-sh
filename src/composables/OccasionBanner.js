@@ -11,15 +11,12 @@ export default function setup() {
     const page = ref(1)
     const isFilterPage =ref(false)
     const header = [
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'تصویر' , show:true, value:'image_url', order: true},
-        // {name:'دستگاه' , show:true , value:'device', order: true},
-        {name:'لینک' , show:true ,  value:'link', order: true},
-        {name:'سازنده' , show:true, value:'creator', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: true},
-        {name:'زمان ویرایش' , show:false, value:'updated_at', order: true},
-        {name:'زمان شروع' , show:false, value:'start_date', order: true},
-        {name:'زمان پایان' , show:false, value:'end_date', order: true},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', sortable: false, align: 'center'},
+        {name:'تصویر' ,title:'تصویر' , show:true, key:'image', align: 'center'},
+        {name:'لینک' ,title:'لینک' , show:true ,  key:'link', align: 'center'},
+        {name:'سازنده' ,title:'سازنده' , show:true, key:'creator', align: 'center', width:'300'},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'switch', align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ];
 
     const filterField = [

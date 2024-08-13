@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex justify-space-between align-center pa-5">
     <div >
-        <span class="t20400">
+        <span class="t20 w400">
         مجموع اقلام
         </span>
     </div>
-    <v-card class="br br__12 d-flex justify-center align-center" height="52" width="52" color="primary500">
+    <v-card class="br br--12 d-flex justify-center align-center" height="52" width="52" color="primary500">
             <span class="text-white">
               {{ allConstForPlace }}
             </span>

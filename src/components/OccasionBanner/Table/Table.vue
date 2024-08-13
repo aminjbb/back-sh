@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t12500 text-black"
+            class="text-center c-table__header__item t12 w500 text-black"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -38,7 +38,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -47,15 +47,15 @@
               v-if=" header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500">
-                      <img width="100" height="28" class="br-4"  :src="item?.desktop_image?.image_url">
+                    <span class="t14 w300 text-gray500">
+                      <img width="100" height="28" class="br--4"  :src="item?.desktop_image?.image_url">
                     </span>
           </div>
           <div
               v-if=" header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 text-center">
+                    <span class="t14 w300 text-gray500 text-center">
                         {{ item.link }}
                     </span>
           </div>
@@ -63,7 +63,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.creator?.first_name }} {{ item.creator?.last_name }}
                     </span>
           </div>
@@ -91,7 +91,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pr-7 pointer" @click="removeItem(item.id)">
                       <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
 
@@ -107,8 +107,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -116,18 +116,10 @@
 </template>
 
 <script>
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-  SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
-import {
-  openConfirm,
-  isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
 import AddOccasionBannerModal from "@/components/OccasionBanner/Modal/AddOccasionBannerModal.vue";
 export default {
   components: {
@@ -209,7 +201,6 @@ export default {
       per_page: '25',
       filter: [],
       active: [],
-      // panelFilter: new SupplierPanelFilter(),
       activeColumn: false,
     }
   },

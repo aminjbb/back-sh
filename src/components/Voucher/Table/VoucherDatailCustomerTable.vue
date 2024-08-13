@@ -10,7 +10,7 @@
       <template v-for="(head, index) in header">
         <div
             v-if="head.show"
-            class="text-center c-table__header__item t12500"
+            class="text-center c-table__header__item t12 w500"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -32,7 +32,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -41,7 +41,7 @@
               v-if="item.id && header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.id }}
                     </span>
           </div>
@@ -50,7 +50,7 @@
               v-if="item.first_name && header[2].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.first_name }}
                     </span>
           </div>
@@ -59,7 +59,7 @@
               v-if="item.last_name && header[3].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.last_name }}
                     </span>
           </div>
@@ -67,7 +67,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span v-if="item.phone_number" class="t14300 text-gray500 py-5 number-font">
+                    <span v-if="item.phone_number" class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.phone_number }}
                     </span>
             <span v-else>----</span>
@@ -77,8 +77,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -86,13 +86,8 @@
 </template>
 
 <script>
-import {
-  isOdd
-} from '@/assets/js/functions'
+import {isOdd} from '@/assets/js/functions'
 
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 export default {
 
   props: {
@@ -149,8 +144,7 @@ export default {
       ordering: {},
       per_page: '25',
       filter: [],
-      isBan:[],
-      panelFilter: new PanelFilter(),
+      isBan:[]
     }
   },
 

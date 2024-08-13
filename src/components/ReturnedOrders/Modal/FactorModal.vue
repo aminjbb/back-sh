@@ -24,7 +24,7 @@
 
             <div class="modal__content d--rtl py-3 px-4 mb-3">
                 <header class="modal__header d-flex justify-center align-center">
-                    <span class="t16400 pa-6 pt-3">
+                    <span class="t16 w400 pa-6 pt-3">
                         مشخصات خریدار
                     </span>
                 </header>
