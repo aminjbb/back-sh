@@ -41,14 +41,13 @@
           </v-row>
         </v-card>
 
-        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+          <ShTable
               class="flex-grow-1"
-              :header="headerOrderList"
-              :items="orderList"
+              :headers="headerOrderList"
+              :items="itemListTable"
               :page="page"
               :perPage="pageLength"
-              :loading="false"
           />
 
           <v-divider/>
@@ -99,7 +98,7 @@ import {defineAsyncComponent} from "vue";
 // const FreeDeliveryOrderList = defineAsyncComponent(()=> import ('@/components/FreeDelivery/FreeDeliveryOrderList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from "@/components/FreeDelivery/Table/TableOrderList.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
@@ -141,13 +140,15 @@ export default {
   data() {
     return{
       freeDeliveryId:this.$route.params.freeDeliveryId,
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
+
     }
   },
 
   components: {
     PanelFilter,
-    Table,
+    ShTable,
     DashboardLayout,
     Header
   },
@@ -186,7 +187,26 @@ export default {
       if (!this.perPageFilter){
         this.geOrderList()
       }
-    }
+    },
+
+    orderList() {
+      this.itemListTable = []
+      this.orderList.forEach((item) => {
+        this.itemListTable.push(
+            {
+              data: item,
+              id: item.id ? item.id : '---',
+              first_name: item.user.first_name ? item.user.first_name : '---',
+              last_name: item.user.last_name ? item.user.last_name : '---',
+              phone_number: item.user.phone_number ? item.user.phone_number : '---',
+              order_number: item.order_number ? item.order_number : '---',
+              details_count: item.details_count ? item.details_count : '---',
+              paid_price: item.paid_price ? item.paid_price : '---',
+              created_at_fa: item.created_at_fa ? item.created_at_fa : '---',
+            }
+        )
+      })
+    },
   }
 }
 </script>

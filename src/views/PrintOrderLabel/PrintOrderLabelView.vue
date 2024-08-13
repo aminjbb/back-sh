@@ -40,13 +40,11 @@
 
         <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="200">
 
-          <Table
-              ref="oredrDetailFunc"
+          <ShTable
               class="flex-grow-1"
-              :header="printLabelHeader"
-              :items="orderDetail"
+              :headers="printLabelHeader"
+              :items="itemListTable"
               :loading="loading"
-              deletePath="report/crud/delete/"
           />
 
           <v-divider/>
@@ -63,15 +61,15 @@ import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import {ref} from 'vue'
-import Table from '@/components/PrintOrderLabel/Table/Table.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
 import {AxiosCall} from '@/assets/js/axios_call.js'
 
 export default {
   components: {
-    Table,
     Modal,
+    ShTable,
     DashboardLayout,
     Header
   },
@@ -82,7 +80,8 @@ export default {
       cargo: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
       orderId: null,
-      orderDetail:[]
+      orderDetail:[],
+      itemListTable: []
     }
   },
 
@@ -121,6 +120,19 @@ export default {
       }
     }
   },
+
+  watch: {
+    orderDetail() {
+      this.itemListTable = []
+      this.orderDetail.forEach((item) => {
+        this.itemListTable.push(
+            {
+              shpsId: item.shps,
+            }
+        )
+      })
+    },
+  }
 }
 </script>
 

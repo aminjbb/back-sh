@@ -45,14 +45,13 @@
             </v-row>
           </v-row>
         </v-card>
-        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+          <ShTable
               class="flex-grow-1"
-              :header="headerShps"
-              :items="skuList"
+              :headers="headerShps"
+              :items="itemListTable"
               :page="page"
               :perPage="pageLength"
-              :loading="false"
           />
 
           <v-divider/>
@@ -105,7 +104,7 @@ import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import Table from "@/components/FreeDelivery/Table/TableSkuList.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
@@ -147,13 +146,14 @@ export default {
   data() {
     return{
       freeDeliveryId:this.$route.params.freeDeliveryId,
+      itemListTable: []
     }
   },
 
   components: {
     PanelFilter,
-    Table,
     ModalGroupAdd,
+    ShTable,
     DashboardLayout,
     Header
   },
@@ -162,6 +162,22 @@ export default {
     this.getSkuList()
     this.getFreeDeliveryList()
     this.getDetail()
+  },
+
+  watch:{
+    skuList() {
+      this.itemListTable = []
+      this.skuList.forEach((item) => {
+        this.itemListTable.push(
+            {
+              sku_id: item.sku?.id,
+              sku_label: item.sku?.label,
+              customer_price: item.customer_price,
+              buying_price: item.buying_price,
+            }
+        )
+      })
+    },
   }
 }
 </script>

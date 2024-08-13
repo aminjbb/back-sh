@@ -51,19 +51,40 @@
             </v-btn>
           </v-row>
         </v-card>
-        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+          <ShTable
               class="flex-grow-1"
-              editUrl="/categories/edit/"
-              activePath="category/crud/update/activation/"
-              deletePath="package/crud/delete/placement/"
-              :header="header"
-              :items="packagePlacement.data"
-              updateUrl="category/csv/mass-update"
+              :headers="header"
+              :items="itemListTable"
               :page="page"
               :perPage="dataTableLength"
-              :loading="loading"/>
+              :loading="loading"
+          >
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
 
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+
+                  <v-list-item >
+                    <v-list-item-title>
+                      <div  class="ma-5 pointer" @click="removeItem(item.data.id)">
+                        <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        حذف
+                                  </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
           <v-divider/>
 
         </v-card>
@@ -77,7 +98,7 @@ import {defineAsyncComponent} from "vue";
 // const PackagePlacementList = defineAsyncComponent(()=> import ('@/components/PackagePlacement/PackagePlacementList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/PackagePlacement/Table/Table.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
@@ -87,10 +108,10 @@ import {openToast} from "@/assets/js/functions";
 
 export default {
   components: {
-    Table,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
+    ShTable,
     DashboardLayout,
     Header
   },
@@ -99,7 +120,8 @@ export default {
       packageId: null,
       shelf: null,
       loadingBtn: false,
-      locatingPlacement: []
+      locatingPlacement: [],
+      itemListTable: []
     }
   },
   setup() {
@@ -169,9 +191,32 @@ export default {
       this.addPerPage(val)
     },
 
+    packagePlacement() {
+      if(this.packagePlacement.data) {
+
+        this.itemListTable = []
+        this.packagePlacement.data.forEach((item) => {
+          this.itemListTable.push(
+              {
+                id: item.id,
+                type: this.getStatus(item.shipment_type),
+                placement_id: item.placement_id,
+              }
+          )
+        })
+      }
+    },
   },
 
   methods: {
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "package/crud/delete/placement/"+id, true)
+    },
+    getStatus(shipment_type){
+      if (shipment_type === 'consignment_shavaz') return 'انبارش شاواز'
+      else if(shipment_type === 'cross_dock_marketplace' )  return 'فروش مارکت'
+      else  return 'getStatus'
+    },
     async addPackage() {
       try {
         this.loadingBtn = true
@@ -196,5 +241,6 @@ export default {
       }
     }
   },
+
 }
 </script>
