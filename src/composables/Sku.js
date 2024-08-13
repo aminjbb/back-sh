@@ -35,6 +35,7 @@ export default function setup() {
     const header = ref([
         { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row',minWidth:'50'},
         { name: 'شناسه', title: 'شناسه', show: true, align:'center', key: 'id',minWidth:'50'},
+        { name: 'تصویر کالا',title: 'تصویر کالا', show: true, key: 'image', align:'center', sortable: false},
         { name:'نام انگلیسی', title:'نام انگلیسی' , show:true, align:'center', key:'name', minWidth:'200'},
         { name:'نام فارسی', title:'نام فارسی' , show:true, align:'center', key:'label', minWidth:'200'},
         { name: 'گروه', title: 'گروه', show: true, align:'center', sortable:false, key: 'sku_group', minWidth:'200'},
