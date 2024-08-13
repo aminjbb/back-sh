@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch pa-2 scroller" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch pa-2 scroller" height="580">
       <v-row justify="space-between" class="pa-5 ma-0">
         <ModalRejectSorting
             :getWarehouseOrders="getWarehouseOrders"

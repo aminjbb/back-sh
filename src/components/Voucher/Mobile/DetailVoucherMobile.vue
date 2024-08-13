@@ -14,7 +14,7 @@
             </v-btn>
         </div>
 
-        <v-card class="ma-5 br-12 pa-2" min-height="70">
+        <v-card class="ma-5 br--12 pa-2" min-height="70">
             <v-row no-gutters class="t14 w500 " >
                 <v-col cols="6" class="mb-2">
                   <span >
@@ -65,7 +65,7 @@
 
 
         <v-card  v-for="(item , index) in voucher"  :key="index"
-            class="ma-5 br-12 pa-3" min-height="70">
+            class="ma-5 br--12 pa-3" min-height="70">
             <v-row no-gutters class="t14 w500 " >
                 <v-col cols="12">
                     <v-icon>mdi-circle-small</v-icon>

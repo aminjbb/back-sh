@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch">
-    <v-card class="ma-5 br-12 stretch-card-header-90">
+    <v-card class="ma-5 br--12 stretch-card-header-90">
         <v-row justify="center" align="start" class="px-10 py-5">
             <v-col cols="12" class="d-flex justify-center align-center t14 w500 d--ltr">
                  shps ویرایش گروهی
@@ -8,7 +8,7 @@
             <v-divider color="grey" />
             <v-col cols="12" class="my-5">
                 <v-col cols="12">
-                    <p class="text-center">
+                    <p class="t14 text-center">
                         در صورت نیاز به اعمال بازه زمانی برای تخفیف ها پیش از بارگذاری تاریخ شروع و پایان را تکمیل نمایید و سپس دکمه اعمال تغییرات را بزنید.
                     </p>
                 </v-col>

@@ -5,27 +5,32 @@
 // General
 @import "./general/font";
 @import "./general/main";
-@import "./general/container";
-@import "./general/typography";
+
+// Tools
+@import "./tools/typo";
+@import "./tools/helpers";
+
+// Kits
+@import "./kits/text-field";
 
 // Components
 @import "./components/menu";
 @import "./components/table";
 @import "./components/slider";
-@import "./components/ticket";
 @import "./components/ckeditor";
-@import "./components/chat-page";
 @import "./components/message-list";
 @import "./components/image-uploader";
 @import "./components/modal-table-filter";
 @import "./components/modal";
 @import "./components/accordion";
 
-// Views
-@import "./views/products";
-@import "./views/supplier";
-@import "./views/role-prmission";
-@import "./views/factor";
+// Custom
+@import "./custom/custom";
 
-// Tools
-@import "./tools/typo";
+// Custom - Views
+@import "./custom/views/products";
+@import "./custom/views/supplier";
+@import "./custom/views/role-prmission";
+@import "./custom/views/factor";
+@import "./custom/views/ticket";
+@import "./custom/views/chat-page";

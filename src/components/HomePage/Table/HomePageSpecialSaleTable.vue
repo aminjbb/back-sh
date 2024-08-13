@@ -1,33 +1,16 @@
 <template>
-<div
-    :class="variant == 'outlined' ? 'table-outlined': ''"
-    :style="{height: height}"
-    class="c-table pl-1">
-    <v-progress-linear
-        color="primary500"
-        indeterminate
-        reverse
-        v-if="loading" />
+<div :class="variant == 'outlined' ? 'table-outlined': ''" :style="{height: height}" class="c-table pl-1">
+    <v-progress-linear color="primary500" indeterminate reverse v-if="loading" />
 
     <header class="c-table__header d-flex justify-start">
         <template v-for="(head, index) in header">
             <template v-if="head.value">
-                <div
-                    v-if="head.show"
-                    @click="createOrdering(head.value, head.order)"
-                    class="text-right c-table__header__item t12 w500 px-0"
-                    :class="head.order == true ? 'pointer' : ''"
-                    :key="index"
-                    :style="{ width: itemsWidth, flex:head.value === 'link' ? `2 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
+                <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-right c-table__header__item t12 w500 px-0" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex:head.value === 'link' ? `2 0 ${itemsWidth}` :  `0 0 ${itemsWidth}`}">
                     {{head.name}}
                 </div>
             </template>
             <template v-else>
-                <div
-                    v-if="head.show"
-                    class="text-right pointer c-table__header__item t12 w500"
-                    :key="index"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="head.show" class="text-right pointer c-table__header__item t12 w500" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     {{head.name}}
                 </div>
             </template>
@@ -40,15 +23,8 @@
     </header>
     <div class="stretch-table">
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
-            <div
-                v-for="(item , index) in items"
-                :key="index"
-                :class="oddIndex(index) ? 'bg-gray90' : ''"
-                class="d-flex justify-start">
-                <div
-                    v-if="header[0].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-start">
+                <div v-if="header[0].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
@@ -58,50 +34,35 @@
                         </template>
                     </div>
                 </div>
-                <div
-                    v-if="header[1].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[1].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{item.label}}
                         </span>
                     </div>
                 </div>
-                <div
-                    v-if="header[2].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[2].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{convertDateToJalai(item.start_time , '-' , true) }} {{getTime(item.start_time)}}
                         </span>
                     </div>
                 </div>
-                <div
-                    v-if="header[3].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[3].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{convertDateToJalai(item.end_time, '-' , true)}} {{getTime(item.end_time)}}
                         </span>
                     </div>
                 </div>
-                <div
-                    v-if="header[4].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[4].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{item.creator?.first_name}} {{item.creator?.last_name}}
                         </span>
                     </div>
                 </div>
-                <div
-                    v-if="header[4].show"
-                    class="c-table__contents__item"
-                    :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+                <div v-if="header[4].show" class="c-table__contents__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center slider_status " :class="sliderStatusClass(item.status)">
                         <span class="t14 w300 text-gray500 py-5 number-font">
                             {{sliderStatus(item.status)}}
@@ -152,7 +113,7 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
                 <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
@@ -162,9 +123,16 @@
 </template>
 
 <script>
-import {convertDateToJalai, isOdd} from '@/assets/js/functions'
-import {openConfirm} from '@/assets/js/functions'
-import {AxiosCall} from '@/assets/js/axios_call.js'
+import {
+    convertDateToJalai,
+    isOdd
+} from '@/assets/js/functions'
+import {
+    openConfirm
+} from '@/assets/js/functions'
+import {
+    AxiosCall
+} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 
 export default {
@@ -395,24 +363,24 @@ export default {
          */
         createOrdering(index, order) {
             if (order === true) {
-              if (index) {
-                let query = this.$route.query
-                if (this.order_type === 'desc') {
-                  this.order_type = 'asc'
-                } else {
-                  this.order_type = 'desc'
-                }
-                this.$router.replace({
-                  query: {
-                    ...query,
-                    order_type :this.order_type,
-                    order :index
-                  }
-                })
+                if (index) {
+                    let query = this.$route.query
+                    if (this.order_type === 'desc') {
+                        this.order_type = 'asc'
+                    } else {
+                        this.order_type = 'desc'
+                    }
+                    this.$router.replace({
+                        query: {
+                            ...query,
+                            order_type: this.order_type,
+                            order: index
+                        }
+                    })
 
-                this.ordering = {};
-                this.ordering[index] = !this.ordering[index];
-              }
+                    this.ordering = {};
+                    this.ordering[index] = !this.ordering[index];
+                }
             }
 
         },
@@ -467,3 +435,23 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+.slider_status {
+    padding: 7px 12px 7px 8px;
+    border-radius: 8px;
+    height: 30px;
+
+    &__waiting {
+        background: #FFF3E0;
+    }
+
+    &__progress {
+        background: #E8F5E9;
+    }
+
+    &__expire {
+        background: #FFEBEE;
+    }
+}
+</style>

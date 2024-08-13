@@ -57,7 +57,7 @@
                             </div>
 
                         </v-card>
-                        <v-card class="ma-5 br-12 " min-height="580">
+                        <v-card class="ma-5 br--12 " min-height="580">
                             <Table
                                 class="flex-grow-1"
                                 :header="headerShps"

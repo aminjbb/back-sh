@@ -35,7 +35,7 @@
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `1 0 ${itemsWidth}` }">
             <span class="text-grey-darken-2">
-              <img :src="item?.image?.image_url" width="100" height="28" alt="" class="br br__4">
+              <img :src="item?.image?.image_url" width="100" height="28" alt="" class="br br--4">
             </span>
           </div>
 
@@ -102,7 +102,7 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
           <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>

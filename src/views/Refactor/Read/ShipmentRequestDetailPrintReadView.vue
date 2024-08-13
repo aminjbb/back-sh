@@ -50,7 +50,7 @@
                     </div>
                 </v-card>
 
-                <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
+                <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
                     <div>
                         <Table
                             class="flex-grow-1  "

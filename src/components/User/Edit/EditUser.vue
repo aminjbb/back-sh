@@ -1,7 +1,7 @@
 <template>
-  <div class="vh-100">
+  <div class="h-100vh">
     <v-card
-        class="ma-5 br-12 pa-10 position__relative"
+        class="ma-5 br--12 pa-10 position__relative"
         min-height="600"
     >
       <UserForm
@@ -51,6 +51,8 @@ import {convertDateToGregorian} from "@/assets/js/functions";
 import User from '@/composables/User'
 
 export default {
+  components: {UserForm},
+
   setup(){
     const {user , getUser } = new User()
     return {user , getUser}
@@ -60,7 +62,6 @@ export default {
       loading: false,
     }
   },
-  components: {UserForm},
   methods:{
     validate(){
       this.$refs.AdminForm.$refs.addForm.validate()

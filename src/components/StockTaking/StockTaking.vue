@@ -3,7 +3,7 @@
   <div class="d-flex justify-space-between align-center">
     <div class="pa-3 d-flex">
       <HandheldDrawer/>
-      <span class="t20400">
+      <span class="t20 w400">
          انبارگردانی
         </span>
     </div>
@@ -25,7 +25,7 @@
       </div>
 
       <div class=" mt-8 d-flex justify-center px-10 text-center">
-          <span class="text-black t20400">
+          <span class="text-black t20 w400">
           شناسه کالا را اسکن کنید.
           </span>
       </div>

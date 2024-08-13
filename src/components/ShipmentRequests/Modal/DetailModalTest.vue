@@ -68,7 +68,7 @@
               {{ retailObject?.rejection_reason }}
             </div>
           </v-card>
-          <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
+          <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl ">
             <div class="table-scroll-container">
 
               <Table
@@ -264,10 +264,12 @@ export default {
 
 
   },
-
-  computed: {
-
-
-  }
 }
 </script>
+
+<style lang="scss">
+.table-scroll-container {
+    max-height: 500px; 
+    overflow-y: auto; 
+}
+</style>

@@ -22,8 +22,8 @@
                     </span>
                 </div>
 
-                <div class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl">دلیل رد درخواست *</div>
-                <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="82">
+                <div class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl">دلیل رد درخواست *</div>
+                <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="82">
 
                     <v-divider class="mb-3" />
                     <div class="pa-5 text-right">

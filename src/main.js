@@ -55,7 +55,8 @@ const vuetify = createVuetify({
                     notSorted:'#FFEBEE',
                     warningRow:'#FFF3E0',
                     successRow:'#E8F5E9',
-                    scanError:'#EF5350'
+                    scanError:'#EF5350',
+                    scanSuccess: '#43A047'
                 }
             },
         },

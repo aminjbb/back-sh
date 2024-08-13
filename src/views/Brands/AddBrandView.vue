@@ -8,7 +8,7 @@
 <!--      <AddBrandForm/>-->
       <div class="mh-100">
         <v-card
-            class="ma-5 br-12 pa-10 position__relative"
+            class="ma-5 br--12 pa-10 position__relative"
             min-height="600"
         >
           <BrandForm ref="BrandForm" />

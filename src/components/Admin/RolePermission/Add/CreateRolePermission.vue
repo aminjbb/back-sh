@@ -1,6 +1,6 @@
 <template>
-<div class="vh-100">
-    <v-card class="ma-5 br-12 pa-10 position__relative" min-height="600">
+<div class="h-100vh">
+    <v-card class="ma-5 br--12 pa-10 position__relative" min-height="600">
         <RolePermissionForm ref="RolePermissionForm" />
 
         <v-row justify="end" class="position__absolute bottom left">

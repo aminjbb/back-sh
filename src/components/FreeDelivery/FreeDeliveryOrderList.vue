@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
+    <v-card height="70" class="ma-5 br--12 pt-5" max-height="70">
       <div class="d-flex align-center justify-lg-space-evenly">
         <div>
           <span class="t14 w500">عنوان:</span>
@@ -18,7 +18,7 @@
         </div>
       </div>
     </v-card>
-    <v-card height="70" class="mx-5 br-12" max-height="70">
+    <v-card height="70" class="mx-5 br--12" max-height="70">
       <v-row
           justify="end"
           align="center"

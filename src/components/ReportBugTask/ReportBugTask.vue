@@ -3,7 +3,7 @@
 <!-- filter-->
     <v-card
         height="70"
-        class="ma-5 br-12 stretch-card-header-70 d-flex justify-end pa-4">
+        class="ma-5 br--12 stretch-card-header-70 d-flex justify-end pa-4">
         <PanelFilter
             @resetPage="resetPage"
             path="report-bug-task/index"
@@ -11,7 +11,7 @@
     </v-card>
 <!-- table -->
     <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+        class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
         height="580">
       <ShTable
           class="flex-grow-1"

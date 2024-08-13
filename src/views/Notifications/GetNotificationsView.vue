@@ -6,8 +6,8 @@
     <v-main>
       <Header/>
 <!--        <GetNotification/>-->
-      <v-card height="100vh" class="ma-5 br-12 pa-10" v-if="notification">
-        <v-card-title v-if="notification.title" class="mb-5 t20600">
+      <v-card height="100vh" class="ma-5 br--12 pa-10" v-if="notification">
+        <v-card-title v-if="notification.title" class="mb-5 t20 w600">
           <span class="d-inline-block d--ltr">{{notification.title}}</span>
         </v-card-title>
         <v-divider v-if="notification.title"></v-divider>

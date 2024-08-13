@@ -10,7 +10,7 @@
             <div class="d-flex justify-space-between align-center">
                 <div class="pa-3 d-flex">
                     <HandheldDrawer/>
-                    <span class="t20400">
+                    <span class="t20 w400">
          جمع آوری کالا
         </span>
                 </div>
@@ -29,13 +29,13 @@
                 <v-divider/>
                 <div class="text-center ">
                     <!-- row number-->
-                    <span class="t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}-</span>
+                    <span class="t20 w400 text-gray600 number-font"> {{ pickUpShps?.placement?.row_number }}-</span>
                     <!-- placement number -->
-                    <span class=" t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}-</span>
+                    <span class=" t20 w400 text-gray600 number-font"> {{ pickUpShps?.placement?.placement_number }}-</span>
                     <!-- step number-->
-                    <span class=" t20400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}-</span>
+                    <span class=" t20 w400 text-gray600 number-font"> {{ pickUpShps?.placement?.step_number }}-</span>
                     <!-- shelf number-->
-                    <span class=" t20400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}</span>
+                    <span class=" t20 w400 text-gray600 number-font">{{ pickUpShps?.placement?.shelf_number }}</span>
 
 
 
@@ -59,13 +59,13 @@
                 <div>
                     <div class="px-5">
                         <v-card min-height="92" class="d-flex justify-center align-center">
-                            <v-card class="ml-5 br br__12 d-flex justify-center align-center" height="52" width="52"
+                            <v-card class="ml-5 br br--12 d-flex justify-center align-center" height="52" width="52"
                                     color="primary500">
             <span class="text-white number-font">
              {{ pickUpCount }}
             </span>
                             </v-card>
-                            <span class="t16400 text-black">عدد مانده</span>
+                            <span class="t16 w400 text-black">عدد مانده</span>
                         </v-card>
                         <v-card class="mt-2 py-5">
                             <div class="d-flex justify-center">
@@ -105,7 +105,7 @@
     <template v-else-if="pickUpIsNull && !pickUpDone && !notFound">
         <div class="h-100 bg-warning d-flex  justify-center align-center">
             <div class=" d-flex justify-center my-3">
-          <span class="t20400">
+          <span class="t20 w400">
             کالایی برای جمع آوری یافت نشد
           </span>
             </div>
@@ -131,7 +131,7 @@
                     </v-icon>
                 </div>
                 <div class="text-center mt-15">
-            <span class="t20400">
+            <span class="t20 w400">
            جمع آوری کالا با موفقیت به اتمام رسید.
           </span>
                 </div>

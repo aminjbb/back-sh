@@ -24,7 +24,7 @@
               variant="flat"
               size="small"
               class="bg-gray500"/>
-          <span class="t16500">فیلتر</span>
+          <span class="t16 w500">فیلتر</span>
         </div>
 
         <!-- body -->

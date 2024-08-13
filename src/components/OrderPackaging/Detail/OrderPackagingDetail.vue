@@ -1,11 +1,11 @@
 <template>
     <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card
-            class="ma-5 br-12"
+            class="ma-5 br--12"
             height="160"
             style="flex:0 0 150px">
             <header class="modal__header d-flex justify-center align-center ">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                 اطلاعات سفارش
                 </span>
             </header>

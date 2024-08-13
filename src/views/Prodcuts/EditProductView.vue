@@ -6,8 +6,8 @@
     <v-main class="h-100vh">
       <Header/>
 <!--        <EditProduct/>-->
-      <div class="vh-100">
-        <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
+      <div class="h-100vh">
+        <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
           <ProductForm
               ref="ProductForm"
               type="edit"

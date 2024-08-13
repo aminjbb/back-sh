@@ -3,7 +3,7 @@
     <div class="d-flex justify-space-between align-center">
       <div class="pa-3 d-flex">
         <HandheldDrawer/>
-        <span class="t20400">
+        <span class="t20 w400">
          سورتینگ
         </span>
       </div>
@@ -19,7 +19,7 @@
           <div class="px-5 ">
             <v-card class="mt-2 py-5 " variant="outlined">
               <div class="text-center my-2">
-                  <span class="t16400">
+                  <span class="t16 w400">
                     {{ skuDetail?.label }}
                   </span>
               </div>
@@ -34,7 +34,7 @@
       </div>
       <v-card class="ma-5 br-15" min-height="140">
         <div class="d-flex justify-center my-3">
-            <span class="t16400">
+            <span class="t16 w400">
               جایگاه کالا
             </span>
         </div>
@@ -43,7 +43,7 @@
           <div v-if="shpssDetail?.sorting_placement">
             <div class="text-center my-5 px-5 d-flex justify-space-between px-10">
               <div>
-              <span class="t16400">
+              <span class="t16 w400">
                شماره شلف   :
                 <span class="text-gray600 number-font">
                  {{ shpssDetail?.sorting_placement }}
@@ -80,7 +80,7 @@
           <div class="px-5">
             <v-card class="mt-2 py-5">
               <div class="d-flex justify-center my-3">
-            <span class="t16400">
+            <span class="t16 w400">
               اسکن شلف
             </span>
               </div>

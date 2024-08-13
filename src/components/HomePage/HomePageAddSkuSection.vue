@@ -3,7 +3,7 @@
 
     <v-card
         height="70"
-        class="ma-5 br-12 stretch-card-header-70"
+        class="ma-5 br--12 stretch-card-header-70"
         min-height="100">
         <v-row
             justify="center"
@@ -78,7 +78,7 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
             class="flex-grow-1"
             :header="homePageSkuHeader"

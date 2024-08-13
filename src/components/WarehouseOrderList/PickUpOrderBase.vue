@@ -7,13 +7,13 @@
                 color="purple">
             </v-progress-circular>
         </div>
-        <v-main class="vh-100 ">
+        <v-main class="h-100vh ">
 <!-- pickUp -->
             <template v-if="pages.pickUp">
                 <div class="d-flex justify-space-between align-center">
                     <div class="pa-3 d-flex">
                         <HandheldDrawer/>
-                        <span class="t20400">
+                        <span class="t20 w400">
                          جمع آوری کالا
                         </span>
                     </div>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="h-100 mx-8">
-                    <v-card class="mt-3 pa-3 t16500 rounded-t-lg rounded-b-0"  height="50" flat  >
+                    <v-card class="mt-3 pa-3 t16 w500 rounded-t-lg rounded-b-0"  height="50" flat  >
                         <v-row no-gutters>
                             <v-col cols="3"></v-col>
                             <v-col cols="6">
@@ -42,20 +42,20 @@
                             </v-col>
                         </v-row>
                     </v-card>
-                    <v-card class="mt-1 pa-3 t16400 rounded-b-lg rounded-t-0 text-center number-font text-grey"  height="50" flat  >
+                    <v-card class="mt-1 pa-3 t16 w400 rounded-b-lg rounded-t-0 text-center number-font text-grey"  height="50" flat  >
                         {{pickUpTasks?.order_id}}
                     </v-card>
 
 
-                    <v-card class="mt-3 pa-3 t16500 rounded-t-lg rounded-b-0 text-center"  height="50" flat  >
+                    <v-card class="mt-3 pa-3 t16 w500 rounded-t-lg rounded-b-0 text-center"  height="50" flat  >
                         جایگاه کالا
                     </v-card>
-                    <v-card class="mt-1 pa-3 t16400 rounded-b-lg rounded-t-0 text-center number-font text-grey"  height="50" flat  >
+                    <v-card class="mt-1 pa-3 t16 w400 rounded-b-lg rounded-t-0 text-center number-font text-grey"  height="50" flat  >
                           {{ pickUpTasks?.placement?.shelf_number }}-{{ pickUpTasks?.placement?.step_number }}-{{ pickUpTasks?.placement?.placement_number }}-{{ pickUpTasks?.placement?.row_number}}
                     </v-card>
 
 
-                    <v-card class="my-3 pa-3 t16500 rounded-lg text-center number-font"  height="50" flat  >
+                    <v-card class="my-3 pa-3 t16 w500 rounded-lg text-center number-font"  height="50" flat  >
                         <span class=" me-2 py-2 px-3 ps-4 bg-primary500 rounded number-font">
                             {{ pickUpCount }}
                         </span>
@@ -63,21 +63,21 @@
                     </v-card>
 
 
-                    <v-card class="my-3 pa-3 t16500 rounded-lg d-flex align-center"  min-height="75" flat  >
+                    <v-card class="my-3 pa-3 t16 w500 rounded-lg d-flex align-center"  min-height="75" flat  >
                         <v-text-field v-if="autoSendBarcode === 'automate'"  variant="outlined" :autofocus="true" bg-color="white"   v-debounce:150ms="scanQrCode" v-model="shpssBarcode" />
                         <v-text-field v-else variant="outlined" :autofocus="true" bg-color="white"   @keyup.enter="scanQrCode()" v-model="shpssBarcode" />
                         <v-switch class="me-3 mb-3" flat :ripple="false"  color="success"  label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSendBarcode" ></v-switch>
                     </v-card>
 
 
-                    <v-card class="my-3 pa-3 t16500 rounded-lg"  min-height="245" flat  >
+                    <v-card class="my-3 pa-3 t16 w500 rounded-lg"  min-height="245" flat  >
                         <div class="mt-3 d-flex justify-center">
                             <v-img  :src="pickUpTasks?.shps?.sku?.image_url" width="100" height="100"></v-img>
                         </div>
-                        <div class="mt-4 mb-5 t20400 text-center number-font ">
+                        <div class="mt-4 mb-5 t20 w400 text-center number-font ">
                             {{ pickUpTasks?.shps?.id }}
                         </div>
-                        <div class="mx-10 t16500 text-center number-font text-grey">
+                        <div class="mx-10 t16 w500 text-center number-font text-grey">
                             {{ pickUpTasks?.shps?.sku?.label }}
                         </div>
                     </v-card>
@@ -101,7 +101,7 @@
                 <div class="d-flex justify-space-between align-center">
                     <div class="pa-3 d-flex">
                         <HandheldDrawer/>
-                        <span class="t20400">
+                        <span class="t20 w400">
                          جمع آوری کالا
                         </span>
                     </div>
@@ -121,7 +121,7 @@
                             </v-icon>
                         </div>
 
-                        <div class=" mt-8 text-center t20400">
+                        <div class=" mt-8 text-center t20 w400">
                             شناسه شلف را اسکن کنید.
                         </div>
 
@@ -156,15 +156,15 @@
                         <v-icon size="40">
                             mdi-check-circle
                         </v-icon>
-                        <div class="mt-15 mb-7 t20700">
+                        <div class="mt-15 mb-7 t20 w700">
                             جمع آوری با موفقیت انجام شد.
                         </div>
-                        <div class="t20400">
+                        <div class="t20 w400">
                             جمع آوری سفارش با شناسه {{pickUpTasks?.order_id}} با موفقیت انجام شد.
                         </div>
                     </div>
 
-                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                    <div class="px-5 d-flex justify-center t16 w500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
                         <v-btn
                             variant="outlined"
                             height="40"
@@ -195,15 +195,15 @@
                         <v-icon size="40">
                             mdi-alert-circle
                         </v-icon>
-                        <div class="mt-15 mb-7 t20700">
+                        <div class="mt-15 mb-7 t20 w700">
                             جمع آوری سفارش انجام نشد.
                         </div>
-                        <div class="t20400">
+                        <div class="t20 w400">
                             کالایی برای جمع آوری یافت نشد.
                         </div>
                     </div>
 
-                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                    <div class="px-5 d-flex justify-center t16 w500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
                         <v-btn
                             variant="outlined"
                             height="40"
@@ -234,15 +234,15 @@
                         <v-icon size="40" color="black">
                             mdi-check-circle
                         </v-icon>
-                        <div class="mt-15 mb-7 t20700">
+                        <div class="mt-15 mb-7 t20 w700">
                             جمع آوری سفارش با کسری بسته شد.
                         </div>
-                        <div class="t20400">
+                        <div class="t20 w400">
                             جمع آوری سفارش با شناسه {{pickUpTasks?.order_id}} با کسری انجام شد.
                         </div>
                     </div>
 
-                    <div class="px-5 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                    <div class="px-5 d-flex justify-center t16 w500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
                         <v-btn
                             variant="outlined"
                             height="40"
@@ -273,12 +273,12 @@
                         <v-icon size="40">
                             mdi-alert-circle
                         </v-icon>
-                        <div class="mt-15 t20700">
+                        <div class="mt-15 t20 w700">
                             کالایی برای جمع آوری یافت نشد.
                         </div>
                     </div>
 
-                    <div class="px-15 d-flex justify-center t16500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
+                    <div class="px-15 d-flex justify-center t16 w500" style="  position: absolute; bottom: 30px; left: 0;right: 0;">
                         <v-btn
                             height="40"
                             flat

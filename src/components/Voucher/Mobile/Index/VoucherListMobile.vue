@@ -31,7 +31,7 @@
         </v-row>
 
         <v-card v-for="(voucher, i) in voucherList" :key="i"
-                class=" pa-3 mx-5 my-2 br-12 flex-grow-1 d-flex flex-column align-stretch">
+                class=" pa-3 mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch">
 
             <v-row no-gutters class="t12 w500 number-font " >
                 <v-col cols="12" class="my-1">
@@ -100,7 +100,7 @@
         </v-card>
 
 
-        <v-card class=" py-3 mx-5 my-2  br-12">
+        <v-card class=" py-3 mx-5 my-2  br--12">
             <v-row class="px-8 align-center justify-center" no-gutters >
 
                 <v-col cols="12" class="mb-2 d-flex justify-center">

@@ -18,7 +18,7 @@
                 mdi-barcode-scan
               </v-icon>
             </div>
-            <span class="t20400">
+            <span class="t20 w400">
               برای شروع عملیات فاکتور را اسکن کنید
             </span>
           </div>
@@ -37,7 +37,7 @@
                   <span class="t14 w400">
                      کد محصول:
                   </span>
-                  <span class="t16400">
+                  <span class="t16 w400">
                    {{ shps?.shps }}
                   </span>
                 </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
-    <v-card height="300" class="ma-5 br-12 ">
+    <v-card height="300" class="ma-5 br--12 ">
       <v-row
           justify="center"
           align="center"

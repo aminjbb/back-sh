@@ -6,7 +6,7 @@
         <div class="px-5 pt-8 text-right">
           <img src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
         </div>
-        <div class="text-center mb-5 t16700">
+        <div class="text-center mb-5 t16 w700">
           صورت حساب الکترونیکی فروش
         </div>
         <div>
