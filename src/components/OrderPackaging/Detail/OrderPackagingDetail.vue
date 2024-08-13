@@ -47,14 +47,12 @@
             </v-row>
         </v-card>
 
-        <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch">
-            <Table
-                ref="oredrDetailFunc"
+        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch">
+            <ShTable
                 class="flex-grow-1"
-                :header="detailInfo"
-                :items="orderDetail"
+                :headers="detailInfo"
+                :items="itemListTable"
                 :loading="loading"
-                deletePath="report/crud/delete/"
             />
 
             <v-divider/>
@@ -109,7 +107,6 @@
 
 <script>
 import {ref} from 'vue'
-import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
@@ -118,14 +115,15 @@ import ModalChangeMethod from "@/components/OrderPackaging/Detail/Modal/ChangeSe
 import {openToast, closeToast} from "@/assets/js/functions";
 import axios from "axios";
 import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   components: {
     ModalNotAvailableOrder,
-    Table,
     ModalRejectOrder,
     Modal,
-    ModalChangeMethod
+    ModalChangeMethod,
+    ShTable
   },
 
     data() {
@@ -135,7 +133,8 @@ export default {
             orderDetail: [],
             dialog: false,
             sendingMethods:[],
-            currentSendingMethod:null
+            currentSendingMethod:null,
+            itemListTable: []
         }
     },
     setup() {
@@ -251,6 +250,27 @@ export default {
 
     mounted() {
         if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
+    },
+
+    watch: {
+        orderDetail() {
+            this.itemListTable = []
+            this.orderDetail.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        data: item,
+                        id: item.id,
+                        admin_name: item.admin_name,
+                        sorting_placement: item.sorting_placement,
+                        packing_status: item.packing_status,
+                        shps: item.shps,
+                        sku_label: item.sku_label ? item.sku_label : 'نامعلوم',
+                        shpss_barcode: item.shpss_barcode ? item.shpss_barcode : 'نامعلوم',
+                        image: item?.sku_image?.image_url
+                    }
+                )
+            })
+        },
     }
 }
 </script>

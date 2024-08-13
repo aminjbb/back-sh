@@ -28,15 +28,16 @@ export default function setup(posts) {
         { name: 'تلورانس بالا', show: false, value:'high_tolerance', order: false },
     ]);
     const header =ref([
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسه پنل' , show:true, value:'id', order: false},
-        {name:'شناسه کوثر' , show:true, value:'kosar_id', order: false},
-        {name:'نام فروشگاه' , show:true, value:'shopping_name', order: false},
-        {name:'نوع فروشنده' , show:true, value:'type', order: false},
-        { name: 'ایمیل', show:true, value:'email', order: false},
-        { name: 'یازه پرداخت', show:true, value:'payment_period', order: false},
-        {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', sortable: false, align:'center'},
+        {name:'شناسه پنل' ,title:'شناسه پنل' , show:true, key:'id', sortable: false, align:'center'},
+        {name:'شناسه کوثر' ,title:'شناسه کوثر' , show:true, key:'kosar_id', sortable: false, align:'center'},
+        {name:'نام فروشگاه' ,title:'نام فروشگاه' , show:true, key:'shopping_name', sortable: false, align:'center'},
+        {name:'نوع فروشنده' ,title:'نوع فروشنده' , show:true, key:'type', sortable: false, align:'center'},
+        {name: 'ایمیل',title: 'ایمیل', show:true, key:'email', sortable: false, align:'center'},
+        {name: 'یازه پرداخت',title: 'یازه پرداخت', show:true, key:'payment_period', sortable: false, align:'center'},
+        {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد' , show:true, key:'created_at_fa', align:'center'},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'is_active', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const headerSku =ref([
@@ -56,11 +57,11 @@ export default function setup(posts) {
         ]
     );
     const headerWarehouseInventoryHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'موجودی قبل', show: true, value: 'old_inventory', order:false },
-        { name: 'تغییر موجودی', show: true, value: 'change_inventory', order:false },
-        { name: 'موجودی جدید', show: true, value: 'new_inventory', order:false },
-        { name: 'تاریخ', show: true, value: 'created_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'موجودی قبل',title: 'موجودی قبل', show: true, key: 'previous_site_stock', sortable:false, align: 'center'},
+        { name: 'تغییر موجودی',title: 'تغییر موجودی', show: true, key: 'custom', sortable:false, align: 'center'},
+        { name: 'موجودی جدید',title: 'موجودی جدید', show: true, key: 'site_stock', sortable:false, align: 'center'},
+        { name: 'تاریخ',title: 'تاریخ', show: true, key: 'created_at', align: 'center'},
     ]
     );
     const headerSiteInventoryHistory =ref([
@@ -72,12 +73,12 @@ export default function setup(posts) {
     ]
     );
     const headerPriceHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order:false },
-        { name: 'تخفیف پایه', show: true, value: 'basic_discount', order:false },
-        { name: 'تخفیف مارکتینگ', show: true, value: 'marketing_discount', order:false },
-        { name: 'قیمت فروش', show: true, value: 'sale_price', order:false },
-        { name: 'تاریخ ویرایش', show: true, value: 'updated_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price', sortable:false, align: 'center'},
+        { name: 'تخفیف پایه',title: 'تخفیف پایه', show: true, key: 'base_discount', sortable:false, align: 'center'},
+        { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true, key: 'marketing_discount', sortable:false, align: 'center'},
+        { name: 'قیمت فروش',title: 'قیمت فروش', show: true, key: 'site_price', sortable:false, align: 'center'},
+        { name: 'تاریخ ویرایش',title: 'تاریخ ویرایش', show: true, key: 'created_at_fa', align: 'center'},
     ]
     );
 

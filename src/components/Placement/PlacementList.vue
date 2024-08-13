@@ -19,18 +19,40 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
+    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="placementList.data"
+          :headers="header"
+          :items="itemListTable"
           :page="page"
           :perPage="dataTableLength"
           :loading="loading"
-          @updateList="updateList"
-          deletePath="placement/crud/delete/"
-          model="placement"/>
+      >
+          <template v-slot:actionSlot="item">
+              <div class="text-center">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                      mdi-dots-vertical
+                  </v-icon>
+              </div>
 
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                  <v-list class="c-table__more-options">
+                      <v-list-item-title>
+                          <div class="ma-5 pointer d--rtl" @click="$router.push(`/placement/${item.data.id}/shpss`)">
+                              <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t14300">
+                                    مدیریت کالاها
+                              </span>
+                          </div>
+                      </v-list-item-title>
+
+                      <v-list-item-title>
+                          <ModalPrint :id="item.data.id" />
+                      </v-list-item-title>
+                  </v-list>
+              </v-menu>
+          </template>
+      </ShTable>
       <v-divider/>
 
       <v-card-actions class="pb-3">
@@ -74,14 +96,16 @@
 </template>
 
 <script>
-import Table from '@/components/Placement/Table/Table.vue'
 import Placement from "@/composables/Placement";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import ModalPrint from "@/components/Placement/Modal/PrintModal.vue";
 
 export default {
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      itemListTable: []
     }
   },
   setup() {
@@ -109,7 +133,8 @@ export default {
 
   components: {
     PanelFilter,
-    Table,
+    ShTable,
+    ModalPrint,
   },
 
   computed: {
@@ -122,7 +147,6 @@ export default {
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
-
     updateList(status) {
       if (status === 'true') {
         this.getPlacementList();
@@ -169,7 +193,27 @@ export default {
     },
     $route() {
       this.getPlacementList()
+    },
+
+    placementList() {
+        if(this.placementList.data) {
+
+        this.itemListTable = []
+        this.placementList.data.forEach((item) => {
+            this.itemListTable.push(
+                {
+                    data: item,
+                    id: item.id,
+                    row_number: item.row_number ? item.row_number : '-',
+                    placement_number: item.placement_number ? item.placement_number : '-',
+                    step_number: item.step_number ? item.step_number : '-',
+                    shelf_number: item.shelf_number ? item.shelf_number : '-',
+                    created_at_fa: item.created_at_fa ? item.created_at_fa : '-',
+                }
+            )
+        })
     }
+},
   }
 }
 </script>

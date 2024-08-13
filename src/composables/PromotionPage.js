@@ -27,11 +27,13 @@ export default function setup() {
 
     ]);
     const skuGroupHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام کالا', show: true , value:'name', order: false},
-        { name: 'شناسه کالا', show: true , value:'label', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'priority' , order: true},
-        { name: 'ذخیره ', show: true, value:'id' , order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row', sortable:false, align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true , key:'sku_label', sortable: false, align:'center'},
+        { name: 'شناسه کالا',title: 'شناسه کالا', show: true , key:'id', sortable: false, align:'center'},
+        { name: 'ترتیب نمایش',title: 'ترتیب نمایش', show: true, key:'custom', align:'center'},
+        { name: 'ذخیره ',title: 'ذخیره ', show: true, key:'custom2' , sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action', fixed: true},
+
     ]);
 
     const filterFieldPromotionSku = [

@@ -7,13 +7,14 @@ import {openToast} from "@/assets/js/functions";
 export default function setup() {
 
     const header = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: 'شناسه  shps' , show:true, value:'shps', order: false},
-        {name: 'نام کالا ', show: true, value: 'sku_label', order: false},
-        {name: 'تعداد درخواستی' , show:true, value:'count', order: false},
-        {name: 'تعداد پیک شده' , show:true, value:'picked_count', order: false},
-        {name: 'نام پیک آپر ', show: true, value: 'pick_upper', order: false},
-        {name: ' تاریخ بررسی ', show: true, value: 'updated_at_fa', order: true},
+        {name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable: false, align:'center'},
+        {name: 'شناسه  shps' ,title: 'شناسه  shps' , show:true, key:'shps', sortable: false, align:'center'},
+        {name: 'نام کالا ',title: 'نام کالا ', show: true, key: 'sku_label', sortable: false, align:'center'},
+        {name: 'تعداد درخواستی' ,title: 'تعداد درخواستی' , show:true, key:'count', sortable: false, align:'center'},
+        {name: 'تعداد پیک شده' ,title: 'تعداد پیک شده' , show:true, key:'picked_count', sortable: false, align:'center'},
+        {name: 'نام پیک آپر ',title: 'نام پیک آپر ', show: true, key: 'pick_upper', sortable: false, align:'center'},
+        {name: ' تاریخ بررسی ',title: ' تاریخ بررسی ', show: true, key: 'updated_at_fa', align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = ref([

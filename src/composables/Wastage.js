@@ -12,16 +12,17 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'سریال کالا', show: true , value:'shps_s', order: false},
-        { name: 'نام کالا', show: true , value:'shps_label', order: false},
-        { name: 'شناسه بسته', show: true , value:'id', order: false},
-        { name: 'نوع بسته', show: true, value:'package_type' , order: false},
-        { name: 'شناسه محموله', show: true , value:'shipment_id', order: false},
-        { name: 'نوع محموله', show: true , value:'shipment_type', order: false},
-        { name: 'نام فروشگاه', show: true , value:'shopping_name', order: false},
-        { name: 'نام سازنده', show: true , value:'creator_id', order: false},
-        { name: 'تاریخ افزودن به لیست', show: true , value:'created_at', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'سریال کالا',title: 'سریال کالا', show: true , key:'shpss', sortable: false, align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true , key:'shps_label', sortable: false, align:'center'},
+        { name: 'شناسه بسته',title: 'شناسه بسته', show: true , key:'package_id', sortable: false, align:'center'},
+        { name: 'نوع بسته',title: 'نوع بسته', show: true, key:'package_type' , sortable: false, align:'center'},
+        { name: 'شناسه محموله',title: 'شناسه محموله', show: true , key:'shipment_id', sortable: false, align:'center'},
+        { name: 'نوع محموله',title: 'نوع محموله', show: true , key:'shipment_type', sortable: false, align:'center'},
+        { name: 'نام فروشگاه',title: 'نام فروشگاه', show: true , key:'shopping_name', sortable: false, align:'center'},
+        { name: 'نام سازنده',title: 'نام سازنده', show: true , key:'creator', sortable: false, align:'center'},
+        { name: 'تاریخ افزودن به لیست',title: 'تاریخ افزودن به لیست', show: true , key:'created_at_fa', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const createHeader =ref([

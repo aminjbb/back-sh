@@ -23,19 +23,28 @@
                         </v-col>
                     </v-row>
                 </v-card>
-                <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-                    <Table
-                        @resetPage="resetPage"
+                <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+                    <ShTable
                         class="flex-grow-1"
-                        :header="pricingHeader"
-                        :items="priceList.shps_list"
+                        :headers="pricingHeader"
+                        :items="itemListTable"
                         :page="1"
                         :perPage="dataTableLength"
-                        @updateList="updateList"
-                        @showSave="showSave"
                         :loading="loading"
-                        model="factor" />
-
+                    >
+                        <template v-slot:customSlot="item">
+                            <v-text-field  v-model="item.data.custom"  hide-details  variant="outlined"  class="number-font"  type="number" />
+                        </template>
+                        <template v-slot:customSlot2="item">
+                            <v-text-field  v-model="item.data.custom2"  hide-details  variant="outlined"  class="number-font"  type="number" />
+                        </template>
+                        <template v-slot:customSlot3="item">
+                            <div class="seller__add-sku-btn d-flex justify-center align-center pointer"
+                                @click="updatePricing(item.data)">
+                                <v-icon size="15">{{item.data.custom3}}</v-icon>
+                            </div>
+                        </template>
+                    </ShTable>
                     <v-divider />
                     <div class="pb-3 d-block" style="min-height: 135px;">
                         <div class="px-8 w-100">
@@ -161,26 +170,27 @@ import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 
-import {
-    splitChar
-} from "@/assets/js/functions";
-import Table from '@/components/Factor/Table/PricingTable.vue'
+import {openToast, splitChar} from "@/assets/js/functions";
 import Factor from "@/composables/Factor";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
+
 export default {
     components: {
         DashboardLayout,
         Header,
         ModalGroupAdd,
         ModalExcelDownload,
-        Table,
+        ShTable,
     },
 
     data() {
         return {
             showSaveButton: false,
-            perPageFilter:false
+            perPageFilter:false,
+            itemListTable: []
         }
     },
 
@@ -211,30 +221,44 @@ export default {
 
     methods: {
         splitChar,
-
-        updateList(status) {
-            if (status === 'true') {
-                this.getPricingList();
-            }
-        },
-
-        showSave(status) {
-            if (status === 'true') {
-                this.showSaveButton = true;
-            }
-        },
-
         formatProfit(num) {
             return Number(num.toFixed(2));
         },
-
         resetPage(){
             this.perPageFilter = true
             this.page = 1
             setTimeout(()=>{
                 this.perPageFilter = false
             }, 1000)
-        }
+        },
+
+        async updatePricing(item) {
+            const formData = new FormData()
+            formData.append('buying_price', item.custom)
+            formData.append('customer_price', item.custom2)
+            const AxiosMethod = new AxiosCall()
+            AxiosMethod.using_auth = true
+            AxiosMethod.form = formData
+            AxiosMethod.store = this.$store;
+            AxiosMethod.token = this.$cookies.get('adminToken')
+            AxiosMethod.end_point = `factor/crud/update/${this.$route.params.id}/shps/price/${item.shps}`
+            let data = await AxiosMethod.axios_post();
+
+            if (data) {
+                openToast(
+                    this.$store,
+                    'اطلاعات با موفقیت ویرایش شد',
+                    'success');
+
+                await this.getPricingList();
+            } else {
+                openToast(
+                    this.$store,
+                    'عملیات با خطا مواجه شد.',
+                    'error');
+            }
+        },
+
     },
 
     mounted() {
@@ -263,14 +287,45 @@ export default {
             }
             this.perPageFilter = false
         },
-
         $route(){
             this.getPricingList()
         },
-
         page(){
             if (!this.perPageFilter){
                 this.getPricingList()
+            }
+        },
+
+        priceList() {
+            if(this.priceList.shps_list) {
+
+                this.itemListTable = []
+                this.priceList.shps_list.forEach((item) => {
+                    this.itemListTable.push(
+                        {
+
+                            /*custom: buying_price
+                              custom2: customer_price
+                              custom3: icon
+                              */
+                            data: item,
+                            shps: item.shps,
+                            sku: item.sku ? item.sku : '-',
+                            shps_requested_count: item.shps_requested_count ? item.shps_requested_count : '-',
+                            shps_received_count: item.shps_received_count ? item.shps_received_count: '-',
+                            custom: item.buying_price,
+                            custom2: item.customer_price,
+                            requested_buying_price_sum: splitChar(item.requested_buying_price_sum),
+                            received_buying_price_sum: splitChar(item.received_buying_price_sum),
+                            requested_customer_price_sum: splitChar(item.requested_customer_price_sum),
+                            received_customer_price_sum: splitChar(item.received_customer_price_sum),
+                            sum_buying_price: item.sum_buying_price || item.sum_buying_price === 0 ? splitChar(item.sum_buying_price) : '-',
+                            sum_customer_price: item.sum_customer_price || item.sum_customer_price === 0 ? splitChar(item.sum_customer_price) : '-',
+                            requested_profit_percent : item.requested_profit_percent || item.requested_profit_percent === 0 ? item.requested_profit_percent : '-',
+                            custom3: 'mdi-plus'
+                        }
+                    )
+                })
             }
         },
     }
