@@ -93,7 +93,8 @@ export default {
     btnColor:'',
     btnVariant:'outlined',
     plusIcon : false,
-    isSnap : false
+    isSnap : false,
+    isDeliveryCode : false
   },
 
   data() {
@@ -185,6 +186,9 @@ export default {
           this.updateShps(data.data.shps_list)
         }
         else if(this.isSnap) this.$emit('updateList' , data.data)
+        else if (this.isDeliveryCode) {
+          this.$emit('updateList',  data.data)
+        }
 
         this.templateLoading = false
 

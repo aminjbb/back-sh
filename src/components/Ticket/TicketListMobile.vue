@@ -1,0 +1,340 @@
+<template>
+  <div class="h-100 d-flex flex-column align-stretch scroller">
+    <div class="mx-5">
+      <!-- filter -->
+      <div class="d-flex justify-end">
+        <PanelFilterMobile
+            @resetPage="resetPage"
+            path="ticket/index"
+            :filterField="filterField"
+            :statusItems="statusTicket"
+            :priorityItems="priorityList"
+        />
+      </div>
+
+      <!-- cards -->
+      <div
+          v-for="(item, itemIndex) in allTickets"
+          :key="itemIndex"
+          class="">
+        <v-card class="py-5 px-5 mt-5">
+          <div class="d-flex align-center justify-space-between">
+                <div class="">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> عنوان : </span>
+                  <span class="t12500 number-font"> {{ item.title }} </span>
+                </div>
+                <div class="">
+                  <v-chip
+                      class="ma-2 rounded-lg t10400"
+                      :color="getStatusColor(item.status)"
+                      text-color="white">
+                    {{getStatusText(item.status)}}
+                  </v-chip>
+                </div>
+              </div>
+
+          <div class="d-flex align-center justify-space-between">
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> شماره تیکت : </span>
+                  <span class="t12500 number-font"> {{ item.code }} </span>
+                </div>
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> شناسه تیکت : </span>
+                  <span class="t12500">  {{ item.id }} </span>
+                </div>
+              </div>
+
+          <div class="d-flex align-center justify-space-between">
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> اولویت: </span>
+                  <span class="t12500 number-font"> {{ getPriorityText(item.priority) }} </span>
+                </div>
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> کاربر: </span>
+                  <span class="t12500 number-font">  {{ item.user.first_name }} {{ item.user.last_name }}</span>
+                </div>
+              </div>
+
+          <div class="d-flex align-center justify-space-between">
+                <div class="mt-3">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12500"> امتیاز: </span>
+                  <span class="t12500 number-font"> یسرا فیلی </span>
+                </div>
+              </div>
+
+          <div class="d-flex justify-space-between mt-3">
+            <BottomSheetTicket :item="item" :title="`اطلاعات تیکت`"/>
+            <v-btn
+                @click="$router.push(`/ticket/get/${item.id}`)"
+                color="primary500"
+                width="142"
+                height="24"
+                rounded
+                class="text-white t12500">
+              <v-icon icon="mdi-eye" class="mx-1"/>
+              نمایش
+            </v-btn>
+          </div>
+        </v-card>
+      </div>
+
+      <!-- pagination -->
+      <div class="my-3">
+        <v-row justify="center">
+          <v-col cols="12">
+            <v-pagination
+                v-model="page"
+                :length="pageLength"
+                rounded="circle"
+                size="40"
+                :total-visible="7"
+                prev-icon="mdi-chevron-right"
+                next-icon="mdi-chevron-left"/>
+          </v-col>
+          <v-col cols="12">
+            <div
+                id="rowSection"
+                class="d-flex justify-center align-center">
+              <span class="ml-5">تعداد سطر در هر صفحه</span>
+              <span id="row-selector">
+                <v-select
+                    v-model="dataTableLength"
+                    class="t1330"
+                    variant="outlined"
+                    :items="[25,50,100]" />
+              </span>
+            </div>
+          </v-col>
+        </v-row>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
+import Ticket from '@/composables/Ticket';
+import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
+import BottomSheetTicket from "@/components/BottomSheetTicket.vue";
+
+export default {
+  data() {
+    return {
+      perPageFilter: false
+    }
+  },
+  components: {
+    PanelFilterMobile,
+    Table,
+    BottomSheetTicket,
+  },
+
+  setup() {
+    const statusTicket = [
+      {
+        label: 'همه وضعیت‌ها',
+        value: ''
+      },
+      {
+        label: 'باز',
+        value: 'open'
+      },
+      {
+        label: 'پاسخ داده شده',
+        value: 'answered'
+      },
+      {
+        label: 'بسته شده',
+        value: 'resolved'
+      },
+      {
+        label: 'در حال بررسی',
+        value: 'pending'
+      }
+    ]
+    const priorityList = [
+      {
+        label: 'همه اولیوت‌ها',
+        value: ''
+      },
+      {
+        label: 'ضروری',
+        value: 'urgent'
+      },
+      {
+        label: 'پایین',
+        value: 'low'
+      },
+      {
+        label: 'بالا',
+        value: 'high'
+      },
+      {
+        label: 'متوسط',
+        value: 'medium'
+      }
+    ]
+
+    const {
+      pageLength,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      item,
+      loading,
+      getTicketList,
+      allTickets
+    } = Ticket();
+    return {
+      pageLength,
+      filterField,
+      dataTableLength,
+      page,
+      header,
+      item,
+      loading,
+      getTicketList,
+      allTickets,
+      statusTicket,
+      priorityList
+    };
+  },
+
+  mounted() {
+    this.getTicketList();
+    this.setEcho();
+
+  },
+
+  methods: {
+    changeHeaderShow(index, value) {
+      this.header[index].show = value
+    },
+
+    setEcho() {
+      if (this.$cookies.get('adminToken')) {
+        setTimeout(() => {
+          window.Echo.channel(`admin.ticket`).listen('TicketCreated', (event) => {
+            this.getTicketList()
+          })
+        }, 300)
+      }
+    },
+
+    resetPage() {
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(() => {
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    getPriorityText(priority) {
+      const text = '';
+
+      if (priority == 'urgent') {
+        return 'ضروری';
+      }
+      if (priority == 'low') {
+        return 'پایین';
+      }
+      if (priority == 'high') {
+        return 'بالا';
+      }
+      if (priority == 'medium') {
+        return 'متوسط';
+      }
+
+      return 'معمولی';
+    },
+
+    getStatusColor(status) {
+      const color = '';
+
+      if (status == 'open') {
+        return 'blue';
+      }
+      if (status == 'answered') {
+        return 'green';
+      }
+      if (status == 'resolved') {
+        return 'grey-lighten-1';
+      }
+      if (status == 'pending') {
+        return 'warning';
+      }
+
+      return '';
+    },
+
+    getStatusText(status) {
+      const text = '';
+
+      if (status == 'open') {
+        return 'باز';
+      }
+      if (status == 'answered') {
+        return 'پاسخ داده شده';
+      }
+      if (status == 'resolved') {
+        return 'بسته شده';
+      }
+      if (status == 'pending') {
+        return 'در حال بررسی';
+      }
+
+      return 'نامعلوم';
+    },
+
+    scrollToTop(container) {
+      const element = document.querySelector(container)
+      if (element) {
+        element.scrollTo({top:0, behavior: 'smooth'})
+      }
+    },
+
+    pageChanged () {
+      this.scrollToTop('.scroller')
+    }
+  },
+
+  watch: {
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      } else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+    page() {
+      this.pageChanged()
+      if (!this.perPageFilter) {
+        this.getTicketList()
+      }
+    },
+    $route() {
+      this.getTicketList()
+    }
+  }
+}
+</script>

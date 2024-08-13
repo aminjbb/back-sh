@@ -309,6 +309,7 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
+import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
 
 
 const router = createRouter({
@@ -654,6 +655,36 @@ const router = createRouter({
                 component: TicketList,
                 meta: {
                     name: 'تیکت ها'
+                }
+            },
+                {
+                    path: 'create',
+                    name: 'createTicket',
+                    component: CreateNewTickets,
+                    meta: {
+                        name: 'ساخت تیکت'
+                    }
+                }, {
+                    path: 'get/:ticketId',
+                    name: 'getTicket',
+                    component: GetTicketView,
+                    meta: {
+                        name: 'تیکت'
+                    }
+                },
+            ],
+        },
+        {
+            path: '/delivery-code', // Notification routes
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [{
+                path: 'index',
+                name: 'DeliveryCode',
+                component: DeliveryCodeView,
+                meta: {
+                    name: 'ویرایش کد ارسال'
                 }
             },
                 {
