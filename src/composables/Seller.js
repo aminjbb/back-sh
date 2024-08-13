@@ -73,12 +73,12 @@ export default function setup(posts) {
     ]
     );
     const headerPriceHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order:false },
-        { name: 'تخفیف پایه', show: true, value: 'basic_discount', order:false },
-        { name: 'تخفیف مارکتینگ', show: true, value: 'marketing_discount', order:false },
-        { name: 'قیمت فروش', show: true, value: 'sale_price', order:false },
-        { name: 'تاریخ ویرایش', show: true, value: 'updated_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price', sortable:false, align: 'center'},
+        { name: 'تخفیف پایه',title: 'تخفیف پایه', show: true, key: 'base_discount', sortable:false, align: 'center'},
+        { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true, key: 'marketing_discount', sortable:false, align: 'center'},
+        { name: 'قیمت فروش',title: 'قیمت فروش', show: true, key: 'site_price', sortable:false, align: 'center'},
+        { name: 'تاریخ ویرایش',title: 'تاریخ ویرایش', show: true, key: 'created_at_fa', align: 'center'},
     ]
     );
 

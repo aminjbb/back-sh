@@ -39,20 +39,15 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
+        <ShTable
             @resetPage="resetPage"
             class="flex-grow-1"
-            :header="headerPriceHistory"
-            :items="priceHistory.data"
+            :headers="headerPriceHistory"
+            :items="itemListTable"
             :page="page"
             :perPage="dataTableLength"
-            editUrl="/seller/edit/"
-            activePath="seller/crud/update/activation/"
-            changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
-            @updateList="updateList"
-            updateUrl="seller/csv/mass-update"
-            model="price" />
+             />
 
         <v-divider />
 
@@ -99,13 +94,16 @@
 </template>
 
 <script>
-import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 import Seller from "@/composables/Seller";
 import Sku from "@/composables/Sku";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {splitChar} from "@/assets/js/functions";
+
 export default {
+
   setup() {
     const {getSkue, sku} = new Sku()
     const {
@@ -135,15 +133,16 @@ export default {
   },
 
   components: {
-    Table,
     ModalColumnFilter,
     ModalExcelDownload,
-    PanelFilter
+    PanelFilter,
+    ShTable
   },
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: []
     }
   },
 
@@ -151,20 +150,14 @@ export default {
     changeHeaderShow(index, value) {
       this.headerPriceHistory[index].show = value
     },
-
-    updateList(status) {
-      if (status === 'true') {
-        this.getPriceHistory();
-      }
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+    splitChar
   },
 
   mounted() {
@@ -194,16 +187,32 @@ export default {
       }
       this.perPageFilter = false
     },
-
     $route(){
       this.getPriceHistory()
     },
-
     page(){
       if (!this.perPageFilter){
         this.getPriceHistory()
       }
     },
+
+      priceHistory() {
+          if(this.priceHistory.data) {
+
+              this.itemListTable = []
+              this.priceHistory.data.forEach((item) => {
+                  this.itemListTable.push(
+                      {
+                          customer_price: this.splitChar(item.customer_price),
+                          base_discount: item.base_discount,
+                          marketing_discount: item.marketing_discount,
+                          site_price: this.splitChar(item.site_price),
+                          created_at_fa: item.created_at_fa,
+                      }
+                  )
+              })
+          }
+      },
   }
 }
 </script>
