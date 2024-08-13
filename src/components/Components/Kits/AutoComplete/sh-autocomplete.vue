@@ -58,7 +58,7 @@ export default {
     props: {
         label: {
             type: String,
-            default: undefined
+            default: ''
         },
         singleLine:{
             type: Boolean,
@@ -75,12 +75,12 @@ export default {
 
 
         classList: {
-            type: Array,
-            default: []
+            type: String,
+            default: ''
         },
         labelClass: {
             type: String,
-            default: undefined
+            default: ''
         },
         rules:{
             type: Array,
@@ -92,17 +92,17 @@ export default {
         },
         itemTitle:{
             type: String,
-            default: undefined
+            default: ''
         },
         itemValue:{
             type: String,
-            default: undefined
+            default: ''
             },
 
 
         placeholder:{
             type: String,
-            default: undefined
+            default: ''
         },
         persistentPlaceholder:{
             type: Boolean,
@@ -183,5 +183,11 @@ export default {
             default: undefined
         },
     },
+
+    methods:{
+      changeValue(){
+        this.$emit('changeValue' , this.value)
+      }
+    }
 }
 </script>

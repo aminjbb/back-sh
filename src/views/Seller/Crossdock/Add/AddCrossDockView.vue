@@ -1,6 +1,6 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout />
+    <DashboardLayout/>
     <v-main class="h-100vh">
       <Header />
       <!--      <AddCrossDock />-->

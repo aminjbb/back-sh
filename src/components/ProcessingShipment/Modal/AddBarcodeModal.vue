@@ -138,3 +138,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.check__barcode-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+</style>

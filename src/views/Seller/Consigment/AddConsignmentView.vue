@@ -1,8 +1,8 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout />
+    <DashboardLayout/>
     <v-main class="h-100vh">
-      <Header />
+      <Header/>
       <!--      <AddShpsToSellerConsigment />-->
       <div class="h-100 d-flex flex-column align-stretch ">
         <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
@@ -29,7 +29,8 @@
 
                         <v-col cols="4">
 
-                          <div @click="assignSku(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
+                          <div @click="assignSku(item.props.value)"
+                               class="seller__add-sku-btn d-flex justify-center align-center">
                             <v-icon>mdi-plus</v-icon>
                           </div>
 
@@ -40,7 +41,7 @@
                               :max-lines='1'
                               autoResize
                               location="start"
-                              class="text-gray500 t14 w300 text-right" />
+                              class="text-gray500 t14 w300 text-right"/>
                         </v-col>
                       </v-row>
                     </v-list-item>
@@ -74,9 +75,9 @@
               :loading="loading"
               @updateList="updateList"
               updateUrl="seller/csv/mass-update"
-              model="sellerConsigment" />
+              model="sellerConsigment"/>
 
-          <v-divider />
+          <v-divider/>
 
           <v-card-actions class="pb-3">
             <v-row class="px-8">
@@ -89,7 +90,7 @@
               </v-col>
 
               <v-col cols="3" class="d-flex justify-end">
-                <div  class="d-flex align-center">
+                <div class="d-flex align-center">
                   <v-btn
                       rounded
                       variant="text"

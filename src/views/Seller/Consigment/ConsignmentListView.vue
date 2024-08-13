@@ -1,8 +1,8 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout />
+    <DashboardLayout/>
     <v-main class="h-100vh">
-      <Header />
+      <Header/>
       <!--      <ConsignmentList />-->
       <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
@@ -27,7 +27,7 @@
 
             <v-col cols="6">
               <v-row justify="end">
-                <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
+                <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header"/>
                 <PanelFilter
                     path="retail-shipment/index"
                     :filterField="filterFieldAllRetail"
@@ -52,14 +52,14 @@
               deletePath="shipment/consignment/crud/delete/"
               :loading="loading"
               updateUrl="seller/csv/mass-update"
-              model="seller" />
+              model="seller"/>
 
-          <v-divider />
+          <v-divider/>
 
           <v-card-actions class="pb-3">
             <v-row class="px-8">
               <v-col cols="3" class="d-flex justify-start">
-                <ModalExcelDownload getEndPoint="cargo/csv/export" />
+                <ModalExcelDownload getEndPoint="cargo/csv/export"/>
               </v-col>
               <v-col cols="6" class="d-flex justify-center">
                 <div class="text-center">
@@ -70,7 +70,7 @@
                       size="40"
                       :total-visible="7"
                       prev-icon="mdi-chevron-right"
-                      next-icon="mdi-chevron-left" />
+                      next-icon="mdi-chevron-left"/>
                 </div>
               </v-col>
 
@@ -85,7 +85,7 @@
                      v-model="dataTableLength"
                      class="t1330"
                      variant="outlined"
-                     :items="[25,50,100]" />
+                     :items="[25,50,100]"/>
               </span>
                 </div>
               </v-col>
@@ -96,24 +96,23 @@
     </v-main>
   </v-layout>
 </template>
-
 <script>
 import {defineAsyncComponent} from "vue";
-// const ConsignmentList = defineAsyncComponent(()=> import ('@/components/Seller/Consigment/ConsignmentList.vue'))
-const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/RetailShipment/Table/RetailShipmentTable.vue'
-import RetailShipment from "@/composables/RetailShipment";
-import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
-import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import Table from "@/components/RetailShipment/Table/RetailShipmentTable.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast} from "@/assets/js/functions";
-import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import RetailShipment from "@/composables/RetailShipment";
+import ModalRetailShipmentDetail from "@/components/RetailShipment/Modal/ModalRetailShipmentDetail.vue";
+import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
+import {openToast} from "@/assets/js/functions";
 
+// const ConsignmentList = defineAsyncComponent(() => import ('@/components/Seller/Consigment/ConsignmentList.vue'))
+const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 export default {
   setup() {
-    const statusItems= [
+    const statusItems = [
       {
         label: 'در انتظار',
         value: 'waiting',
@@ -195,13 +194,13 @@ export default {
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
-    DashboardLayout,
-    Header
+    Header,
+    DashboardLayout
   },
 
   data() {
     return {
-      perPageFilter:false
+      perPageFilter: false
     }
   },
 
@@ -216,10 +215,10 @@ export default {
       this.header[index].show = value
     },
 
-    resetPage(){
+    resetPage() {
       this.perPageFilter = true
       this.page = 1
-      setTimeout(()=>{
+      setTimeout(() => {
         this.perPageFilter = false
       }, 1000)
     }
@@ -242,8 +241,7 @@ export default {
             per_page: this.dataTableLength,
           }
         })
-      }
-      else {
+      } else {
         this.$router.push({
           query: {
             per_page: this.dataTableLength,
@@ -253,12 +251,12 @@ export default {
       this.perPageFilter = false
     },
 
-    $route(){
+    $route() {
       this.getRetailShipmentList();
     },
 
-    page(){
-      if (!this.perPageFilter){
+    page() {
+      if (!this.perPageFilter) {
         this.getRetailShipmentList()
       }
     },
