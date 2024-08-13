@@ -2,7 +2,7 @@
   <v-layout class="bg-gray">
     <DashboardLayout/>
     <v-main class="h-100vh">
-      <Header/>
+      <Header />
       <!--      <AddCrossDock />-->
       <section class="create-product flex-column d-flex h-100">
         <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
@@ -16,6 +16,7 @@
           <template v-if="step === 3">
             <AddCrossDockStep3 ref="step3"/>
           </template>
+
 
 
           <footer class="create-product__actions ">
@@ -79,29 +80,30 @@
 
 <script>
 import {defineAsyncComponent} from "vue";
-import AddCrossDockStep1 from "@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep1.vue";
-import AddCrossDockStep3 from "@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep3.vue";
-import AddCrossDockStep2 from "@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep2.vue";
-import Stepper from "@/components/Public/Stepper.vue";
-import {openToast} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
-// const AddCrossDock = defineAsyncComponent(() => import ('@/components/Seller/CrossDock/Add/AddCrossDock.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+// const AddCrossDock = defineAsyncComponent(()=> import ('@/components/Seller/CrossDock/Add/AddCrossDock.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Stepper from '@/components/Public/Stepper.vue'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {convertDateToGregorian, openToast} from "@/assets/js/functions";
+import AddCrossDockStep1 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep1.vue'
+import AddCrossDockStep2 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep2.vue'
+import AddCrossDockStep3 from '@/components/Seller/CrossDock/Add/Steps/AddCrossDockStep3.vue'
+
 export default {
   components: {
     Stepper,
     AddCrossDockStep1,
     AddCrossDockStep2,
     AddCrossDockStep3,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   data: () => ({
     step: 1,
     loading: false,
-    steps: [
+    steps:[
       'انتخاب کالا',
       'نمایش کالاهای انتخاب شده',
       'ارسال به انبار',
@@ -114,55 +116,54 @@ export default {
      * increase step
      */
     increaseStep() {
-      if (this.step === 1) {
+      if (this.step === 1){
         this.step1Validation()
-      }
-      if (this.step === 2) {
+      }if (this.step === 2){
         this.step2Validation()
-      }
-      if (this.step === 3) {
+      }if (this.step === 3){
         this.step3Validation()
       }
     },
-    step1Validation() {
+    step1Validation(){
       console.log(this.$refs.step1.$refs.AddCrossDockStep1Table)
-      setTimeout(() => {
-        if (this.$refs.step1.$refs.AddCrossDockStep1Table.selectedShpsValue.length === 0) {
-          openToast(this.$store,
+      setTimeout(()=>{
+        if (this.$refs.step1.$refs.AddCrossDockStep1Table.selectedShpsValue.length === 0 ){
+          openToast( this.$store,
               'هیچ کالایی هنوز انتخاب نشده است',
               "error")
-        } else {
-          this.$store.commit('set_crossDockSelectedShps', this.$refs.step1.$refs.AddCrossDockStep1Table.selectedShpsValue)
+        }
+        else {
+          this.$store.commit('set_crossDockSelectedShps' , this.$refs.step1.$refs.AddCrossDockStep1Table.selectedShpsValue)
           this.step++
         }
-      }, 200)
+      },200)
     },
-    step2Validation() {
-      this.$store.commit('set_draftCrossDockSelectedShps', this.$refs.step2.$refs.AddCrossDockStep2Table.draftCrossDockSelectedShps)
+    step2Validation(){
+      this.$store.commit('set_draftCrossDockSelectedShps' , this.$refs.step2.$refs.AddCrossDockStep2Table.draftCrossDockSelectedShps)
       this.step++
     },
-    step3Validation() {
+    step3Validation(){
       this.$refs.step3.$refs.CrossDock3.validate()
-      setTimeout(() => {
-        if (this.$refs.step3.valid) {
+      setTimeout(()=>{
+        if (this.$refs.step3.valid){
           this.createCrosDock()
         }
-      }, 200)
+      },200)
     },
     async createCrosDock() {
-      const selectedShps = this.$store.getters['get_crossDockSelectedShps']
+      const selectedShps =  this.$store.getters['get_crossDockSelectedShps']
       this.loading = true
-      let formData = new FormData()
-      selectedShps.forEach((element, index) => {
-        formData.append(`shps_list[${index}][shps]`, element.shps)
-        formData.append(`shps_list[${index}][order_id]`, element.order_id)
-        formData.append(`shps_list[${index}][count]`, element.count)
+      let formData =  new FormData()
+      selectedShps.forEach((element  ,index) =>{
+        formData.append(`shps_list[${index}][shps]`,element.shps)
+        formData.append(`shps_list[${index}][order_id]`,element.order_id)
+        formData.append(`shps_list[${index}][count]`,element.count)
       })
 
-      formData.append('seller_id', this.$route.params.sellerId)
-      formData.append('type', 'cross_dock')
-      formData.append('warehouse_id', this.$refs.step3.warehouse)
-      formData.append('sent_to_warehouse_at', this.$refs.step3.minDate)
+      formData.append('seller_id',this.$route.params.sellerId)
+      formData.append('type','cross_dock')
+      formData.append('warehouse_id',this.$refs.step3.warehouse)
+      formData.append('sent_to_warehouse_at',this.$refs.step3.minDate)
 
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'shipment/crossdock/crud/create'
@@ -197,5 +198,4 @@ export default {
   },
 
 }
-
 </script>

@@ -1,10 +1,9 @@
-
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-<!--      <CreateSellerIndex />-->
+      <!--      <CreateSellerIndex />-->
       <v-card class="mt-5 h-100vh">
         <v-row justify="center" class="pa-15">
           <v-col cols="6">
@@ -68,10 +67,11 @@ import {defineAsyncComponent} from "vue";
 // const CreateSellerIndex = defineAsyncComponent(()=> import ('@/components/Seller/Add/CreateSellerIndex.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+
 export default {
   components:{
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   }
 }
 </script>

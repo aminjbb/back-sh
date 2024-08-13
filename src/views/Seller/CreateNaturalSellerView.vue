@@ -1,11 +1,9 @@
-
-
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-<!--      <CerateNaturalSeller />-->
+      <!--      <CerateNaturalSeller />-->
       <section class="create-product flex-column d-flex h-100">
         <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
         <v-card class="ma-5 br--12 pb-15 flex-grow-1">
@@ -78,31 +76,30 @@
           </footer>
         </v-card>
       </section>
-
     </v-main>
   </v-layout>
 </template>
 
-<script >
+<script>
 import {defineAsyncComponent} from "vue";
-import NaturalSellerStep2 from "@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep2.vue";
-import Stepper from "@/components/Public/Stepper.vue";
-import NaturalSellerStep1 from "@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep1.vue";
-import NaturalSellerStep3 from "@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep3.vue";
-import {openToast} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
 // const CerateNaturalSeller = defineAsyncComponent(()=> import ('@/components/Seller/Add/NaturalSeller/CerateNaturalSeller.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-export default {
+import Stepper from '@/components/Public/Stepper.vue'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast} from "@/assets/js/functions";
+import NaturalSellerStep1 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep1.vue'
+import NaturalSellerStep2 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep2.vue'
+import NaturalSellerStep3 from '@/components/Seller/Add/NaturalSeller/Steps/NaturalSellerStep3.vue'
 
+export default {
   components: {
     NaturalSellerStep1,
     NaturalSellerStep2,
     NaturalSellerStep3,
     Stepper,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   data: () => ({
@@ -425,3 +422,5 @@ export default {
   }
 }
 </script>
+
+

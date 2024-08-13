@@ -1,13 +1,13 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
       <!--      <UpdateImagesPage/>-->
       <div class="create-product flex-column d-flex v-field">
         <v-card class="ma-5 br--12 pb-15 flex-grow-1 pt-10 v-field" min-height="500">
           <div class="px-15 mb-5">
-            <UploadFileSection @getImage="assignImage"/>
+            <UploadFileSection @getImage="assignImage" />
           </div>
           <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch v-field pb-16">
             <ShTable
@@ -43,12 +43,12 @@
 
               <template v-slot:actionSlot="item">
                 <div class="text-center">
-                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto">
+                  <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
                     mdi-dots-vertical
                   </v-icon>
                 </div>
 
-                <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+                <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
                   <v-list class="c-table__more-options">
                     <v-list-item>
                       <v-list-item-title>
@@ -67,31 +67,29 @@
           </v-card>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
-
-
 </template>
 
 <script>
 import {defineAsyncComponent} from "vue";
-import UploadFileSection from "@/components/Public/UploadFileSection.vue";
-import ShTable from "@/components/Components/Table/sh-table.vue";
-import ContentForm from "@/components/Pages/Update/Content/ContentForm.vue";
-import Page from "@/composables/Page";
-import {AxiosCall} from "@/assets/js/axios_call";
-import {openConfirm, openToast} from "@/assets/js/functions";
 // const UpdateImagesPage = defineAsyncComponent(()=> import ('@/components/Pages/Update/Images/UpdateImagesPage.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import ContentForm from "@/components/Pages/Update/Content/ContentForm.vue";
+import { AxiosCall } from "@/assets/js/axios_call";
+import { openToast, openConfirm } from "@/assets/js/functions";
+import UploadFileSection from "@/components/Public/UploadFileSection.vue";
+import Page from '@/composables/Page'
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 export default {
   components: {
     UploadFileSection,
     ContentForm,
     ShTable,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   setup() {
@@ -271,8 +269,8 @@ export default {
     this.getPositions()
   },
 
-  watch: {
-    images() {
+  watch:{
+    images(){
       this.itemListTable = []
 
       this.images.forEach((item) =>
@@ -280,7 +278,7 @@ export default {
               {
                 id: item.id,
                 deviceType: item.device_type,
-                position: item.position?.id,
+                position: item.position ?.id,
                 image: item.id,
                 imageId: item.id,
                 imageUrl: item.image_url,
@@ -302,6 +300,6 @@ export default {
     },
   }
 }
-
 </script>
+
 

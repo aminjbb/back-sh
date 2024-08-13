@@ -1,8 +1,8 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
-      <Header/>
+      <Header />
       <!--      <AddSkuToSeller />-->
       <div class="h-100 d-flex flex-column align-stretch sku-seller">
         <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
@@ -28,8 +28,7 @@
 
                         <v-col cols="4">
 
-                          <div @click="assignSkuToSeller(item.props.value)"
-                               class="seller__add-sku-btn d-flex justify-center align-center">
+                          <div @click="assignSkuToSeller(item.props.value)" class="seller__add-sku-btn d-flex justify-center align-center">
                             <v-icon>mdi-plus</v-icon>
                           </div>
 
@@ -98,11 +97,11 @@
 
             <template v-slot:actionSlot="item">
               <div class="text-center">
-                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
                   mdi-dots-vertical
                 </v-icon>
               </div>
-              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
                 <v-list class="c-table__more-options">
 
                   <v-list-item>
@@ -118,8 +117,7 @@
 
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer"
-                           @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.data.sku_id}`)">
+                      <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
                         <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه‌ی موجودی سایت
@@ -185,8 +183,7 @@
 
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer"
-                           @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.data.sku_id}`)">
+                      <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
                         <span class="mr-2 text-grey-darken-1 t14 w300">
                                             تاریخچه ی قیمت
@@ -228,7 +225,7 @@
                       size="40"
                       :total-visible="7"
                       prev-icon="mdi-chevron-right"
-                      next-icon="mdi-chevron-left"/>
+                      next-icon="mdi-chevron-left" />
                 </div>
               </v-col>
 
@@ -253,37 +250,37 @@
           </v-card-actions>
         </v-card>
         <!-- menu modals-->
-        <OrderLimitModal @updateList="updateList"/>
-        <InventoryManagementModal @updateList="updateList"/>
-        <ConsumerPriceModal @updateList="updateList"/>
-        <BasicDiscountModal @updateList="updateList"/>
-        <MarketingDiscountModal @updateList="updateList"/>
+        <OrderLimitModal @updateList="updateList" />
+        <InventoryManagementModal @updateList="updateList" />
+        <ConsumerPriceModal @updateList="updateList" />
+        <BasicDiscountModal @updateList="updateList" />
+        <MarketingDiscountModal @updateList="updateList" />
       </div>
-
     </v-main>
   </v-layout>
 </template>
 
 <script>
 import {defineAsyncComponent} from "vue";
+// const AddSkuToSeller = defineAsyncComponent(()=> import ('@/components/Seller/Sku/AddSkuToSeller.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Table from '@/components/Seller/Table/SkuTable.vue'
+import Seller from "@/composables/Seller";
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import {openConfirm, splitChar} from "@/assets/js/functions";
+import {openToast,} from "@/assets/js/functions";
+import {AxiosCall,} from "@/assets/js/axios_call";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {openModal} from "@/assets/js/functions_seller";
+import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
+import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
-import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ShTable from "@/components/Components/Table/sh-table.vue";
-import BasicDiscountModal from "@/components/Seller/Modals/BasicDiscountModal.vue";
-import Seller from "@/composables/Seller";
-import Table from "@/components/Seller/Table/SkuTable.vue";
-import {openConfirm, openToast, splitChar} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
-// import {openModal} from "@/assets/js/functions_seller";
-const AddSkuToSeller = defineAsyncComponent(() => import ('@/components/Seller/Sku/AddSkuToSeller.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 
 export default {
   setup() {
@@ -347,7 +344,6 @@ export default {
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
-
     ShTable,
     MarketingDiscountModal,
     InventoryManagementModal,
@@ -448,8 +444,7 @@ export default {
 
     removeItem(id) {
       openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
-    },
-
+    }
   },
 
   mounted() {
@@ -521,7 +516,8 @@ export default {
           ),
       )
     },
-
-  },
+  }
 }
 </script>
+
+

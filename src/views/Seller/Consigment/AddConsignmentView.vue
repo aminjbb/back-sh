@@ -124,50 +124,51 @@
     </v-main>
   </v-layout>
 </template>
+
 <script>
 import {defineAsyncComponent} from "vue";
-import Table from "@/components/RetailShipment/Table/RetailShipmentShpsTable.vue";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
+// const AddShpsToSellerConsigment = defineAsyncComponent(()=> import ('@/components/Seller/Consigment/AddShpsToSellerConsigment.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Table from '@/components/RetailShipment/Table/RetailShipmentShpsTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
 import Seller from "@/composables/Seller";
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {AxiosCall} from "@/assets/js/axios_call";
-import {openToast} from "@/assets/js/functions";
-// const AddShpsToSellerConsigment = defineAsyncComponent(()=> import ('@/components/Seller/Consigment/AddShpsToSellerConsigment.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+import { openToast } from "@/assets/js/functions";
+import { AxiosCall } from "@/assets/js/axios_call";
+
 export default {
   setup(props) {
     const {
-      retailShipments, pageLength, filterField, addPerPage, dataTableLength, page, header, loading, headerShps
+      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps
     } = RetailShipment();
     const {
       headerConsigment
     } = Seller();
 
     return {
-      retailShipments, pageLength, filterField, addPerPage, dataTableLength, page, header, loading, headerShps,
+      retailShipments, pageLength, filterField ,addPerPage, dataTableLength, page, header, loading ,headerShps ,
       headerConsigment
     };
   },
 
-  data() {
-    return {
-      skuSearchList: [],
-      shpsList: [],
-      loadingBtn: false
+  data(){
+    return{
+      skuSearchList:[],
+      shpsList:[],
+      loadingBtn:false
     }
   },
 
   components: {
     Table,
     ModalGroupAdd,
-
     ModalColumnFilter,
     ModalExcelDownload,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   computed: {
@@ -193,20 +194,19 @@ export default {
   },
 
   methods: {
-    updateShps(shps) {
+    updateShps(shps){
       shps.forEach(element => {
         const object = {
-          sku: {
-            label: element.sku
+          sku :{
+            label:element.sku
           },
-          id: element.shps
+          id:element.shps
         }
         this.assignSku(object)
       })
     },
 
     updateList(status) {
-      console.log('3.skuList', status)
       if (status === 'true') {
         this.getSkuSeller();
       }
@@ -223,19 +223,19 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
-    async sendShps() {
+    async sendShps(){
       try {
         this.loadingBtn = true
         const formData = new FormData()
-        this.$refs.retailShipmentShps.form.forEach((shps, index) => {
+        this.$refs.retailShipmentShps.form.forEach((shps , index) => {
           formData.append(`shps_list[${index}][shps]`, shps.shps.id)
           formData.append(`shps_list[${index}][count]`, shps.count)
-          formData.append(`shps_list[${index}][max_tolerance]`, 100)
-          formData.append(`shps_list[${index}][min_tolerance]`, 0)
+          formData.append(`shps_list[${index}][max_tolerance]` , 100)
+          formData.append(`shps_list[${index}][min_tolerance]` , 0)
         })
-        formData.append('seller_id', this.$route.params.sellerId)
+        formData.append('seller_id' , this.$route.params.sellerId)
 
-        formData.append('type', 'consignment')
+        formData.append('type' , 'consignment')
         const AxiosMethod = new AxiosCall()
         AxiosMethod.using_auth = true
         AxiosMethod.store = this.$store
@@ -251,33 +251,33 @@ export default {
               "success"
           );
           this.$router.go(-1)
-        } else {
+        }
+        else {
           this.loadingBtn = false
         }
-      } catch (e) {
+      }
+      catch (e) {
         this.loadingBtn = false
       }
     },
     async assignSku(shps) {
       const form = {
-        shps: shps,
-        maxTolerance: '100',
-        minTolerance: '0',
-        count: '0'
+        shps : shps,
+        maxTolerance :'100',
+        minTolerance :'0',
+        count:'0'
       }
       this.$refs.retailShipmentShps.form.push(form)
       this.shpsList.push(shps)
 
     },
-    deleteSku(shps) {
+    deleteSku(shps){
       const index = this.shpsList.findIndex(skuShps => skuShps.id === shps)
-      if (index > -1) this.shpsList.splice(index, 1)
+      if (index > -1) this.shpsList.splice(index , 1)
     }
   },
 
-
   watch: {
-
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -297,3 +297,5 @@ export default {
   }
 }
 </script>
+
+

@@ -1,10 +1,9 @@
-
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
-<!--      <UpdateTemplate/>-->
+      <!--      <UpdateTemplate/>-->
       <div class="h-100vh">
         <v-card
             class="ma-5 br--12 pa-10 position__relative"
@@ -34,17 +33,18 @@
       </div>
     </v-main>
   </v-layout>
-
-
 </template>
-<script >
+
+
+<script>
 import {defineAsyncComponent} from "vue";
-import TemplateForm from "@/components/Pages/Update/Template/TemplateForm.vue";
-import Page from "@/composables/Page";
-import {AxiosCall} from "@/assets/js/axios_call";
 // const UpdateTemplate = defineAsyncComponent(()=> import ('@/components/Pages/Update/Template/UpdateTemplate.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import TemplateForm from "@/components/Pages/Update/Template/TemplateForm.vue";
+import Page from "@/composables/Page";
+import {AxiosCall} from "@/assets/js/axios_call";
+
 export default {
   setup(){
     const {pageSingle , getPage , templates, getTemplates}  = new Page()
@@ -57,8 +57,8 @@ export default {
   },
   components:{
     TemplateForm,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   methods:{
@@ -125,6 +125,5 @@ export default {
     this.getTemplates()
   }
 }
-
-
 </script>
+

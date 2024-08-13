@@ -1,8 +1,8 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
-      <Header/>
+      <Header />
       <!--      <PageList />-->
       <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
@@ -59,11 +59,11 @@
 
             <template v-slot:actionSlot="item">
               <div class="text-center">
-                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
                   mdi-dots-vertical
                 </v-icon>
               </div>
-              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
                 <v-list class="c-table__more-options">
                   <v-list-item>
                     <v-list-item-title>
@@ -156,23 +156,24 @@
           </v-card-actions>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
 </template>
+
 <script>
 import {defineAsyncComponent} from "vue";
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import ShTable from "@/components/Components/Table/sh-table.vue";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
+// const PageList = defineAsyncComponent(()=> import ('@/components/Pages/PageList.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import Page from "@/composables/Page";
-import {AxiosCall} from "@/assets/js/axios_call";
-import {openToast} from "@/assets/js/functions"
-// const PageList = defineAsyncComponent(() => import ('@/components/Pages/PageList.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import {openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import { AxiosCall } from "../../assets/js/axios_call";
+
 export default {
   components: {
     PanelFilter,
@@ -180,9 +181,8 @@ export default {
     ModalColumnFilter,
     ModalExcelDownload,
     ShTable,
-    Header,
-    DashboardLayout
-
+    DashboardLayout,
+    Header
   },
 
   data() {
@@ -271,7 +271,7 @@ export default {
     async changeIsIndex(id, index) {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = "page/crud/update/index/" + id
+      AxiosMethod.end_point = "page/crud/update/index/"+id
       formdata.append('is_index', index)
       AxiosMethod.store = this.$store
       AxiosMethod.form = formdata
@@ -286,7 +286,7 @@ export default {
     async changeIsFollow(id, follow) {
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = "page/crud/update/follow/" + id
+      AxiosMethod.end_point = "page/crud/update/follow/"+id
       formdata.append('is_follow', follow)
       AxiosMethod.store = this.$store
       AxiosMethod.form = formdata
@@ -328,7 +328,7 @@ export default {
       this.pageList.data.forEach((item) =>
           this.itemListTable.push(
               {
-                label: item.label ? item.label : '---',
+                label: item.label? item.label : '---',
                 type: item.type,
                 id: item.id,
                 created_at: item.created_at_fa,
@@ -387,5 +387,5 @@ export default {
     }
   }
 }
-
 </script>
+

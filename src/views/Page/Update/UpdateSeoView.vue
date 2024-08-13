@@ -1,6 +1,6 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
       <!--      <UpdateSeo/>-->
@@ -36,46 +36,48 @@
           </footer>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
-
-
 </template>
+
 <script>
 import {defineAsyncComponent} from "vue";
+// const UpdateSeo = defineAsyncComponent(()=> import ('@/components/Pages/Update/Seo/UpdateSeo.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import SeoForm from "@/components/Pages/Update/Seo/SeoForm.vue";
-import Page from "@/composables/Page";
 import {AxiosCall} from "@/assets/js/axios_call";
+import Page from "@/composables/Page"
 
-// const UpdateSeo = defineAsyncComponent(() => import ('@/components/Pages/Update/Seo/UpdateSeo.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 export default {
-  setup() {
-    const {pageSingle, getPage} = new Page()
-    return {pageSingle, getPage}
+  setup(){
+    const {pageSingle , getPage}  = new Page()
+    return {pageSingle , getPage}
   },
   data() {
     return {
       loading: false,
     }
   },
-  components: {SeoForm, DashboardLayout, Header},
-  methods: {
-    validate() {
+  components: {
+    SeoForm,
+    DashboardLayout,
+    Header
+  },
+  methods:{
+    validate(){
       this.$refs.SeoForm.$refs.updateSeo.validate()
-      setTimeout(() => {
+      setTimeout(()=>{
         if (this.$refs.SeoForm.valid) this.updateSeo()
-      }, 200)
+      } , 200)
     },
 
-    async updateSeo() {
-      this.loading = true
+    async updateSeo(){
+      this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `page/crud/update/seo/${this.$route.params.pageId}`
-      formData.append('slug', this.$refs.SeoForm.form.slug)
+      formData.append('slug' , this.$refs.SeoForm.form.slug)
       formData.append('meta_title', this.$refs.SeoForm.form.metaTitle)
       formData.append('meta_description', this.$refs.SeoForm.form.metaDescription)
       formData.append('og_title', this.$refs.SeoForm.form.ogTitle)
@@ -84,15 +86,15 @@ export default {
 
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.using_auth =true
+      AxiosMethod.token =this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.loading = false
+        this.loading=false
         this.$router.push('/page/index')
-
-      } else {
-        this.loading = false
+      }
+      else{
+        this.loading=false
       }
     }
   },
@@ -100,5 +102,6 @@ export default {
     this.getPage()
   }
 }
-
 </script>
+
+

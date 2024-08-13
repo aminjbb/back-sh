@@ -1,10 +1,9 @@
-
 <template>
   <v-layout class="bg-gray">
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-<!--      <EditNaturalSeller />-->
+      <!--      <EditNaturalSeller />-->
       <section class="create-product flex-column d-flex h-100">
         <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
         <v-card class="ma-5 br--12 pb-15 flex-grow-1">
@@ -71,23 +70,23 @@
           </footer>
         </v-card>
       </section>
-
     </v-main>
   </v-layout>
 </template>
 
 <script>
 import {defineAsyncComponent} from "vue";
-import EditNaturalSellerStep3 from "@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep3.vue";
-import EditNaturalSellerStep2 from "@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep2.vue";
-import EditNaturalSellerStep1 from "@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep1.vue";
-import Stepper from "@/components/Public/Stepper.vue";
-import Seller from "@/composables/Seller";
-import {openToast} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
 // const EditNaturalSeller = defineAsyncComponent(()=> import ('@/components/Seller/Edit/NaturalSeller/EditNaturalSeller.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Stepper from '@/components/Public/Stepper.vue'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {openToast} from "@/assets/js/functions";
+import EditNaturalSellerStep1 from '@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep1.vue'
+import EditNaturalSellerStep2 from '@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep2.vue'
+import EditNaturalSellerStep3 from '@/components/Seller/Edit/NaturalSeller/Steps/EditNaturalSellerStep3.vue'
+import Seller from '@/composables/Seller'
+
 export default {
   setup(){
     const {getSeller, seller} = new Seller()
@@ -110,7 +109,6 @@ export default {
       'آدرس',
       'اطلاعات پرداخت'
     ]
-
   }),
 
   methods: {

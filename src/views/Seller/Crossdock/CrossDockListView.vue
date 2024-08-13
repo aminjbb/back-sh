@@ -1,8 +1,15 @@
+<script setup>
+import {defineAsyncComponent} from "vue";
+const CrossDockList = defineAsyncComponent(()=> import ('@/components/Seller/CrossDock/CrossDockList.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+</script>
+
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
-      <Header/>
+      <Header />
       <!--      <CrossDockList />-->
       <div class="h-100 d-flex flex-column align-stretch seller">
         <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
@@ -10,7 +17,7 @@
               justify="center"
               align="center"
               class="px-10 py-5">
-            <v-col cols="6">
+            <v-col cols="6" >
               <v-btn
                   @click="$router.push(`/seller/${$route.params.sellerId}/cross-dock/add`)"
                   color="primary500"
@@ -28,7 +35,7 @@
               <v-row justify="end">
                 <ModalColumnFilter
                     :changeHeaderShow="changeHeaderShow"
-                    :header="header"/>
+                    :header="header" />
 
                 <PanelFilter
                     :path="`seller/${$route.params.sellerId}/cross-dock/index`"
@@ -49,14 +56,14 @@
               activePath="page/crud/update/activation/"
               :loading="loading"
               updateUrl="page/csv/mass-update"
-              model="page"/>
+              model="page" />
 
-          <v-divider/>
+          <v-divider />
 
           <v-card-actions class="pb-3">
             <v-row class="px-8">
               <v-col cols="3" class="d-flex justify-start">
-                <ModalExcelDownload getEndPoint="cargo/csv/requested/cargo/export"/>
+                <ModalExcelDownload getEndPoint="cargo/csv/requested/cargo/export" />
               </v-col>
 
               <v-col cols="6" class="d-flex justify-center">
@@ -68,7 +75,7 @@
                       size="40"
                       :total-visible="7"
                       prev-icon="mdi-chevron-right"
-                      next-icon="mdi-chevron-left"/>
+                      next-icon="mdi-chevron-left" />
                 </div>
               </v-col>
 
@@ -86,7 +93,7 @@
                      v-model="dataTableLength"
                      class="t1330"
                      variant="outlined"
-                     :items="[25,50,100]"/>
+                     :items="[25,50,100]" />
               </span>
                 </div>
               </v-col>
@@ -94,22 +101,23 @@
           </v-card-actions>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
 </template>
+
 <script>
 import {defineAsyncComponent} from "vue";
-import Table from "@/components/ShipmentRequests/Table/Table.vue";
-import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
-import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import CrossDock from "@/composables/CrossDock";
-import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
-import {openToast} from "@/assets/js/functions";
 // const CrossDockList = defineAsyncComponent(()=> import ('@/components/Seller/CrossDock/CrossDockList.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Table from '@/components/ShipmentRequests/Table/Table.vue'
+import CrossDock from "@/composables/CrossDock";
+import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
+import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
+import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
+import { openToast} from "@/assets/js/functions";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+
 export default {
   setup(props) {
     const {
@@ -146,8 +154,8 @@ export default {
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   computed: {
@@ -161,8 +169,8 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(status) {
-      if (status === 'true') {
+    updateList(status){
+      if(status === 'true'){
         this.getShipmentRequestsList();
       }
     },
@@ -189,10 +197,11 @@ export default {
         }
       }
     },
-    $route() {
+    $route(){
       this.getCrossDockListing();
     }
   }
 }
-
 </script>
+
+

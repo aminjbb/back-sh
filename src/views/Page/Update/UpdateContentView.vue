@@ -1,6 +1,6 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout/>
+    <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
       <!--      <UpdateContent/>-->
@@ -34,58 +34,62 @@
       </div>
     </v-main>
   </v-layout>
-
-
 </template>
+
 <script>
 import {defineAsyncComponent} from "vue";
+// const UpdateContent = defineAsyncComponent(()=> import ('@/components/Pages/Update/Content/UpdateContent.vue'))
+const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import ContentForm from "@/components/Pages/Update/Content/ContentForm.vue";
-import Page from "@/composables/Page";
-import {openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import {openToast} from "@/assets/js/functions";
+import Page from "@/composables/Page";
 
-// const UpdateContent = defineAsyncComponent(() => import ('@/components/Pages/Update/Content/UpdateContent.vue'))
-const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 export default {
-  setup() {
-    const {pageSingle, getPage} = new Page()
-    return {pageSingle, getPage}
+  setup(){
+    const {pageSingle , getPage}  = new Page()
+    return {pageSingle , getPage}
   },
   data() {
     return {
       loading: false,
     }
   },
-  components: {ContentForm, Header, DashboardLayout},
-  methods: {
-    validate() {
+  components: {
+    ContentForm,
+    DashboardLayout,
+    Header
+  },
+  methods:{
+    validate(){
 
-      if (!this.$refs.ContentForm.form.content) {
-        openToast(this.$store, 'محتوا را وارد کنید', 'error')
-      } else {
+      if (!this.$refs.ContentForm.form.content){
+        openToast(this.$store , 'محتوا را وارد کنید' , 'error')
+      }
+      else{
         this.updateContent()
       }
     },
 
-    async updateContent() {
-      this.loading = true
+    async updateContent(){
+      this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `page/crud/update/content/${this.$route.params.pageId}`
-      formData.append('content', this.$refs.ContentForm.form.content)
+      AxiosMethod.end_point =`page/crud/update/content/${this.$route.params.pageId}`
+      formData.append('content' , this.$refs.ContentForm.form.content)
 
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.using_auth =true
+      AxiosMethod.token =this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.loading = false
+        this.loading=false
         this.$router.push('/page/index')
-
-      } else {
-        this.loading = false
+      }
+      else{
+        this.loading=false
       }
     }
   },
@@ -93,7 +97,7 @@ export default {
   mounted() {
     this.getPage()
   }
-
 }
-
 </script>
+
+

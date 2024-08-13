@@ -3,7 +3,7 @@
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header />
-<!--      <CerateLegalSeller />-->
+      <!--      <CerateLegalSeller />-->
       <section class="create-product flex-column d-flex h-100">
         <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
         <v-card class="ma-5 br--12 pb-15 flex-grow-1">
@@ -20,12 +20,8 @@
             <LegalSellerStep4 ref="step4"/>
           </template>
 
-
-
           <footer class="create-product__actions ">
             <v-row justify='space-between' class="px-8 pt-8">
-
-
               <div>
                 <v-btn
                     v-if="step > 1"
@@ -82,18 +78,20 @@
     </v-main>
   </v-layout>
 </template>
-<script >
+
+<script>
 import {defineAsyncComponent} from "vue";
-import LegalSellerStep2 from "@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep2.vue";
-import LegalSellerStep1 from "@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep1.vue";
-import LegalSellerStep3 from "@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep3.vue";
-import LegalSellerStep4 from "@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep4.vue";
-import Stepper from "@/components/Public/Stepper.vue";
-import {convertDateToGregorian, openToast} from "@/assets/js/functions";
-import {AxiosCall} from "@/assets/js/axios_call";
 // const CerateLegalSeller = defineAsyncComponent(()=> import ('@/components/Seller/Add/LegalSeller/CerateLegalSeller.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import Stepper from '@/components/Public/Stepper.vue'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import {convertDateToGregorian, openToast} from "@/assets/js/functions";
+import LegalSellerStep1 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep1.vue'
+import LegalSellerStep2 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep2.vue'
+import LegalSellerStep3 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep3.vue'
+import LegalSellerStep4 from '@/components/Seller/Add/LegalSeller/Steps/LegalSellerStep4.vue'
+
 export default {
 
   components: {
@@ -102,8 +100,8 @@ export default {
     LegalSellerStep3,
     LegalSellerStep4,
     Stepper,
-    Header,
-    DashboardLayout
+    DashboardLayout,
+    Header
   },
 
   data: () => ({
@@ -273,5 +271,7 @@ export default {
     },
 
   },
+
 }
+
 </script>
