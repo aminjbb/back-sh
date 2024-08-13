@@ -162,7 +162,7 @@ export default {
     ]
     const priorityList = [
       {
-        label: 'همه اولیوت‌ها',
+        label: 'همه اولویت ها',
         value: ''
       },
       {
