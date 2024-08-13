@@ -12,6 +12,7 @@
             <v-col cols="6">
 
               <v-row justify="start">
+
                 <ModalGroupAdd
                     title="افزودن"
                     btnColor="primary500"
