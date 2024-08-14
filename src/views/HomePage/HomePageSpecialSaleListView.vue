@@ -33,18 +33,61 @@
         </v-card>
 
         <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="specialSalesHeader"
-              :items="homeSection?.sliders"
-              editUrl="/seller/edit/"
-              activePath="seller/crud/update/activation/"
-              deletePath="page/home/section/slider/delete/"
-              changeStatusUrl="seller/crud/update/contract/"
+              :headers="specialSalesHeader"
+              :items="itemListTable"
               :loading="loading"
-              updateUrl="seller/csv/mass-update"
-              model="sku" />
+          >
+              <template v-slot:customSlot="item">
+                  <div class=" slider_status" :class="sliderStatusClass(item.data.status)">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
+                            {{sliderStatus(item.data.status)}}
+                        </span>
+                  </div>
+              </template>
 
+
+              <template v-slot:actionSlot="item">
+                  <div class="text-center">
+                      <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                      </v-icon>
+                  </div>
+
+                  <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                      <v-list class="c-table__more-options">
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="$router.push(`/home-page/${$route.params.sectionId}/special-sales/${item.data.id}/edit`)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            ویرایش
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="$router.push(`/home-page/${$route.params.sectionId}/special-sales/${item.data.id}/add/shps`)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            ویرایش محصولات
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                              <v-list-item>
+                                  <v-list-item-title>
+                                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                            <span class="mr-2 text-grey-darken-1 t14 w300">
+                                                حذف
+                                            </span>
+                                      </div>
+                                  </v-list-item-title>
+                              </v-list-item>
+                          </v-list-item>
+                      </v-list>
+                  </v-menu>
+              </template>
+          </ShTable>
           <v-divider />
 
           <v-card-actions class="pb-3">
@@ -95,15 +138,20 @@ import {defineAsyncComponent} from "vue";
 // const HomePageSpecialSalesList = defineAsyncComponent(()=> import ('@/components/HomePage/HomePageSpecialSalesList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/HomePage/Table/HomePageSpecialSaleTable.vue'
 import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {openToast} from "@/assets/js/functions";
+import {convertDateToJalai, openConfirm, openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
+  data(){
+        return{
+            itemListTable: []
+        }
+    },
   setup() {
     const {
       specialSalesHeader,
@@ -127,12 +175,12 @@ export default {
 
   components: {
     ModalAddBanner,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
     DashboardLayout,
-    Header
+    Header,
+    ShTable
   },
 
   computed: {
@@ -146,6 +194,34 @@ export default {
       this.bannerHeader[index].show = value
     },
 
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "page/home/section/slider/delete/"+id, true)
+    },
+    getTime(date) {
+      const splitDate = date.split(' ')
+      return splitDate[1]
+    },
+    convertDateToJalai,
+    sliderStatus(status) {
+      switch (status) {
+          case 'in_progress':
+              return 'در حال انتشار'
+          case 'waiting':
+              return 'در انتظار انتشار'
+          case 'expired':
+              return 'اتمام انتشار'
+      }
+    },
+    sliderStatusClass(status) {
+          switch (status) {
+              case 'in_progress':
+                  return 'slider_status__progress'
+              case 'waiting':
+                  return 'slider_status__waiting'
+              case 'expired':
+
+          }
+},
   },
 
   mounted() {
@@ -156,7 +232,6 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
     confirmModal(val) {
       if (localStorage.getItem('deleteObject')) {
         if (!val) {
@@ -170,8 +245,45 @@ export default {
         }
       }
     },
+
+    homeSection() {
+    if(this.homeSection.sliders) {
+
+        this.itemListTable = []
+        this.homeSection.sliders.forEach((item) => {
+            this.itemListTable.push(
+                {
+                    id: item.id,
+                    label: item.label,
+                    start_time: this.convertDateToJalai(item.start_time, '-' , true) +' '+this.getTime(item.start_time),
+                    end_time: this.convertDateToJalai(item.end_time, '-' , true) +' '+this.getTime(item.end_time),
+                    creator: item.creator?.first_name +' '+item.creator?.last_name,
+                    status: item.status,
+                }
+            )
+        })
+    }
+},
   }
 }
 </script>
 
+<style lang="scss">
+.slider_status {
+    padding: 3px 8px ;
+    border-radius: 8px;
+    height: 30px;
 
+    &__waiting {
+        background: #FFF3E0;
+    }
+
+    &__progress {
+        background: #E8F5E9;
+    }
+
+    &__expire {
+        background: #FFEBEE;
+    }
+}
+</style>
