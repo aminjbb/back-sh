@@ -57,19 +57,67 @@
           </v-row>
         </v-card>
 
-        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+          <ShTable
               class="flex-grow-1"
-              deletePath="category/crud/delete/"
-              :header="cargoReceivingHeader"
-              :items="shipmentShpsListFilterd"
+              :headers="cargoReceivingHeader"
+              :items="itemListTable"
               :page="1"
               :perPage="1000"
-              :packageId="packageId"
               :loading="loading"
-              :getShpsList="getShpsList"
-              @updateList="updateList"/>
 
+              :getShpsList="getShpsList"
+          >
+
+            <template v-slot:customSlot="item">
+              <div class="seller__add-sku-btn d-flex justify-center align-center pointer"
+                   @click="submitShipmentsForm(item.data.id , item.data.shipment_id , item.data.shps)">
+                <v-icon size="15">
+                  {{ submittedItemId === item.data.id || item.data.label_printed === 1 ? 'mdi-check' : 'mdi-plus' }}
+                </v-icon>
+              </div>
+            </template>
+
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div
+                          class="ma-5 pointer"
+                          @click=packageManagement(item.data)>
+                        <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                                      مدیریت بسته
+                                  </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div
+                          class="ma-5 pointer"
+                          @click=print(item.data)>
+                        <v-icon size="small" class="text-grey-darken-1">mdi-pen</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                                      پرینت
+                                  </span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
           <v-divider/>
 
           <v-card-actions class="pb-3">
@@ -86,6 +134,8 @@
             </v-row>
           </v-card-actions>
         </v-card>
+
+        <PackageManagementModal :getShpsList="getShpsList" :packageId="packageId" :shpsId="shps_id" :shipmentId="shipmentId"/>
       </div>
     </v-main>
   </v-layout>
@@ -96,20 +146,22 @@ import {defineAsyncComponent} from "vue";
 // const BulkLabelPrintList = defineAsyncComponent(()=> import ('@/components/BulkLabelPrint/BulkLabelPrintList.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/BulkLabelPrint/Table/Table.vue'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from '@/components/Public/ModalExcelDownload.vue'
 import BulkLabelPrintList from '@/composables/BulkLabelPrint';
 import {openToast} from "@/assets/js/functions";
 import {AxiosCall} from '@/assets/js/axios_call.js'
+import PackageManagementModal from "@/components/BulkLabelPrint/Modal/PackageManagementModal.vue";
 
 export default {
   components: {
-    Table,
     ModalColumnFilter,
     ModalGroupAdd,
     ModalExcelDownload,
+    PackageManagementModal,
+    ShTable,
     DashboardLayout,
     Header
   },
@@ -123,7 +175,11 @@ export default {
       filteredCargoData: [],
       closePackageLoading :false,
       shipmentShpsListFilterd:[],
-      barcodeShps:null
+      barcodeShps:null,
+      itemListTable: [],
+      submittedItemId: null,
+      shps_id: null,
+      shipmentId: null,
     }
   },
 
@@ -173,7 +229,6 @@ export default {
         this.updatePackageIdInStore();
       }
     },
-
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -182,15 +237,29 @@ export default {
         }
       }
     },
-
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
     $route() {
       this.fetchCargoData();
+    },
 
-    }
+    shipmentShpsListFilterd() {
+      this.itemListTable = []
+      this.shipmentShpsListFilterd.forEach((item) => {
+        this.itemListTable.push(
+            {
+              shps: item.shps,
+              sku_label: item.sku.label ? item.sku.label : 'نامعلوم',
+              packed_count: item.packed_count ? item.packed_count : 'نامعلوم',
+              shipment_id: item.shipment_id ? item.shipment_id : 'نامعلوم',
+              custom: null,
+              id: item.id,
+              label_printed: item.label_printed
+            }
+        )
+      })
+    },
   },
 
   methods: {
@@ -281,10 +350,48 @@ export default {
       this.header[index].show = value
     },
 
-    updateList(){
-      this.submitShipmentsForm()
-    }
 
+    print(item) {
+      window.open(`${import.meta.env.VITE_API_SITEURL}processing-shipment/${item.shipment_id}/${item.shps}/${this.packageId}/barcode-print`, '_blank');
+    },
+    packageManagement(item){
+      this.shipmentId = item.shipment_id
+      this.shps_id = item.shps
+      this.$store.commit('set_packageManagementModal' , true)
+    },
+
+    async submitShipmentsForm(itemId, shipmentId , shps) {
+      let packageId = null
+      if (this.packageId.includes('-')) {
+        const cargoSplit = this.packageId.split('-')
+        if (cargoSplit[1]) packageId = cargoSplit[1]
+        else packageId = this.packageId
+      } else packageId = this.packageId
+      let formdata = new FormData();
+      const AxiosMethod = new AxiosCall();
+      AxiosMethod.end_point = 'package/shps/print/label';
+      AxiosMethod.form = formdata
+
+      formdata.append('package_id', packageId);
+
+      formdata.append('shps', shps);
+      formdata.append(`shipment_id`, shipmentId);
+      AxiosMethod.store = this.$store;
+      AxiosMethod.using_auth = true;
+      AxiosMethod.token = this.$cookies.get('adminToken');
+
+      try {
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          openToast(this.$store, 'با موفقیت ذخیره شد', "success");
+          this.submittedItemId = itemId
+
+          this.submitShipmentsForm()
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+    },
   }
 }
 
