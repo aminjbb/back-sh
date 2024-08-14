@@ -56,19 +56,44 @@
         </v-card>
 
         <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="homePageSkuHeader"
-              :items="homePageSingleSlider.skus"
-              editUrl="/seller/edit/"
-              :deletePath="`page/home/section/slider/${$route.params.specialId}/sku/detach/`"
-              changeStatusUrl="seller/crud/update/contract/"
-              :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
-              :loading="loading"
-              @updateList="updateList"
-              updateUrl="seller/csv/mass-update"
-              model="sku" />
+              :headers="homePageSkuHeader"
+              :items="itemListTable"
+            >
+              <template v-slot:customSlot="item">
+                  <v-text-field  v-model="item.data.priority"  type="number"  variant="outlined" />
+              </template>
 
+              <template v-slot:customSlot2="item">
+                  <div @click="updateSku(item.data.id , item.data.shps , item.data.priority)"
+                      class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+                      <v-icon size="15">mdi-plus</v-icon>
+                  </div>
+              </template>
+
+              <template v-slot:actionSlot="item">
+                  <div class="text-center">
+                      <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                      </v-icon>
+                  </div>
+
+                  <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                      <v-list class="c-table__more-options">
+                          <v-list-item-title>
+                              <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                  <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
+                                  <span class="mr-2 text-grey-darken-1 t14 w300">
+                                        حذف
+                                  </span>
+                              </div>
+                          </v-list-item-title>
+                      </v-list>
+                  </v-menu>
+              </template>
+          </ShTable>
           <v-divider />
 
           <v-card-actions class="pb-3">
@@ -111,14 +136,14 @@ import {defineAsyncComponent} from "vue";
 // const AddSphsToSpecialSale = defineAsyncComponent(()=> import ('@/components/HomePage/Add/AddShpsToSpecialSale.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/HomePage/Table/HomePageShpsTable.vue'
 import Seller from "@/composables/Seller";
 import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast } from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import { AxiosCall } from "@/assets/js/axios_call";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   setup(props) {
@@ -137,17 +162,18 @@ export default {
 
   data(){
     return{
-      skuSearchList:[]
+      skuSearchList:[],
+      itemListTable: []
     }
   },
 
   components: {
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
     DashboardLayout,
-    Header
+    Header,
+    ShTable
   },
 
   computed: {
@@ -157,12 +183,6 @@ export default {
   },
 
   methods: {
-    updateList(status) {
-      if (status === 'true') {
-        this.getSkuSeller();
-      }
-    },
-
     async searchSku(search) {
       this.skuSearchList = []
 
@@ -175,7 +195,6 @@ export default {
         this.skuSearchList = data.data.data
       }
     },
-
     async assignSku(item) {
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
@@ -197,7 +216,32 @@ export default {
             "success"
         );
       }
-    }
+    },
+
+      removeItem(id) {
+        openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", `page/home/section/slider/${this.$route.params.specialId}/sku/detach/`+id, true)
+      },
+      async updateSku(id, shps, priority) {
+          const formData = new FormData()
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.store = this.$store
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `page/home/section/slider/${this.$route.params.specialId}/sku/attach`
+          formData.append('shps', shps)
+          formData.append('sku_id', id)
+          formData.append('priority', priority)
+          AxiosMethod.form = formData
+          let data = await AxiosMethod.axios_post()
+          if (data) {
+              openToast(
+                  this.$store,
+                  'کد کالا با موفقیت ویرایش شد.',
+                  "success"
+              );
+          }
+
+      },
   },
 
   mounted() {
@@ -221,10 +265,28 @@ export default {
         }
       }
     },
-
     $route(to, from) {
       this.getSkuSeller()
-    }
+    },
+
+    homePageSingleSlider() {
+        if(this.homePageSingleSlider.skus) {
+
+            this.itemListTable = []
+            this.homePageSingleSlider.skus.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        id: item.id,
+                        shps: item.pivot?.shps,
+                        label: item.label,
+                        seller: item.seller?.full_name,
+                        customer_price: item.customer_price ? item.customer_price : '---',
+                        priority: item.pivot.priority
+                    }
+                )
+            })
+        }
+    },
   }
 }
 </script>

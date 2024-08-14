@@ -66,30 +66,33 @@ export default function setup() {
 
     ]);
     const categoryHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'image', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'name' , order: false},
-        { name: 'سازنده', show: true , value:'link', order: false},
-        { name: 'دخیره', show: true , value:'link', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'عنوان',title: 'عنوان', show: true , key:'label', sortable: false, align:'center'},
+        { name: 'ترتیب نمایش',title: 'ترتیب نمایش', show: true, key:'custom' , sortable: false, align:'center'},
+        { name: 'سازنده',title: 'سازنده', show: true , key:'creator', sortable: false, align:'center'},
+        { name: 'دخیره',title: 'دخیره', show: true , key:'custom2', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
 
     ]);
     const homePageSkuHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه کالا', show: true , value:'id', order: false},
-        { name: 'شناسه shps', show: true, value:'shps' , order: false},
-        { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: 'نام فروشنده', show: true , value:'seller', order: false},
-        { name: 'قیمت فروش', show: true , value:'site_price', order: false},
-        { name: 'ترتیب نمایش', show: true , value:'priority', order: false},
-        { name: 'ذخیره', show: true , value:'save', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , value: 'row', sortable:false, align: 'center'},
+        { name: 'شناسه کالا',title: 'شناسه کالا', show: true , value:'id', sortable: false, align: 'center'},
+        { name: 'شناسه shps',title: 'شناسه shps', show: true, value:'shps' , sortable: false, align: 'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true , value:'label', sortable: false, align: 'center'},
+        { name: 'نام فروشنده',title: 'نام فروشنده', show: true , value:'seller', sortable: false, align: 'center'},
+        { name: 'قیمت فروش',title: 'قیمت فروش', show: true , value:'customer_price', sortable: false, align: 'center'},
+        { name: 'ترتیب نمایش',title: 'ترتیب نمایش', show: true , value:'custom', sortable: false, align: 'center'},
+        { name: 'ذخیره',title: 'ذخیره', show: true , value:'custom2', sortable: false, align: 'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const specialSalesHeader=ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'title', order: false},
-        { name: 'زمان شروع', show: true, value:'start_date' , order: false},
-        { name: 'زمان پایان', show: true , value:'end_date', order: false},
-        { name: 'سازنده', show: true, value:'admin', order: false },
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align: 'center'},
+        { name: 'عنوان',title: 'عنوان', show: true , key:'label', sortable: false, align: 'center'},
+        { name: 'زمان شروع',title: 'زمان شروع', show: true, key:'start_time' , sortable: false, align: 'center'},
+        { name: 'زمان پایان',title: 'زمان پایان', show: true , key:'end_time', sortable: false, align: 'center'},
+        { name: 'سازنده',title: 'سازنده', show: true, key:'creator', sortable: false, align: 'center' },
+        { name: 'وضعیت',title: 'وضعیت', show: true, key:'custom', sortable: false, align: 'center' },
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ])
 
     const specialSalesShpsHeader=ref([

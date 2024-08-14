@@ -411,7 +411,6 @@ export default {
                         product: item.product.label,
                         custom: item.volumes,
                         image: item?.image?.image_url,
-
                     },
                 ),
             )
