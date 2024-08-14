@@ -6,19 +6,20 @@ import { useRoute } from 'vue-router'
 export default function setup() {
 
     const header = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: 'شناسه سفارش', show: true, value: 'id', order: true},
-        {name: 'شماره سفارش', show: true, value: 'order_number', order: false},
-        {name: 'نام کاربر', show: true, value: 'user', order: true},
-        {name: 'شماره کاربر', show: true, value: 'mobile_number', order: false},
-        {name: 'تعداد کالا', show: true, value: 'count', order: false},
-        {name: 'وضعیت سفارش', show: true, value: 'order_status', order: false},
-        {name: 'وضعیت', show: true, value: 'status', order: false},
-        {name: 'روش پرداخت', show: true, value: 'payment', order: false},
-        {name: ' مبلغ پرداختی', show: true, value: 'paid_price', order: true},
-        {name: 'وضعیت بارگیری', show: true, value: 'logestic', order: true},
-        {name: 'روش ارسال', show: true, value: 'sending_method', order: true},
-        {name: 'تاریخ ثبت سفارش', show: true, value: 'created_at', order: true},
+        {name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align:'center'},
+        {name: 'شناسه سفارش',title: 'شناسه سفارش', show: true, key: 'id', order: true},
+        {name: 'شماره سفارش',title: 'شماره سفارش', show: true, key: 'order_number', sortable:false, align:'center'},
+        {name: 'نام کاربر',title: 'نام کاربر', show: true, key: 'user', align:'center'},
+        {name: 'شماره کاربر',title: 'شماره کاربر', show: true, key: 'mobile_number', sortable:false, align:'center'},
+        {name: 'تعداد کالا',title: 'تعداد کالا', show: true, key: 'count', sortable:false, align:'center'},
+        {name: 'وضعیت سفارش',title: 'وضعیت سفارش', show: true, key: 'order_status', sortable:false, align:'center'},
+        {name: 'وضعیت',title: 'وضعیت', show: true, key: 'custom', sortable:false, align:'center'},
+        {name: 'روش پرداخت',title: 'روش پرداخت', show: true, key: 'payment', sortable:false, align:'center'},
+        {name: ' مبلغ پرداختی',title: ' مبلغ پرداختی', show: true, key: 'paid_price', align:'center'},
+        {name: 'وضعیت بارگیری',title: 'وضعیت بارگیری', show: true, key: 'logestic', align:'center', model: 'icon'},
+        {name: 'روش ارسال',title: 'روش ارسال', show: true, key: 'sending_method', align:'center'},
+        {name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: true, key: 'created_at', align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const loading = ref(false)
