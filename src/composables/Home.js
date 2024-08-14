@@ -66,11 +66,12 @@ export default function setup() {
 
     ]);
     const categoryHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'image', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'name' , order: false},
-        { name: 'سازنده', show: true , value:'link', order: false},
-        { name: 'دخیره', show: true , value:'link', order: false},
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'عنوان',title: 'عنوان', show: true , key:'label', sortable: false, align:'center'},
+        { name: 'ترتیب نمایش',title: 'ترتیب نمایش', show: true, key:'custom' , sortable: false, align:'center'},
+        { name: 'سازنده',title: 'سازنده', show: true , key:'creator', sortable: false, align:'center'},
+        { name: 'دخیره',title: 'دخیره', show: true , key:'custom2', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
 
     ]);
     const homePageSkuHeader =ref([

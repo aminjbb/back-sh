@@ -33,18 +33,67 @@
         </v-card>
 
         <v-card class="mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="categoryHeader"
-              :items="homePartitionSlider.data"
-              editUrl="/seller/edit/"
-              activePath="seller/crud/update/activation/"
-              deletePath="page/home/section/slider/partition/delete/"
-              changeStatusUrl="seller/crud/update/contract/"
+              :headers="categoryHeader"
+              :items="itemListTable"
               :loading="loading"
-              updateUrl="seller/csv/mass-update"
-              model="sku" />
+          >
+              <template v-slot:customSlot="item">
+                  <v-text-field  v-model="item.data.priority"  hide-details  variant="outlined"  class="number-font"  type="number" />
+              </template>
 
+              <template v-slot:customSlot2="item">
+                  <div @click="update(item.data)"
+                      class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+                      <v-icon size="15">mdi-plus</v-icon>
+                  </div>
+              </template>
+
+
+              <template v-slot:actionSlot="item">
+                  <div class="text-center">
+                      <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                      </v-icon>
+                  </div>
+
+                  <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                      <v-list class="c-table__more-options">
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="openEditModal(item.data.data)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            ویرایش
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="$router.push(`/home-page/${$route.params.sectionId}/partition-slider/${item.data.id}/add/sku`)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            مدیریت کالا ها
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                        <span class=" text-grey-darken-1 t14 w300">
+                                            حذف
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+                      </v-list>
+                  </v-menu>
+              </template>
+          </ShTable>
           <v-divider />
 
           <v-card-actions class="pb-3">
@@ -73,6 +122,8 @@
             </v-row>
           </v-card-actions>
         </v-card>
+
+          <ModalEditSectionForSlider />
       </div>
     </v-main>
   </v-layout>
@@ -83,17 +134,25 @@ import {defineAsyncComponent} from "vue";
 // const HomePagePartitionSlider = defineAsyncComponent(()=> import ('@/components/HomePage/HomePagePartitionSlider.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/HomePage/Table/HomePagePartitionTable.vue'
 import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import ModalPartitionSlider from "@/components/HomePage/Modals/ModalPartitionSlider.vue";
 import ModalAddSectionForSlider from "@/components/HomePage/Modals/ModalAddSectionForSlider.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import ModalEditSectionForSlider from "@/components/HomePage/Modals/ModalEditSectionForSlider.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
-  setup() {
+    data(){
+        return{
+            itemListTable: []
+        }
+    },
+
+    setup() {
     const {
       bannerHeader,
       getHomeSection,
@@ -123,12 +182,13 @@ export default {
   components: {
     ModalAddSectionForSlider,
     ModalPartitionSlider,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
     DashboardLayout,
-    Header
+    Header,
+    ShTable,
+    ModalEditSectionForSlider,
   },
 
   computed: {
@@ -145,6 +205,38 @@ export default {
     changeHeaderShow(index, value) {
       this.bannerHeader[index].show = value
     },
+    removeItem(id) {
+          openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "page/home/section/slider/partition/delete/"+id, true)
+      },
+    openEditModal(object) {
+          const form = {
+              dialog: true,
+              object: object
+          }
+          this.$store.commit('set_homePageSectionForSliderModal', form)
+      },
+    async update(item) {
+          const formData = new FormData()
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.end_point = `page/home/section/slider/partition/update/${item.id}`
+          formData.append('homepage_section_id', this.$route.params.sectionId)
+          formData.append('label', item.label)
+          formData.append('priority', item.priority)
+
+          AxiosMethod.form = formData
+          AxiosMethod.store = this.$store
+          AxiosMethod.using_auth = true
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          let data = await AxiosMethod.axios_post()
+          if (data) {
+              openToast(
+                  this.$store,
+                  'دسته بندی با موفقیت ویرایش شد.',
+                  "success"
+              );
+          }
+      },
+
   },
 
   mounted() {
@@ -155,7 +247,6 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') == 'done') {
         if (!val) {
@@ -169,10 +260,27 @@ export default {
         }
       }
     },
-
     slider(val) {
       this.getHomePartitionSlider(val.id)
-    }
+    },
+
+    homePartitionSlider () {
+        if(this.homePartitionSlider.data) {
+
+            this.itemListTable = []
+            this.homePartitionSlider.data.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        data: item,
+                        id: item.id,
+                        label: item.label,
+                        priority: item.priority,
+                        creator: item.creator?.first_name+' '+item.creator?.last_name,
+                    }
+                )
+            })
+        }
+    },
   }
 }
 </script>
