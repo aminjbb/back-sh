@@ -40,9 +40,10 @@
 
               <div class="d-flex justify-space-between align-center mb-3">
                 <div class="t12 w500">
-                <span class="text-gray600 number-font">
+                <span class="text-gray600 number-font" v-if="item.created_at_fa">
                   {{ item.created_at_fa }}  {{item.updated_at.split('T')[1].split('.')[0]}}
                 </span>
+                  <span class="text-gray600" v-else> - </span>
                 </div>
                 <div class="">
                   <span class="t12 w500"> تاریخ ایجاد</span>
@@ -52,9 +53,10 @@
               <v-divider class="my-3"/>
               <div class="d-flex justify-space-between align-center mb-3">
                 <div class="t12 w500">
-                <span  class="number-font text-gray600">
+                <span  class="number-font text-gray600" v-if="item.latest_date_fa">
                  {{ item.latest_date_fa.split(' ')[0] }} {{ item.latest_date_fa.split(' ')[1] }}
                 </span>
+                  <span class="text-gray600" v-else> - </span>
                 </div>
                 <div class="">
                   <span class="t12 w500"> تاریخ آخرین پیام </span>
