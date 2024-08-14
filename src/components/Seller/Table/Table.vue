@@ -50,6 +50,7 @@
         </div>
     </header>
 
+
     <div class="stretch-table">
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div
@@ -177,15 +178,6 @@
                                             <v-icon class="text-grey-darken-1">mdi-check-circle-outline</v-icon>
                                             <span class="mr-2 text-grey-darken-1 t14 w300">شروع همکاری </span>
                                         </template>
-                                    </div>
-                                </v-list-item-title>
-
-                                <v-list-item-title>
-                                    <div class="ma-5 pointer" @click="$router.push(`/seller/${item.id}/add/sku/`)">
-                                        <v-icon class="text-grey-darken-1">mdi-view-list-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            لیست کالا‌ها
-                                        </span>
                                     </div>
                                 </v-list-item-title>
                               <v-list-item-title>

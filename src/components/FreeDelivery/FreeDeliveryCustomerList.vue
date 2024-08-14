@@ -38,15 +38,14 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
+    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+        <ShTable
             class="flex-grow-1"
-            :header="headerCustomer"
-            :items="customerList"
+            :headers="headerCustomer"
+            :items="itemListTable"
             :page="page"
             :perPage="pageLength"
-            :loading="false"
-            model="customer" />
+             />
 
         <v-divider />
 
@@ -77,14 +76,16 @@
   
 <script>
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 export default {
     data() {
         return {
           freeDeliveryId: this.$route.params.freeDeliveryId,
-          perPageFilter:false
+          perPageFilter:false,
+          itemListTable: []
         }
     },
     setup() {
@@ -125,9 +126,9 @@ export default {
         }
     },
     components: {
-      PanelFilter,
-        Table,
-        ModalGroupAdd
+        PanelFilter,
+        ModalGroupAdd,
+        ShTable
     },
 
     mounted() {
@@ -165,7 +166,21 @@ export default {
       if (!this.perPageFilter){
         this.getCustomerList()
       }
-    }
+    },
+
+    customerList() {
+          this.itemListTable = []
+          this.customerList.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      first_name: item.first_name ? item.first_name : '---',
+                      last_name: item.last_name ? item.last_name : '---',
+                      phone_number: item.phone_number ? item.phone_number : '---',
+                  }
+              )
+          })
+      },
   }
 
 }

@@ -123,13 +123,45 @@
                     </span>
             </v-list-item>
 
-          </v-list-group>
-          <v-list-group value="commerce">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" active-class="bg-active">
-                <template v-slot:prepend>
-                  <v-icon>mdi-cart-outline</v-icon>
+            </v-list-group>
+            <v-list-group value="marketplace">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-cart-outline</v-icon>
+                        </template>
+
+                        <span class="t14500">
+                            مارکت پلیس
+                        </span>
+                    </v-list-item>
                 </template>
+
+                <v-list-item
+                    v-for="([title, to, icon], i) in marketplace"
+                    v-bind="props"
+                    :key="i"
+                    :value="title"
+                    :to="to"
+                    active-class="bg-active"
+                    style="padding-right:16px !important">
+                    <template v-slot:prepend>
+                        <v-icon size="x-small">{{icon}}</v-icon>
+                    </template>
+
+                    <span class="t14500">
+                        {{title}}
+                    </span>
+                </v-list-item>
+
+            </v-list-group>
+
+            <v-list-group value="marketing">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" active-class="bg-active">
+                        <template v-slot:prepend>
+                            <v-icon>mdi-chart-line</v-icon>
+                        </template>
 
                 <span class="t14 w500">
                                 بازرگانی
@@ -384,8 +416,8 @@
                 <v-icon size="x-small">{{ icon }}</v-icon>
               </template>
 
-              <span class="t14 w500">
-                            {{ title }}
+              <span class="t14500">
+                            {{title}}
                         </span>
             </v-list-item>
 
@@ -399,20 +431,26 @@
 
                 </template>
 
-                <span class="t14 w500">
+                <span class="t14500">
                                 گزارشات
                             </span>
               </v-list-item>
             </template>
 
-            <v-list-item v-for="([title, to, icon], i) in reports" v-bind="props" :key="i" :value="title" :to="to"
-                         active-class="bg-active" style="padding-right:16px !important">
+            <v-list-item
+                v-for="([title, to, icon], i) in reports"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
               <template v-slot:prepend>
-                <v-icon size="x-small">{{ icon }}</v-icon>
+                <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14 w500">
-                            {{ title }}
+              <span class="t14500">
+                            {{title}}
                         </span>
             </v-list-item>
 
@@ -425,216 +463,188 @@
                   <v-icon>mdi-tooltip-text-outline</v-icon>
                 </template>
 
-                <span class="t14 w500">
-                                پیام ها
-                            </span>
+                <span class="t14500">
+                            پیام ها
+                        </span>
               </v-list-item>
             </template>
 
-            <v-list-item v-for="([title, to, icon], i) in message" v-bind="props" :key="i" :value="title" :to="to"
-                         active-class="bg-active" style="padding-right:16px !important">
+            <v-list-item
+                v-for="([title, to, icon], i) in message"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
               <template v-slot:prepend>
-                <v-icon size="x-small">{{ icon }}</v-icon>
+                <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14 w500">
-                            {{ title }}
-                        </span>
+              <span class="t14500">
+                        {{title}}
+                    </span>
             </v-list-item>
 
           </v-list-group>
 
-          <v-list-item v-for="([title, to, icon], index) in chat" :key="index" active-class="bg-active" :to="to">
+          <v-list-item
+                v-for="([title, to, icon], index) in chat"
+                :key="index"
+                active-class="bg-active"
+                :to="to">
+                <template v-slot:prepend>
+                    <v-icon>{{icon}}</v-icon>
+                </template>
+
+                <span class="t14500">
+                    {{title}}
+                </span>
+            </v-list-item>
+
+          <v-list-item
+              v-for="([title, to, icon], index) in comments"
+              :key="index"
+              active-class="bg-active"
+              :to="to">
             <template v-slot:prepend>
-              <v-icon>{{ icon }}</v-icon>
+              <v-icon>{{icon}}</v-icon>
             </template>
 
-            <span class="t14 w500">
-                        {{ title }}
-                    </span>
+            <span class="t14500">
+                    {{title}}
+                </span>
           </v-list-item>
 
-          <v-list-item v-for="([title, to, icon], index) in comments" :key="index" active-class="bg-active"
-                       :to="to">
-            <template v-slot:prepend>
-              <v-icon>{{ icon }}</v-icon>
-            </template>
-
-            <span class="t14 w500">
-                        {{ title }}
-                    </span>
-          </v-list-item>
         </v-list>
-      </div>
 
-    </v-navigation-drawer>
-  </div>
+        ></div> </v-navigation-drawer>
+</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isFixed: false,
-      lastScrollTop: 0,
-      drawer: true,
-      rail: false,
-      open: [],
-      sending: [
-        // ['ارسال', '/send/index', 'mdi-truck-outline'],
-      ],
-      comments: [
-        ['نظرات', '/comment/index', 'mdi-message-reply-text-outline'],
-      ],
-      chat: [
-        ['گفتگو', '/chat', 'mdi-chat-outline'],
-      ],
-      support: [
-        ['کنسل اسنپ پی', '/snap-pay/cancel', 'mdi-checkbox-blank-circle-outline'],
-        ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
-        ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
-        ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ویرایش کد ارسال', '/delivery-code/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      groupsFunction: [
-        ['عملیات گروهی', '/exports/index', 'mdi-export'],
-      ],
-      users: [
-        ['مدیریت کاربران', '/user/index', 'mdi-account-group-outline'],
-      ],
-      payment: [
-        // ['پرداخت', '/pay/index', 'mdi-credit-card-outline'],
-      ],
-      products: [
-        ['محصولات', '/product/index', 'mdi-checkbox-blank-circle-outline'],
-        ['کالا ها', '/product/get/skus/index', 'mdi-checkbox-blank-circle-outline'],
-        ['گروه کالا ها', '/product/get/skugroups/index', 'mdi-checkbox-blank-circle-outline'],
-        ['برند', '/brand/index', 'mdi-checkbox-blank-circle-outline'],
-        ['دسته بندی', '/categories/index', 'mdi-checkbox-blank-circle-outline'],
-        ['رنگ', '/color/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ویژگی ها', '/attributes/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      warehouse: [
-        ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
-        ['لیست انبارها', '/warehouse/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
-        ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
-        ['محموله های آتی  ', '/up-coming/index', 'mdi-checkbox-blank-circle-outline'],
-        ['اختصاص کالا به بسته', '/assign-shps-package/index', 'mdi-checkbox-blank-circle-outline'],
-        ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
-        ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
-        ['برنامه پیک آپ', '/pick-up-task/index', 'mdi-checkbox-blank-circle-outline'],
-        // [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
-        [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
-        ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
-        ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
-        [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
-        [' پرینت سفارش', '/order-packaging/print-order-label', 'mdi-checkbox-blank-circle-outline'],
-        [' پرینت پرچسب', '/print-label/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ناحیه بندی انبار', '/zone/index', 'mdi-checkbox-blank-circle-outline'],
-        ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
-        [' تسک های پیک آپ', '/report-bug-task/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      commerce: [
-        ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
-        ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
-        ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
-        ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
-        ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      admins: [
-        ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],
-        ['دسترسی ها', '/permission/index', 'mdi-checkbox-blank-circle-outline'],
-        ['مدیریت نقش', '/role-permission/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      setting: [
-        ['صفحات', '/page/index', 'mdi-checkbox-blank-circle-outline'],
-        ['منو ها', '/menu/index', 'mdi-checkbox-blank-circle-outline'],
-        ['پرفروش ترین دسته بندی ها', '/best-selling-categories/index', 'mdi-checkbox-blank-circle-outline'],
-        ['صفحه اصلی', '/home-page/index', 'mdi-checkbox-blank-circle-outline'],
-        ['متغییر ها', '/system/index', 'mdi-checkbox-blank-circle-outline'],
-        ['بنر مناسبتی', '/occasion-banner/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      marketing: [
-        ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
-        ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
-        ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
-        ['گردونه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      smsNotification: [
-        ['لیست پیامک ها', '/sms-notification/index', 'mdi-checkbox-blank-circle-outline'],
-        ['تنظیمات پیامک', '/sms-setting/index', 'mdi-checkbox-blank-circle-outline']
-      ],
-      orders: [
-        ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
-        ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
-        ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      bulkEdit: [
-        ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      reports: [
-        ['داشبورد بازرگانی', '/reports/commercial', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      withdraw: [
-        ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
-        [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],
-      ],
-      message: [
-        ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
-        ['پیام های سیستمی', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
-      ]
+    data() {
+        return {
+            drawer: true,
+            rail: false,
+            open: [],
+            sending: [
+                // ['ارسال', '/send/index', 'mdi-truck-outline'],
+            ],
+            comments: [
+                ['نظرات', '/comment/index', 'mdi-message-reply-text-outline'],
+            ],
+            chat: [
+                ['گفتگو', '/chat', 'mdi-chat-outline'],
+            ],
+            support: [
+                ['کنسل اسنپ پی', '/snap-pay/cancel', 'mdi-checkbox-blank-circle-outline'],
+                ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            groupsFunction: [
+                ['عملیات گروهی', '/exports/index', 'mdi-export'],
+            ],
+            users: [
+                ['مدیریت کاربران', '/user/index', 'mdi-account-group-outline'],
+            ],
+            payment: [
+                // ['پرداخت', '/pay/index', 'mdi-credit-card-outline'],
+            ],
+            products: [
+                ['محصولات', '/product/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کالا ها', '/product/get/skus/index', 'mdi-checkbox-blank-circle-outline'],
+                ['گروه کالا ها', '/product/get/skugroups/index', 'mdi-checkbox-blank-circle-outline'],
+                ['برند', '/brand/index', 'mdi-checkbox-blank-circle-outline'],
+                ['دسته بندی', '/categories/index', 'mdi-checkbox-blank-circle-outline'],
+                ['رنگ', '/color/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ویژگی ها', '/attributes/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            warehouse: [
+                ['درخواست انبار ', '/warehouse/create', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست انبارها', '/warehouse/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت بسته‌ها', '/package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پردازش محموله', '/processing-shipment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله های آتی  ', '/up-coming/index', 'mdi-checkbox-blank-circle-outline'],
+                ['اختصاص کالا به بسته', '/assign-shps-package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بسته های فعال', '/active-package/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت کارگو', '/cargo-management/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت خودروها', '/vehicle/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت رانندگان ', '/driver-management/index', 'mdi-checkbox-blank-circle-outline'],
+                ['دریافت کارگو', '/cargo-receiving/index', 'mdi-checkbox-blank-circle-outline'],
+                ['برنامه پیک آپ', '/pick-up-task/index', 'mdi-checkbox-blank-circle-outline'],
+                // [' پرینت گروهی اولیه برچسب', '/initial-print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت گروهی برچسب', '/print-label-bulk/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت جایگذاری ', '/placement/index', 'mdi-checkbox-blank-circle-outline'],
+                ['جایگذاری بسته', '/package-placement/index', 'mdi-checkbox-blank-circle-outline'],
+                ['موجودی انبار', '/warehouse-inventory/index', 'mdi-checkbox-blank-circle-outline'],
+                [' بسته بندی سفارش ها', '/order-packaging/index', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت سفارش', '/order-packaging/print-order-label', 'mdi-checkbox-blank-circle-outline'],
+                [' پرینت پرچسب', '/print-label/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ناحیه بندی انبار', '/zone/index', 'mdi-checkbox-blank-circle-outline'],
+                ['سفارش های سورتینگ', '/warehouse-orders/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ضایعات', '/wastage/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مفقودی', '/lost/index', 'mdi-checkbox-blank-circle-outline'],
+                [' تسک های پیک آپ', '/report-bug-task/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            commerce: [
+                ['تامین‌کنندگان', '/supplier/index', 'mdi-checkbox-blank-circle-outline'],
+                ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست کالاها', '/seller/1/add/sku', 'mdi-checkbox-blank-circle-outline'],
 
-    }
-  },
+            ],
+            marketplace: [
+              ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            admins: [
+                ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],
+                ['دسترسی ها', '/permission/index', 'mdi-checkbox-blank-circle-outline'],
+                ['مدیریت نقش', '/role-permission/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            setting: [
+                ['صفحات', '/page/index', 'mdi-checkbox-blank-circle-outline'],
+                ['منو ها', '/menu/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پرفروش ترین دسته بندی ها', '/best-selling-categories/index', 'mdi-checkbox-blank-circle-outline'],
+                ['صفحه اصلی', '/home-page/index', 'mdi-checkbox-blank-circle-outline'],
+                ['متغییر ها', '/system/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بنر مناسبتی', '/occasion-banner/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            marketing: [
+                ['صفحات پروموشن', '/promotion-page/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
+                ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
+                ['گردونه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            smsNotification: [
+                ['لیست پیامک ها', '/sms-notification/index', 'mdi-checkbox-blank-circle-outline'],
+                ['تنظیمات پیامک', '/sms-setting/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            orders: [
+                ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست سفارش ها', '/orders/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کالاهای مرجوعی', '/returned-orders/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            bulkEdit: [
+                ['ویرایش shps', '/bulk_edit/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            reports: [
+              ['داشبورد بازرگانی', '/reports/commercial', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            withdraw: [
+                ['درخواست واریز', '/withdraw-request/index', 'mdi-checkbox-blank-circle-outline'],
+                [' تراکنش ها', '/wallet/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            message: [
+                ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
+                ['پیام های سیستمی', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
+            ]
 
-  methods: {
-    /**
-     * Show and hide menu in scroll down and up
-     */
-    handleScroll() {
-      let menu = document.getElementById('fixed-menu');
-
-      if (menu) {
-        if (window.scrollY > 0) {
-          this.isFixed = true;
-        } else {
-          this.isFixed = false;
         }
-      }
     },
-  },
-
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
 }
 </script>
-
-<style lang="scss">
-#fixed-menu {
-  height: 100vh;
-
-  .v-navigation-drawer__content {
-    height: 100vh !important;
-  }
-
-  &.fixed {
-    position: fixed;
-    width: 256px;
-    top: 0;
-    z-index: 11111;
-  }
-}
-</style>

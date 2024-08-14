@@ -25,20 +25,20 @@ export default function setup() {
     ]);
 
     const detailInfo = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: ' نام متصدی', show: true, value: 'admin_name', order: false},
-        {name: ' شناسه سورتینگ', show: true, value: 'sorting_placement', order: false},
-        {name: 'وضعیت بسته بندی', show: true, value: 'packing_status', order: false},
-        {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
-        {name: ' نام کالا ', show: true, value: 'name', order: false},
-        {name: '  بارکد کالا', show: true, value: 'barcode', order: false},
-        {name: 'تصویر', show: true, value: 'image_url', order: false},
+        {name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable: false, align:'center'},
+        {name: ' نام متصدی',title: ' نام متصدی', show: true, key: 'admin_name', sortable: false, align:'center'},
+        {name: ' شناسه سورتینگ',title: ' شناسه سورتینگ', show: true, key: 'sorting_placement', sortable: false, align:'center'},
+        {name: 'وضعیت بسته بندی',title: 'وضعیت بسته بندی', show: true, key: 'packing_status', sortable: false, align:'center'},
+        {name: ' شناسه shps',title: ' شناسه shps', show: true, key: 'shps', sortable: false, align:'center'},
+        {name: ' نام کالا ',title: ' نام کالا ', show: true, key: 'sku_label', sortable: false, align:'center'},
+        {name: '  بارکد کالا',title: '  بارکد کالا', show: true, key: 'shpss_barcode', sortable: false, align:'center'},
+        {name: 'تصویر',title: 'تصویر', show: true, key: 'image', sortable: false, align:'center'},
 
     ]);
 
     const printLabelHeader = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: ' شناسه shps', show: true, value: 'shpsId', order: false},
+        {name: 'ردیف',title: 'ردیف', show: true, value:  'row', sortable: false,align: 'center'},
+        {name: ' شناسه shps',title: ' شناسه shps', show: true, value: 'shpsId', sortable: false,align: 'center'},
 
     ]);
     const item = []

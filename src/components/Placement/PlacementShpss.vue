@@ -42,34 +42,32 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column" style="height: calc(100% - 164px);">
-        <Table
+    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column" style="height: calc(100% - 164px);">
+        <ShTable
             class="flex-grow-1"
-            :header="shpssHeader"
-            :items="placementShpssList"
-            @updateList="updateList"
-            model="package" />
+            :headers="shpssHeader"
+            :items="itemListTable"
+        />
     </v-card>
 </div>
 </template>
 
 <script>
-import Table from '@/components/Placement/Table/ShpssTable.vue'
 import Placement from "@/composables/Placement";
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+import {AxiosCall} from '@/assets/js/axios_call.js'
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
     data() {
         return {
             placement: null,
             placementShpssList: [],
+            itemListTable: []
         }
     },
 
     components: {
-        Table,
+        ShTable
     },
 
     setup() {
@@ -81,9 +79,6 @@ export default {
         };
     },
 
-    computed: {
-
-    },
 
     methods: {
         changeHeaderShow(index, value) {
@@ -125,5 +120,21 @@ export default {
         this.getPlacement();
         this.getPlacementShpssList();
     },
+
+    watch: {
+        placementShpssList() {
+            this.itemListTable = []
+            this.placementShpssList.forEach((item) => {
+                this.itemListTable.push(
+                    {
+                        id: item.id,
+                        sku_label: item.sku?.label ? item.sku?.label : 'نامعلوم',
+                        placement_count: item.placement_count ? item.placement_count : 'نامعلوم',
+                    }
+                )
+            })
+        }
+    },
+
 }
 </script>

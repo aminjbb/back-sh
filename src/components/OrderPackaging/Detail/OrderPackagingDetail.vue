@@ -47,14 +47,12 @@
             </v-row>
         </v-card>
 
-        <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch">
-            <Table
-                ref="oredrDetailFunc"
+        <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch">
+            <ShTable
                 class="flex-grow-1"
-                :header="detailInfo"
-                :items="orderDetail"
+                :headers="detailInfo"
+                :items="itemListTable"
                 :loading="loading"
-                deletePath="report/crud/delete/"
             />
 
             <v-divider/>
@@ -109,7 +107,6 @@
 
 <script>
 import {ref} from 'vue'
-import Table from '@/components/OrderPackaging/Table/TableDetail.vue'
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
@@ -118,140 +115,147 @@ import ModalChangeMethod from "@/components/OrderPackaging/Detail/Modal/ChangeSe
 import {openToast, closeToast} from "@/assets/js/functions";
 import axios from "axios";
 import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   components: {
     ModalNotAvailableOrder,
-    Table,
     ModalRejectOrder,
     Modal,
-    ModalChangeMethod
+    ModalChangeMethod,
+    ShTable
   },
 
-    data() {
-        return {
-            shpsItem: null,
-            cargo: null,
-            orderDetail: [],
-            dialog: false,
-            sendingMethods:[],
-            currentSendingMethod:null
-        }
-    },
-    setup() {
-        const {
-            dataTableLength,
-            item,
-            filterField,
-            loading,
-            detailInfo,
-            orderListDetail,
-            orderId,
-            accept,
-            refreshOrderPackaging
-        } = OrderPackagingList();
-        const orderDetails = ref(orderListDetail);
-        return {
-            dataTableLength,
-            item,
-            filterField,
-            loading,
-            detailInfo,
-            orderListDetail,
-            orderDetails,
-            orderId,
-            accept,
-            refreshOrderPackaging
-        }
-    },
-
-    computed: {
-        confirmModal() {
-            return this.$store.getters['get_confirmForm'].confirmModal;
-        },
-    },
-
-    methods: {
-        closeModal() {
-            this.accept = !this.accept
-            this.dialog = false
-        },
-
-        async orderItemPack() {
-            openToast(
-                this.$store,
-                'تا برقراری ارتباط کمی صبر کنید',
-                "success",
-            );
-            let endPointUrl = null
-            if (this.accept) endPointUrl = `warehouse/order/packaging/done/?accept`
-            else endPointUrl = `warehouse/order/packaging/done/`
-            this.loading = true
-
-            await axios
-                .post(`${import.meta.env.VITE_API_BASEURL}/v1/${endPointUrl}`, {
-                    barcode: this.shpsItem,
-                }, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + this.$cookies.get('adminToken'),
-                    },
-                })
-                .then((data) => {
-                    closeToast(this.$store)
-                    localStorage.setItem('orderIdForRefreshOrderPackaging', data?.data?.data?.order?.id)
-                    this.orderId = data?.data?.data?.order?.id
-                    if (data?.data?.data?.is_completed) {
-                        window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.data?.order?.id}/print`, '_blank');
-                    }
-                    let sortedItem = data?.data?.data?.order_items
-                    sortedItem.sort(function (a, b) {
-                        if (a.packing_status < b.packing_status) {
-                            return 1;
-                        }
-                        if (a.packing_status > b.packing_status) {
-                            return -1;
-                        }
-                        return 0;
-                    })
-                    this.orderDetail = sortedItem
-                    this.loading = false
-                    setTimeout(()=>{this.shpsItem = null},1000)
-                })
-                .catch((err) => {
-                    this.shpsItem = null
-                    this.loading = false
-                    if (err.response.status == 400) {
-                        openToast(
-                            this.$store,
-                            err.response.message,
-                            "error",
-                        );
-                    }
-                    else if (err.response.status == 411) {
-                      this.$refs.ModalNotAvailable.dialog = true
-                    }
-                    else if (err.response.status == 401) {
-                        this.$router.push('/login')
-                    } else if (err.response.status == 403) {
-                        openToast(
-                            this.$store,
-                            'مجاز به عملیات نیستید',
-                            "error",
-                        );
-                    }
-                    else if (err.response.status == 410) {
-                        this.sendingMethods = err.response.data.data.sending_methods
-                        this.currentSendingMethod = err.response.data.data.current_sending_method
-                        this.$refs.ModalChangeMethod.dialogSendingMethod = true
-                    }
-                });
-        },
-    },
-
-    mounted() {
-        if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
+  data() {
+    return {
+      shpsItem: null,
+      cargo: null,
+      orderDetail: [],
+      dialog: false,
+      sendingMethods: [],
+      currentSendingMethod: null
     }
+  },
+  setup() {
+    const {
+      dataTableLength,
+      item,
+      filterField,
+      loading,
+      detailInfo,
+      orderListDetail,
+      orderId,
+      accept,
+      refreshOrderPackaging
+    } = OrderPackagingList();
+    const orderDetails = ref(orderListDetail);
+    return {
+      dataTableLength,
+      item,
+      filterField,
+      loading,
+      detailInfo,
+      orderListDetail,
+      orderDetails,
+      orderId,
+      accept,
+      refreshOrderPackaging
+    }
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal;
+    },
+  },
+
+  methods: {
+    closeModal() {
+      this.accept = !this.accept
+      this.dialog = false
+    },
+
+    async orderItemPack() {
+      openToast(
+          this.$store,
+          'تا برقراری ارتباط کمی صبر کنید',
+          "success",
+      );
+      let endPointUrl = null
+      if (this.accept) endPointUrl = `warehouse/order/packaging/done/?accept`
+      else endPointUrl = `warehouse/order/packaging/done/`
+      this.loading = true
+
+      await axios
+          .post(`${import.meta.env.VITE_API_BASEURL}/v1/${endPointUrl}`, {
+            barcode: this.shpsItem,
+          }, {
+            headers: {
+              Authorization:
+                  "Bearer " + this.$cookies.get('adminToken'),
+            },
+          })
+          .then((data) => {
+            closeToast(this.$store)
+            localStorage.setItem('orderIdForRefreshOrderPackaging', data?.data?.data?.order?.id)
+            this.orderId = data?.data?.data?.order?.id
+            if (data?.data?.data?.is_completed) {
+              window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.data?.order?.id}/print`, '_blank');
+            }
+            let sortedItem = data?.data?.data?.order_items
+            sortedItem.sort(function (a, b) {
+              if (a.packing_status < b.packing_status) {
+                return 1;
+              }
+              if (a.packing_status > b.packing_status) {
+                return -1;
+              }
+              return 0;
+            })
+            this.orderDetail = sortedItem
+            this.loading = false
+            setTimeout(() => {
+              this.shpsItem = null
+            }, 1000)
+          })
+          .catch((err) => {
+            this.shpsItem = null
+            this.loading = false
+            if (err.response.status == 400) {
+              openToast(
+                  this.$store,
+                  err.response.message,
+                  "error",
+              );
+            } else if (err.response.status == 411) {
+              this.$refs.ModalNotAvailable.dialog = true
+            } else if (err.response.status == 401) {
+              this.$router.push('/login')
+            } else if (err.response.status == 403) {
+              openToast(
+                  this.$store,
+                  'مجاز به عملیات نیستید',
+                  "error",
+              );
+            } else if (err.response.status == 410) {
+              this.sendingMethods = err.response.data.data.sending_methods
+              this.currentSendingMethod = err.response.data.data.current_sending_method
+              this.$refs.ModalChangeMethod.dialogSendingMethod = true
+            }
+            else {
+              openToast(
+                  this.$store,
+                  err.response.message,
+                  "error",
+              );
+            }
+          });
+    },
+  },
+
+  mounted() {
+    if (localStorage.getItem('orderIdForRefreshOrderPackaging')) this.refreshOrderPackaging(localStorage.getItem('orderIdForRefreshOrderPackaging'))
+  }
 }
 </script>
   
