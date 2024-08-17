@@ -156,7 +156,7 @@
 
             </v-list-group>
 
-            <v-list-group value="marketing">
+            <v-list-group value="commerce">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>

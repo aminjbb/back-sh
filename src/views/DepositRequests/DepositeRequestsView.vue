@@ -68,8 +68,8 @@
               <div
                   v-else
                   class="expanded-background"
-                  :style="{ backgroundColor: BgSelected(item.data.status) }">
-                {{ factorSelectedTitle(item.data.status) }}
+                  :style="{ backgroundColor: BgSelected(item.data.custom) }">
+                {{ factorSelectedTitle(item.data.custom) }}
               </div>
             </template>
 
@@ -237,10 +237,11 @@ export default {
     },
 
     factorSelectedTitle(status) {
+
       if (status === 'pending') {
         return 'در انتظار '
       }
-      if (status === 'accepted') {
+        if (status === 'accepted') {
         return '  تایید شده'
       }
       if (status === 'rejected') {
