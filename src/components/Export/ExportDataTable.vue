@@ -2,13 +2,13 @@
     <div class="h-100 d-flex flex-column align-stretch">
         <v-card
             height="100"
-            class="ma-5 br-12 stretch-card-header-100"
+            class="ma-5 br--12 stretch-card-header-100"
         >
             <FilterExport/>
         </v-card>  
 
         <v-card 
-            class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+            class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
             height="580"
         >
             <Table 

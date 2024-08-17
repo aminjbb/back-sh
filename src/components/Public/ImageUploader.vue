@@ -1,6 +1,6 @@
 <template >
     <div class="stretch-table">
-        <v-card  class="ma-5 br-12 pa-5" >
+        <v-card  class="ma-5 br--12 pa-5" >
             <div class="upload-box">
                 <v-row
                     justify="space-between"
@@ -15,13 +15,13 @@
                         >
                         <div>
                             <div class="pa-3">
-                                <span class="t14500">
+                                <span class="t14 w500">
                                     لطفا فایل خود را بکشید و رها کنید.
                                 </span>
                             </div>
 
                             <div class="pr-3">
-                                <span class="t14300">
+                                <span class="t14 w300">
                                     فرمت های : JPEG , PNG , jpg (حداکثر سایز 12 MG ) 
                                 </span>
                             </div>
@@ -47,7 +47,7 @@
                 </v-row>
             </div>
         </v-card>   
-        <v-card class="ma-5 br-12 scroller"  >
+        <v-card class="ma-5 br--12 scroller"  >
             <div class="example pa-15 mb-10">
               <v-row>
                 <v-col cols="6" v-for="(item, index) in images" :key="`image_${index}`">
@@ -65,7 +65,7 @@
                   <v-row justify="center" align="center">
                     <v-col cols="6">
                       <div class="text-right my-5">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 اولویت
                             </span>
                       </div>
@@ -81,7 +81,7 @@
                     </v-col>
                     <v-col cols="6">
                       <div class="text-right my-5">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 جایگاه
                             </span>
                       </div>

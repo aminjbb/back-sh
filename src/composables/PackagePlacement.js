@@ -1,6 +1,5 @@
 import { ref, watch } from 'vue';
 import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
@@ -16,16 +15,16 @@ export default function setup() {
     const page = ref(1)
 
     const header = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه بسته' , show:true , value:'created_at', order: false},
-        {name:'نوع محموله' , show:true , value:'name', order: false},
-        {name:'شماره جایگاه' , show:true ,  value:'label', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true , key: 'row', sortable: false, align:'center'},
+        {name:'شناسه بسته' ,title:'شناسه بسته' , show:true , key:'id', sortable: false, align:'center'},
+        {name:'نوع محموله' ,title:'نوع محموله' , show:true , key:'type', sortable: false, align:'center'},
+        {name:'شماره جایگاه' ,title:'شماره جایگاه' , show:true ,  key:'placement_id', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getPackagePlacement(query) {
         loading.value = true

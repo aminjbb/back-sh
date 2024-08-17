@@ -1,5 +1,4 @@
 import {ref} from 'vue';
-import {PanelFilter} from '@/assets/js/filter.js'
 import { useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
@@ -29,7 +28,6 @@ export default function setup(posts) {
         {name: 'نام انباردار ', show: true, value: 'admin_name', order: false},
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
 
     async function getShpsList(packageId = null) {
         loading.value = true;

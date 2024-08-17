@@ -19,11 +19,11 @@
             <div
                 v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
                 class="d-flex align-center ga-3">
-              <span class="title t12400">وضعیت در حال بررسی شود </span>
+              <span class="title t12 w400">وضعیت در حال بررسی شود </span>
               <v-switch v-model="isSwitchActive"  inset color="success"/>
             </div>
             <v-chip
-                class="ma-2 rounded-lg t10400"
+                class="ma-2 rounded-lg t10 w400"
                 :color="getStatusColor(ticketStatus)"
                 text-color="white">
               {{getStatusText(ticketStatus)}}
@@ -32,19 +32,19 @@
 
           <div class="d-flex justify-space-between align-center">
             <div v-if="oneTicket && oneTicket.priority" class="d-flex align-center ticket-single__sidebar__item">
-              <span class="title t12400">اولویت : </span>
-              <div class="pr-2 t12400">{{ getPriorityText(oneTicket.priority) }}</div>
+              <span class="title t12 w400">اولویت : </span>
+              <div class="pr-2 t12 w400">{{ getPriorityText(oneTicket.priority) }}</div>
             </div>
             <div v-if="oneTicket && oneTicket.created_at" class="d-flex justify-space-between align-center ticket-single__sidebar__item">
-              <span class="title t12400"> تاریخ ساخت : </span>
-              <div class="pr-2 number-font t12400">{{ convertDate(oneTicket.created_at) }}</div>
+              <span class="title t12 w400"> تاریخ ساخت : </span>
+              <div class="pr-2 number-font t12 w400">{{ convertDate(oneTicket.created_at) }}</div>
             </div>
           </div>
 
           <div class="d-flex justify-space-between align-center">
             <div v-if="oneTicket && oneTicket.user" class="d-flex align-center ticket-single__sidebar__item">
-              <span class="title t12400"> کاربر :</span>
-              <div class="pr-2 t12400">
+              <span class="title t12 w400"> کاربر :</span>
+              <div class="pr-2 t12 w400">
                 <template v-if="oneTicket.user.first_name">
                   {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                 </template>
@@ -55,9 +55,9 @@
             </div>
 
             <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
-              <span class="title t12400"> موبایل :</span>
+              <span class="title t12 w400"> موبایل :</span>
               <v-btn @click="redirect()" variant="text" >
-                  <span class="number-font t12400">
+                  <span class="number-font t12 w400">
                       {{ oneTicket.user.phone_number }}
                   </span>
               </v-btn>
@@ -76,41 +76,41 @@
         </div>
       </v-col>
 
-      <v-col md="9" class="vh-100">
+      <v-col md="9" class="h-100vh">
         <div class="">
-          <div class="pl-6">
+          <div class="">
             <v-card
                 v-if="oneTicket && oneTicket.content"
                 min-height="100"
                 class="mb-10">
               <div class="d-flex justify-space-between pa-6">
-                  <span v-if="oneTicket.user" class="t14500 text-gray500 mrl10">
+                  <span v-if="oneTicket.user" class="t14 w500 text-gray500 mrl10">
                     <template v-if="oneTicket.user.first_name">
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at" class="t14500 text-gray500 mr-10 number-font">
+                <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">
                       {{ convertDate(oneTicket.created_at) }}
                   </span>
               </div>
 
               <v-divider color="black"/>
 
-              <p class="text-justify pa-5" v-html="oneTicket.content"/>
+              <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
             </v-card>
 
             <v-card
                 v-if="oneTicket && oneTicket.files"
                 min-height="100"
                 class="mb-10">
-              <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
-                <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+              <div class="d-flex justify-center pa-6" v-for="file in oneTicket.files" :key="file.id">
+                <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
               </div>
               <v-divider color="black"/>
 
-              <p class="text-justify pa-5" v-html="oneTicket.content"/>
+              <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
             </v-card>
 
 
@@ -122,29 +122,29 @@
                     class="mb-10"
                     :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                   <div class="d-flex justify-space-between pa-6">
-                    <span class="t14500 text-gray500 ml-10">
+                    <span class="t14 w500 text-gray500 ml-10">
                       {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
                     </span>
 
-                    <span class="t14500 text-gray500 mr-10 number-font">
+                    <span class="t14 w500 text-gray500 mr-10 number-font">
                       {{ convertDate(ticket.created_at) }}
                     </span>
                   </div>
 
                   <v-divider color="black"/>
 
-                  <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
-                    <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                    <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                  <div class="d-flex justify-center pa-6" v-for="file in ticket.files" :key="file.id">
+                    <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                    <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
                   </div>
 
-                  <p class="text-justify pa-5" v-html="ticket.content"/>
+                  <p class="t14 text-justify pa-5" v-html="ticket.content"/>
                 </v-card>
               </div>
             </template>
 
             <div>
-              <div class="text-right mb-3 t14500">ارسال پیام</div>
+              <div class="text-right mb-3 t14 w500">ارسال پیام</div>
 
               <ckeditor
                   v-model="content"

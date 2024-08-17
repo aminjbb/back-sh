@@ -4,12 +4,13 @@
     <v-main class="h-100vh">
       <Header />
       <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-        <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+        <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
           <v-row
               justify="center"
               align="center"
               class="px-10 py-5">
             <v-col cols="6">
+
               <v-row justify="start">
 
                 <ModalGroupAdd
@@ -54,14 +55,44 @@
         </v-card>
 
         <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              @remove="removeItemDeliveryCode"
-              :header="header"
+              :headers="header"
               :items="deliveryList"
-              :page="1"
-              :perPage="100"
-              ref="deliveryCodeTable" />
+              :loading="loading"
+              :page="page"
+              :perPage="dataTableLength">
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer">
+                        <SingleEditModal :deliveryItem="item.data"/>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItemDeliveryCode(item.index)">
+                        <v-icon size="small" class="text-grey-darken-1">
+                          mdi-trash-can-outline
+                        </v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
 
           <v-divider />
 
@@ -117,7 +148,7 @@ const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue
 const ModalGroupAdd = defineAsyncComponent(() => import ('@/components/Public/ModalGroupAdd.vue'))
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
 const ModalColumnFilter = defineAsyncComponent(()=> import('@/components/Public/ModalColumnFilter.vue'))
-const Table = defineAsyncComponent(() => import ('@/components/DeliveryCode/Table/Table.vue'))
+const ShTable = defineAsyncComponent(() => import ('@/components/Components/Table/sh-table.vue'))
 const ModalExcelDownload = defineAsyncComponent(() => import ('@/components/Public/ModalExcelDownload.vue'))
 const SingleEditModal = defineAsyncComponent(() => import ('@/components/DeliveryCode/Modal/SingleEditModal.vue'))
 import DeliveryCode from "@/composables/DeliveryCode"
@@ -126,13 +157,13 @@ export default {
   name: "DeliveryCodeView",
 
   components: {
+    ShTable,
     SingleEditModal,
     DashboardLayout,
     Header,
     ModalGroupAdd,
     ModalColumnFilter,
     PanelFilter,
-    Table,
     ModalExcelDownload
   },
 
@@ -158,7 +189,8 @@ export default {
   data(){
     return{
       deliveryList: [],
-      editDeliveryCodeLoading: false
+      editDeliveryCodeLoading: false,
+      statuses: []
     }
   },
 
@@ -183,6 +215,10 @@ export default {
       this.deliveryList.splice(index , 1)
     },
 
+    changeStatus(index , text){
+      this.statuses[index] = text
+    },
+
     async editAllDeliveryCode() {
       try {
         this.editDeliveryCodeLoading = true
@@ -203,20 +239,20 @@ export default {
         if (data){
           this.editDeliveryCodeLoading = false
           this.deliveryList.forEach((element , index)=>{
-            this.$refs.deliveryCodeTable.changeStatus(index , 'موفق')
+            this.changeStatus(index , 'موفق')
           })
         }
         else{
           this.editDeliveryCodeLoading = false
           this.deliveryList.forEach((element , index)=>{
-            this.$refs.deliveryCodeTable.changeStatus(index , 'ناموفق')
+            this.changeStatus(index , 'ناموفق')
           })
         }
       }
       catch (e) {
         this.editDeliveryCodeLoading = false
         this.deliveryList.forEach((element , index)=>{
-          this.$refs.deliveryCodeTable.changeStatus(index , 'ناموفق')
+          this.changeStatus(index , 'ناموفق')
         })
       }
     }

@@ -8,12 +8,12 @@
         </v-icon>
       </div>
       <div class=" mt-8 d-flex justify-center">
-        <span class="text-white t20600">
+        <span class="text-white t20 w600">
          بسته با موفقیت به شما اختصاص داده شد.
         </span>
       </div>
       <div class=" mt-8 d-flex justify-center px-10 text-center">
-        <span class="text-white t20400">
+        <span class="text-white t20 w400">
       بسته با شناسه {{ packageId }} به شما اختصاص داده شد.
         </span>
       </div>

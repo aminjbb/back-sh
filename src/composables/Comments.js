@@ -1,4 +1,4 @@
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import {useCookies} from "vue3-cookies";
 import {AxiosCall} from "@/assets/js/axios_call";
 import { useRoute } from 'vue-router'
@@ -6,18 +6,20 @@ import { useRoute } from 'vue-router'
 export default function setup() {
 
     const header = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: ' SKU شناسه', show: true, value: 'id', order: true},
-        {name: 'نام کالا', show: true, value: 'label', order: false},
-        {name: 'امتیاز', show: true, value: 'score', order: true},
-        {name: 'برند', show: true, value: 'brand', order: false},
-        {name: 'نام کاربر', show: true, value: 'user', order: false},
-        {name: 'شماره کاربر', show: false, value: 'phone_number', order: false},
-        {name: 'ایمیل کاربر', show: false, value: 'email', order: false},
-        {name: 'نام ادمین ', show: true, value: 'admin', order: false},
-        {name: ' تاریخ ثبت ', show: true, value: 'created_at', order: true},
-        {name: ' تاریخ بررسی ', show: true, value: 'updated_at', order: true},
-        {name: 'وضعیت', show: true, value: 'status', order: true},
+        {name: 'ردیف', title: 'ردیف', show: true, key: 'row', sortable: false, align:'center'},
+        {name: 'SKU شناسه', title: 'SKU شناسه', show: true, key: 'sku_id', align:'center'},
+        {name: 'نام کالا', title: 'نام کالا', show: true, key: 'label', sortable: false, align:'center'},
+        {name: 'امتیاز', title: 'امتیاز', show: true, key: 'score', align:'center'},
+        {name: 'برند', title: 'برند', show: true, key: 'brand', sortable: false, align:'center'},
+        {name: 'نام کاربر', title: 'نام کاربر', show: true, key: 'user', sortable: false, align:'center'},
+        {name: 'شماره کاربر', title: 'شماره کاربر', show: false, key: 'phone_number', sortable: false, align:'center'},
+        {name: 'ایمیل کاربر', title: 'ایمیل کاربر', show: false, key: 'email', sortable: false, align:'center'},
+        {name: 'نام ادمین ', title: 'نام ادمین ', show: true, key: 'admin', sortable: false, align:'center'},
+        {name: ' تاریخ ثبت ', title: ' تاریخ ثبت ', show: true, key: 'created_at', align:'center'},
+        {name: ' تاریخ بررسی ', title: ' تاریخ بررسی ', show: true, key: 'updated_at', align:'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key: 'custom', align:'center'},
+        {name: 'عملیات', title: 'عملیات', show: true, align:'center', sortable: false, key:'action', fixed: true},
+
     ]);
 
     const filterField = ref([

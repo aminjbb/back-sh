@@ -1,18 +1,18 @@
 <template>
-  <div class="create-product flex-column d-flex vh-100">
+  <div class="create-product flex-column d-flex h-100vh">
     <v-card
-        class="ma-5 br-12 pb-15 flex-grow-1"
+        class="ma-5 br--12 pb-15 flex-grow-1"
         min-height="500"
     >
       <div class="text-center py-5">
-          <span class="t14500">
+          <span class="t14 w500">
             افزودن تصویر
           </span>
       </div>
       <v-form ref="addImageMenu" v-model="valid" class="create-with-title__info-form scroller">
         <v-col cols="12" md="12">
           <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                         بنر پروموشن
                       </span>
           </div>
@@ -24,7 +24,7 @@
         </v-col>
         <v-col cols="12" md="12">
           <div class="text-right my-5">
-                      <span class="t14500">
+                      <span class="t14 w500">
                         URL تصویر  <span class="text-error">*</span>
                       </span>
           </div>

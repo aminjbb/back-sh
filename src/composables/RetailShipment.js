@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {RetailShipmentFilter} from "@/assets/js/retailShipmentFilter";
 
 export default function setup() {
     const retailShipments =ref([])
@@ -10,26 +9,29 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه محموله', show: true , value:'id', order: false},
-        { name: 'شناسه فاکتور', show: true , value:'factor_id', order: true},
-        { name: 'تعداد آیتم', show: true, value:'number' , order: false},
-        { name: 'تنوع آیتم', show: true , value:'variety', order: false},
-        { name: 'نام سازنده', show: true, value:'creator', order: false },
-        { name: 'تاریخ ساخت', show: true, value:'created_at', order: true },
-        { name: 'تاریخ ویرایش', show: true, value:'updated_at', order: true },
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'شناسه محموله',title: 'شناسه محموله', show: true , key:'id', sortable: false, align:'center'},
+        { name: 'شناسه فاکتور',title: 'شناسه فاکتور', show: true , key:'factor_id', align:'center'},
+        { name: 'تعداد آیتم',title: 'تعداد آیتم', show: true, key:'shps_count' , sortable: false, align:'center'},
+        { name: 'تنوع آیتم',title: 'تنوع آیتم', show: true , key:'shps_variety', sortable: false, align:'center'},
+        { name: 'نام سازنده',title: 'نام سازنده', show: true, key:'creator', sortable: false, align:'center'},
+        { name: 'تاریخ ساخت',title: 'تاریخ ساخت', show: true, key:'created_at_fa', align:'center'},
+        { name: 'تاریخ ویرایش',title: 'تاریخ ویرایش', show: true, key:'updated_at_fa', align:'center'},
+        { name: 'وضعیت',title: 'وضعیت', show: true, key:'status', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
+
     ]);
     const headerShps =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه shps', show: true , value:'shps', order: false},
-        { name: 'نام کالا', show: true , value:'label', order: false},
-        { name: 'تعداد کالا', show: true, value:'number' , order: false},
-        { name: 'تلورانس پایین', show: true , value:'low_tolerance', order: false},
-        { name: 'تلورانس بالا', show: true, value:'high_tolerance', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
+        { name: 'شناسه shps',title: 'شناسه shps', show: true , key:'id', sortable: false, align:'center'},
+        { name: 'نام کالا',title: 'نام کالا', show: true , key:'sku_label', sortable: false, align:'center'},
+        { name: 'تعداد کالا',title: 'تعداد کالا', show: true, key:'custom' , sortable: false, align:'center'},
+        { name: 'تلورانس پایین',title: 'تلورانس پایین', show: true , key:'custom2', sortable: false, align:'center'},
+        { name: 'تلورانس بالا',title: 'تلورانس بالا', show: true, key:'custom3', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', show: true, key:'custom4', sortable: false, align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterFieldAllRetail = [
@@ -46,9 +48,8 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new RetailShipmentFilter()
+
     async function getRetailShipmentList() {
-        filter.factor = route.params.factorId
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query
@@ -89,7 +90,6 @@ export default function setup() {
                     per_page : dataTableLength.value
                 }
             }
-
         }
 
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -106,7 +106,16 @@ export default function setup() {
         }
     }
 
-    return {filterFieldAllRetail, getRetailShipmentList,retailShipments, pageLength , dataTableLength, page, header,
-        loading ,headerShps }
+    return {
+        filterFieldAllRetail,
+        getRetailShipmentList,
+        retailShipments,
+        pageLength ,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        headerShps
+    }
 }
 

@@ -13,14 +13,14 @@ export default function setup() {
     const page = ref(1)
     const route = useRoute()
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'تصویر', show: true, value:'image' , order: false},
-        { name: 'دستگاه', show: true , value:'device', order: false},
-        { name: 'لینک', show: true , value:'link', order: false},
-        { name: 'سازنده', show: true , value:'creator_id', order: false},
-        { name: 'وضعیت', show: true , value:'status', order: false},
-        { name: 'عملیات', show: true , value:'is_active', order: false},
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row',sortable: false, align:'center'},
+        {name: 'عنوان', title: 'عنوان', show: true , key:'label', sortable: false, align:'center'},
+        {name: 'تصویر', title: 'تصویر', show: true, key:'image' , sortable: false, align:'center'},
+        {name: 'دستگاه', title: 'دستگاه', show: true , key:'device', sortable: false, align:'center'},
+        {name: 'لینک', title: 'لینک', show: true , key:'link', sortable: false, align:'center'},
+        {name: 'سازنده', title: 'سازنده', show: true , key:'creator_id', sortable: false, align:'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true , key:'is_active', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const filterField = [
         { name: 'عنوان', type:'text', value:'label'},

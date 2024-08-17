@@ -1,7 +1,7 @@
 <template>
     <v-bottom-sheet v-model="editModal" height="80%">
-        <v-card class="rounded-t-lg px-3 vh-100">
-            <div class="d-flex justify-space-between t16500 py-6 px-5">
+        <v-card class="rounded-t-lg px-3 h-100vh">
+            <div class="d-flex justify-space-between t16 w500 py-6 px-5">
                 <v-icon   @click="editModal = false"  class="bg-grey-lighten-3 rounded-circle" color="grey-darken-1">
                     mdi-close
                 </v-icon>
@@ -10,7 +10,7 @@
 
 <!-- fields-->
             <v-form ref="addVoucher" class="px-5">
-                <div class="t14500 text-gray600 text-right my-2">
+                <div class="t14 w500 text-gray600 text-right my-2">
                    عنوان *
                 </div>
                 <v-text-field
@@ -21,7 +21,7 @@
 
                 </v-text-field>
 
-              <div class="t14500 text-gray600 text-right my-3 mt-6">
+              <div class="t14 w500 text-gray600 text-right my-3 mt-6">
                   تاریخ پایان
               </div>
                 <v-text-field

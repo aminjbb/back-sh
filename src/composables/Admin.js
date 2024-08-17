@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import {UserPanelFilter} from "@/assets/js/filter_user";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 export default function setup() {
     const admin = ref([]);
@@ -16,18 +15,18 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new UserPanelFilter()
 
     const header =ref( [
-        {name:'ردیف' , show:true, value:null, order:false},
-        {name:'نام' , show:true, value:'first_name', order:false},
-        {name:'نام خانوادگی' , show:true, value:'last_name', order:false},
-        {name:'شماره موبایل' , show:true, value:'phone_number', order:false},
-        {name:'سطح دسترسی' , show:true, value:'role', order:false},
-        {name:'تاریخ ساخت' , show:true, value:'created_at', order:true},
-        {name:'تاریخ لاگین' , show:false, value:'last_login', order:false},
-        {name:'ایمیل' , show:true, value:'email', order:false},
-        {name:'مسدود کردن' , show:true, value:'is_ban', order:false},
+        {name:'ردیف', title:'ردیف', key:'row', show:true, align:'center', sortable: false},
+        {name:'نام' , title:'نام',key:'first_name', show:true, align:'center', sortable: false},
+        {name:'نام خانوادگی' , title:'نام خانوادگی', key:'last_name', show:true, align:'center', sortable: false},
+        {name:'شماره موبایل' ,title:'شماره موبایل', key:'phone_number', show:true, align:'center', sortable: false},
+        {name:'سطح دسترسی' ,title:'سطح دسترسی', key:'role', show:true,  align:'center', sortable: false},
+        {name:'تاریخ ساخت' ,title:'تاریخ ساخت', key:'created_at', show:true, align:'center'},
+        {name:'تاریخ لاگین' , title:'تاریخ لاگین' ,key:'last_login', show:false, align:'center', sortable: false},
+        {name:'ایمیل' ,title:'ایمیل', key:'email', show:true, align:'center', sortable: false},
+        {name:'مسدود کردن' ,title:'مسدود کردن', key:'switch', show:true, align:'center', sortable: false},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [

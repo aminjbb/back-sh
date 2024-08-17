@@ -18,7 +18,7 @@
         width="468">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     پرینت برچسب
                 </span>
 
@@ -40,7 +40,7 @@
                     <br />
                     <div
                         v-if="data && data.barcode"
-                        class="number-font text-black t12500 mt-2"
+                        class="number-font text-black t12 w500 mt-2"
                         style="text-align:center">{{ data.barcode }}</div>
                 </div>
             </div>

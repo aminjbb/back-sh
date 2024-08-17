@@ -1,7 +1,7 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch seller">
 
-    <v-card height="70" class="mx-5 my-2 br-12 pt-2 stretch-card-header-70">
+    <v-card height="70" class="mx-5 my-2 br--12 pt-2 stretch-card-header-70">
         <div class="d-flex justify-start align-center pr-15">
             <ModalPartitionSlider :getHomeSection="getHomeSection" :slider="slider" />
             <div class="d-flex px-15">
@@ -16,7 +16,7 @@
             </div>
         </div>
     </v-card>
-    <v-card height="70" class="mx-5 my-2 br-12 stretch-card-header-70">
+    <v-card height="70" class="mx-5 my-2 br--12 stretch-card-header-70">
         <v-row
             justify="center"
             align="center"
@@ -27,7 +27,7 @@
         </v-row>
     </v-card>
 
-    <v-card class="mx-5 my-2 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
         <Table
             class="flex-grow-1"
             :header="categoryHeader"

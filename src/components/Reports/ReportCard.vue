@@ -9,10 +9,10 @@
           <v-skeleton-loader type="list-item-two-line" v-if="loading"></v-skeleton-loader>
           <v-col class="py-0 d-flex justify-end " v-else>
             <v-row class="my-3 ma-1">
-              <span class="modal__content__title t10400"><b>{{ itemName }}</b></span>
+              <span class="modal__content__title t10 w400"><b>{{ itemName }}</b></span>
             </v-row>
             <v-row class="mr-6 ">
-           <span v-if="itemValueFormatted" class="text-h6 number-font t12500  ">
+           <span v-if="itemValueFormatted" class="text-h6 number-font t12 w500  ">
              <b>
                {{
                  itemValueFormatted?.toLocaleString()

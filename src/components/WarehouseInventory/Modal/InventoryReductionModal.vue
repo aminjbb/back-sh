@@ -6,7 +6,7 @@
         @input="dialogToggle">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     مدیریت موجودی
                 </span>
 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="text-right pa-5">
-                <span class="t12300 modal__label">
+                <span class="t12 w300 modal__label">
                    * تغییر موجودی
                 </span>
                 <v-text-field

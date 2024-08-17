@@ -17,7 +17,7 @@
 
                         <div>
                             <div>
-                                <span class="t14500 mr-5">
+                                <span class="t14 w500 mr-5">
                                     {{admin.first_name }} {{admin.last_name}}
                                 </span>
                             </div>

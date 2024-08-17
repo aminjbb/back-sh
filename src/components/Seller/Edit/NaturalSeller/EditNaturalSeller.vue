@@ -1,7 +1,7 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1">
       <template v-if="step === 1">
         <EditNaturalSellerStep1 :seller="seller" ref="step1"/>
       </template>
@@ -21,7 +21,7 @@
                 width="115"
                 @click="decreaseStep()"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                   مرحله قبلی
               </span>
             </v-btn>
@@ -35,7 +35,7 @@
                 width="115"
                 v-if="step == 1"
             >
-              <span class="t14300 text-gray500">پاک کردن</span>
+              <span class="t14 w300 text-gray500">پاک کردن</span>
             </v-btn>
 
             <v-btn
@@ -48,14 +48,14 @@
             >
               <span
                   v-if="step < 3"
-                  class="t14300"
+                  class="t14 w300"
               >
                 تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300"
+                  class="t14 w300"
               >
                  تایید و ثبت
               </span>

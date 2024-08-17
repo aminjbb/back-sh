@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch cross-dock-seller">
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch">
       <Table
           ref="AddCrossDockStep2Table"
           class="flex-grow-1"

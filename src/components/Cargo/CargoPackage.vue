@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column align-stretch">
     <v-card
         height="200"
-        class="ma-5 br-12 "
+        class="ma-5 br--12 "
     >
       <v-row
           justify="center"
@@ -36,7 +36,7 @@
             <v-col cols="8">
               <div>
                 <div class="text-right ">
-                 <span class="text-gray600 t14500">
+                 <span class="text-gray600 t14 w500">
                    شناسه بسته
                  </span>
                   <span class="text-error">
@@ -65,7 +65,7 @@
       </v-row>
     </v-card>
     <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
+        class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
         height="580"
     >
       <Table

@@ -1,7 +1,5 @@
-import {ref, watch} from 'vue';
-import { onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter.js'
-import {useRouter, useRoute} from 'vue-router'
+import {ref} from 'vue';
+import {useRoute} from 'vue-router'
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
 export default function setup() {
@@ -9,18 +7,18 @@ export default function setup() {
     const oneProduct = ref('');
     const dataTableLength = ref(25)
     const pageLength = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const page = ref(1)
     const cookies = useCookies()
     const header = ref([
-        {name: 'ردیف', show: true, value: null, order: false},
-        {name: 'شناسه', show: true, value: 'created_at', order: true},
-        {name: 'نام انگلیسی', show: true, value: 'name', order: true},
-        {name: 'نام فارسی', show: true, value: 'label', order: true},
-        {name: ' ساخت کالا', show: true, order: false},
-        {name: ' کالا ها', show: true, order: false},
-        {name: 'فعال سازی ', show: true, value: 'is_active', order: false},
+        {name: 'ردیف', title: 'ردیف', show: true, key: 'row', align:'center', sortable: false},
+        {name: 'شناسه', title: 'شناسه', show: true, key: 'id', align:'center'},
+        {name: 'نام انگلیسی', title: 'نام انگلیسی', show: true, key: 'name', align:'center'},
+        {name: 'نام فارسی', title: 'نام فارسی', show: true, key: 'label', align:'center'},
+        {name: ' ساخت کالا', title: ' ساخت کالا', show: true, key:'custom', align:'center', sortable: false},
+        {name: ' کالا ها', title: ' کالا ها', show: true, key:'show', align:'center', sortable: false},
+        {name: 'فعال سازی ', title: 'فعال سازی ', show: true, key:'is_active', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true, align:'center', sortable: false, fixed: true}
        
     ]);
 
@@ -37,7 +35,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new PanelFilter()
 
     async function getProduct() {
         loading.value = true

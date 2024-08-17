@@ -2,7 +2,7 @@
   <div>
     <div class="ma-5 pointer" @click="dialog= true">
       <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">ویرایش</span>
+      <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
     </div>
 
     <v-dialog v-model="dialog" width="auto">
@@ -11,7 +11,7 @@
 
           <div class="my-4">
             <v-icon @click="dialog=false" class="pointer align-center">mdi-close</v-icon>
-            <div class="text-center t16700">
+            <div class="text-center t16 w700">
               ویرایش متن
             </div>
           </div>
@@ -109,7 +109,6 @@ export default {
         AxiosMethod.using_auth = true
         AxiosMethod.token = this.$cookies.get('adminToken')
         let data = await AxiosMethod.axios_post()
-        this.$emit('getSettingData', this.smsSettingData)
 
       } catch (error) {
         this.loading = false
