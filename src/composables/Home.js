@@ -56,14 +56,14 @@ export default function setup() {
         { name: 'زمان پایان', show: false, value:'end_at', order: false },
     ]);
     const brandHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر', show: true , value:'image', order: false},
-        { name: 'نام برند', show: true, value:'name' , order: false},
-        { name: 'لینک', show: true , value:'link', order: false},
-        { name: 'ترتیب نمایش', show: true, value:'priority', order: false },
-        { name: 'سازنده', show: true, value:'admin', order: false },
-        { name: 'ذخیره', show: true, value:'save', order: false },
-
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row', sortable:false, align: 'center'},
+        { name: 'تصویر',title: 'تصویر', show: true , key:'custom', sortable: false, align: 'center'},
+        { name: 'نام برند',title: 'نام برند', show: true, key:'label' , sortable: false, align: 'center'},
+        { name: 'لینک',title: 'لینک', show: true , key:'link', sortable: false, align: 'center'},
+        { name: 'ترتیب نمایش',title: 'ترتیب نمایش', show: true, key:'custom2', sortable: false, align: 'center' },
+        { name: 'سازنده',title: 'سازنده', show: true, key:'creator', sortable: false, align: 'center' },
+        { name: 'ذخیره',title: 'ذخیره', show: true, key:'custom3', sortable: false, align: 'center' },
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true}
     ]);
     const categoryHeader =ref([
         { name: 'ردیف',title: 'ردیف', show: true , key: 'row', sortable:false, align:'center'},
