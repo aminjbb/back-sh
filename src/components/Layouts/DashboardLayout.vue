@@ -556,6 +556,7 @@ export default {
                 ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
                 ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ویرایش کد ارسال', '/delivery-code/index', 'mdi-checkbox-blank-circle-outline'],
+                ['موضوع تیکت', '/sub-title/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             groupsFunction: [
                 ['عملیات گروهی', '/exports/index', 'mdi-export'],

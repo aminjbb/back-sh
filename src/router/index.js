@@ -310,6 +310,9 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
+import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
+import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
 
 
 const router = createRouter({
@@ -2564,6 +2567,46 @@ const router = createRouter({
                         name: 'سفارش های کنسلی اسنپ پی'
                     }
                 },
+            ]
+        },
+        {
+            path: '/sub-title', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SubTitleTicket',
+                    component: SubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'createSubTitleTicket',
+                    component: CreateSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'createSubTitleTicket',
+                    component: CreateSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'EditSubTitleTicket',
+                    component: EditSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                }
             ]
         },
     ]

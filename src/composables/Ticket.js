@@ -7,6 +7,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const ticket = ref([]);
+    const subTitleTicket = ref([]);
     const oneTicket =ref(null)
     const allTickets = ref([]);
     const dataTableLength = ref(25)
@@ -29,6 +30,16 @@ export default function setup() {
         { name: 'تاریخ آخرین پیام', show: true, value:'latest_date', order: true},
     ]);
 
+    const headerSubTicket =ref([
+        { name: 'ردیف', title: 'ردیف', show: true, key:'row', sortable: false, align: 'center'},
+        { name: 'شناسه', title: 'شناسه', show: true, key:'id', sortable: false, align: 'center'},
+        { name: 'عنوان موضوع', title: 'عنوان موضوع', show: true, key:'subject', sortable: false, align: 'center'},
+        { name: 'سازنده', title: 'سازنده', show: true, key:'creator', sortable: false, align: 'center'},
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, key:'created_at', align: 'center'},
+        { name: 'نمایش', title: 'نمایش', show: true, key:'show', sortable: false, align: 'center'},
+        { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
+    ]);
+
     const filterField = [
         { name:'شناسه' , type:'text', value:'id'},
         { name: 'شماره تیکت', type:'text', value:'code'},
@@ -37,6 +48,15 @@ export default function setup() {
         { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
         { name: 'اولویت', type:'select', value:'priority'},
+    ];
+
+    const filterFieldSubTitleTicket = [
+        { name:'شناسه' , type:'text', value:'id'},
+        { name: 'عنوان موضوع', type:'text', value:'title'},
+        { name: 'سازنده', type:'select', value:'creator'},
+        { name:'تاریخ ساخت', type: 'date', value:'created_at'},
+        { name:'تاریخ به روزرسانی', type: 'date', value:'updated_at'},
+        { name: 'وضعیت', type:'select', value:'status'},
     ];
 
     const item = []
@@ -124,6 +144,82 @@ export default function setup() {
         }
     }
 
-    return {oneTicket,header, item, loading, dataTableLength, pageLength, page,filterField, ticket, getTicket, allTickets, getTicketList }
+    async function getAllSubTitleTicket() {
+        loading.value = true
+
+        const AxiosMethod = new AxiosCall()
+        let query = route.query
+        AxiosMethod.using_auth = true
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `ticket/admin/crud/index/`
+
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = data.data.last_page
+            subTitleTicket.value = data.data.data
+            loading.value = false
+            setTimeout(()=>{
+                isFilter.value =false
+                isFilterPage.value = false
+            } , 2000)
+        }
+    };
+
+    return {
+        oneTicket,
+        header,
+        item,
+        loading,
+        dataTableLength,
+        pageLength,
+        page,
+        filterField,
+        ticket,
+        getTicket,
+        allTickets,
+        getTicketList,
+        headerSubTicket,
+        subTitleTicket,
+        getAllSubTitleTicket,
+        filterFieldSubTitleTicket
+    }
 }
 
