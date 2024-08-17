@@ -526,6 +526,7 @@
 export default {
     data() {
         return {
+          isFixed:false,
             drawer: true,
             rail: false,
             open: [],
@@ -646,5 +647,47 @@ export default {
 
         }
     },
+
+  methods: {
+    /**
+     * Show and hide menu in scroll down and up
+     */
+    handleScroll() {
+      let menu = document.getElementById('fixed-menu');
+
+      if (menu) {
+        if (window.scrollY > 0) {
+          this.isFixed = true;
+        } else {
+          this.isFixed = false;
+        }
+      }
+    },
+  },
+
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 }
 </script>
+
+<style lang="scss">
+#fixed-menu {
+  height: 100vh;
+
+  .v-navigation-drawer__content {
+    height: 100vh !important;
+  }
+
+  &.fixed {
+    position: fixed;
+    width: 256px;
+    top: 0;
+    z-index: 11111;
+  }
+}
+</style>
