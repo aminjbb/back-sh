@@ -314,6 +314,7 @@ import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
 import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
 import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
+import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
 import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
 
 
@@ -2618,6 +2619,14 @@ const router = createRouter({
                     path: 'create',
                     name: 'createSubTitleTicket',
                     component: CreateSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'sub-topic/:id',
+                    name: 'AddSubTopicToSubject',
+                    component: AddSubTopicToSubject,
                     meta: {
                         name: 'موضوع تیکت'
                     }
