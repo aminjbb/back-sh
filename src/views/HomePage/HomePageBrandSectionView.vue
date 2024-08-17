@@ -20,18 +20,63 @@
         </v-card>
 
         <v-card class="mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+          <ShTable
               class="flex-grow-1"
-              :header="brandHeader"
-              :items="homeBrand.data"
-              editUrl="/seller/edit/"
-              activePath="seller/crud/update/activation/"
-              deletePath="page/home/section/brand/delete/"
-              changeStatusUrl="seller/crud/update/contract/"
+              :headers="brandHeader"
+              :items="itemListTable"
               :loading="loading"
-              updateUrl="seller/csv/mass-update"
-              model="sku" />
+          >
+              <template v-slot:customSlot="item">
+                  <img :src="imageUrl[item.index]" width="68" height="28" alt="" class="br br--4">
+                  <span>
+                        <v-icon  color="gray500"  class="pointer"  @click="selectFile(item.index)">mdi-progress-upload</v-icon>
+                    </span>
+              </template>
 
+              <template v-slot:customSlot2="item">
+                  <v-text-field  v-model="item.data.priority"  hide-details  variant="outlined"  class="number-font"  type="number" />
+              </template>
+
+              <template v-slot:customSlot3="item">
+                  <div @click="updateImage(item.index, item.data.data, item.data.priority)"
+                      class="seller__add-sku-btn d-flex justify-center align-center pointer">
+
+                      <v-icon size="15">mdi-plus</v-icon>
+                  </div>
+              </template>
+
+              <template v-slot:actionSlot="item">
+                  <div class="text-center">
+                      <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                      </v-icon>
+                  </div>
+
+                  <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                      <v-list class="c-table__more-options">
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="openEditModal(item.data)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            ویرایش
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+
+                          <v-list-item>
+                              <v-list-item-title>
+                                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                                            حذف
+                                        </span>
+                                  </div>
+                              </v-list-item-title>
+                          </v-list-item>
+                      </v-list>
+                  </v-menu>
+              </template>
+          </ShTable>
           <v-divider />
 
           <v-card-actions class="pb-3">
@@ -60,6 +105,9 @@
             </v-row>
           </v-card-actions>
         </v-card>
+
+
+          <ModalEditBrand />
       </div>
     </v-main>
   </v-layout>
@@ -70,15 +118,25 @@ import {defineAsyncComponent} from "vue";
 // const HomePageBrandSection = defineAsyncComponent(()=> import ('@/components/HomePage/HomePageBrandSection.vue'))
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import Table from '@/components/HomePage/Table/HomePageBrandTable.vue'
 import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import ModalAddBrand from "@/components/HomePage/Modals/ModalAddBrand.vue";
+import ModalEditBrand from "@/components/HomePage/Modals/ModalEditBrand.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
+
+  data(){
+        return{
+            itemListTable: [],
+            imageUrl: [],
+            image_id: []
+        }
+    },
   setup() {
     const {
       brandHeader,
@@ -102,12 +160,13 @@ export default {
 
   components: {
     ModalAddBrand,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
     DashboardLayout,
-    Header
+    Header,
+    ShTable,
+    ModalEditBrand,
   },
 
   computed: {
@@ -119,7 +178,64 @@ export default {
   methods: {
     changeHeaderShow(index, value) {
       this.bannerHeader[index].show = value
-    }
+    },
+
+    openEditModal(obejct) {
+      const form = {
+          dialog: true,
+          object: obejct
+      }
+      this.$store.commit('set_homePageBrandModal', form)
+    },
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "page/home/section/brand/delete/"+id, true)
+    },
+    async updateImage(index, item, priority) {
+          const formData = new FormData()
+          formData.append('homepage_section_id', this.$route.params.sectionId)
+          formData.append('image_id', this.image_id[index])
+          formData.append('priority', priority)
+          formData.append('device', item.device)
+          formData.append('image_alt', item.image_alt)
+          formData.append('is_active', item.is_active)
+          formData.append('link', item.link)
+          formData.append('label', item.label)
+          const AxiosMethod = new AxiosCall()
+          AxiosMethod.using_auth = true
+          AxiosMethod.form = formData
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = `page/home/section/brand/update/${item.id}`
+          let data = await AxiosMethod.axios_post()
+          if (data) {
+              openToast(this.$store, 'اطلاعات با موفقیت ویرایش شد', 'success')
+          }
+      },
+
+    selectFile(index) {
+          var input = document.createElement('input');
+          input.type = 'file';
+          input.onchange = e => {
+              let file = e.target.files[0];
+              this.submitImage(index, file)
+          }
+          input.click();
+      },
+    async submitImage(index, file) {
+          var formData = new FormData();
+          const AxiosMethod = new AxiosCall()
+          formData.append('file', file)
+          formData.append('module', 'page')
+          AxiosMethod.using_auth = true
+          AxiosMethod.store = this.$store
+          AxiosMethod.token = this.$cookies.get('adminToken')
+          AxiosMethod.end_point = 'file-manager/direct/store'
+          AxiosMethod.form = formData
+          let data = await AxiosMethod.axios_image_upload()
+        if (data) {
+            this.imageUrl[index] = data.data.data.url
+            this.image_id[index] = data.data.data.image_id
+        }
+      },
   },
 
   mounted() {
@@ -130,7 +246,6 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
-
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
@@ -144,6 +259,27 @@ export default {
         }
       }
     },
+
+    homeBrand() {
+          if(this.homeBrand.data) {
+
+              this.itemListTable = []
+              this.homeBrand.data.forEach((item) => {
+                  this.itemListTable.push(
+                      {
+                          data: item,
+                          id: item.id,
+                          label: item.label,
+                          link: item.link,
+                          priority: item.priority,
+                          creator: item.creator?.first_name+' '+item.creator?.last_name,
+                       },)
+
+                  this.imageUrl.push(item.image.image_url)
+                  this.image_id.push(item.id)
+              })
+          }
+      },
   }
 }
 </script>
