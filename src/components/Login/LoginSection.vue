@@ -8,7 +8,7 @@
             <v-col cols="5" class="pa-0 d-none d-md-block">
                 <v-card
                     color="primary500"
-                    class="h-93vh rounded-16"
+                    class="h-93vh br--16"
                 >
                     <v-row
                         justify="center"

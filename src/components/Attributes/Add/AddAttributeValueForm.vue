@@ -1,7 +1,7 @@
 <template >
     <div>
         <div class="text-center mb-5">
-            <span class="t14500">
+            <span class="t14 w500">
                 مقادیر ویژگی
             </span>
         </div>
@@ -36,7 +36,7 @@
 
         <div class="text-center" >
             <div>
-                <span class="t14500">
+                <span class="t14 w500">
                 مقادیر ویژگی
                 </span>
             </div>
@@ -57,7 +57,7 @@
                     icon="mdi-close" 
                 />
 
-                <span class=t14300>
+                <span class=t14 w300>
                     {{item}}
                 </span>
           </v-chip>

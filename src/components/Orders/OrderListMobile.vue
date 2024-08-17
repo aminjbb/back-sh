@@ -24,27 +24,27 @@
             <div class="flex-column">
               <div class="">
                 <v-icon icon="mdi-circle-small"/>
-                <span class="t12500"> شناسه سفارش : </span>
-                <span class="t12500 number-font"> {{item.id}} </span>
+                <span class="t12 w500"> شناسه سفارش : </span>
+                <span class="t12 w500 number-font"> {{item.id}} </span>
               </div>
               <div class="mt-3">
                 <v-icon icon="mdi-circle-small"/>
-                <span class="t12500"> شماره سفارش : </span>
-                <span class="t12500 number-font"> {{item.order_number}} </span>
+                <span class="t12 w500"> شماره سفارش : </span>
+                <span class="t12 w500 number-font"> {{item.order_number}} </span>
               </div>
               <div class="mt-3">
                 <v-icon icon="mdi-circle-small"/>
-                <span class="t12500"> نام مشتری : </span>
-                <span class="t12500">  {{ item.user.first_name }} {{ item.user.last_name }} </span>
+                <span class="t12 w500"> نام مشتری : </span>
+                <span class="t12 w500">  {{ item.user.first_name }} {{ item.user.last_name }} </span>
               </div>
               <div class="mt-3">
                 <v-icon icon="mdi-circle-small"/>
-                <span class="t12500"> شماره تماس : </span>
-                <span class="t12500 number-font"> {{ item.user.phone_number }} </span>
+                <span class="t12 w500"> شماره تماس : </span>
+                <span class="t12 w500 number-font"> {{ item.user.phone_number }} </span>
               </div>
             </div>
             <div>
-              <span class="t12500 text-primary500 bg-primary400 rounded px-3 py-1">{{ getOrderStatus(item.status) }}</span>
+              <span class="t12 w500 text-primary500 bg-primary400 rounded px-3 py-1">{{ getOrderStatus(item.status) }}</span>
             </div>
           </div>
           <div class="d-flex justify-space-between mt-3">

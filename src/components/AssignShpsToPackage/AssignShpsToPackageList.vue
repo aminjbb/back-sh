@@ -8,7 +8,7 @@
       <v-row align="center" class="px-3 my-5">
         <v-col cols="6">
           <div class="text-right ">
-            <span class="text-gray600 t14500">شناسه محموله</span>
+            <span class="text-gray600 t14 w500">شناسه محموله</span>
             <span class="text-error">*</span>
           </div>
           <div>
@@ -37,7 +37,7 @@
       </v-row>
     </v-card>
 
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -48,24 +48,62 @@
           <v-row justify="end">
             <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-            <PanelFilter @resetPage="resetPage" path="up-coming/index" :filterField="filterField" :statusItems="statusItems"/>
+            <PanelFilter
+                @resetPage="resetPage"
+                path="up-coming/index"
+                :filterField="filterField"
+                :statusItems="statusItems"/>
           </v-row>
         </v-col>
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-      <Table
-          :getShipmentRequestsList="getUpComingList"
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+      <ShTable
           class="flex-grow-1"
-          :header="header"
-          :items="confirmedShipmentList?.data"
-          :page="page"
-          :perPage="dataTableLength"
-          activePath="page/crud/update/activation/"
+          :headers="header"
+          :items="itemListTable"
           :loading="loading"
-          updateUrl="page/csv/mass-update"
-          model="assignShpsToPackage" />
+          :page="page"
+          :perPage="dataTableLength">
+        <template v-slot:customSlot="item">
+          <span style="font-size: 9px" > در حال ارسال به انبار</span>
+        </template>
+
+        <template v-slot:actionSlot="item">
+          <div class="text-center">
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+
+          <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
+            <v-list class="c-table__more-options">
+              <v-list-item>
+                <v-list-item-title>
+                  <div class="ma-5 pointer" @click="$router.push(`/assign-shps-package/${item.data.id}/accept`)">
+                    <v-icon size="small" class="text-grey-darken-1">mdi-comment-processing-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
+                        پردازش محموله
+                      </span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <div class=" pointer" @click="print(item.data.id)">
+                    <v-icon size="small" class="text-grey-darken-1">mdi-printer-outline</v-icon>
+                    <span class="mr-2 text-grey-darken-1 t14 w300">
+                         پرینت محموله
+                      </span>
+                  </div>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </ShTable>
 
       <v-divider />
 
@@ -112,14 +150,15 @@
 </template>
 
 <script>
-import Table from '@/components/UpComing/Table/Table.vue'
 import UpComing from "@/composables/UpComing"
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue"
-import { openToast } from "@/assets/js/functions"
+import { openToast, convertDateToJalai } from "@/assets/js/functions"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue"
 import ModalDetaiShipment from "@/components/ProcessingShipment/Modal/ModalDetaiShipment.vue"
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 export default {
   data() {
     return {
@@ -127,9 +166,11 @@ export default {
       loading: false,
       shipmentId: null,
       rule: [v => !!v || 'این فیلد الزامی است'],
-      valid: true
+      valid: true,
+      itemListTable:[]
     }
   },
+
   setup() {
     const statusItems= [
       {
@@ -148,7 +189,8 @@ export default {
     const {
       pageLength,
       filterField,
-      getConfirmedShipment ,confirmedShipmentList,
+      getConfirmedShipment ,
+      confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -157,7 +199,8 @@ export default {
     return {
       pageLength,
       filterField,
-      getConfirmedShipment ,confirmedShipmentList,
+      getConfirmedShipment ,
+      confirmedShipmentList,
       dataTableLength,
       page,
       header,
@@ -169,10 +212,10 @@ export default {
   components: {
     ModalDetaiShipment,
     PanelFilter,
-    Table,
     ModalGroupAdd,
     ModalColumnFilter,
     ModalExcelDownload,
+    ShTable
   },
 
   computed: {
@@ -201,6 +244,26 @@ export default {
     validate() {
       this.$router.push(`/assign-shps-package/${this.splitShipmentId}/accept`)
     },
+
+    resetPage(){
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(()=>{
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    translateType(type) {
+      const translations = {
+        'consignment': 'انبارش',
+        'in_review': 'در حال بررسی'
+      };
+      return translations[type] || type;
+    },
+
+    print(id) {
+      window.open(`${ import.meta.env.VITE_API_SITEURL}up-coming/${id}/print`, '_blank');
+    },
   },
 
   mounted() {
@@ -208,6 +271,26 @@ export default {
   },
 
   watch: {
+    confirmedShipmentList(){
+      this.itemListTable = []
+
+      this.confirmedShipmentList.data.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                type: this.translateType(item.type),
+                shps_count: item.shps_count,
+                shps_variety: item.shps_variety,
+                shopping_name: item.seller? item.seller.shopping_name : 'شاواز',
+                supplier_name: item?.factor?.supplier?.shopping_name,
+                creator_name:  item.creator.first_name + ' ' + item.creator.last_name,
+                sent_at: convertDateToJalai(item.sent_to_warehouse_at , '-' , false),
+                custom: item.status,
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1
@@ -229,11 +312,17 @@ export default {
       }
       this.perPageFilter = false
     },
+
     page(){
       if (!this.perPageFilter){
-        this.getUpComingList()
+        this.getConfirmedShipment()
       }
     },
+
+    $route(){
+      this.getConfirmedShipment();
+    },
+
     confirmModal(val) {
       if (this.$cookies.get('deleteItem')) {
         if (!val) {
@@ -246,9 +335,6 @@ export default {
           this.$cookies.remove('deleteItem')
         }
       }
-    },
-    $route(to){
-      this.getUpComingList(to);
     }
   }
 }

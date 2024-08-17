@@ -1,6 +1,6 @@
 <template>
   <div class="h-100">
-    <v-card height="70" class="ma-5 br-12">
+    <v-card height="70" class="ma-5 br--12">
       <v-row
           justify="start"
           align="center"
@@ -34,7 +34,7 @@
                           :max-lines='1'
                           autoResize
                           location="start"
-                          class="text-gray500 t14300 text-right" />
+                          class="text-gray500 t14 w300 text-right" />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -45,7 +45,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="br-12 d-flex flex-column align-stretch" height="600">
+    <v-card class="br--12 d-flex flex-column align-stretch" height="600">
       <Table
           class="flex-grow-1"
           :header="headerSelectProduct"

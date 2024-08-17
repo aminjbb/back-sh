@@ -17,7 +17,7 @@
         width="1000">
         <v-card>
             <header class="modal__header d-flex justify-center align-center">
-                <span class="t16400 pa-6">
+                <span class="t16 w400 pa-6">
                     فیلتر پیشرفته
                 </span>
 
@@ -40,7 +40,7 @@
                     <template v-for="(filter, index) in filterField" :key="index">
                         <!-- Text filds -->
                         <v-col v-if="filter.type === 'text'" cols="6">
-                            <div class="t12300 text-right mb-1 text-grey">{{filter.name}}</div>
+                            <div class="t12 w300 text-right mb-1 text-grey">{{filter.name}}</div>
 
                             <v-text-field
                                 variant="outlined"
@@ -90,9 +90,6 @@
 </template>
 
 <script>
-import {
-    SkuSellerPanelFilter
-} from "@/assets/js/filter_sku_to_seller";
 
 export default {
     props: {

@@ -2,7 +2,7 @@
   <div class="text-right">
     <div  @click="dialog = true" class="ma-5 pointer" v-if="type ==='edit'">
       <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-      <span class="mr-2 text-grey-darken-1 t14300">
+      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
       </span>
 
@@ -33,7 +33,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-5">
-                        <span class="t14500">
+                        <span class="t14 w500">
                             افزودن بنر
                         </span>
             </div>
@@ -48,7 +48,7 @@
             <v-row align="center" class="mx-5" justify="center">
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                   لینک
                 </span>
                 </div>
@@ -63,7 +63,7 @@
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                     Alt text
                 </span>
                 </div>
@@ -77,7 +77,7 @@
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                    دستگاه
                 </span>
                 </div>
@@ -93,7 +93,7 @@
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                    انتخاب صفحات
                 </span>
                 </div>
@@ -120,7 +120,7 @@
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                    زمان شروع
                 </span>
                 </div>
@@ -141,7 +141,7 @@
               </v-col>
               <v-col cols="12" md="4">
                 <div class="text-right my-5">
-                <span class="t14500">
+                <span class="t14 w500">
                    زمان پایان
                 </span>
                 </div>

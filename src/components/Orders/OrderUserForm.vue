@@ -6,7 +6,7 @@
         class="px-15">
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         نام و نام خانوادگی <span class="text-red">*</span>
                     </span>
         </div>
@@ -21,7 +21,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         استان <span class="text-red">*</span>
                     </span>
         </div>
@@ -38,7 +38,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         شهر <span class="text-red">*</span>
                     </span>
         </div>
@@ -54,7 +54,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         تلفن <span class="text-red">*</span>
                     </span>
         </div>
@@ -70,7 +70,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         موبایل <span class="text-red">*</span>
                     </span>
         </div>
@@ -86,7 +86,7 @@
 
       <v-col cols="12" md="6">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         کد پستی <span class="text-red">*</span>
                     </span>
         </div>
@@ -101,7 +101,7 @@
       </v-col>
       <v-col cols="12">
         <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         آدرس <span class="text-red">*</span>
                     </span>
         </div>

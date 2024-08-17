@@ -4,7 +4,7 @@
 
     <header class="c-table__header d-flex justify-between">
         <template v-for="(head, index) in header">
-            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12500 text-black" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12 w500 text-black" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
             </div>
@@ -19,13 +19,13 @@
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
                 <div v-if="header[0].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
 
                 <div v-if="header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.full_name">
                             {{ item.full_name }}
                         </template>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div v-if="header[2].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.phone_number">
                             {{ item.phone_number }}
                         </template>
@@ -80,8 +80,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -91,9 +91,7 @@
 
 <script>
 import ModalShowDes from "@/components/ContactUs/Modal/ModalShowDes.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
+
 import {
     convertDateToJalai,
     isOdd
@@ -159,7 +157,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
         }
     },
 

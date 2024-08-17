@@ -1,11 +1,11 @@
 <template >
 <div class="h-100 d-flex flex-column align-stretch seller">
     <v-card
-        class="ma-5 br-12"
+        class="ma-5 br--12"
         height="360"
         style="flex:0 0 360px">
         <header class="modal__header d-flex justify-center align-center">
-            <span class="t16400 pa-6">
+            <span class="t16 w400 pa-6">
                 ثبت کالای مفقودی یا ضایعات
             </span>
         </header>
@@ -21,7 +21,7 @@
                 class="px-15">
                 <v-col cols="12" md="6">
                     <div class="text-right my-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             شناسه بسته <span class="text-red">*</span>
                         </span>
                     </div>
@@ -35,7 +35,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right my-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نوع بسته
                         </span>
                     </div>
@@ -49,7 +49,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right mb-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نوع گزارش <span class="text-red">*</span>
                         </span>
                     </div>
@@ -66,7 +66,7 @@
 
                 <v-col cols="12" md="6">
                     <div class="text-right mb-3">
-                        <span class="t12400 color-grey">
+                        <span class="t12 w400 color-grey">
                             نام کالا <span class="text-red">*</span>
                         </span>
                     </div>
@@ -105,7 +105,7 @@
         </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="362">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="362">
         <Table
             class="flex-grow-1"
             :header="createHeader"

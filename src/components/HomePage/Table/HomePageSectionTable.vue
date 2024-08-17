@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -35,7 +35,7 @@
                                 variant="text"
                                 height="40"
                                 rounded
-                                class="px-5 mt-1 text-grey-darken-1 t14300">
+                                class="px-5 mt-1 text-grey-darken-1 t14 w300">
                                 <template v-slot:append>
                                     <v-icon>mdi-pen-minus</v-icon>
                                 </template>
@@ -60,7 +60,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -69,7 +69,7 @@
                     v-if="item.name && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.name }}
                     </span>
                 </div>
@@ -77,7 +77,7 @@
                     v-if="item.label && header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.label }}
                     </span>
                 </div>
@@ -85,7 +85,7 @@
                     v-if="item.type && header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.type }}
                     </span>
                 </div>
@@ -93,7 +93,7 @@
                     v-if="item.updated_at && header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{convertDateToJalai(item.updated_at ,'-',true )  }}
                     </span>
 
@@ -103,7 +103,7 @@
                     v-if="(item.is_active  != undefined && checkActive )"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item justify-center">
-                    <span class="t14300 py-5">
+                    <span class="t14 w300 py-5">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -125,7 +125,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="$router.push(`${editRoute(item.type , item.id)}`)">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
 
@@ -142,8 +142,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -151,17 +151,9 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ActivationModal from "@/components/Public/ActivationModal.vue";
-import {
-    isOdd,
-    convertDateToJalai
-} from "@/assets/js/functions";
+import { isOdd, convertDateToJalai } from "@/assets/js/functions";
 
 export default {
     components: {
@@ -243,7 +235,6 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
@@ -288,7 +279,6 @@ export default {
                 var active = false
                 if (element.is_active == 1) active = true
                 this.active.push(active)
-
             });
         }
     },
@@ -308,9 +298,6 @@ export default {
 
         },
         convertDateToJalai,
-        changeValue(index, value) {
-            this.active[index] = value
-        },
 
         /**
          * Get row index in table

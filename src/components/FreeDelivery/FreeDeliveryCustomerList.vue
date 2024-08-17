@@ -1,24 +1,24 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-    <v-card height="70" class="ma-5 br-12 pt-5" max-height="70">
+    <v-card height="70" class="ma-5 br--12 pt-5" max-height="70">
         <div class="d-flex align-center justify-lg-space-evenly">
             <div>
-              <span class="t14500">عنوان:</span>
-              <span class="t14500 text-gray500">{{ detailData?.name }}</span>
+              <span class="t14 w500">عنوان:</span>
+              <span class="t14 w500 text-gray500">{{ detailData?.name }}</span>
             </div>
           <div>
-            <span class="t14500">روش ارسال:</span>
-            <span v-if="detailData?.tipax" class="t14500 text-gray500">تیپاکس</span>
+            <span class="t14 w500">روش ارسال:</span>
+            <span v-if="detailData?.tipax" class="t14 w500 text-gray500">تیپاکس</span>
             &nbsp
-            <span v-if="detailData?.post" class="t14500 text-gray500">پست</span>
+            <span v-if="detailData?.post" class="t14 w500 text-gray500">پست</span>
             &nbsp
-            <span v-if="detailData?.pishtaz" class="t14500 text-gray500">پیشتاز </span>
+            <span v-if="detailData?.pishtaz" class="t14 w500 text-gray500">پیشتاز </span>
             &nbsp
-            <span v-if="detailData?.nafis" class="t14500 text-gray500">نفیس اکسپرس</span>
+            <span v-if="detailData?.nafis" class="t14 w500 text-gray500">نفیس اکسپرس</span>
           </div>
         </div>
     </v-card>
-    <v-card height="70" class="mx-5 br-12" max-height="70" br-12 stretch-card-header-70>
+    <v-card height="70" class="mx-5 br--12" max-height="70" br--12 stretch-card-header-70>
         <v-row justify="end" align="center" class="px-10 py-3">
             <v-row class="mt-2">
                 <ModalGroupAdd
@@ -39,14 +39,13 @@
     </v-card>
 
     <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
+        <ShTable
             class="flex-grow-1"
-            :header="headerCustomer"
-            :items="customerList"
+            :headers="headerCustomer"
+            :items="itemListTable"
             :page="page"
             :perPage="pageLength"
-            :loading="false"
-            model="customer" />
+             />
 
         <v-divider />
 
@@ -77,14 +76,16 @@
   
 <script>
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
-import Table from "@/components/FreeDelivery/Table/TableCustomerList.vue";
 import FreeDelivery from '@/composables/FreeDelivery'
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 export default {
     data() {
         return {
           freeDeliveryId: this.$route.params.freeDeliveryId,
-          perPageFilter:false
+          perPageFilter:false,
+          itemListTable: []
         }
     },
     setup() {
@@ -125,9 +126,9 @@ export default {
         }
     },
     components: {
-      PanelFilter,
-        Table,
-        ModalGroupAdd
+        PanelFilter,
+        ModalGroupAdd,
+        ShTable
     },
 
     mounted() {
@@ -165,7 +166,21 @@ export default {
       if (!this.perPageFilter){
         this.getCustomerList()
       }
-    }
+    },
+
+    customerList() {
+          this.itemListTable = []
+          this.customerList.forEach((item) => {
+              this.itemListTable.push(
+                  {
+                      id: item.id,
+                      first_name: item.first_name ? item.first_name : '---',
+                      last_name: item.last_name ? item.last_name : '---',
+                      phone_number: item.phone_number ? item.phone_number : '---',
+                  }
+              )
+          })
+      },
   }
 
 }

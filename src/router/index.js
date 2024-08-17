@@ -22,10 +22,10 @@ import AddColorView from '../views/Colors/AddColorView.vue'
 import EditColorView from '../views/Colors/EditColorView.vue'
 
 /* Attributes */
-import AttributesView from '../views/Attributes/AttributesView.vue'
-import AddAttributesView from '../views/Attributes/AddAttributesView.vue'
-import CreateProductView from '../views/Prodcuts/CreateProductView.vue'
-import EditAttributeView from '../views/Attributes/EditAttributeView.vue'
+import AttributesView from '@/views/Refactor/Index/AttributeIndexView.vue'
+import AddAttributesView from '@/views/Refactor/Create/AttributesCreateView.vue'
+import CreateProductView from '@/views/Prodcuts/CreateProductView.vue'
+import EditAttributeView from '@/views/Refactor/Update/AttributeEditView.vue'
 
 /* Export */
 import ExportView from '../views/Exports/ExportView.vue'
@@ -59,8 +59,8 @@ import TicketList from '../views/Ticket/TicketDashboard.vue'
 /* chat */
 import ChatView from '../views/Chat/ChatView.vue'
 /* Admin management */
-import AdminListView from '../views/Admin/AdminListView.vue'
-import CreateAdminView from '../views/Admin/CreateAdminView.vue'
+import AdminListView from '../views/Refactor/Index/AdminIndexView.vue'
+import CreateAdminView from '../views/Refactor/Create/AdminCreateView.vue'
 import EditAdminView from '../views/Admin/EditAdminView.vue'
 import UserListView from '../views/User/UserListView.vue'
 import CreateUserView from '../views/User/CreateUserView.vue'
@@ -68,13 +68,13 @@ import EditUserView from '../views/User/EditUserView.vue'
 import UserWalletView from '../views/User/UserWalletView.vue'
 
 /* admin permission */
-import PermissionListView from '../views/Admin/Permssion/PermissionListView.vue'
-import RolePermissionListView from '../views/Admin/RolePermission/RolePermissionListView.vue'
-import CreateRolePermissionView from '../views/Admin/RolePermission/CreateRolePermissionView.vue'
-import EditRolePermissionView from '../views/Admin/RolePermission/EditRolePermissionView.vue'
+import PermissionListView from '../views/Refactor/Index/AdminPermssionIndexView.vue'
+import RolePermissionListView from '../views/Refactor/Index/AdminRolePermissionIndexView.vue'
+import CreateRolePermissionView from '../views/Refactor/Update/AdminEditRolePermissionView.vue'
+import EditRolePermissionView from '../views/Refactor/Create/AdminRolePermissionCreateView.vue'
 
 /* Warehouse */
-import WarehouseListView from '../views/Warehouse/WarehouseListView.vue'
+import WarehouseListView from '../views/Refactor/Index/WarehouseIndexView.vue'
 import CreateWarehouseView from '../views/Warehouse/CreateWarehouseView.vue'
 import EditWarehouseView from '../views/Warehouse/EditWarehouseView.vue'
 import SpecialCapacityView from '../views/Warehouse/SpecialCapacityView.vue'
@@ -85,9 +85,9 @@ import AddDriverManagementView from '../views/DriverManagement/AddDriverManageme
 import EditDriverManagementView from '../views/DriverManagement/EditDriverManagementView.vue'
 
 /* Supplier */
-import SupplierListView from '../views/Supplier/SupplierListView.vue'
-import CreateSupplierView from '../views/Supplier/CreateSupplierView.vue'
-import EditSupplierView from '../views/Supplier/EditSupplierView.vue'
+import SupplierListView from '../views/Refactor/Index/SupplierIndexView.vue'
+import CreateSupplierView from '../views/Refactor/Create/SupplierCreateView.vue'
+import EditSupplierView from '../views/Refactor/Update/SupplierEditView.vue'
 
 /* Seller */
 import CreateSellerView from '@/views/Seller/CreateSellerView.vue'
@@ -142,55 +142,55 @@ import HomePageBlogSectionView from "@/views/HomePage/HomePageBlogSectionView.vu
 import HomePageAdsBannerView from "@/views/HomePage/HomePageAdsBannerView.vue";
 import HomePageGiftSectionView from "@/views/HomePage/HomePageGiftSectionView.vue";
 import HomePageSpecialEditView from "@/views/HomePage/HomePageSpecialEditView.vue";
-import RetailShipmentListView from "@/views/RetailShipment/RetailShipmentListView.vue";
-import AddShpsToRetailShipmentView from "@/views/RetailShipment/AddShpsToRetailShipmentView.vue";
+import RetailShipmentListView from "@/views/Refactor/Index/RetailShipmentIndexView.vue";
+import AddShpsToRetailShipmentView from "@/views/Refactor/Create/ShpsToRetailShipmentCreateView.vue";
 
 /* Shipment */
-import ShipmentRequestsView from '../views/ShipmentRequests/ShipmentRequestsView.vue';
-import PrintShipmentRequestView from '../views/ShipmentRequests/PrintShipmentRequestView.vue'
-import PrintShipmentRequestDetailView from '../views/ShipmentRequests/PrintShipmentRequestDetailView.vue'
+import ShipmentRequestsView from '../views/Refactor/Index/ShipmentRequestsIndexView.vue';
+import PrintShipmentRequestView from '../views/Refactor/Read/ShipmentRequestPrintReadView.vue'
+import PrintShipmentRequestDetailView from '../views/Refactor/Read/ShipmentRequestDetailPrintReadView.vue'
 /* Deposit */
 import DepositRequestView from '../views/DepositRequests/DepositeRequestsView.vue';
 /* ContactUs */
 import ContactUsView from '../views/ContactUs/ContactUsView.vue';
 
 /* Factor */
-import FactorListView from '../views/Factor/FactorListView.vue'
-import AddFactorView from '../views/Factor/AddFactorView.vue'
-import EditFactorView from '../views/Factor/EditFactorView.vue'
-import PricingListView from '../views/Factor/PricingListView.vue'
-import PrintFactorView from '../views/Factor/PrintFactorView.vue'
+import FactorListView from '../views/Refactor/Index/FactorIndexView.vue'
+import AddFactorView from '../views/Refactor/Create/FactorCreateView.vue'
+import EditFactorView from '../views/Refactor/Update/FactorEditView.vue'
+import PricingListView from '../views/Refactor/Index/PricingIndexView.vue'
+import PrintFactorView from '../views/Refactor/Read/FactorPrintReadView.vue'
 
 /* RetailShipment */
-import AllRetailShipmentListView from "@/views/RetailShipment/AllRetailShipmentListView.vue";
-import EditShpsToRetailShipmentView from "@/views/RetailShipment/EditShpsToRetailShipmentView.vue";
-import PrintShipmentView from "@/views/RetailShipment/PrintShipmentView.vue";
+import AllRetailShipmentListView from "@/views/Refactor/Index/RetailShipmentAllIndexView.vue";
+import EditShpsToRetailShipmentView from "@/views/Refactor/Update/ShpsToRetailShipmentEditView.vue";
+import PrintShipmentView from "@/views/Refactor/Read/ShipmentPrintReadView.vue";
 
 /* Crossdock */
 import CrossDockListView from "@/views/Seller/Crossdock/CrossDockListView.vue";
 import AddCrossDockView from "@/views/Seller/Crossdock/Add/AddCrossDockView.vue";
 
 /* Vehicle */
-import VehicleListView from '../views/Vehicle/VehicleListView.vue'
+import VehicleListView from '../views/Refactor/Index/VehicleIndexView.vue'
 
 /* Processing shipment */
-import ProcessingShipmentIndexView from "@/views/ProcessingShipment/ProcessingShipmentIndexView.vue";
-import ProcessingShipmentShpsListView from "@/views/ProcessingShipment/ProcessingShipmentShpsListView.vue";
+import ProcessingShipmentIndexView from "@/views/Refactor/Index/ProcessingShipmentIndexView.vue";
+import ProcessingShipmentShpsListView from "@/views/Refactor/Index/ProcessingShipmentShpsIndexView.vue";
 
 /* Package */
-import PackageListView from '../views/Package/PackageListView.vue'
-import PackageHistoryView from '../views/Package/PackageHistoryView.vue'
+import PackageListView from '../views/Refactor/Index/PackageIndexView.vue'
+import PackageHistoryView from '../views/Refactor/Index/PackageHistoryIndexView.vue'
 
 /* Active Package Requests */
-import ActivePackageListView from '../views/ActivePackage/PackageListView.vue'
+import ActivePackageListView from '../views/Refactor/Index/ActivePackageIndexView.vue'
 
 /* Placement */
 import PlacementListView from '../views/Placement/PlacementListView.vue'
 import PlacementShpssListView from '../views/Placement/PlacementShpssListView.vue'
 
 /* Cargo Management */
-import CargoListingView from "@/views/Cargo/CargoListingView.vue";
-import CargoPackageView from "@/views/Cargo/CargoPackageView.vue";
+import CargoListingView from "../views/Refactor/Index/CargoIndexView.vue";
+import CargoPackageView from "../views/Refactor/Index/CargoPackageIndeView.vue";
 import CargoReceivingListView from "@/views/Cargo/CargoReceivingListView.vue";
 
 /* Package Placement */
@@ -199,7 +199,6 @@ import PackagePlacementScanView from "@/views/PackagePlacement/PackagePlacementS
 import ShpsLocationView from "@/views/PackagePlacement/Locationg/ShpsLocationView.vue";
 import ShpsListLocatingToShelfView from "@/views/PackagePlacement/Locationg/ShpsListLocatingToShelfView.vue";
 import SmsNotificationListViwe from "@/views/SmsNotification/SmsNotificationListView.vue";
-import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 
 /* Warehouse inventory */
 import WarehouseInventoryListView from "@/views/WarehouseInventory/WarehouseInventoryListView.vue";
@@ -262,8 +261,9 @@ import FreeDeliveryOrderListView from "@/views/FreeDelivery/FreeDeliveryOrderLis
 import WarehouseOrderUnLoadSortingView from "@/views/WarehouseOrders/WarehouseOrderUnLoadSortingView.vue";
 import SingularLocatingView from "@/views/PackagePlacement/Locationg/SingularLocatingView.vue";
 import OpenOrderView from "@/views/Warehouse/OpenOrderView.vue";
-import UpComingView from "@/views/Warehouse/UpComingView.vue";
-import UpComingShipmentView from "@/views/Warehouse/UpComingShipmentView.vue";
+import UpComingView from "@/views/Refactor/Index/UpComingIndexView.vue";
+import UpComingShipmentView from "@/views/Refactor/Index/AssignShpsToPackageIndexView.vue"
+
 
 /* Wastage */
 import WastageListView from "@/views/Wastage/WastageListView.vue";
@@ -309,6 +309,8 @@ import EditBestSellingCategoriesView from "@/views/BestSellingCategories/EditBes
 /* Order Tracking */
 import OrderTrackingView from '../views/OrderTracking/OrderTrackingView.vue'
 import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseReturnOrderView.vue";
+import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
+import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
 
 
@@ -687,21 +689,7 @@ const router = createRouter({
                     name: 'ویرایش کد ارسال'
                 }
             },
-                {
-                    path: 'create',
-                    name: 'createTicket',
-                    component: CreateNewTickets,
-                    meta: {
-                        name: 'ساخت تیکت'
-                    }
-                }, {
-                    path: 'get/:ticketId',
-                    name: 'getTicket',
-                    component: GetTicketView,
-                    meta: {
-                        name: 'تیکت'
-                    }
-                },
+
             ],
         },
         {
@@ -829,7 +817,7 @@ const router = createRouter({
                 {
                     path: 'create',
                     name: 'CreateRolePermissionView',
-                    component: CreateRolePermissionView,
+                    component: EditRolePermissionView,
                     meta: {
                         name: 'ساخت نقش'
                     }
@@ -837,7 +825,7 @@ const router = createRouter({
                 {
                     path: 'edit/:roleId',
                     name: 'EditRolePermissionView',
-                    component: EditRolePermissionView,
+                    component: CreateRolePermissionView,
                     meta: {
                         name: 'ویرایش نقش'
                     }
@@ -1934,7 +1922,7 @@ const router = createRouter({
                 // },
                 {
                     path: 'index',
-                    name: 'detail-info',
+                    name: 'order-detail-info',
                     component: OrderDetailView,
                     meta: {
                         name: ' بسته بندی سفارش ها'
@@ -2277,6 +2265,41 @@ const router = createRouter({
                 }
             ],
         },
+
+        {
+            path: '/sms-notification',
+            meta: {
+                name: ' پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSNotificationListView',
+                    component: SmsNotificationListView,
+                    meta: {
+                        name: 'لیست پیامک ها'
+                    }
+                }
+            ],
+        },
+
+        {
+            path: '/sms-setting',
+            meta: {
+                name: ' تنظیمات پیامک '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SMSSettingListView',
+                    component: SmsSettingListView,
+                    meta: {
+                        name: 'تنظیمات پیامک'
+                    }
+                }
+            ],
+        },
+
         {
             path: '/wastage', // wastage
             meta: {

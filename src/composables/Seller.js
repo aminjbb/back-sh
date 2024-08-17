@@ -1,10 +1,7 @@
 import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
-import { SupplierPanelFilter } from "@/assets/js/filter_supplier";
-import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
-import {SkuPanelFilter} from "@/assets/js/filter_sku";
-import {SkuSellerPanelFilter} from "@/assets/js/filter_sku_to_seller";
+import {useRoute, useRouter} from "vue-router";
 
 export default function setup(posts) {
     const sellerList = ref([]);
@@ -31,36 +28,40 @@ export default function setup(posts) {
         { name: 'تلورانس بالا', show: false, value:'high_tolerance', order: false },
     ]);
     const header =ref([
-        {name:'ردیف' , show:true, value:null, order: false},
-        {name:'شناسه پنل' , show:true, value:'id', order: false},
-        {name:'شناسه کوثر' , show:true, value:'kosar_id', order: false},
-        {name:'نام فروشگاه' , show:true, value:'shopping_name', order: false},
-        {name:'نوع فروشنده' , show:true, value:'type', order: false},
-        { name: 'ایمیل', show:true, value:'email', order: false},
-        { name: 'یازه پرداخت', show:true, value:'payment_period', order: false},
-        {name:'تاریخ ایجاد' , show:true, value:'created_at', order: true},
-        {name:'وضعیت' , show:true, value:'is_active', order: false},
+        {name:'ردیف' ,title:'ردیف' , show:true, key:'row', sortable: false, align:'center'},
+        {name:'شناسه پنل' ,title:'شناسه پنل' , show:true, key:'id', sortable: false, align:'center'},
+        {name:'شناسه کوثر' ,title:'شناسه کوثر' , show:true, key:'kosar_id', sortable: false, align:'center'},
+        {name:'نام فروشگاه' ,title:'نام فروشگاه' , show:true, key:'shopping_name', sortable: false, align:'center'},
+        {name:'نوع فروشنده' ,title:'نوع فروشنده' , show:true, key:'type', sortable: false, align:'center'},
+        {name: 'ایمیل',title: 'ایمیل', show:true, key:'email', sortable: false, align:'center'},
+        {name: 'یازه پرداخت',title: 'یازه پرداخت', show:true, key:'payment_period', sortable: false, align:'center'},
+        {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد' , show:true, key:'created_at_fa', align:'center'},
+        {name:'وضعیت' ,title:'وضعیت' , show:true, key:'is_active', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
+
     const headerSku =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'شناسه کالا', show: true, value: 'id', order:true },
-        { name: 'شناسه shps', show: true, value: 'unique_code', order:true },
-        { name:'نام کالا' , show:true ,  value:'label', order:false},
-        { name: 'موجودی انبار', show: true, value: 'warehouse_stock', order:true },
-        { name: 'موجودی سایت', show: true, value: 'site_stock', order:true },
-        { name: ' قیمت مصرف کننده', show: true, value: 'customer_price', order:true },
-        { name: ' تخفیف پایه', show: true, value: 'base_discount', order:true },
-        { name: 'تخفیف مارکتینگ', show: true , value:'marketing_discount', order:true},
-        { name: 'قیمت فروش', show: true , value:'site_price', order:false},
-        { name: 'وضعیت', show: true , value:'is_active', order:false},
-    ]
+            { name: 'ردیف',title: 'ردیف', show: true, key: 'row', align:'center', sortable: false},
+            { name: 'شناسه کالا',title: 'شناسه کالا', show: true, key: 'sku_id', align:'center'},
+            { name: 'شناسه shps',title: 'شناسه shps', show: true, key: 'id', align:'center'},
+            { name: 'تصویر کالا',title: 'تصویر کالا', show: true, key: 'image', align:'center', sortable: false},
+            { name: 'نام کالا',title: 'نام کالا' , show:true ,  key:'label', align:'center', sortable: false, minWidth:'300'},
+            { name: 'موجودی انبار',title: 'موجودی انبار', show: true, key: 'warehouse_stock', align:'center'},
+            { name: 'موجودی سایت',title: 'موجودی سایت', show: true, key: 'site_stock', align:'center'},
+            { name: ' قیمت مصرف کننده',title: ' قیمت مصرف کننده', show: true, key: 'customer_price', align:'center'},
+            { name: ' تخفیف پایه',title: ' تخفیف پایه', show: true, key: 'base_discount', align:'center'},
+            { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true , key:'marketing_discount', align:'center'},
+            { name: 'قیمت فروش',title: 'قیمت فروش', show: true , key:'site_price', align:'center', sortable: false},
+            { name: 'وضعیت',title: 'وضعیت', show: true , key:'is_active', align:'center', sortable: false},
+            { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
+        ]
     );
     const headerWarehouseInventoryHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'موجودی قبل', show: true, value: 'old_inventory', order:false },
-        { name: 'تغییر موجودی', show: true, value: 'change_inventory', order:false },
-        { name: 'موجودی جدید', show: true, value: 'new_inventory', order:false },
-        { name: 'تاریخ', show: true, value: 'created_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'موجودی قبل',title: 'موجودی قبل', show: true, key: 'previous_site_stock', sortable:false, align: 'center'},
+        { name: 'تغییر موجودی',title: 'تغییر موجودی', show: true, key: 'custom', sortable:false, align: 'center'},
+        { name: 'موجودی جدید',title: 'موجودی جدید', show: true, key: 'site_stock', sortable:false, align: 'center'},
+        { name: 'تاریخ',title: 'تاریخ', show: true, key: 'created_at', align: 'center'},
     ]
     );
     const headerSiteInventoryHistory =ref([
@@ -72,12 +73,12 @@ export default function setup(posts) {
     ]
     );
     const headerPriceHistory =ref([
-        { name: 'ردیف', show: true, value: null, order:false },
-        { name: 'قیمت مصرف کننده', show: true, value: 'customer_price', order:false },
-        { name: 'تخفیف پایه', show: true, value: 'basic_discount', order:false },
-        { name: 'تخفیف مارکتینگ', show: true, value: 'marketing_discount', order:false },
-        { name: 'قیمت فروش', show: true, value: 'sale_price', order:false },
-        { name: 'تاریخ ویرایش', show: true, value: 'updated_at', order:true },
+        { name: 'ردیف',title: 'ردیف', show: true, key: 'row', sortable:false, align: 'center'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, key: 'customer_price', sortable:false, align: 'center'},
+        { name: 'تخفیف پایه',title: 'تخفیف پایه', show: true, key: 'base_discount', sortable:false, align: 'center'},
+        { name: 'تخفیف مارکتینگ',title: 'تخفیف مارکتینگ', show: true, key: 'marketing_discount', sortable:false, align: 'center'},
+        { name: 'قیمت فروش',title: 'قیمت فروش', show: true, key: 'site_price', sortable:false, align: 'center'},
+        { name: 'تاریخ ویرایش',title: 'تاریخ ویرایش', show: true, key: 'created_at_fa', align: 'center'},
     ]
     );
 
@@ -141,9 +142,6 @@ export default function setup(posts) {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new SupplierPanelFilter()
-    const skuFilter = new SkuPanelFilter()
-    const skuSellerFilter =  new SkuSellerPanelFilter()
 
     async function getSellerList() {
         loading.value = true
@@ -322,17 +320,56 @@ export default function setup(posts) {
         }
 
     }
-    async function getPriceHistory(query){
+    async function getPriceHistory(){
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = skuSellerFilter.params_generator(query.query)
-        }
-        else  paramsQuery = skuSellerFilter.params_generator(route.query)
+        let query = route.query
+        // let paramsQuery = null
+        // if (query){
+        //     paramsQuery = skuSellerFilter.params_generator(query.query)
+        // }
+        // else  paramsQuery = skuSellerFilter.params_generator(route.query)
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index${paramsQuery}`
+        AxiosMethod.end_point = `seller/${route.params.sellerId}/sku/${route.params.skuId}/history/price/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -345,11 +382,6 @@ export default function setup(posts) {
         }
     }
 
-    function addSkuSellerPagination(page){
-        skuSellerFilter.page = page
-        skuSellerFilter.per_page = dataTableLength.value
-        router.push(route.path + skuSellerFilter.query_maker(route.query))
-    }
     function addSkuSellerPerPage(number){
         skuSellerFilter.page = 1
         skuSellerFilter.per_page =number
@@ -357,11 +389,6 @@ export default function setup(posts) {
     }
 
     function priceHistoryPagination(page){
-        skuSellerFilter.page = page
-        skuSellerFilter.per_page = dataTableLength.value
-        router.push(route.path + skuFilter.params_generator(route.query))
-    }
-    function siteHistoryPagination(page){
         skuSellerFilter.page = page
         skuSellerFilter.per_page = dataTableLength.value
         router.push(route.path + skuFilter.params_generator(route.query))
@@ -374,12 +401,9 @@ export default function setup(posts) {
         }
     })
 
-
-
-    return {priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory,
-        getPriceHistory,getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory,
-        headerWarehouseInventoryHistory,dataSkuTableLength,skuPage,filterFieldSku,headerSku,
-        getSkuSeller , sellerSku ,getSeller, seller, pageLength, getSellerList, sellerList, filterField,
-        dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
-        headerConsigment , addSkuSellerPerPage , skuSellerPage}
+    return { priceHistory,siteInventoryHistory,filterInventorySite,filterPriceHistory, getPriceHistory,
+        getSiteInventoryHistory,headerPriceHistory,headerSiteInventoryHistory, headerWarehouseInventoryHistory,
+        dataSkuTableLength,skuPage,filterFieldSku,headerSku, getSkuSeller , sellerSku ,getSeller, seller, pageLength,
+        getSellerList, sellerList, filterField, dataTableLength, page, header, loading , priceHistoryPage ,siteHistoryPage ,
+        headerConsigment , addSkuSellerPerPage , skuSellerPage }
 }

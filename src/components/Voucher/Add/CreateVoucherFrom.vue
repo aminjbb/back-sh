@@ -7,13 +7,13 @@
         <template v-if="screenType === 'desktop' ">
             <v-col cols="12">
                 <div class="text-center">
-                    <span class="t14500">ساخت کد تخفیف</span>
+                    <span class="t14 w500">ساخت کد تخفیف</span>
                 </div>
             </v-col>
         </template>
       <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    عنوان *
                 </span>
         </div>
@@ -28,7 +28,7 @@
       </v-col>
       <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    کد تخفیف *
                 </span>
         </div>
@@ -43,7 +43,7 @@
       </v-col>
       <v-col  cols="12" :sm="voucherForm.voucherType === 'group' ? 3 : 4">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    نوع تخفیف *
                 </span>
         </div>
@@ -59,7 +59,7 @@
       </v-col>
       <v-col  cols="12" sm="3"  v-if="voucherForm.voucherType === 'group'" >
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    تعداد
                 </span>
         </div>
@@ -67,7 +67,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    نوع مقدار تخفیف *
                 </span>
         </div>
@@ -84,7 +84,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    مقدار تخفیف *
                 </span>
         </div>
@@ -99,7 +99,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    وضعیت کد تخفیف *
                 </span>
         </div>
@@ -114,7 +114,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    هزینه ارسال *
                 </span>
         </div>
@@ -130,7 +130,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    افرودن شرط
                 </span>
         </div>
@@ -157,7 +157,7 @@
                       :max-lines='1'
                       autoResize
                       location="start"
-                      class="text-gray500 t14300 text-right" />
+                      class="text-gray500 t14 w300 text-right" />
                 </v-col>
               </v-row>
             </v-list-item>
@@ -167,7 +167,7 @@
 <!--   for condition   -->
       <v-col cols="12" sm="6" v-for="(condition , index) in voucherForm.voucherCondition">
         <div class="text-right my-5">
-                <span class="t14500 text-gray600">
+                <span class="t14 w500 text-gray600">
                    {{ condition.title }}
                 </span>
         </div>

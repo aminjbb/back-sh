@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
         <v-row
             justify="center"
             align="center"
@@ -43,20 +43,28 @@
     </v-card>
 
     <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-        <Table
+        <ShTable
             class="flex-grow-1"
-            :header="headerWarehouseInventoryHistory"
-            :items="siteInventoryHistory.data"
+            :headers="headerWarehouseInventoryHistory"
+            :items="itemListTable"
             :page="page"
             :perPage="dataTableLength"
-            editUrl="/seller/edit/"
-            activePath="seller/crud/update/activation/"
-            changeStatusUrl="seller/crud/update/contract/"
             :loading="loading"
-            @updateList="updateList"
-            updateUrl="seller/csv/mass-update"
-            model="siteInventory" />
-
+             >
+            <template v-slot:customSlot="item">
+                <div class="d-flex align-center justify-center w-100">
+                            <span class="t14 w300 text-center py-5 number-font" :class="item.data.change_type === 'increase' ? 'text-success' : 'text-error'">
+                                {{splitChar(item.data.change_amount)}}
+                            </span>
+                        <span v-if="item.data.change_type === 'increase'" class="text-success text-center">
+                                +
+                        </span>
+                        <span v-else class="text-error text-center">
+                                +
+                        </span>
+                </div>
+            </template>
+        </ShTable>
         <v-divider />
 
         <v-card-actions class="pb-3">
@@ -102,16 +110,20 @@
 </template>
 
 <script>
-import Table from '@/components/Seller/Sku/Histories/Table/HistoriesTable.vue'
 import Seller from "@/composables/Seller";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import {
-    openToast
-} from "@/assets/js/functions";
+import {convertDateToJalai, openToast, splitChar} from "@/assets/js/functions";
 import Sku from "@/composables/Sku";
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+
 export default {
+    data(){
+        return{
+            itemListTable: []
+        }
+    },
     setup(props) {
         const {
             getSkue,
@@ -147,9 +159,9 @@ export default {
 
     components: {
       PanelFilter,
-        Table,
         ModalColumnFilter,
         ModalExcelDownload,
+        ShTable
     },
 
     computed: {
@@ -168,6 +180,9 @@ export default {
                 this.getSellerList();
             }
         },
+        splitChar,
+        convertDateToJalai,
+
     },
 
     mounted() {
@@ -192,10 +207,28 @@ export default {
                 }
             }
         },
-
-      siteHistoryPage(){
+        siteHistoryPage(){
         this.getSiteInventoryHistory()
-      }
+      },
+
+        siteInventoryHistory() {
+            if(this.siteInventoryHistory.data) {
+
+                this.itemListTable = []
+                this.siteInventoryHistory.data.forEach((item) => {
+                    this.itemListTable.push(
+                        {
+                            id: item.id,
+                            previous_site_stock: item.previous_site_stock ? this.splitChar(item.previous_site_stock) : '-',
+                            site_stock: item.site_stock ?  this.splitChar(item.site_stock) : '-',
+                            created_at: item.created_at ?  this.convertDateToJalai(item.created_at ,'-' , true) : '-',
+                            change_amount:this.splitChar(item.change_amount) ,
+                            change_type: item.change_type ,
+                        }
+                    )
+                })
+            }
+        },
     }
 }
 </script>

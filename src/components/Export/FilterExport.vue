@@ -61,7 +61,6 @@
 
 <script>
 //Mixin
-import { PanelFilter } from '@/assets/js/filter'
 import { jalaliToGregorian } from '@/assets/js/functions'
 
 export default {
@@ -70,7 +69,6 @@ export default {
             date: [],
             modelItems: [{ title: 'کتگوری', value: 'category' }, { title: 'برند', value: 'brand' }],
             model: null,
-            PanelFilter: new PanelFilter()
         }
     },
 

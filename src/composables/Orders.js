@@ -1,7 +1,5 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_order.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
@@ -12,26 +10,25 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
     const manualOrderListGet = ref([])
 
-
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه سفارش', show: true , value:'id', order: false},
-        { name: 'شماره سفارش', show: true , value:'order_number', order: false},
-        { name: 'نام مشتری', show: true, value:'user' , order: false},
-        { name: 'شماره تماس', show: true, value:'phone_number' , order: false},
-        { name: 'تعداد کالا', show: false , value:'shps_count', order: false},
-        { name: 'وضعیت سفارش', show: true, value:'status', order: false },
-        { name: 'اسنپ پی', show: true, value:'snapp_transaction_id' , order: false},
-        { name: 'وضعیت پرداخت', show: true, value:'payment_status', order: false },
-        { name: 'روش پرداخت', show: true, value:'payment_method', order: false },
-        { name: 'مبلغ پرداختی', show: true, value:'paid_price', order: false },
-        { name: 'وضعیت بارگیری', show: true, value:'packed_status', order: false },
-        { name: 'تاریخ ثبت سفارش', show: true, value:'submit_date', order: true },
-        { name: 'تاریخ ارسال سفارش', show: true, value:'logistic_date', order: true },
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row', align:'center', sortable:false},
+        { name: 'شناسه سفارش',title: 'شناسه سفارش', show: true , key:'id', align:'center', sortable: false},
+        { name: 'شماره سفارش',title: 'شماره سفارش', show: true , key:'order_number', align:'center', sortable: false},
+        { name: 'نام مشتری',title: 'نام مشتری', show: true, key:'user', align:'center' ,sortable: false, minWidth:'100'},
+        { name: 'شماره تماس',title: 'شماره تماس', show: true, key:'phone_number', align:'center' ,sortable: false},
+        { name: 'تعداد کالا',title: 'تعداد کالا', show: false , key:'shps_count', align:'center', sortable: false},
+        { name: 'وضعیت سفارش',title: 'وضعیت سفارش', show: true, key:'orderStatus', align:'center', sortable: false, minWidth:'130'},
+        { name: 'اسنپ پی',title: 'اسنپ پی', show: true, key:'snapp_transaction_id', align:'center' ,sortable: false},
+        { name: 'وضعیت پرداخت',title: 'وضعیت پرداخت', show: true, key:'payment_status', align:'center', sortable: false },
+        { name: 'روش پرداخت',title: 'روش پرداخت', show: true, key:'payment_method', align:'center', sortable: false },
+        { name: 'مبلغ پرداختی',title: 'مبلغ پرداختی', show: true, key:'paid_price', align:'center', sortable: false },
+        { name: 'وضعیت بارگیری',title: 'وضعیت بارگیری', show: true, key:'packed_status', align:'center', sortable: false , model:'icon'},
+        { name: 'تاریخ ثبت سفارش',title: 'تاریخ ثبت سفارش', show: true, key:'submit_date_fa', align:'center'},
+        { name: 'تاریخ ارسال سفارش',title: 'تاریخ ارسال سفارش', show: true, key:'logistic_date_fa', align:'center'},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const headerCanselOrder =ref([
@@ -129,12 +126,9 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getOrderList() {
         loading.value = true
-        filter.is_admin_order = 0
-
         const AxiosMethod = new AxiosCall()
         let query = route.query
         AxiosMethod.using_auth = true
@@ -188,18 +182,50 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-
-        else {
-        }
     };
-    async function getManualOrderList(query) {
+
+    async function getManualOrderList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/order/crud/shps/detail/${route.params.orderId}`
@@ -213,18 +239,50 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-
-        else {
-        }
     };
-    async function getManualOrderListGet(query) {
+
+    async function getManualOrderListGet() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `admin/order/crud/get/${route.params.orderId}`
@@ -237,9 +295,6 @@ export default function setup() {
                 isFilter.value =false
                 isFilterPage.value = false
             } , 2000)
-        }
-
-        else {
         }
     }
 

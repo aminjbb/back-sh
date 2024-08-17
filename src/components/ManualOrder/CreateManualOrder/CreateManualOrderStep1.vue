@@ -3,7 +3,7 @@
   <v-row justify="center" align="center">
     <v-col cols="12">
       <div class="text-center py-6">
-        <span class="t14500">اطلاعات سفارش</span>
+        <span class="t14 w500">اطلاعات سفارش</span>
       </div>
     </v-col>
   </v-row>
@@ -15,7 +15,7 @@
       <v-row justify="center" class="mt-10">
         <v-col cols="4">
           <div class="d-flex align-center text-right my-5">
-            <span class="t14500 text-gray600"> شماره سفارش </span>
+            <span class="t14 w500 text-gray600"> شماره سفارش </span>
           </div>
           <v-text-field
               variant="outlined"
@@ -35,8 +35,8 @@
 
         <v-col cols="5">
           <div class="d-flex align-center text-right my-5">
-            <span class="t14500 text-gray600"> کاربر</span>
-            <span class="t14500 text-red-accent-3 mr-1">*</span>
+            <span class="t14 w500 text-gray600"> کاربر</span>
+            <span class="t14 w500 text-red-accent-3 mr-1">*</span>
           </div>
           <v-autocomplete
               placeholder="شماره تلفن کاربر را وارد کنید"
@@ -69,7 +69,7 @@
                     @click="toggle">
                   <v-row class="py-5">
                     <v-col>
-                      <span class="t12500 text-right mt-4">
+                      <span class="t12 w500 text-right mt-4">
                          {{ address?.state?.label }} ، {{ address?.city?.label }} {{ address?.address }}
                     </span>
                     </v-col>
@@ -77,15 +77,15 @@
                   <v-row justify="center" align="center">
                     <v-col cols="4">
                       <span class="mr-1">کد پستی :</span>
-                      <span class="t12500 text-right mt-4">{{ address?.postal_code }}</span>
+                      <span class="t12 w500 text-right mt-4">{{ address?.postal_code }}</span>
                     </v-col>
                     <v-col cols="4">
                       <span class="mr-1">شماره تماس :</span>
-                      <span class="t12500 text-right mt-4"> {{ address?.phone_number }}</span>
+                      <span class="t12 w500 text-right mt-4"> {{ address?.phone_number }}</span>
                     </v-col>
                     <v-col cols="4">
                       <span class="mr-1">گیرنده :</span>
-                      <span class="t12500 text-right mt-4">{{ address?.first_name }} {{ address?.last_name }}</span>
+                      <span class="t12 w500 text-right mt-4">{{ address?.first_name }} {{ address?.last_name }}</span>
                     </v-col>
                   </v-row>
                 </v-card>
@@ -100,8 +100,8 @@
         <v-col cols="10">
           <v-col cols="6" class="brands-list">
             <div class="d-flex align-center text-right my-5">
-              <span class="t14500 text-gray600"> توضیحات</span>
-              <span class="t14500 text-red-accent-3 mr-1">*</span>
+              <span class="t14 w500 text-gray600"> توضیحات</span>
+              <span class="t14 w500 text-red-accent-3 mr-1">*</span>
             </div>
             <v-text-field
                 :rules="rule"
@@ -111,7 +111,7 @@
           </v-col>
           <v-col class="my-6" cols="8">
             <div class="text-right">
-              <span class="t12500">روش ارسال</span>
+              <span class="t12 w500">روش ارسال</span>
             </div>
 
             <v-col class="d-flex" cols="12">
@@ -123,7 +123,7 @@
                     :key="index"
                     :label="send.title"
                     :value="send.name"
-                    class=" t12500"/>
+                    class=" t12 w500"/>
               </v-radio-group>
             </v-col>
           </v-col>

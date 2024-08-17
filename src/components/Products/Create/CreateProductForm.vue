@@ -1,8 +1,8 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
-      <h3 class="t14500 create-product__header">ساخت محصول یکتا</h3>
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1">
+      <h3 class="t14 w500 create-product__header">ساخت محصول یکتا</h3>
 
       <template v-if="step === 1">
         <CreateProductFromStep1 
@@ -41,7 +41,7 @@
                 width="115"
                 @click="decreaseStep()"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                   مرحله قبلی
               </span>
             </v-btn>
@@ -56,7 +56,7 @@
                 v-if="step == 1"
                 @click="deleteForms()"
             >
-              <span class="t14300 text-gray500">پاک کردن</span>
+              <span class="t14 w300 text-gray500">پاک کردن</span>
             </v-btn>
 
             <v-btn
@@ -69,14 +69,14 @@
             >
               <span 
                 v-if="step < 3"
-                class="t14300"
+                class="t14 w300"
               >
                 مرحله بعدی
               </span>
               
               <span
                 v-else
-                class="t14300"
+                class="t14 w300"
               >
                  ذخیره نهایی
               </span>
@@ -105,6 +105,12 @@ import {AxiosCall} from '@/assets/js/axios_call.js'
 import {openToast} from "@/assets/js/functions";
 import { onUnmounted } from 'vue'
 export default {
+  components: {
+    CreateProductFromStep1,
+    CreateProductFromStep2,
+    CreateProductFromStep3,
+    Stepper
+  },
   setup() {
     onUnmounted(() =>  localStorage.removeItem('skuGroupDetail'))
     const {allBrands, getAllBrands} = Brands()
@@ -126,12 +132,7 @@ export default {
       skuGroup, getSkuGroup
     }
   },
-  components: {
-    CreateProductFromStep1,
-    CreateProductFromStep2,
-    CreateProductFromStep3,
-    Stepper
-  },
+
 
   data: () => ({
     step: 1,
@@ -559,9 +560,6 @@ export default {
     }
   },
 
-  beforeMount() {
-
-  },
 
 
   computed: {

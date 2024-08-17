@@ -1,7 +1,7 @@
 <template>
   <section class="create-product flex-column d-flex h-100">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1">
       <template v-if="step === 1">
         <AddCrossDockStep1 :orders="orders" ref="step1"/>
       </template>
@@ -24,7 +24,7 @@
                 width="115"
                 @click="decreaseStep()"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                   مرحله قبلی
               </span>
             </v-btn>
@@ -35,7 +35,7 @@
                 width="115"
                 @click="$router.go(-1)"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                  بازگشت
               </span>
             </v-btn>
@@ -52,14 +52,14 @@
             >
               <span
                   v-if="step < 4"
-                  class="t14300"
+                  class="t14 w300"
               >
                تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300"
+                  class="t14 w300"
               >
                 تایید و ثبت
               </span>
