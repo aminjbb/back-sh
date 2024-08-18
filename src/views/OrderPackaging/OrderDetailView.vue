@@ -53,13 +53,20 @@
         </v-card>
 
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch">
-          <ShTable
+<!--          <ShTable-->
+<!--              class="flex-grow-1"-->
+<!--              :headers="detailInfo"-->
+<!--              :items="itemListTable"-->
+<!--              :loading="loading"-->
+<!--          />-->
+          <Table
+              ref="oredrDetailFunc"
               class="flex-grow-1"
-              :headers="detailInfo"
-              :items="itemListTable"
+              :header="detailInfo"
+              :items="orderDetail"
               :loading="loading"
+              deletePath="report/crud/delete/"
           />
-
           <v-divider/>
 
           <v-card-actions class="pb-3">
@@ -119,6 +126,7 @@ const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import {ref} from 'vue'
 import ShTable from "@/components/Components/Table/sh-table.vue";
+import Table from "@/components/OrderPackaging/Table/TableDetail.vue";
 import ModalRejectOrder from '@/components/OrderPackaging/Modal/ModalRejectOrder.vue'
 import OrderPackagingList from '@/composables/OrderPackaging';
 import Modal from "@/components/OrderPackaging/Modal/Modal.vue";
@@ -135,7 +143,8 @@ export default {
     ModalChangeMethod,
     ShTable,
     DashboardLayout,
-    Header
+    Header,
+    Table
   },
 
   data() {
