@@ -95,7 +95,7 @@ export default {
                 <v-col class="pa-0 ma-0" cols="12">
                   <v-card height="12" variant="outlined" color="black"
                           class="rounded-0 d-flex justify-center align-center">
-                                      <span class="t8 w400">
+                                      <span class="t9 w400">
                                           فروشگاه اینترنتی شاواز
                                       </span>
                   </v-card>
@@ -105,7 +105,7 @@ export default {
                     <v-col cols="3" class="pa-0 ma-0">
                       <v-card height="24" variant="outlined" color="black"
                               class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8 w400">
+                                              <span class="t9 w400">
                                               </span>
                       </v-card>
                     </v-col>
@@ -114,7 +114,7 @@ export default {
                         <v-col cols="6" class="pa-0 ma-0">
                           <v-card height="12" variant="outlined" color="black"
                                   class="rounded-0 d-flex justify-center align-center pt-1">
-                                              <span class="t8 w400 d--rtl">
+                                              <span class="t9 w400 d--rtl">
                                                گرم {{ printObject?.weight }}
                                               </span>
                           </v-card>
@@ -130,14 +130,14 @@ export default {
                         <v-col cols="6" class="pa-0 ma-0">
                           <v-card height="12" variant="outlined" color="black"
                                   class="rounded-0 d-flex justify-center align-center">
-                                              <span class="t8 w400">
+                                              <span class="t9 w400">
                                               </span>
                           </v-card>
                         </v-col>
                         <v-col cols="6" class="pa-0 ma-0">
                           <v-card height="12" variant="outlined" color="black"
                                   class="rounded-0 d-flex justify-center align-center pt-1">
-                                              <span class="t8 w400">
+                                              <span class="t9 w400">
                                                {{ printObject?.date }}
                                               </span>
                           </v-card>
@@ -167,7 +167,7 @@ export default {
                 <v-col cols="6" class="pa-0 ma-0">
                   <v-card height="12" variant="outlined" color="black"
                           class="rounded-0 d-flex justify-center align-center pt-1">
-                                      <span class="t8 w400">
+                                      <span class="t9 w400">
                                          {{ printObject?.order_number }}
                                       </span>
                   </v-card>
@@ -175,7 +175,7 @@ export default {
                 <v-col cols="6" class="pa-0 ma-0">
                   <v-card height="12" variant="outlined" color="black"
                           class="rounded-0 d-flex justify-center align-center">
-                                      <span class="t8 w400">
+                                      <span class="t9 w400">
                                          کاربر عادی {{ index + 1 }}/{{ modalPrintOrderObject?.length }}
                                       </span>
                   </v-card>
@@ -219,7 +219,7 @@ export default {
                              src="@/assets/img/nafis-image.png" width="32" height="30" alt="post image">
                       </v-col>
                       <v-col cols="8" class="text-right pa-0">
-                        <p class="t8 w400">
+                        <p class="t9 w400">
                           <span> {{ printObject?.state?.label }} - </span>
                           <span> {{ printObject?.city?.label }} </span>
                         </p>
@@ -233,7 +233,7 @@ export default {
                 <v-col class="pa-0 ma-0" cols="4">
                   <v-card height="22" variant="outlined" color="black"
                           class="rounded-0 d-flex justify-center align-center">
-                      <span class="t8 w400 d--rtl">
+                      <span class="t9 w400 d--rtl">
                         {{ printObject?.weight }}گرم
                       </span>
                   </v-card>
@@ -261,21 +261,21 @@ export default {
                 </v-col>
                 <v-col class="pa-0 ma-0" cols="5">
                   <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                           <span class="t8 w400 mx-1">
+                           <span class="t9 w400 mx-1">
                             {{ printObject?.date }}
                            </span>
                   </v-card>
                 </v-col>
                 <v-col class="pa-0 ma-0" cols="3">
-                  <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center pt-1">
-                           <span class="t8 w400 mx-1">
+                  <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center ">
+                           <span class="t9 w400 mx-1">
                           {{ printObject.order_number }}
                            </span>
                   </v-card>
                 </v-col>
                 <v-col class="pa-0 ma-0" cols="4">
                   <v-card height="12" variant="outlined" color="black" class="rounded-0 d-flex justify-center">
-                           <span class="t8 w400 mx-1">
+                           <span class="t9 w400 mx-1">
                        کاربر عادی {{ index + 1 }}/{{ modalPrintOrderObject?.length }}
                            </span>
                   </v-card>
@@ -302,3 +302,10 @@ export default {
     </v-main>
   </v-layout>
 </template>
+
+
+<style>
+.t9{
+  font-size: 8px!important;
+}
+</style>

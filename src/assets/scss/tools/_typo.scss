@@ -2,12 +2,12 @@
 // Typography
 // ---------------------------------------------------- //
 
-@mixin typo($start: 8, $end: 60) {
+@mixin typo($start: 7, $end: 60) {
     @for $i from $start through $end {
         $class: "t#{$i}";
   
         .#{$class} {
-            font-size: #{$i}px;
+            font-size: #{$i}px !important;
             // You can add more styles here if needed
         }
     }
