@@ -119,9 +119,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه‌ی موجودی سایت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه‌ی موجودی سایت</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -130,9 +128,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openInventoryManagementModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            مدیریت موجودی سایت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">مدیریت موجودی سایت</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -141,9 +137,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openConsumerPriceModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-currency-usd" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            قیمت مصرف کننده
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">قیمت مصرف کننده</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -152,9 +146,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openBasicDiscountModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تخفیف پایه
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تخفیف پایه</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -163,9 +155,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تخفیف مارکتینگ
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تخفیف مارکتینگ</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -174,9 +164,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openOrderLimitModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            محدودیت سفارش
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">محدودیت سفارش</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -185,9 +173,16 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه ی قیمت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه ی قیمت</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="openTransferStockModal(item.data.sku_id)">
+                        <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">انتقال موجودی</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -196,17 +191,13 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="removeItem(item.data.sku_id)">
                         <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                                حذف
-                                            </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
             </template>
-
-
           </ShTable>
           <v-divider/>
 
@@ -250,6 +241,7 @@
           </v-card-actions>
         </v-card>
         <!-- menu modals-->
+        <TransferStockModal @updateList="updateList"/>
         <OrderLimitModal @updateList="updateList" />
         <InventoryManagementModal @updateList="updateList" />
         <ConsumerPriceModal @updateList="updateList" />
@@ -281,6 +273,7 @@ import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vu
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+import TransferStockModal from "@/components/Seller/Modals/TransferStockModal.vue";
 
 export default {
   setup() {
@@ -339,6 +332,7 @@ export default {
   },
 
   components: {
+    TransferStockModal,
     PanelFilter,
     Table,
     ModalGroupAdd,
@@ -429,17 +423,25 @@ export default {
     openInventoryManagementModal(id) {
       openModal(this.$store, 'set_inventoryManagementModal', id, true)
     },
+
     openConsumerPriceModal(id) {
       openModal(this.$store, 'set_consumerPriceModal', id, true)
     },
+
     openBasicDiscountModal(id) {
       openModal(this.$store, 'set_basicDiscountModal', id, true)
     },
+
     openMarketingDiscountModal(id) {
       openModal(this.$store, 'set_marketingDiscountModal', id, true)
     },
+
     openOrderLimitModal(id) {
       openModal(this.$store, 'set_orderLimitModal', id, true)
+    },
+
+    openTransferStockModal(id) {
+      openModal(this.$store, 'set_transferStockModal', id, true)
     },
 
     removeItem(id) {
