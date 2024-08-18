@@ -71,6 +71,14 @@
 
           <v-card-actions class="pb-3">
             <v-row class="px-5 py-2" justify="end">
+              <v-btn
+                  @click="temporarySave"
+                  variant="outlined"
+                  rounded
+                  class="px-3 mt-2">
+                ثبت موقت
+              </v-btn>
+
               <ModalRejectOrder :orderId="orderId" :accept="accept"/>
             </v-row>
           </v-card-actions>
@@ -267,6 +275,10 @@ export default {
             }
           });
     },
+
+    temporarySave() {
+      console.log('temporarySave')
+    }
   },
 
   mounted() {
