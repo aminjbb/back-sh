@@ -192,16 +192,16 @@ export default {
     },
 
     voucher() {
-      if(this.voucher.data) {
+      if(this.voucher) {
 
           this.itemListTable = []
           this.voucher.data.forEach((item) => {
               this.itemListTable.push(
                   {
                       id: item.id,
-                      first_name: item.users.first_name ? item.users.first_name : '-',
-                      last_name: item.users.last_name ? item.users.last_name : '-',
-                      phone_number: item.users.phone_number ? item.users.phone_number : '-',
+                      first_name: item.user.first_name ? item.user.first_name : '-',
+                      last_name: item.user.last_name ? item.user.last_name : '-',
+                      phone_number: item.user.phone_number ? item.user.phone_number : '-',
                       order_number: item.order_number,
                       details_count: item.details_count,
                       total_price: item.total_price,
