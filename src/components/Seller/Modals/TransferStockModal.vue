@@ -70,8 +70,6 @@
                     </span>
                 </v-btn>
             </footer>
-
-          <TransferModal ref="transferModal"/>
         </v-card>
     </v-dialog>
 </div>
@@ -80,13 +78,11 @@
 <script>
 import { closeModal } from "@/assets/js/functions_seller";
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import { openToast } from "@/assets/js/functions";
 import { defineAsyncComponent } from "vue";
-import TransferModal from "@/components/Seller/Modals/TransferModal.vue";
 const ShAutocomplete = defineAsyncComponent(()=> import ('@/components/Components/Kits/AutoComplete/sh-autocomplete.vue'))
 
 export default {
-  components: { TransferModal, ShAutocomplete},
+  components: {ShAutocomplete},
 
   props: {
     skuList: Array
@@ -95,11 +91,11 @@ export default {
   data() {
     return {
       loading: false,
-      rule: [v => !!v || 'این فیلد الزامی است'],
       skuSearchList:[],
       form: {
         shps_id: '',
       },
+      shpsInfo: {}
     }
   },
 
@@ -116,6 +112,7 @@ export default {
       try {
         let sku = []
         this.skuSearchList.forEach(element => {
+          // console.log(element, 'element')
           const form = {
             name: element.label + '(' + element.id + ')',
             id: element.id
@@ -130,6 +127,17 @@ export default {
   },
 
   methods: {
+    async getShps() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/get/${this.transferStockModal?.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.shpsInfo = data.data;
+      }
+    },
+
     close() {
       closeModal(this.$store, 'set_transferStockModal');
       this.shps_id= null;
@@ -157,12 +165,23 @@ export default {
 
 
     transferStock() {
-        this.$refs.transferModal.dialog = true
+      this.$emit('closeFirsModal', this.shpsInfo)
     },
 
     updateList(status) {
       this.$emit('updateList', status);
     },
-  }
+  },
+
+  created() {
+    this.$watch(
+        () => this.transferStockModal.dialog,
+        (dialogState) => {
+          if (dialogState) {
+            this.getShps();
+          }
+        }
+    );
+  },
 }
 </script>

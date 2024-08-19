@@ -15,7 +15,8 @@
       </div>
 
       <div class="text-center pa-5">
-        با انجام این عملیات، ۱۲۳ عدد موجودی انبار و ۱۲۰ عدد موجودی سایت به کالا با شناسه ۱۲۳۴۵۶ منتقل می شود.
+        با انجام این عملیات، {{ item.warehouse_stock }} عدد موجودی انبار و {{ item.site_stock }}  عدد موجودی سایت به کالا با شناسه
+        {{ item.sku_id }} منتقل می شود.
         آیا از انجام این کار اطمینان دارید؟
       </div>
 
@@ -52,6 +53,10 @@
 <script>
 export default {
   name: "TransferModal",
+
+  props: {
+    item: Object
+  },
 
   data(){
     return {

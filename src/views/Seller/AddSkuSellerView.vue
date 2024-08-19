@@ -92,9 +92,7 @@
               :page="skuSellerPage"
               :perPage="dataTableLength"
               :loading="loading"
-              :activePath="`seller/${$route.params.sellerId}/sku/update/activation/`"
-          >
-
+              :activePath="`seller/${$route.params.sellerId}/sku/update/activation/`">
             <template v-slot:actionSlot="item">
               <div class="text-center">
                 <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
@@ -108,9 +106,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer">
                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه‌ی موجودی انبار
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه‌ی موجودی انبار</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -181,7 +177,7 @@
                   <v-list-item>
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openTransferStockModal(item.data.sku_id)">
-                        <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
+                        <v-icon color="grey-darken-1" icon="mdi-folder-arrow-up-down-outline" size="xsmall"/>
                         <span class="mr-2 text-grey-darken-1 t14 w300">انتقال موجودی</span>
                       </div>
                     </v-list-item-title>
@@ -241,7 +237,8 @@
           </v-card-actions>
         </v-card>
         <!-- menu modals-->
-        <TransferStockModal @updateList="updateList"/>
+        <TransferModal ref="transferModal" :item="shpsItem"/>
+        <TransferStockModal @closeFirsModal="transferStock" @updateList="updateList"/>
         <OrderLimitModal @updateList="updateList" />
         <InventoryManagementModal @updateList="updateList" />
         <ConsumerPriceModal @updateList="updateList" />
@@ -274,6 +271,8 @@ import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
 import TransferStockModal from "@/components/Seller/Modals/TransferStockModal.vue";
+import TransferModal from "@/components/Seller/Modals/TransferModal.vue";
+import { closeModal } from "@/assets/js/functions_seller";
 
 export default {
   setup() {
@@ -327,11 +326,13 @@ export default {
         title: "حذف آیتم",
         path: `seller/${this.$route.params.sellerId}/sku/delete/`,
       },
-      itemListTable: []
+      itemListTable: [],
+      shpsItem: {}
     }
   },
 
   components: {
+    TransferModal,
     TransferStockModal,
     PanelFilter,
     Table,
@@ -446,6 +447,12 @@ export default {
 
     removeItem(id) {
       openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+
+    transferStock(itemShps) {
+      closeModal(this.$store, 'set_transferStockModal')
+      this.$refs.transferModal.dialog = true
+      this.shpsItem = itemShps
     }
   },
 
