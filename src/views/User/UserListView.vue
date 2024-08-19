@@ -93,7 +93,7 @@
 
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push('/wallet/index?user_id='+item.id)">
+                      <div class="ma-5 pointer" @click="$router.push('/wallet/index?user_id='+item.data.id)">
                         <v-icon class="text-grey-darken-1">mdi-wallet-outline</v-icon>
                         <span class="mr-2 text-grey-darken-1 t14 w300">کیف پول</span>
                       </div>
