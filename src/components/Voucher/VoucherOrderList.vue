@@ -187,7 +187,7 @@ export default {
     },
     page(){
       if (!this.perPageFilter){
-        this.addPaginationOrder()
+        this.getVoucherOrder()
       }
     },
 
