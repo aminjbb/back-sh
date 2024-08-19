@@ -179,7 +179,7 @@ export default {
     },
     page(){
       if (!this.perPageFilter){
-        this.addPaginationCustomer()
+        this.getVoucherCustomer()
       }
     },
 
