@@ -11,13 +11,11 @@
       <template v-for="(head, index) in header">
         <template v-if="head.value">
           <div
-              v-if="head.show"
               @click="createOrdering(head.value, head.order)"
               class="text-right c-table__header__item t12 w500"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
             {{head.name}}
           </div>
         </template>

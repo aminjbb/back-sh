@@ -59,7 +59,7 @@
       <Table
           ref="manualOrderTable"
           class="flex-grow-1"
-          :header="manualOrderHeader"
+          :header="headerSelectProduct"
           :page="skuSellerPage"
           :perPage="dataSkuTableLength"
           :items="manualOrderList"
@@ -87,9 +87,12 @@ import {
 import {
   AxiosCall
 } from "@/assets/js/axios_call";
+import ManualOrders from "@/composables/ManualOrders";
 
 export default {
   setup(props) {
+    const { headerSelectProduct } = ManualOrders()
+
     const {
       getSkuSeller,
       dataSkuTableLength, addSkuSellerPerPage,  skuSellerPage,
@@ -106,6 +109,7 @@ export default {
       dataSkuTableLength,
       manualOrderHeader,
       manualOrderList,
+      headerSelectProduct
     };
   },
 
