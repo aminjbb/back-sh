@@ -12,7 +12,7 @@
            <v-col cols="6">
              <v-row justify="start">
                <v-btn
-                   @click="$router.push(`edit/1`)"
+                   @click="$router.push(`sub-topic/1`)"
                    color="primary500"
                    height="40"
                    rounded

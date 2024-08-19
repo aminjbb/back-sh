@@ -4,12 +4,12 @@
     <v-main class="h-100vh">
       <Header />
       <div class="">
-        <v-card class="ma-5 br-12 py-10 position__relative" height="850">
+        <v-card class="ma-5 br-12 py-10 position__relative" height="320">
           <div class="text-center t14500 pb-5">افزودن زیر موضوع</div>
           <v-divider/>
 
           <v-form ref="addForm" v-model="valid">
-            <v-row class="mt-3 mr-16" justify="center" align="center">
+            <v-row class=" mr-16" justify="center" align="center">
               <v-col cols="12" md="12">
                 <div class="text-right my-5">
                   <span class="t12400">عنوان موضوع :</span>
@@ -54,35 +54,25 @@
               </v-col>
             </v-row>
           </v-form>
-
-          <div class="d-flex justify-end position__absolute bottom left">
-            <v-btn
-                :loading="loading"
-                @click="validate()"
-                color="primary500"
-                height="40"
-                rounded
-                class="px-8 mt-1"
-            >
-              <template v-slot:prepend>
-                <v-icon>mdi-plus</v-icon>
-              </template>
-              ویرایش
-            </v-btn>
-
-            <v-btn
-                @click="$router.go(-1)"
-                variant="outlined"
-                height="40"
-                rounded
-                class="px-8 mt-1 mr-5"
-            >
-              <template v-slot:prepend>
-                <v-icon>mdi-cancel</v-icon>
-              </template>
-              انصراف
-            </v-btn>
-          </div>
+        </v-card>
+        <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="520">
+          <ShTable
+              class="flex-grow-1"
+              :headers="header"
+              :items="itemListTable"
+              :loading="loading"
+              :page="page"
+              :perPage="dataTableLength"
+              :activePath="`add/endpoint`">
+            <template v-slot:customSlot="item">
+              <div class="d-flex justify-center align-center">
+                <div
+                    v-for="(field, fieldIndex) in item.data.required_field"
+                    :key="fieldIndex"
+                    class="rounded bg-gray200 t14400 px-2 py-1 mx-1">{{ field }}</div>
+              </div>
+            </template>
+          </ShTable>
         </v-card>
       </div>
     </v-main>
@@ -90,21 +80,56 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-import {openToast} from "@/assets/js/functions";
+const ShTable = defineAsyncComponent(()=> import('@/components/Components/Table/sh-table.vue'))
+import SubTitleTicket from "@/composables/SubTitleTicket";
 
 export default {
   name: "AddSubTopicToSubject",
 
   components: {
     DashboardLayout,
-    Header
+    Header,
+    ShTable
   },
+
+  setup() {
+    const {
+      page,
+      dataTableLength
+    } = SubTitleTicket
+
+    return {
+      page,
+      dataTableLength
+    }
+  },
+
+  data() {
+    return {
+      valid: false,
+      loading: false,
+      itemListTable:[
+        {
+          sub_topic: 'نرسیدن سفارش',
+          created_at: '1402/06/12 11:24:52',
+          updated_at: '1402/06/12 11:24:52',
+          required_field: ['شناسه کالا', 'شماره سفارش'],
+          is_active: 1,
+        }
+      ],
+
+      header: [
+        { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row'},
+        { name: 'عنوان زیر موضوع', title: 'عنوان زیر موضوع', show: true, align:'center', key: 'sub_topic'},
+        { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, align:'center', key: 'created_at'},
+        { name: 'تاریخ به روزرسانی', title: 'تاریخ به روزرسانی', show: true, align:'center', key: 'updated_at'},
+        { name: 'فیلد های اجباری', title: 'فیلد های اجباری', show: true, align:'center', key: 'custom'},
+        { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
+      ]
+    }
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
