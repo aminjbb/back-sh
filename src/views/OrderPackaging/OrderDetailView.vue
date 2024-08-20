@@ -244,7 +244,7 @@ export default {
             if (err.response.status == 400) {
               openToast(
                   this.$store,
-                  err.response.message,
+                  err.response.data.message ?? 'عملیات با خطا مواجه شد',
                   "error",
               );
             }
@@ -264,6 +264,12 @@ export default {
               this.sendingMethods = err.response.data.data.sending_methods
               this.currentSendingMethod = err.response.data.data.current_sending_method
               this.$refs.ModalChangeMethod.dialogSendingMethod = true
+            } else {
+              openToast(
+                  this.$store,
+                  err.response.data.message ?? 'عملیات با خطا مواجه شد',
+                  "error",
+              );
             }
           });
     },
