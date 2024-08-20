@@ -18,25 +18,27 @@
             <div class="text-right pa-5">
                 <span class="t12 w300 modal__label">انتخاب کالا</span>
               <v-autocomplete
-                  v-model="form.shps_id"
+                  v-model="shps_id"
+                  placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
                   variant="outlined"
                   prepend-inner-icon-cb="mdi-map-marker"
                   rounded="lg"
                   :items="skuList"
-                  item-title="name"
-                  item-value="value"
+                  item-title="id"
+                  return-object
                   v-debounce="searchSku">
 
                 <template v-slot:item="item">
                   <v-list-item>
                     <v-row justify="end">
-                      <v-col cols="11" @click="assignShps(item)">
+                      <v-col cols="11">
                         <text-clamp
-                            :text='item?.props?.title'
+                            @click="assignShps(item)"
+                            :text='item.item.raw.name'
                             :max-lines='1'
                             autoResize
                             location="start"
-                            class="text-gray500 t14 text-right" />
+                            class="text-gray500 t14 w300 text-right" />
                       </v-col>
                     </v-row>
                   </v-list-item>
@@ -84,18 +86,13 @@ const ShAutocomplete = defineAsyncComponent(()=> import ('@/components/Component
 export default {
   components: {ShAutocomplete},
 
-  props: {
-    skuList: Array
-  },
-
   data() {
     return {
       loading: false,
-      skuSearchList:[],
-      form: {
-        shps_id: '',
-      },
-      shpsInfo: {}
+      skuSearchList: [],
+      shpsSearchList:[],
+      shps_id: '',
+      destinationShps: {}
     }
   },
 
@@ -111,11 +108,13 @@ export default {
     skuList() {
       try {
         let sku = []
-        this.skuSearchList.forEach(element => {
-          // console.log(element, 'element')
+        this.skuSearchList.forEach(permission => {
           const form = {
-            name: element.label + '(' + element.id + ')',
-            id: element.id
+            name: permission.sku.label + '(' + permission.id + ')',
+            id: permission.id,
+            warehouse_stock: permission.warehouse_stock,
+            site_stock: permission.site_stock,
+            seller_id: permission.seller_id
           }
           sku.push(form)
         })
@@ -127,32 +126,17 @@ export default {
   },
 
   methods: {
-    async getShps() {
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/get/${this.transferStockModal?.id}`
-      let data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpsInfo = data.data;
-      }
-    },
-
     close() {
       closeModal(this.$store, 'set_transferStockModal');
       this.shps_id= null;
     },
 
-    async searchSku(e) {
-      const filter = {
-        per_page: 10,
-        q: e
-      }
+    async searchSku(search) {
+      this.skuSearchList = []
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.form = filter
-      AxiosMethod.end_point = `product/sku/crud/index/`
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.skuSearchList = data.data.data
@@ -160,12 +144,13 @@ export default {
     },
 
     async assignShps(item) {
-      this.form.shps_id = item.props.value
+      this.shps_id = item.props.value
+      this.destinationShps = item
     },
 
 
     transferStock() {
-      this.$emit('closeFirsModal', this.shpsInfo)
+      this.$emit('closeFirsModal', this.destinationShps)
     },
 
     updateList(status) {
@@ -178,7 +163,7 @@ export default {
         () => this.transferStockModal.dialog,
         (dialogState) => {
           if (dialogState) {
-            this.getShps();
+            // this.getShps();
           }
         }
     );

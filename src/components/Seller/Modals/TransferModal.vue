@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" width="468">
     <v-card>
       <header class="modal__header d-flex justify-center align-center">
-        <span class="t16 w400 pa-6">انتقال موجودی</span>
+        <span class="t16 w400 pa-6"> انتقال موجودی</span>
         <v-btn
             @click="close()"
             class="modal__header__btn"
@@ -15,8 +15,8 @@
       </div>
 
       <div class="text-center pa-5">
-        با انجام این عملیات، {{ item.warehouse_stock }} عدد موجودی انبار و {{ item.site_stock }}  عدد موجودی سایت به کالا با شناسه
-        {{ item.sku_id }} منتقل می شود.
+        با انجام این عملیات، {{ item.item.raw.warehouse_stock }} عدد موجودی انبار و {{ item.item.raw.site_stock }}  عدد موجودی سایت به کالا با شناسه
+        {{ item.item.raw.id }} منتقل می شود.
         آیا از انجام این کار اطمینان دارید؟
       </div>
 
@@ -52,11 +52,14 @@
 
 <script>
 import {openToast} from "@/assets/js/functions";
+import { AxiosCall } from "@/assets/js/axios_call";
 export default {
   name: "TransferModal",
 
   props: {
-    item: Object
+    item: Object,
+    sourceShps: Number,
+    destinationShps: Number
   },
 
   data(){
@@ -71,15 +74,18 @@ export default {
       this.loading = true
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `seller/1/sku/transfer/stock`
+      AxiosMethod.end_point = `seller/${this.item.item.raw.seller_id}/sku/transfer/stock`
       AxiosMethod.form = formdata
-      // formdata.append('Accept', 1)
+      formdata.append('Accept', 1)
+      formdata.append('source_shps', this.sourceShps)
+      formdata.append('destination_shps', this.item.item.raw.id)
 
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
+        console.log(data, 'data')
         this.loading = false;
         this.close();
         openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success");

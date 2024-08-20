@@ -181,6 +181,8 @@
                         <span class="mr-2 text-grey-darken-1 t14 w300">انتقال موجودی</span>
                       </div>
                     </v-list-item-title>
+                    <TransferStockModal @closeFirsModal="transferStock" @updateList="updateList"/>
+                    <TransferModal ref="transferModal" :item="shpsItem" :sourceShps="item.data.sku_id"/>
                   </v-list-item>
 
                   <v-list-item>
@@ -237,8 +239,7 @@
           </v-card-actions>
         </v-card>
         <!-- menu modals-->
-        <TransferModal ref="transferModal" :item="shpsItem"/>
-        <TransferStockModal @closeFirsModal="transferStock" @updateList="updateList"/>
+
         <OrderLimitModal @updateList="updateList" />
         <InventoryManagementModal @updateList="updateList" />
         <ConsumerPriceModal @updateList="updateList" />
@@ -449,10 +450,10 @@ export default {
       openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
     },
 
-    transferStock(itemShps) {
+    transferStock(destinationShps) {
       closeModal(this.$store, 'set_transferStockModal')
       this.$refs.transferModal.dialog = true
-      this.shpsItem = itemShps
+      this.shpsItem = destinationShps
     }
   },
 
