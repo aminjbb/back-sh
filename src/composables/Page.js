@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_page.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,25 +11,24 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     //sliders variables
     const sliderList = ref([]);
     const skuList = ref([]);
-    const sku = ref([]);
 
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'عنوان', show: true , value:'label', order: false},
-        { name: 'نوع صفحه ', show: true, value:'type' , order: false},
-        { name: 'شناسه صفحه', show: true , value:'id', order: false},
-        { name: 'تاریخ ساخت ', show: true, value:'created_at', order: true },
-        { name: 'تاریخ ویرایش ', show: true, value:'updated_at', order: true },
-        { name: 'ایندکس', show: true, value:'is_index', order: false },
-        { name: 'follow', show: true, value:'is_follow', order: false },
-        { name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
+        {name: 'عنوان', title: 'عنوان', show: true , key:'label', align:'center', sortable: false},
+        {name: 'نوع صفحه ', title: 'نوع صفحه ', show: true, key:'type' , align:'center', sortable: false},
+        {name: 'شناسه صفحه', title: 'شناسه صفحه', show: true , key:'id', align:'center', sortable: false},
+        {name: 'تاریخ ساخت ',  title: 'تاریخ ساخت ', show: true, key:'created_at', align:'center'},
+        {name: 'تاریخ ویرایش ', title: 'تاریخ ویرایش ', show: true, key:'updated_at', align:'center'},
+        {name: 'ایندکس', title: 'ایندکس', show: true, key:'switch', align:'center', sortable: false},
+        {name: 'follow', title: 'follow', show: true, key:'custom', align:'center', sortable: false},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [
@@ -46,23 +43,23 @@ export default function setup() {
 
      // image table header
     const imageHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'تصویر', show: true , value:'label', order: false},
-        { name: 'دستگاه', show: true, value:'type' , order: false},
-        { name: 'موقعیت', show: true , value:'id', order: false},
-        { name: 'ترتیب نمایش ', show: true, value:'created_at', order: true },
-        { name: 'ذخیره ', show: true, value:'updated_at', order: true },
-
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
+        {name: 'تصویر', title: 'تصویر', show: true , key:'custom', align:'center', sortable: false},
+        {name: 'دستگاه', title: 'دستگاه', show: true, key:'deviceType', align:'center', sortable: false, model:'select' },
+        {name: 'موقعیت', title: 'موقعیت', show: true , key:'location', align:'center', sortable: false, model:'select'},
+        {name: 'ترتیب نمایش ', title: 'ترتیب نمایش ', show: true, key:'show_order', align:'center', sortable: false, model:'number_input', width:'200'},
+        {name: 'ذخیره ', title: 'ذخیره ', show: true, key:'custom2', align:'center', sortable: false},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     // slider table header
     const SliderHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'نام انگلیسی', show: true , value:'name', order: false},
-        { name: 'نام فارسی', show: true, value:'label' , order: false},
-        { name: 'جایگاه', show: true , value:'position', order: false},
-        { name: 'آیکن', show: true, value:'icon', order: false },
-        //{ name: 'وضعیت', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'نام انگلیسی', title: 'نام انگلیسی', show: true , key:'name',  sortable: false, align: 'center'},
+        {name: 'نام فارسی', title: 'نام فارسی', show: true, key:'label' ,  sortable: false, align: 'center'},
+        {name: 'جایگاه', title: 'جایگاه', show: true , key:'position',  sortable: false, align: 'center'},
+        {name: 'آیکن', title: 'آیکن', show: true, key:'icon',  sortable: false, align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
      // slider skus table header
@@ -72,13 +69,11 @@ export default function setup() {
         { name: 'SHPS', show: true, value:'shps' , order: false},
         { name: 'ترتیب نمایش', show: true , value:'sort', order: false},
         { name: 'ذخیره', show: true, value:'save' , order: false},
-
     ]);
     
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get page list
@@ -156,8 +151,6 @@ export default function setup() {
         if (data) {
             pageSingle.value = data.data;
         }
-        else {
-        }
     }
 
     /**
@@ -172,56 +165,56 @@ export default function setup() {
         if (data) {
             templates.value = data.data.data
         }
-
-        else {
-        }
-    }
-
-    /**
-     * Get page image
-     */
-    async function getPageImages(){
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
-        AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `page/index${paramsQuery}`
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            pageList.value = data.data
-            loading.value = false
-            setTimeout(()=>{
-                isFilter.value =false
-                isFilterPage.value = false
-            } , 2000)
-        }
-
-        else {
-        }
     }
 
     /**
      * Get slider list
      * @param {*} query 
      */
-    async function getSliderList(query) {
+    async function getSliderList() {
         loading.value = true
-        let endPoint = ''
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
-        if (paramsQuery){
-            endPoint= `page/slider/crud/index/${paramsQuery}&page_id=${route.params.pageId}`
-        }
-        else {
-            endPoint= `page/slider/crud/index/?page_id=${route.params.pageId}`
-        }
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = endPoint
+        AxiosMethod.end_point = `page/slider/crud/index/?page_id=${route.params.pageId}`
         let data = await AxiosMethod.axios_get()
 
         if (data) {
@@ -233,23 +226,54 @@ export default function setup() {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
     };
 
     /**
      * Get slider's sku list
      * @param {*} query 
      */
-    async function getSliderSkuList(query) {
+    async function getSliderSkuList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `page/slider/crud/get/${route.params.sliderId}`
@@ -268,15 +292,27 @@ export default function setup() {
         else {
         }
     };
-    function addPerPageSlider(number){
-        filter.page = 1
-        filter.per_page =number
-        router.push('/page/' +route.params.pageId+ '/sliders/index'+ filter.params_generator(route.query))
-    }
 
-    return {templates, getTemplates,pageSingle , getPage ,
-        imageHeader , pageLength, filterField, pageList , getPageList,
-        dataTableLength, page, header, loading, SliderHeader,getSliderList, sliderList,
-        SliderSkuHeader, getSliderSkuList, skuList, addPerPageSlider }
+    return {
+        templates,
+        getTemplates,
+        pageSingle ,
+        getPage ,
+        imageHeader ,
+        pageLength,
+        filterField,
+        pageList ,
+        getPageList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        SliderHeader,
+        getSliderList,
+        sliderList,
+        SliderSkuHeader,
+        getSliderSkuList,
+        skuList
+    }
 }
 

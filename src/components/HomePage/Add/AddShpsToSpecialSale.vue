@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch sku-seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -23,7 +23,7 @@
 
                     <v-col cols="4">
 
-                      <div @click="assignSku(item.props.value.id,item.props.value.sku_id)" class="seller__add-sku-btn d-flex justify-center align-center">
+                      <div @click="assignSku(item)" class="seller__add-sku-btn d-flex justify-center align-center">
                         <v-icon>mdi-plus</v-icon>
                       </div>
 
@@ -34,7 +34,7 @@
                           :max-lines='1'
                           autoResize
                           location="start"
-                          class="text-gray500 t14300 text-right" />
+                          class="text-gray500 t14 w300 text-right" />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -50,7 +50,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <Table
           class="flex-grow-1"
           :header="homePageSkuHeader"
@@ -170,15 +170,15 @@ export default {
       }
     },
 
-    async assignSku(id, skuId) {
+    async assignSku(item) {
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `page/home/section/slider/${this.$route.params.specialId}/sku/attach`
-      formData.append('shps', id)
-      formData.append('sku_id', skuId)
+      formData.append('shps', item?.item?.value)
+      formData.append('sku_id', item?.item?.raw?.sku?.id)
       formData.append('priority', 1)
       formData.append('is_active', 0)
       AxiosMethod.form = formData

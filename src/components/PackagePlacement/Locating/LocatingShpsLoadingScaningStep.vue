@@ -7,7 +7,7 @@
         </v-icon>
       </div>
       <div class="mt-8 d-flex justify-center px-10 text-center">
-        <span class="text-black t20400">
+        <span class="text-black t20 w400">
           {{ scanTitle }}
           <v-text-field v-if="type === 'automate'" v-model="objectId" :autofocus="true"
                         v-debounce:150ms="qrCodeScan"></v-text-field>

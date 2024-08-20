@@ -1,13 +1,14 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
           class="px-10 pt-3">
         <v-col cols="12">
           <v-btn
-              @click="cancelOrder( {accept:0 , status :'all'})"
+              :loading="loadingAllItem"
+              @click="cancelOrder( {accept:0 , status :'all', increase_site_stock:0})"
               variant="outlined"
               rounded
               class="px-3 mt-1">
@@ -17,7 +18,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
       <CancelOrderTable
           ref="cancelOrderTable"
           class="flex-grow-1"
@@ -58,11 +59,16 @@
                 height="40"
                 rounded
                 variant="elevated"
-                @click="cancelOrder({accept:0 , status :'items'})"
+                :loading="loadingItem"
+                @click="cancelOrder({accept:0 , status :'items', increase_site_stock:0})"
                 class="px-8 mt-1">
               ذخیره
             </v-btn>
-           <ConfirmCancelOrder  :status="status" @cancelOrder="cancelOrder" :cancelOrderAccept="cancelOrderAccept" ref="ConfirmCancelOrder"/>
+           <ConfirmCancelOrder
+               :status="status"
+               @cancelOrder="cancelOrder"
+               :cancelOrderAccept="cancelOrderAccept"
+               ref="ConfirmCancelOrder" />
           </v-col>
         </v-row>
       </v-card-actions>
@@ -95,7 +101,9 @@ export default {
       dialog: false,
       shpsDetails:[],
       cancelOrderAccept:null,
-      status:'items'
+      status:'items',
+      loadingItem:false,
+      loadingAllItem:false
     }
   },
 
@@ -117,44 +125,56 @@ export default {
       }
     },
 
-    async cancelOrder(object ){
-      const formData = new FormData()
-      this.status = object.status
-      if (object.status === 'items'){
-        this.$refs.cancelOrderTable.form.forEach((element , index) =>{
-          if (element.cancelled_count){
+    async cancelOrder(object){
+      try {
+        const formData = new FormData()
+        this.status = object.status
+        if (object.status === 'items'){
+          this.loadingItem = true
+          this.$refs.cancelOrderTable.form.forEach((element , index) =>{
+            if (element.cancelled_count){
+              formData.append(`shps_list[${index}][shps]` , element.shps)
+              formData.append(`shps_list[${index}][count]` , element.cancelled_count)
+            }
+          })
+        }
+        else if (object.status === 'all'){
+          this.loadingAllItem = true
+          this.$refs.cancelOrderTable.form.forEach((element , index) =>{
             formData.append(`shps_list[${index}][shps]` , element.shps)
-            formData.append(`shps_list[${index}][count]` , element.cancelled_count)
+            formData.append(`shps_list[${index}][count]` , element.count)
+          })
+        }
+        formData.append(`accept` , object.accept)
+        formData.append(`order_id` , this.$route.params.orderId)
+        formData.append(`increase_site_stock` , object.increase_site_stock)
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `admin/order/cancel/`
+        AxiosMethod.store = this.$store
+        AxiosMethod.form = formData
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.cancelOrderAccept = data.data;
+          this.loadingItem = false
+          this.loadingAllItem = false
+          if (object.accept){
+            this.$refs.ConfirmCancelOrder.dialog  = false
+            openToast(this.$store , 'آیتم های سفارش با موفقیت کنسل شد' , 'success')
+            this.getShpsDetails()
           }
-        })
-      }
-      else if (object.status === 'all'){
-        this.$refs.cancelOrderTable.form.forEach((element , index) =>{
-          formData.append(`shps_list[${index}][shps]` , element.shps)
-          formData.append(`shps_list[${index}][count]` , element.count)
-        })
-      }
-      formData.append(`accept` , object.accept)
-      formData.append(`order_id` , this.$route.params.orderId)
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `admin/order/cancel/`
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formData
-      let data = await AxiosMethod.axios_post();
-      if (data) {
-        this.cancelOrderAccept = data.data;
-        if (object.accept){
-          this.$refs.ConfirmCancelOrder.dialog  = false
-          openToast(this.$store , 'آیتم های سفارش با موفقیت کنسل شد' , 'success')
-          this.getShpsDetails()
-
+          else{
+            this.$refs.ConfirmCancelOrder.dialog  = true
+          }
+        } else {
+          this.loadingItem = false
+          this.loadingAllItem = false
         }
-        else{
-          this.$refs.ConfirmCancelOrder.dialog  = true
-        }
-      } else {
+      }
+      catch (e) {
+        this.loadingItem = false
+        this.loadingAllItem = false
       }
     }
   },

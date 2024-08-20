@@ -17,90 +17,86 @@
         v-if="dialog"
         v-model="dialog"
         width="868"
-        >
+    >
 
-      <v-card   >
+      <v-card>
 
-     <div class="flex">
-       <v-form @submit.prevent="validate()" ref="wallet" v-model="valid">
-         <v-row align="center" class="px-15">
-           <v-col cols="4" md="6">
-             <div class="text-right my-5">
-               <span class="text-error">*</span>
-               <span class="t14500">
+        <div class="flex">
+          <v-form @submit.prevent="validate()" ref="wallet" v-model="valid">
+            <v-row align="center" class="px-15">
+              <v-col cols="4" md="6">
+                <div class="text-right my-5">
+                  <span class="text-error">*</span>
+                  <span class="t14 w500">
 علت تراکنش                         </span>
 
-             </div>
-             <v-autocomplete
-                 :items="reasonItem"
-                 density="compact"
-                 variant="outlined"
-                 item-title="label"
-                 :rules="rule"
-                 item-value="value"
-                 v-model="form.reason" />
-           </v-col>
-           <v-col cols="4" md="6">
-             <div class="text-right my-5">
-               <span class="text-error">*</span>
-               <span class="t14500">
+                </div>
+                <v-autocomplete
+                    :items="reasonItem"
+                    density="compact"
+                    variant="outlined"
+                    item-title="label"
+                    :rules="rule"
+                    item-value="value"
+                    v-model="form.reason"/>
+              </v-col>
+              <v-col cols="4" md="6">
+                <div class="text-right my-5">
+                  <span class="text-error">*</span>
+                  <span class="t14 w500">
 مبلغ شارژ (ریال)                         </span>
 
-             </div>
-             <v-text-field
-                 density="compact"
-                 variant="outlined"
-                 type="number"
-                 single-line
-                 :rules="rule"
-                 v-model="form.amount" />
-           </v-col>
-           <v-col cols="12" md="12">
-             <div class="text-right my-5">
-                        <span class="t14500">
+                </div>
+                <v-text-field
+                    density="compact"
+                    variant="outlined"
+                    type="number"
+                    single-line
+                    :rules="rule"
+                    v-model="form.amount"/>
+              </v-col>
+              <v-col cols="12" md="12">
+                <div class="text-right my-5">
+                        <span class="t14 w500">
 توضیحات                         </span>
 
-             </div>
-             <v-textarea
-                 max-rows="3"
-                 density="compact"
-                 variant="outlined"
-                 v-model="form.description" />
-           </v-col>
-         </v-row>
-       </v-form>
-
-
-     </div>
-          <v-card-actions>
-            <v-row justify="space-between" class="mx-10 my-1 ">
-              <v-btn
-                  :loading="loading"
-                  @click="validate()"
-                  color="primary500"
-                  height="40"
-                  variant="flat"
-                  rounded
-                  class="px-8 mt-1 mr-3">
-                <template v-slot:prepend>
-
-                </template>
-                تایید
-              </v-btn>
-
-              <v-btn
-                  @click="$router.go(-1)"
-                  variant="outlined"
-                  height="40"
-                  rounded
-                  class=" mt-1 mr-3">
-                <template v-slot:prepend>
-
-                </template>
-                انصراف
-              </v-btn>
+                </div>
+                <v-textarea
+                    max-rows="3"
+                    density="compact"
+                    variant="outlined"
+                    v-model="form.description"/>
+              </v-col>
             </v-row>
-          </v-card-actions>
+          </v-form>
+
+
+        </div>
+        <v-card-actions>
+          <v-row justify="space-between" class="mx-10 my-1 ">
+            <v-btn
+                :loading="loading"
+                @click="validate()"
+                color="primary500"
+                height="40"
+                variant="flat"
+                rounded
+                class="">
+
+              تایید
+            </v-btn>
+
+            <v-btn
+                @click="dialog = false"
+                variant="outlined"
+                height="40"
+                rounded
+                class=" mt-1 ">
+
+              انصراف
+            </v-btn>
+          </v-row>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -121,14 +117,14 @@ export default {
     return {
       dialog: false,
       data: null,
-      valid:true,
+      valid: true,
       form: {
         reason: null,
         description: null,
         amount: null,
 
       },
-      reasonItem:[
+      reasonItem: [
         {
           label: "مرجوعی سفارش",
           value: "return_order"
@@ -154,8 +150,8 @@ export default {
       loading: false,
     }
   },
-  props:{
-    getTransactionList :{type:Function}
+  props: {
+    getTransactionList: {type: Function}
   },
   methods: {
     openModal() {
@@ -166,7 +162,7 @@ export default {
       this.dialog = false;
     },
 
-    async validate(){
+    async validate() {
       await this.$refs.wallet.validate()
       if (this.valid) this.increaseWallet()
     },
@@ -195,7 +191,7 @@ export default {
         openToast(this.$store,
             'موجودی با موفقیت افزایش یافت',
             "success")
-        this.closeModal() ;
+        this.closeModal();
         this.loading = false;
         this.getTransactionList()
         this.$refs.wallet.reset()

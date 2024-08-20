@@ -2,8 +2,6 @@ import { ref, watch } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
-import {PanelFilter} from "@/assets/js/filter";
-
 
 export default function setup() {
     const contactUsList = ref([]);
@@ -16,26 +14,23 @@ export default function setup() {
 
     // Page table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: ' نام و نام خانوادگی', show: true , value:'full_name', order: false},
-        { name: '  شماره موبایل', show: true , value:'phone_number', order: false},
-        { name: ' عنوان', show: true, value:'subject' , order: false},
-        { name: ' تاریخ ایجاد', show: true, value:'created_at' , order: true},
-
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: ' نام و نام خانوادگی', title: ' نام و نام خانوادگی', show: true , key:'full_name', sortable: false, align: 'center'},
+        {name: '  شماره موبایل', title: '  شماره موبایل', show: true , key:'phone_number', sortable: false, align: 'center'},
+        {name: ' عنوان', title: ' عنوان', show: true, key:'subject' , sortable: false, align: 'center'},
+        {name: ' تاریخ ایجاد', title: ' تاریخ ایجاد', show: true, key:'created_at', align: 'center'},
+        {name: 'مشاهده', title: 'مشاهده', show: true, key:'show', sortable: false, align: 'left'},
     ]);
 
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get page list
      * @param {*} query
      */
     async function getContactUs() {
-
-        let paramsQuery = null
         loading.value = true
         const AxiosMethod = new AxiosCall()
         let query = route.query

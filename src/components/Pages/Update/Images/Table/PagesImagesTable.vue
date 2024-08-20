@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value)"
-                class="text-center pointer c-table__header__item t12500 text-black"
+                class="text-center pointer c-table__header__item t12 w500 text-black"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
 
@@ -34,13 +34,13 @@
                 :class="oddIndex(index) ? 'bg-gray90' : ''"
                 class="d-flex justify-between c-table__contents__row">
                 <div class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
 
                 <div class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <img :src="form[index].imageUrl" width="68" height="28" alt="" class="br br__4">
+                    <img :src="form[index].imageUrl" width="68" height="28" alt="" class="br br--4">
                     <span>
                         <v-icon
                             color="gray500"
@@ -99,7 +99,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(`${$route.params.pageId}/${form[index].imageId}` )">
                                         <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -116,7 +116,7 @@
             style="top: 50%">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div>
-                <span class="t14300 text-gray500">داده‌ی مورد نظر وجود ندارد.</span>
+                <span class="t14 w300 text-gray500">داده‌ی مورد نظر وجود ندارد.</span>
             </div>
         </div>
     </div>

@@ -11,20 +11,18 @@
       <template v-for="(head, index) in header">
         <template v-if="head.value">
           <div
-              v-if="head.show"
               @click="createOrdering(head.value, head.order)"
-              class="text-right c-table__header__item t12500"
+              class="text-right c-table__header__item t12 w500"
               :class="head.order == true ? 'pointer' : ''"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
             {{head.name}}
           </div>
         </template>
         <template v-else>
           <div
               v-if="head.show"
-              class="text-right pointer c-table__header__item t12500"
+              class="text-right pointer c-table__header__item t12 w500"
               :key="index"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             {{head.name}}
@@ -32,7 +30,7 @@
         </template>
       </template>
       <div class="c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 ">
+            <span class="t12 w500 ">
                 عملیات
             </span>
       </div>
@@ -50,7 +48,7 @@
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
                         </span>
               <template v-if="checkbox">
@@ -64,13 +62,13 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if="item?.shps?.sku?.image_url">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                           <img :src="item?.shps?.sku?.image_url" width="48" height="48" alt="shps">
                         </span>
 
             </template>
             <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             -
                         </span>
 
@@ -82,13 +80,13 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if="item?.shps?.sku">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                            {{ item?.shps?.sku?.label }}
                         </span>
 
             </template>
             <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             -
                         </span>
 
@@ -100,13 +98,13 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if="item.customer_price">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.customer_price }}
                         </span>
 
             </template>
             <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             0
                         </span>
 
@@ -118,14 +116,14 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if="item.site_price">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                            {{ item?.site_price}}
 
                         </span>
 
             </template>
             <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             0
                         </span>
 
@@ -137,13 +135,13 @@
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
               class="c-table__contents__item">
             <template v-if=" item?.shps?.site_stock">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item?.shps?.site_stock}}
                         </span>
 
             </template>
             <template v-else>
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             0
                         </span>
 
@@ -172,7 +170,7 @@
                   <v-list-item-title>
                     <div class="ma-5 pointer" @click="removeItem(index)">
                       <v-icon color="grey-darken-1" icon="mdi-trash-can-outline" size="xsmall"/>
-                      <span class="mr-2 text-grey-darken-1 t14300">
+                      <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                     </div>
@@ -186,8 +184,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>
@@ -197,17 +195,8 @@
 </template>
 
 <script>
-import {
-  isOdd, splitChar
-} from '@/assets/js/functions'
+import { isOdd, splitChar} from '@/assets/js/functions'
 
-import {
-  AxiosCall
-} from '@/assets/js/axios_call.js'
-
-import {
-  PanelFilter
-} from "@/assets/js/filter"
 export default {
   components: {
   },
@@ -281,9 +270,7 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    },
-
-
+    }
   },
 
   data() {
@@ -293,7 +280,6 @@ export default {
       per_page: '25',
       active: [],
       filter: [],
-      panelFilter: new PanelFilter(),
       values:[],
     }
   },

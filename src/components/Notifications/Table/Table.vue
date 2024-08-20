@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -42,7 +42,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -60,7 +60,7 @@
                     v-if="item.title && header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 text-center">
+                    <span class="t14 w300 text-gray500 py-5 text-center">
                         {{ item.title }}
                     </span>
                 </div>
@@ -69,7 +69,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <v-btn :href="item.section ==='system' ? item.url :'/notifications/get/' + item.id" variant="icon">
                             <v-icon color="success">mdi-eye</v-icon>
                         </v-btn>
@@ -80,7 +80,7 @@
                     v-if="header[4].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.created_at_fa">
                             {{ item.created_at_fa }}
                         </template>
@@ -102,7 +102,7 @@
                             <v-list-item-title>
                                 <div class="ma-5 pointer" @click="removeItem(item.id)">
                                     <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                    <span class="mr-2 text-grey-darken-1 t14300">
+                                    <span class="mr-2 text-grey-darken-1 t14 w300">
                                         حذف
                                     </span>
                                 </div>
@@ -116,8 +116,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -126,17 +126,10 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter_notification"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {openConfirm, isOdd} from "@/assets/js/functions";
+
 export default {
     components: {
         ModalMassUpdate,
@@ -217,8 +210,7 @@ export default {
             active: [],
             isIndex: [],
             isFollow: [],
-            activeColumn: false,
-            panelFilter: new PanelFilter(),
+            activeColumn: false
         }
     },
 
@@ -275,7 +267,6 @@ export default {
     },
 
     methods: {
-
         /**
          * Mass update modal
          */

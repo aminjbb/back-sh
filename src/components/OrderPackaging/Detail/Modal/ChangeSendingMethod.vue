@@ -6,7 +6,7 @@
                 <v-icon @click="dialogSendingMethod=false" class="float-left  pointer align-center pt-1">
                     mdi-close
                 </v-icon>
-                <div class="text-center t18800 text-black">
+                <div class="text-center t18 w800 text-black">
                     تغییر روش ارسال
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
                 <v-row>
                     <v-spacer></v-spacer>
-                    <v-radio-group   v-model="currentMethod" inline class="me-7 t12300" >
+                    <v-radio-group   v-model="currentMethod" inline class="me-7 t12 w300" >
                         <v-radio v-for="(method, i) in sendingMethods" :key="i"     :label="method.title" :value="method.value"  class="ms-5"></v-radio>
                     </v-radio-group>
                     <v-spacer></v-spacer>
@@ -85,7 +85,6 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_post()
             if (data) {
-                console.log(data?.data)
                 this.loading = false
                 this.dialogSendingMethod = false
                 this.currentMethod = null
@@ -98,7 +97,6 @@ export default {
                         'خطا در دریافت بارکد.',
                         "error",
                     );
-                    console.log(data?.data?.is_completed)
                 }
             }
             else {

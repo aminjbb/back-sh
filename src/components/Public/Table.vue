@@ -15,7 +15,7 @@
                 <div
                     v-if="head.show"
                     @click="createOrdering(head.value, head.order)"
-                    class="text-right c-table__header__item t12500"
+                    class="text-right c-table__header__item t12 w500"
                     :class="head.order == true ? 'pointer' : ''"
                     :key="index"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -26,7 +26,7 @@
             <template v-else>
                 <div
                     v-if="head.show"
-                    class="text-right c-table__header__item t12500"
+                    class="text-right c-table__header__item t12 w500"
                     :class="head.order == true ? 'pointer' : ''"
                     :key="index"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -82,7 +82,7 @@
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                     <div class="d-flex align-center">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{rowIndexTable(index)}}
                         </span>
                         <template v-if="checkbox">
@@ -90,12 +90,11 @@
                         </template>
                     </div>
                 </div>
-
                 <div
                     v-if="item.id && header[1].show"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{ item.id }}
                     </span>
                 </div>
@@ -103,7 +102,7 @@
                     v-if="model === 'export' && item.model"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.model }}
                     </span>
                 </div>
@@ -115,23 +114,23 @@
                     <template v-if="item.name">
                         <template v-if="model === 'sku' || model === 'skuGroup'">
                             <button type="button" v-clipboard:copy="item.name" v-clipboard:success="onCopy" v-clipboard:error="onError" class=" text-right">
-                                <span class="text-gray500 t14300 text-right"> {{item.name}}</span>
+                                <span class="text-gray500 t14 w300 text-right"> {{item.name}}</span>
                             </button>
                         </template>
 
                         <template v-else>
-                            <span class="t14300 text-gray500 py-5 number-font">
+                            <span class="t14 w300 text-gray500 py-5 number-font">
                                 {{ item.name }}
                             </span>
                         </template>
                     </template>
                     <template v-else-if="item.created_at">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.created_at_fa }}
                         </span>
                     </template>
                     <template v-else>
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             بدون نام
                         </span>
                     </template>
@@ -144,11 +143,11 @@
                     <template v-if="item.label">
                         <template v-if="model === 'sku' || model === 'skuGroup'">
                             <button type="button" v-clipboard:copy="item.label" v-clipboard:success="onCopy" v-clipboard:error="onError" class=" text-right">
-                                <span class="text-gray500 t14300 text-right"> {{item.label}}</span>
+                                <span class="text-gray500 t14 w300 text-right"> {{item.label}}</span>
                             </button>
                         </template>
                         <template v-else>
-                            <span class="text-gray500 py-5 t14300 number-font">
+                            <span class="text-gray500 py-5 t14 w300 number-font">
                                 <v-icon
                                     v-if="model === 'color'"
                                     icon="mdi-circle"
@@ -168,7 +167,7 @@
                     </template>
 
                     <template v-else>
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             بدون نام
                         </span>
                     </template>
@@ -178,7 +177,7 @@
                     v-if="model === 'color' && header[4].show"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.group }}
                     </span>
                 </div>
@@ -210,7 +209,7 @@
                     v-if="model === 'product' && header[5].show"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 ">
+                    <span class="t14 w300 ">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -223,7 +222,7 @@
                     v-if="model === 'attribute' && header[4].show"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.type }}
                     </span>
                 </div>
@@ -244,7 +243,7 @@
                     v-if="item.is_filterable != undefined && header[6].show"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300">
+                    <span class="t14 w300">
                         <v-switch
                             color="success"
                             v-model="filter[index]"
@@ -259,16 +258,16 @@
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <button v-if="item.s_k_u_group" type="button" v-clipboard:copy="item.s_k_u_group.name" v-clipboard:success="onCopy" v-clipboard:error="onError" class=" text-right">
-                            <span class="text-gray500 t14300 text-right">{{item.s_k_u_group.name}}</span>
+                            <span class="text-gray500 t14 w300 text-right">{{item.s_k_u_group.name}}</span>
                         </button>
-                        <span v-else class="t14300 text-gray500 py-5"> بدون گروه بندی </span>
+                        <span v-else class="t14 w300 text-gray500 py-5"> بدون گروه بندی </span>
                     </div>
 
                     <div
                         v-if="item.product && header[5].show"
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             <template v-if="item.product.category">
                                 {{ item.product.category.label }}
                             </template>
@@ -283,7 +282,7 @@
                         v-if="header[6].show"
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span v-if="item.brand && item.brand.label" class="t14300 text-gray500 py-5">
+                        <span v-if="item.brand && item.brand.label" class="t14 w300 text-gray500 py-5">
                             {{ item.brand.label }}
                         </span>
                         <span v-else> بدون برند </span>
@@ -295,7 +294,7 @@
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                         <template v-if="item.volumes.length">
                             <template v-for="(volume,index) in item.volumes" :key="`volume-${index}`">
-                                <span class="t14300 text-gray500 py-5">
+                                <span class="t14 w300 text-gray500 py-5">
                                     {{volume.value}} {{volume.label}}
                                     <template v-if="index + 1 !== item.volumes.length">
                                         -
@@ -304,7 +303,7 @@
                             </template>
                         </template>
                         <template v-else>
-                            <span class="t14300 text-gray500 py-5">بدون تعداد</span>
+                            <span class="t14 w300 text-gray500 py-5">بدون تعداد</span>
                         </template>
                     </div>
 
@@ -312,7 +311,7 @@
                         v-if="header[8].show"
                         class="c-table__contents__item"
                         :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span v-if="item.color && item.color.value" class="t14300 text-gray500 py-5 pointer">
+                        <span v-if="item.color && item.color.value" class="t14 w300 text-gray500 py-5 pointer">
                             <v-icon
                                 icon="mdi-circle"
                                 size="small"
@@ -327,7 +326,7 @@
                                 {{item.color.label}}
                             </v-tooltip>
                         </span>
-                        <span v-else class="t14300 text-gray500 py-5"> بدون رنگ </span>
+                        <span v-else class="t14 w300 text-gray500 py-5"> بدون رنگ </span>
                     </div>
                 </template>
 
@@ -335,7 +334,7 @@
                     v-if="(item.is_active  != undefined && checkActive ) && model !== 'product'"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 ">
+                    <span class="t14 w300 ">
                         <v-switch
                             v-model="active[index]"
                             inset
@@ -348,7 +347,7 @@
                     v-if="item.is_sellable != undefined && header[11].show"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <span class="t14300 ">
+                    <span class="t14 w300 ">
                         <v-switch
                             v-model="sellable[index]"
                             inset
@@ -361,7 +360,7 @@
                     v-if="item.product && header[11].show && model === 'sku'"
                     class="c-table__contents__item"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.product.label }}
                     </span>
                 </div>
@@ -370,7 +369,7 @@
                     v-if="model !== 'permission'  "
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }"
                     class="c-table__contents__item">
-                    <v-menu :location="location">
+                    <v-menu :close-on-content-click="false" :location="location">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props">
                                 mdi-dots-vertical
@@ -382,7 +381,7 @@
                                 <v-list-item-title v-if="model !== 'export' && editUrl">
                                     <div class="ma-5 pointer" @click="$router.push(editUrl + item.id )">
                                         <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
                                     </div>
@@ -391,11 +390,16 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeItem(item.id)">
                                         <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
                                 </v-list-item-title>
+                              <v-list-item-title v-if="item.product">
+                                <div class="ma-5 pointer" >
+                                  <ModalFinancialInfo :id="item.id" :financialInfo="item" @getFinancialData="financialData"/>
+                                </div>
+                              </v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -405,8 +409,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -416,33 +420,25 @@
 </template>
 
 <script>
-import {
-    isOdd
-} from '@/assets/js/functions'
+import {isOdd} from '@/assets/js/functions'
 import AddAttributeValueModal from '@/components/Attributes/Add/AddAttributeValueModal.vue'
-import {
-    openConfirm
-} from '@/assets/js/functions'
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
+import {openConfirm} from '@/assets/js/functions'
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    PanelFilter
-} from "@/assets/js/filter"
-import {
-    SkuPanelFilter
-} from "@/assets/js/filter_sku"
-import {
-    openToast
-} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
+import ModalFinancialInfo from '@/components/Products/Sku/Modal/ModalFinancialInfo.vue'
 export default {
     components: {
         ModalMassUpdate,
-        AddAttributeValueModal
+        AddAttributeValueModal,
+      ModalFinancialInfo
     },
 
     props: {
+      getRetailShipmentList:{
+        type:Function
+      },
+      id:'',
         /**
          * Update button url
          */
@@ -450,6 +446,7 @@ export default {
             type: String,
             default: '',
         },
+
         /**
          * Edit button url
          */
@@ -569,8 +566,6 @@ export default {
             active: [],
             sellable: [],
             filter: [],
-            panelFilter: new PanelFilter(),
-            skuPanelFilter: new SkuPanelFilter(),
             activeColumn: false,
         }
     },
@@ -646,6 +641,9 @@ export default {
     },
 
     methods: {
+      financialData(va) {
+        this.$emit('getFinancial', va)
+      },
         /**
          * Mass update modal
          */
@@ -674,7 +672,6 @@ export default {
          * @param { boolean } order
          */
         createOrdering(index, order) {
-          console.log(index, order)
             if (order === true) {
               if (index) {
                 let query = this.$route.query

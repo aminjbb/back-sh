@@ -10,7 +10,7 @@
 
                 <div class="mt-6">
                     <div class="text-right mb-2 pr-1">
-                        <span class="t12300">
+                        <span class="t12 w300">
                             لطفا شماره همراه خود را وارد کنید.
                         </span>
                     </div>
@@ -33,7 +33,7 @@
                         rounded="xl"
                         @click="validate()"
                     > 
-                       <span class="t12300" >
+                       <span class="t12 w300" >
                             مرحله بعد
                        </span>
                    </v-btn>
@@ -44,7 +44,7 @@
                         @click="gotoLogin"
                         variant="text"
                     > 
-                        <span class="t12300 text-primary500" >
+                        <span class="t12 w300 text-primary500" >
                             بازگشت به صفحه ورود
                         </span>
                     </v-btn>

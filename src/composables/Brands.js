@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -12,15 +10,15 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه', show: true , value:'id', order: true},
-        { name: 'نام انگلیسی', show: true, value:'name' , order: true},
-        { name: 'نام فارسی', show: true , value:'label', order: true},
-        { name: 'فعال سازی ', show: true, value:'is_active', order: false },
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
+        {name: 'شناسه', title: 'شناسه', show: true , key:'id', align:'center'},
+        {name: 'نام انگلیسی', title: 'نام انگلیسی', show: true, key:'name' , align:'center'},
+        {name: 'نام فارسی', title: 'نام فارسی', show: true , key:'label', align:'center'},
+        {name: 'فعال سازی ', title: 'فعال سازی ', show: true, key:'is_active', align:'center', sortable: false},
+        { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true}
     ]);
 
     const filterField = [
@@ -36,7 +34,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     async function getBrands() {
         loading.value = true

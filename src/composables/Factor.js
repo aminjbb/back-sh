@@ -1,8 +1,6 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { AxiosCall } from '@/assets/js/axios_call.js'
-import {  onBeforeRouteUpdate } from 'vue-router'
-import { PanelFilter } from '@/assets/js/filter_factor.js'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
@@ -13,35 +11,36 @@ export default function setup() {
     const pageLength = ref(1)
     const cookies = useCookies()
     const page = ref(1)
-    const router = useRouter()
     const route = useRoute()
 
     // Factor table header
     const header =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه فاکتور', show: true , value:'id', order: true},
-        { name: 'تامین کننده ', show: true, value:'supplier' , order: false},
-        { name: 'سازنده', show: true , value:'creator', order: false},
-        { name: 'شماره فاکتور تامین کننده ', show: true, value:'factor_number', order: false },
-        { name: 'تاریخ ساخت', show: true, value:'created_at_fa', order: false },
-        { name: 'وضعیت', show: true, value:'status', order: false },
+        { name: 'ردیف', title: 'ردیف', show: true , sortable:false, align:'center', key:'row'},
+        { name: 'شناسه فاکتور', title: 'شناسه فاکتور', show: true, align:'center', key:'id' },
+        { name: 'تامین کننده', title: 'تامین کننده', show: true, sortable: false, align:'center', key:'supplier'},
+        { name: 'سازنده', title: 'سازنده', show: true , sortable: false, align:'center', key:'creator'},
+        { name: 'شماره فاکتور تامین کننده', title: 'شماره فاکتور تامین کننده', show: true, sortable: false, align:'center', key:'factor_number' },
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, sortable: false, align:'center', key:'created_at_fa' },
+        { name: 'وضعیت', title: 'وضعیت', show: true, sortable: false, align:'center', key:'custom' },
+        { name: 'عملیات',title: 'عملیات', show: true , align:'center', sortable: false, key:'action' ,fixed: true},
     ]);
 
     const pricingHeader =ref([
-        { name: 'ردیف', show: true , value:null, order:false},
-        { name: 'شناسه shps', show: true , value:'shps', order: false},
-        { name: 'نام کالا', show: true, value:'sku' , order: false},
-        { name: 'تعداد درخواستی کالا', show: true , value:'shps_requested_count', order: false},
-        { name: 'تعداد دریافتی کالا', show: true , value:'shps_received_count', order: false},
-        { name: 'قیمت خرید', show: true, value:'buying_price', order: false },
-        { name: 'قیمت مصرف کننده', show: true, value:'customer_price', order: false },
-        { name: 'مجموع قیمت خرید درخواستی', show: true, value:'buying_price', order: false },
-        { name: 'مجموع قیمت خرید دریافتی', show: true, value:'buying_price', order: false },
-        { name: 'مجموع قیمت مصرف کننده درخواستی', show: true, value:'buying_price', order: false },
-        { name: 'مجموع قیمت مصرف کننده دریافتی', show: false, value:'buying_price', order: false },
-        { name: 'مجموع قیمت خرید', show: true, value:'sum_buying_price', order: false },
-        { name: 'مجموع قیمت مصرف کننده', show: true, value:'sum_customer_price', order: false },
-        { name: 'درصد سود', show: true, value:'profit', order: false },
+        { name: 'ردیف',title: 'ردیف', show: true , key:'row', sortable:false, align:'center'},
+        { name: 'شناسه shps',title: 'شناسه shps', show: true, sortable: false, align:'center', key:'shps'},
+        { name: 'نام کالا',title: 'نام کالا', show: true, sortable: false, align:'center', key:'sku'},
+        { name: 'تعداد درخواستی کالا',title: 'تعداد درخواستی کالا', show: true, sortable: false, align:'center', key:'shps_requested_count'},
+        { name: 'تعداد دریافتی کالا',title: 'تعداد دریافتی کالا', show: true, sortable: false, align:'center', key:'shps_received_count'},
+        { name: 'قیمت خرید',title: 'قیمت خرید', show: true, sortable: false , align:'center', key:'custom'},
+        { name: 'قیمت مصرف کننده',title: 'قیمت مصرف کننده', show: true, sortable: false, align:'center', key:'custom2'},
+        { name: 'مجموع قیمت خرید درخواستی',title: 'مجموع قیمت خرید درخواستی', show: true, sortable: false, align:'center', key:'requested_buying_price_sum'},
+        { name: 'مجموع قیمت خرید دریافتی',title: 'مجموع قیمت خرید دریافتی', show: true, sortable: false, align:'center', key:'received_buying_price_sum'},
+        { name: 'مجموع قیمت مصرف کننده درخواستی',title: 'مجموع قیمت مصرف کننده درخواستی', show: true, sortable: false, align:'center',key:'requested_customer_price_sum'},
+        { name: 'مجموع قیمت مصرف کننده دریافتی',title: 'مجموع قیمت مصرف کننده دریافتی', show: false, sortable: false, align:'center', key:'received_customer_price_sum'},
+        { name: 'مجموع قیمت خرید',title: 'مجموع قیمت خرید', show: true, sortable: false, align:'center', key:'sum_buying_price'},
+        { name: 'مجموع قیمت مصرف کننده',title: 'مجموع قیمت مصرف کننده', show: true, sortable: false, align:'center', key:'sum_customer_price'},
+        { name: 'درصد سود',title: 'درصد سود', show: true, sortable: false, align:'center', key:'requested_profit_percent',},
+        { name: 'ذخیره',title: 'ذخیره', show: true, sortable: false, align:'center', key:'custom3'},
     ]);
 
     const filterField = [
@@ -56,7 +55,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
-    const filter = new PanelFilter()
 
     /**
      * Get factor list
@@ -120,6 +118,7 @@ export default function setup() {
         }
 
         else {
+            loading.value = false
         }
     };
 
@@ -127,14 +126,48 @@ export default function setup() {
      * Get Price list of a factor
      * @param {*} query 
      */
-    async function getPricingList(query) {
+    async function getPricingList() {
         loading.value = true
-        let paramsQuery = null
-        if (query){
-            paramsQuery = filter.params_generator(query.query)
-        }
-        else  paramsQuery = filter.params_generator(route.query)
+        let query = route.query
         const AxiosMethod = new AxiosCall()
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+
+        }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.end_point = `factor/crud/detail/${route.params.id}`
@@ -148,11 +181,21 @@ export default function setup() {
                isFilterPage.value = false
            } , 2000)
         }
-
-        else {
-        }
     }
 
-    return {templates, pageLength, filterField, factorList, getFactorList, dataTableLength, page, header, loading, pricingHeader, getPricingList, priceList }
+    return {
+        templates,
+        pageLength,
+        filterField,
+        factorList,
+        getFactorList,
+        dataTableLength,
+        page,
+        header,
+        loading,
+        pricingHeader,
+        getPricingList,
+        priceList
+    }
 }
 

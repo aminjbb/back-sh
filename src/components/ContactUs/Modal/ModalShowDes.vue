@@ -24,11 +24,11 @@
           </v-row>
 
           <div class="d-flex align-center justify-center  ">
-                        <span class="t14500 ">
+                        <span class="t14 w500 ">
                             پیام کاربر
                         </span>
           </div>
-          <v-card class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="82" >
+          <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch d--rtl" min-height="82" >
 
             <v-divider class="mb-3"/>
             <div class="pa-5 text-right">

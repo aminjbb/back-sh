@@ -5,7 +5,7 @@
         <v-row justify="end" class="pa-5">
           <HandheldDrawer/>
         </v-row>
-        <span class="t20400">
+        <span class="t20 w400">
           انبارگردانی
         </span>
       </v-col>

@@ -1,6 +1,6 @@
 <template>
-  <div class="create-product flex-column d-flex vh-100">
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
+  <div class="create-product flex-column d-flex h-100vh">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
       <CreateVoucherFrom ref="CreateVoucherFrom" />
 
       <footer class="create-warehouse__actions">
@@ -22,14 +22,11 @@
 </template>
 
 <script>
-import CreateVoucherFrom from "@/components/Voucher/Add/CreateVoucherFrom.vue";
-import {
-  AxiosCall
-} from "@/assets/js/axios_call";
-import {
-  convertDateToGregorian,
-  openToast
-} from "@/assets/js/functions";
+import {defineAsyncComponent} from "vue";
+const CreateVoucherFrom = defineAsyncComponent(()=> import ("@/components/Voucher/Add/CreateVoucherFrom.vue"))
+
+import { AxiosCall } from "@/assets/js/axios_call";
+import { convertDateToGregorian, openToast } from "@/assets/js/functions";
 
 export default {
   data() {

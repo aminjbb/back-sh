@@ -1,9 +1,8 @@
-import {ref,watch} from 'vue';
+import {ref} from 'vue';
 import {AxiosCall} from '@/assets/js/axios_call.js'
 import {useCookies} from "vue3-cookies";
-import {useRouter,useRoute} from 'vue-router'
+import {useRoute} from 'vue-router'
 import {onBeforeRouteUpdate} from 'vue-router'
-import {PanelFilter} from '@/assets/js/filter_notification.js'
 
 export default function setup() {
     const notifications = ref([]);
@@ -11,38 +10,16 @@ export default function setup() {
     const dataTableLength = ref(25)
     const page = ref(1)
     const cookies = useCookies()
-    const router = useRouter()
     const route = useRoute()
     const pageLength = ref(1)
 
-    const header = ref([{
-            name: 'ردیف',
-            show: true
-        },
-        {
-            name: 'شناسه',
-            show: true,
-            value: 'id',
-            order: false
-        },
-        {
-            name: 'عنوان',
-            show: true,
-            value: 'title',
-            order: false
-        },
-        {
-            name: 'مشاهده',
-            show: true,
-            value: 'url',
-            order: false
-        },
-        {
-            name: 'تاریخ ایجاد',
-            show: true,
-            value: 'created_at',
-            order: true
-        },
+    const header =ref([
+        {name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable: false, align: 'center'},
+        {name: 'شناسه', title: 'شناسه', show: true , key:'id', sortable: false, align: 'center'},
+        {name: 'عنوان', title: 'عنوان', show: true , key:'title', sortable: false, align: 'center'},
+        {name: ' مشاهده', title: 'مشاهده', show: true, key:'show' , sortable: false, align: 'center'},
+        {name: ' تاریخ ایجاد', title: ' تاریخ ایجاد', show: true, key:'created_at', align: 'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const filterField = [{
@@ -61,7 +38,6 @@ export default function setup() {
     const loading = ref(false)
     const isFilter = ref(false)
     const isFilterPage = ref(false)
-    const filter = new PanelFilter()
 
     async function getNotifications(store) {
         loading.value = true
@@ -139,16 +115,6 @@ export default function setup() {
             notification.value = data.data;
         }
     }
-
-    onBeforeRouteUpdate(async (to, from) => {
-
-        if (!isFilterPage.value) {
-            isFilter.value = true
-            page.value = 1
-            filter.page = 1
-        }
-        await getNotifications(to)
-    })
 
     return {
         pageLength,

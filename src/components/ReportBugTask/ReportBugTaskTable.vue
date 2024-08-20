@@ -11,7 +11,7 @@
         <div
             v-if="head.show"
             @click="createOrdering(head.value, head.order)"
-            class="text-center c-table__header__item t14600"
+            class="text-center c-table__header__item t14 w600"
             :class="head.order == true ? 'pointer' : ''"
             :key="index"
             :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -43,7 +43,7 @@
               v-if="header[0].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
           </div>
@@ -52,7 +52,7 @@
               v-if="header[1].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.shps">
                     <span class="number-font">
                          {{item.shps}}
@@ -68,7 +68,7 @@
               v-if="header[2].show"
               class="c-table__contents__item justify-center"
               :style="{  width: itemsWidth, flex: `0 0 ${itemsWidth}`}">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.sku_label">
                     <span class="number-font">
                          {{item.sku_label}}
@@ -84,7 +84,7 @@
               v-if="header[3].show"
               class="c-table__contents__item justify-center"
               :style="{  width: itemsWidth, flex: `0 0 ${itemsWidth}`}">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.count">
                     <span class="number-font">
                          {{item.count}}
@@ -100,7 +100,7 @@
               v-if=" header[4].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5 number-font">
+              <span class="t14 w300 text-gray500 py-5 number-font">
                     <span >
                          {{item.picked_count}}
                     </span>
@@ -111,7 +111,7 @@
               v-if=" header[5].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                      <template v-if="item.pick_upper">
                     <span >
                         {{ item.pick_upper }}
@@ -128,7 +128,7 @@
               v-if=" header[6].show"
               class="c-table__contents__item justify-center"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-              <span class="t14300 text-gray500 py-5">
+              <span class="t14 w300 text-gray500 py-5">
                   <template v-if="item.updated_at_fa">
                     <span class="number-font " >
                         {{ item.updated_at_fa }}
@@ -170,8 +170,8 @@
       <div v-else class="null-data-table d-flex justify-center align-center flex-column">
         <img src="@/assets/img/NullTable.png" alt="shavaz image">
         <div class="d-flex justify-center align-center flex-column">
-          <span class="title4 text-black mb-5">لیست خالی!</span>
-          <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+          <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+          <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ import Vue3PersianDatetimePicker from 'vue3-persian-datetime-picker'
 import { vue3Debounce } from 'vue-debounce'
 import { useCookies } from "vue3-cookies";
 import axios from 'axios'
+import { mixin } from '@/assets/js/helpers.js'
 
 import Pusher from "pusher-js"
 window.Pusher = Pusher
@@ -51,9 +52,11 @@ const vuetify = createVuetify({
                     CharcoalGrey: '#424242',
                     success:'#4CAF50',
                     disableRow:'#FFEBEE',
+                    notSorted:'#FFEBEE',
                     warningRow:'#FFF3E0',
                     successRow:'#E8F5E9',
-                    scanError:'#EF5350'
+                    scanError:'#EF5350',
+                    scanSuccess: '#43A047'
                 }
             },
         },
@@ -61,7 +64,7 @@ const vuetify = createVuetify({
     components,
     directives,
 });
-
+app.mixin(mixin)
 app.use(router)
 app.use(store)
 app.use(vuetify)

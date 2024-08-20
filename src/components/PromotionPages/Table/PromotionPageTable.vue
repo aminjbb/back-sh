@@ -4,14 +4,14 @@
 
     <header class="c-table__header d-flex justify-between">
         <template v-for="(head, index) in header">
-            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12500 text-black" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+            <div v-if="head.show" @click="createOrdering(head.value, head.order)" class="text-center c-table__header__item t12 w500 text-black" :class="head.order == true ? 'pointer' : ''" :key="index" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
                 <v-icon v-if="head.order == true" :icon="getIcon(head.value)" />
                 {{head.name}}
             </div>
         </template>
 
         <div class="text-center c-table__header__item" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-            <span class="t12500 text-black">عملیات</span>
+            <span class="t12 w500 text-black">عملیات</span>
         </div>
     </header>
 
@@ -19,38 +19,38 @@
         <div v-if="items && items.length > 0 && !loading" class="c-table__contents">
             <div v-for="(item , index) in items" :key="index" :class="oddIndex(index) ? 'bg-gray90' : ''" class="d-flex justify-between c-table__contents__row">
                 <div v-if="header[0].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
                 <template v-if="model === 'promotionPage'">
                     <div v-if="item.name && header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             {{ item.name }}
                         </span>
                     </div>
                     <div v-if="item.label && header[2].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5">
+                        <span class="t14 w300 text-gray500 py-5">
                             {{ item.label }}
                         </span>
                     </div>
                     <div v-if="item.id && header[3].show" class="c-table__contents__item justify-center number-font" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.id }}
                         </span>
                     </div>
                     <div v-if="item.created_at_fa && header[4].show" class="c-table__contents__item justify-center number-font" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.created_at_fa }}
                         </span>
                     </div>
                     <div v-if="item.updated_at_fa && header[5].show" class="c-table__contents__item justify-center number-font" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.updated_at_fa }}
                         </span>
                     </div>
                     <div v-if="header[6]?.show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300">
+                        <span class="t14 w300">
                             <v-switch color="success" v-model="active[index]" inset @change="changeActive(index,item)" />
                         </span>
                     </div>
@@ -68,7 +68,7 @@
                                     <v-list-item-title>
                                         <div class="ma-5 pointer" @click="removeItem(item.id)">
                                             <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
+                                            <span class="mr-2 text-grey-darken-1 t14 w300">
                                                 حذف
                                             </span>
 
@@ -77,7 +77,7 @@
                                     <v-list-item-title>
                                         <div class="ma-5 pointer" @click="$router.push(`/promotion-page/update/${item.id}`)">
                                             <v-icon class="text-grey-darken-1">mdi-pen-minus</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
+                                            <span class="mr-2 text-grey-darken-1 t14 w300">
                                                 ویرایش
                                             </span>
 
@@ -87,7 +87,7 @@
                                     <v-list-item-title>
                                         <div class="ma-5 pointer" @click="$router.push(`/promotion-page/${item.id}/sku-group/add`)">
                                             <v-icon class="text-grey-darken-1">mdi-package-variant-closed</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
+                                            <span class="mr-2 text-grey-darken-1 t14 w300">
                                                 مدیریت محصولات
                                             </span>
                                         </div>
@@ -100,17 +100,17 @@
 
                 <template v-if="model === 'skuPromotionPage'">
                     <div v-if="header[1].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5" v-show="item.sku">
+                        <span class="t14 w300 text-gray500 py-5" v-show="item.sku">
                             {{ item.sku?.label }}
                         </span>
                     </div>
                     <div v-if="item.id && header[2].show" class="c-table__contents__item justify-center number-font" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <span class="t14300 text-gray500 py-5 number-font">
+                        <span class="t14 w300 text-gray500 py-5 number-font">
                             {{ item.id }}
                         </span>
                     </div>
                     <div v-if="  header[3].show" class="c-table__contents__item justify-center" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                        <div class="t14300 text-gray500 py-5" style="width: 100px;">
+                        <div class="t14 w300 text-gray500 py-5" style="width: 100px;">
                             <v-text-field variant="outlined" v-model="priorities[index]" type="number" />
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                     <v-list-item-title>
                                         <div class="ma-5 pointer" @click="removeItem(item.id)">
                                             <v-icon class="text-grey-darken-1">mdi-delete</v-icon>
-                                            <span class="mr-2 text-grey-darken-1 t14300">
+                                            <span class="mr-2 text-grey-darken-1 t14 w300">
                                                 حذف
                                             </span>
                                         </div>
@@ -149,8 +149,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -158,20 +158,11 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    SupplierPanelFilter
-} from "@/assets/js/filter_supplier"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
 import ActivationModal from "@/components/Public/ActivationModal.vue";
 
-import {
-    openToast,
-    openConfirm,
-    isOdd
-} from "@/assets/js/functions";
+import {openToast, openConfirm, isOdd} from "@/assets/js/functions";
 export default {
     components: {
         ModalMassUpdate,
@@ -252,7 +243,6 @@ export default {
             filter: [],
             active: [],
             priorities: [],
-            panelFilter: new SupplierPanelFilter(),
             activeColumn: false,
         }
     },
@@ -320,7 +310,6 @@ export default {
                 );
             }
         },
-
 
         /**
          * Mass update modal
@@ -413,8 +402,6 @@ export default {
          * @param {*} id
          */
         removeItem(id) {
-            console.log("Removing item with ID:", id);
-            console.log("Delete path:", this.deletePath + id);
             openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", this.deletePath + id, true)
         },
 

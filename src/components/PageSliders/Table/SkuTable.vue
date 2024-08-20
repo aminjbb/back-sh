@@ -11,7 +11,7 @@
             <div
                 v-if="head.show"
                 @click="createOrdering(head.value, head.order)"
-                class="text-center c-table__header__item t12500 text-black"
+                class="text-center c-table__header__item t12 w500 text-black"
                 :class="head.order == true ? 'pointer' : ''"
                 :key="index"
                 :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -20,7 +20,7 @@
             </div>
         </template>
 
-        <div class="text-center c-table__header__item t12500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
+        <div class="text-center c-table__header__item t12 w500 text-black" :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
             عملیات
         </div>
     </header>
@@ -36,7 +36,7 @@
                     v-if="header[0].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         {{rowIndexTable(index)}}
                     </span>
                 </div>
@@ -45,7 +45,7 @@
                     v-if="item.label && header[1].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         {{ item.label }}
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                     v-if="header[2].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5 number-font">
+                    <span class="t14 w300 text-gray500 py-5 number-font">
                         <template v-if="item.pivot && item.pivot.shps">
                             {{ item.pivot.shps }}
                         </template>
@@ -68,7 +68,7 @@
                     v-if="header[3].show"
                     class="c-table__contents__item justify-center"
                     :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
-                    <span class="t14300 text-gray500 py-5">
+                    <span class="t14 w300 text-gray500 py-5">
                         <template v-if="item.pivot && item.pivot.priority">
                             <v-text-field
                                 density="compact"
@@ -101,7 +101,7 @@
                                 <v-list-item-title>
                                     <div class="ma-5 pointer" @click="removeSkuFromSlider(item.id)">
                                         <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        <span class="mr-2 text-grey-darken-1 t14 w300">
                                             حذف
                                         </span>
                                     </div>
@@ -115,8 +115,8 @@
         <div v-else class="null-data-table d-flex justify-center align-center flex-column">
             <img src="@/assets/img/NullTable.png" alt="shavaz image">
             <div class="d-flex justify-center align-center flex-column">
-                <span class="title4 text-black mb-5">لیست خالی!</span>
-                <span class="t14300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
+                <span class="t18 w600 text-black mb-5">لیست خالی!</span>
+                <span class="t14 w300 text-gray500">تاکنون داده‌ای به این صفحه، افزوده نشده است.</span>
             </div>
         </div>
     </div>
@@ -125,17 +125,9 @@
 </template>
 
 <script>
-import {
-    AxiosCall
-} from '@/assets/js/axios_call.js'
-import {
-    PanelFilter
-} from "@/assets/js/filter_page"
+import {AxiosCall} from '@/assets/js/axios_call.js'
 import ModalMassUpdate from "@/components/Public/ModalMassUpdate.vue";
-import {
-    openToast,
-    isOdd
-} from "@/assets/js/functions";
+import {openToast, isOdd} from "@/assets/js/functions";
 
 export default {
     components: {
@@ -215,7 +207,6 @@ export default {
             per_page: '25',
             filter: [],
             active: [],
-            panelFilter: new PanelFilter(),
             activeColumn: false,
             priorityModal: [],
         }
@@ -356,8 +347,6 @@ export default {
         getIcon(column) {
             return this.ordering[column] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
         },
-
-
 
         /**
          * Return odd index

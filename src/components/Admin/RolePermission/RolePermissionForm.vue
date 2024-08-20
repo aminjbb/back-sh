@@ -4,7 +4,7 @@
         <v-row justify="center" align="center">
             <v-col cols="12" md="5">
                 <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         نام انگلیسی
                     </span>
                 </div>
@@ -19,7 +19,7 @@
 
             <v-col cols="12" md="5">
                 <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         نام فارسی
                     </span>
                 </div>
@@ -34,7 +34,7 @@
 
             <v-col cols="12" md="6">
                 <div class="text-right my-5">
-                    <span class="t14500">
+                    <span class="t14 w500">
                         دسترسی
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                         <v-chip
                             v-bind="props"
                             :text="item.props.title"
-                            class="t14500"></v-chip>
+                            class="t14 w500"></v-chip>
                     </template>
 
                     <template v-slot:item="{ props, item }">
@@ -93,7 +93,7 @@ export default {
             },
             rule: [v => !!v || 'این فیلد الزامی است'],
             valid: false,
-            persianRule: [
+              persianRule: [
                 (v) => !!v || "این فیلد الزامی است",
                 (v) =>
                 /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]+$/.test(v) ||

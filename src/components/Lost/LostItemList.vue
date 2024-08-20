@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch seller">
-    <v-card height="70" class="ma-5 br-12 stretch-card-header-70">
+    <v-card height="70" class="ma-5 br--12 stretch-card-header-70">
       <v-row
           justify="center"
           align="center"
@@ -21,7 +21,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch" height="580">
+    <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch">
       <Table
           class="flex-grow-1"
           :header="header"

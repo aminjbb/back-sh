@@ -2,15 +2,17 @@
   <div class="text-center">
     <v-btn
         @click="dialog = true"
-        variant="outlined"
+        :variant="btnVariant"
         height="40"
         rounded
         class="px-5 mt-1 mr-5"
+        :color="btnColor"
     >
       <template v-slot:prepend>
-        <v-icon>mdi-upload-outline</v-icon>
+        <v-icon v-if="!plusIcon"> mdi-upload-outline</v-icon>
+        <v-icon v-else> mdi-plus</v-icon>
       </template>
-      افزودن گروهی
+     {{title}}
     </v-btn>
 
     <v-dialog
@@ -31,7 +33,7 @@
 
           <v-col cols="9">
             <div class="text-left pl-15">
-                            <span class="t14500">
+                            <span class="t14 w500">
                                 افزودن گروهی
                             </span>
             </div>
@@ -49,7 +51,7 @@
               width="166"
               variant="text"
           >
-                        <span class="t14300 text-primary500">
+                        <span class="t14 w300 text-primary500">
                             دانلود فایل نمونه
                         </span>
           </v-btn>
@@ -63,7 +65,7 @@
               color="primary500"
               rounded
           >
-                        <span class="t14300">
+                        <span class="t14 w300">
                             انتخاب فایل
                         </span>
           </v-btn>
@@ -87,6 +89,12 @@ export default {
     condition: null,
     type: null,
     dataForm: null,
+    title:{type:String , default:'افزودن گروهی'},
+    btnColor:'',
+    btnVariant:'outlined',
+    plusIcon : false,
+    isSnap : false,
+    isDeliveryCode : false
   },
 
   data() {
@@ -134,6 +142,7 @@ export default {
       AxiosMethod.form = formdata
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
+      AxiosMethod.toast_error = true
       let data = await AxiosMethod.axios_image_upload()
       if (data) {
         this.uploadFileLoading = false
@@ -169,10 +178,16 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.form = formdata
       AxiosMethod.using_auth = true
+      AxiosMethod.store = this.$store
+      AxiosMethod.toast_error = true
       let data = await AxiosMethod.axios_post()
       if (data) {
         if (this.isRetail) {
           this.updateShps(data.data.shps_list)
+        }
+        else if(this.isSnap) this.$emit('updateList' , data.data)
+        else if (this.isDeliveryCode) {
+          this.$emit('updateList',  data.data)
         }
 
         this.templateLoading = false

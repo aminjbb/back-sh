@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
     <v-card
         height="70"
-        class="ma-5 br-12 stretch-card-header-70"
+        class="ma-5 br--12 stretch-card-header-70"
     >
       <v-row
           justify="center"
@@ -12,6 +12,9 @@
         <v-col cols="6">
           <v-row v-if="$route.query.user_id" justify="start">
            <IncreseWalletModal :getTransactionList="getTransactionList"/>
+
+           <DecreaseWalletModal :getTransactionList="getTransactionList"/>
+
           </v-row>
         </v-col>
 
@@ -35,20 +38,25 @@
     </v-card>
 
     <v-card
-        class="ma-5 br-12 flex-grow-1 d-flex flex-column align-stretch"
-        height="580"
-    >
-
-      <Table
+        class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch"
+        height="580">
+      <ShTable
           class="flex-grow-1"
-          :header="headerTransaction"
-          :items="transactionList"
-          :page="page"
-          :perPage="dataTableLength"
+          :headers="headerTransaction"
+          :items="itemListTable"
           :loading="loading"
-          editUrl="/user/edit/"
-          deletePath="user/crud/delete/"
-      />
+          :page="page"
+          :perPage="dataTableLength">
+        <template v-slot:customSlot="item">
+         <span v-if="item.data.type == 'withdraw'" class="t14 w300 text-error py-5 number-font">  {{splitChar(item.data.custom ) }} - </span>
+         <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
+        </template>
+
+        <template v-slot:customSlot2="item">
+          <span v-if="item.data.type == 'deposit'" class="t14 w300 text-success py-5 number-font d--ltr">  {{splitChar(item.data.custom ) }} +</span>
+          <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
+        </template>
+      </ShTable>
 
       <v-divider/>
 
@@ -98,14 +106,26 @@
 </template>
 
 <script>
-import Table from '@/components/User/Table/WalletTable.vue'
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import User from "@/composables/User";
 import ModalGroupAdd from "@/components/Public/ModalGroupAdd.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import IncreseWalletModal from "@/components/User/Modal/IncreseWalletModal.vue"
+import DecreaseWalletModal from "@/components/User/Modal/DecreaseWalletModal.vue"
 import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
+import ShTable from "@/components/Components/Table/sh-table.vue";
+import {splitChar} from "@/assets/js/functions";
 export default {
+  components:{
+    PanelFilter,
+    ModalExcelDownload,
+    ModalGroupAdd,
+    ModalColumnFilter,
+    IncreseWalletModal,
+    DecreaseWalletModal,
+    ShTable
+  },
+
   setup() {
     const {
       pageLength,
@@ -122,7 +142,8 @@ export default {
       addPerPage,
       headerTransaction,
       getTransactionList,
-      transactionList
+      transactionList,
+      loading
     } = User()
     return {
       pageLength,
@@ -139,16 +160,11 @@ export default {
       addPerPage,
       headerTransaction,
       getTransactionList,
-      transactionList
+      transactionList,
+      loading
     }
   },
-  components:{
-    PanelFilter,
-    ModalExcelDownload,
-    ModalGroupAdd,
-    ModalColumnFilter,
-    Table,IncreseWalletModal
-  },
+
   data() {
     return {
       userId: this.$route.params.userId,
@@ -192,24 +208,46 @@ export default {
           value: 'return_order',
         },
       ],
-      perPageFilter:false
+      perPageFilter:false,
+      itemListTable: [],
     }
   },
+
   mounted() {
     this.getTransactionList()
     this.getUsers()
   },
+
   methods: {
+    splitChar,
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
+
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    }
+    },
+
+    translateType(type) {
+      const translations = {
+        'post_cost': 'هزینه پستی',
+        'difference_order': 'مغایرت',
+        'cancel_order': ' انصراف از خرید',
+        'return_order': ' مرجوعی سفارش',
+        'other': ' سایر',
+        'success': 'موفق ',
+        'waiting': 'در انتظار',
+        'failed': 'ناموفق',
+        'cancel': 'کنسل شده',
+        'operator_mistake': 'خطای اپراتور',
+
+      };
+      return translations[type] || type;
+    },
   },
 
   computed: {
@@ -219,6 +257,27 @@ export default {
   },
 
   watch: {
+    transactionList() {
+      this.itemListTable = []
+
+      this.transactionList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                type: item.type,
+                phone_number: item?.user?.phone_number,
+                name: item?.user?.first_name + ' ' + item?.user?.last_name,
+                refid : item.refid ? item.refid.substring(0,15) : '---' ,
+                status: this.translateType(item.status),
+                reason: item.charge_type ? this.translateType(item.charge_type) : '---',
+                custom: item.amount? item.amount : '---' ,
+                custom2: item.amount? item.amount : '---',
+                wallet_value: splitChar(item.wallet.value),
+                create_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
+              },
+          ),
+      )
+    },
+
     dataTableLength() {
       this.perPageFilter = true
       this.page = 1

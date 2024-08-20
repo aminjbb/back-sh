@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import { PanelFilter } from '@/assets/js/filter.js'
 import {  useRoute } from 'vue-router'
 import { AxiosCall } from '@/assets/js/axios_call.js'
 import { useCookies } from "vue3-cookies";
@@ -20,16 +19,15 @@ export default function setup() {
         {name:'وضعیت ' , show:true, value:'is_active', order: false},
     ]);
     const cargoReceivingHeader = ref([
-        {name:'ردیف' , show:true , value:null, order: false},
-        {name:'شناسه کالا' , show:true , value:'id', order: false},
-        {name:'نام کالا' , show:true , value:'name', order: false},
-        {name:'تعداد کالا ' , show:true, value:'is_active', order: false},
-        {name:' شناسه محموله ' , show:true, value:'is_active', order: false},
-        {name:'ذخیره ' , show:true, value:'is_active', order: false},
-      
+        {name:'ردیف' ,title:'ردیف' , show:true , key: 'row', sortable: false, align:'center'},
+        {name:'شناسه کالا' ,title:'شناسه کالا' , show:true , key:'shps', sortable: false, align:'center'},
+        {name:'نام کالا' ,title:'نام کالا' , show:true , key:'sku_label', sortable: false, align:'center'},
+        {name:'تعداد کالا ' ,title:'تعداد کالا ' , show:true, key:'packed_count', sortable: false, align:'center'},
+        {name:' شناسه محموله ' ,title:' شناسه محموله ' , show:true, key:'shipment_id', sortable: false, align:'center'},
+        {name:'ذخیره ' ,title:'ذخیره ' , show:true, key:'custom', sortable: false, align:'center'},
+        {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const loading = ref(false)
-    const filter = new PanelFilter()
 
     async function getShpsList(packageId = null) {
         loading.value = true;

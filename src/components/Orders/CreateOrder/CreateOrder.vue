@@ -1,8 +1,8 @@
 <template>
-  <div class="create-product flex-column d-flex vh-100">
+  <div class="create-product flex-column d-flex h-100vh">
     <Stepper :steps="steps" :changeStep="changeStep" :step="step"/>
 
-    <v-card class="ma-5 br-12 pb-15 flex-grow-1" height="600">
+    <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
       <template v-if="step === 1">
         <CreateManualOrderStep1
             ref="formStep1"
@@ -25,7 +25,7 @@
                 variant="outlined"
                 width="115"
                 @click="decreaseStep()">
-              <span class="t14300">
+              <span class="t14 w300">
                   بازگشت
               </span>
             </v-btn>
@@ -36,7 +36,7 @@
                 width="115"
                 @click="$router.go(-1)"
             >
-              <span class="t14300">
+              <span class="t14 w300">
                  بازگشت
               </span>
             </v-btn>
@@ -51,13 +51,13 @@
                 @click="increaseStep()">
               <span
                   v-if="step < 3"
-                  class="t14300">
+                  class="t14 w300">
                 تایید و ادامه
               </span>
 
               <span
                   v-else
-                  class="t14300">
+                  class="t14 w300">
                 تایید و ثبت
               </span>
             </v-btn>

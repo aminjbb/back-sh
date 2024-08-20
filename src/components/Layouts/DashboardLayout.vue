@@ -1,325 +1,144 @@
 <template>
-<div class="menu">
-    <v-navigation-drawer
-        v-model="drawer"
-        :rail="rail"
-        permanent
-        location="right"
-        color="gray">
-        <v-row
-            justify="start"
-            align="center"
-            class="pa-5 pt-8">
-            <img src="@/assets/img/openMenu.svg" @click.stop="rail = !rail" width="24" class="mb-5 ml-10" alt="shavaz image">
 
-            <img v-if="!rail" src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
-        </v-row>
+  <div class="menu" :class="{ 'fixed': isFixed }"
+       :id="$route.name === 'OrderList' || $route.name === 'LostItemListView' || $route.name =='TicketList' || $route.name =='order-detail-info' ? 'fixed-menu' : ''">
+    <v-navigation-drawer v-model="drawer" :rail="rail" permanent class="unset-p" location="right" color="gray">
+      <v-row justify="start" align="center" class="pa-5 pt-8">
+        <img src="@/assets/img/openMenu.svg" @click.stop="rail = !rail" width="24" class="mb-5 ml-10"
+             alt="shavaz image">
 
+        <img v-if="!rail" src="@/assets/img/shavaz-logo2.png" width="56" class="mb-5 mr-7" alt="shavaz image">
+      </v-row>
+      <div>
         <v-list v-model:opened="open">
-            <template v-slot:activator />
+          <template v-slot:activator/>
 
-            <v-list-item active-class="bg-active" to="/">
-                <template v-slot:prepend>
-                    <img class="ml-5" src="@/assets/img/Dasboard.svg" alt="shavaz image">
-                </template>
+          <v-list-item active-class="bg-active" to="/">
+            <template v-slot:prepend>
+              <img class="ml-5" src="@/assets/img/Dasboard.svg" alt="shavaz image">
+            </template>
 
-                <span class="t14500">
-                    داشبورد
-                </span>
-            </v-list-item>
-
-            <v-list-item
-                v-for="([title, to, icon], index) in groupsFunction"
-                :key="index"
-                active-class="bg-active"
-                :to="to">
-                <template v-slot:prepend>
-                    <v-icon>{{icon}}</v-icon>
-                </template>
-
-                <span class="t14500">
-                    {{title}}
-                </span>
-            </v-list-item>
-
-            <v-list-group value="Admins">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon size="large">mdi-account-box-outline</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            مدیریت ادمین
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in admins"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
+            <span class="t14 w500">
+                        داشبورد
                     </span>
-                </v-list-item>
-            </v-list-group>
+          </v-list-item>
 
-            <v-list-item
-                v-for="([title, to, icon], index) in users"
-                :key="index"
-                active-class="bg-active"
-                :to="to">
-                <template v-slot:prepend>
-                    <v-icon size="large">{{icon}}</v-icon>
-                </template>
+          <v-list-item v-for="([title, to, icon], index) in groupsFunction" :key="index" active-class="bg-active"
+                       :to="to">
+            <template v-slot:prepend>
+              <v-icon>{{ icon }}</v-icon>
+            </template>
 
-                <span class="t14500">
-                    {{title}}
-                </span>
-            </v-list-item>
-
-            <v-list-group value="Products">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <img class="ml-5" src="@/assets/img/ProductIcon.svg" alt="shavaz image">
-                        </template>
-
-                        <span class="t14500">
-                            محصولات
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in products"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
+            <span class="t14 w500">
+                        {{ title }}
                     </span>
-                </v-list-item>
-            </v-list-group>
+          </v-list-item>
 
-            <v-list-group value="commerce">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-cart-outline</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            بازرگانی
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in commerce"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
-
-            <v-list-group value="marketing">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-chart-line</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            مارکتینگ
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in marketing"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
-
-            <v-list-group value="orders">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-shopping-outline</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            سفارش ها
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in orders"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
-
-            <v-list-group value="support">
-                <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" active-class="bg-active">
-                        <template v-slot:prepend>
-                            <v-icon>mdi-face-agent</v-icon>
-                        </template>
-
-                        <span class="t14500">
-                            پشتیبانی
-                        </span>
-                    </v-list-item>
-                </template>
-
-                <v-list-item
-                    v-for="([title, to, icon], i) in support"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
-
-                    <span class="t14500">
-                        {{title}}
-                    </span>
-                </v-list-item>
-
-            </v-list-group>
-
-            <v-list-group value="withdraw">
+          <v-list-group value="Admins">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" active-class="bg-active">
                 <template v-slot:prepend>
-                  <v-icon size="large">mdi-account-credit-card-outline</v-icon>
+                  <v-icon size="large">mdi-account-box-outline</v-icon>
                 </template>
 
-                <span class="t14500">
-                    مالی
-                </span>
+                <span class="t14 w500">
+                                مدیریت ادمین
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in admins" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+          </v-list-group>
+
+          <v-list-item v-for="([title, to, icon], index) in users" :key="index" active-class="bg-active" :to="to">
+            <template v-slot:prepend>
+              <v-icon size="large">{{ icon }}</v-icon>
+            </template>
+
+            <span class="t14 w500">
+                        {{ title }}
+                    </span>
+          </v-list-item>
+
+          <v-list-group value="Products">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <img class="ml-5" src="@/assets/img/ProductIcon.svg" alt="shavaz image">
+                </template>
+
+                <span class="t14 w500">
+                                محصولات
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in products" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+          </v-list-group>
+          <v-list-group value="sms">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-chart-line</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                            پیامک
+                        </span>
               </v-list-item>
             </template>
 
             <v-list-item
-                v-for="([title, to, icon], i) in withdraw"
+                v-for="([title, to, icon], i) in smsNotification"
                 v-bind="props"
                 :key="i"
                 :value="title"
                 :to="to"
                 active-class="bg-active"
                 style="padding-right:16px !important">
-                <template v-slot:prepend>
-                    <v-icon size="x-small">{{icon}}</v-icon>
-                </template>
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
 
-                <span class="t14500">
-                            {{title}}
-                        </span>
-                </v-list-item>
+              <span class="t14 w500">
+                        {{ title }}
+                    </span>
+            </v-list-item>
+
             </v-list-group>
-
-            <v-list-item
-                v-for="([title, to, icon], index) in payment"
-                :key="index"
-                active-class="bg-active"
-                :to="to">
-                <template v-slot:prepend>
-                    <v-icon size="large">{{icon}}</v-icon>
-                </template>
-
-                <span class="t14500">
-                    {{title}}
-                </span>
-            </v-list-item>
-
-            <v-list-item
-                v-for="([title, to, icon], index) in sending"
-                :key="index"
-                active-class="bg-active"
-                :to="to">
-                <template v-slot:prepend>
-                    <v-icon>{{icon}}</v-icon>
-                </template>
-
-                <span class="t14500">
-                    {{title}}
-                </span>
-            </v-list-item>
-
-            <v-list-group value="setting">
+            <v-list-group value="marketplace">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>
-                            <v-icon>mdi-cog-outline</v-icon>
+                            <v-icon>mdi-cart-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
-                            تنظیمات
+                        <span class="t14 w500">
+                            مارکت پلیس
                         </span>
                     </v-list-item>
                 </template>
 
                 <v-list-item
-                    v-for="([title, to, icon], i) in setting"
+                    v-for="([title, to, icon], i) in marketplace"
                     v-bind="props"
                     :key="i"
                     :value="title"
@@ -337,37 +156,245 @@
 
             </v-list-group>
 
-            <v-list-group value="warehouse">
+            <v-list-group value="commerce">
                 <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props" active-class="bg-active">
                         <template v-slot:prepend>
-                            <v-icon>mdi-package-variant</v-icon>
+                            <v-icon>mdi-chart-line</v-icon>
                         </template>
 
-                        <span class="t14500">
-                            انبار
+                <span class="t14 w500">
+                                بازرگانی
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in commerce" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
                         </span>
-                    </v-list-item>
+            </v-list-item>
+
+          </v-list-group>
+
+          <v-list-group value="marketing">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-chart-line</v-icon>
                 </template>
 
-                <v-list-item
-                    v-for="([title, to, icon], i) in warehouse"
-                    v-bind="props"
-                    :key="i"
-                    :value="title"
-                    :to="to"
-                    active-class="bg-active"
-                    style="padding-right:16px !important">
-                    <template v-slot:prepend>
-                        <v-icon size="x-small">{{icon}}</v-icon>
-                    </template>
+                <span class="t14 w500">
+                                مارکتینگ
+                            </span>
+              </v-list-item>
+            </template>
 
-                    <span class="t14500">
-                        {{title}}
+            <v-list-item v-for="([title, to, icon], i) in marketing" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
+
+<!--          <v-list-group value="orders">-->
+<!--            <template v-slot:activator="{ props }">-->
+<!--              <v-list v-bind="props" active-class="bg-active">-->
+<!--                <template v-slot:prepend>-->
+<!--                  <v-icon>mdi-shopping-outline</v-icon>-->
+<!--                </template>-->
+<!--                <v-list-group value="smsNotification">-->
+<!--                  <template v-slot:activator="{ props }">-->
+<!--                    <v-list-item v-bind="props" active-class="bg-active">-->
+<!--                      <template v-slot:prepend>-->
+<!--                        <v-icon>mdi-chart-line</v-icon>-->
+<!--                      </template>-->
+
+<!--                      <span class="t14 w500">-->
+<!--                           پیامک ها-->
+<!--                        </span>-->
+<!--                    </v-list-item>-->
+<!--                  </template>-->
+
+<!--                  <v-list-item-->
+<!--                      v-for="([title, to, icon], i) in smsNotification"-->
+<!--                      v-bind="props"-->
+<!--                      :key="i"-->
+<!--                      :value="title"-->
+<!--                      :to="to"-->
+<!--                      active-class="bg-active"-->
+<!--                      style="padding-right:16px !important">-->
+<!--                    <template v-slot:prepend>-->
+<!--                      <v-icon size="x-small">{{ icon }}</v-icon>-->
+<!--                    </template>-->
+
+<!--                    <span class="t14 w500">-->
+<!--                        {{ title }}-->
+<!--                    </span>-->
+<!--                  </v-list-item>-->
+
+<!--                </v-list-group>-->
+          <v-list-group value="orders">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-shopping-outline</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                                سفارش ها
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in orders" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
+
+          <v-list-group value="support">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-face-agent</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                                پشتیبانی
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in support" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
+
+          <v-list-group value="withdraw">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon size="large">mdi-account-credit-card-outline</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                                مالی
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in withdraw" v-bind="props" :key="i" :value="title"
+                         :to="to" active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+          </v-list-group>
+
+          <v-list-item v-for="([title, to, icon], index) in payment" :key="index" active-class="bg-active"
+                       :to="to">
+            <template v-slot:prepend>
+              <v-icon size="large">{{ icon }}</v-icon>
+            </template>
+
+            <span class="t14 w500">
+                        {{ title }}
                     </span>
-                </v-list-item>
+          </v-list-item>
 
-            </v-list-group>
+          <v-list-item v-for="([title, to, icon], index) in sending" :key="index" active-class="bg-active"
+                       :to="to">
+            <template v-slot:prepend>
+              <v-icon>{{ icon }}</v-icon>
+            </template>
+
+            <span class="t14 w500">
+                        {{ title }}
+                    </span>
+          </v-list-item>
+
+          <v-list-group value="setting">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-cog-outline</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                                تنظیمات
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in setting" v-bind="props" :key="i" :value="title" :to="to"
+                         active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
+
+          <v-list-group value="warehouse">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-package-variant</v-icon>
+                </template>
+
+                <span class="t14 w500">
+                                انبار
+                            </span>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, to, icon], i) in warehouse" v-bind="props" :key="i" :value="title"
+                         :to="to" active-class="bg-active" style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{ icon }}</v-icon>
+              </template>
+
+              <span class="t14 w500">
+                            {{ title }}
+                        </span>
+            </v-list-item>
+
+          </v-list-group>
 
           <v-list-group value="bulk">
             <template v-slot:activator="{ props }">
@@ -377,22 +404,16 @@
 
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                                 ویرایش گروهی
                             </span>
               </v-list-item>
             </template>
 
-            <v-list-item
-                v-for="([title, to, icon], i) in bulkEdit"
-                v-bind="props"
-                :key="i"
-                :value="title"
-                :to="to"
-                active-class="bg-active"
-                style="padding-right:16px !important">
+            <v-list-item v-for="([title, to, icon], i) in bulkEdit" v-bind="props" :key="i" :value="title"
+                         :to="to" active-class="bg-active" style="padding-right:16px !important">
               <template v-slot:prepend>
-                <v-icon size="x-small">{{icon}}</v-icon>
+                <v-icon size="x-small">{{ icon }}</v-icon>
               </template>
 
               <span class="t14500">
@@ -497,7 +518,7 @@
 
         </v-list>
 
-    </v-navigation-drawer>
+        ></div> </v-navigation-drawer>
 </div>
 </template>
 
@@ -505,6 +526,7 @@
 export default {
     data() {
         return {
+          isFixed:false,
             drawer: true,
             rail: false,
             open: [],
@@ -518,9 +540,11 @@ export default {
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
             ],
             support: [
+                ['کنسل اسنپ پی', '/snap-pay/cancel', 'mdi-checkbox-blank-circle-outline'],
                 ['تیکت ها', '/ticket/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ساخت رمز', '/change-password/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پیگیری سفارشات', '/order-tracking/index', 'mdi-checkbox-blank-circle-outline'],
+                ['بازگردانی سفارش', '/warehouse-return-order/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             groupsFunction: [
                 ['عملیات گروهی', '/exports/index', 'mdi-export'],
@@ -572,7 +596,11 @@ export default {
                 ['فاکتور', '/factor/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله‌های بازرگانی ', '/retail-shipment/index', 'mdi-checkbox-blank-circle-outline'],
                 ['محموله های درخواستی ', '/shipment-requests/index', 'mdi-checkbox-blank-circle-outline'],
-                ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
+                ['لیست کالاها', '/seller/1/add/sku', 'mdi-checkbox-blank-circle-outline'],
+
+            ],
+            marketplace: [
+              ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
                 ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],
@@ -592,6 +620,10 @@ export default {
                 ['کد تخفیف', '/voucher/index', 'mdi-checkbox-blank-circle-outline'],
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
                 ['گردونه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
+            ],
+            smsNotification: [
+                ['لیست پیامک ها', '/sms-notification/index', 'mdi-checkbox-blank-circle-outline'],
+                ['تنظیمات پیامک', '/sms-setting/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             orders: [
                 ['سفارش های اپراتوری', '/orders/manual-order-list', 'mdi-checkbox-blank-circle-outline'],
@@ -615,5 +647,47 @@ export default {
 
         }
     },
+
+  methods: {
+    /**
+     * Show and hide menu in scroll down and up
+     */
+    handleScroll() {
+      let menu = document.getElementById('fixed-menu');
+
+      if (menu) {
+        if (window.scrollY > 0) {
+          this.isFixed = true;
+        } else {
+          this.isFixed = false;
+        }
+      }
+    },
+  },
+
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 }
 </script>
+
+<style lang="scss">
+#fixed-menu {
+  height: 100vh;
+
+  .v-navigation-drawer__content {
+    height: 100vh !important;
+  }
+
+  &.fixed {
+    position: fixed;
+    width: 256px;
+    top: 0;
+    z-index: 11111;
+  }
+}
+</style>

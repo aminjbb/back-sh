@@ -12,7 +12,7 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7" class="t16400 ">
+          <v-col cols="7" class="t16 w400 ">
             مدیریت
           </v-col>
         </v-row>
@@ -49,13 +49,14 @@
 
             <v-col cols="3" class="d-flex mx-10 ">
               <v-btn
+                  :loading="loading"
                   @click="validate()"
                   height="40"
                   rounded
                   variant="flat"
                   color="primary500"
                   class="px-5 mt-1">
-             تایید
+                    تایید
               </v-btn>
             </v-col>
             <v-col cols="3" class="d-flex mx-10 ">
@@ -142,6 +143,7 @@ export default {
           openToast(this.$store , 'بسته با موفقیت ساخته شد' , 'success')
           this.getShpsList(this.packageId , this.$store)
           this.close()
+          this.loading= false
         }
         else {
           this.loading = false
