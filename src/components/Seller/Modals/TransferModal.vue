@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import {openToast} from "@/assets/js/functions";
 export default {
   name: "TransferModal",
 
@@ -66,40 +67,33 @@ export default {
   },
 
   methods: {
-    // async setLimit() {
-    //   this.loading = true
-    //   var formdata = new FormData();
-    //   const AxiosMethod = new AxiosCall()
-    //   AxiosMethod.end_point = `seller/${this.$route.params.sellerId}/sku/update/order_limit/${this.orderLimitModal?.id}`
-    //   AxiosMethod.form = formdata
-    //   formdata.append('order_limit', this.orderLimitModel)
-    //
-    //   AxiosMethod.store = this.$store
-    //   AxiosMethod.using_auth = true
-    //   AxiosMethod.token = this.$cookies.get('adminToken')
-    //   let data = await AxiosMethod.axios_post()
-    //   if (data) {
-    //     this.loading = false;
-    //     this.close();
-    //     openToast(
-    //         this.$store,
-    //         'مقدار مورد نظر ویرایش شد.',
-    //         "success"
-    //     );
-    //     this.updateList('true');
-    //   } else {
-    //     this.loading = false;
-    //     openToast(
-    //         this.$store,
-    //         'ویرایش با مشکل مواجه شد',
-    //         "error"
-    //     );
-    //   }
-    // },
+    async confirmed() {
+      this.loading = true
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `seller/1/sku/transfer/stock`
+      AxiosMethod.form = formdata
+      formdata.append('Accept', '')
 
-    confirmed() {
-      console.log('confirmed')
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false;
+        this.close();
+        openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success"
+        );
+
+      } else {
+        this.loading = false;
+        openToast(this.$store, 'انتقال موجودی  با مشکل مواجه شد', "error");
+      }
     },
+
+    // confirmed() {
+    //   console.log('confirmed')
+    // },
 
    close() {
       this.dialog = false
