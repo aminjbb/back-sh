@@ -73,7 +73,7 @@ export default {
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `seller/1/sku/transfer/stock`
       AxiosMethod.form = formdata
-      formdata.append('Accept', '')
+      // formdata.append('Accept', 1)
 
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
@@ -82,18 +82,13 @@ export default {
       if (data) {
         this.loading = false;
         this.close();
-        openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success"
-        );
+        openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success");
 
       } else {
         this.loading = false;
         openToast(this.$store, 'انتقال موجودی  با مشکل مواجه شد', "error");
       }
     },
-
-    // confirmed() {
-    //   console.log('confirmed')
-    // },
 
    close() {
       this.dialog = false
