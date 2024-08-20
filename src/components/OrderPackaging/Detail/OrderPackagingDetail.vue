@@ -216,7 +216,7 @@ export default {
                     if (err.response.status == 400) {
                         openToast(
                             this.$store,
-                            'خطا در دریافت بارکد، لطفا از ابتدا تلاش کنید',
+                            err.response.data.message ?? 'خطا در دریافت بارکد، لطفا از ابتدا تلاش کنید',
                             "error",
                         );
                         setTimeout(()=>{
@@ -238,6 +238,12 @@ export default {
                         this.sendingMethods = err.response.data.data.sending_methods
                         this.currentSendingMethod = err.response.data.data.current_sending_method
                         this.$refs.ModalChangeMethod.dialogSendingMethod = true
+                    } else {
+                      openToast(
+                          this.$store,
+                          err.response.data.message ?? 'خطا در اجرای درخواست',
+                          "error",
+                      );
                     }
                 });
         },
