@@ -71,28 +71,30 @@ export default {
 
   methods: {
     async confirmed() {
-      this.loading = true
+      this.loading = true;
       var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `seller/${this.item.item.raw.seller_id}/sku/transfer/stock`
-      AxiosMethod.form = formdata
-      formdata.append('Accept', 1)
-      formdata.append('source_shps', this.sourceShps)
-      formdata.append('destination_shps', this.item.item.raw.id)
+      const AxiosMethod = new AxiosCall();
+      AxiosMethod.end_point = `seller/${this.item?.item?.raw?.seller_id}/sku/transfer/stock`;
+      AxiosMethod.form = formdata;
+      formdata.append('Accept', 1);
+      formdata.append('source_shps', this.sourceShps);
+      formdata.append('destination_shps', this.item?.item?.raw?.id);
 
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        console.log(data, 'data')
-        this.loading = false;
-        this.close();
-        openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success");
+      AxiosMethod.store = this.$store;
+      AxiosMethod.using_auth = true;
+      AxiosMethod.token = this.$cookies.get('adminToken');
 
-      } else {
+      try {
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.loading = false;
+          this.close();
+          openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success");
+        }
+      } catch (error) {
         this.loading = false;
-        openToast(this.$store, 'انتقال موجودی  با مشکل مواجه شد', "error");
+        const errorMessage = error.response?.data?.message || 'انتقال موجودی با مشکل مواجه شد';
+        openToast(this.$store, errorMessage, "error");
       }
     },
 
