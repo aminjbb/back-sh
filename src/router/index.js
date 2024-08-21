@@ -312,6 +312,7 @@ import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseRetu
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import RelocatingView from "@/views/Relocating/RelocatingView.vue";
 
 
 const router = createRouter({
@@ -2583,6 +2584,22 @@ const router = createRouter({
                     path: 'cancel',
                     name: 'CancelSnapPayView',
                     component: CancelSnapPayView,
+                    meta: {
+                        name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/relocating', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'RelocatingView',
+                    component: RelocatingView,
                     meta: {
                         name: 'سفارش های کنسلی اسنپ پی'
                     }
