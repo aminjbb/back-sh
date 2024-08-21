@@ -77,16 +77,9 @@
         </div>
         <v-divider/>
         <div class="text-center ">
-          <!-- row number-->
-          <span class="t20 w400 text-gray600 number-font"> {{ shpsDetail.placement_barcode }}</span>
-          <!-- placement number -->
-<!--          <span class=" t20 w400 text-gray600 number-font"> 1-</span>-->
-<!--          &lt;!&ndash; step number&ndash;&gt;-->
-<!--          <span class=" t20 w400 text-gray600 number-font"> 1-</span>-->
-<!--          &lt;!&ndash; shelf number&ndash;&gt;-->
-<!--          <span class=" t20 w400 text-gray600 number-font">1</span>-->
-
-
+          <span class="t16 w400  text-grey">
+                      {{ shpsDetail?.placement?.shelf_number }}-{{ shpsDetail?.placement?.step_number }}-{{ shpsDetail?.placement?.placement_number }}-{{ shpsDetail?.placement?.row_number}}
+          </span>
         </div>
       </v-card>
       <v-card class="mx-5 mb-1 br-15 pa-2">
