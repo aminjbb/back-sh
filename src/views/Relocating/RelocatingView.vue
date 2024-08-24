@@ -161,14 +161,14 @@
     <div>
       <div class="d-flex justify-center">
         <v-col cols="12">
-          <v-text-field v-model="searchItem" placeholder="جستجوی شناسه کالا" variant="solo-filled" prepend-inner-icon="mdi-magnify"></v-text-field>
+          <v-text-field @keyup="searchShps()" v-model="searchItem" placeholder="جستجوی شناسه کالا" variant="solo-filled" prepend-inner-icon="mdi-magnify"></v-text-field>
         </v-col>
       </div>
     </div>
 
     <div>
       <v-card class="br--12 mx-3">
-        <div v-for="(shps , index) in searchedItem">
+        <div v-for="(shps , index) in allScannedList">
           <v-row justify="start" align="center" class="px-2 my-2" >
             <v-col cols="1">
               <div>
@@ -348,9 +348,10 @@ export default {
       scanShelf: false,
       placementBarcode: null,
       scannedList: [],
+      allScannedList: [],
       errorMassage: '',
       shpsDetail:null,
-      searchItem:null,
+      searchItem:'',
       showError:false,
       doneTask:false
     }
@@ -372,7 +373,8 @@ export default {
                 },
               })
           .then((response) => {
-
+              this.hasTask = true
+              this.shpsDetail =response.data.data[0]
           }).catch((err) => {
             this.openToast(this.$store , err.response.data.message , 'error')
               this.errorMassage = err.response.data.message
@@ -430,18 +432,32 @@ export default {
     showShpssList(){
       this.getScannedList()
       this.showShps = true
+    },
+
+    searchShps(){
+      const lowerCaseSearch = this.searchItem;
+      const searchItem = this.scannedList
+          .filter(
+              (item) =>
+                  item.sku_title.includes(lowerCaseSearch)
+          );
+      this.allScannedList = searchItem
     }
   },
 
   computed:{
     searchedItem(){
-      const lowerCaseSearch = this.searchItem.toLowerCase();
-      return this.scannedList
-          .sort((a, b) => a.sku_title.localeCompare(b.sku_title))
-          .filter(
-              (item) =>
-                  item.sku_title.toLcowerCase().includes(lowerCaseSearch)
-          );
+     try {
+       const lowerCaseSearch = this.searchItem;
+       return this.scannedList
+           .filter(
+               (item) =>
+                   item.sku_title().includes(lowerCaseSearch)
+           );
+     }
+     catch (e) {
+       console.log(e)
+     }
     }
   },
 
