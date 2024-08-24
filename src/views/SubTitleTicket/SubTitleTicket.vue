@@ -12,7 +12,7 @@
            <v-col cols="6">
              <v-row justify="start">
                <v-btn
-                   @click="$router.push(`sub-topic/1`)"
+                   @click="$router.push(`/sub-title/create`)"
                    color="primary500"
                    height="40"
                    rounded
@@ -34,6 +34,7 @@
                    path="sub-title/index"
                    :filterField="filterField"
                    :page="page"
+                   :statusItems="activeStatus"
                    :perPage="dataTableLength"/>
              </v-row>
            </v-col>
@@ -48,9 +49,10 @@
              :loading="loading"
              :page="page"
              :perPage="dataTableLength"
-             :activePath="`add/endpoint`">
+             :activePath="`ticket/topic/crud/update/activation/`">
            <template v-slot:showSlot="item">
              <v-btn
+                 :href="`/sub-title/${item.data.id}/get`"
                  height="40"
                  rounded
                  color="error"
@@ -71,7 +73,7 @@
                <v-list class="c-table__more-options">
                  <v-list-item>
                    <v-list-item-title>
-                     <div class="ma-5 pointer" @click="$router.push(`sub-topic/${item.data.id}`)">
+                     <div class="ma-5 pointer" @click="$router.push(`edit/${item.data.id}`)">
                        <v-icon size="small" class="text-grey-darken-1">
                          mdi-pencil-box-outline
                        </v-icon>
@@ -112,7 +114,7 @@
          <v-card-actions class="pb-3">
            <v-row class="pr-5">
              <v-col cols="3">
-               <ModalExcelDownload getEndPoint="admin/csv/get/export" />
+               <ModalExcelDownload getEndPoint="ticket/topic/csv/export" />
              </v-col>
 
              <v-col cols="6">
@@ -152,7 +154,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import {defineAsyncComponent, ref} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
@@ -175,6 +177,20 @@ export default {
   },
 
   setup() {
+    const activeStatus = ref([
+      {
+        label: 'وضعیت',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ])
     const {
       header,
       filterField,
@@ -192,37 +208,27 @@ export default {
       dataTableLength,
       loading,
       subTitleTicket,
+      activeStatus,
       getAllSubTitleTicket
     };
   },
 
   data() {
     return {
-      itemListTable: [
-        {
-          id: 123,
-          subject: 'پیگیری سفارش',
-          creator: 'شهراد نورآذر',
-          created_at: '1402/06/12 11:24:52',
-          show: true,
-          is_active: 1,
-        },
-        {
-          id: 456,
-          subject: 'ارسال سفارش',
-          creator: 'شهراد نورآذر',
-          created_at: '1402/06/12 11:24:52',
-          show: true,
-          is_active: 0,
-        },
-      ],
+      itemListTable: [],
       removeTableItem: {
         text: "با حذف موضوع، زیر موضوع های آن نیز حذف خواهد شد.\n" +
             "آیا از انجام این کار مطمئن هستید؟؟",
         title: "حذف آیتم",
-        path: "endpoint",
+        path: "ticket/topic/crud/delete/",
       },
       perPageFilter:false
+    }
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
     }
   },
 
@@ -251,13 +257,13 @@ export default {
   watch: {
     subTitleTicket() {
       this.itemListTable = []
-      this.subTitleTicket.forEach((item) => {console.log(item, 'item')
+      this.subTitleTicket.forEach((item) => {
         this.itemListTable.push(
             {
               id: item.id,
-              subject: item ,
-              creator: item,
-              created_at: item,
+              title: item.title ,
+              creator: item.creator.full_name,
+              created_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
               show: item,
               is_active: item.is_active,
               is_active_id: item.id,
@@ -314,7 +320,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

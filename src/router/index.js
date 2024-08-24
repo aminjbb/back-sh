@@ -316,6 +316,7 @@ import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
 import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
 import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
 import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
+import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vue";
 
 
 const router = createRouter({
@@ -2616,14 +2617,6 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: 'create',
-                    name: 'createSubTitleTicket',
-                    component: CreateSubTitleTicket,
-                    meta: {
-                        name: 'موضوع تیکت'
-                    }
-                },
-                {
                     path: 'sub-topic/:id',
                     name: 'AddSubTopicToSubject',
                     component: AddSubTopicToSubject,
@@ -2638,7 +2631,15 @@ const router = createRouter({
                     meta: {
                         name: 'موضوع تیکت'
                     }
-                }
+                },
+                {
+                    path: ':id/get',
+                    name: 'DetailSubTitleTicket',
+                    component: DetailSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
             ]
         },
     ]

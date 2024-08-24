@@ -4,7 +4,7 @@
     <v-main class="h-100vh">
       <Header />
       <div class="">
-        <v-card class="ma-5 br-12 pa-10 position__relative" height="850">
+        <v-card class="ma-5 br-12 pa-10 position__relative" height="630">
           <div class="text-center t14500 pb-5">ساخت موضوع</div>
           <v-divider/>
           <v-form ref="addForm" v-model="valid">
@@ -15,7 +15,7 @@
                   <span class="text-error mr-1">*</span>
                 </div>
                 <v-text-field
-                    v-model="form.subject"
+                    v-model="form.title"
                     density="compact"
                     variant="outlined"
                     single-line
@@ -27,14 +27,27 @@
                   <span class="t12400">فیلدهای اجباری</span>
                 </div>
                 <v-autocomplete
-                    v-model="form.requiredFiled"
+                    v-model="inputData"
                     density="compact"
                     variant="outlined"
                     single-line
-                    :items="requiredFiledList"
+                    :items="AllRequiredFiledList"
                     item-title="name"
-                    item-value="id"
-                />
+                    item-value="id">
+                  <template v-slot:item="item">
+                    <v-list-item>
+                      <div class="d-flex justify-end" @click="assignDataInput(item.item)">
+                        <div class="text-right my-2 mt-5">
+                          <span class="t12 w500">{{ item.item.raw.name }}</span>
+                        </div>
+                           <v-checkbox
+                            hide-details
+                            :value="item.item.raw.value"
+                            v-model="form.requiredFiled"/>
+                      </div>
+                    </v-list-item>
+                  </template>
+                </v-autocomplete>
               </v-col>
             </v-row>
           </v-form>
@@ -76,6 +89,7 @@ import { defineAsyncComponent } from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 import {openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "CreateSubTitleTicket",
@@ -89,12 +103,13 @@ export default {
     return {
       loading: false,
       valid: false,
+      inputData:[],
 
       AllRequiredFiledList:[
         {
           id:1,
           name:'شناسه کالا',
-          value:'shps_id'
+          value:'sku_id'
         },
         {
           id:2,
@@ -104,49 +119,58 @@ export default {
         {
           id:3,
           name:'تصویر',
-          value:'image'
-        },
-
-
+          value:'photo'
+        }
       ],
 
       form: {
-        subject: '',
-        requiredFiled:''
+        title: '',
+        requiredFiled: []
       },
 
     }
   },
 
-  computed:{
-    requiredFiledList(){
-      try {
-        let requiredFiled = []
-        this.AllRequiredFiledList.forEach(element =>{
-          const form = {
-            name : element.name,
-            id : element.id
-          }
-          requiredFiled.push(form)
-        })
-        return requiredFiled
-      }
-      catch (e){}
-    }
-  },
-
   methods: {
+    assignDataInput(item) {
+      this.inputData.push(item.title)
+    },
+
     validate() {
-      if (this.form.subject === '') {
+      if (this.form.title === '') {
         openToast( this.$store, '.عنوان موضوع را وارد کنید', "error")
       } else {
+        this.createSubTitleTicket()
         console.log('hello')
+
+      }
+    },
+
+   async createSubTitleTicket() {
+      this.loading=true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'ticket/topic/crud/create'
+      formData.append('title' , this.form.title)
+     this.form.requiredFiled.forEach((item , index) => {
+       formData.append(`mandatory_fields[${index}]`,  item)
+     })
+
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.toast_error = true
+      AxiosMethod.using_auth =true
+      AxiosMethod.token =this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading=false
+        openToast(this.$store, 'موضوع با موفقیت ایجاد شد.', "success");
+        this.$router.push('/sub-title/index')
+      }
+      else{
+        this.loading=false
       }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -5,6 +5,7 @@ import { useCookies } from "vue3-cookies";
 
 export default function setup() {
     const subTitleTicket = ref([]);
+    const subTitleEdit =ref(null)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -14,7 +15,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row'},
         { name: 'شناسه', title: 'شناسه', show: true, align:'center', key: 'id'},
-        { name: 'عنوان موضوع', title: 'عنوان موضوع', show: true, align:'center', key: 'subject'},
+        { name: 'عنوان موضوع', title: 'عنوان موضوع', show: true, align:'center', key: 'title'},
         { name: 'سازنده', title: 'سازنده', show: true, align:'center', key: 'creator'},
         { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, align:'center', key: 'created_at'},
         { name: 'نمایش', title: 'نمایش', show: true, align:'center', key: 'show'},
@@ -28,7 +29,7 @@ export default function setup() {
         { name: 'سازنده', type:'select', value:'creator_id'},
         { name:'تاریخ ساخت', type: 'date', value:'created_at'},
         { name:'تاریخ به روزرسانی', type: 'date', value:'updated_at'},
-        { name: 'وضعیت', type:'select', value:'status'},
+        { name: 'وضعیت', type:'select', value:'is_active'},
     ];
 
     const loading = ref(false)
@@ -94,13 +95,28 @@ export default function setup() {
         }
     };
 
+    async function getSubTitle () {
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `ticket/topic/crud/get/${route.params.id}`
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =  true
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            subTitleEdit.value = data.data
+            console.log('data',subTitleEdit.value )
+        }
+
+    }
+
     return {
         header,
         filterField,
         dataTableLength,
         page,
         subTitleTicket,
-        getAllSubTitleTicket
+        getAllSubTitleTicket,
+        getSubTitle,
+        subTitleEdit
     }
 }
 
