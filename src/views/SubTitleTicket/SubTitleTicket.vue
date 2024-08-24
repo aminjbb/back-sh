@@ -227,7 +227,7 @@ export default {
   },
 
   mounted() {
-    // this.getAllSubTitleTicket()
+    this.getAllSubTitleTicket()
   },
 
   methods: {
@@ -251,7 +251,7 @@ export default {
   watch: {
     subTitleTicket() {
       this.itemListTable = []
-      this.subTitleTicket.forEach((item) => {console.log(item)
+      this.subTitleTicket.forEach((item) => {console.log(item, 'item')
         this.itemListTable.push(
             {
               id: item.id,
@@ -266,51 +266,51 @@ export default {
       })
     },
 
-    // dataTableLength() {
-    //   this.perPageFilter = true
-    //   this.page = 1
-    //   let query = this.$route.query
-    //   if (query) {
-    //     this.$router.replace({
-    //       query: {
-    //         ...query,
-    //         per_page: this.dataTableLength,
-    //       }
-    //     })
-    //   }
-    //   else {
-    //     this.$router.push({
-    //       query: {
-    //         per_page: this.dataTableLength,
-    //       }
-    //     })
-    //   }
-    //   this.perPageFilter = false
-    // },
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
 
-    // confirmModal(val) {
-    //   if (localStorage.getItem('deleteObject') === 'done') {
-    //     if (!val) {
-    //       this.getAllSubTitleTicket();
-    //       openToast(
-    //           this.$store,
-    //           'موضوع با موفقیت حذف شد',
-    //           "success"
-    //       );
-    //       localStorage.removeItem('deleteObject')
-    //     }
-    //   }
-    // },
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getAllSubTitleTicket();
+          openToast(
+              this.$store,
+              'موضوع با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
 
-    // $route(){
-    //   this.getAllSubTitleTicket()
-    // },
+    $route(){
+      this.getAllSubTitleTicket()
+    },
 
-    // page(){
-    //   if (!this.perPageFilter){
-    //     this.getAllSubTitleTicket()
-    //   }
-    // }
+    page(){
+      if (!this.perPageFilter){
+        this.getAllSubTitleTicket()
+      }
+    }
   }
 }
 </script>

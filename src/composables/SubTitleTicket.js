@@ -80,7 +80,7 @@ export default function setup() {
 
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `ticket/admin/crud/index/`
+        AxiosMethod.end_point = 'ticket/topic/crud/index'
 
         let data = await AxiosMethod.axios_get()
         if (data) {
