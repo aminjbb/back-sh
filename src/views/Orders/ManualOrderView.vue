@@ -209,31 +209,37 @@ export default {
     },
 
     async createOrder() {
-      this.loading = true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'admin/order/crud/create'
-      this.$refs.ManualOrderStepTwo.$refs.manualOrderTable.values.forEach((shps,index)=>{
-        formData.append(`shps_list[${index}][shps]`, shps?.shps)
-        formData.append(`shps_list[${index}][count]`, shps?.count)
-      })
-      formData.append('parent_id', this.$route.params.orderId)
-      formData.append('user_id', this.userId)
-      formData.append('address_id', this.orderAddress)
-      formData.append('sending_method', this.sendingMethod)
-      formData.append('description', this.orderDescription)
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.toast_error = true
-      let data = await AxiosMethod.axios_post()
+      try {
+        this.loading = true
+        let formData = new FormData();
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = 'admin/order/crud/create'
+        this.$refs.ManualOrderStepTwo.$refs.manualOrderTable.values.forEach((shps,index)=>{
+          formData.append(`shps_list[${index}][shps]`, shps?.shps)
+          formData.append(`shps_list[${index}][count]`, shps?.count)
+        })
+        formData.append('parent_id', this.$route.params.orderId)
+        formData.append('user_id', this.userId)
+        formData.append('address_id', this.orderAddress)
+        formData.append('sending_method', this.sendingMethod)
+        formData.append('description', this.orderDescription)
+        AxiosMethod.form = formData
+        AxiosMethod.store = this.$store
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.toast_error = true
+        let data = await AxiosMethod.axios_post()
 
-      if (data) {
-        this.loading = false
+        if (data) {
+          this.loading = false
 
-        this.$router.go(-1)
-      } else {
+          this.$router.go(-1)
+        } else {
+          this.loading = false
+
+        }
+      }
+      catch (e) {
         this.loading = false
 
       }

@@ -312,6 +312,7 @@ import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseRetu
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import RelocatingView from "@/views/Relocating/RelocatingView.vue";
 import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
 import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
 import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
@@ -2588,6 +2589,22 @@ const router = createRouter({
                     path: 'cancel',
                     name: 'CancelSnapPayView',
                     component: CancelSnapPayView,
+                    meta: {
+                        name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/relocating', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'RelocatingView',
+                    component: RelocatingView,
                     meta: {
                         name: 'سفارش های کنسلی اسنپ پی'
                     }

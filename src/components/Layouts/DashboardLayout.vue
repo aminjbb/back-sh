@@ -131,7 +131,7 @@
                             <v-icon>mdi-cart-outline</v-icon>
                         </template>
 
-                        <span class="t14500">
+                        <span class="t14 w500">
                             مارکت پلیس
                         </span>
                     </v-list-item>
