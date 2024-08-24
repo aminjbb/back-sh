@@ -218,7 +218,7 @@ export default {
       itemListTable: [],
       removeTableItem: {
         text: "با حذف موضوع، زیر موضوع های آن نیز حذف خواهد شد.\n" +
-            "آیا از انجام این کار مطمئن هستید؟؟",
+            "آیا از انجام این کار مطمئن هستید؟",
         title: "حذف آیتم",
         path: "ticket/topic/crud/delete/",
       },

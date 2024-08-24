@@ -13,7 +13,7 @@
               <v-col cols="12" md="12">
                 <div class="text-right my-5">
                   <span class="t12400">عنوان موضوع :</span>
-                  <span class="t12400 mr-2">پیگیری سفارش</span>
+                  <span class="t12400 mr-2">{{ subTitleEdit?.title }}</span>
                 </div>
               </v-col>
 
@@ -114,12 +114,18 @@ export default {
 
   setup() {
     const {
+      getSubTitle,
+      subTitleEdit,
       page,
+      pageLength,
       dataTableLength
-    } = SubTitleTicket
+    } = SubTitleTicket()
 
     return {
+      getSubTitle,
+      subTitleEdit,
       page,
+      pageLength,
       dataTableLength
     }
   },
@@ -131,7 +137,6 @@ export default {
       topicList: [],
       itemListTable:[],
       inputData:[],
-
       AllRequiredFiledList:[
         {
           id:1,
@@ -149,12 +154,10 @@ export default {
           value:'photo'
         }
       ],
-
       form: {
         title: '',
         requiredFiled: []
       },
-
       header: [
         { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row'},
         { name: 'عنوان زیر موضوع', title: 'عنوان زیر موضوع', show: true, align:'center', key: 'title'},
@@ -164,6 +167,10 @@ export default {
         { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
       ]
     }
+  },
+
+  mounted() {
+    this.getSubTitle()
   },
 
   methods: {
@@ -203,12 +210,16 @@ export default {
       AxiosMethod.using_auth = true;
       AxiosMethod.token = this.$cookies.get('adminToken');
       try {
-        let response = await AxiosMethod.axios_post(); // Assume this returns a response object
+        let response = await AxiosMethod.axios_post()
         if (response && response.data) {
           openToast(this.$store, 'زیر موضوع با موفقیت ایجاد شد.', "success");
-          this.topicList = response.data
-          this.loading= false
+          this.getSubTitle()
+
           this.form.title =''
+          this.inputData = null
+          this.form.requiredFiled = []
+
+          this.loading= false
         }
       } catch (error) {
         this.loading= false
@@ -217,9 +228,9 @@ export default {
   },
 
   watch:{
-    topicList() {
+    subTitleEdit() {
       this.itemListTable = []
-      this.topicList.children.forEach((item) => {
+      this.subTitleEdit.children.forEach((item) => {
         this.itemListTable.push(
             {
               id: item.id,

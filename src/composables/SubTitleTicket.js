@@ -26,7 +26,7 @@ export default function setup() {
     const filterField = [
         { name:'شناسه' , type:'text', value:'id'},
         { name: 'عنوان موضوع', type:'text', value:'title'},
-        { name: 'سازنده', type:'select', value:'creator_id'},
+        { name: 'سازنده', type:'auto-complete', value:'creator_id'},
         { name:'تاریخ ساخت', type: 'date', value:'created_at'},
         { name:'تاریخ به روزرسانی', type: 'date', value:'updated_at'},
         { name: 'وضعیت', type:'select', value:'is_active'},
@@ -103,7 +103,6 @@ export default function setup() {
         let data = await AxiosMethod.axios_get()
         if (data) {
             subTitleEdit.value = data.data
-            console.log('data',subTitleEdit.value )
         }
 
     }

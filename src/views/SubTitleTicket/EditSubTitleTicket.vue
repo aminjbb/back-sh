@@ -28,12 +28,14 @@
 
               <v-autocomplete
                   v-model="form.requiredFiled"
-                  density="compact"
                   variant="outlined"
-                  single-line
-                  :items="AllRequiredFiledList"
+                  prepend-inner-icon-cb="mdi-map-marker"
+                  rounded="lg"
                   item-title="name"
-                  item-value="id">
+                  item-value="value"
+                  density="compact"
+                  single-line
+                  :items="AllRequiredFiledList">
                 <template v-slot:item="item">
                   <v-list-item>
                     <div class="d-flex justify-end">
@@ -55,13 +57,12 @@
                 <span class="t12400">زیرموضوع ها</span>
               </div>
               <v-autocomplete
-                  v-model="form.topic"
                   variant="outlined"
                   prepend-inner-icon-cb="mdi-map-marker"
                   rounded="lg"
-                  :items="form.topic"
-                  item-title="name"
-                  item-value="value">
+                  item-title="title"
+                  item-value="id"
+                  :items="form.topic">
                 <template v-slot:item="item">
                   <v-list-item>
                     <v-row justify="center">
@@ -137,10 +138,6 @@ export default {
     Header
   },
 
-  props: {
-    items: Object
-  },
-
   setup() {
     const {getSubTitle, subTitleEdit} = SubTitleTicket()
 
@@ -149,6 +146,7 @@ export default {
 
   data() {
     return {
+      valid: false,
       form: {
         title: '',
         requiredFiled: [],
@@ -156,7 +154,7 @@ export default {
       },
       removeTableItem: {
         text: "با حذف زیر موضوع دیگر به جزئیات آن دسترسی نخواهید داشت.\n" +
-            "آیا از انجام این کار مطمئن هستید؟؟",
+            "آیا از انجام این کار مطمئن هستید؟",
         title: "حذف آیتم",
         path: "ticket/topic/crud/delete/",
       },
@@ -178,11 +176,18 @@ export default {
           value:'photo'
         }
       ],
+      topicItems: []
     }
   },
 
   mounted() {
     this.getSubTitle()
+  },
+
+  computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
   },
 
   methods: {
@@ -232,7 +237,21 @@ export default {
   watch: {
     subTitleEdit() {
       this.setForm()
-    }
+    },
+
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getSubTitle();
+          openToast(
+              this.$store,
+              'زیرموضوع با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
   },
 }
 </script>
