@@ -28,21 +28,6 @@
                   item-value="value"
                   v-debounce="searchSku">
 
-                <template v-slot:item="item">
-                  <v-list-item>
-                    <v-row justify="center">
-                      <v-col cols="11">
-                        <text-clamp
-                            @click="assignShps(item)"
-                            :text='item?.props?.title'
-                            :max-lines='1'
-                            autoResize
-                            location="start"
-                            class="text-gray500 t14 w300 text-right" />
-                      </v-col>
-                    </v-row>
-                  </v-list-item>
-                </template>
               </v-autocomplete>
             </div>
 
@@ -112,7 +97,7 @@ export default {
           const form = {
             name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
             value: skuSearch,
-            id: skuSearch.id,
+            id: skuSearch,
             warehouse_stock: skuSearch.warehouse_stock,
             site_stock: skuSearch.site_stock,
             seller_id: skuSearch.seller_id
@@ -145,13 +130,13 @@ export default {
     },
 
     async assignShps(item) {
-      this.shps_id = item.props.value
+      this.shps_id = item
       this.destinationShps = item
     },
 
 
     transferStock() {
-      this.$emit('closeFirsModal', this.destinationShps)
+      this.$emit('closeFirsModal', this.shps_id)
     },
 
     updateList(status) {

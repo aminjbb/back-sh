@@ -15,8 +15,8 @@
       </div>
 
       <div class="text-center pa-5">
-        با انجام این عملیات، {{ item.item.raw.warehouse_stock }} عدد موجودی انبار و {{ item.item.raw.site_stock }}  عدد موجودی سایت به کالا با شناسه
-        {{ item.item.raw.id }} منتقل می شود.
+        با انجام این عملیات، {{ item.warehouse_stock }} عدد موجودی انبار و {{ item.site_stock }}  عدد موجودی سایت به کالا با شناسه
+        {{ destinationShps }} منتقل می شود.
         آیا از انجام این کار اطمینان دارید؟
       </div>
 
@@ -74,11 +74,11 @@ export default {
       this.loading = true;
       var formdata = new FormData();
       const AxiosMethod = new AxiosCall();
-      AxiosMethod.end_point = `seller/${this.item?.item?.raw?.seller_id}/sku/transfer/stock`;
+      AxiosMethod.end_point = `seller/${this.item?.seller_id}/sku/transfer/stock`;
       AxiosMethod.form = formdata;
-      formdata.append('Accept', 1);
+      formdata.append('accept', 1);
       formdata.append('source_shps', this.sourceShps);
-      formdata.append('destination_shps', this.item?.item?.raw?.id);
+      formdata.append('destination_shps', this.destinationShps);
 
       AxiosMethod.store = this.$store;
       AxiosMethod.using_auth = true;
@@ -90,6 +90,10 @@ export default {
           this.loading = false;
           this.close();
           openToast(this.$store, 'انتقال موجودی با موفقیت انجام شد.', "success");
+          this.$emit('updateList')
+        }
+        else {
+          this.loading = false;
         }
       } catch (error) {
         this.loading = false;

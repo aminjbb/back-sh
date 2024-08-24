@@ -181,8 +181,8 @@
                         <span class="mr-2 text-grey-darken-1 t14 w300">انتقال موجودی</span>
                       </div>
                     </v-list-item-title>
-                    <TransferStockModal @closeFirsModal="transferStock" @updateList="updateList"/>
-                    <TransferModal ref="transferModal" :item="shpsItem" :sourceShps="item.data.sku_id"/>
+                    <TransferStockModal @closeFirsModal="transferStock" />
+                    <TransferModal ref="transferModal" :item="item.data" @updateList="updateList" :destinationShps="destinationShps" :sourceShps="item.data.id" />
                   </v-list-item>
 
                   <v-list-item>
@@ -328,7 +328,8 @@ export default {
         path: `seller/${this.$route.params.sellerId}/sku/delete/`,
       },
       itemListTable: [],
-      shpsItem: {}
+      shpsItem: {},
+      destinationShps: null
     }
   },
 
@@ -378,10 +379,8 @@ export default {
       this.headerSku[index].show = value
     },
 
-    updateList(status) {
-      if (status === 'true') {
-        this.getSkuSeller();
-      }
+    updateList() {
+      this.getSkuSeller();
     },
 
     async searchSku(e) {
@@ -451,9 +450,11 @@ export default {
     },
 
     transferStock(destinationShps) {
+      console.log(destinationShps , 'destinationShps')
       closeModal(this.$store, 'set_transferStockModal')
       this.$refs.transferModal.dialog = true
       this.shpsItem = destinationShps
+      this.destinationShps = destinationShps.id
     }
   },
 
