@@ -19,22 +19,22 @@
                 <span class="t12 w300 modal__label">انتخاب کالا</span>
               <v-autocomplete
                   v-model="shps_id"
-                  placeholder="نام کالا یا شماره SHPS را جستجو نمایید"
+                  placeholder="نام کالا یا شماره shps را جستجو نمایید"
                   variant="outlined"
                   prepend-inner-icon-cb="mdi-map-marker"
                   rounded="lg"
                   :items="skuList"
-                  item-title="id"
-                  return-object
+                  item-title="name"
+                  item-value="value"
                   v-debounce="searchSku">
 
                 <template v-slot:item="item">
                   <v-list-item>
-                    <v-row justify="end">
+                    <v-row justify="center">
                       <v-col cols="11">
                         <text-clamp
                             @click="assignShps(item)"
-                            :text='item.item.raw.name'
+                            :text='item?.props?.title'
                             :max-lines='1'
                             autoResize
                             location="start"
@@ -108,13 +108,14 @@ export default {
     skuList() {
       try {
         let sku = []
-        this.skuSearchList.forEach(permission => {
+        this.skuSearchList.forEach(skuSearch => {
           const form = {
-            name: permission.sku.label + '(' + permission.id + ')',
-            id: permission.id,
-            warehouse_stock: permission.warehouse_stock,
-            site_stock: permission.site_stock,
-            seller_id: permission.seller_id
+            name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
+            value: skuSearch,
+            id: skuSearch.id,
+            warehouse_stock: skuSearch.warehouse_stock,
+            site_stock: skuSearch.site_stock,
+            seller_id: skuSearch.seller_id
           }
           sku.push(form)
         })
@@ -128,7 +129,7 @@ export default {
   methods: {
     close() {
       closeModal(this.$store, 'set_transferStockModal');
-      this.shps_id= null;
+      this.shps_id= null
     },
 
     async searchSku(search) {
