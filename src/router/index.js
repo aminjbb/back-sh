@@ -312,6 +312,8 @@ import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseRetu
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import SellerCartableView from "@/views/SellerCartable/SellerCartableView.vue";
+import SellerCartableRequesListView from "@/views/SellerCartable/SellerCartableRequesListView.vue";
 
 
 const router = createRouter({
@@ -2585,6 +2587,30 @@ const router = createRouter({
                     component: CancelSnapPayView,
                     meta: {
                         name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/seller-cartable', // Zone
+            meta: {
+                name: 'مارکت پلیس'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SellerCartableView',
+                    component: SellerCartableView,
+                    meta: {
+                        name: 'کارتابل فروشندگان'
+                    }
+                },
+                {
+                    path: ':sellerId/requests',
+                    name: 'SellerCartableRequesListView',
+                    component: SellerCartableRequesListView,
+                    meta: {
+                        name: 'فروشگاه'
                     }
                 },
             ]
