@@ -53,7 +53,7 @@
           </ShTable>
 
           <v-divider/>
-          <Modal>
+          <Modal title="تست">
             <template v-slot:modalBody>
 
             </template>
