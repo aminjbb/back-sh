@@ -39,7 +39,7 @@
           <v-text-field v-else @keyup.enter="scanQrCode()" v-model="shpssBarCode" variant="outlined" :autofocus="true"/>
         </div>
         <div>
-          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend" color="success"></v-switch>
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
           </v-col>
           <v-col cols="6">
             <div>
-              <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+              <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend" color="success"></v-switch>
             </div>
           </v-col>
 
@@ -180,7 +180,9 @@
 
                 <div>
                   <div><span class="t12 w500"> جایگاه کالا :</span></div>
-                  <div><span class="t12 w500 text-gray700">۱-۲-۳-۲</span></div>
+                  <div><span class="t12 w500 text-gray700">
+                                          {{ shpsDetail?.placement?.shelf_number }}-{{ shpsDetail?.placement?.step_number }}-{{ shpsDetail?.placement?.placement_number }}-{{ shpsDetail?.placement?.row_number}}
+                  </span></div>
                 </div>
                 <div>
                   <div><span class="t12 w500">شناسه کالا :</span></div>
@@ -251,13 +253,13 @@
                         :autofocus="true"/>
         </div>
         <div>
-          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend"></v-switch>
+          <v-switch label="اتوماتیک؟" true-value="automate" false-value="manual" v-model="autoSend" color="success"></v-switch>
         </div>
       </div>
     </div>
     <div class="d-flex justify-center">
       <v-col cols="10">
-        <v-btn block color="primary500" rounded>
+        <v-btn @click="placementScan()" block color="primary500" rounded>
           <span class="t16 w500">
             تایید
           </span>
@@ -285,7 +287,7 @@
             flat
             block
             rounded
-            @click="window.location.reload()"
+            @click="retry()"
             class="px-8 mt-5 me-3">
           تلاش مجدد
         </v-btn>
@@ -358,6 +360,11 @@ export default {
   },
 
   methods: {
+
+    retry(){
+      this.showError = false
+      this.scanShelf = true
+    },
     async scanQrCode() {
       this.loading = true
       await axios
