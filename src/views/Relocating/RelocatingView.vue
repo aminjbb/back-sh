@@ -63,7 +63,7 @@
          جابه‌جایی کالا
         </span>
         </div>
-        <div class="pa-3">
+        <div class="pa-3"  @click="$router.push('/locating/dashboard')">
           <v-icon size="30">
             mdi-chevron-left
           </v-icon>
@@ -181,7 +181,7 @@
                 <div>
                   <div><span class="t12 w500"> جایگاه کالا :</span></div>
                   <div><span class="t12 w500 text-gray700">
-                                          {{ shpsDetail?.placement?.shelf_number }}-{{ shpsDetail?.placement?.step_number }}-{{ shpsDetail?.placement?.placement_number }}-{{ shpsDetail?.placement?.row_number}}
+                                          {{ shps?.placement?.shelf_number }}-{{ shps?.placement?.step_number }}-{{ shps?.placement?.placement_number }}-{{ shps?.placement?.row_number}}
                   </span></div>
                 </div>
                 <div>
@@ -355,7 +355,8 @@ export default {
       shpsDetail:null,
       searchItem:'',
       showError:false,
-      doneTask:false
+      doneTask:false,
+      lastShpsBarcode:''
     }
   },
 
@@ -366,28 +367,32 @@ export default {
       this.scanShelf = true
     },
     async scanQrCode() {
-      this.loading = true
-      await axios
-          .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/relocate/scan/item`,
-              {
-                shpss_barcode: this.shpssBarCode
+      if (this.lastShpsBarcode != this.shpssBarCode && (this.shpssBarCode != null && this.shpssBarCode != 'null' && this.shpssBarCode != '') ){
+        this.lastShpsBarcode = this.shpssBarCode
+        this.loading = true
+        await axios
+            .post(`${import.meta.env.VITE_API_BASEURL}/v1/warehouse/relocate/scan/item`,
+                {
+                  shpss_barcode: this.shpssBarCode
 
-              },
-              {
-                headers: {
-                  Authorization:
-                      "Bearer " + this.$cookies.get('adminToken')
                 },
-              })
-          .then((response) => {
+                {
+                  headers: {
+                    Authorization:
+                        "Bearer " + this.$cookies.get('adminToken')
+                  },
+                })
+            .then((response) => {
               this.hasTask = true
               this.shpsDetail =response.data.data[0]
-          }).catch((err) => {
-            this.openToast(this.$store , err.response.data.message , 'error')
+            }).catch((err) => {
+              this.openToast(this.$store , err.response.data.message , 'error')
               this.errorMassage = err.response.data.message
-          }).finally(()=>{
-            this.loading = false
-          })
+            }).finally(()=>{
+              this.loading = false
+            })
+      }
+
     },
 
     async  placementScan() {
