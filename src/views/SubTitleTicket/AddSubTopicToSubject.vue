@@ -49,6 +49,7 @@
                           <span class="t12 w500">{{ item.item.raw.name }}</span>
                         </div>
                         <v-checkbox
+                            :disabled="form.requiredFiled.includes(item.item.raw.value)"
                             hide-details
                             :value="item.item.raw.value"
                             v-model="form.requiredFiled"/>
@@ -224,11 +225,19 @@ export default {
       } catch (error) {
         this.loading= false
       }
+    },
+
+    setForm() {
+      try {
+        this.form.requiredFiled = [...this.subTitleEdit.mandatory_fields]
+      } catch (e) {}
     }
   },
 
   watch:{
     subTitleEdit() {
+      this.setForm()
+
       this.itemListTable = []
       this.subTitleEdit.children.forEach((item) => {
         this.itemListTable.push(
