@@ -53,7 +53,11 @@
           </ShTable>
 
           <v-divider/>
+          <Modal>
+            <template v-slot:modalBody>
 
+            </template>
+          </Modal>
         </v-card>
       </div>
     </v-main>
@@ -68,6 +72,7 @@ const ShTable = defineAsyncComponent(() => import ('@/components/Components/Tabl
 const PanelFilter = defineAsyncComponent(() => import ('@/components/PanelFilter/PanelFilter.vue'))
 const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
+const Modal = defineAsyncComponent(() => import ('@/components/Components/Modal/Modal.vue'))
 import SellerCartable from '@/composables/SellerCartable.js'
 
 export default {
@@ -92,6 +97,7 @@ export default {
     PanelFilter,
     DashboardLayout,
     Header,
+    Modal
   },
 
   methods:{
