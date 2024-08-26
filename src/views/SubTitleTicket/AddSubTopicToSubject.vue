@@ -161,10 +161,10 @@ export default {
       },
       header: [
         { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row'},
-        { name: 'عنوان زیر موضوع', title: 'عنوان زیر موضوع', show: true, align:'center', key: 'title'},
-        { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, align:'center', key: 'created_at'},
-        { name: 'تاریخ به روزرسانی', title: 'تاریخ به روزرسانی', show: true, align:'center', key: 'updated_at'},
-        { name: 'فیلد های اجباری', title: 'فیلد های اجباری', show: true, align:'center', key: 'custom'},
+        { name: 'عنوان زیر موضوع', title: 'عنوان زیر موضوع', show: true, align:'center',sortable: false, key: 'title'},
+        { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, align:'center', sortable: false, key: 'created_at'},
+        { name: 'تاریخ به روزرسانی', title: 'تاریخ به روزرسانی', show: true, align:'center', sortable: false, key: 'updated_at'},
+        { name: 'فیلد های اجباری', title: 'فیلد های اجباری', show: true, align:'center',sortable: false, key: 'custom'},
         { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
       ]
     }
