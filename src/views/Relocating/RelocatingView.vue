@@ -167,7 +167,7 @@
     </div>
 
     <div>
-      <v-card class="br--12 mx-3">
+      <v-card class="br--12 mx-3 mb-15 pb-15">
         <div v-for="(shps , index) in allScannedList">
           <v-row justify="start" align="center" class="px-2 my-2" >
             <v-col cols="1">
