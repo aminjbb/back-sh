@@ -75,6 +75,7 @@
                   @click="temporarySave"
                   variant="outlined"
                   rounded
+                  :loading="saveLoading"
                   class="px-3 mt-2">
                 ثبت موقت
               </v-btn>
@@ -94,9 +95,7 @@
             <v-row justify="center" align="center" class="pa-5">
               <v-col cols="12">
                 <div class="text-center pl-5">
-                            <span class="t14 w500">
-                              از تغییر وضعیت مطمئن هستید
-                            </span>
+                  <span class="t14 w500">از تغییر وضعیت مطمئن هستید</span>
                 </div>
               </v-col>
             </v-row>
@@ -107,9 +106,7 @@
 
             <div class="text-center pb-5">
               <v-btn color="primary500" @click="dialog = false" height="40" rounded class="px-5 mt-1 mr-15">
-                        <span>
-                            تایید
-                        </span>
+                <span>تایید</span>
               </v-btn>
 
               <v-btn @click="closeModal()" variant="text" height="40" rounded class="px-5 mt-1 ml-15">
@@ -142,6 +139,7 @@ import ModalChangeMethod from "@/components/OrderPackaging/Detail/Modal/ChangeSe
 import {openToast, closeToast} from "@/assets/js/functions";
 import axios from "axios";
 import ModalNotAvailableOrder from "@/components/OrderPackaging/Modal/ModalNotAvailableOrder.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   components: {
@@ -161,6 +159,7 @@ export default {
       cargo: null,
       orderDetail: [],
       dialog: false,
+      saveLoading: false,
       sendingMethods:[],
       currentSendingMethod:null,
       itemListTable: []
@@ -276,8 +275,32 @@ export default {
           });
     },
 
-    temporarySave() {
-      console.log('temporarySave')
+   async temporarySave() {
+      this.saveLoading = true
+      var formdata = new FormData();
+
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `warehouse/order/packaging/temporary-pause/${this.orderId}`
+      AxiosMethod.form = formdata
+      AxiosMethod.store = this.$store
+     AxiosMethod.toast_error = true
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+     try {
+       let response = await AxiosMethod.axios_post()
+       if (response) {
+         localStorage.removeItem('orderIdForRefreshOrderPackaging')
+         this.saveLoading = false
+         window.location.reload()
+       }
+       else {
+         this.saveLoading = false
+       }
+     } catch (e) {
+       this.saveLoading = false
+     }
+
+
     }
   },
 
