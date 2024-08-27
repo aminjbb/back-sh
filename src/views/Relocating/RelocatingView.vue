@@ -451,7 +451,8 @@ export default {
       const searchItem = this.scannedList
           .filter(
               (item) =>
-                  item.sku_title.includes(lowerCaseSearch)
+
+                  item.shps.toString().includes(lowerCaseSearch)
           );
       this.allScannedList = searchItem
     }
