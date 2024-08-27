@@ -53,9 +53,13 @@
           </ShTable>
 
           <v-divider/>
-          <Modal title="تست">
+          <Modal ref="requestActionModal" title="درخواست"
+                 successTitle="تایید درخواست" cancelTitle="رد درخواست"
+                 successColor="success"
+                 cancelColor="primary500" cancelVariant="flat"
+                 @cancelAction="rejectRequest()" @successAction="approveRequest()">
             <template v-slot:modalBody>
-
+                <SellerRequestForm :items="requestForm"/>
             </template>
           </Modal>
         </v-card>
@@ -73,9 +77,24 @@ const PanelFilter = defineAsyncComponent(() => import ('@/components/PanelFilter
 const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 const Modal = defineAsyncComponent(() => import ('@/components/Components/Modal/Modal.vue'))
+const SellerRequestForm = defineAsyncComponent(() => import ('@/components/SellerCarteble/SellerCartableForm.vue'))
 import SellerCartable from '@/composables/SellerCartable.js'
 
 export default {
+  data(){
+    return{
+      requestForm:[
+        {
+          label:'ایمیل',
+          type:'text',
+        },
+        {
+          label:'ایمیل جدید',
+          type:'text',
+        },
+      ]
+    }
+  },
   setup() {
     const {
       pageLength, filterField,
@@ -97,10 +116,16 @@ export default {
     PanelFilter,
     DashboardLayout,
     Header,
-    Modal
+    Modal,
+    SellerRequestForm
   },
-
   methods:{
+    approveRequest(){
+      console.log('approve')
+    },
+    rejectRequest(){
+      console.log('reject')
+    },
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
@@ -112,6 +137,6 @@ export default {
         this.perPageFilter = false
       }, 1000)
     },
-  }
+  },
 }
 </script>
