@@ -56,7 +56,9 @@ const vuetify = createVuetify({
                     warningRow:'#FFF3E0',
                     successRow:'#E8F5E9',
                     scanError:'#EF5350',
-                    scanSuccess: '#43A047'
+                    scanSuccess: '#43A047',
+                    Orange600: '#FB8C00',
+                    Purple500: '#673AB7',
                 }
             },
         },

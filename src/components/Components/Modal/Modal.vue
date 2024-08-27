@@ -100,7 +100,7 @@ export  default {
   data(){
     return{
       loading:false,
-      dialog:true
+      dialog:false
     }
   },
 

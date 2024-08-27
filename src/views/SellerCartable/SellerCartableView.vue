@@ -40,21 +40,40 @@
           <ShTable
               class="flex-grow-1"
               :headers="header"
-              :items="[]"
+              :items="itemsList"
               :loading="loading"
               :page="page"
               :perPage="dataTableLength">
             <template v-slot:customSlot="item">
-              <span v-if="item.data.type == 'withdraw'"
-                    class="t14 w300 text-error py-5 number-font">  {{ splitChar(item.data.custom) }} - </span>
-              <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
+                <v-chip :color="statusColor(item.data.status)">
+                  {{item.data.status}}
+                </v-chip>
             </template>
 
-            <template v-slot:customSlot2="item">
-              <span v-if="item.data.type == 'deposit'"
-                    class="t14 w300 text-success py-5 number-font d--ltr">  {{ splitChar(item.data.custom) }} +</span>
-              <span v-else class="t14 w300 text-black py-5 number-font">  --- </span>
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-plus
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="$router.push(`/seller-cartable/${item.data.id}/requests`)">
+                        <v-icon class="text-grey-darken-1">mdi-text-box-multiple-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14300">
+                                        مشاهده درخواست ها
+                                  </span>
+                      </div>
+                    </v-list-item-title>
+
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </template>
+
           </ShTable>
 
           <v-divider/>
@@ -139,8 +158,33 @@ export default {
     DashboardLayout,
     Header,
   },
-
+  computed:{
+    itemsList(){
+      try {
+        const items = []
+        this.sellers.forEach(element=>{
+          const form ={
+            id:element.id,
+            shopping_name:element.shopping_name,
+            seller:element.name,
+            status:element.status,
+            seller_type : element.type === 'legal' ? 'حقیقی' : 'حقوقی' ,
+            updated_at_fa :element.updated_at_fa,
+            request_count : element.request_count
+          }
+          items.push(form)
+        })
+        return items
+      }
+      catch (e) {
+        return []
+      }
+    }
+  },
   methods:{
+    statusColor(status){
+     return  status === 'در انتظار بررسی' ? 'Orange600' : 'Purple500'
+    },
     changeHeaderShow(index, value) {
       this.header[index].show = value
     },
@@ -152,6 +196,10 @@ export default {
         this.perPageFilter = false
       }, 1000)
     },
+  },
+
+  mounted() {
+    this.getSellersRequest()
   }
 }
 </script>
