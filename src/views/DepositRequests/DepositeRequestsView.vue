@@ -54,7 +54,7 @@
                   <div
                       class="factor-dropdown__item my-2 t10 w400"
                       id="factor-dropdown__item--2"
-                      @click="openRejectModal(item)">
+                      @click="openRejectModal(item.data)">
                     رد شده
                   </div>
                   <div
