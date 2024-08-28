@@ -165,7 +165,8 @@ export default function setup() {
                     page:page.value,
                     per_page : dataTableLength.value,
                     order:'created_at',
-                    order_type:'desc'
+                    order_type:'desc',
+                    homepage_section_id:route.params.sectionId,
                 }
             }
             else {
@@ -173,6 +174,8 @@ export default function setup() {
                     ...query,
                     page:page.value,
                     per_page : dataTableLength.value,
+                    homepage_section_id:route.params.sectionId,
+
                 }
             }
 
@@ -184,14 +187,18 @@ export default function setup() {
                     page:page.value,
                     per_page : dataTableLength.value,
                     order:'created_at',
-                    order_type:'desc'
+                    order_type:'desc',
+                    homepage_section_id:route.params.sectionId,
+
                 }
             }
             else{
                 AxiosMethod.form = {
                     ...query,
                     page:page.value,
-                    per_page : dataTableLength.value
+                    per_page : dataTableLength.value,
+                    homepage_section_id:route.params.sectionId,
+
                 }
             }
 
