@@ -124,7 +124,7 @@ export default {
              formData.append('device', this.device)
              formData.append('image_id', this.$refs.AddAdsForm.form.image)
              AxiosMethod.form = formData
-             formData.append('is_active', 0)
+             formData.append('is_active', 1)
              AxiosMethod.store = this.$store
              AxiosMethod.using_auth = true
              AxiosMethod.token = this.$cookies.get('adminToken')
