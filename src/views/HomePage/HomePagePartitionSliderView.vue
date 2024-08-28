@@ -26,9 +26,9 @@
               justify="center"
               align="center"
               class="px-10 py-4">
-            <v-col cols="6">
-              <ModalAddSectionForSlider :getHomeSection="getHomeSection" :slider="slider" />
-            </v-col>
+              <v-col cols="12">
+                <ModalAddSectionForSlider :getHomeSection="getHomeSection" :slider="slider" />
+              </v-col>
           </v-row>
         </v-card>
 

@@ -19,7 +19,7 @@
                     prepend-inner-icon-cb="mdi-map-marker"
                     rounded="lg"
                     :items="skuSearchList"
-                    item-title="id"
+                    item-title="name"
                     return-object
                     v-debounce="searchSku">
 
@@ -27,7 +27,7 @@
                     <v-list-item>
                       <v-row justify="center">
                         <v-col cols="4">
-                          <div @click="assignSku(item.props.value.id,item.props.value.sku_id)" class="seller__add-sku-btn d-flex justify-center align-center">
+                          <div @click="assignSku(item.props)" class="seller__add-sku-btn d-flex justify-center align-center">
                             <v-icon>mdi-plus</v-icon>
                           </div>
                         </v-col>
@@ -184,21 +184,6 @@ export default {
         return []
       }
     },
-    skuList() {
-      try {
-        let sku = []
-        this.skuSearchList.forEach(permission => {
-          const form = {
-            name: permission.label + '(' + permission.id + ')',
-            id: permission.id
-          }
-          sku.push(form)
-        })
-        return sku
-      } catch (e) {
-        return []
-      }
-    },
   },
 
   methods: {
@@ -221,19 +206,27 @@ export default {
       AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.skuSearchList = data.data.data
+        data.data.data.forEach(element=>{
+          const form = {
+            name: element?.sku?.label + '(' + element?.id + ')',
+            value:element
+          }
+          this.skuSearchList.push(form)
+        })
+
       }
     },
 
-    async assignSku(id, skuId) {
+    async assignSku(item) {
+      console.log(item)
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `page/home/section/slider/${this.homeSinglePartitionSlider.slider_id}/sku/attach`
-      formData.append('shps', id)
-      formData.append('sku_id', skuId)
+      formData.append('shps', item?.value?.id)
+      formData.append('sku_id', item?.value?.sku?.id)
       formData.append('priority', 1)
       formData.append('partition_id', this.$route.params.partitionId)
       AxiosMethod.form = formData

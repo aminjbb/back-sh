@@ -50,6 +50,7 @@
               color="primary500"
               height="40"
               rounded
+              :loading="loading"
               class="px-8 mt-1">
             تایید
           </v-btn>
@@ -82,7 +83,8 @@ export  default {
   },
   data(){
     return{
-      dialog:false
+      dialog:false,
+      loading: false
     }
   },
 
