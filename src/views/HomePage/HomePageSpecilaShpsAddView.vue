@@ -18,7 +18,7 @@
                     prepend-inner-icon-cb="mdi-map-marker"
                     rounded="lg"
                     :items="skuSearchList"
-                    item-title="id"
+                    item-title="name"
                     return-object
                     v-debounce="searchSku">
 
@@ -162,18 +162,25 @@ export default {
       AxiosMethod.end_point = `seller/sku/search?q=${search}`
       let data = await AxiosMethod.axios_get()
       if (data) {
-        this.skuSearchList = data.data.data
+        data.data.data.forEach(element=>{
+          const form = {
+            name: element?.sku?.label + '(' + element?.id + ')',
+            value:element
+          }
+          this.skuSearchList.push(form)
+        })
       }
     },
     async assignSku(item) {
+      console.log(item)
       const formData = new FormData()
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.store = this.$store
       AxiosMethod.token = this.$cookies.get('adminToken')
       AxiosMethod.end_point = `page/home/section/slider/${this.$route.params.specialId}/sku/attach`
-      formData.append('shps', item?.item?.value)
-      formData.append('sku_id', item?.item?.raw?.sku?.id)
+      formData.append('shps', item?.item?.value?.id)
+      formData.append('sku_id', item?.item?.value?.sku?.id)
       formData.append('priority', 1)
       formData.append('is_active', 0)
       AxiosMethod.form = formData
