@@ -72,7 +72,7 @@
           <v-card-actions class="pb-3">
             <v-row class="px-5 py-2" justify="end">
               <v-btn
-                  @click="temporarySave"
+                  @click="temporarySave()"
                   variant="outlined"
                   rounded
                   :loading="saveLoading"
