@@ -56,7 +56,7 @@
                       <v-list class="c-table__more-options">
                           <v-list-item>
                               <v-list-item-title>
-                                  <div class="ma-5 pointer" @click="openEditModal(item.data)">
+                                  <div class="ma-5 pointer" @click="openEditModal(item.data,image_id[item.index],description[item.index])">
                                         <span class="mr-2 text-grey-darken-1 t14 w300">
                                             ویرایش
                                         </span>
@@ -106,8 +106,7 @@
           </v-card-actions>
         </v-card>
 
-
-          <ModalEditBrand />
+        <ModalEditBrand @updateList="updateList"/>
       </div>
     </v-main>
   </v-layout>
@@ -134,7 +133,8 @@ export default {
         return{
             itemListTable: [],
             imageUrl: [],
-            image_id: []
+            image_id: [],
+            description:[]
         }
     },
   setup() {
@@ -180,16 +180,19 @@ export default {
       this.bannerHeader[index].show = value
     },
 
-    openEditModal(obejct) {
+    openEditModal(obejct, image_id, description) {
+      const obj = {...obejct , image :image_id, description:description}
       const form = {
           dialog: true,
-          object: obejct
+          object: obj
       }
       this.$store.commit('set_homePageBrandModal', form)
     },
+
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "page/home/section/brand/delete/"+id, true)
     },
+
     async updateImage(index, item, priority) {
           const formData = new FormData()
           formData.append('homepage_section_id', this.$route.params.sectionId)
@@ -219,7 +222,8 @@ export default {
               this.submitImage(index, file)
           }
           input.click();
-      },
+    },
+
     async submitImage(index, file) {
           var formData = new FormData();
           const AxiosMethod = new AxiosCall()
@@ -236,6 +240,12 @@ export default {
             this.image_id[index] = data.data.data.image_id
         }
       },
+
+      updateList(status) {
+        if (status === 'true') {
+          this.getHomeBrand();
+        }
+      },
   },
 
   mounted() {
@@ -246,6 +256,7 @@ export default {
     dataTableLength(val) {
       this.addPerPage(val)
     },
+
     confirmModal(val) {
       if (localStorage.getItem('deleteObject') === 'done') {
         if (!val) {
@@ -262,7 +273,6 @@ export default {
 
     homeBrand() {
           if(this.homeBrand.data) {
-
               this.itemListTable = []
               this.homeBrand.data.forEach((item) => {
                   this.itemListTable.push(
@@ -273,10 +283,11 @@ export default {
                           link: item.link,
                           priority: item.priority,
                           creator: item.creator?.first_name+' '+item.creator?.last_name,
-                       },)
+                       })
 
                   this.imageUrl.push(item.image.image_url)
-                  this.image_id.push(item.id)
+                  this.image_id.push(item.image_id)
+                  this.description.push(item.description)
               })
           }
       },

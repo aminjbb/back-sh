@@ -80,12 +80,12 @@ import {
 } from "@/assets/js/functions";
 
 import UploadFileSection from "@/components/Public/UploadFileSection.vue";
-import {log10} from "chart.js/helpers";
 export default {
 
   props: {
     status: null
   },
+
   components: {
     UploadFileSection,
 
@@ -106,6 +106,7 @@ export default {
 
     }
   },
+
   methods: {
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
@@ -126,23 +127,21 @@ export default {
         this.form.title = this.bannerObject.label
         this.form.priority = this.bannerObject.priority
         this.form.link = this.bannerObject.link
-        this.form.image = this.bannerObject.image_id
+        this.form.image = this.bannerObject.image
         this.form.desc = this.bannerObject.description
 
       } catch (error) {}
     },
   },
+
   mounted() {
       if (this.status == 'edit') this.setForm()
   },
+
   computed:{
     bannerObject(){
       return this.$store.getters['get_homePageBrandObject']
     }
   },
-
-  watch:{
-
-  }
 }
 </script>
