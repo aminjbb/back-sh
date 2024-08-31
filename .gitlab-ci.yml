@@ -72,7 +72,7 @@ deploy:
     # Create the directory structure for the branch
     - sudo mkdir -p $DEPLOY_DIR
 
-    - rsync -av --delete dist/ $DEPLOY_DIR
+    - sudo rsync -av --delete dist/ $DEPLOY_DIR
     - echo "Deployment complete."
   environment:
     name: production
