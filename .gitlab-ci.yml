@@ -5,6 +5,12 @@ stages:
   - build
   - deploy
 
+variables:
+  DOMAIN: "shavaz"
+  NGINX_SITES_AVAILABLE: "/etc/nginx/sites-available"
+  NGINX_SITES_ENABLED: "/etc/nginx/sites-enabled"
+  WWW_ROOT: "/var/www/${DOMAIN}/dev/backoffice"
+
 install_dependencies:
   stage: install
   script:
