@@ -1,0 +1,74 @@
+image: node:18
+
+stages:
+  - install
+  - build
+  - deploy
+
+install_dependencies:
+  stage: install
+  script:
+    - pwd
+    - npm install
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - ls
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+deploy:
+  stage: deploy
+  only:
+    - release
+  script:
+    - BRANCH_NAME=$(echo $CI_COMMIT_REF_NAME | sed 's/\//_/g')
+    - DEPLOY_DIR="${WWW_ROOT}/${BRANCH_NAME}"
+    - NGINX_FILE_NAME=${BRANCH_NAME}.backoffice.dev
+    - NGINX_CONF="${NGINX_SITES_AVAILABLE}/${NGINX_FILE_NAME}"
+
+    # Create Nginx config file for the branch with actual values
+    - |
+      sudo bash -c "cat > $NGINX_CONF" << EOF
+      server{
+        client_max_body_size 5000M;
+        fastcgi_send_timeout 36000;
+        fastcgi_read_timeout 36000;
+        fastcgi_connect_timeout 30000;
+        root $DEPLOY_DIR;
+        server_name $NGINX_FILE_NAME.shvz.ir;
+        # Add index.php to the list if you are using PHP
+        index index.html index.php index.htm index.nginx-debian.html;
+        location / {
+         try_files $uri $uri/ /index.html;
+        }
+      
+          #listen 443 ssl; # managed by Certbot
+          #ssl_certificate /etc/letsencrypt/live/seller.shvz.ir/fullchain.pem; # managed by Certbot
+          #ssl_certificate_key /etc/letsencrypt/live/seller.shvz.ir/privkey.pem; # managed by Certbot
+          #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+          ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+      
+      }
+      EOF
+
+    - if [ -L "${NGINX_SITES_ENABLED}/${NGINX_FILE_NAME}" ]; then
+        sudo rm "${NGINX_SITES_ENABLED}/${NGINX_FILE_NAME}";
+      fi
+
+    # Link the Nginx config file to sites-enabled
+    - sudo ln -s $NGINX_CONF ${NGINX_SITES_ENABLED}/${NGINX_FILE_NAME}
+
+    # Create the directory structure for the branch
+    - sudo mkdir -p $DEPLOY_DIR
+
+    - rsync -av --delete dist/ $DEPLOY_DIR
+    - echo "Deployment complete."
+  environment:
+    name: production
+    url: https://$NGINX_FILE_NAME.shvz.ir
+
