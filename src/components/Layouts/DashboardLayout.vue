@@ -149,7 +149,7 @@
                         <v-icon size="x-small">{{icon}}</v-icon>
                     </template>
 
-                    <span class="t14500">
+                    <span  class="t14 w500">
                         {{title}}
                     </span>
                 </v-list-item>
@@ -416,7 +416,7 @@
                 <v-icon size="x-small">{{ icon }}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                             {{title}}
                         </span>
             </v-list-item>
@@ -431,7 +431,7 @@
 
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                                 گزارشات
                             </span>
               </v-list-item>
@@ -449,7 +449,7 @@
                 <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                             {{title}}
                         </span>
             </v-list-item>
@@ -463,7 +463,7 @@
                   <v-icon>mdi-tooltip-text-outline</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                             پیام ها
                         </span>
               </v-list-item>
@@ -481,7 +481,7 @@
                 <v-icon size="x-small">{{icon}}</v-icon>
               </template>
 
-              <span class="t14500">
+              <span class="t14 w500">
                         {{title}}
                     </span>
             </v-list-item>
@@ -497,7 +497,7 @@
                     <v-icon>{{icon}}</v-icon>
                 </template>
 
-                <span class="t14500">
+                <span class="t14 w500">
                     {{title}}
                 </span>
             </v-list-item>
@@ -511,7 +511,7 @@
               <v-icon>{{icon}}</v-icon>
             </template>
 
-            <span class="t14500">
+            <span class="t14 w500">
                     {{title}}
                 </span>
           </v-list-item>
@@ -601,6 +601,7 @@ export default {
             ],
             marketplace: [
               ['فروشندگان ', '/seller/index', 'mdi-checkbox-blank-circle-outline'],
+              ['کارتابل ', '/seller-cartable/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             admins: [
                 ['مدیریت ادمین', '/admin/index', 'mdi-checkbox-blank-circle-outline'],

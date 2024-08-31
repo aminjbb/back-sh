@@ -35,11 +35,15 @@ export default function setup() {
     ]);
 
     const filterField = [
-        { name: 'تاریخ درخواست', type:'text', value:'first_name'},
-        { name: 'نام فروشنده', type:'text', value:'last_name'},
-        { name:'نوع فروشگاه', type: 'text', value:'phone_number'},
-        { name:'وضعیت', type: 'text', value:'phone_number'},
-        { name:'تعداد درخوست', type: 'text', value:'phone_number'},
+        { name: 'تاریخ درخواست', type:'date', value:'updated_at'},
+        { name: 'نام فروشنده', type:'text', value:'shopping_name'},
+        { name:'نوع فروشگاه', type: 'select', value:'type'},
+        { name:'وضعیت', type: 'select', value:'status'},
+        { name:'تعداد درخوست', type: 'text', value:'request_count'},
+    ];
+   const filterFieldRequest = [
+        { name: 'بخش درخواست', type:'select', value:'section'},
+        { name:'وضعیت', type: 'select', value:'status'},
     ];
 
     async function getSellersRequest () {
@@ -99,43 +103,8 @@ export default function setup() {
         const AxiosMethod = new AxiosCall()
         let query = route.query
         AxiosMethod.using_auth = true
-        if ( !route.query.per_page ){
-            if (!route.query.order && !route.query.order_type){
-                AxiosMethod.form = {
-                    ...query,
-                    page:page.value,
-                    per_page : dataTableLength.value,
-                    order:'created_at',
-                    order_type:'desc'
-                }
-            }
-            else {
-                AxiosMethod.form = {
-                    ...query,
-                    page:page.value,
-                    per_page : dataTableLength.value,
-                }
-            }
-
-        }
-        else{
-            if (!route.query.order && !route.query.order_type){
-                AxiosMethod.form = {
-                    ...query,
-                    page:page.value,
-                    per_page : dataTableLength.value,
-                    order:'created_at',
-                    order_type:'desc'
-                }
-            }
-            else{
-                AxiosMethod.form = {
-                    ...query,
-                    page:page.value,
-                    per_page : dataTableLength.value
-                }
-            }
-
+        AxiosMethod.form = {
+            ...query,
         }
         AxiosMethod.end_point = `seller/cartable/get/${route.params.sellerId}`
         AxiosMethod.token = cookies.cookies.get('adminToken')
@@ -152,6 +121,6 @@ export default function setup() {
 
 
     return {pageLength , filterField, dataTableLength , page  , header , loading , sellers , sellerRequests ,
-        getSellersRequest , isFilter , isFilterPage , requestListHeader , getRequests}
+        getSellersRequest , isFilter , isFilterPage , requestListHeader , getRequests , filterFieldRequest}
 }
 

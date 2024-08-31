@@ -36,6 +36,7 @@
           <v-btn
               @click="successAction()"
               :color="successColor"
+              :loading="loading"
               height="40"
               rounded
               class="px-8 mt-1">
@@ -44,6 +45,7 @@
           <v-btn
               :color="cancelColor"
               :variant="cancelVariant"
+              :loading="cancelLoading"
               height="40"
               rounded
               class="px-5 mt-1"
@@ -100,6 +102,7 @@ export  default {
   data(){
     return{
       loading:false,
+      cancelLoading:false,
       dialog:false
     }
   },

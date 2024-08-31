@@ -26,8 +26,10 @@
 
                 <PanelFilter
                     @resetPage="resetPage"
-                    :path="`wallet/index`"
+                    :path="`seller-cartable/index`"
                     :filterField="filterField"
+                    :typeItems="typeItems"
+                    :statusItems="statusItems"
 />
               </v-row>
             </v-col>
@@ -81,7 +83,7 @@
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
               <v-col cols="3">
-                <ModalExcelDownload getEndPoint="user/csv/get/export"/>
+                <ModalExcelDownload getEndPoint="seller/cartable/export"/>
               </v-col>
 
               <v-col cols="6">
@@ -136,6 +138,31 @@ const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vu
 import SellerCartable from '@/composables/SellerCartable.js'
 
 export default {
+  data(){
+    return{
+      perPageFilter:false,
+      typeItems:[
+        {
+          label:'حقیقی',
+          value:'genuine',
+        },
+        {
+          label:'حقوقی',
+          value:'legal',
+        },
+      ],
+      statusItems:[
+        {
+          label:'بررسی شده',
+          value:'reviewed',
+        },
+        {
+          label:'در انتظار بررسی',
+          value:'pending',
+        },
+      ],
+    }
+  },
   setup() {
     const {
       pageLength, filterField,
@@ -168,7 +195,7 @@ export default {
             shopping_name:element.shopping_name,
             seller:element.name,
             status:element.status,
-            seller_type : element.type === 'legal' ? 'حقیقی' : 'حقوقی' ,
+            seller_type : this.getSellerType( element.type),
             updated_at_fa :element.updated_at_fa,
             request_count : element.request_count
           }
@@ -196,10 +223,49 @@ export default {
         this.perPageFilter = false
       }, 1000)
     },
+    getSellerType(type){
+      if (type === 'legal') return 'حقوقی'
+      else if (type === 'genuine') return 'حقیقی'
+    }
+
   },
 
   mounted() {
     this.getSellersRequest()
+  },
+
+  watch:{
+    $route(){
+      this.getSellersRequest()
+    },
+    page(){
+      if (!this.perPageFilter){
+        this.getSellersRequest()
+      }
+    },
+
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
   }
 }
 </script>

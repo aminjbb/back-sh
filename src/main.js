@@ -47,6 +47,7 @@ const vuetify = createVuetify({
                     gray200: '#EEEEEE',
                     gray500: '#9E9E9E',
                     gray600: '#757575',
+                    gray700: '#FAFAFA',
                     Slate: '#110833',
                     DarkJungle: '#212121',
                     CharcoalGrey: '#424242',
