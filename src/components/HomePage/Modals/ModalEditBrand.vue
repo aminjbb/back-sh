@@ -63,13 +63,25 @@
 <script>
 import BrandForm from '@/components/HomePage/Forms/BrandForm.vue'
 import {AxiosCall} from "@/assets/js/axios_call";
+
 export  default {
   components:{
     BrandForm
   },
+
   data(){
     return{
       loading:false
+    }
+  },
+
+  computed:{
+    dialog(){
+      return this.$store.getters['get_homePageBrandModal']
+    },
+
+    brandObject(){
+      return this.$store.getters['get_homePageBrandObject']
     }
   },
 
@@ -77,11 +89,11 @@ export  default {
     validate(){
       this.$refs.BrandForm.$refs.addForm.validate()
       setTimeout(()=>{
-        if (this.$refs.BrandForm.valid) this.createBrand()
+        if (this.$refs.BrandForm.valid) this.updateBrand()
       }, 200)
     },
 
-    async createBrand(){
+    async updateBrand(){
       this.loading=true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
@@ -98,13 +110,23 @@ export  default {
       AxiosMethod.using_auth =true
       AxiosMethod.token =this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
+
       if (data) {
-        this.loading=false
-      this.close()
+        this.loading = false;
+        this.updateList('true');
+        this.close();
       }
       else{
         this.loading=false
       }
+    },
+
+    /**
+     * Update list
+     * @param {*} status
+    */
+    updateList(status) {
+      this.$emit('updateList', status);
     },
 
     close(){
@@ -115,14 +137,5 @@ export  default {
       this.$store.commit('set_homePageBrandModal' , form)
     }
   },
-
-  computed:{
-    dialog(){
-      return this.$store.getters['get_homePageBrandModal']
-    },
-    brandObject(){
-      return this.$store.getters['get_homePageBrandObject']
-    }
-  }
 }
 </script>
