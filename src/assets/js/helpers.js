@@ -2,7 +2,7 @@
 import {da} from "vuetify/locale";
 export const mixin = {
     methods: {
-        closeToast: function () {
+        closeToast: function (store) {
             setTimeout(() => {
                 let form = {
                     toast: false,
@@ -11,7 +11,7 @@ export const mixin = {
                 };
                 store.commit("set_toast", form);
             }, 4000);        },
-        openToast: function () {
+        openToast: function (store,text,color) {
             let form = {
                 toast: true,
                 toastText: text,
@@ -19,7 +19,7 @@ export const mixin = {
             };
             store.commit("set_toast", form);
             setTimeout(() => {
-                closeToast(store);
+                this.closeToast(store);
             }, 5000);        },
         isOdd: function () {
             return index % 2
