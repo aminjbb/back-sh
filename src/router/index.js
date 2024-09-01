@@ -312,6 +312,9 @@ import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseRetu
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModalView.vue";
+import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
+import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
 
 
 const router = createRouter({
@@ -2587,6 +2590,38 @@ const router = createRouter({
                         name: 'سفارش های کنسلی اسنپ پی'
                     }
                 },
+            ]
+        },
+        {
+            path: '/first-time-user',
+            meta: {
+                name: ' مارکتینگ'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'FirstTimeUserModalView',
+                    component: FirstTimeUserModalView,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'FirstTimeUserCreate',
+                    component: FirstTimeUserCreate,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                },
+                {
+                    path: ':id/modal-edit',
+                    name: 'FirstTimeUserEdit',
+                    component: FirstTimeUserEdit,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                }
             ]
         },
     ]

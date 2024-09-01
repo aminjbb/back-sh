@@ -2,7 +2,7 @@
   <div class="text-right">
     <v-dialog
         v-model="dialog"
-        ::width="width"
+        :width="width"
     >
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
@@ -85,7 +85,8 @@ export  default {
 
   data(){
     return{
-      loading:false
+      loading:false,
+      dialog:false
     }
   },
 
