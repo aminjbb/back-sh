@@ -73,6 +73,14 @@ deploy:
     - sudo mkdir -p $DEPLOY_DIR
 
     - sudo rsync -av --delete dist/ $DEPLOY_DIR
+
+    # Check the Nginx configuration
+    - sudo nginx -t
+
+    # If Nginx config is OK, reload Nginx
+    - if [ $? -eq 0 ]; then sudo systemctl reload nginx; else echo "Nginx configuration test failed" && exit 1; fi
+
+
     - echo "Deployment complete."
   environment:
     name: production
