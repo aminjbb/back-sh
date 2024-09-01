@@ -313,6 +313,11 @@ import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationList
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
 import RelocatingView from "@/views/Relocating/RelocatingView.vue";
+import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
+import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
+import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
+import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
+import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vue";
 
 
 const router = createRouter({
@@ -2602,6 +2607,54 @@ const router = createRouter({
                     component: RelocatingView,
                     meta: {
                         name: 'سفارش های کنسلی اسنپ پی'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/sub-title', // Zone
+            meta: {
+                name: 'پشتیبانی'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SubTitleTicket',
+                    component: SubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'createSubTitleTicket',
+                    component: CreateSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'sub-topic/:id',
+                    name: 'AddSubTopicToSubject',
+                    component: AddSubTopicToSubject,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'EditSubTitleTicket',
+                    component: EditSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
+                    }
+                },
+                {
+                    path: ':id/get',
+                    name: 'DetailSubTitleTicket',
+                    component: DetailSubTitleTicket,
+                    meta: {
+                        name: 'موضوع تیکت'
                     }
                 },
             ]

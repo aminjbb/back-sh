@@ -4,9 +4,8 @@ import { useRoute } from 'vue-router'
 import { useCookies } from "vue3-cookies";
 
 export default function setup() {
-    const ticket = ref([]);
-    const oneTicket =ref(null)
-    const allTickets = ref([]);
+    const subTitleTicket = ref([]);
+    const subTitleEdit =ref(null)
     const dataTableLength = ref(25)
     const pageLength = ref(1)
     const cookies = useCookies()
@@ -14,40 +13,30 @@ export default function setup() {
     const route = useRoute()
 
     const header =ref([
-        { name: 'ردیف', title: 'ردیف', show: true, key:'row', align:'center', sortable: false},
-        { name: 'شماره', title: 'شماره', show: true, key:'ticket_number', align:'center', sortable: false},
-        { name: 'شناسه', title: 'شناسه', show: true, key:'id', align:'center', sortable: false},
-        { name: 'عنوان', title: 'عنوان', show: true, key:'title', align:'center', sortable: false},
-        { name: 'اولویت', title: 'اولویت', show: true, key:'priority', align:'center', sortable: false,},
-        { name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', align:'center', sortable: false},
-        { name: 'ایجاد کننده', title: 'ایجاد کننده', show: true, key:'user_name', align:'center', sortable: false,},
-        { name: 'موبایل', title: 'موبایل', show: true, key:'mobile', align:'center', sortable: false},
-        { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, key:'created_at', align:'center'},
-        { name: 'تاریخ آخرین پیام', title: 'تاریخ آخرین پیام', show: true, key:'latest_date', align:'center'},
-        { name: 'عملیات',title: 'عملیات', key:'show', show: true , align:'center', sortable: false, fixed: true},
+        { name: 'ردیف', title: 'ردیف', show: true, align:'center', sortable: false, key: 'row'},
+        { name: 'شناسه', title: 'شناسه', show: true, align:'center', key: 'id'},
+        { name: 'عنوان موضوع', title: 'عنوان موضوع', show: true, align:'center', key: 'title'},
+        { name: 'سازنده', title: 'سازنده', show: true, align:'center', key: 'creator'},
+        { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, align:'center', key: 'created_at'},
+        { name: 'نمایش', title: 'نمایش', show: true, align:'center', key: 'show'},
+        { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
+        { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50', fixed: true}
     ]);
 
     const filterField = [
         { name:'شناسه' , type:'text', value:'id'},
-        { name: 'شماره تیکت', type:'text', value:'code'},
-        { name: 'عنوان تیکت', type:'text', value:'title'},
-        { name: 'کاربر', type:'select', value:'user_id'},
-        { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
-        { name: 'وضعیت', type:'select', value:'status'},
-        { name: 'اولویت', type:'select', value:'priority'},
+        { name: 'عنوان موضوع', type:'text', value:'title'},
+        { name: 'سازنده', type:'auto-complete', value:'creator_id'},
+        { name:'تاریخ ساخت', type: 'date', value:'created_at'},
+        { name:'تاریخ به روزرسانی', type: 'date', value:'updated_at'},
+        { name: 'وضعیت', type:'select', value:'is_active'},
     ];
 
-    const item = []
     const loading = ref(false)
     const isFilter =ref(false)
     const isFilterPage =ref(false)
 
-    /**
-     * Get All tickets 
-     * Can filter by `user_id`
-     * @param {*} query 
-     */
-    async function getTicketList() {
+    async function getAllSubTitleTicket() {
         loading.value = true
 
         const AxiosMethod = new AxiosCall()
@@ -92,12 +81,12 @@ export default function setup() {
 
         }
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `ticket/admin/crud/index/`
+        AxiosMethod.end_point = 'ticket/topic/crud/index'
 
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
-            allTickets.value = data.data.data
+            subTitleTicket.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false
@@ -106,34 +95,27 @@ export default function setup() {
         }
     };
 
-    /**
-     * Get a ticket information
-     * @param {*} query 
-     */
-    async function getTicket() {
+    async function getSubTitle () {
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.using_auth = true
+        AxiosMethod.end_point = `ticket/topic/crud/get/${route.params.id}`
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `ticket/admin/crud/get/${route.params.ticketId}`
+        AxiosMethod.using_auth =  true
         let data = await AxiosMethod.axios_get()
         if (data) {
-            oneTicket.value = data.data
+            subTitleEdit.value = data.data
         }
+
     }
 
     return {
-        oneTicket,
         header,
-        item,
-        loading,
-        dataTableLength,
-        pageLength,
-        page,
         filterField,
-        ticket,
-        getTicket,
-        allTickets,
-        getTicketList
+        dataTableLength,
+        page,
+        subTitleTicket,
+        getAllSubTitleTicket,
+        getSubTitle,
+        subTitleEdit
     }
 }
 
