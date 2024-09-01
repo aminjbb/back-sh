@@ -31,4 +31,3 @@ coverage
 .env
 .env.*
 !.env.example
-.gitlab-ci.yml
