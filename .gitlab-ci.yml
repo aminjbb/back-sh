@@ -13,12 +13,16 @@ variables:
 
 install_dependencies:
   stage: install
+  only:
+    - release
   script:
     - pwd
     - npm install
 
 build:
   stage: build
+  only:
+    - release
   script:
     - npm ci
     - ls
