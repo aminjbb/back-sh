@@ -207,8 +207,10 @@
           </span>
         </div>
 
-        <ckeditor v-model="specsFromModal.specifications" @update:modelValue="saveCreateFromModel()"
-                  :config="editorConfig" class="cke_rtl mb-15"/>
+<!--        <ckeditor v-model="specsFromModal.specifications" @update:modelValue="saveCreateFromModel()"-->
+<!--                  :config="editorConfig" class="cke_rtl mb-15"/>-->
+        <TinymceVue @input="testIt" v-if="load" :value="specsFromModal.specifications"  id="d2" class="mb-8" :other_options="options">
+        </TinymceVue>
       </div>
 
       <div>
@@ -329,6 +331,7 @@ import UploadFileSection from "@/components/Public/UploadFileSection.vue";
 <script>
 import {AxiosCall} from "@/assets/js/axios_call";
 import {openConfirm} from "@/assets/js/functions";
+import TinymceVue from "@/components/Public/TinymceVue.vue";
 
 export default {
 
@@ -340,10 +343,11 @@ export default {
     volumeUnitList: [],
     sku:null
   },
-
+  components:{
+    TinymceVue
+  },
   watch:{
     sku(val){
-      console.log(val , 'sku')
       this.setForm()
     },
 
@@ -359,6 +363,10 @@ export default {
   },
 
   data: () => ({
+    options: {
+      height: 500,
+    },
+    load:false,
     lables: {
       height: 'ارتقاع',
       width: 'عرض',
@@ -402,6 +410,9 @@ export default {
   }),
 
   methods: {
+    testIt(e){
+      this.specsFromModal.specifications = e
+    },
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
     },
@@ -508,6 +519,9 @@ export default {
       this.specsFromModal.length = this.lengthLis[0].value
       this.specsFromModal.weight = this.weightList[0].value
       this.specsFromModal.volume = this.volumeUnitList[0].value
+      setTimeout(() => {
+        this.load = true
+      }, 1000);
     } , 2000)
   },
 
