@@ -388,8 +388,11 @@ export default {
             }).catch((err) => {
               this.openToast(this.$store , err.response.data.message , 'error')
               this.errorMassage = err.response.data.message
+
             }).finally(()=>{
               this.loading = false
+              this.shpssBarCode =''
+
             })
       }
 
@@ -415,6 +418,8 @@ export default {
             this.errorMassage = err.response.data.message
           }).finally(()=>{
             this.loading = false
+            this.placementBarcode = ''
+
           })
     },
 
@@ -433,7 +438,6 @@ export default {
             this.shpsDetail = response.data.data[response.data.data.length -1]
             if (response.data.data.length == 0) this.hasTask = false
             else this.hasTask = true
-
           }).catch((err) => {
             if (err.response.status === 400) this.hasTask = false
           }).finally(()=>{
