@@ -36,18 +36,23 @@
 
             <div style="text-align: center" v-if="shpssDetail">
               <barcode
-
                   :barcodeValue="barcode"
                   :format="'CODE128'"
                   :index="1"
                   :shps="shpssDetail?.shps?.id"
-                  :text="shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)"
-              >
-
+                  :text="shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)">
               </barcode>
-              <span>
-                  {{shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)}}
+              <div>
+                <span>
+                {{shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)}}
               </span>
+              </div>
+              <div class="mt-2">
+                <span>
+                shps :{{shpssDetail?.shps?.id}}
+              </span>
+              </div>
+
             </div>
             <div class="text-center" v-else-if="placementDetail">
               <barcode
@@ -102,6 +107,7 @@
             <barcode
                 v-else
                 :barcodeValue="barcode"
+                :shps="barCode?.shps?.id"
                 :format="'CODE128'"
                 :index="1"
                 text=""
@@ -196,20 +202,23 @@ export default {
     /**
      * get Detail shpss barcode
      */
+
     async getShpssDetail() {
       const AxiosMethod = new AxiosCall();
       AxiosMethod.using_auth = true;
-      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.token = this.$cookies.get('adminToken');
       AxiosMethod.end_point = `shps/item/detail?barcode=${this.barcode}`;
-      AxiosMethod.store = this.$store
-      AxiosMethod.toast_error = true
-      const data = await AxiosMethod.axios_get()
-      if (data) {
-        this.shpssDetail = data?.data
-        console.log(this.shpssDetail , 'this.shpssDetail')
-        this.dialog = true
-      }
+      AxiosMethod.store = this.$store;
+      AxiosMethod.toast_error = true;
+      try {
+        const data = await AxiosMethod.axios_get();
+        if (data) {
+          this.shpssDetail = data?.data;
+          this.dialog = true;
+        }
+      } catch (error) {}
     },
+
     /**
      * get Detail placement barcode
      */
