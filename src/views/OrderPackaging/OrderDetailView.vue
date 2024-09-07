@@ -53,20 +53,20 @@
         </v-card>
 
         <v-card class="ma-5 mt-0 br-12 flex-grow-1 d-flex flex-column align-stretch">
-<!--          <ShTable-->
-<!--              class="flex-grow-1"-->
-<!--              :headers="detailInfo"-->
-<!--              :items="itemListTable"-->
-<!--              :loading="loading"-->
-<!--          />-->
-          <Table
-              ref="oredrDetailFunc"
+          <ShTable
               class="flex-grow-1"
-              :header="detailInfo"
-              :items="orderDetail"
+              :headers="detailInfo"
+              :items="itemListTable"
               :loading="loading"
-              deletePath="report/crud/delete/"
           />
+<!--          <Table-->
+<!--              ref="oredrDetailFunc"-->
+<!--              class="flex-grow-1"-->
+<!--              :header="detailInfo"-->
+<!--              :items="orderDetail"-->
+<!--              :loading="loading"-->
+<!--              deletePath="report/crud/delete/"-->
+<!--          />-->
           <v-divider/>
 
           <v-card-actions class="pb-3">
