@@ -255,7 +255,7 @@ export default {
     },
 
     removeItem(id) {
-      openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", 'report/crud/delete/' + id, true);
+      this.openConfirm(this.$store, "با حذف کالا دیگر به جزئیات آن دسترسی نخواهید داشت.آیا از انجام این کار اطمینان دارید؟", "حذف کالا", "delete", 'report/crud/delete/' + id, true);
     },
     getPackageType(type){
       if(type === 'bulk'){

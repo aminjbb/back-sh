@@ -84,6 +84,7 @@ import Cargo from '@/composables/Cargo';
 import {AxiosCall} from "@/assets/js/axios_call";
 import {openToast} from "@/assets/js/functions";
 import ShTable from "@/components/Components/Table/sh-table.vue";
+import {Logger} from "sass";
 
 export default {
   components: {
@@ -106,10 +107,6 @@ export default {
       closeCargoDisabled: false,
       itemsListTable: [],
       form:[
-        {
-          sent_to_warehouse:false,
-          loading:false
-        }
       ],
     }
   },
@@ -214,17 +211,18 @@ export default {
   watch: {
     cargoReceivingList() {
       this.itemsListTable = [];
-
       this.cargoReceivingList.forEach((element) => {
-        let form = {};
-
+        let form = [];
         if (element.status == 'received_by_warehouse') {
           form = {
+            id:element.id,
             sent_to_warehouse: true,
             loading: false
           };
-        } else {
+        }
+        else {
           form = {
+            id:element.id,
             sent_to_warehouse: false,
             loading: false
           };
@@ -238,9 +236,8 @@ export default {
           shps_count: element.shps_count,
           custom: element.status,
         });
-
-        this.checkDisabledCloseCargo(this.form);
       });
+      this.checkDisabledCloseCargo(this.form);
     },
   }
 
