@@ -42,10 +42,17 @@
                   :shps="shpssDetail?.shps?.id"
                   :text="shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)">
               </barcode>
-              <span>
+              <div>
+                <span>
                 {{shpssDetail?.shps?.sku?.sku?.label.substring(0, 45)}}
-                {{shpssDetail?.shps?.id}}
               </span>
+              </div>
+              <div class="mt-2">
+                <span>
+                shps :{{shpssDetail?.shps?.id}}
+              </span>
+              </div>
+
             </div>
             <div class="text-center" v-else-if="placementDetail">
               <barcode
@@ -100,6 +107,7 @@
             <barcode
                 v-else
                 :barcodeValue="barcode"
+                :shps="barCode?.shps?.id"
                 :format="'CODE128'"
                 :index="1"
                 text=""
