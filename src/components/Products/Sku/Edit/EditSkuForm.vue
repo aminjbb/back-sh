@@ -4,288 +4,288 @@
         class="ma-5 br--12"
         height="580"
     >
-    <v-form
-        class="create-product__specs-form scroller"
-    >
-      <v-row>
-        <v-col cols="12" md="6">
-          <div class="text-right my-2 w-100">
+      <v-form
+          class="create-product__specs-form scroller"
+      >
+        <v-row>
+          <v-col cols="12" md="6">
+            <div class="text-right my-2 w-100">
             <span class="t12 w500">
                 {{ lables.name }}
 
             </span>
-          </div>
+            </div>
 
-          <v-text-field
-              v-model="specsFromModal.name"
-              class="t1330"
-              variant="outlined"
-              :items="heightList"
-              :placeholder="lables.name"
-              @update:modelValue="saveCreateFromModel();"
-          />
-        </v-col>
+            <v-text-field
+                v-model="specsFromModal.name"
+                class="t1330"
+                variant="outlined"
+                :items="heightList"
+                :placeholder="lables.name"
+                @update:modelValue="saveCreateFromModel();"
+            />
+          </v-col>
 
-        <v-col cols="12" md="6">
-          <div class="text-right my-2 w-100">
+          <v-col cols="12" md="6">
+            <div class="text-right my-2 w-100">
             <span class="t12 w500">
                 {{ lables.label }}
 
             </span>
-          </div>
+            </div>
 
-          <v-text-field
-              v-model="specsFromModal.label"
-              class="t1330"
-              variant="outlined"
-              :placeholder="lables.label"
-              @update:modelValue="saveCreateFromModel();"
-          />
-        </v-col>
-      </v-row>
-      <v-row class="volume-list">
-        <v-col cols="12" md="4">
-          <div class="text-right my-2 w-100">
+            <v-text-field
+                v-model="specsFromModal.label"
+                class="t1330"
+                variant="outlined"
+                :placeholder="lables.label"
+                @update:modelValue="saveCreateFromModel();"
+            />
+          </v-col>
+        </v-row>
+        <v-row class="volume-list">
+          <v-col cols="12" md="4">
+            <div class="text-right my-2 w-100">
             <span class="t12 w500">
                 {{ lables.height }}
 
             </span>
-          </div>
+            </div>
 
-          <v-row>
-            <v-col cols="7">
-              <v-select
-                  v-model="specsFromModal.height"
-                  class="t1330"
-                  variant="outlined"
-                  :items="heightList"
-                  :placeholder="lables.height"
-                  @update:modelValue="saveCreateFromModel();"
-              />
-            </v-col>
+            <v-row>
+              <v-col cols="7">
+                <v-select
+                    v-model="specsFromModal.height"
+                    class="t1330"
+                    variant="outlined"
+                    :items="heightList"
+                    :placeholder="lables.height"
+                    @update:modelValue="saveCreateFromModel();"
+                />
+              </v-col>
 
-            <v-col cols="5">
-              <v-text-field
-                  v-model="specsFromModal.heightValue"
-                  clearable
-                  variant="outlined"
-                  type="number"
-                  @update:modelValue="saveCreateFromModel()"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+              <v-col cols="5">
+                <v-text-field
+                    v-model="specsFromModal.heightValue"
+                    clearable
+                    variant="outlined"
+                    type="number"
+                    @update:modelValue="saveCreateFromModel()"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
 
-        <v-col cols="12" md="4">
-          <div class="text-right my-2">
+          <v-col cols="12" md="4">
+            <div class="text-right my-2">
             <span class="t12 w500">
                 {{ lables.width }}
             </span>
-          </div>
+            </div>
 
-          <v-row>
-            <v-col cols="7">
-              <v-select
-                  v-model="specsFromModal.width"
-                  class="t1330"
-                  variant="outlined"
-                  :items="widthList"
-                  :placeholder="lables.width"
-                  @update:modelValue="saveCreateFromModel();"
-              />
-            </v-col>
+            <v-row>
+              <v-col cols="7">
+                <v-select
+                    v-model="specsFromModal.width"
+                    class="t1330"
+                    variant="outlined"
+                    :items="widthList"
+                    :placeholder="lables.width"
+                    @update:modelValue="saveCreateFromModel();"
+                />
+              </v-col>
 
-            <v-col cols="5">
-              <v-text-field
-                  v-model="specsFromModal.widthValue"
-                  clearable
-                  variant="outlined"
-                  type="number"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+              <v-col cols="5">
+                <v-text-field
+                    v-model="specsFromModal.widthValue"
+                    clearable
+                    variant="outlined"
+                    type="number"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
 
-        <v-col cols="12" md="4">
-          <div class="text-right my-2">
+          <v-col cols="12" md="4">
+            <div class="text-right my-2">
             <span class="t12 w500">
                 {{ lables.length }}
             </span>
-          </div>
+            </div>
 
-          <v-row>
-            <v-col cols="7">
-              <v-select
-                  v-model="specsFromModal.length"
-                  class="t1330"
-                  variant="outlined"
-                  :items="lengthLis"
-                  :placeholder="lables.length"
-                  @update:modelValue="saveCreateFromModel();"
-              />
-            </v-col>
+            <v-row>
+              <v-col cols="7">
+                <v-select
+                    v-model="specsFromModal.length"
+                    class="t1330"
+                    variant="outlined"
+                    :items="lengthLis"
+                    :placeholder="lables.length"
+                    @update:modelValue="saveCreateFromModel();"
+                />
+              </v-col>
 
-            <v-col cols="5">
-              <v-text-field
-                  v-model="specsFromModal.lengthValue"
-                  clearable
-                  variant="outlined"
-                  type="number"
-                  @update:modelValue="saveCreateFromModel()"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+              <v-col cols="5">
+                <v-text-field
+                    v-model="specsFromModal.lengthValue"
+                    clearable
+                    variant="outlined"
+                    type="number"
+                    @update:modelValue="saveCreateFromModel()"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
 
-        <v-col cols="12" md="4">
-          <div class="text-right my-2">
+          <v-col cols="12" md="4">
+            <div class="text-right my-2">
             <span class="t12 w500">
                 {{ lables.weight }}
             </span>
-          </div>
+            </div>
 
-          <v-row>
-            <v-col cols="7">
-              <v-select
-                  v-model="specsFromModal.weight"
-                  class="t1330"
-                  variant="outlined"
-                  :items="weightList"
-                  :placeholder="lables.weight"
-                  @update:modelValue="saveCreateFromModel();"
-              />
-            </v-col>
+            <v-row>
+              <v-col cols="7">
+                <v-select
+                    v-model="specsFromModal.weight"
+                    class="t1330"
+                    variant="outlined"
+                    :items="weightList"
+                    :placeholder="lables.weight"
+                    @update:modelValue="saveCreateFromModel();"
+                />
+              </v-col>
 
-            <v-col cols="5">
-              <v-text-field
-                  v-model="specsFromModal.weightValue"
-                  clearable
-                  variant="outlined"
-                  type="number"
-                  @update:modelValue="saveCreateFromModel()"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+              <v-col cols="5">
+                <v-text-field
+                    v-model="specsFromModal.weightValue"
+                    clearable
+                    variant="outlined"
+                    type="number"
+                    @update:modelValue="saveCreateFromModel()"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
 
-        <v-col cols="12" md="4">
-          <div class="text-right my-2">
+          <v-col cols="12" md="4">
+            <div class="text-right my-2">
             <span class="t12 w500">
                 {{ lables.volume }}
             </span>
-          </div>
+            </div>
 
-          <v-row>
-            <v-col cols="7">
-              <v-select
-                  v-model="specsFromModal.volume"
-                  class="t1330"
-                  variant="outlined"
-                  :items="volumeUnitList"
-                  :placeholder="lables.volume"
-                  @update:modelValue="saveCreateFromModel(index);"
-              />
-            </v-col>
+            <v-row>
+              <v-col cols="7">
+                <v-select
+                    v-model="specsFromModal.volume"
+                    class="t1330"
+                    variant="outlined"
+                    :items="volumeUnitList"
+                    :placeholder="lables.volume"
+                    @update:modelValue="saveCreateFromModel(index);"
+                />
+              </v-col>
 
-            <v-col cols="5">
-              <v-text-field
-                  v-model="specsFromModal.volumeValue"
-                  clearable
-                  variant="outlined"
-                  type="number"
-                  @update:modelValue="saveCreateFromModel(index)"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
+              <v-col cols="5">
+                <v-text-field
+                    v-model="specsFromModal.volumeValue"
+                    clearable
+                    variant="outlined"
+                    type="number"
+                    @update:modelValue="saveCreateFromModel(index)"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
 
-      <div>
-        <div class="text-right my-2 w-100">
+        <div>
+          <div class="text-right my-2 w-100">
           <span class="t12 w500">
               {{ lables.specifications }}
           </span>
+          </div>
+
+          <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="d2" class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
         </div>
 
-<!--        <ckeditor v-model="specsFromModal.specifications" @update:modelValue="saveCreateFromModel()"-->
-<!--                  :config="editorConfig" class="cke_rtl mb-15"/>-->
-        <TinymceVue @input="testIt" v-if="load" :value="specsFromModal.specifications"  id="d2" class="mb-8" :other_options="options">
-        </TinymceVue>
-      </div>
-
-      <div>
-        <div class="text-right my-2 w-100">
+        <div>
+          <div class="text-right my-2 w-100">
           <span class="t12 w500">
               {{ lables.advantages }}
           </span>
+          </div>
+
+          <v-textarea
+              :placeholder="lables.advantages"
+              variant="outlined"
+              rows="8"
+              v-model="specsFromModal.advantages"
+              @update:modelValue="saveCreateFromModel()"
+          />
         </div>
 
-        <v-textarea
-            :placeholder="lables.advantages"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.advantages"
-            @update:modelValue="saveCreateFromModel()"
-        />
-      </div>
-
-      <div>
-        <div class="text-right my-2 w-100">
+        <div>
+          <div class="text-right my-2 w-100">
           <span class="t12 w500">
               {{ lables.disAdvantages }}
           </span>
+          </div>
+
+          <v-textarea
+              :placeholder="lables.disAdvantages"
+              variant="outlined"
+              rows="8"
+              v-model="specsFromModal.disAdvantages"
+              @update:modelValue="saveCreateFromModel()"
+          />
         </div>
 
-        <v-textarea
-            :placeholder="lables.disAdvantages"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.disAdvantages"
-            @update:modelValue="saveCreateFromModel()"
-        />
-      </div>
-
-      <div>
-        <div class="text-right my-2 w-100">
+        <div>
+          <div class="text-right my-2 w-100">
             <span class="t12 w500">
                 {{ lables.instructions }}
             </span>
+          </div>
+
+          <v-textarea
+              :placeholder="lables.instructions"
+              variant="outlined"
+              rows="8"
+              v-model="specsFromModal.instructions"
+              @update:modelValue="saveCreateFromModel()"
+          />
         </div>
 
-        <v-textarea
-            :placeholder="lables.instructions"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.instructions"
-            @update:modelValue="saveCreateFromModel()"
-        />
-      </div>
-
-      <div>
-        <div class="text-right my-2 w-100">
+        <div>
+          <div class="text-right my-2 w-100">
             <span class="t12 w500">
                 {{ lables.usage }}
             </span>
+          </div>
+
+          <v-textarea
+              :placeholder="lables.usage"
+              variant="outlined"
+              rows="8"
+              v-model="specsFromModal.usage"
+              @update:modelValue="saveCreateFromModel()"
+          />
         </div>
 
-        <v-textarea
-            :placeholder="lables.usage"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.usage"
-            @update:modelValue="saveCreateFromModel()"
-        />
-      </div>
 
-
-      <div>
-        <UploadFileSection module="sku" @getImage="getSkuImage"/>
-        <div class="d-flex align-center mt-5" v-if="specsFromModal.skuImage">
-          <span>IMG-{{ specsFromModal.skuImage }}</span>
-          <span class="mr-15"><v-icon color="error" @click="removeItem(specsFromModal.skuImage)">mdi-delete</v-icon></span>
+        <div>
+          <UploadFileSection module="sku" @getImage="getSkuImage"/>
+          <div class="d-flex align-center mt-5" v-if="specsFromModal.skuImage">
+            <span>IMG-{{ specsFromModal.skuImage }}</span>
+            <span class="mr-15"><v-icon color="error"
+                                        @click="removeItem(specsFromModal.skuImage)">mdi-delete</v-icon></span>
+          </div>
         </div>
-      </div>
-    </v-form>
+      </v-form>
       <footer class="create-product__actions ">
         <v-row justify="space-between" class="px-8 pt-8">
           <div>
@@ -341,17 +341,17 @@ export default {
     lengthLis: [],
     weightList: [],
     volumeUnitList: [],
-    sku:null
+    sku: null
   },
-  components:{
+  components: {
     TinymceVue
   },
-  watch:{
-    sku(val){
+  watch: {
+    sku(val) {
       this.setForm()
     },
 
-    confirmModal(val){
+    confirmModal(val) {
       if (!val) {
         if (localStorage.getItem('deleteObject') === 'done') {
           this.specsFromModal.skuImage = null
@@ -366,7 +366,7 @@ export default {
     options: {
       height: 500,
     },
-    load:false,
+    load: false,
     lables: {
       height: 'ارتقاع',
       width: 'عرض',
@@ -378,14 +378,14 @@ export default {
       disAdvantages: 'معایب',
       instructions: 'روش استفاده',
       usage: 'موارد استفاده',
-      name:'نام انگلیسی محصول',
-      label:'نام فارسی محصول',
+      name: 'نام انگلیسی محصول',
+      label: 'نام فارسی محصول',
     },
 
     specsFromModal: {
-      skuImage:null,
-      name:null,
-      label:null,
+      skuImage: null,
+      name: null,
+      label: null,
       specifications: 'مشخصات',
       advantages: '',
       disAdvantages: '',
@@ -410,13 +410,13 @@ export default {
   }),
 
   methods: {
-    testIt(e){
+    fillDescription(e) {
       this.specsFromModal.specifications = e
     },
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
     },
-    getSkuImage(image){
+    getSkuImage(image) {
       this.specsFromModal.skuImage = image.data.data.image_id
     },
     saveCreateFromModel() {
@@ -431,7 +431,7 @@ export default {
       }
     },
 
-    setForm(){
+    setForm() {
       this.specsFromModal.label = this.sku.label
       this.specsFromModal.name = this.sku.name
       this.specsFromModal.specifications = this.sku.story
@@ -444,18 +444,33 @@ export default {
       this.specsFromModal.lengthValue = this.length
       this.specsFromModal.weightValue = this.weight
       this.specsFromModal.volumeValue = this.volumeUnit
-      this.specsFromModal.skuImage= this.sku.image_id
+      this.specsFromModal.skuImage = this.sku.image_id
 
 
     },
-    async editSku(){
-      let sizes =[]
+    async editSku() {
+      let sizes = []
       const formData = new FormData()
-      if (this.specsFromModal.widthValue && this.specsFromModal.width) sizes.push({label: this.specsFromModal.width, value: this.specsFromModal.widthValue})
-      if (this.specsFromModal.weightValue && this.specsFromModal.weight) sizes.push({label: this.specsFromModal.weight, value: this.specsFromModal.weightValue})
-      if (this.specsFromModal.volumeValue && this.specsFromModal.volume) sizes.push({label: this.specsFromModal.volume, value: this.specsFromModal.volumeValue})
-      if (this.specsFromModal.lengthValue && this.specsFromModal.length) sizes.push({label: this.specsFromModal.length, value: this.specsFromModal.lengthValue})
-      if (this.specsFromModal.heightValue && this.specsFromModal.height) sizes.push({label: this.specsFromModal.height, value: this.specsFromModal.heightValue})
+      if (this.specsFromModal.widthValue && this.specsFromModal.width) sizes.push({
+        label: this.specsFromModal.width,
+        value: this.specsFromModal.widthValue
+      })
+      if (this.specsFromModal.weightValue && this.specsFromModal.weight) sizes.push({
+        label: this.specsFromModal.weight,
+        value: this.specsFromModal.weightValue
+      })
+      if (this.specsFromModal.volumeValue && this.specsFromModal.volume) sizes.push({
+        label: this.specsFromModal.volume,
+        value: this.specsFromModal.volumeValue
+      })
+      if (this.specsFromModal.lengthValue && this.specsFromModal.length) sizes.push({
+        label: this.specsFromModal.length,
+        value: this.specsFromModal.lengthValue
+      })
+      if (this.specsFromModal.heightValue && this.specsFromModal.height) sizes.push({
+        label: this.specsFromModal.height,
+        value: this.specsFromModal.heightValue
+      })
       /**
        * set sizes formData from sizes array
        */
@@ -490,7 +505,7 @@ export default {
         this.loading = false
       }
     },
-    async attachImage(){
+    async attachImage() {
       const formData = new FormData()
       formData.append('image_id', this.specsFromModal.skuImage)
 
@@ -513,7 +528,7 @@ export default {
   },
 
   mounted() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.specsFromModal.height = this.heightList[0].value
       this.specsFromModal.width = this.widthList[0].value
       this.specsFromModal.length = this.lengthLis[0].value
@@ -522,11 +537,11 @@ export default {
       setTimeout(() => {
         this.load = true
       }, 1000);
-    } , 2000)
+    }, 2000)
   },
 
-  computed:{
-    confirmModal(){
+  computed: {
+    confirmModal() {
       return this.$store.getters['get_confirmForm'].confirmModal
     },
     /**
@@ -546,7 +561,7 @@ export default {
      */
     width() {
       try {
-        const filterWidth= this.sku.sizes.find(el => el.name === 'width')
+        const filterWidth = this.sku.sizes.find(el => el.name === 'width')
         return filterWidth.value
       } catch (error) {
         return ''

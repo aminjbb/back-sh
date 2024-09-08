@@ -110,9 +110,6 @@ export default {
     this.content = this.value;
   },
   mounted() {
-    setTimeout(()=>{
-      console.log( this.content   ,' this.value')
-    },1000)
     this.init();
   },
   beforeDestroy() {
