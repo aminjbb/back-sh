@@ -80,6 +80,7 @@
 
 <script>
 import {openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "SingleEditModal",
@@ -129,7 +130,10 @@ export default {
          this.loading = false
        }
      }
-     catch (e) {}
+     catch (e) {
+       console.log(e)
+       this.loading = false
+     }
     },
 
     setForm(){

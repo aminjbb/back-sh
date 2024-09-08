@@ -20,7 +20,7 @@
                     :isDeliveryCode="true"
                     @updateList="updateDeliveryCodeList"
                     :getEndPoint="'admin/order/delivery/barcode/template'"
-                    :uploadEndpoint="'/admin/order/delivery/barcode/bulk'"/>
+                    :uploadEndpoint="'admin/order/delivery/barcode/bulk'"/>
 
                 <v-btn
                     color="primary500"
@@ -42,12 +42,12 @@
               <v-row justify="end">
                 <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                <PanelFilter
-                    @resetPage="resetPage"
-                    path="delivery-code/index"
-                    :filterField="filterField"
-                    :page="page"
-                    :perPage="dataTableLength"/>
+<!--                <PanelFilter-->
+<!--                    @resetPage="resetPage"-->
+<!--                    path="delivery-code/index"-->
+<!--                    :filterField="filterField"-->
+<!--                    :page="page"-->
+<!--                    :perPage="dataTableLength"/>-->
               </v-row>
             </v-col>
           </v-row>
@@ -120,6 +120,8 @@ const ModalColumnFilter = defineAsyncComponent(()=> import('@/components/Public/
 const Table = defineAsyncComponent(() => import ('@/components/DeliveryCode/Table/Table.vue'))
 const ModalExcelDownload = defineAsyncComponent(() => import ('@/components/Public/ModalExcelDownload.vue'))
 const SingleEditModal = defineAsyncComponent(() => import ('@/components/DeliveryCode/Modal/SingleEditModal.vue'))
+import {AxiosCall} from "@/assets/js/axios_call";
+
 import DeliveryCode from "@/composables/DeliveryCode"
 
 export default {
@@ -202,22 +204,16 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data){
           this.editDeliveryCodeLoading = false
-          this.deliveryList.forEach((element , index)=>{
-            this.$refs.deliveryCodeTable.changeStatus(index , 'موفق')
-          })
         }
         else{
           this.editDeliveryCodeLoading = false
-          this.deliveryList.forEach((element , index)=>{
-            this.$refs.deliveryCodeTable.changeStatus(index , 'ناموفق')
-          })
+
         }
       }
       catch (e) {
+        console.log(e)
         this.editDeliveryCodeLoading = false
-        this.deliveryList.forEach((element , index)=>{
-          this.$refs.deliveryCodeTable.changeStatus(index , 'ناموفق')
-        })
+
       }
     }
   },
