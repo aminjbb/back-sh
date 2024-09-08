@@ -44,6 +44,7 @@
               class="flex-grow-1"
               :headers="header"
               :items="firstTimeUserList"
+              :activePath="`page/modal/crud/update/activation/`"
               :page="page"
               :perPage="dataTableLength"
               :loading="loading">
@@ -70,7 +71,7 @@
                   <v-list-item>
                     <v-list-item-title>
                       <div class="ml-16">
-                        <div class=" pointer" @click=print(item.data.id)>
+                        <div class="pointer" @click="$router.push(`/first-time-user/${item.data.id}/modal-edit`)">
                           <v-icon size="x-small" class="text-grey-darken-1">
                             mdi-text-box-multiple-outline
                           </v-icon>
@@ -179,7 +180,7 @@ export default {
       removeTableItem: {
         text: "کاربر عزیز ایا از حذف مودال {{ عنوان مدال }} اطمینان دارید ؟",
         title: "حذف آیتم",
-        path: `admin/crud/delete/`,
+        path: `page/modal/crud/delete/`,
       },
     }
   },
@@ -208,11 +209,12 @@ export default {
   //         this.itemListTable.push(
   //             {
   //               id: item.id,
-  //               title:item,
-  //               discount_code: item,
-  //               description: item,
-  //               image: item,
-  //               created_at: item,
+  //               name:item.name,
+  //               voucher_code: item.voucher_code,
+  //               content: item.content,
+  //               image: item.image_url,
+  //               created_at: item.created_at_fa,
+  //               updated_at_fa: item.updated_at_fa,
   //               is_active: item.is_active,
   //               is_active_id: item.id
   //             },

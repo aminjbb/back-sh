@@ -20,7 +20,7 @@
                 </div>
 
                 <v-text-field
-                    v-model="form.title"
+                    v-model="form.name"
                     placeholder="عنوان مودال را وارد نمایید"
                     variant="outlined"
                     :rules="titleRule"
@@ -35,12 +35,16 @@
                   <span class="t14 w500 text-scanError">*</span>
                 </div>
 
-                <v-select
-                    v-model="form.discountCode"
-                    :rules="DiscountCodeRule"
+                <v-autocomplete
                     variant="outlined"
-                    rounded="lg">
-                </v-select>
+                    prepend-inner-icon-cb="mdi-map-marker"
+                    rounded="lg"
+                    :items="voucherList"
+                    :rules="DiscountCodeRule"
+                    item-title="name"
+                    item-value="id"
+                    v-debounce="searchVoucher">
+                </v-autocomplete>
               </v-col>
 
               <v-col cols="12">
@@ -49,7 +53,7 @@
                   <span class="t14 w500 text-scanError">*</span>
                 </div>
                 <v-text-field
-                    v-model="form.description"
+                    v-model="form.content"
                     placeholder="توضیحات را وارد نمایید"
                     density="compact"
                     variant="outlined"
@@ -111,7 +115,8 @@
 
 <script>
 import {defineAsyncComponent} from "vue";
-import {openConfirm} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
@@ -131,16 +136,36 @@ export default {
   data() {
     return {
       valid: false,
+      loading: false,
       titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
 
       form:{
-        title:'',
-        discountCode:'',
-        description:'',
+        name:'',
+        voucher_id:'',
+        content:'',
         image:''
-      }
+      },
+      vouchersList: [],
     }
+  },
+
+  computed: {
+    voucherList() {
+      try {
+        let voucher = []
+        this.vouchersList.forEach(item => {
+          const form = {
+            name: item.label + '(' + item.id + ')',
+            id: item.id,
+          }
+          voucher.push(form)
+        })
+        return voucher
+      } catch (e) {
+        return []
+      }
+    },
   },
 
   methods: {
@@ -153,6 +178,23 @@ export default {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
 
+    async searchVoucher(e) {
+      const filter = {
+        per_page: 10,
+        q: e,
+        is_active: 1,
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.form = filter
+      AxiosMethod.end_point = 'page/modal/vouchers/'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.vouchersList = data.data.data
+      }
+    },
+
     validate() {
       this.createFirstTimeUserModal.validate()
       setTimeout(()=>{
@@ -162,8 +204,32 @@ export default {
       // this.$refs.modal.dialog = true
     },
 
-    createFirstTimeUserModal() {
-      console.log('create')
+    async createFirstTimeUserModal() {
+      console.log('name', this.form.name)
+      console.log('voucher_id', this.form.voucher_id)
+      console.log('content',this.form.content )
+      console.log('image_id',this.form.image )
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'page/modal/crud/create?accept'
+      formData.append('name', this.form.name)
+      formData.append('voucher_id', this.form.voucher_id)
+      formData.append('content', this.form.content)
+      formData.append('image_id', this.form.image)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        openToast(this.$store, 'سفارش با موفقیت ایجاد شد.', "success")
+
+      } else {
+        this.loading = false
+      }
     },
 
     closeModal(){
@@ -172,7 +238,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

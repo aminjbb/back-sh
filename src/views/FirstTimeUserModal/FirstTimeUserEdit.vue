@@ -21,7 +21,7 @@
                 </div>
 
                 <v-text-field
-                    v-model="form.title"
+                    v-model="form.name"
                     variant="outlined"
                     :rules="titleRule"
                     rounded="lg">
@@ -37,7 +37,7 @@
                 </div>
 
                 <v-select
-                    v-model="form.discountCode"
+                    v-model="form.voucher_id"
                     :rules="DiscountCodeRule"
                     variant="outlined"
                     rounded="lg">
@@ -51,7 +51,7 @@
                 </span>
                 </div>
                 <v-text-field
-                    v-model="form.description"
+                    v-model="form.content"
                     placeholder="توضیحات را وارد نمایید"
                     density="compact"
                     variant="outlined"
@@ -114,8 +114,9 @@
 
 <script>
 import {defineAsyncComponent, ref} from "vue";
-import {openConfirm} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import FirstTimeUser from "@/composables/FirstTimeUser";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
@@ -147,11 +148,11 @@ export default {
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
 
       form:{
-        title:'',
-        discountCode:'',
-        description:'',
+        name:'',
+        voucher_id:'',
+        content:'',
         image:''
-      }
+      },
     }
   },
 
@@ -173,8 +174,33 @@ export default {
       this.$refs.modal.dialog = true
     },
 
-    createFirstTimeUserModal() {
+    async updateFirstTimeUserModal() {
       console.log('create')
+      console.log('name', this.form.name)
+      console.log('voucher_id', this.form.voucher_id)
+      console.log('content',this.form.content )
+      console.log('image_id',this.form.image )
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'page/modal/crud/update/2'
+      formData.append('name', this.form.name)
+      formData.append('voucher_id', this.form.voucher_id)
+      formData.append('content', this.form.content)
+      formData.append('image_id', this.form.image)
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.toast_error = true
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading = false
+        openToast(this.$store, 'سفارش با موفقیت ایجاد شد.', "success")
+
+      } else {
+        this.loading = false
+      }
     },
 
     closeModal(){
@@ -183,9 +209,9 @@ export default {
 
     setForm() {
       try {
-        this.form.title = this.detailFirstTimeUser.title
-        this.form.discountCode = this.detailFirstTimeUser.discountCode
-        this.form.description = this.detailFirstTimeUser.description
+        this.form.name = this.detailFirstTimeUser.name
+        this.form.voucher_id = this.detailFirstTimeUser.voucher_code
+        this.form.content = this.detailFirstTimeUser.content
         this.form.image = this.detailFirstTimeUser.image
       } catch (e) {
         console.log(e)

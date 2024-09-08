@@ -36,9 +36,9 @@ export default function setup() {
 
     const header =ref( [
         {name:'ردیف', title:'ردیف', key:'row', show:true, align:'center', sortable: false},
-        {name:'عنوان' , title:'نام',key:'title', show:true, align:'center', sortable: false},
-        {name:'کد تخفیف گروهی' , title:'کد تخفیف گروهی', key:'discount_code', show:true, align:'center', sortable: false},
-        {name:'توضیحات' ,title:'توضیحات', key:'description', show:true, align:'center', sortable: false},
+        {name:'عنوان' , title:'عنوان',key:'name', show:true, align:'center', sortable: false},
+        {name:'کد تخفیف گروهی' , title:'کد تخفیف گروهی', key:'voucher_code', show:true, align:'center', sortable: false},
+        {name:'توضیحات' ,title:'توضیحات', key:'content', show:true, align:'center', sortable: false},
         {name:'تصویر' ,title:'تصویر', key:'image', show:true,  align:'center', sortable: false},
         {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد', key:'created_at', show:true, align:'center'},
         {name:'وضعیت' ,title:'وضعیت', key:'is_active', show:true, align:'center', sortable: false},
@@ -50,24 +50,6 @@ export default function setup() {
     //     { name: 'نام خانوادگی', type:'text', value:'last_name'},
     //     { name:'شماره موبایل', type: 'text', value:'phone_number'},
     // ];
-
-    async function getDetailFirstTimeUser ( query) {
-        const filter = {
-            per_page : 100000,
-        }
-        const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = 'admin/crud/index'
-        AxiosMethod.form = filter
-        AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.using_auth =  true
-        let data = await AxiosMethod.axios_get()
-        if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            detailFirstTimeUser.value = data.data
-        }
-        else {
-        }
-    };
 
     async function getAllFirstTimeUserList() {
         loading.value = true
@@ -114,7 +96,7 @@ export default function setup() {
         }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/crud/index/`
+        AxiosMethod.end_point = `page/modal/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -124,6 +106,24 @@ export default function setup() {
                 isFilter.value =false
                 isFilterPage.value = false
             } , 2000)
+        }
+    };
+
+    async function getDetailFirstTimeUser ( query) {
+        const filter = {
+            per_page : 100000,
+        }
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.end_point = `page/modal/crud/get/${route.params.id}`
+        AxiosMethod.form = filter
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.using_auth =  true
+        let data = await AxiosMethod.axios_get()
+        if (data) {
+            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
+            detailFirstTimeUser.value = data.data
+        }
+        else {
         }
     };
 
