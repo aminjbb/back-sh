@@ -99,6 +99,7 @@ export default function setup() {
         AxiosMethod.end_point = `page/modal/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
+            console.log(data, 'data')
             pageLength.value = data.data.last_page
             firstTimeUserList.value = data.data.data
             loading.value = false

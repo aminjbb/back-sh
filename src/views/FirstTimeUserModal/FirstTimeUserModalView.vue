@@ -28,12 +28,12 @@
 
             <v-col cols="6">
               <v-row justify="end">
-                <PanelFilter
-                    @resetPage="resetPage"
-                    path="admin/index"
-                    :filterField="filterField"
-                    :page="page"
-                    :perPage="dataTableLength"/>
+<!--                <PanelFilter-->
+<!--                    @resetPage="resetPage"-->
+<!--                    path="first-time-user/index"-->
+<!--                    :filterField="filterField"-->
+<!--                    :page="page"-->
+<!--                    :perPage="dataTableLength"/>-->
               </v-row>
             </v-col>
           </v-row>
@@ -185,9 +185,9 @@ export default {
     }
   },
 
-  // mounted() {
-  //   this.getAllFirstTimeUserList()
-  // },
+  mounted() {
+    this.getAllFirstTimeUserList()
+  },
 
   computed: {
     confirmModal() {
@@ -199,74 +199,74 @@ export default {
     removeItem(id) {
       openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
     },
-  }
+  },
 
-  // watch: {
-  //   firstTimeUserList() {
-  //     this.itemListTable = []
-  //
-  //     this.firstTimeUserList.forEach((item) =>
-  //         this.itemListTable.push(
-  //             {
-  //               id: item.id,
-  //               name:item.name,
-  //               voucher_code: item.voucher_code,
-  //               content: item.content,
-  //               image: item.image_url,
-  //               created_at: item.created_at_fa,
-  //               updated_at_fa: item.updated_at_fa,
-  //               is_active: item.is_active,
-  //               is_active_id: item.id
-  //             },
-  //         ),
-  //     )
-  //   },
-  //
-  //   dataTableLength() {
-  //     this.perPageFilter = true
-  //     this.page = 1
-  //     let query = this.$route.query
-  //     if (query) {
-  //       this.$router.replace({
-  //         query: {
-  //           ...query,
-  //           per_page: this.dataTableLength,
-  //         }
-  //       })
-  //     }
-  //     else {
-  //       this.$router.push({
-  //         query: {
-  //           per_page: this.dataTableLength,
-  //         }
-  //       })
-  //     }
-  //     this.perPageFilter = false
-  //   },
-  //
-  //   confirmModal(val) {
-  //     if (localStorage.getItem('deleteObject') === 'done') {
-  //       if (!val) {
-  //         this.getAllFirstTimeUserList();
-  //         openToast(
-  //             this.$store,
-  //             'ادمین با موفقیت حذف شد',
-  //             "success"
-  //         );
-  //         localStorage.removeItem('deleteObject')
-  //       }
-  //     }
-  //   },
-  //
-  //   $route(){
-  //     this.getAllFirstTimeUserList()
-  //   },
-  //
-  //   page(){
-  //     if (!this.perPageFilter){
-  //       this.getAllFirstTimeUserList()
-  //     }
-  //   }
-  // }
+  watch: {
+    firstTimeUserList() {
+      this.itemListTable = []
+
+      this.firstTimeUserList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                name:item.name,
+                voucher_code: item.voucher_code,
+                content: item.content,
+                image: item.image_url,
+                created_at: item.created_at_fa,
+                updated_at_fa: item.updated_at_fa,
+                is_active: item.is_active,
+                is_active_id: item.id
+              },
+          ),
+      )
+    },
+
+    dataTableLength() {
+      this.perPageFilter = true
+      this.page = 1
+      let query = this.$route.query
+      if (query) {
+        this.$router.replace({
+          query: {
+            ...query,
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      else {
+        this.$router.push({
+          query: {
+            per_page: this.dataTableLength,
+          }
+        })
+      }
+      this.perPageFilter = false
+    },
+
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getAllFirstTimeUserList();
+          openToast(
+              this.$store,
+              'ادمین با موفقیت حذف شد',
+              "success"
+          );
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
+
+    $route(){
+      this.getAllFirstTimeUserList()
+    },
+
+    page(){
+      if (!this.perPageFilter){
+        this.getAllFirstTimeUserList()
+      }
+    }
+  }
 }
 </script>

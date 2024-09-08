@@ -5,9 +5,7 @@
       <Header />
       <div class="create-product flex-column d-flex h-100vh">
         <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
-          <div class="text-center py-5 t16">
-            افزودن مودال
-          </div>
+          <div class="text-center py-5 t16">افزودن مودال</div>
           <v-divider/>
           <v-form
               class="create-product__info-form scroller"
@@ -24,9 +22,7 @@
                     placeholder="عنوان مودال را وارد نمایید"
                     variant="outlined"
                     :rules="titleRule"
-                    rounded="lg">
-
-                </v-text-field>
+                    rounded="lg"/>
               </v-col>
 
               <v-col cols="6">
@@ -43,8 +39,7 @@
                     :rules="DiscountCodeRule"
                     item-title="name"
                     item-value="id"
-                    v-debounce="searchVoucher">
-                </v-autocomplete>
+                    v-debounce="searchVoucher"/>
               </v-col>
 
               <v-col cols="12">
@@ -67,11 +62,13 @@
                 </div>
                 <UploadFileSection @getImage="getImage"/>
                 <div class="d-flex align-center mt-5" v-if="form.image">
-                  <span>IMG- {{ form.image }}</span>
+                  <span>IMG-{{ form.image }}</span>
                   <span class="mr-15">
                 <v-icon
-                    @click="removeItem(form.image , 'mobile')"
-                    color="error">mdi-delete</v-icon></span>
+                    @click="removeItem(form.image)"
+                    icon="mdi-delete"
+                    color="error"/>
+                  </span>
                 </div>
               </v-col>
             </v-row>
@@ -105,7 +102,6 @@
               فعال شدن مودال عنوان مدال  میشوید و مودال جدید وضعیت روشن میگردد
             </div>
           </template>
-
         </Modal>
       </div>
     </v-main>
@@ -173,7 +169,7 @@ export default {
       this.form.image = image.data.data.image_id
     },
 
-    removeItem(id, status) {
+    removeItem(id) {
       this.imageId = id;
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
     },
