@@ -117,8 +117,9 @@
                 <div>
                   <div class="text-right mb-3 t14 w500">ارسال پیام</div>
 
-                  <ckeditor v-model="content" :config="editorConfig" class="cke_rtl mb-15"/>
-
+                  <TinymceVue @input="fillDescription" v-if="load" :value="content" id="TinymceVue4" class="mb-8"
+                              :other_options="options">
+                  </TinymceVue>
                   <v-btn
                       :loading="sendMsgLoading"
                       @click="sendMessage()"
@@ -150,9 +151,7 @@ import Ticket from '@/composables/Ticket'
 import {
   gregorian_to_jalali
 } from "@/assets/js/functions";
-import {
-  component as ckeditor
-} from '@mayasabha/ckeditor4-vue3'
+import TinymceVue from "@/components/Public/TinymceVue.vue";
 
 export default {
   setup() {
@@ -168,10 +167,14 @@ export default {
   },
 
   components: {
-    ckeditor
+    TinymceVue
   },
 
   data: () => ({
+    options: {
+      height: 500,
+    },
+    load: false,
     content: null,
     loading: false,
     sendMsgLoading: false,
@@ -219,6 +222,9 @@ export default {
   },
 
   methods: {
+    fillDescription(e){
+      this.content = e
+    },
     /**
      * Update ticket
      */
@@ -352,6 +358,9 @@ export default {
 
   mounted() {
     this.getTicket();
+    setTimeout(()=>{
+      this.load = true
+    } , 500)
   },
 }
 </script>
