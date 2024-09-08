@@ -83,6 +83,7 @@ export default {
      * Validate form
      */
     validate() {
+      console.log(this.$refs.AddAttributeValueForm.values , 'values')
       if ( this.$refs.AddAttributeValueForm.values !== null){
         this.$refs.AttributeForm.$refs.addAttribute.validate()
         setTimeout(() => {
