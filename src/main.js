@@ -47,7 +47,7 @@ const vuetify = createVuetify({
                     gray200: '#EEEEEE',
                     gray500: '#9E9E9E',
                     gray600: '#757575',
-                    gray700: '#616161',
+                    gray700: '#FAFAFA',
                     Slate: '#110833',
                     DarkJungle: '#212121',
                     CharcoalGrey: '#424242',
@@ -57,7 +57,9 @@ const vuetify = createVuetify({
                     warningRow:'#FFF3E0',
                     successRow:'#E8F5E9',
                     scanError:'#EF5350',
-                    scanSuccess: '#43A047'
+                    scanSuccess: '#43A047',
+                    Orange600: '#FB8C00',
+                    Purple500: '#673AB7',
                 }
             },
         },

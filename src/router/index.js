@@ -312,6 +312,8 @@ import WarehouseReturnOrderView from "@/views/WarehouseReturnOrder/WarehouseRetu
 import SmsNotificationListView from "@/views/SmsNotification/SmsNotificationListView.vue";
 import SmsSettingListView from "@/views/SmsSetting/SmsSettingListView.vue";
 import DeliveryCodeView from "@/views/DeliveryCode/DeliveryCodeView.vue";
+import SellerCartableView from "@/views/SellerCartable/SellerCartableView.vue";
+import SellerCartableRequesListView from "@/views/SellerCartable/SellerCartableRequesListView.vue";
 import RelocatingView from "@/views/Relocating/RelocatingView.vue";
 import SubTitleTicket from "../views/SubTitleTicket/SubTitleTicket.vue";
 import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.vue";
@@ -2655,6 +2657,30 @@ const router = createRouter({
                     component: DetailSubTitleTicket,
                     meta: {
                         name: 'موضوع تیکت'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/seller-cartable', // Zone
+            meta: {
+                name: 'مارکت پلیس'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'SellerCartableView',
+                    component: SellerCartableView,
+                    meta: {
+                        name: 'کارتابل فروشندگان'
+                    }
+                },
+                {
+                    path: ':sellerId/requests',
+                    name: 'SellerCartableRequesListView',
+                    component: SellerCartableRequesListView,
+                    meta: {
+                        name: 'فروشگاه'
                     }
                 },
             ]

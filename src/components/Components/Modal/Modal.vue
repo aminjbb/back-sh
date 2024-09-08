@@ -2,7 +2,7 @@
   <div class="text-right">
     <v-dialog
         v-model="dialog"
-        ::width="width"
+        :width="width"
     >
       <v-card>
         <v-row justify="space-between" align="center" class="pa-5">
@@ -34,23 +34,25 @@
 
         <div class="d-flex justify-space-between pb-5 px-10" v-if="hasAction">
           <v-btn
-              width="80"
               @click="successAction()"
-              color="primary500"
+              :color="successColor"
+              :loading="loading"
               height="40"
               rounded
               class="px-8 mt-1">
-            تایید
+            {{ successTitle }}
           </v-btn>
           <v-btn
-              variant="text"
+              :color="cancelColor"
+              :variant="cancelVariant"
+              :loading="cancelLoading"
               height="40"
               rounded
               class="px-5 mt-1"
               @click="cancelAction()"
           >
 
-            انصراف
+            {{ cancelTitle }}
           </v-btn>
         </div>
       </v-card>
@@ -71,21 +73,37 @@ export  default {
       default: true
     },
 
-    dialog:{
-      type:Boolean,
-      default:false
-    },
-
     width:{
       type:Number,
       default:908
-    }
+    },
+
+    successTitle:{
+      type:String, default:'تایید'
+    },
+    successColor:{
+      type:String, default:'primary500'
+    },
+
+    cancelTitle:{
+      type:String, default:'انصراف'
+    },
+    cancelColor:{
+      type:String, default:''
+    },
+    cancelVariant:{
+      type:String, default:'text'
+    },
+
+
 
   },
 
   data(){
     return{
-      loading:false
+      loading:false,
+      cancelLoading:false,
+      dialog:false
     }
   },
 
@@ -99,7 +117,7 @@ export  default {
     },
 
     close(){
-      this.$emit('closeModal')
+      this.dialog = false
     }
 
   }

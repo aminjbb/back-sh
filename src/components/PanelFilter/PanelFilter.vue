@@ -267,6 +267,16 @@
                     :single-line="true"
                     :item-title="`label`"
                     :item-value="`value`"/>
+                <!-- status -->
+                <sh-select
+                    v-if="filter.value === 'section'"
+                    :items="sectionItems"
+                    v-model="values[index].value"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :item-title="`value`"
+                    :item-value="`key`"/>
 
                 <!-- type -->
                 <sh-select
@@ -579,6 +589,7 @@ export default {
     packedStatus: [],
     statusHasOption:[],
     paymentType:[],
+    sectionItems:[],
     voucherAmountTypes: [],
     sendingItems: [],
     typeItems: [],
