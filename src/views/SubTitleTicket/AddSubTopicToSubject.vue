@@ -34,7 +34,9 @@
                 <div class="text-right my-5">
                   <span class="t12400">فیلدهای اجباری</span>
                 </div>
+
                 <v-autocomplete
+                    :disabled="!subTitleEdit"
                     v-model="inputData"
                     density="compact"
                     variant="outlined"
@@ -49,7 +51,7 @@
                           <span class="t12 w500">{{ item.item.raw.name }}</span>
                         </div>
                         <v-checkbox
-                            :disabled="form.requiredFiled.includes(item.item.raw.value)"
+                            :disabled="checkDisabledItem(item.item.raw.value)"
                             hide-details
                             :value="item.item.raw.value"
                             v-model="form.requiredFiled"/>
@@ -175,8 +177,16 @@ export default {
   },
 
   methods: {
+    checkDisabledItem(value){
+      const findItem = this.subTitleEdit.mandatory_fields.findIndex(element => element == value)
+      if (findItem >-1) return true
+      return false
+    },
     assignDataInput(item) {
-      this.inputData.push(item.title)
+      const findItem = this.inputData.findIndex(element => element == item?.props.title)
+      if (findItem === -1) this.inputData.push(item.title)
+      else  this.inputData.splice(findItem , 1)
+
     },
 
     translateMandatoryFields(text) {
@@ -229,7 +239,15 @@ export default {
 
     setForm() {
       try {
-        this.form.requiredFiled = [...this.subTitleEdit.mandatory_fields]
+        if (this.subTitleEdit.mandatory_fields.length){
+          this.subTitleEdit.mandatory_fields.forEach(element=>{
+            const findItem = this.AllRequiredFiledList.findIndex(item=> item.value == element)
+            if (findItem > -1) {
+              this.form.requiredFiled.push( this.AllRequiredFiledList[findItem].value)
+              this.inputData.push(this.AllRequiredFiledList[findItem].name)
+            }
+          })
+        }
       } catch (e) {}
     }
   },
