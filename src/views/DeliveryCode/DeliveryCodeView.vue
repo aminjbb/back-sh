@@ -65,44 +65,6 @@
 
           <v-divider />
 
-          <v-card-actions class="pb-3">
-            <v-row class="pr-5">
-              <v-col cols="3">
-                <ModalExcelDownload getEndPoint="admin/csv/get/export" />
-              </v-col>
-
-              <v-col cols="6">
-                <div class="text-center">
-                  <v-pagination
-                      v-model="page"
-                      :length="pageLength"
-                      rounded="circle"
-                      size="40"
-                      :total-visible="7"
-                      prev-icon="mdi-chevron-right"
-                      next-icon="mdi-chevron-left" />
-                </div>
-              </v-col>
-
-              <v-col cols="3">
-                <div
-                    align="center"
-                    id="rowSection"
-                    class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
-                  <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card-actions>
         </v-card>
       </div>
     </v-main>
@@ -123,6 +85,7 @@ const SingleEditModal = defineAsyncComponent(() => import ('@/components/Deliver
 import {AxiosCall} from "@/assets/js/axios_call";
 
 import DeliveryCode from "@/composables/DeliveryCode"
+import {openToast} from "@/assets/js/functions";
 
 export default {
   name: "DeliveryCodeView",
@@ -192,9 +155,12 @@ export default {
         const AxiosMethod = new AxiosCall()
         AxiosMethod.end_point = 'admin/order/delivery/barcode/import'
         this.deliveryList.forEach((element , index)=>{
-          formData.append(`barcode_list[${index}][new_barcode]`, element?.new_barcode)
-          formData.append(`barcode_list[${index}][old_barcode]`, element?.old_barcode)
-          formData.append(`barcode_list[${index}][new_sending_method]`, element?.new_sending_method)
+          if (element.badge == 'normal'){
+            formData.append(`barcode_list[${index}][new_barcode]`, element?.new_barcode)
+            formData.append(`barcode_list[${index}][old_barcode]`, element?.old_barcode)
+            formData.append(`barcode_list[${index}][new_sending_method]`, element?.new_sending_method)
+          }
+
         })
         AxiosMethod.store = this.$store
         AxiosMethod.toast_error = true
@@ -204,6 +170,7 @@ export default {
         let data = await AxiosMethod.axios_post()
         if (data){
           this.editDeliveryCodeLoading = false
+          openToast(this.$store, 'آپدیت بارکد ها با موفقیت انجام شد', "success");
         }
         else{
           this.editDeliveryCodeLoading = false

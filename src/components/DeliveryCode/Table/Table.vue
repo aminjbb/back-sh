@@ -183,7 +183,8 @@ export default {
 
   methods: {
     getBackground(item){
-      if (item.badge == 'urgent') return 'bg-'
+      if (item.badge == 'urgent') return 'bg-primary400'
+      return ''
     },
     rowIndexTable (index) {
       let rowIndex = 0
