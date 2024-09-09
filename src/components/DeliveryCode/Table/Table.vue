@@ -50,7 +50,8 @@
         <div
             v-for="(item , index) in items"
             :key="index"
-            class="d-flex justify-between">
+            class="d-flex justify-between"
+            :class="getBackground(item)">
           <div
               class="c-table__contents__item"
               :style="{ width: itemsWidth, flex: `0 0 ${itemsWidth}` }">
@@ -181,6 +182,9 @@ export default {
   },
 
   methods: {
+    getBackground(item){
+      if (item.badge == 'urgent') return 'bg-'
+    },
     rowIndexTable (index) {
       let rowIndex = 0
       if (this.page === 1) {
