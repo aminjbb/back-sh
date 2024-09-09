@@ -72,7 +72,7 @@
           <v-card-actions class="pb-3">
             <v-row class="px-5 py-2" justify="end">
               <v-btn
-                  :disabled="!accept || isOrderScan"
+                  :disabled="!accept"
                   @click="temporarySave()"
                   variant="outlined"
                   rounded
@@ -164,7 +164,6 @@ export default {
       sendingMethods:[],
       currentSendingMethod:null,
       itemListTable: [],
-      isOrderScan: false
     }
   },
   setup() {
@@ -245,14 +244,12 @@ export default {
             })
             this.orderDetail = sortedItem
             this.loading = false
-            this.isOrderScan = true
 
             setTimeout(()=>{this.shpsItem = null},1000)
           })
           .catch((err) => {
             this.shpsItem = null
             this.loading = false
-            this.isOrderScan = false
             if (err.response.status == 400) {
               openToast(
                   this.$store,
