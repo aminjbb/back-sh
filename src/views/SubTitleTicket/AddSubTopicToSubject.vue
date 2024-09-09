@@ -44,6 +44,9 @@
                     :items="AllRequiredFiledList"
                     item-title="name"
                     item-value="id">
+                  <template v-slot:selection="item">
+                   {{item.item.title}}
+                  </template>
                   <template v-slot:item="item">
                     <v-list-item>
                       <div class="d-flex justify-end" @click="assignDataInput(item.item)">
