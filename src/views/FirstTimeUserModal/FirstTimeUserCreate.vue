@@ -8,6 +8,7 @@
           <div class="text-center py-5 t16">افزودن مودال</div>
           <v-divider/>
           <v-form
+              ref="form"
               class="create-product__info-form scroller"
               v-model="valid">
             <v-row justify="start" align="center">
@@ -32,6 +33,7 @@
                 </div>
 
                 <v-autocomplete
+                    v-model="form.voucher_id"
                     variant="outlined"
                     prepend-inner-icon-cb="mdi-map-marker"
                     rounded="lg"
@@ -93,14 +95,11 @@
             ref="modal"
             :title="`تایید مودال`"
             :width="468"
-            @successAction="createFirstTimeUserModal()"
+            @successAction="confirmed()"
             @cancelAction="closeModal()"
             @closeModal="closeModal()">
           <template v-slot:modalBody>
-            <div class="text-center">کاربر عزیز مودال  عنوان مدال در وضعیت روشن می باشد در صورت تایید باعث غیر </div>
-            <div class="text-center">
-              فعال شدن مودال عنوان مدال  میشوید و مودال جدید وضعیت روشن میگردد
-            </div>
+            <div class="text-center d--rtl">{{errorMsg}}</div>
           </template>
         </Modal>
       </div>
@@ -113,6 +112,7 @@
 import {defineAsyncComponent} from "vue";
 import {openConfirm, openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
+import axios from "axios";
 
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
@@ -135,6 +135,7 @@ export default {
       loading: false,
       titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
+      imageId:null,
 
       form:{
         name:'',
@@ -143,16 +144,21 @@ export default {
         image:''
       },
       vouchersList: [],
+      errorMsg: ''
     }
   },
 
   computed: {
+    confirmModal(){
+      return this.$store.getters['get_confirmForm'].confirmModal
+    },
+
     voucherList() {
       try {
         let voucher = []
         this.vouchersList.forEach(item => {
           const form = {
-            name: item.label + '(' + item.id + ')',
+            name: item.name + '(' + item.id + ')',
             id: item.id,
           }
           voucher.push(form)
@@ -171,7 +177,7 @@ export default {
 
     removeItem(id) {
       this.imageId = id;
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' +  id, true)
     },
 
     async searchVoucher(e) {
@@ -192,45 +198,86 @@ export default {
     },
 
     validate() {
-      this.createFirstTimeUserModal.validate()
-      setTimeout(()=>{
-        if (this.valid) this.createFirstTimeUserModal()
-      } , 200)
+      this.$refs.form.validate()
+      if (!this.valid) {
+        return
+      }
+        this.createFirstTimeUserModal()
+    },
 
-      // this.$refs.modal.dialog = true
+    async confirmed() {
+        this.loading = true;
+        let formData = new FormData();
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.end_point = 'page/modal/crud/create?accept';
+
+        formData.append('name', this.form.name);
+        formData.append('voucher_id', this.form.voucher_id);
+        formData.append('content', this.form.content);
+        formData.append('image_id', this.form.image);
+
+        AxiosMethod.form = formData;
+        AxiosMethod.store = this.$store;
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken');
+        AxiosMethod.toast_error = true;
+
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.loading = false
+          this.$refs.modal.dialog = false
+          this.$router.push('/first-time-user/index')
+        }
     },
 
     async createFirstTimeUserModal() {
-      console.log('name', this.form.name)
-      console.log('voucher_id', this.form.voucher_id)
-      console.log('content',this.form.content )
-      console.log('image_id',this.form.image )
       this.loading = true
-      let formData = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/modal/crud/create?accept'
-      formData.append('name', this.form.name)
-      formData.append('voucher_id', this.form.voucher_id)
-      formData.append('content', this.form.content)
-      formData.append('image_id', this.form.image)
-      AxiosMethod.form = formData
-      AxiosMethod.store = this.$store
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.toast_error = true
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading = false
-        openToast(this.$store, 'سفارش با موفقیت ایجاد شد.', "success")
 
-      } else {
-        this.loading = false
+      let formData = new FormData();
+      formData.append('name', this.form.name);
+      formData.append('voucher_id', this.form.voucher_id);
+      formData.append('content', this.form.content);
+      formData.append('image_id', this.form.image);
+
+      try {
+        const res = await axios.post(`${import.meta.env.VITE_API_BASEURL}/v1/page/modal/crud/create`,
+            formData, {
+              headers: {
+                Authorization: "Bearer " + this.$cookies.get('adminToken'),
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+        this.errorMsg = res.data.message
+        if (res.status === 202) {
+          this.loading = false
+          this.$refs.modal.dialog = true
+        }
+
+        else {
+          this.loading = false
+          this.$router.push('/first-time-user/index')
+        }
+
+      } catch (err) {}
+      finally {
+        this.loading = false;
       }
     },
 
     closeModal(){
       this.$refs.modal.dialog = false
     }
+  },
+
+  watch:{
+    confirmModal(val){
+      if (!val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          this.form.image = ''
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
   }
 }
 </script>

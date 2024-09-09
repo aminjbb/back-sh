@@ -31,7 +31,6 @@
 <!--                <PanelFilter-->
 <!--                    @resetPage="resetPage"-->
 <!--                    path="first-time-user/index"-->
-<!--                    :filterField="filterField"-->
 <!--                    :page="page"-->
 <!--                    :perPage="dataTableLength"/>-->
               </v-row>
@@ -43,11 +42,14 @@
           <ShTable
               class="flex-grow-1"
               :headers="header"
-              :items="firstTimeUserList"
+              :items="itemListTable"
               :activePath="`page/modal/crud/update/activation/`"
               :page="page"
               :perPage="dataTableLength"
               :loading="loading">
+            <template v-slot:customSlot="item">
+              <img :src="item.data.custom" alt="image"/>
+            </template>
 
             <template v-slot:actionSlot="item">
               <div class="text-center">
@@ -60,10 +62,24 @@
                 <v-list class="c-table__more-options">
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
-                        <v-icon size="small" class="text-grey-darken-1">mdi-Delete-outline
-                        </v-icon>
+                      <div class="ma-5 pointer" @click="removeItem(item.data.id, item.data.name)">
+                        <v-icon size="small" class="text-grey-darken-1" icon="mdi-trash-can-outline"/>
                         <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                        <Modal
+                            ref="modal"
+                            :title="`تایید مودال`"
+                            :width="468"
+                            @successAction="confirmed(item.data.id)"
+                            @cancelAction="closeModal()"
+                            @closeModal="closeModal()">
+                          <template v-slot:modalBody>
+                            <div class="d-flex justify-center ga-1">
+                              <div>اطمینان دارید ؟</div>
+                              <div> {{ item.data.name }} </div>
+                              <div>کاربر عزیز آیا از حذف مودال</div>
+                            </div>
+                          </template>
+                        </Modal>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -108,16 +124,14 @@
                     align="center"
                     id="rowSection"
                     class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+                  <span class="ml-5">تعداد سطر در هر صفحه</span>
                   <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]"/>
-                        </span>
+                    <v-select
+                        v-model="dataTableLength"
+                        class="t1330"
+                        variant="outlined"
+                        :items="[25,50,100]"/>
+                  </span>
                 </div>
               </v-col>
             </v-row>
@@ -137,18 +151,23 @@ import ShTable from "@/components/Components/Table/sh-table.vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
+const Modal = defineAsyncComponent(() => import('@/components/Components/Modal/Modal.vue'))
+
 import FirstTimeUser from "@/composables/FirstTimeUser";
-import {convertDateToJalai, openConfirm, openToast} from "@/assets/js/functions";
+import {openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "FirstTimeUserModalView",
 
   components: {
     ShTable,
-    ModalColumnFilter, shBtn,
+    ModalColumnFilter,
+    shBtn,
     DashboardLayout,
     Header,
-    PanelFilter
+    PanelFilter,
+    Modal
   },
 
   setup() {
@@ -176,12 +195,7 @@ export default {
   data() {
     return {
       perPageFilter:false,
-      itemListTable: [],
-      removeTableItem: {
-        text: "کاربر عزیز ایا از حذف مودال {{ عنوان مدال }} اطمینان دارید ؟",
-        title: "حذف آیتم",
-        path: `page/modal/crud/delete/`,
-      },
+      itemListTable: []
     }
   },
 
@@ -196,15 +210,48 @@ export default {
   },
 
   methods:{
-    removeItem(id) {
-      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    removeItem() {
+      this.$refs.modal.dialog = true
     },
+
+    resetPage() {
+      this.perPageFilter = true
+      this.page = 1
+      setTimeout(() => {
+        this.perPageFilter = false
+      }, 1000)
+    },
+
+    async confirmed(id) {
+      try {
+        this.loading = true;
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.end_point = `page/modal/crud/delete/${id}?accept`;
+        AxiosMethod.store = this.$store;
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken');
+        AxiosMethod.toast_error = true;
+        let data = await AxiosMethod.axios_delete();
+
+        if (data) {
+          await this.getAllFirstTimeUserList();
+          openToast(this.$store, 'مودال با موفقیت حذف شد', "success")
+        }
+      } catch (error) {}
+      finally {
+        this.loading = false;
+        this.$refs.modal.dialog = false;
+      }
+    },
+
+    closeModal(){
+      this.$refs.modal.dialog = false
+    }
   },
 
   watch: {
     firstTimeUserList() {
       this.itemListTable = []
-
       this.firstTimeUserList.forEach((item) =>
           this.itemListTable.push(
               {
@@ -212,7 +259,7 @@ export default {
                 name:item.name,
                 voucher_code: item.voucher_code,
                 content: item.content,
-                image: item.image_url,
+                custom: item.image_url,
                 created_at: item.created_at_fa,
                 updated_at_fa: item.updated_at_fa,
                 is_active: item.is_active,
@@ -250,7 +297,7 @@ export default {
           this.getAllFirstTimeUserList();
           openToast(
               this.$store,
-              'ادمین با موفقیت حذف شد',
+              'مودال با موفقیت حذف شد',
               "success"
           );
           localStorage.removeItem('deleteObject')

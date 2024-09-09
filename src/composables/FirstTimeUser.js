@@ -4,26 +4,7 @@ import { useCookies } from "vue3-cookies";
 import {useRoute} from "vue-router";
 
 export default function setup() {
-    const firstTimeUserList = ref([
-        {
-            id:1,
-            title: 'مودال خانه شب یلدار',
-            discount_code: 'Tgddflb',
-            description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ',
-            image:'',
-            created_at:'1402/06/12 11:24:52',
-            is_active:0,
-        },
-        {
-            id:2,
-            title: 'مودال خانه کاربر جدید',
-            discount_code: 'Tgddflb',
-            description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ',
-            image:'',
-            created_at:'1402/06/12 11:24:52',
-            is_active:1,
-        }
-    ]);
+    const firstTimeUserList = ref([]);
     const detailFirstTimeUser = ref([]);
     const dataTableLength = ref(25)
     const page = ref(1)
@@ -39,7 +20,7 @@ export default function setup() {
         {name:'عنوان' , title:'عنوان',key:'name', show:true, align:'center', sortable: false},
         {name:'کد تخفیف گروهی' , title:'کد تخفیف گروهی', key:'voucher_code', show:true, align:'center', sortable: false},
         {name:'توضیحات' ,title:'توضیحات', key:'content', show:true, align:'center', sortable: false},
-        {name:'تصویر' ,title:'تصویر', key:'image', show:true,  align:'center', sortable: false},
+        {name:'تصویر' ,title:'تصویر', key:'custom', show:true,  align:'center', sortable: false},
         {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد', key:'created_at', show:true, align:'center'},
         {name:'وضعیت' ,title:'وضعیت', key:'is_active', show:true, align:'center', sortable: false},
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
@@ -99,7 +80,6 @@ export default function setup() {
         AxiosMethod.end_point = `page/modal/crud/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            console.log(data, 'data')
             pageLength.value = data.data.last_page
             firstTimeUserList.value = data.data.data
             loading.value = false
@@ -108,25 +88,18 @@ export default function setup() {
                 isFilterPage.value = false
             } , 2000)
         }
-    };
+    }
 
-    async function getDetailFirstTimeUser ( query) {
-        const filter = {
-            per_page : 100000,
-        }
+    async function getDetailFirstTimeUser() {
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `page/modal/crud/get/${route.params.id}`
-        AxiosMethod.form = filter
+        AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.using_auth =  true
+        AxiosMethod.end_point = `page/modal/crud/get/${route.params.id}`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
             detailFirstTimeUser.value = data.data
         }
-        else {
-        }
-    };
+    }
 
     return {
         pageLength,

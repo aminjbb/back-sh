@@ -5,15 +5,20 @@
       <Header />
       <div class="create-product flex-column d-flex h-100vh">
         <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
-          <div class="text-center py-5 t16">ویرایش مودال</div>
+          <div class="text-center py-5 t16">
+            ویرایش مودال
+            {{detailFirstTimeUser.name}}
+          </div>
           <v-divider/>
           <v-form
+              ref="form"
               class="create-product__info-form scroller"
               v-model="valid">
             <v-row justify="start" align="center">
               <v-col cols="6">
                 <div class="text-right my-5">
-                <span class="t14 w500 text-gray600">عنوان *</span>
+                  <span class="t14 w500 text-gray600">عنوان</span>
+                  <span class="t14 w500 text-scanError">*</span>
                 </div>
 
                 <v-text-field
@@ -25,21 +30,28 @@
 
               <v-col cols="6">
                 <div class="text-right my-5">
-                <span class="t14 w500 text-gray600">کد تخفیف نظیر به نظیر *</span>
+                  <span class="t14 w500 text-gray600">کد تخفیف نظیر به نظیر</span>
+                  <span class="t14 w500 text-scanError">*</span>
                 </div>
 
-                <v-select
+                <v-autocomplete
                     v-model="form.voucher_id"
-                    :rules="DiscountCodeRule"
                     variant="outlined"
-                    rounded="lg">
-                </v-select>
+                    prepend-inner-icon-cb="mdi-map-marker"
+                    rounded="lg"
+                    :items="voucherList"
+                    :rules="DiscountCodeRule"
+                    item-title="name"
+                    item-value="id"
+                    v-debounce="searchVoucher"/>
               </v-col>
 
               <v-col cols="12">
                 <div class="text-right my-5">
-                <span class="t14 w500 text-gray600">توضیحات *</span>
+                  <span class="t14 w500 text-gray600">توضیحات</span>
+                  <span class="t14 w500 text-scanError">*</span>
                 </div>
+
                 <v-text-field
                     v-model="form.content"
                     placeholder="توضیحات را وارد نمایید"
@@ -80,20 +92,6 @@
             </v-row>
           </footer>
         </v-card>
-        <Modal
-            ref="modal"
-            :title="`تایید مودال`"
-            :width="468"
-            @successAction="updateFirstTimeUserModal()"
-            @cancelAction="closeModal()"
-            @closeModal="closeModal()">
-          <template v-slot:modalBody>
-            <div class="text-center">کاربر عزیز مودال  عنوان مدال در وضعیت روشن می باشد در صورت تایید باعث غیر </div>
-            <div class="text-center">
-              فعال شدن مودال عنوان مدال  میشوید و مودال جدید وضعیت روشن میگردد
-            </div>
-          </template>
-        </Modal>
       </div>
     </v-main>
   </v-layout>
@@ -131,22 +129,47 @@ export default {
     return {
       valid: false,
       loading: false,
+      imageId:null,
 
       titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
 
+      vouchersList: [],
       form:{
         name:'',
         voucher_id:'',
+        voucher_name:'',
         content:'',
         image:''
       },
     }
   },
 
-  // mounted() {
-  //   this.getDetailFirstTimeUser()
-  // },
+  mounted() {
+    this.getDetailFirstTimeUser()
+  },
+
+  computed: {
+    confirmModal(){
+      return this.$store.getters['get_confirmForm'].confirmModal
+    },
+
+    voucherList() {
+      try {
+        let voucher = []
+        this.vouchersList.forEach(item => {
+          const form = {
+            name: item.name + '(' + item.id + ')',
+            id: item.id,
+          }
+          voucher.push(form)
+        })
+        return voucher
+      } catch (e) {
+        return []
+      }
+    },
+  },
 
   methods: {
     getImage(image) {
@@ -155,23 +178,40 @@ export default {
 
     removeItem(id) {
       this.imageId = id;
-      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
+    },
+
+    async searchVoucher(e) {
+      const filter = {
+        per_page: 10,
+        q: e,
+        is_active: 1,
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.form = filter
+      AxiosMethod.end_point = 'page/modal/vouchers/'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.vouchersList = data.data.data
+      }
     },
 
     validate() {
-      this.$refs.modal.dialog = true
+      this.$refs.form.validate()
+      if (!this.valid) {
+        return
+      }
+      this.updateFirstTimeUserModal()
     },
 
     async updateFirstTimeUserModal() {
-      console.log('create')
-      console.log('name', this.form.name)
-      console.log('voucher_id', this.form.voucher_id)
-      console.log('content',this.form.content )
-      console.log('image_id',this.form.image )
       this.loading = true
       let formData = new FormData();
+
       const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/modal/crud/update/2'
+      AxiosMethod.end_point = `page/modal/crud/update/${this.$route.params.id}`
       formData.append('name', this.form.name)
       formData.append('voucher_id', this.form.voucher_id)
       formData.append('content', this.form.content)
@@ -184,7 +224,8 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
-        openToast(this.$store, 'سفارش با موفقیت ایجاد شد.', "success")
+        openToast(this.$store, 'مودال با موفقیت ویرایش شد.', "success")
+        this.$router.push('/first-time-user/index')
 
       } else {
         this.loading = false
@@ -198,17 +239,32 @@ export default {
     setForm() {
       try {
         this.form.name = this.detailFirstTimeUser.name
-        this.form.voucher_id = this.detailFirstTimeUser.voucher_code
+        this.form.voucher_id = this.detailFirstTimeUser.voucher_id
+        this.searchVoucher(this.detailFirstTimeUser.voucher_id)
         this.form.content = this.detailFirstTimeUser.content
         this.form.image = this.detailFirstTimeUser.image_id
-      } catch (e) {
-        console.log(e)
+      } catch (e) {}
+    }
+  },
+
+  watch: {
+    confirmModal(val){
+      if (!val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          this.form.image = ''
+          localStorage.removeItem('deleteObject')
+        }
       }
+    },
+
+    detailFirstTimeUser:{
+      handler(newData) {
+        if (newData) {
+          this.setForm()
+        }
+      },
+      immediate: true
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
