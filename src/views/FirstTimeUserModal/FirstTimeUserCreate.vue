@@ -14,7 +14,7 @@
             <v-row justify="start" align="center">
               <v-col cols="6">
                 <div class="text-right my-5">
-                  <span class="t14 w500 text-gray600">عنوان</span>
+                  <span class="t14 w500 text-gray600">عنوان مودال</span>
                   <span class="t14 w500 text-scanError">*</span>
                 </div>
 
@@ -23,6 +23,7 @@
                     placeholder="عنوان مودال را وارد نمایید"
                     variant="outlined"
                     :rules="titleRule"
+                    :counter="200"
                     rounded="lg"/>
               </v-col>
 
@@ -63,13 +64,14 @@
                    <span class="t14 w500 text-scanError">*</span>
                 </div>
                 <UploadFileSection @getImage="getImage"/>
+                <div class="t10 text-gray500 mt-2">کاربر عزیز فرمت عکس باید Png باشد </div>
                 <div class="d-flex align-center mt-5" v-if="form.image">
                   <span>IMG-{{ form.image }}</span>
                   <span class="mr-15">
-                <v-icon
-                    @click="removeItem(form.image)"
-                    icon="mdi-delete"
-                    color="error"/>
+                    <v-icon
+                        @click="removeItem(form.image)"
+                        icon="mdi-delete"
+                        color="error"/>
                   </span>
                 </div>
               </v-col>
@@ -133,7 +135,11 @@ export default {
     return {
       valid: false,
       loading: false,
-      titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
+      // titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
+      titleRule: [
+        v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد',
+        v => (v.length <= 200) || 'کاربر عزیز عنوان مودال نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد' ],
+
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
       imageId:null,
 

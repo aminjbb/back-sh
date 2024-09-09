@@ -17,7 +17,7 @@
             <v-row justify="start" align="center">
               <v-col cols="6">
                 <div class="text-right my-5">
-                  <span class="t14 w500 text-gray600">عنوان</span>
+                  <span class="t14 w500 text-gray600">عنوان مودال</span>
                   <span class="t14 w500 text-scanError">*</span>
                 </div>
 
