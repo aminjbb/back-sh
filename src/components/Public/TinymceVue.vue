@@ -100,7 +100,6 @@ export default {
     return {
       content: "",
       editor: null,
-      cTinyMce: null,
       checkerTimeout: null,
       isTyping: false,
       readonly: false,
@@ -109,11 +108,14 @@ export default {
   beforeMount() {
     this.content = this.value;
   },
-  mounted() {
-    this.init();
-  },
   beforeDestroy() {
-    this.editor.destroy();
+    this.destroyTinyMCE();
+  },
+  activated() {
+    this.initTinyMCE();
+  },
+  deactivated() {
+    this.destroyTinyMCE();
   },
   watch: {
     value: function (newValue) {
@@ -124,7 +126,7 @@ export default {
     },
   },
   methods: {
-    init() {
+    initTinyMCE() {
       let options = {
         selector: "#" + this.id,
         skin: false,
@@ -136,12 +138,15 @@ export default {
       };
       tinymce.init(this.concatAssciativeArrays(options, this.other_options));
     },
-
-    images_upload_handler: function (blobInfo, success, failure) {
+    destroyTinyMCE() {
+      if (tinymce.get()) {
+        tinymce.remove();
+      }
+    },
+    images_upload_handler(blobInfo, success, failure) {
       let data = new FormData();
-
-      data.append('file', blobInfo.blob())
-      data.append('module', 'sku')
+      data.append('file', blobInfo.blob());
+      data.append('module', 'sku');
       axios
           .post(import.meta.env.VITE_API_BASEURL + "/v1/file-manager/direct/store", data, {
             headers: {
@@ -158,16 +163,16 @@ export default {
     },
     initEditor(editor) {
       this.editor = editor;
-      editor.on("KeyUp", (e) => {
+      editor.on("KeyUp", () => {
         this.submitNewContent();
       });
-      editor.on("Change", (e) => {
+      editor.on("Change", () => {
         if (this.editor.getContent() !== this.value) {
           this.submitNewContent();
         }
-        this.$emit("editorChange", this.value);
+        this.$emit("editorChange", this.editor.getContent());
       });
-      editor.on("init", (e) => {
+      editor.on("init", () => {
         editor.setContent(this.content);
         this.$emit("input", this.content);
       });
@@ -181,12 +186,7 @@ export default {
       this.$emit("editorInit", editor);
     },
     concatAssciativeArrays(array1, array2) {
-      if (array2.length === 0) return array1;
-      if (array1.length === 0) return array2;
-      let dest = [];
-      for (let key in array1) dest[key] = array1[key];
-      for (let key in array2) dest[key] = array2[key];
-      return dest;
+      return {...array1, ...array2};
     },
     submitNewContent() {
       this.isTyping = true;

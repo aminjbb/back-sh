@@ -167,11 +167,12 @@
               {{ lables.specifications }}
           </span>
         </div>
-
-        <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="TinymceVue3"
-                    class="mb-8"
-                    :other_options="options">
-        </TinymceVue>
+        <keep-alive>
+          <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="TinymceVue3"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </div>
 
       <div>
@@ -343,7 +344,9 @@ export default {
     this.specsFromModal.length = this.lengthLis[0].value
     this.specsFromModal.weight = this.weightList[0].value
     this.specsFromModal.volume = this.volumeUnitList[0].value
-    setTimeout(()=>{this.load = true}, 500)
+    setTimeout(() => {
+      this.load = true
+    }, 500)
   },
 }
 </script>
