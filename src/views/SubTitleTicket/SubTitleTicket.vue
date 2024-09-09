@@ -264,6 +264,7 @@ export default {
               title: item.title ,
               creator: item.creator.full_name,
               created_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
+              updated_at_fa:  item.updated_at_fa + ' ' +item.updated_at.split('T')[1].split('.')[0],
               show: item,
               is_active: item.is_active,
               is_active_id: item.id,
