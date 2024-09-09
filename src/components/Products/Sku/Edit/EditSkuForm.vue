@@ -206,10 +206,11 @@
               {{ lables.specifications }}
           </span>
           </div>
-
-          <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="d2" class="mb-8"
-                      :other_options="options">
-          </TinymceVue>
+          <keep-alive>
+            <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="d2" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
         </div>
 
         <div>

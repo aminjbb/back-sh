@@ -57,9 +57,11 @@
                         پیام
                     </span>
           </div>
-          <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
-                      :other_options="options">
-          </TinymceVue>
+          <keep-alive>
+            <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
 
         </v-col>
       </v-row>
@@ -149,7 +151,7 @@ export default {
   }),
 
   methods: {
-    fillDescription(e){
+    fillDescription(e) {
       this.content = e
     },
     searchUser(e) {
@@ -191,7 +193,9 @@ export default {
       per_page: 10
     }
     this.getUsers(filter)
-    setTimeout(()=>{this.load = true},500)
+    setTimeout(() => {
+      this.load = true
+    }, 500)
   },
 
   computed: {

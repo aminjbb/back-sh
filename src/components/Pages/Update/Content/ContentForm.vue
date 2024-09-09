@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="updateContent" v-model="valid" class="create-product__info-form scroller" v-if="load" >
+  <v-form ref="updateContent" v-model="valid" class="create-product__info-form scroller" v-if="load">
     <v-row justify="start" align="center">
       <v-col cols="12">
         <div class="text-right my-5">
@@ -7,9 +7,11 @@
                           محتوا
                       </span>
         </div>
-        <TinymceVue @input="fillDescription" :value="form.content" id="TinymceVue2" class="mb-8 cke_rtl"
-                    :other_options="options">
-        </TinymceVue>
+        <keep-alive>
+          <TinymceVue @input="fillDescription" :value="form.content" id="TinymceVue2" class="mb-8 cke_rtl"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </v-col>
     </v-row>
   </v-form>
@@ -58,9 +60,9 @@ export default {
     setForm() {
       try {
         this.form.content = this.page.content
-        setTimeout(()=>{
+        setTimeout(() => {
           this.load = true
-        },500)
+        }, 500)
       } catch (error) {
       }
     }
