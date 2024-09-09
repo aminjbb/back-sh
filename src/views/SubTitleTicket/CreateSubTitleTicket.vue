@@ -1,8 +1,8 @@
 <template>
   <v-layout class="bg-gray">
-    <DashboardLayout />
+    <DashboardLayout/>
     <v-main class="h-100vh">
-      <Header />
+      <Header/>
       <div class="">
         <v-card class="ma-5 br-12 pa-10 position__relative" height="630">
           <div class="text-center t14500 pb-5">ساخت موضوع</div>
@@ -26,28 +26,14 @@
                 <div class="text-right my-5">
                   <span class="t12400">فیلدهای اجباری</span>
                 </div>
-                <v-autocomplete
-                    v-model="inputData"
-                    density="compact"
-                    variant="outlined"
-                    single-line
+                <v-select
                     :items="AllRequiredFiledList"
                     item-title="name"
-                    item-value="id">
-                  <template v-slot:item="item">
-                    <v-list-item>
-                      <div class="d-flex justify-end" @click="assignDataInput(item.item)">
-                        <div class="text-right my-2 mt-5">
-                          <span class="t12 w500">{{ item.item.raw.name }}</span>
-                        </div>
-                           <v-checkbox
-                            hide-details
-                            :value="item.item.raw.value"
-                            v-model="form.requiredFiled"/>
-                      </div>
-                    </v-list-item>
-                  </template>
-                </v-autocomplete>
+                    item-value="value"
+                    variant="outlined"
+                    v-model="form.requiredFiled"
+                    multiple/>
+
               </v-col>
             </v-row>
           </v-form>
@@ -85,9 +71,10 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
-const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
-const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
+import {defineAsyncComponent} from "vue";
+
+const DashboardLayout = defineAsyncComponent(() => import ('@/components/Layouts/DashboardLayout.vue'))
+const Header = defineAsyncComponent(() => import ('@/components/Public/Header.vue'))
 import {openToast} from "@/assets/js/functions";
 import {AxiosCall} from "@/assets/js/axios_call";
 
@@ -103,23 +90,23 @@ export default {
     return {
       loading: false,
       valid: false,
-      inputData:[],
+      inputData: [],
 
-      AllRequiredFiledList:[
+      AllRequiredFiledList: [
         {
-          id:1,
-          name:'شناسه کالا',
-          value:'sku_id'
+          id: 1,
+          name: 'شناسه کالا',
+          value: 'sku_id'
         },
         {
-          id:2,
-          name:'شماره سفارش',
-          value:'order_number'
+          id: 2,
+          name: 'شماره سفارش',
+          value: 'order_number'
         },
         {
-          id:3,
-          name:'تصویر',
-          value:'photo'
+          id: 3,
+          name: 'تصویر',
+          value: 'photo'
         }
       ],
 
@@ -132,13 +119,11 @@ export default {
   },
 
   methods: {
-    assignDataInput(item) {
-      this.inputData.push(item.title)
-    },
+
 
     validate() {
       if (this.form.title === '') {
-        openToast( this.$store, '.عنوان موضوع را وارد کنید', "error")
+        openToast(this.$store, '.عنوان موضوع را وارد کنید', "error")
       } else {
         this.createSubTitleTicket()
         console.log('hello')
@@ -146,29 +131,28 @@ export default {
       }
     },
 
-   async createSubTitleTicket() {
-      this.loading=true
+    async createSubTitleTicket() {
+      this.loading = true
       let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = 'ticket/topic/crud/create'
-      formData.append('title' , this.form.title)
-     this.form.requiredFiled.forEach((item , index) => {
-       formData.append(`mandatory_fields[${index}]`,  item)
-     })
+      formData.append('title', this.form.title)
+      this.form.requiredFiled.forEach((item, index) => {
+        formData.append(`mandatory_fields[${index}]`, item)
+      })
 
       AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.toast_error = true
-      AxiosMethod.using_auth =true
-      AxiosMethod.token =this.$cookies.get('adminToken')
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.loading=false
+        this.loading = false
         openToast(this.$store, 'موضوع با موفقیت ایجاد شد.', "success");
         this.$router.push('/sub-title/index')
-      }
-      else{
-        this.loading=false
+      } else {
+        this.loading = false
       }
     }
   }

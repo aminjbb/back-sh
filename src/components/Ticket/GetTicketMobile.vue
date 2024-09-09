@@ -90,28 +90,33 @@
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">
-                      {{ convertDate(oneTicket.created_at) }}
-                  </span>
+                  <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">
+                        {{ convertDate(oneTicket.created_at) }}
+                    </span>
               </div>
 
               <v-divider color="black"/>
 
-              <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
-            </v-card>
-
-            <v-card
-                v-if="oneTicket && oneTicket.files"
-                min-height="100"
-                class="mb-10">
-              <div class="d-flex justify-center pa-6" v-for="file in oneTicket.files" :key="file.id">
-                <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
+              <div v-if="!oneTicket.files" >
+                <p  class="t14 text-justify pa-5" v-html="oneTicket.content"/>
               </div>
-              <v-divider color="black"/>
+              <div v-else-if="oneTicket && oneTicket.files">
+                <div class="d-flex justify-center pa-6" v-for="file in oneTicket.files" :key="file.id">
+                  <img width="200" height="200" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                  <video width="300" height="200" v-else-if="file.type === 'video'" :src="file.url" controls/>
+                </div>
+                <v-divider color="black"/>
 
-              <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
+                <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
+              </div>
             </v-card>
+
+<!--            <v-card-->
+<!--                v-if="oneTicket && oneTicket.files"-->
+<!--                min-height="100"-->
+<!--                class="mb-10">-->
+<!--  -->
+<!--            </v-card>-->
 
 
             <template v-if="oneTicket && oneTicket.threads">
@@ -379,7 +384,7 @@ export default {
       const text = '';
 
       if (priority == 'urgent') {
-        return 'ضروری';
+        return 'فوری';
       }
       if (priority == 'low') {
         return 'پایین';

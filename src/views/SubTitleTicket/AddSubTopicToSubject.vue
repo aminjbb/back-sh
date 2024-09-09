@@ -185,7 +185,11 @@ export default {
     assignDataInput(item) {
       const findItem = this.inputData.findIndex(element => element == item?.props.title)
       if (findItem === -1) this.inputData.push(item.title)
-      else  this.inputData.splice(findItem , 1)
+      else {
+
+        const findItemFromServer = this.subTitleEdit.mandatory_fields.findIndex(element => element == item?.raw.value)
+        if (findItemFromServer == -1) this.inputData.splice(findItem , 1)
+      }
 
     },
 
@@ -227,7 +231,7 @@ export default {
           this.getSubTitle()
 
           this.form.title =''
-          this.inputData = null
+          this.inputData = []
           this.form.requiredFiled = []
 
           this.loading= false

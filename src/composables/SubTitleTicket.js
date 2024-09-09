@@ -18,6 +18,7 @@ export default function setup() {
         { name: 'عنوان موضوع', title: 'عنوان موضوع', show: true, align:'center', key: 'title'},
         { name: 'سازنده', title: 'سازنده', show: true, align:'center', key: 'creator'},
         { name: 'تاریخ ساخت', title: 'تاریخ ساخت', show: true, align:'center', key: 'created_at'},
+        { name: 'تاریخ به روزرسانی', title: 'تاریخ به روزرسانی', show: true, align:'center', key: 'updated_at_fa'},
         { name: 'نمایش', title: 'نمایش', show: true, align:'center', key: 'show'},
         { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center'},
         { name: 'عملیات',title: 'عملیات', show: true, align:'center', sortable: false, key:'action',minWidth:'50', fixed: true}

@@ -22,7 +22,7 @@
                 <div class="">
                   <v-icon icon="mdi-circle-small"/>
                   <span class="t12 w500"> عنوان : </span>
-                  <span class="t12 w500 number-font"> {{ item.title }} </span>
+                  <span class="t12 w500 number-font"> {{ item.topic_title }} </span>
                 </div>
                 <div class="">
                   <v-chip
@@ -60,13 +60,13 @@
                 </div>
               </div>
 
-          <div class="d-flex align-center justify-space-between">
-                <div class="mt-3">
-                  <v-icon icon="mdi-circle-small"/>
-                  <span class="t12 w500"> امتیاز: </span>
-                  <span class="t12 w500 number-font"> یسرا فیلی </span>
-                </div>
-              </div>
+<!--          <div class="d-flex align-center justify-space-between">-->
+<!--                <div class="mt-3">-->
+<!--                  <v-icon icon="mdi-circle-small"/>-->
+<!--                  <span class="t12 w500"> امتیاز: </span>-->
+<!--                  <span class="t12 w500 number-font"> یسرا فیلی </span>-->
+<!--                </div>-->
+<!--              </div>-->
 
           <div class="d-flex justify-space-between mt-3">
             <BottomSheetTicket :item="item" :title="`اطلاعات تیکت`"/>
@@ -166,7 +166,7 @@ export default {
         value: ''
       },
       {
-        label: 'ضروری',
+        label: 'فوری',
         value: 'urgent'
       },
       {
@@ -242,7 +242,7 @@ export default {
       const text = '';
 
       if (priority == 'urgent') {
-        return 'ضروری';
+        return 'فوری';
       }
       if (priority == 'low') {
         return 'پایین';
