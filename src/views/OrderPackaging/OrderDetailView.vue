@@ -228,7 +228,7 @@ export default {
           })
           .then((data) => {
             closeToast(this.$store)
-            localStorage.setItem('orderIdForRefreshOrderPackaging', data?.data?.data?.order?.id)
+            if (this.accept) localStorage.setItem('orderIdForRefreshOrderPackaging', data?.data?.data?.order?.id)
             this.orderId = data?.data?.data?.order?.id
             if (data?.data?.data?.is_completed) {
               window.open(`${import.meta.env.VITE_API_SITEURL}order-packaging/${data?.data?.data?.order?.id}/print`, '_blank');
