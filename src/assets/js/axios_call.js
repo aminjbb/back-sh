@@ -152,49 +152,51 @@ export class AxiosCall {
                         );
                     }
                     if (err.response.status == 422) {
+                        if (err.response.data.details){
+                            const details = err.response.data.details
+                            const key = Object.keys(details)
+                            if (key[0] == 'name') {
+                                openToast(
+                                    this.store,
+                                    'فیلد نام باید یکتا باشد',
+                                    "error"
+                                );
+                            }
+                            else if (key[0] == 'label') {
+                                openToast(
+                                    this.store,
+                                    'فیلد لیبل باید یکتا باشد',
+                                    "error"
+                                );
+                            }
 
-                        const details = err.response.data.details
-                        const key = Object.keys(details)
-                        if (key[0] == 'name') {
-                            openToast(
-                                this.store,
-                                'فیلد نام باید یکتا باشد',
-                                "error"
-                            );
-                        }
-                        else if (key[0] == 'label') {
-                            openToast(
-                                this.store,
-                                'فیلد لیبل باید یکتا باشد',
-                                "error"
-                            );
+                            else if (key[0] == 'email') {
+                                openToast(
+                                    this.store,
+                                    'فیلد ایمیل باید یکتا باشد',
+                                    "error"
+                                );
+                            } else if (key[0] == 'phone_number') {
+                                openToast(
+                                    this.store,
+                                    'فیلد شماره موبایل باید یکتا باشد',
+                                    "error"
+                                );
+                            }else if (key[0] == 'identification_code') {
+                                openToast(
+                                    this.store,
+                                    'کد ملی وارد شده قبلا استفاده شده است',
+                                    "error"
+                                );
+                            }else if (key[0] == 'email') {
+                                openToast(
+                                    this.store,
+                                    'ایمیل وارد شده قبلا استفاده شده است',
+                                    "error"
+                                );
+                            }
                         }
 
-                        else if (key[0] == 'email') {
-                            openToast(
-                                this.store,
-                                'فیلد ایمیل باید یکتا باشد',
-                                "error"
-                            );
-                        } else if (key[0] == 'phone_number') {
-                            openToast(
-                                this.store,
-                                'فیلد شماره موبایل باید یکتا باشد',
-                                "error"
-                            );
-                        }else if (key[0] == 'identification_code') {
-                            openToast(
-                                this.store,
-                                'کد ملی وارد شده قبلا استفاده شده است',
-                                "error"
-                            );
-                        }else if (key[0] == 'email') {
-                            openToast(
-                                this.store,
-                                'ایمیل وارد شده قبلا استفاده شده است',
-                                "error"
-                            );
-                        }
                     }
 
                 });

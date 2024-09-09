@@ -1,6 +1,7 @@
 <template>
   <div class="">
-    <div class="ma-5 pointer" @click="dialog= true">
+
+    <div class=" pointer" @click="dialog= true">
       <v-icon class="text-grey-darken-1">mdi-pencil-box-outline</v-icon>
       <span class="mr-2 text-grey-darken-1 t14300">ویرایش تکی</span>
     </div>
@@ -80,6 +81,7 @@
 
 <script>
 import {openToast} from "@/assets/js/functions";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "SingleEditModal",
@@ -113,8 +115,8 @@ export default {
        var formData = new FormData();
        const AxiosMethod = new AxiosCall()
        AxiosMethod.end_point = 'admin/order/delivery/barcode/import'
-         formData.append(`barcode_list[0][new_barcode]`, this.form.old_barcode)
-         formData.append(`barcode_list[0][old_barcode]`, this.form.new_barcode)
+         formData.append(`barcode_list[0][new_barcode]`, this.form.new_barcode)
+         formData.append(`barcode_list[0][old_barcode]`, this.form.old_barcode)
          formData.append(`barcode_list[0][new_sending_method]`, this.form.new_sending_method)
        AxiosMethod.store = this.$store
        AxiosMethod.toast_error = true
@@ -123,13 +125,18 @@ export default {
        AxiosMethod.token = this.$cookies.get('adminToken')
        let data = await AxiosMethod.axios_post()
        if (data){
-         openToast(this.$store, 'ویرایش با موفقیت ذخیره شد .', "success");
+         this.loading = false
+         this.dialog = false
+         openToast(this.$store, 'آپدیت بارکد ها با موفقیت انجام شد', "success");
        }
        else{
          this.loading = false
        }
      }
-     catch (e) {}
+     catch (e) {
+       console.log(e)
+       this.loading = false
+     }
     },
 
     setForm(){
