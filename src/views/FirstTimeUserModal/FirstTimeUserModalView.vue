@@ -54,7 +54,7 @@
                   v-model="item.data.custom2"
                   inset
                   color="success"
-                  @change="changeActive(item,item.data.id)"/>
+                  @change="changeActive(item.data.custom2,item.data.id)"/>
             </template>
 
             <template v-slot:customSlot="item">
@@ -222,17 +222,24 @@ export default {
   methods:{
     async changeActive(item, id) {
       var formdata = new FormData();
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = 'page/modal/crud/update/activation/' + id
-      formdata.append('is_active', item.is_active)
-      AxiosMethod.store = this.$store
-      AxiosMethod.form = formdata
-      AxiosMethod.using_auth = true
-      AxiosMethod.token = this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (!data) {
-        item.is_active = false
-        this.getAllFirstTimeUserList()
+      const AxiosMethod = new AxiosCall();
+
+      AxiosMethod.end_point = 'page/modal/crud/update/activation/' + id;
+      formdata.append('is_active', item);
+      AxiosMethod.store = this.$store;
+      AxiosMethod.form = formdata;
+      AxiosMethod.using_auth = true;
+      AxiosMethod.token = this.$cookies.get('adminToken');
+
+      try {
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.getAllFirstTimeUserList()
+        } else {
+          item.is_active = false;
+        }
+      } catch (error) {
+        item.is_active = false;
       }
     },
 
