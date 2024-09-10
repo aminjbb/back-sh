@@ -139,7 +139,7 @@ export default {
   methods: {
     translateMandatoryFields(text) {
       if (text==='photo') return 'تصویر'
-      else if (text==='sku_id') return 'شناسه کالا'
+      else if (text==='seller_sku_id') return 'شناسه کالا'
       else if (text==='order_number') return 'شماره سفارش'
     },
   },
