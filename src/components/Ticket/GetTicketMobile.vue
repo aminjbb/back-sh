@@ -19,7 +19,7 @@
             <div
                 v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
                 class="d-flex align-center ga-3">
-              <span class="title t12 w400">وضعیت در حال بررسی شود </span>
+              <span class="title t12 w400">وضعیت در حال بررسی شود</span>
               <v-switch v-model="isSwitchActive" inset color="success"/>
             </div>
             <v-chip
@@ -152,8 +152,14 @@
             <div>
               <div class="text-right mb-3 t14 w500">ارسال پیام</div>
               <keep-alive>
-                <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
-                            :other_options="options">
+                <TinymceVue
+                    ref="tinymceEditor"
+                    @input="fillDescription"
+                    v-if="load"
+                    :value="content"
+                    id="d2"
+                    class="mb-8"
+                    :other_options="options">
                 </TinymceVue>
               </keep-alive>
 
@@ -346,6 +352,7 @@ export default {
       if (data) {
         this.sendMsgLoading = false
         this.content = null
+        this.$refs.tinymceEditor.editor.setContent('')
         this.getTicket()
       } else {
         this.sendMsgLoading = false
@@ -372,6 +379,9 @@ export default {
       }
       if (status == 'seen') {
         return 'دیده شده';
+      }
+      if (status == 'pending') {
+        return 'در حال بررسی';
       }
 
       return 'نامعلوم';
