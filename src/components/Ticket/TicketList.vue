@@ -296,6 +296,7 @@ export default {
                   title: item.title,
                   priority: this.getPriorityText(item.priority),
                   custom: item.status,
+                  admin: item.admin ? item?.admin?.first_name + ' ' + item?.admin?.last_name : '-',
                   user_name: item.user.first_name+ ' ' + item.user.last_name,
                   mobile: item.user.phone_number,
                   created_at: item.created_at_fa + ' ' + item.updated_at.split('T')[1].split('.')[0],
