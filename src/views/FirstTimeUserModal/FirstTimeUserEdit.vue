@@ -55,6 +55,7 @@
                 <v-text-field
                     v-model="form.content"
                     placeholder="توضیحات را وارد نمایید"
+                    :rules="contentRule"
                     density="compact"
                     variant="outlined"
                     single-line/>
@@ -62,7 +63,8 @@
 
               <v-col cols="12">
                 <div class="text-right my-5">
-                <span class="t14 w500 text-gray600">تصویر *</span>
+                  <span class="t14 w500 text-gray600">تصویر</span>
+                  <span class="t14 w500 text-scanError">*</span>
                 </div>
                 <UploadFileSection @getImage="getImage"/>
                 <div class="d-flex align-center mt-5" v-if="form.image">
@@ -132,6 +134,7 @@ export default {
       imageId:null,
 
       titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
+      contentRule: [v => !!v || 'این فیلد الزامی است'],
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
 
       vouchersList: [],
@@ -199,11 +202,21 @@ export default {
     },
 
     validate() {
-      this.$refs.form.validate()
-      if (!this.valid) {
-        return
+      if (!this.form.image) {
+        openToast(this.$store, 'حتما باید عکس اضافه کنید', 'error');
+        return;
       }
-      this.updateFirstTimeUserModal()
+      this.$refs.form.validate();
+
+      if (!this.valid) {
+        return;
+      }
+
+      this.$refs.form.validate();
+
+      if (this.valid) {
+        this.updateFirstTimeUserModal();
+      }
     },
 
     async updateFirstTimeUserModal() {

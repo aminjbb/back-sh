@@ -53,6 +53,7 @@
                 <v-text-field
                     v-model="form.content"
                     placeholder="توضیحات را وارد نمایید"
+                    :rules="contentRule"
                     density="compact"
                     variant="outlined"
                     single-line/>
@@ -76,7 +77,6 @@
                 </div>
               </v-col>
             </v-row>
-
           </v-form>
 
           <footer class="create-warehouse__actions">
@@ -135,11 +135,10 @@ export default {
     return {
       valid: false,
       loading: false,
-      // titleRule: [v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد'],
       titleRule: [
         v => !!v || 'کاربر عزیز عنوان مودال نمیتواند خالی باشد',
         v => (v.length <= 200) || 'کاربر عزیز عنوان مودال نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد' ],
-
+      contentRule: [v => !!v || 'این فیلد الزامی است'],
       DiscountCodeRule: [v => !!v || 'کاربر عزیز کد تخفیف گروهی انتخاب نکردین'],
       imageId:null,
 
@@ -204,11 +203,21 @@ export default {
     },
 
     validate() {
-      this.$refs.form.validate()
-      if (!this.valid) {
-        return
+      if (!this.form.image) {
+        openToast(this.$store, 'حتما باید عکس اضافه کنید', 'error');
+        return;
       }
-        this.createFirstTimeUserModal()
+      this.$refs.form.validate();
+
+      if (!this.valid) {
+        return;
+      }
+
+      this.$refs.form.validate();
+
+      if (this.valid) {
+        this.createFirstTimeUserModal();
+      }
     },
 
     async confirmed() {
