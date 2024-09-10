@@ -22,7 +22,7 @@ export default function setup() {
         {name:'توضیحات' ,title:'توضیحات', key:'content', show:true, align:'center', sortable: false},
         {name:'تصویر' ,title:'تصویر', key:'custom', show:true,  align:'center', sortable: false},
         {name:'تاریخ ایجاد' ,title:'تاریخ ایجاد', key:'created_at', show:true, align:'center'},
-        {name:'وضعیت' ,title:'وضعیت', key:'is_active', show:true, align:'center', sortable: false},
+        {name:'وضعیت' ,title:'وضعیت', key:'custom2', show:true, align:'center', sortable: false},
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 

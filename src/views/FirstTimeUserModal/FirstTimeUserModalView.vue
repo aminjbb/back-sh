@@ -47,6 +47,16 @@
               :page="page"
               :perPage="dataTableLength"
               :loading="loading">
+            <template v-slot:customSlot2="item">
+              <v-switch
+                  :true-value="1"
+                  :false-value="0"
+                  v-model="item.data.custom2"
+                  inset
+                  color="success"
+                  @change="changeActive(item,item.data.id)"/>
+            </template>
+
             <template v-slot:customSlot="item">
               <img :src="item.data.custom" alt="image"/>
             </template>
@@ -210,6 +220,22 @@ export default {
   },
 
   methods:{
+    async changeActive(item, id) {
+      var formdata = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = 'page/modal/crud/update/activation/' + id
+      formdata.append('is_active', item.is_active)
+      AxiosMethod.store = this.$store
+      AxiosMethod.form = formdata
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (!data) {
+        item.is_active = false
+        this.getAllFirstTimeUserList()
+      }
+    },
+
     removeItem() {
       this.$refs.modal.dialog = true
     },
@@ -262,7 +288,7 @@ export default {
                 custom: item.image_url,
                 created_at: item.created_at_fa,
                 updated_at_fa: item.updated_at_fa,
-                is_active: item.is_active,
+                custom2: item.is_active,
                 is_active_id: item.id
               },
           ),
