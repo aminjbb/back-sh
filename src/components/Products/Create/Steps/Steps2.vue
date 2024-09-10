@@ -1,8 +1,8 @@
 <template>
   <div class="px-2 py-2 h-100 create-sku-step2">
-    <v-form 
-      ref="createProductStep1"
-      class="create-product__specs-form scroller"
+    <v-form
+        ref="createProductStep1"
+        class="create-product__specs-form scroller"
     >
       <v-row class="volume-list">
         <v-col cols="12" md="4">
@@ -167,9 +167,12 @@
               {{ lables.specifications }}
           </span>
         </div>
-
-        <ckeditor v-model="specsFromModal.specifications" @update:modelValue="saveCreateFromModel()"
-                  :config="editorConfig" class="cke_rtl mb-15"/>
+        <keep-alive>
+          <TinymceVue @input="fillDescription" v-if="load" :value="specsFromModal.specifications" id="TinymceVue3"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </div>
 
       <div>
@@ -179,12 +182,12 @@
           </span>
         </div>
 
-        <v-textarea 
-          :placeholder="lables.advantages"
-          variant="outlined"
-          rows="8"
-          v-model="specsFromModal.advantages"
-          @update:modelValue="saveCreateFromModel()"
+        <v-textarea
+            :placeholder="lables.advantages"
+            variant="outlined"
+            rows="8"
+            v-model="specsFromModal.advantages"
+            @update:modelValue="saveCreateFromModel()"
         />
       </div>
 
@@ -196,11 +199,11 @@
         </div>
 
         <v-textarea
-          :placeholder="lables.disAdvantages"
-          variant="outlined"
-          rows="8"
-          v-model="specsFromModal.disAdvantages"
-          @update:modelValue="saveCreateFromModel()"
+            :placeholder="lables.disAdvantages"
+            variant="outlined"
+            rows="8"
+            v-model="specsFromModal.disAdvantages"
+            @update:modelValue="saveCreateFromModel()"
         />
       </div>
 
@@ -212,11 +215,11 @@
         </div>
 
         <v-textarea
-          :placeholder="lables.instructions"
-          variant="outlined"
-          rows="8"
-          v-model="specsFromModal.instructions"
-          @update:modelValue="saveCreateFromModel()"
+            :placeholder="lables.instructions"
+            variant="outlined"
+            rows="8"
+            v-model="specsFromModal.instructions"
+            @update:modelValue="saveCreateFromModel()"
         />
       </div>
 
@@ -228,23 +231,20 @@
         </div>
 
         <v-textarea
-          :placeholder="lables.usage"
-          variant="outlined"
-          rows="8"
-          v-model="specsFromModal.usage"
-          @update:modelValue="saveCreateFromModel()"
+            :placeholder="lables.usage"
+            variant="outlined"
+            rows="8"
+            v-model="specsFromModal.usage"
+            @update:modelValue="saveCreateFromModel()"
         />
       </div>
     </v-form>
   </div>
 </template>
 
-<script setup>
-import {component as ckeditor} from '@mayasabha/ckeditor4-vue3'
-</script>
 
 <script>
-import {ref} from 'vue'
+import TinymceVue from "@/components/Public/TinymceVue.vue";
 
 export default {
 
@@ -256,27 +256,33 @@ export default {
     volumeUnitList: [],
   },
 
-  watch:{
+  watch: {
 
-    heightList(val){
+    heightList(val) {
       this.specsFromModal.height = val[0].value
     },
-    widthList(val){
+    widthList(val) {
       this.specsFromModal.width = val[0].value
     },
-    lengthLis(val){
+    lengthLis(val) {
       this.specsFromModal.length = val[0].value
     },
-    weightList(val){
+    weightList(val) {
       this.specsFromModal.weight = val[0].value
     },
-    volumeUnitList(val){
+    volumeUnitList(val) {
       this.specsFromModal.volume = val[0].value
 
     },
   },
-
+  components: {
+    TinymceVue
+  },
   data: () => ({
+    options: {
+      height: 500,
+    },
+    load: false,
     lables: {
       height: 'ارتقاع',
       width: 'عرض',
@@ -315,6 +321,9 @@ export default {
   }),
 
   methods: {
+    fillDescription(e) {
+      this.specsFromModal.specifications = e
+    },
     saveCreateFromModel() {
       const createFromModelJson = JSON.stringify(this.specsFromModal);
       this.$cookies.set('createFromModelStep2', createFromModelJson);
@@ -335,6 +344,9 @@ export default {
     this.specsFromModal.length = this.lengthLis[0].value
     this.specsFromModal.weight = this.weightList[0].value
     this.specsFromModal.volume = this.volumeUnitList[0].value
+    setTimeout(() => {
+      this.load = true
+    }, 500)
   },
 }
 </script>

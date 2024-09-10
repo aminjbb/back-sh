@@ -20,13 +20,13 @@
                 v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
                 class="d-flex align-center ga-3">
               <span class="title t12 w400">وضعیت در حال بررسی شود </span>
-              <v-switch v-model="isSwitchActive"  inset color="success"/>
+              <v-switch v-model="isSwitchActive" inset color="success"/>
             </div>
             <v-chip
                 class="ma-2 rounded-lg t10 w400"
                 :color="getStatusColor(ticketStatus)"
                 text-color="white">
-              {{getStatusText(ticketStatus)}}
+              {{ getStatusText(ticketStatus) }}
             </v-chip>
           </div>
 
@@ -35,7 +35,8 @@
               <span class="title t12 w400">اولویت : </span>
               <div class="pr-2 t12 w400">{{ getPriorityText(oneTicket.priority) }}</div>
             </div>
-            <div v-if="oneTicket && oneTicket.created_at" class="d-flex justify-space-between align-center ticket-single__sidebar__item">
+            <div v-if="oneTicket && oneTicket.created_at"
+                 class="d-flex justify-space-between align-center ticket-single__sidebar__item">
               <span class="title t12 w400"> تاریخ ساخت : </span>
               <div class="pr-2 number-font t12 w400">{{ convertDate(oneTicket.created_at) }}</div>
             </div>
@@ -56,7 +57,7 @@
 
             <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
               <span class="title t12 w400"> موبایل :</span>
-              <v-btn @click="redirect()" variant="text" >
+              <v-btn @click="redirect()" variant="text">
                   <span class="number-font t12 w400">
                       {{ oneTicket.user.phone_number }}
                   </span>
@@ -145,11 +146,11 @@
 
             <div>
               <div class="text-right mb-3 t14 w500">ارسال پیام</div>
-
-              <ckeditor
-                  v-model="content"
-                  :config="editorConfig"
-                  class="cke_rtl mb-15"/>
+              <keep-alive>
+                <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
+                            :other_options="options">
+                </TinymceVue>
+              </keep-alive>
 
               <v-btn
                   :loading="sendMsgLoading"
@@ -174,7 +175,7 @@ import {openToast} from "@/assets/js/functions";
 
 import Ticket from '@/composables/Ticket'
 import {gregorian_to_jalali} from "@/assets/js/functions";
-import {component as ckeditor} from '@mayasabha/ckeditor4-vue3'
+import TinymceVue from "@/components/Public/TinymceVue.vue";
 
 export default {
   setup() {
@@ -190,10 +191,14 @@ export default {
   },
 
   components: {
-    ckeditor
+    TinymceVue
   },
 
   data: () => ({
+    options: {
+      height: 500,
+    },
+    load: false,
     content: null,
     loading: false,
     sendMsgLoading: false,
@@ -210,18 +215,16 @@ export default {
       if (newVal.status === 'pending') {
         this.statusModel = 'pending'
         this.isSwitchActive = true
-      }
-      else {
+      } else {
         this.statusModel = 'open'
-        this.isSwitchActive =false
+        this.isSwitchActive = false
       }
     },
 
     isSwitchActive(newVal) {
       if (newVal) {
         this.statusModel = 'pending'
-      }
-      else {
+      } else {
         this.statusModel = 'open'
       }
     }
@@ -243,6 +246,9 @@ export default {
   },
 
   methods: {
+    fillDescription(e) {
+      this.content = e
+    },
     getStatusColor(status) {
       const color = '';
 
@@ -396,6 +402,9 @@ export default {
 
   mounted() {
     this.getTicket();
+    setTimeout(() => {
+      this.load = true
+    }, 500)
   },
 }
 </script>
