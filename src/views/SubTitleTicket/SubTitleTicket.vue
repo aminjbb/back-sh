@@ -196,6 +196,7 @@ export default {
       filterField,
       page,
       dataTableLength,
+      pageLength,
       loading,
       subTitleTicket,
       getAllSubTitleTicket
@@ -206,6 +207,7 @@ export default {
       filterField,
       page,
       dataTableLength,
+      pageLength,
       loading,
       subTitleTicket,
       activeStatus,

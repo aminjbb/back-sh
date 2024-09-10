@@ -96,7 +96,7 @@ export default {
         {
           id: 1,
           name: 'شناسه کالا',
-          value: 'sku_id'
+          value: 'seller_sku_id'
         },
         {
           id: 2,
