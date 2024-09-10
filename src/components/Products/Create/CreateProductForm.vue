@@ -228,7 +228,7 @@ export default {
     validateSkuForm(){
       let skuGroupDetail
       const step1Form = JSON.parse(localStorage.getItem('createFromModelStep1'))
-      const step2Form = this.$cookies.get('createFromModelStep2')
+      const step2Form = this.$refs.skuForm2.specsFromModal
       if (localStorage.getItem('skuGroupDetail')){
         const skuObject = localStorage.getItem('skuGroupDetail')
         skuGroupDetail = JSON.parse([skuObject])
@@ -289,13 +289,13 @@ export default {
       this.attrNumbers = JSON.parse(this.$cookies.get('attributesNumber'))
       const step1Form = JSON.parse(localStorage.getItem('createFromModelStep1'))
 
-      const jsonForm = this.$cookies.get('createFromModelStep2')
+      // const jsonForm = this.$cookies.get('createFromModelStep2')
       let skuGroupDetail
       if (localStorage.getItem('skuGroupDetail')){
         const skuObject = localStorage.getItem('skuGroupDetail')
         skuGroupDetail = JSON.parse([skuObject])
       }
-      const step2Form = jsonForm
+      const step2Form = this.$refs.skuForm2.specsFromModal
       const formdata = new FormData()
       const sizes = []
       let skuGroupDetailAttributeSize = 0
