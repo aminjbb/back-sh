@@ -57,10 +57,6 @@
                   @change="changeActive(item.data.custom2,item.data.id)"/>
             </template>
 
-            <template v-slot:customSlot="item">
-              <img :src="item.data.custom" alt="image"/>
-            </template>
-
             <template v-slot:actionSlot="item">
               <div class="text-center">
                 <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto">
@@ -292,7 +288,7 @@ export default {
                 name:item.name,
                 voucher_code: item.voucher_code,
                 content: item.content,
-                custom: item.image_url,
+                image: item.image_url,
                 created_at: item.created_at_fa,
                 updated_at_fa: item.updated_at_fa,
                 custom2: item.is_active,
