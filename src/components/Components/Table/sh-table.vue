@@ -161,8 +161,8 @@ export default {
 
   methods: {
     itemRowBackground: function (item) {
-      if (item?.item?.packing_status === 'packed') return { class: 'bg-success' }
-      else if(item?.item?.packing_status === 'not_sorted') return { class: 'bg-notSorted' }
+      if (item?.item?.packing_status === 'packed'  ) return { class: 'bg-success' }
+      else if(item?.item?.packing_status === 'not_sorted' || item?.item?.badge === 'urgent') return { class: 'bg-notSorted' }
 
     },
     getItemsWithSort(sort) {
@@ -173,7 +173,6 @@ export default {
           order: sort[0].key,
         },
       })
-      console.log(sort)
 
     },
     rowIndexTable(index) {
