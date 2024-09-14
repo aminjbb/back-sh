@@ -28,7 +28,5 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-.env
 .env.*
 !.env.example
-.gitlab-ci.yml

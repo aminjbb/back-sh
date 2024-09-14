@@ -92,9 +92,7 @@
               :page="skuSellerPage"
               :perPage="dataTableLength"
               :loading="loading"
-              :activePath="`seller/${$route.params.sellerId}/sku/update/activation/`"
-          >
-
+              :activePath="`seller/${$route.params.sellerId}/sku/update/activation/`">
             <template v-slot:actionSlot="item">
               <div class="text-center">
                 <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
@@ -108,9 +106,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer">
                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه‌ی موجودی انبار
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه‌ی موجودی انبار</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -119,9 +115,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/site-inventory/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-format-list-bulleted" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه‌ی موجودی سایت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه‌ی موجودی سایت</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -130,9 +124,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openInventoryManagementModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-package-variant-closed" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            مدیریت موجودی سایت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">مدیریت موجودی سایت</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -141,9 +133,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openConsumerPriceModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-currency-usd" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            قیمت مصرف کننده
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">قیمت مصرف کننده</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -152,9 +142,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openBasicDiscountModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تخفیف پایه
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تخفیف پایه</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -163,9 +151,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openMarketingDiscountModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-percent-box-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تخفیف مارکتینگ
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تخفیف مارکتینگ</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -174,9 +160,7 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="openOrderLimitModal(item.data.sku_id)">
                         <v-icon color="grey-darken-1" icon="mdi-close-octagon-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            محدودیت سفارش
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">محدودیت سفارش</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -185,28 +169,33 @@
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/seller/sku/${$route.params.sellerId}/history/price/${item.data.sku_id}`)">
                         <v-icon color="grey-darken-1" icon="mdi-file-document-multiple-outline" size="xsmall"/>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                            تاریخچه ی قیمت
-                                        </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">تاریخچه ی قیمت</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
 
                   <v-list-item>
                     <v-list-item-title>
+                      <div class="ma-5 pointer" @click="openTransferStockModal(item.data.sku_id)">
+                        <v-icon color="grey-darken-1" icon="mdi-folder-arrow-up-down-outline" size="xsmall"/>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">انتقال موجودی</span>
+                      </div>
+                    </v-list-item-title>
+                    <TransferStockModal @closeFirsModal="transferStock" />
+                    <TransferModal ref="transferModal" :item="item.data" @updateList="updateList" :destinationShps="destinationShps" :sourceShps="item.data.id" />
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
                       <div class="ma-5 pointer" @click="removeItem(item.data.sku_id)">
                         <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                                                حذف
-                                            </span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
             </template>
-
-
           </ShTable>
           <v-divider/>
 
@@ -250,6 +239,7 @@
           </v-card-actions>
         </v-card>
         <!-- menu modals-->
+
         <OrderLimitModal @updateList="updateList" />
         <InventoryManagementModal @updateList="updateList" />
         <ConsumerPriceModal @updateList="updateList" />
@@ -281,6 +271,9 @@ import ConsumerPriceModal from "@/components/Seller/Modals/ConsumerPriceModal.vu
 import OrderLimitModal from "@/components/Seller/Modals/OrderLimitModal.vue";
 import InventoryManagementModal from "@/components/Seller/Modals/InventoryManagementModal.vue";
 import MarketingDiscountModal from "@/components/Seller/Modals/MarketingDiscountModal.vue";
+import TransferStockModal from "@/components/Seller/Modals/TransferStockModal.vue";
+import TransferModal from "@/components/Seller/Modals/TransferModal.vue";
+import { closeModal } from "@/assets/js/functions_seller";
 
 export default {
   setup() {
@@ -334,11 +327,15 @@ export default {
         title: "حذف آیتم",
         path: `seller/${this.$route.params.sellerId}/sku/delete/`,
       },
-      itemListTable: []
+      itemListTable: [],
+      shpsItem: {},
+      destinationShps: null
     }
   },
 
   components: {
+    TransferModal,
+    TransferStockModal,
     PanelFilter,
     Table,
     ModalGroupAdd,
@@ -382,10 +379,8 @@ export default {
       this.headerSku[index].show = value
     },
 
-    updateList(status) {
-      if (status === 'true') {
-        this.getSkuSeller();
-      }
+    updateList() {
+      this.getSkuSeller();
     },
 
     async searchSku(e) {
@@ -429,21 +424,37 @@ export default {
     openInventoryManagementModal(id) {
       openModal(this.$store, 'set_inventoryManagementModal', id, true)
     },
+
     openConsumerPriceModal(id) {
       openModal(this.$store, 'set_consumerPriceModal', id, true)
     },
+
     openBasicDiscountModal(id) {
       openModal(this.$store, 'set_basicDiscountModal', id, true)
     },
+
     openMarketingDiscountModal(id) {
       openModal(this.$store, 'set_marketingDiscountModal', id, true)
     },
+
     openOrderLimitModal(id) {
       openModal(this.$store, 'set_orderLimitModal', id, true)
     },
 
+    openTransferStockModal(id) {
+      openModal(this.$store, 'set_transferStockModal', id, true)
+    },
+
     removeItem(id) {
       openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+    },
+
+    transferStock(destinationShps) {
+      console.log(destinationShps , 'destinationShps')
+      closeModal(this.$store, 'set_transferStockModal')
+      this.$refs.transferModal.dialog = true
+      this.shpsItem = destinationShps
+      this.destinationShps = destinationShps.id
     }
   },
 

@@ -117,6 +117,10 @@ export default function setup() {
         if (data){
             localStorage.removeItem('orderIdForRefreshOrderPackaging')
         }
+        else {
+            localStorage.removeItem('orderIdForRefreshOrderPackaging')
+
+        }
 
     }
 

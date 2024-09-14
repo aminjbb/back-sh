@@ -123,8 +123,14 @@
                   <div class="text-right mb-3 t14 w500">ارسال پیام</div>
 
                   <keep-alive>
-                    <TinymceVue @input="fillDescription" v-if="load" :value="content" id="TinymceVue4" class="mb-8"
-                                :other_options="options">
+                    <TinymceVue
+                        ref="tinymceEditor"
+                        @input="fillDescription"
+                        v-if="load"
+                        :value="content"
+                        id="TinymceVue4"
+                        class="mb-8"
+                        :other_options="options">
                     </TinymceVue>
                   </keep-alive>
                   <v-btn
@@ -305,6 +311,7 @@ export default {
       if (data) {
         this.sendMsgLoading = false
         this.content = null
+        this.$refs.tinymceEditor.editor.setContent('')
         this.getTicket()
       } else {
         this.sendMsgLoading = false

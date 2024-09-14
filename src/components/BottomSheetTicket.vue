@@ -38,6 +38,20 @@
               </div>
               <v-divider class="my-3"/>
 
+              <div class="d-flex justify-space-between align-center">
+                <div class="t12 w500">
+                <span class="text-gray600 number-font" v-if="item?.admin?.first_name || item?.admin?.first_name">
+                  {{ item.admin.first_name }}  {{ item.admin.last_name }}
+                </span>
+                  <span class="text-gray600" v-else> - </span>
+                </div>
+                <div class="">
+                  <span class="t12 w500"> ادمین </span>
+                  <v-icon icon="mdi-circle-small"/>
+                </div>
+              </div>
+              <v-divider class="my-3"/>
+
               <div class="d-flex justify-space-between align-center mb-3">
                 <div class="t12 w500">
                 <span class="text-gray600 number-font" v-if="item.created_at_fa">

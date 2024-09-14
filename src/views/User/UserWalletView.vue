@@ -286,7 +286,7 @@ export default {
                 reason: item.charge_type ? this.translateType(item.charge_type) : '---',
                 custom: item.amount? item.amount : '---' ,
                 custom2: item.amount? item.amount : '---',
-                wallet_value: splitChar(item.wallet.value),
+                wallet_value: splitChar(item.latest_balance),
                 create_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
               },
           ),

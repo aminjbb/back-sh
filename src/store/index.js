@@ -37,6 +37,10 @@ export default createStore({
         sendingMethod:null,
         orderId: null,
         //seller modals
+        transferStockModal: {
+            dialog: false,
+            id: ''
+        },
         orderLimitModal: {
             dialog: false,
             id: ''
@@ -349,6 +353,10 @@ export default createStore({
             state.confirmForm.confirmModalClose = form.confirmModalClose
         },
         //seller modals
+        set_transferStockModal(state, form) {
+            state.transferStockModal.dialog = form.dialog
+            state.transferStockModal.id = form.id
+        },
         set_orderLimitModal(state, form) {
             state.orderLimitModal.dialog = form.dialog
             state.orderLimitModal.id = form.id
@@ -623,6 +631,9 @@ export default createStore({
             return state.toastStatus
         },
         //seller modals
+        get_transferStockModal(state) {
+            return state.transferStockModal
+        },
         get_orderLimitModal(state) {
             return state.orderLimitModal
         },

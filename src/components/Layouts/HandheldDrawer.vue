@@ -15,6 +15,7 @@
       <v-list-item prepend-icon="mdi-package-variant-closed"  href="/warehouse-orders/sorting" title="جایگذاری در جایگاه سورتینگ" value="sorting"></v-list-item>
       <v-list-item prepend-icon="mdi-package-variant-closed-minus"  href="/warehouse-orders/un-load" title="تخلیه جایگاه سورتینگ" value="un-load"></v-list-item>
       <v-list-item prepend-icon="mdi-store-outline"  href="/stocktaking/index" title="انبارگردانی" value="stocktaking"></v-list-item>
+      <v-list-item prepend-icon="mdi-archive-arrow-up-outline"  href="/relocating/index" title="جابه‌جایی کالا" value="relocating"></v-list-item>
       <v-list-item @click="logOut()" prepend-icon="mdi-exit-to-app" title="خروج از حساب کاربری" value="logOut"></v-list-item>
     </v-list>
   </v-navigation-drawer>

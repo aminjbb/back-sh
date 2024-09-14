@@ -194,7 +194,7 @@ export default {
 
         openToast(
             this.$store,
-            data.message,
+            'آپلود موفقیت آمیز بود.',
             "success"
         );
       } else {
