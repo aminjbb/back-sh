@@ -198,7 +198,6 @@ export default {
       AxiosMethod.end_point = 'page/modal/vouchers/'
       let data = await AxiosMethod.axios_get()
       if (data) {
-        console.log( data.data.data)
         this.vouchersList = data.data.data
       }
     },
