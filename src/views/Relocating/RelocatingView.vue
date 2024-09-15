@@ -78,7 +78,7 @@
         <v-divider/>
         <div class="text-center ">
           <span class="t16 w400  text-grey">
-                      {{ shpsDetail?.placement?.shelf_number }}-{{ shpsDetail?.placement?.step_number }}-{{ shpsDetail?.placement?.placement_number }}-{{ shpsDetail?.placement?.row_number}}
+                      {{ shpsDetail?.placement?.row_number }}-{{ shpsDetail?.placement?.placement_number }}-{{ shpsDetail?.placement?.step_number }}-{{ shpsDetail?.placement?.shelf_number}}
           </span>
         </div>
       </v-card>
@@ -180,17 +180,17 @@
 
                 <div>
                   <div><span class="t12 w500"> جایگاه کالا :</span></div>
-                  <div><span class="t12 w500 text-gray700">
-                                          {{ shps?.placement?.shelf_number }}-{{ shps?.placement?.step_number }}-{{ shps?.placement?.placement_number }}-{{ shps?.placement?.row_number}}
+                  <div><span class="t12 w500 text-gray500">
+                                          {{ shps?.placement?.row_number }}-{{ shps?.placement?.placement_number }}-{{ shps?.placement?.step_number }}-{{ shps?.placement?.shelf_number}}
                   </span></div>
                 </div>
                 <div>
                   <div><span class="t12 w500">شناسه کالا :</span></div>
-                  <div><span class="t12 w500 text-gray700">{{ shps?.shps }}</span></div>
+                  <div><span class="t12 w500 text-gray500">{{ shps?.shps }}</span></div>
                 </div>
                 <div>
                   <div><span class="t12 w500">تعداد کالا :</span></div>
-                  <div><span class="t12 w500 text-gray700">{{ shps?.count }}</span></div>
+                  <div><span class="t12 w500 text-gray500">{{ shps?.count }}</span></div>
                 </div>
               </div>
               <div><span class="t12 w500 text-gray500">{{ shps?.sku_title }}</span></div>
