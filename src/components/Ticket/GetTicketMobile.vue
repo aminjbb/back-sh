@@ -112,14 +112,6 @@
               </div>
             </v-card>
 
-<!--            <v-card-->
-<!--                v-if="oneTicket && oneTicket.files"-->
-<!--                min-height="100"-->
-<!--                class="mb-10">-->
-<!--  -->
-<!--            </v-card>-->
-
-
             <template v-if="oneTicket && oneTicket.threads">
               <div v-for="ticket in oneTicket.threads"
                    :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
@@ -137,6 +129,8 @@
                     </span>
                       <BottomSheetRateTicket
                           v-if="ticket.creator === 'admin'"
+                          :item="ticket"
+                          :userDetail="oneTicket.user"
                           :title="`امتیاز کاربر به پشتیبانی`"/>
                     </div>
                   </div>

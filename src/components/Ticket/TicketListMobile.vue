@@ -80,7 +80,7 @@
             </div>
 
             <v-rating
-                v-model="score"
+                v-model="item.rate"
                 half-increments
                 readonly
                 class="me-3"

@@ -99,10 +99,7 @@
                         class="mb-10"
                         :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                       <div class="d-flex justify-space-between pa-6">
-                        <span class="t14 w500 text-gray500 ml-10">
-                          {{ticket.threadable.first_name }}
-                          {{ ticket.threadable.last_name }}
-                        </span>
+                        <span class="t14 w500 text-gray500 ml-10">{{ticket.threadable.first_name }}{{ ticket.threadable.last_name }}</span>
                         <div class="">
                           <span class="t14 w500 text-gray500 mr-10 number-font">
                             {{convertDate(ticket.created_at)}}
@@ -130,7 +127,6 @@
                     </v-card>
                   </div>
                 </template>
-
                 <div>
                   <div class="text-right mb-3 t14 w500">ارسال پیام</div>
 
@@ -157,50 +153,6 @@
                 </div>
               </v-card>
             </v-card>
-            <Modal
-                :title="`امتیاز کاربر به پشتیبانی`"
-                :cancelTitle="`بستن`"
-                ref="rateModal"
-                @cancelAction="closeModal">
-                <template v-slot:modalBody="item">
-                 <div class="d-flex justify-between align-center d--rtl">
-                   <div class="d-flex align-center justify-start ga-2">
-                     <div class="text-gray600 t12">نام کاربر</div>
-                     <div class="t14">حمید باصری</div>
-                   </div>
-                   <div class="d-flex align-center justify-start ga-2">
-                     <div class="text-gray600 t12">نام پشتیبان</div>
-                     <div class="t14">شهراد نوآذر</div>
-                   </div>
-                   <div class="d-flex align-center justify-start ga-2">
-                     <div class="text-gray600 t12">امتیاز</div>
-                     <v-rating
-                         v-model="score"
-                         half-increments
-                         readonly
-                         class="me-3"
-                         style="direction: ltr!important;">
-                       <template v-slot:item="props">
-                         <v-icon
-                             size="x-large"
-                             :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
-                           mdi-star
-                         </v-icon>
-                       </template>
-                     </v-rating>
-                   </div>
-                 </div>
-                  <div class="text-right my-5">
-                    <span class="t12 w400 text-gray600">توضیحات</span>
-                  </div>
-                  <v-textarea
-                      readonly
-                      max-rows="3"
-                      density="compact"
-                      variant="outlined"
-                      v-model="description"/>
-                </template>
-            </Modal>
           </div>
         </div>
       </v-col>
