@@ -51,6 +51,7 @@ import { useCookies } from "vue3-cookies";
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 import { openToast } from "@/assets/js/functions";
+import {log10} from "chart.js/helpers";
 
 const emit = defineEmits(['files-dropped','getImage'])
 const cookies = useCookies()
@@ -64,7 +65,7 @@ const store = useStore()
 const route = useRoute()
 let loading = ref(false)
 const router = useRouter()
-const props = defineProps(['module'])
+const props = defineProps(['module' , 'acceptFile'])
 
 function onDrop(e) {
     files.value = e.dataTransfer.files
@@ -76,7 +77,8 @@ function onDrop(e) {
  */
 function selectFile() {
     var input = document.createElement('input');
-    input.type = 'file';
+  console.log(props?.acceptFile)
+    if(props?.acceptFile) input.accept = props?.acceptFile;
     input.onchange = e => {
         file = e.target.files[0];
         submitImage()

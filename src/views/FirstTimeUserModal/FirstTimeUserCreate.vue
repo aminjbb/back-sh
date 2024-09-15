@@ -11,7 +11,7 @@
               ref="form"
               class="create-product__info-form scroller"
               v-model="valid">
-            <v-row justify="start" align="center">
+            <v-row justify="start" align="center" class=" mb-5">
               <v-col cols="6">
                 <div class="text-right my-5">
                   <span class="t14 w500 text-gray600">عنوان مودال</span>
@@ -64,7 +64,7 @@
                    <span class="t14 w500 text-gray600">تصویر</span>
                    <span class="t14 w500 text-scanError">*</span>
                 </div>
-                <UploadFileSection @getImage="getImage"/>
+                <UploadFileSection @getImage="getImage" acceptFile="image/png"/>
                 <div class="t10 text-gray500 mt-2">کاربر عزیز فرمت عکس باید Png باشد </div>
                 <div class="d-flex align-center mt-5" v-if="form.image">
                   <span>IMG-{{ form.image }}</span>
@@ -188,7 +188,7 @@ export default {
     async searchVoucher(e) {
       const filter = {
         per_page: 10,
-        q: e,
+        name: e,
         is_active: 1,
       }
       const AxiosMethod = new AxiosCall()
@@ -198,6 +198,7 @@ export default {
       AxiosMethod.end_point = 'page/modal/vouchers/'
       let data = await AxiosMethod.axios_get()
       if (data) {
+        console.log( data.data.data)
         this.vouchersList = data.data.data
       }
     },
