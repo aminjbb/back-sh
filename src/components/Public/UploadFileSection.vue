@@ -51,7 +51,6 @@ import { useCookies } from "vue3-cookies";
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 import { openToast } from "@/assets/js/functions";
-import {log10} from "chart.js/helpers";
 
 const emit = defineEmits(['files-dropped','getImage'])
 const cookies = useCookies()
