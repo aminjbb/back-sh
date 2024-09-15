@@ -131,10 +131,14 @@
                     <span class="t14 w500 text-gray500 ml-10">
                       {{ ticket.threadable.first_name }} {{ ticket.threadable.last_name }}
                     </span>
-
-                    <span class="t14 w500 text-gray500 mr-10 number-font">
+                    <div class="d-flex align-center">
+                      <span class="t14 w500 text-gray500 mr-10 number-font">
                       {{ convertDate(ticket.created_at) }}
                     </span>
+                      <BottomSheetRateTicket
+                          v-if="ticket.creator === 'admin'"
+                          :title="`امتیاز کاربر به پشتیبانی`"/>
+                    </div>
                   </div>
 
                   <v-divider color="black"/>
@@ -187,6 +191,7 @@ import {openToast} from "@/assets/js/functions";
 import Ticket from '@/composables/Ticket'
 import {gregorian_to_jalali} from "@/assets/js/functions";
 import TinymceVue from "@/components/Public/TinymceVue.vue";
+import BottomSheetRateTicket from "@/components/BottomSheetRateTicket.vue";
 
 export default {
   setup() {
@@ -202,6 +207,7 @@ export default {
   },
 
   components: {
+    BottomSheetRateTicket,
     TinymceVue
   },
 

@@ -60,13 +60,27 @@
                 </div>
               </div>
 
-<!--          <div class="d-flex align-center justify-space-between">-->
-<!--                <div class="mt-3">-->
-<!--                  <v-icon icon="mdi-circle-small"/>-->
-<!--                  <span class="t12 w500"> امتیاز: </span>-->
-<!--                  <span class="t12 w500 number-font"> یسرا فیلی </span>-->
-<!--                </div>-->
-<!--              </div>-->
+          <div class="d-flex align-center justify-space-between mt-3">
+            <div class="">
+              <v-icon icon="mdi-circle-small"/>
+              <span class="t12 w500"> امتیاز کاربر: </span>
+            </div>
+
+            <v-rating
+                v-model="score"
+                half-increments
+                readonly
+                class="me-3"
+                style="direction: ltr!important;">
+              <template v-slot:item="props">
+                <v-icon
+                    size="large"
+                    :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                  mdi-star
+                </v-icon>
+              </template>
+            </v-rating>
+          </div>
 
           <div class="d-flex justify-space-between mt-3">
             <BottomSheetTicket :item="item" :title="`اطلاعات تیکت`"/>
