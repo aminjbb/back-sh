@@ -65,9 +65,7 @@
               :page="1"
               :perPage="1000"
               :loading="loading"
-
-              :getShpsList="getShpsList"
-          >
+              :getShpsList="getShpsList">
 
             <template v-slot:customSlot="item">
               <div class="seller__add-sku-btn d-flex justify-center align-center pointer"
@@ -77,7 +75,6 @@
                 </v-icon>
               </div>
             </template>
-
 
             <template v-slot:actionSlot="item">
               <div class="text-center">
@@ -255,6 +252,7 @@ export default {
               shipment_id: item.shipment_id ? item.shipment_id : 'نامعلوم',
               custom: null,
               id: item.id,
+              image: item.image,
               label_printed: item.label_printed
             }
         )
