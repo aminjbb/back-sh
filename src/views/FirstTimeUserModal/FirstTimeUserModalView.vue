@@ -289,6 +289,7 @@ export default {
                 voucher_code: item.voucher_code,
                 content: item.content,
                 image: item.image_url,
+
                 created_at: item.created_at_fa,
                 updated_at_fa: item.updated_at_fa,
                 custom2: item.is_active,
