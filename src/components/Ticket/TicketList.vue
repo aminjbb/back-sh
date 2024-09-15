@@ -17,7 +17,13 @@
                 <v-row justify="end">
                     <ModalColumnFilter :changeHeaderShow="changeHeaderShow" :header="header" />
 
-                    <PanelFilter @resetPage="resetPage" path="ticket/index" :filterField="filterField" :statusItems="statusTicket" :priorityItems="priorityList" />
+                    <PanelFilter
+                        @resetPage="resetPage"
+                        path="ticket/index"
+                        :filterField="filterField"
+                        :statusItems="statusTicket"
+                        :priorityItems="priorityList"
+                        :scoreItems="scoreItems" />
                 </v-row>
             </v-col>
         </v-row>
@@ -49,7 +55,7 @@
 
         <template v-slot:actionSlot="item">
           <div class="text-center">
-            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+            <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto">
               mdi-dots-vertical
             </v-icon>
           </div>
@@ -62,15 +68,6 @@
                       mdi-pen
                     </v-icon>
                     <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
-                  </div>
-                </v-list-item-title>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-title>
-                  <div class="ma-5 pointer" @click="removeItem(item.data.id)">
-                    <v-icon size="xsmall" class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
-                    <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
                   </div>
                 </v-list-item-title>
               </v-list-item>
@@ -124,12 +121,14 @@ export default {
     data() {
       return {
         perPageFilter: false,
-        itemListTable: []
+        itemListTable: [],
+        scoreItems: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
       }
     },
 
     setup() {
-        const statusTicket = [{
+        const statusTicket = [
+            {
                 label: 'همه وضعیت‌ها',
                 value: ''
             },
@@ -150,7 +149,8 @@ export default {
                 value: 'pending'
             }
         ]
-        const priorityList = [{
+        const priorityList = [
+            {
                 label: 'همه اولیوت‌ها',
                 value: ''
             },
@@ -182,7 +182,8 @@ export default {
             loading,
             getTicketList,
             allTickets
-        } = Ticket();
+        } = Ticket()
+
         return {
             pageLength,
             filterField,
@@ -195,7 +196,7 @@ export default {
             allTickets,
             statusTicket,
             priorityList
-        };
+        }
     },
 
     mounted() {
@@ -293,7 +294,8 @@ export default {
                 {
                   ticket_number: '#' + item.code,
                   id: item.id,
-                  title: item.title,
+                  title: item.parent_topic ?  item.parent_topic : '-',
+                  sub_title:  item.topic_title ?  item.topic_title : '-',
                   priority: this.getPriorityText(item.priority),
                   custom: item.status,
                   admin: item.admin ? item?.admin?.first_name + ' ' + item?.admin?.last_name : '-',
@@ -303,7 +305,7 @@ export default {
                   created_at: item.created_at_fa + ' ' + item.updated_at.split('T')[1].split('.')[0],
                   latest_date: item.latest_date_fa ,
                 },
-            ),
+            )
         )
       },
 

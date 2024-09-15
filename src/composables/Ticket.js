@@ -17,10 +17,11 @@ export default function setup() {
         { name: 'ردیف', title: 'ردیف', show: true, key:'row', align:'center', sortable: false},
         { name: 'شماره', title: 'شماره', show: true, key:'ticket_number', align:'center', sortable: false},
         { name: 'شناسه', title: 'شناسه', show: true, key:'id', align:'center', sortable: false},
-        { name: 'عنوان', title: 'عنوان', show: true, key:'title', align:'center', sortable: false},
+        { name: 'موضوع', title: 'موضوع', show: true, key:'title', align:'center', sortable: false},
+        { name: 'زیر موضوع', title: 'زیر موضوع', show: true, key:'sub_title', align:'center', sortable: false},
         { name: 'اولویت', title: 'اولویت', show: true, key:'priority', align:'center', sortable: false,},
         { name: 'وضعیت', title: 'وضعیت', show: true, key:'custom', align:'center', sortable: false},
-        { name: 'ایجاد کننده', title: 'ایجاد کننده', show: true, key:'user_name', align:'center', sortable: false,},
+        { name: 'کاربر', title: 'کاربر', show: true, key:'user_name', align:'center', sortable: false,},
         { name: 'موبایل', title: 'موبایل', show: true, key:'mobile', align:'center', sortable: false},
         { name: 'ادمین', title: 'ادمین', show: true, key:'admin', align:'center', sortable: false,},
         { name: 'امتیاز کاربر', title: 'امتیاز کاربر', show: true, key:'score', align:'center', sortable: false,},
@@ -32,12 +33,14 @@ export default function setup() {
     const filterField = [
         { name:'شناسه' , type:'text', value:'id'},
         { name: 'شماره تیکت', type:'text', value:'code'},
-        { name: 'عنوان تیکت', type:'text', value:'title'},
+        { name: 'اولویت', type:'select', value:'priority'},
         { name: 'کاربر', type:'select', value:'user_id'},
-        { name: 'ادمین', type:'auto-complete', value:'admin_id'},
         { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
-        { name: 'اولویت', type:'select', value:'priority'},
+        { name: 'موضوع', type:'select', value:'topic_id'},
+        { name: 'زیر موضوع', type:'select', value:'sub_title'},
+        { name: 'ادمین', type:'auto-complete', value:'admin_id'},
+        { name: 'امتیاز کاربر', type:'select', value:'score'}
     ];
 
     const item = []
