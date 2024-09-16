@@ -107,7 +107,7 @@
                           <span>
                              <v-icon
                                  v-if="ticket.creator === 'admin'"
-                                 @click="openModal"
+                                 @click="openModal(ticket)"
                                  color="primary500"
                                  icon="mdi-eye-outline"
                                  size="18.33"
@@ -126,6 +126,49 @@
                       <p class="t14text-justify pa-5" v-html="ticket.content"/>
                     </v-card>
                   </div>
+
+                  <Modal ref="rateModal" :ticket="selectedTicket">
+                    <template v-slot:modalBody="item">
+                     <div class="d-flex align-center justify-between d--rtl">
+                       <div class="d-flex align-center ga-2">
+                         <div class="t12 text-gray600">نام کاربر</div>
+                         <div class="t14"> {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}</div>
+                       </div>
+
+                       <div class="d-flex align-center ga-2">
+                         <div class="t12 text-gray600">نام پشتیبان</div>
+                         <div class="t14"> {{selectedTicket.threadable.full_name}}</div>
+                       </div>
+
+                       <div class="d-flex align-center ga-2">
+                         <div class="t12 text-gray600">امتیاز</div>
+                         <v-rating
+                             v-model="selectedTicket.rate"
+                             half-increments
+                             readonly
+                             class="me-3"
+                             style="direction: ltr!important;">
+                           <template v-slot:item="props">
+                             <v-icon
+                                 size="large"
+                                 :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                               mdi-star
+                             </v-icon>
+                           </template>
+                         </v-rating>
+                       </div>
+                     </div>
+                      <div class="text-right mt-5 mb-2">
+                        <span class="t12 text-gray600">توضیحات</span>
+                      </div>
+                      <v-textarea
+                          readonly
+                          max-rows="3"
+                          density="compact"
+                          variant="outlined"
+                          v-model="selectedTicket.note_rate"/>
+                    </template>
+                  </Modal>
                 </template>
                 <div>
                   <div class="text-right mb-3 t14 w500">ارسال پیام</div>
@@ -200,8 +243,8 @@ export default {
       contentsLangDirection: 'rtl',
     },
     isSwitchActive: false,
-    score: null,
-    description: null
+    description: null,
+    selectedTicket: null
   }),
 
   watch: {
@@ -240,7 +283,8 @@ export default {
   },
 
   methods: {
-    openModal(){
+    openModal(ticket){
+      this.selectedTicket = ticket
       this.$refs.rateModal.dialog = true
     },
 
