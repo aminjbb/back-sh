@@ -123,6 +123,8 @@
                     multiple
                     variant="outlined"
                     return-object
+
+                    :aria-multiline="true"
                     class="selected-attribute__values__input"
 
                     @update:modelValue="saveCreateFromModel();addBadge(labels.color,'color')"
@@ -140,8 +142,9 @@
                   <template v-slot:item="{ props, item }">
                       <template v-if="item.value.header">
                           <v-list-item-title
+                              @click="getGroupColor(item.value.header)"
                               v-html="item.value.header"
-                              class="font-weight-bold d-flex align-center mb-4 justify-end pr-3"
+                              class="font-weight-bold d-flex align-center mb-4 justify-end pr-3 cursor-pointer"
                           />
                       </template>
 
@@ -718,6 +721,19 @@ export default {
   },
 
   methods: {
+    getGroupColor(item){
+      try {
+        const filtersColor = this.groupedColors.filter(color=> color.group === item)
+        if (filtersColor.length){
+          filtersColor.forEach(element=>{
+            this.createFromModel.colors.push(element)
+          })
+        }
+      }
+      catch (e) {
+
+      }
+    },
     setSkuDetailGroup(){
       this.deleteForms()
       if (this.skuGroupSelected !== null) {
