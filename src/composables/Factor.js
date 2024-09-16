@@ -49,7 +49,7 @@ export default function setup() {
         { name:'سازنده' , type: 'select', value:'creator_id'},
         { name: 'تامین کننده', type:'select', value:'supplier_id'},
         { name: 'شماره فاکتور تامین کننده', type:'text', value:'factor_number'},
-        { name:'شماره پیش فاکتور' , type:'text', value:'pre_factor'},
+        { name:'شماره پیش فاکتور' , type:'text', value:'pre_factor_number'},
         { name: 'تاریخ ساخت', type: 'date', value: 'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
     ];

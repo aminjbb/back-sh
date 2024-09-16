@@ -440,7 +440,7 @@ export default {
                           data: item,
                           id: item.id,
                           supplier: item.supplier ? item.supplier.shopping_name : 'نامعلوم',
-                          pre_factor: item.pre_factor ? item.pre_factor : '-',
+                          pre_factor: item.pre_factor_number ? item.pre_factor_number : '-',
                           creator: item.creator ? item.creator.first_name + ' ' + item.creator.last_name : 'نامعلوم',
                           factor_number: item.factor_number ? item.factor_number : 'نامعلوم',
                           created_at_fa: item.created_at_fa ? item.created_at_fa : 'نامعلوم',
