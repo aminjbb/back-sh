@@ -1,6 +1,6 @@
 <template>
   <div class="ticket-single h-100 d-flex flex-column align-stretch">
-    <v-row class="pa-2">
+    <v-row class="pa-2 stretch-table">
       <v-col class="ticket-single__sidebar" md="3">
         <div class="bg-indigo-lighten-5 pa-8 h-100">
           <div class="ticket-single__sidebar__item">
@@ -41,6 +41,20 @@
             <v-btn @click="redirect()" variant="text">
               <span class="number-font">{{ oneTicket.user.phone_number }}</span>
             </v-btn>
+          </div>
+
+          <div v-if="oneTicket && oneTicket.order_number" class="ticket-single__sidebar__item">
+            <span class="title">شماره سفارش</span>
+            <div class="pr-2 mt-2 number-font">
+              {{ oneTicket.order_number }}
+            </div>
+          </div>
+
+          <div v-if="oneTicket && oneTicket.seller_sku_id" class="ticket-single__sidebar__item">
+            <span class="title">شناسه کالا</span>
+            <div class="pr-2 mt-2 number-font">
+              {{ oneTicket.seller_sku_id }}
+            </div>
           </div>
 
           <v-btn

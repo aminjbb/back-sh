@@ -31,19 +31,27 @@
           </div>
 
           <div class="d-flex justify-space-between align-center">
-            <div v-if="oneTicket && oneTicket.priority" class="d-flex align-center ticket-single__sidebar__item">
+            <div
+                v-if="oneTicket && oneTicket.priority"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
               <span class="title t12 w400">اولویت : </span>
               <div class="pr-2 t12 w400">{{ getPriorityText(oneTicket.priority) }}</div>
             </div>
-            <div v-if="oneTicket && oneTicket.created_at"
-                 class="d-flex justify-space-between align-center ticket-single__sidebar__item">
+            <div
+                v-if="oneTicket && oneTicket.created_at"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
               <span class="title t12 w400"> تاریخ ساخت : </span>
               <div class="pr-2 number-font t12 w400">{{ convertDate(oneTicket.created_at) }}</div>
             </div>
           </div>
 
           <div class="d-flex justify-space-between align-center">
-            <div v-if="oneTicket && oneTicket.user" class="d-flex align-center ticket-single__sidebar__item">
+            <div
+                v-if="oneTicket && oneTicket.user"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
               <span class="title t12 w400"> کاربر :</span>
               <div class="pr-2 t12 w400">
                 <template v-if="oneTicket.user.first_name">
@@ -55,13 +63,34 @@
               </div>
             </div>
 
-            <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
+            <div
+                v-if="oneTicket && oneTicket.user"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
               <span class="title t12 w400"> موبایل :</span>
               <v-btn @click="redirect()" variant="text">
                   <span class="number-font t12 w400">
                       {{ oneTicket.user.phone_number }}
                   </span>
               </v-btn>
+            </div>
+          </div>
+
+          <div class="d-flex justify-space-between align-center">
+            <div
+                v-if="oneTicket && oneTicket.order_number"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
+              <div class="title t12 w400"> شماره سفارش :</div>
+              <div class="pr-2 t12 w400 number-font">{{ oneTicket.order_number }}</div>
+            </div>
+
+            <div
+                v-if="oneTicket && oneTicket.seller_sku_id"
+                class="d-flex justify-start align-center ticket-single__sidebar__item">
+              <v-icon icon="mdi-circle-small"/>
+              <div class="title t12"> شناسه کالا :</div>
+              <div class="number-font t12">{{ oneTicket.seller_sku_id }}</div>
             </div>
           </div>
 
