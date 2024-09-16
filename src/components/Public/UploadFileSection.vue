@@ -40,6 +40,8 @@
             </div>
             <v-progress-linear v-model="progressUpload" color="success"></v-progress-linear>
         </v-col>
+
+
     </div>
 </template>
 </template>
@@ -76,8 +78,8 @@ function onDrop(e) {
  */
 function selectFile() {
     var input = document.createElement('input');
-  console.log(props?.acceptFile)
     if(props?.acceptFile) input.accept = props?.acceptFile;
+    input.type = 'file';
     input.onchange = e => {
         file = e.target.files[0];
         submitImage()
