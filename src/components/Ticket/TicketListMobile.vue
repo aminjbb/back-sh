@@ -9,6 +9,7 @@
             :filterField="filterField"
             :statusItems="statusTicket"
             :priorityItems="priorityList"
+            :scoreItems="scoreItems"
         />
       </div>
 
@@ -151,14 +152,17 @@ import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
 import Ticket from '@/composables/Ticket';
 import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
 import BottomSheetTicket from "@/components/BottomSheetTicket.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      scoreItems: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     }
   },
   components: {
+    PanelFilter,
     PanelFilterMobile,
     Table,
     BottomSheetTicket,

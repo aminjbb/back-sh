@@ -322,6 +322,33 @@
                     :item-title="`label`"
                     :item-value="`value`"/>
 
+                <!-- parent topic fields -->
+                <sh-autocomplete
+                    v-if="filter.value == 'parent_topic_id'"
+                    :items="parentTopicList"
+                    v-model="values[index].value"
+                    @update:modelValue="getTopic(values[index].value)"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    :single-line="true"
+                    :clearable="true"
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
+
+                <!-- topic fields -->
+                <sh-autocomplete
+                    v-if="filter.value == 'topic_id'"
+                    :items="topicList"
+                    v-model="values[index].value"
+                    :clearable="`clearable`"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    single-line
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
+
                 <!-- province fields -->
                 <sh-autocomplete
                     v-if="filter.value == 'receive_state_id' || filter.value === 'state_id'"
@@ -499,7 +526,7 @@
 
                 <!-- score -->
                 <sh-select
-                    v-if="filter.value ==='score'"
+                    v-if="filter.value ==='score' || filter.value ==='rate'"
                     :items="scoreItems"
                     v-model="values[index].value"
                     :density="`compact`"
@@ -636,10 +663,13 @@ export default {
       skuSearchList:[],
       userSearchList:[],
       cities: [],
+      topic: [],
       provinces: [],
+      parentTopices: [],
 
       provinceModel:'',
       cityModel:'',
+      topicModel: '',
       admin:'',
 
       createdAtModel: null,
@@ -663,6 +693,10 @@ export default {
 
     if (this.path === 'menu/index') {
       this.getAllMenu()
+    }
+
+    if (this.path === 'ticket/index') {
+      this.getParentTopic()
     }
 
     else if (this.path === 'product/get/skus/index') {
@@ -755,6 +789,36 @@ export default {
         return []
       }
     },
+    topicList() {
+      try {
+        let topicList = []
+        this.topic.forEach(top => {
+          const form = {
+            title: top.title,
+            value: top.id
+          }
+          topicList.push(form)
+        })
+        return topicList
+      } catch (e) {
+        return []
+      }
+    },
+    parentTopicList() {
+      try {
+        let parentList = []
+        this.parentTopices.forEach(parent => {
+          const form = {
+            title: parent.title,
+            value: parent.id
+          }
+          parentList.push(form)
+        })
+        return parentList
+      } catch (e) {
+        return []
+      }
+    },
 
     provinceList() {
       try {
@@ -771,6 +835,7 @@ export default {
         return []
       }
     },
+
     adminList(){
       try {
         const admins = []
@@ -974,6 +1039,38 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.cities = data.data.cities
+      }
+    },
+
+    async getParentTopic() {
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'ticket/topic/crud/index'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.parentTopices = data.data.data
+      }
+    },
+
+    async getTopic(topicId) {
+      this.topic = []
+      this.topicModel = null
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `ticket/topic/crud/get/${topicId}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.topic = data.data.children
       }
     },
 

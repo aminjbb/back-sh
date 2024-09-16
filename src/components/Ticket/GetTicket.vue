@@ -127,7 +127,11 @@
                     </v-card>
                   </div>
 
-                  <Modal ref="rateModal" :ticket="selectedTicket">
+                  <Modal
+                      ref="rateModal"
+                      :ticket="selectedTicket"
+                      @successAction="closeModal()"
+                      @cancelAction="closeModal">
                     <template v-slot:modalBody="item">
                      <div class="d-flex align-center justify-between d--rtl">
                        <div class="d-flex align-center ga-2">
@@ -166,7 +170,7 @@
                           max-rows="3"
                           density="compact"
                           variant="outlined"
-                          v-model="selectedTicket.note_rate"/>
+                          v-model="selectedTicket.rate_note"/>
                     </template>
                   </Modal>
                 </template>

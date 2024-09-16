@@ -37,10 +37,10 @@ export default function setup() {
         { name: 'کاربر', type:'select', value:'user_id'},
         { name:'تاریخ ایجاد', type: 'date', value:'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
-        { name: 'موضوع', type:'select', value:'topic_id'},
-        { name: 'زیر موضوع', type:'select', value:'sub_title'},
+        { name: 'موضوع', type:'select', value:'parent_topic_id'},
+        { name: 'زیر موضوع', type:'select', value:'topic_id'},
         { name: 'ادمین', type:'auto-complete', value:'admin_id'},
-        { name: 'امتیاز کاربر', type:'select', value:'score'}
+        { name: 'امتیاز کاربر', type:'select', value:'rate'}
     ];
 
     const item = []
