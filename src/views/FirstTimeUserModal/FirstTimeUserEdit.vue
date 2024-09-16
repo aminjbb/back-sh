@@ -187,7 +187,7 @@ export default {
     async searchVoucher(e) {
       const filter = {
         per_page: 10,
-        q: e,
+        name: e,
         is_active: 1,
       }
       const AxiosMethod = new AxiosCall()
