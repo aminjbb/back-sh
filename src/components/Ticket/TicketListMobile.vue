@@ -22,7 +22,7 @@
           <div class="d-flex align-center justify-space-between">
                 <div class="">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12 w500"> موضوع سایت : </span>
+                  <span class="t12 w500"> موضوع : </span>
                   <div class="">
                     <span v-if="item.parent_topic" class="t12 w500 number-font"> {{ item.parent_topic }} </span>
                     <span v-else class="t12 w500 number-font"> - </span>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12 w500"> زیر موضوع سایت : </span>
+                  <span class="t12 w500"> زیر موضوع : </span>
                   <div class="">
                     <span v-if="item.topic_title" class="t12 w500 number-font"> {{ item.topic_title }} </span>
                     <span v-else class="t12 w500 number-font"> - </span>
