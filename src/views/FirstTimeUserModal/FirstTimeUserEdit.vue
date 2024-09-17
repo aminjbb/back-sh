@@ -201,6 +201,24 @@ export default {
       }
     },
 
+    async searchVoucherWithCode(e) {
+      const filter = {
+        per_page: 10,
+        code: e,
+        is_active: 1,
+      }
+      console.log(filter.name, 'id')
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.form = filter
+      AxiosMethod.end_point = 'page/modal/vouchers/'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.vouchersList = data.data.data
+      }
+    },
+
     validate() {
       if (!this.form.image) {
         openToast(this.$store, 'حتما باید عکس اضافه کنید', 'error');
@@ -253,7 +271,7 @@ export default {
       try {
         this.form.name = this.detailFirstTimeUser.name
         this.form.voucher_id = this.detailFirstTimeUser.voucher_id
-        this.searchVoucher(this.detailFirstTimeUser.voucher_id)
+        this.searchVoucherWithCode(this.detailFirstTimeUser.voucher_code)
         this.form.content = this.detailFirstTimeUser.content
         this.form.image = this.detailFirstTimeUser.image_id
       } catch (e) {}
