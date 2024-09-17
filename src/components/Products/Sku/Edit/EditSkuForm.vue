@@ -520,7 +520,7 @@ export default {
       let data = await AxiosMethod.axios_post()
       if (data) {
         this.loading = false
-        this.$router.push('/product/get/skus/index')
+        this.$router.go(-1)
       } else {
         this.loading = false
       }

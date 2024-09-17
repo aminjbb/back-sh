@@ -120,7 +120,7 @@ export default {
       AxiosMethod.token = this.$cookies.get('adminToken')
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.$router.push('/attributes/index')
+        this.$router.go(-1)
       }
       else {
         this.loading = false
