@@ -45,8 +45,8 @@ export default function setup() {
     const imageHeader =ref([
         {name: 'ردیف', title: 'ردیف', show: true , key:'row', align:'center', sortable: false},
         {name: 'تصویر', title: 'تصویر', show: true , key:'custom', align:'center', sortable: false},
-        {name: 'دستگاه', title: 'دستگاه', show: true, key:'deviceType', align:'center', sortable: false, model:'select' },
-        {name: 'موقعیت', title: 'موقعیت', show: true , key:'location', align:'center', sortable: false, model:'select'},
+        {name: 'دستگاه', title: 'دستگاه', show: true, key:'custom3', align:'center', sortable: false },
+        {name: 'موقعیت', title: 'موقعیت', show: true , key:'custom4', align:'center', sortable: false},
         {name: 'ترتیب نمایش ', title: 'ترتیب نمایش ', show: true, key:'show_order', align:'center', sortable: false, model:'number_input', width:'200'},
         {name: 'ذخیره ', title: 'ذخیره ', show: true, key:'custom2', align:'center', sortable: false},
         {name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
