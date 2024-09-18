@@ -252,7 +252,7 @@ export default {
               shipment_id: item.shipment_id ? item.shipment_id : 'نامعلوم',
               custom: null,
               id: item.id,
-              image: item.image,
+              image: item.sku.image_url,
               label_printed: item.label_printed
             }
         )
