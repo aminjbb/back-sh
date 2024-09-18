@@ -30,13 +30,13 @@ export default function setup() {
         {name: 'عملیات', title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
     const bannerHeader =ref([
-        { name: 'ردیف', title: 'ردیف', show: true , key:null, sortable:false, align: 'center'},
+        { name: 'ردیف', title: 'ردیف', show: true , key:'row', sortable:false, align: 'center'},
         { name: 'تصویر', title: 'تصویر', show: true , key:'custom', sortable: false, align: 'center'},
         { name: 'دستگاه', title: 'دستگاه', show: true, key:'device_type' , sortable: false, align: 'center'},
         { name: 'لینک',  title: 'لینک', show: true , key:'link', sortable: false, align: 'center'},
-        { name: 'ترتیب نمایش', title: 'ترتیب نمایش', show: true, key:'priority', sortable: false, align: 'center' },
+        { name: 'ترتیب نمایش', title: 'ترتیب نمایش', show: true, key:'custom2', sortable: false, align: 'center' },
         { name: 'سازنده', title: 'سازنده', show: true, key:'admin', sortable: false, align: 'center' },
-        { name: 'ذخیره', title: 'ذخیره', show: true, key:'save', sortable: false, align: 'center' },
+        { name: 'ذخیره', title: 'ذخیره', show: true, key:'custom3', sortable: false, align: 'center' },
         { name: 'وضعیت', title: 'وضعیت', show: true, key:'is_active', sortable: false, align: 'center' },
         { name: 'زمان ویرایش', title: 'زمان ویرایش', show: false, key:'updated_at', sortable: false, align: 'center' },
         { name: 'زمان شروع', title: 'زمان شروع', show: false, key:'started_at', sortable: false, align: 'center' },

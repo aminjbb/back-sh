@@ -1131,7 +1131,7 @@ const router = createRouter({
                 name: 'PageListing',
                 component: PageListView,
                 meta: {
-                    name: 'لیست صفحهات'
+                    name: 'لیست صفحات'
                 }
             },
                 {

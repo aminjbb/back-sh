@@ -114,6 +114,7 @@ import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
 import {defineAsyncComponent} from "vue";
+import {openConfirm} from "@/assets/js/functions";
 const UploadFileSection = defineAsyncComponent(() => import('@/components/Public/UploadFileSection.vue'))
 
 
@@ -148,6 +149,19 @@ export default {
 
   },
   methods: {
+    getImage(image){
+      this.form.image = image.data.data.image_id
+    },
+
+    getImageMobile(image) {
+      this.form.imageMobile = image.data.data.image_id
+    },
+
+    removeItem(id, status) {
+      this.imageId = id;
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
+    },
+
     close() {
       closeModal(this.$store, 'set_orderDetailsModal')
     },
