@@ -13,9 +13,7 @@
             <v-col cols="11">
               <div class="text-right mb-2">
                 عنوان
-                <span class="text-error">
-                        *
-                    </span>
+                <span class="text-error">*</span>
               </div>
               <div class="mb-4">
                 <v-text-field
@@ -34,7 +32,6 @@
                     height="40"
                     rounded
                     class="px-8 mt-1">
-
                   تایید
                 </v-btn>
               </v-row>
@@ -59,17 +56,77 @@
         </v-card>
 
         <v-card class="mx-5 my-2 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-          <Table
+<!--          <Table-->
+<!--              class="flex-grow-1"-->
+<!--              :header="bannerHeader"-->
+<!--              :items="homePageBanner.data"-->
+<!--              editUrl="/seller/edit/"-->
+<!--              activePath="page/home/section/banner/update/activation/"-->
+<!--              deletePath="page/home/section/banner/delete/"-->
+<!--              changeStatusUrl="seller/crud/update/contract/"-->
+<!--              :loading="loading"-->
+<!--              updateUrl="seller/csv/mass-update"-->
+<!--              model="category" />-->
+
+          <ShTable
               class="flex-grow-1"
-              :header="bannerHeader"
-              :items="homePageBanner.data"
-              editUrl="/seller/edit/"
-              activePath="page/home/section/banner/update/activation/"
-              deletePath="page/home/section/banner/delete/"
-              changeStatusUrl="seller/crud/update/contract/"
-              :loading="loading"
-              updateUrl="seller/csv/mass-update"
-              model="category" />
+              :headers="bannerHeader"
+              :items="itemListTable"
+              :activePath="`page/home/section/banner/update/activation/`"
+              :loading="loading">
+            <template v-slot:customSlot="item">
+              <div class="d-flex align-center">
+                <img :src="item.data.data.image.image_url" width="68" height="28" alt="" class="br br--4">
+                <span>
+                <v-icon
+                    color="gray500"
+                    class="pointer"
+                    @click="selectFile(item.index)">mdi-progress-upload</v-icon>
+              </span>
+              </div>
+
+            </template>
+
+<!--            <template v-slot:customSlot2="item">-->
+<!--              <v-text-field  v-model="item.data.priority"  hide-details  variant="outlined"  class="number-font"  type="number" />-->
+<!--            </template>-->
+
+<!--            <template v-slot:customSlot3="item">-->
+<!--              <div @click="updateImage(item.index, item.data.data, item.data.priority)"-->
+<!--                   class="seller__add-sku-btn d-flex justify-center align-center pointer">-->
+
+<!--                <v-icon size="15">mdi-plus</v-icon>-->
+<!--              </div>-->
+<!--            </template>-->
+
+            <template v-slot:actionSlot="item">
+              <div class="text-center">
+                <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                  mdi-dots-vertical
+                </v-icon>
+              </div>
+
+              <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                <v-list class="c-table__more-options">
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="openEditModal(item.data,image_id[item.index],description[item.index])">
+                        <span class="mr-2 text-grey-darken-1 t14 w300">ویرایش</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <div class="ma-5 pointer" @click="removeItem(item.data.id)">
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </ShTable>
 
           <v-divider />
 
@@ -114,10 +171,11 @@ import Home from "@/composables/Home";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
-import { openToast } from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import ModalAddBanner from "@/components/HomePage/Modals/ModalAddBanner.vue";
 import ModalAddCategory from "@/components/HomePage/Modals/ModalAddCategory.vue";
 import {AxiosCall} from "@/assets/js/axios_call";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
   setup() {
@@ -147,10 +205,14 @@ export default {
   data() {
     return {
       title: '',
-      editLoading: false
+      editLoading: false,
+      itemListTable: [],
+      imageUrl: [],
+      image_id: [],
     }
   },
   components: {
+    ShTable,
     ModalAddCategory,
     ModalAddBanner,
     Table,
@@ -168,8 +230,21 @@ export default {
   },
 
   methods: {
+    openEditModal(obejct, image_id, description) {
+      const obj = {...obejct , image :image_id, description:description}
+      const form = {
+        dialog: true,
+        object: obj
+      }
+      this.$store.commit('set_homePageBrandModal', form)
+    },
+
     changeHeaderShow(index, value) {
       this.bannerHeader[index].show = value
+    },
+
+    removeItem(id) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", "page/home/section/banner/delete/"+id, true)
     },
 
     async editSection() {
@@ -192,6 +267,34 @@ export default {
       }
 
     },
+
+    selectFile(index) {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.onchange = e => {
+        let file = e.target.files[0];
+        this.submitImage(index, file)
+      }
+      input.click();
+    },
+
+    async submitImage(index, file) {
+      var formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      formData.append('file', file)
+      formData.append('module', 'page')
+      AxiosMethod.using_auth = true
+      AxiosMethod.store = this.$store
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'file-manager/direct/store'
+      AxiosMethod.form = formData
+      let data = await AxiosMethod.axios_image_upload()
+      if (data) {
+        this.itemListTable[index].imageUrl = data.data.data.url
+        this.itemListTable[index].image = data.data.data.image_id
+        console.log()
+      }
+    }
   },
 
   mounted() {
@@ -200,6 +303,37 @@ export default {
   },
 
   watch: {
+    homePageBanner() {
+      if(this.homePageBanner.data) {
+        this.itemListTable = []
+        this.homePageBanner.data.forEach((item) => { console.log(item, 'item')
+          this.itemListTable.push(
+              {
+                data: item,
+                id: item.id,
+                custom: item.image.image_url,
+                device_type: item.device,
+                link: item.link,
+                admin: item.creator.full_name,
+                is_active: item.is_active,
+                is_active_id: item.id,
+
+                // label: item.label,
+                // link: item.link,
+                // priority: item.priority,
+                // imageId: item.id,
+                // custom: item.image.image_url,
+                // description: item.description,
+                // creator: item.creator?.first_name+' '+item.creator?.last_name,
+              })
+
+          // this.imageUrl.push(item.image.image_url)
+          // this.image_id.push(item.image_id)
+          // this.description.push(item.description)
+        })
+      }
+    },
+
     homeSection(val) {
       this.title = val.label
     },
