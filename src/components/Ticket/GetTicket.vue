@@ -38,9 +38,11 @@
 
           <div v-if="oneTicket && oneTicket.user" class="ticket-single__sidebar__item">
             <span class="title"> موبایل :</span>
-            <v-btn @click="redirect()" variant="text">
-              <span class="number-font">{{ oneTicket.user.phone_number }}</span>
-            </v-btn>
+            <div class="mt-2">
+              <v-btn @click="redirect()" variant="text">
+                <span class="number-font">{{ oneTicket.user.phone_number }}</span>
+              </v-btn>
+            </div>
           </div>
 
           <div v-if="oneTicket && oneTicket.order_number" class="ticket-single__sidebar__item">
