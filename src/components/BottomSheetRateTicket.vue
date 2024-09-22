@@ -70,15 +70,18 @@
               </div>
               <v-divider class="my-3"/>
 
-              <div class="d-flex justify-space-between align-center mb-3">
-                <div class="t12 w500">
-                <span class="number-font text-gray600" v-if="item.rate_note">{{item.rate_note}}</span>
-                  <span class="text-gray600" v-else> - </span>
-                </div>
+              <div class="d-flex justify-end mb-3">
                 <div class="">
                   <span class="t12 w500"> توضیحات </span>
                   <v-icon icon="mdi-circle-small"/>
                 </div>
+              </div>
+              <div class="d-flex justify-end mb-3">
+                <div class="t12 w500 text-right">
+                <span class="number-font text-gray600" v-if="item.rate_note">{{item.rate_note}}</span>
+                  <span class="text-gray600" v-else> - </span>
+                </div>
+
               </div>
             </div>
           </div>
