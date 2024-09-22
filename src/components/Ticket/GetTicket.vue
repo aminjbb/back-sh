@@ -143,6 +143,7 @@
 
                   <Modal
                       ref="rateModal"
+                      :title="`امتیاز کاربر به پشتیبانی`"
                       :ticket="selectedTicket"
                       @successAction="closeModal()"
                       @cancelAction="closeModal">
