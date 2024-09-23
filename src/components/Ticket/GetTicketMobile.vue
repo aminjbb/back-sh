@@ -112,7 +112,7 @@
             <v-card
                 v-if="oneTicket && oneTicket.content"
                 min-height="100"
-                class="mb-10">
+                class="mb-10 rounded-e-xl rounded-b-xl">
               <div class="d-flex justify-space-between pa-6">
                   <span v-if="oneTicket.user" class="t14 w500 text-gray500 mrl10">
                     <template v-if="oneTicket.user.first_name">
@@ -121,8 +121,8 @@
                     <template v-else>بدون نام</template>
                   </span>
                   <span v-if="oneTicket.created_at" class="t14 w500 text-gray500 mr-10 number-font">
-                        {{ convertDate(oneTicket.created_at) }}
-                    </span>
+                    {{ convertDate(oneTicket.created_at) }}
+                  </span>
               </div>
 
               <v-divider color="black"/>
@@ -146,7 +146,7 @@
                    :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
                 <v-card
                     min-height="100"
-                    class="mb-10"
+                    class="mb-10 rounded-s-xl rounded-t-xl"
                     :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
                   <div class="d-flex justify-space-between pa-6">
                     <span class="t14 w500 text-gray500 ml-10">
@@ -189,14 +189,79 @@
                     :other_options="options">
                 </TinymceVue>
               </keep-alive>
+            </div>
 
+            <div class="mt-2 py-2">
+              <div class="text-right">
+                <span class="text-right text-gray600 mb-5 t12 w400">برچسب</span>
+              </div>
+
+              <div class="position position__relative">
+                <v-autocomplete
+                    variant="outlined"
+                    prepend-inner-icon-cb="mdi-map-marker"
+                    v-model="tagId"
+                    rounded="lg"
+                    :items="tagList"
+                    item-title="id"
+                    return-object
+                    v-debounce="searchTages">
+
+                  <!--                    <template v-slot:item="item">-->
+                  <!--                      <v-list-item>-->
+                  <!--                        <v-row justify="center">-->
+                  <!--                          <v-col cols="4">-->
+                  <!--                            <div @click="assignSku(item)" class="seller__add-sku-btn d-flex justify-center align-center">-->
+                  <!--                              <v-icon>mdi-plus</v-icon>-->
+                  <!--                            </div>-->
+                  <!--                          </v-col>-->
+
+                  <!--                          <v-col cols="8">-->
+                  <!--                            <text-clamp-->
+                  <!--                                :text='item?.props?.title'-->
+                  <!--                                :max-lines='1'-->
+                  <!--                                autoResize-->
+                  <!--                                location="start"-->
+                  <!--                                class="text-gray500 t14 w300 text-right" />-->
+                  <!--                          </v-col>-->
+                  <!--                        </v-row>-->
+                  <!--                      </v-list-item>-->
+                  <!--                    </template>-->
+                </v-autocomplete>
+
+                <div
+                    class="position__absolute top-0 left-0 mt-1 ml-2 seller__add-sku-btn bg-gray700 d-flex justify-center items-center"
+                    @click="createLabel()">
+                  <v-icon
+                      class="mt-2"
+                      icon="mdi-plus"
+                      size="16"
+                      color="gray500"/>
+                </div>
+              </div>
+
+              <div class="d-flex justify-start align-center ga-2 mt-2">
+                <div
+                    v-for="(label, index) in tages"
+                    :key="index"
+                    class="bg-gray200 rounded-xl px-2">
+                  <span class="t14 w400">{{ label }}</span>
+                  <v-icon class="mr-1 cursor-pointer" color="gray500" icon="mdi-close" size="12" @click="removeLabel()"/>
+                </div>
+
+                <div v-if="tages.length >3 " class="text-primary t14 w400 cursor-pointer" @click="openModalTage()">مشاهده بیشتر</div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-center">
               <v-btn
                   :loading="sendMsgLoading"
                   @click="sendMessage()"
                   color="primary500"
                   height="40"
+                  width="328"
                   rounded
-                  class="px-8 mt-1">
+                  class="px-8 mt-1 my-3">
                 ارسال پیام
               </v-btn>
             </div>
@@ -247,7 +312,9 @@ export default {
       language: 'en',
       contentsLangDirection: 'rtl',
     },
-    isSwitchActive: false
+    isSwitchActive: false,
+    tages: [],
+    tagId: null
   }),
 
   watch: {
@@ -283,9 +350,58 @@ export default {
         return e
       }
     },
+
+    tagList(){
+      try {
+        let label = []
+        this.tages.forEach(item => {
+          const form = {
+            label: item.label,
+            value: item.id
+          }
+          label.push(form)
+        })
+        return label
+      } catch (e) {
+        return []
+      }
+    },
   },
 
   methods: {
+    createLabel() {
+      if (this.tagId) {
+        const exists = this.tages.find(label => label.value === this.tagId.value);
+        if (!exists) {
+          this.tages.push(this.tagId);
+          this.tagId = null;
+        } else {
+          console.log("Label already exists!");
+        }
+      }
+    },
+
+    removeLabel(index) {
+      this.tages.splice(index, 1); // Remove label by index
+    },
+
+    async searchTages(search){
+      console.log('search')
+      this.tages = []
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.tages = data.data.data
+      }
+    },
+
+    openModalTage() {
+      this.$refs.readMoreTagModal.dialog = true
+    },
+
     fillDescription(e) {
       this.content = e
     },

@@ -2,7 +2,7 @@
   <div class="ticket-single h-100 d-flex flex-column align-stretch">
     <v-row class="pa-2 stretch-table">
       <v-col class="ticket-single__sidebar" md="3">
-        <div class="bg-indigo-lighten-5 pa-8 h-100">
+        <div class="bg-indigo-lighten-5 pa-8 h-100 rounded-lg">
           <div class="ticket-single__sidebar__item">
             <span class="title">وضعیت : </span>
             <div class="pr-2 mt-2">{{ getStatusText(ticketStatus) }}</div>
@@ -70,57 +70,65 @@
           </v-btn>
         </div>
       </v-col>
-
       <v-col md="9" class="h-100vh">
         <div class="stretch-table">
-          <div class="pl-6">
-            <v-card
-                v-if="oneTicket && oneTicket.content"
-                min-height="100"
-                class="mb-10">
-              <div class="d-flex justify-space-between pa-6">
-                <span v-if="oneTicket.user" class="t14 w500 text-gray500 mrl10">
+          <v-card
+              v-if="oneTicket && oneTicket.content"
+              min-height="100"
+              class="mb-10 rounded-lg px-2">
+            <div class="d-flex justify-space-between pa-6">
+                <span v-if="oneTicket.user" class="t12 w400 text-gray600 mrl10">
                     <template v-if="oneTicket.user.first_name">
+                      <v-icon icon="mdi-account-outline"/>
                       {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}
                     </template>
                     <template v-else>بدون نام</template>
                   </span>
-                <span v-if="oneTicket.created_at"
-                      class="t14 w500 text-gray500 mr-10 number-font">{{ convertDate(oneTicket.created_at) }}</span>
+              <span
+                  v-if="oneTicket.created_at"
+                  class="t12 w400 text-gray600 mr-10 number-font">
+                  {{ convertDate(oneTicket.created_at) }}
+                </span>
+            </div>
+
+            <v-divider/>
+
+            <div v-if="oneTicket && oneTicket.files" min-height="100" class="mb-10">
+              <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
+                <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                <video v-else-if="file.type === 'video'" :src="file.url" controls/>
               </div>
 
-              <v-card v-if="oneTicket && oneTicket.files" min-height="100" class="mb-10">
-                <div class="d-flex justify-space-between pa-6" v-for="file in oneTicket.files" :key="file.id">
-                  <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                  <video v-else-if="file.type === 'video'" :src="file.url" controls/>
-                </div>
+              <v-divider color="black"/>
 
+              <div
+                  v-if="oneTicket && oneTicket.files"
+                  min-height="100"
+                  class="mb-10">
                 <v-divider color="black"/>
 
-                <v-card
-                    v-if="oneTicket && oneTicket.files"
-                    min-height="100"
-                    class="mb-10">
-                  <v-divider color="black"/>
+                <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
+              </div>
 
-                  <p class="t14 text-justify pa-5" v-html="oneTicket.content"/>
-                </v-card>
+              <template v-if="oneTicket && oneTicket.threads">
+                <div
+                    v-for="ticket in oneTicket.threads"
+                    :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
+                  <v-card
+                      min-height="100"
+                      class="mb-10"
+                      :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
+                    <div class="d-flex justify-space-between pa-6">
+                      <div class="">
+                        <v-icon icon="mdi-face-agent"/>
+                        <span class="t14 w500 text-gray500 ml-10 mr-1">{{ticket.threadable.first_name }}{{ ticket.threadable.last_name }}</span>
+                      </div>
 
-                <template v-if="oneTicket && oneTicket.threads">
-                  <div
-                      v-for="ticket in oneTicket.threads"
-                      :key="ticket.creator === 'user' ? `userMessage${ticket.id}` : `adminMessage${ticket.id}`">
-                    <v-card
-                        min-height="100"
-                        class="mb-10"
-                        :color="ticket.creator === 'admin' ? 'grey-lighten-3' : ''">
-                      <div class="d-flex justify-space-between pa-6">
-                        <span class="t14 w500 text-gray500 ml-10">{{ticket.threadable.first_name }}{{ ticket.threadable.last_name }}</span>
-                        <div class="">
+                      <div class="">
                           <span class="t14 w500 text-gray500 mr-10 number-font">
                             {{convertDate(ticket.created_at)}}
                           </span>
-                          <span>
+                        <span>
                              <v-icon
                                  v-if="ticket.creator === 'admin'"
                                  @click="openModal(ticket)"
@@ -129,97 +137,194 @@
                                  size="18.33"
                                  class="mr-2"/>
                           </span>
-                        </div>
                       </div>
+                    </div>
 
-                      <v-divider color="black"/>
+                    <v-divider color="black"/>
 
-                      <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
-                        <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
-                        <video v-else-if="file.type === 'video'" :src="file.url" controls/>
-                      </div>
+                    <div class="d-flex justify-space-between pa-6" v-for="file in ticket.files" :key="file.id">
+                      <img width="600" height="600" v-if="file.type === 'image'" :src="file.url" alt="image"/>
+                      <video v-else-if="file.type === 'video'" :src="file.url" controls/>
+                    </div>
 
-                      <p class="t14text-justify pa-5" v-html="ticket.content"/>
-                    </v-card>
-                  </div>
-
-                  <Modal
-                      ref="rateModal"
-                      :title="`امتیاز کاربر به پشتیبانی`"
-                      :ticket="selectedTicket"
-                      @successAction="closeModal()"
-                      @cancelAction="closeModal">
-                    <template v-slot:modalBody="item">
-                     <div class="d-flex align-center justify-between d--rtl">
-                       <div class="d-flex align-center ga-2">
-                         <div class="t12 text-gray600">نام کاربر</div>
-                         <div class="t14"> {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}</div>
-                       </div>
-
-                       <div class="d-flex align-center ga-2">
-                         <div class="t12 text-gray600">نام پشتیبان</div>
-                         <div class="t14"> {{selectedTicket.threadable.full_name}}</div>
-                       </div>
-
-                       <div class="d-flex align-center ga-2">
-                         <div class="t12 text-gray600">امتیاز</div>
-                         <v-rating
-                             v-model="selectedTicket.rate"
-                             half-increments
-                             readonly
-                             class="me-3"
-                             style="direction: ltr!important;">
-                           <template v-slot:item="props">
-                             <v-icon
-                                 size="large"
-                                 :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
-                               mdi-star
-                             </v-icon>
-                           </template>
-                         </v-rating>
-                       </div>
-                     </div>
-                      <div class="text-right mt-5 mb-2">
-                        <span class="t12 text-gray600">توضیحات</span>
-                      </div>
-                      <v-textarea
-                          readonly
-                          max-rows="3"
-                          density="compact"
-                          variant="outlined"
-                          v-model="selectedTicket.rate_note"/>
-                    </template>
-                  </Modal>
-                </template>
-                <div>
-                  <div class="text-right mb-3 t14 w500">ارسال پیام</div>
-
-                  <keep-alive>
-                    <TinymceVue
-                        ref="tinymceEditor"
-                        @input="fillDescription"
-                        v-if="load"
-                        :value="content"
-                        id="TinymceVue4"
-                        class="mb-8"
-                        :other_options="options">
-                    </TinymceVue>
-                  </keep-alive>
-                  <v-btn
-                      :loading="sendMsgLoading"
-                      @click="sendMessage()"
-                      color="primary500"
-                      height="40"
-                      rounded
-                      class="px-8 mt-1">
-                    ارسال پیام
-                  </v-btn>
+                    <p class="t14text-justify pa-5" v-html="ticket.content"/>
+                  </v-card>
                 </div>
-              </v-card>
-            </v-card>
-          </div>
+
+              </template>
+
+            </div>
+
+            <div>
+              <div class="text-right mb-3 text-gray600 t12 w400">ارسال پیام</div>
+
+              <keep-alive>
+                <TinymceVue
+                    ref="tinymceEditor"
+                    @input="fillDescription"
+                    v-if="load"
+                    :value="content"
+                    id="TinymceVue4"
+                    class="mb-8"
+                    :other_options="options">
+                </TinymceVue>
+              </keep-alive>
+            </div>
+
+            <div class="mt-2 py-2">
+              <div class="text-right">
+                <span class="text-right text-gray600 mb-5 t12 w400">برچسب</span>
+              </div>
+
+              <div class="position position__relative">
+                <v-autocomplete
+                    variant="outlined"
+                    prepend-inner-icon-cb="mdi-map-marker"
+                    v-model="tagId"
+                    rounded="lg"
+                    :items="tagList"
+                    item-title="id"
+                    return-object
+                    v-debounce="searchTages">
+
+                  <!--                    <template v-slot:item="item">-->
+                  <!--                      <v-list-item>-->
+                  <!--                        <v-row justify="center">-->
+                  <!--                          <v-col cols="4">-->
+                  <!--                            <div @click="assignSku(item)" class="seller__add-sku-btn d-flex justify-center align-center">-->
+                  <!--                              <v-icon>mdi-plus</v-icon>-->
+                  <!--                            </div>-->
+                  <!--                          </v-col>-->
+
+                  <!--                          <v-col cols="8">-->
+                  <!--                            <text-clamp-->
+                  <!--                                :text='item?.props?.title'-->
+                  <!--                                :max-lines='1'-->
+                  <!--                                autoResize-->
+                  <!--                                location="start"-->
+                  <!--                                class="text-gray500 t14 w300 text-right" />-->
+                  <!--                          </v-col>-->
+                  <!--                        </v-row>-->
+                  <!--                      </v-list-item>-->
+                  <!--                    </template>-->
+                </v-autocomplete>
+
+                <div
+                    class="position__absolute top-0 left-0 mt-1 ml-2 seller__add-sku-btn d-flex justify-center items-center"
+                    @click="createLabel()">
+                  <v-icon
+                      class="mt-2"
+                      icon="mdi-plus"
+                      size="16"/>
+                </div>
+              </div>
+
+              <div class="d-flex justify-start align-center ga-2 mt-2">
+                <div
+                    v-for="(label, index) in tages"
+                    :key="index"
+                    class="bg-gray200 rounded-xl px-2">
+                  <span class="t14 w400">{{ label }}</span>
+                  <v-icon
+                      class="mr-1 cursor-pointer"
+                      color="gray500"
+                      icon="mdi-close"
+                      size="12"
+                      @click="removeLabel()"/>
+                </div>
+
+                <div
+                    v-if="tages.length > 7"
+                    class="text-primary t14 w400 cursor-pointer"
+                    @click="openModalTage()">
+                  مشاهده بیشتر
+                </div>
+              </div>
+            </div>
+
+            <v-divider/>
+
+            <div class="d-flex justify-between align-center ma-3">
+              <v-btn
+                  :loading="loading"
+                  variant="outlined"
+                  @click="$router.push(`/ticket/index`)"
+                  height="40"
+                  rounded
+                  class="px-8 mt-1">
+                بازگشت
+              </v-btn>
+              <v-btn
+                  :loading="sendMsgLoading"
+                  @click="sendMessage()"
+                  color="primary500"
+                  height="40"
+                  rounded
+                  class="px-8">
+                ارسال
+              </v-btn>
+            </div>
+          </v-card>
         </div>
       </v-col>
+      <Modal
+          ref="rateModal"
+          :title="`امتیاز کاربر به پشتیبانی`"
+          :ticket="selectedTicket"
+          @successAction="closeModal()"
+          @cancelAction="closeModal">
+        <template v-slot:modalBody="item">
+          <div class="d-flex align-center justify-between d--rtl">
+            <div class="d-flex align-center ga-2">
+              <div class="t12 text-gray600">نام کاربر</div>
+              <div class="t14"> {{ oneTicket.user.first_name }} {{ oneTicket.user.last_name }}</div>
+            </div>
+
+            <div class="d-flex align-center ga-2">
+              <div class="t12 text-gray600">نام پشتیبان</div>
+              <div class="t14"> {{selectedTicket.threadable.full_name}}</div>
+            </div>
+
+            <div class="d-flex align-center ga-2">
+              <div class="t12 text-gray600">امتیاز</div>
+              <v-rating
+                  v-model="selectedTicket.rate"
+                  half-increments
+                  readonly
+                  class="me-3"
+                  style="direction: ltr!important;">
+                <template v-slot:item="props">
+                  <v-icon
+                      size="large"
+                      :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                    mdi-star
+                  </v-icon>
+                </template>
+              </v-rating>
+            </div>
+          </div>
+          <div class="text-right mt-5 mb-2">
+            <span class="t12 text-gray600">توضیحات</span>
+          </div>
+          <v-textarea
+              readonly
+              max-rows="3"
+              density="compact"
+              variant="outlined"
+              v-model="selectedTicket.rate_note"/>
+        </template>
+      </Modal>
+
+      <Modal ref="readMoreTagModal" :title="`برچسب های تیکت`" :width="468">
+        <template v-slot:modalBody>
+          <div class="d-flex flex-wrap justify-end align-center ga-2 mt-2">
+            <div class="bg-gray200 rounded-xl px-2">
+              <v-icon class="mr-1 cursor-pointer" color="gray500" icon="mdi-close" size="12" @click="removeLabel()"/>
+              <span class="t14 w400">برچسب</span>
+            </div>
+          </div>
+        </template>
+      </Modal>
     </v-row>
   </div>
 </template>
@@ -265,7 +370,9 @@ export default {
     },
     isSwitchActive: false,
     description: null,
-    selectedTicket: null
+    selectedTicket: null,
+    tages: [],
+    tagId: null
   }),
 
   watch: {
@@ -301,9 +408,58 @@ export default {
         return e
       }
     },
+
+    tagList(){
+      try {
+        let label = []
+        this.tages.forEach(item => {
+          const form = {
+            label: item.label,
+            value: item.id
+          }
+          label.push(form)
+        })
+        return label
+      } catch (e) {
+        return []
+      }
+    },
   },
 
   methods: {
+    createLabel() {
+      if (this.tagId) {
+        const exists = this.tages.find(label => label.value === this.tagId.value);
+        if (!exists) {
+          this.tages.push(this.tagId);
+          this.tagId = null;
+        } else {
+          console.log("Label already exists!");
+        }
+      }
+    },
+
+    removeLabel(index) {
+      this.tages.splice(index, 1); // Remove label by index
+    },
+
+   async searchTages(search){
+     console.log('search')
+     this.tages = []
+     const AxiosMethod = new AxiosCall()
+     AxiosMethod.using_auth = true
+     AxiosMethod.token = this.$cookies.get('adminToken')
+     AxiosMethod.end_point = `seller/sku/search?q=${search}`
+     let data = await AxiosMethod.axios_get()
+     if (data) {
+       this.tages = data.data.data
+     }
+    },
+
+    openModalTage() {
+      this.$refs.readMoreTagModal.dialog = true
+    },
+
     openModal(ticket){
       this.selectedTicket = ticket
       this.$refs.rateModal.dialog = true
@@ -316,6 +472,7 @@ export default {
     fillDescription(e) {
       this.content = e
     },
+
     /**
      * Update ticket
      */
@@ -442,6 +599,7 @@ export default {
 
       return 'معمولی';
     },
+
     redirect() {
       window.open(`${import.meta.env.VITE_API_SITEURL}orders/index?user_id=${this.oneTicket.user.id}`, '_blank');
 
