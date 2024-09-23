@@ -173,45 +173,31 @@
 
             <div class="mt-2 py-2">
               <div class="text-right">
+                {{form.tagId}}
                 <span class="text-right text-gray600 mb-5 t12 w400">برچسب</span>
               </div>
-
               <div class="position position__relative">
                 <v-autocomplete
+                    v-model="form.tagId"
                     variant="outlined"
                     prepend-inner-icon-cb="mdi-map-marker"
-                    v-model="tagId"
                     rounded="lg"
                     :items="tagList"
-                    item-title="id"
-                    return-object
-                    v-debounce="searchTages">
-
-                  <!--                    <template v-slot:item="item">-->
-                  <!--                      <v-list-item>-->
-                  <!--                        <v-row justify="center">-->
-                  <!--                          <v-col cols="4">-->
-                  <!--                            <div @click="assignSku(item)" class="seller__add-sku-btn d-flex justify-center align-center">-->
-                  <!--                              <v-icon>mdi-plus</v-icon>-->
-                  <!--                            </div>-->
-                  <!--                          </v-col>-->
-
-                  <!--                          <v-col cols="8">-->
-                  <!--                            <text-clamp-->
-                  <!--                                :text='item?.props?.title'-->
-                  <!--                                :max-lines='1'-->
-                  <!--                                autoResize-->
-                  <!--                                location="start"-->
-                  <!--                                class="text-gray500 t14 w300 text-right" />-->
-                  <!--                          </v-col>-->
-                  <!--                        </v-row>-->
-                  <!--                      </v-list-item>-->
-                  <!--                    </template>-->
+                    item-title="name"
+                    item-value="value">
+                  <template v-slot:item="item">
+                    <v-list-item>
+                      <div @click="assignTag(item.props)" class="d-flex justify-end align-center">
+                        <div class="text-gray500 t14 w300 text-right mt-4">{{item?.item?.raw?.label}}</div>
+                        <v-checkbox class="mr-1"/>
+                      </div>
+                    </v-list-item>
+                  </template>
                 </v-autocomplete>
 
                 <div
                     class="position__absolute top-0 left-0 mt-1 ml-2 seller__add-sku-btn d-flex justify-center items-center"
-                    @click="createLabel()">
+                    @click="createTage(form.tagId)">
                   <v-icon
                       class="mt-2"
                       icon="mdi-plus"
@@ -221,10 +207,10 @@
 
               <div class="d-flex justify-start align-center ga-2 mt-2">
                 <div
-                    v-for="(label, index) in tages"
+                    v-for="(label, index) in tagesList"
                     :key="index"
                     class="bg-gray200 rounded-xl px-2">
-                  <span class="t14 w400">{{ label }}</span>
+                  <span class="t14 w400">{{ label.label }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
                       color="gray500"
@@ -234,7 +220,7 @@
                 </div>
 
                 <div
-                    v-if="tages.length > 7"
+                    v-if="tagesList.length >= 7"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   مشاهده بیشتر
@@ -372,7 +358,10 @@ export default {
     description: null,
     selectedTicket: null,
     tages: [],
-    tagId: null
+    tagesList: [],
+    form:{
+      tagId: null,
+    }
   }),
 
   watch: {
@@ -414,7 +403,7 @@ export default {
         let label = []
         this.tages.forEach(item => {
           const form = {
-            label: item.label,
+            label: item.title,
             value: item.id
           }
           label.push(form)
@@ -427,33 +416,53 @@ export default {
   },
 
   methods: {
-    createLabel() {
-      if (this.tagId) {
-        const exists = this.tages.find(label => label.value === this.tagId.value);
+    async createTage(tag) {
+      console.log(tag, 'dfdfdfdf')
+      if (this.form.tagId) {
+        const exists = this.tages.find(label => label.id === this.form.tagId);
         if (!exists) {
-          this.tages.push(this.tagId);
-          this.tagId = null;
+          // Create new tag logic
+          this.loading = true;
+          const AxiosMethod = new AxiosCall();
+          AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tagId}`;
+          AxiosMethod.store = this.$store;
+          AxiosMethod.using_auth = true;
+          AxiosMethod.token = this.$cookies.get('adminToken');
+
+          let data = await AxiosMethod.axios_post();
+          if (data) {
+            const newTag = { title: this.form.tagId, id: data.id }; // assuming data contains the new tag id
+            this.tages.push(newTag);
+            this.tagesList.push(newTag);
+            this.form.tagId = null; // Clear input after creation
+          }
+          this.loading = false;
         } else {
-          console.log("Label already exists!");
+          // Assign existing tag
+          this.tagesList.push(exists);
+          this.form.tagId = null; // Clear input after assignment
         }
       }
     },
 
     removeLabel(index) {
-      this.tages.splice(index, 1); // Remove label by index
+      this.tagesList.splice(index, 1); // Remove label by index
     },
 
-   async searchTages(search){
-     console.log('search')
-     this.tages = []
+   async getTages(){
      const AxiosMethod = new AxiosCall()
      AxiosMethod.using_auth = true
      AxiosMethod.token = this.$cookies.get('adminToken')
-     AxiosMethod.end_point = `seller/sku/search?q=${search}`
+     AxiosMethod.end_point = `system/admin/tag/crud/index`
      let data = await AxiosMethod.axios_get()
      if (data) {
-       this.tages = data.data.data
+       this.tages = data.data
      }
+    },
+
+    assignTag (item) {
+      this.tagesList.push(item.title)
+      console.log('item', item)
     },
 
     openModalTage() {
@@ -607,6 +616,7 @@ export default {
   },
 
   mounted() {
+    this.getTages()
     this.getTicket();
     setTimeout(() => {
       this.load = true
