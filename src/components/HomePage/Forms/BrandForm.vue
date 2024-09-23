@@ -59,6 +59,7 @@
             placeholder="توضیحات"
             density="compact"
             variant="outlined"
+            :rules="limitRule"
             single-line
             v-model="form.desc" />
       </v-col>
@@ -102,8 +103,8 @@ export default {
         desc:''
       },
       rule: [v => !!v || 'این فیلد الزامی است'],
+      limitRule: [ v=> v.length <=35 || 'حداکثر 35 کاراکتر مجاز است'],
       valid: false,
-
     }
   },
 
