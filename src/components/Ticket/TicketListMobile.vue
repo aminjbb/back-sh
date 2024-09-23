@@ -80,7 +80,9 @@
               <span class="t12 w500"> امتیاز کاربر: </span>
             </div>
 
+            <span v-if="item.rate === null">-</span>
             <v-rating
+                v-else
                 v-model="item.rate"
                 half-increments
                 readonly

@@ -44,6 +44,25 @@
           </v-btn>
         </template>
 
+        <template v-slot:customSlot2="item">
+          <div v-if="item.data.custom2 === null" />
+          <v-rating
+              v-else
+              v-model="item.data.custom2"
+              half-increments
+              readonly
+              class="me-3"
+              style="direction: ltr!important;">
+            <template v-slot:item="props">
+              <v-icon
+                  size="large"
+                  :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                mdi-star
+              </v-icon>
+            </template>
+          </v-rating>
+        </template>
+
         <template v-slot:customSlot="item">
           <v-chip
               class="ma-2 rounded-lg t10 w400"
@@ -299,7 +318,7 @@ export default {
                   priority: this.getPriorityText(item.priority),
                   custom: item.status,
                   admin: item.admin ? item?.admin?.first_name + ' ' + item?.admin?.last_name : '-',
-                  score: item.rate,
+                  custom2: item.rate ,
                   user_name: item.user.first_name+ ' ' + item.user.last_name,
                   mobile: item.user.phone_number,
                   created_at: item.created_at_fa + ' ' + item.updated_at.split('T')[1].split('.')[0],

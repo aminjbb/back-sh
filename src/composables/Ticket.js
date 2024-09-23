@@ -24,7 +24,7 @@ export default function setup() {
         { name: 'کاربر', title: 'کاربر', show: true, key:'user_name', align:'center', sortable: false,},
         { name: 'موبایل', title: 'موبایل', show: true, key:'mobile', align:'center', sortable: false},
         { name: 'ادمین', title: 'ادمین', show: true, key:'admin', align:'center', sortable: false,},
-        { name: 'امتیاز کاربر', title: 'امتیاز کاربر', show: true, key:'score', align:'center', sortable: false,},
+        { name: 'امتیاز کاربر', title: 'امتیاز کاربر', show: true, key:'custom2', align:'center', sortable: false,},
         { name: 'تاریخ ایجاد', title: 'تاریخ ایجاد', show: true, key:'created_at', align:'center'},
         { name: 'تاریخ آخرین پیام', title: 'تاریخ آخرین پیام', show: true, key:'latest_date', align:'center'},
         { name: 'عملیات',title: 'عملیات', key:'show', show: true , align:'center', sortable: false, fixed: true},
