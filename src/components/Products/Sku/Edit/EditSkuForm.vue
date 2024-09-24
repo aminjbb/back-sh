@@ -219,14 +219,11 @@
               {{ lables.advantages }}
           </span>
           </div>
-
-          <v-textarea
-              :placeholder="lables.advantages"
-              variant="outlined"
-              rows="8"
-              v-model="specsFromModal.advantages"
-              @update:modelValue="saveCreateFromModel()"
-          />
+          <keep-alive>
+            <TinymceVue @input="fillAdvantages" v-if="load" :value="specsFromModal.advantages" id="tinyAdvantages" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
         </div>
 
         <div>
@@ -235,14 +232,11 @@
               {{ lables.disAdvantages }}
           </span>
           </div>
-
-          <v-textarea
-              :placeholder="lables.disAdvantages"
-              variant="outlined"
-              rows="8"
-              v-model="specsFromModal.disAdvantages"
-              @update:modelValue="saveCreateFromModel()"
-          />
+          <keep-alive>
+            <TinymceVue @input="fillDisAdvantages" v-if="load" :value="specsFromModal.disAdvantages" id="tinyDisAdvantages" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
         </div>
 
         <div>
@@ -251,14 +245,11 @@
                 {{ lables.instructions }}
             </span>
           </div>
-
-          <v-textarea
-              :placeholder="lables.instructions"
-              variant="outlined"
-              rows="8"
-              v-model="specsFromModal.instructions"
-              @update:modelValue="saveCreateFromModel()"
-          />
+          <keep-alive>
+            <TinymceVue @input="fillDisAdvantages" v-if="load" :value="specsFromModal.disAdvantages" id="tinyInstructions" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
         </div>
 
         <div>
@@ -267,14 +258,11 @@
                 {{ lables.usage }}
             </span>
           </div>
-
-          <v-textarea
-              :placeholder="lables.usage"
-              variant="outlined"
-              rows="8"
-              v-model="specsFromModal.usage"
-              @update:modelValue="saveCreateFromModel()"
-          />
+          <keep-alive>
+            <TinymceVue @input="fillUsage" v-if="load" :value="specsFromModal.usage" id="tinyUsage" class="mb-8"
+                        :other_options="options">
+            </TinymceVue>
+          </keep-alive>
         </div>
 
 
@@ -387,7 +375,7 @@ export default {
       skuImage: null,
       name: null,
       label: null,
-      specifications: 'مشخصات',
+      specifications: '',
       advantages: '',
       disAdvantages: '',
       instructions: '',
@@ -413,6 +401,18 @@ export default {
   methods: {
     fillDescription(e) {
       this.specsFromModal.specifications = e
+    },
+    fillAdvantages(e) {
+      this.specsFromModal.advantages = e
+    },
+    fillDisAdvantages(e) {
+      this.specsFromModal.disAdvantages = e
+    },
+    fillInstructions(e) {
+      this.specsFromModal.instructions = e
+    },
+    fillUsage(e) {
+      this.specsFromModal.usage = e
     },
     removeItem(id) {
       openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, true)
