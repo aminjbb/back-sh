@@ -7,7 +7,6 @@
             <span class="title">وضعیت : </span>
             <div class="pr-2 mt-2">{{ getStatusText(ticketStatus) }}</div>
           </div>
-
           <div v-if="ticketStatus === 'pending' || ticketStatus === 'open'"
                class="ticket-single__sidebar__item d-flex align-center ga-3">
             <span class="title">وضعیت در حال بررسی شود </span>
@@ -173,54 +172,61 @@
 
             <div class="mt-2 py-2">
               <div class="text-right">
-                {{form.tagId}}
                 <span class="text-right text-gray600 mb-5 t12 w400">برچسب</span>
               </div>
               <div class="position position__relative">
-                <v-autocomplete
-                    v-model="form.tagId"
-                    variant="outlined"
-                    prepend-inner-icon-cb="mdi-map-marker"
-                    rounded="lg"
+                <v-combobox
+                    v-model="form.tag"
+                    v-model:search="search"
+                    :hide-no-data="false"
                     :items="tagList"
-                    item-title="name"
-                    item-value="value">
+                    variant="outlined"
+                    item-title="label"
+                    item-value="id"
+                    hide-selected
+                    multiple
+                    persistent-hint
+                    small-chips>
                   <template v-slot:item="item">
                     <v-list-item>
-                      <div @click="assignTag(item.props)" class="d-flex justify-end align-center">
+                      <div @click="attachTage(oneTicket.id,item.item.raw.value)" class="d-flex justify-end align-center cursor-pointer">
                         <div class="text-gray500 t14 w300 text-right mt-4">{{item?.item?.raw?.label}}</div>
-                        <v-checkbox class="mr-1"/>
+                        <v-checkbox :value="item.item.raw.value" class="mr-1" />
                       </div>
                     </v-list-item>
                   </template>
-                </v-autocomplete>
+                </v-combobox>
 
-                <div
-                    class="position__absolute top-0 left-0 mt-1 ml-2 seller__add-sku-btn d-flex justify-center items-center"
-                    @click="createTage(form.tagId)">
+                <v-btn
+                    :disabled="isDisable"
+                    size="27"
+                    rounded
+                    flat
+                    :color="isDisable? 'gray100' :'primary400'"
+                    class="position__absolute top-0 left-0 mt-2 ml-2 d-flex justify-center items-center"
+                    @click="createTage()">
                   <v-icon
-                      class="mt-2"
                       icon="mdi-plus"
                       size="16"/>
-                </div>
+                </v-btn>
               </div>
 
-              <div class="d-flex justify-start align-center ga-2 mt-2">
+              <div v-if="oneTicket && oneTicket.tags" class="d-flex justify-start align-center ga-2 mt-2">
                 <div
-                    v-for="(label, index) in tagesList"
+                    v-for="(label, index) in oneTicket.tags.slice(0,7)"
                     :key="index"
                     class="bg-gray200 rounded-xl px-2">
-                  <span class="t14 w400">{{ label.label }}</span>
+                  <span class="t14 w400">{{ label.title }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
                       color="gray500"
                       icon="mdi-close"
                       size="12"
-                      @click="removeLabel()"/>
+                      @click="removeLabel(oneTicket.id,label.id)"/>
                 </div>
 
                 <div
-                    v-if="tagesList.length >= 7"
+                    v-if="oneTicket.tags.length >= 7"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   مشاهده بیشتر
@@ -301,12 +307,26 @@
         </template>
       </Modal>
 
-      <Modal ref="readMoreTagModal" :title="`برچسب های تیکت`" :width="468">
+      <Modal
+          ref="readMoreTagModal"
+          :title="`برچسب های تیکت`"
+          :has-close="true"
+          :width="468"
+          @closeAction="closeModalTag"
+      >
         <template v-slot:modalBody>
           <div class="d-flex flex-wrap justify-end align-center ga-2 mt-2">
-            <div class="bg-gray200 rounded-xl px-2">
-              <v-icon class="mr-1 cursor-pointer" color="gray500" icon="mdi-close" size="12" @click="removeLabel()"/>
-              <span class="t14 w400">برچسب</span>
+            <div
+                v-for="(tag, index) in oneTicket.tags"
+                :key="index"
+                class="bg-gray200 rounded-xl px-2">
+              <v-icon
+                  class="mr-1 cursor-pointer"
+                  color="gray500"
+                  icon="mdi-close"
+                  size="12"
+                  @click="removeLabel(oneTicket.id, tag.id)"/>
+              <span class="t14 w400">{{ tag.title }}</span>
             </div>
           </div>
         </template>
@@ -317,7 +337,7 @@
 
 <script>
 import {AxiosCall} from "@/assets/js/axios_call";
-import {openToast} from "@/assets/js/functions";
+import {openConfirm, openToast} from "@/assets/js/functions";
 import Ticket from '@/composables/Ticket'
 import {gregorian_to_jalali} from "@/assets/js/functions";
 import TinymceVue from "@/components/Public/TinymceVue.vue";
@@ -348,6 +368,7 @@ export default {
     load: false,
     content: null,
     loading: false,
+    tagLoading: false,
     sendMsgLoading: false,
     statusModel: '',
     editorConfig: {
@@ -357,14 +378,24 @@ export default {
     isSwitchActive: false,
     description: null,
     selectedTicket: null,
+    search: null,
     tages: [],
-    tagesList: [],
     form:{
-      tagId: null,
+      tag: null,
     }
   }),
 
   watch: {
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          this.getTicket();
+          openToast(this.$store, 'برچسب با موفقیت حذف شد', "success",);
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
+
     oneTicket(newVal) {
       if (newVal.status === 'pending') {
         this.statusModel = 'pending'
@@ -385,6 +416,10 @@ export default {
   },
 
   computed: {
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    },
+
     /**
      * Get ticket status
      */
@@ -413,40 +448,56 @@ export default {
         return []
       }
     },
+
+    isDisable() {
+      return this.tagList.some((tag) => tag.label === this.search);
+      // return !this.search || this.tagList.some((tag) => tag.label === this.search)
+    }
   },
 
   methods: {
-    async createTage(tag) {
-      console.log(tag, 'dfdfdfdf')
-      if (this.form.tagId) {
-        const exists = this.tages.find(label => label.id === this.form.tagId);
+    async createTage() {
+      if (this.form.tag) {
+        const exists = this.tages.find(label =>label.title === this.form.tag)
         if (!exists) {
-          // Create new tag logic
-          this.loading = true;
+          this.tagLoading = true;
           const AxiosMethod = new AxiosCall();
-          AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tagId}`;
+          AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tag}`
           AxiosMethod.store = this.$store;
           AxiosMethod.using_auth = true;
-          AxiosMethod.token = this.$cookies.get('adminToken');
+          AxiosMethod.token = this.$cookies.get('adminToken')
 
           let data = await AxiosMethod.axios_post();
           if (data) {
-            const newTag = { title: this.form.tagId, id: data.id }; // assuming data contains the new tag id
-            this.tages.push(newTag);
-            this.tagesList.push(newTag);
-            this.form.tagId = null; // Clear input after creation
+            openToast(this.$store, data.message, "success")
+            this.getTages()
+            this.form.tag = null
           }
-          this.loading = false;
-        } else {
-          // Assign existing tag
-          this.tagesList.push(exists);
-          this.form.tagId = null; // Clear input after assignment
+          this.tagLoading = false;
         }
       }
     },
 
-    removeLabel(index) {
-      this.tagesList.splice(index, 1); // Remove label by index
+    async attachTage(ticketId,tagId) {
+      this.tagLoading = true;
+      const AxiosMethod = new AxiosCall();
+      AxiosMethod.end_point = `ticket/admin/${ticketId}/attach-tag?tag_id=${tagId}`
+      AxiosMethod.store = this.$store;
+      AxiosMethod.using_auth = true;
+      AxiosMethod.token = this.$cookies.get('adminToken');
+
+      let data = await AxiosMethod.axios_post();
+      if (data) {
+        openToast(this.$store, data.message, "success")
+        this.getTicket()
+        this.tagLoading = false;
+        this.form.tag = null
+        this.search = null
+      }
+    },
+
+    removeLabel(ticketId,tagId) {
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", `ticket/admin/${ticketId}/detach-tag?tag_id=${tagId}`, true)
     },
 
    async getTages(){
@@ -460,13 +511,12 @@ export default {
      }
     },
 
-    assignTag (item) {
-      this.tagesList.push(item.title)
-      console.log('item', item)
-    },
-
     openModalTage() {
       this.$refs.readMoreTagModal.dialog = true
+    },
+
+    closeModalTag() {
+      this.$refs.readMoreTagModal.dialog = false
     },
 
     openModal(ticket){
