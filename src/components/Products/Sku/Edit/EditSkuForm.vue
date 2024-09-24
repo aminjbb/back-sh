@@ -530,11 +530,16 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      this.specsFromModal.height = this.heightList[0].value
-      this.specsFromModal.width = this.widthList[0].value
-      this.specsFromModal.length = this.lengthLis[0].value
-      this.specsFromModal.weight = this.weightList[0].value
-      this.specsFromModal.volume = this.volumeUnitList[0].value
+     try {
+       this.specsFromModal.height = this.heightList[0].value
+       this.specsFromModal.width = this.widthList[0].value
+       this.specsFromModal.length = this.lengthLis[0].value
+       this.specsFromModal.weight = this.weightList[0].value
+       this.specsFromModal.volume = this.volumeUnitList[0].value
+     }
+     catch (e) {
+       
+     }
       setTimeout(() => {
         this.load = true
       }, 1000);
