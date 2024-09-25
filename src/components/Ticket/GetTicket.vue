@@ -120,7 +120,7 @@
                     <div class="d-flex justify-space-between pa-6">
                       <div class="">
                         <v-icon icon="mdi-face-agent"/>
-                        <span class="t14 w500 text-gray500 ml-10 mr-1">{{ticket.threadable.first_name }}{{ ticket.threadable.last_name }}</span>
+                        <span class="t14 w500 text-gray500 ml-10 mr-1">{{ticket.threadable.first_name }} {{ ticket.threadable.last_name }}</span>
                       </div>
 
                       <div class="">
@@ -229,7 +229,7 @@
                     v-if="oneTicket.tags.length >= 7"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
-                  مشاهده بیشتر
+                  <span class="cursor-pointer"> مشاهده بیشتر</span>
                 </div>
               </div>
             </div>
@@ -263,6 +263,8 @@
           ref="rateModal"
           :title="`امتیاز کاربر به پشتیبانی`"
           :ticket="selectedTicket"
+          :has-close="true"
+          @closeAction="closeModal"
           @successAction="closeModal()"
           @cancelAction="closeModal">
         <template v-slot:modalBody="item">
@@ -450,8 +452,7 @@ export default {
     },
 
     isDisable() {
-      return this.tagList.some((tag) => tag.label === this.search);
-      // return !this.search || this.tagList.some((tag) => tag.label === this.search)
+      return this.tagList.some((tag) => tag.label === this.search) || this.search == null;
     }
   },
 

@@ -250,7 +250,7 @@
                     v-if="oneTicket.tags.length >= 3"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
-                  مشاهده بیشتر
+                  <span class="cursor-pointer"> مشاهده بیشتر</span>
                 </div>
               </div>
             </div>
@@ -264,7 +264,7 @@
                   width="328"
                   rounded
                   class="px-8 mt-1 my-3">
-                ارسال پیام
+                ارسال
               </v-btn>
             </div>
           </div>
@@ -413,8 +413,7 @@ export default {
     },
 
     isDisable() {
-      return this.tagList.some((tag) => tag.label === this.search);
-      // return !this.search || this.tagList.some((tag) => tag.label === this.search)
+      return this.tagList.some((tag) => tag.label === this.search) || this.search == null;
     }
   },
 
