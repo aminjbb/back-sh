@@ -8,8 +8,8 @@
                 justify="center"
                 align="center"
             >
-                <v-col 
-                    cols="6"
+                <v-col
+                    cols="4"
                     class="brands-list"
                 >
                     <div class="text-right my-2">
@@ -34,7 +34,7 @@
                 </v-col>
 
                 <v-col
-                    cols="6"
+                    cols="4"
                     class="colors-list"
                 >
                   <div class="text-right my-2">
@@ -54,24 +54,18 @@
                       @update:modelValue="setSkuDetailGroup()"
                   />
                 </v-col>
-            </v-row>
-
-            <v-row
-                justify="center"
-                align="center"
-            >
               <v-col
                   cols="4"
                   class="brands-list"
               >
                 <v-row v-if="skuGroupDetailBrand">
-                    <v-col cols="12">
-                        <v-chip class="d-block mb-3 create-product__chip">
+                  <v-col cols="12">
+                    <v-chip class="d-block mb-3 create-product__chip">
                             <span class="flex-grow-1 text-center">
                                   {{ skuGroupDetailBrand.label }}
                             </span>
-                        </v-chip>
-                    </v-col>
+                    </v-chip>
+                  </v-col>
                 </v-row>
 
                 <div class="text-right my-2">
@@ -90,8 +84,15 @@
                     @update:modelValue="saveCreateFromModel();addBadge(labels.brand,'brand')"
                 />
               </v-col>
+            </v-row>
 
-              <v-col cols="8" class="colors-list">
+            <v-row
+                justify="center"
+                align="center"
+            >
+
+
+              <v-col cols="12" class="colors-list">
                 <v-row v-if="skuGroupDetailColors" class="mb-5">
                     <v-col
                         v-for="(skuColor , index) in skuGroupDetailColors"
@@ -123,20 +124,13 @@
                     multiple
                     variant="outlined"
                     return-object
-
                     :aria-multiline="true"
-                    class="selected-attribute__values__input"
+                    class="selected-color__values__input"
 
                     @update:modelValue="saveCreateFromModel();addBadge(labels.color,'color')"
                 >
                   <template v-slot:chip="{ props, item }">
-                      <v-chip v-bind="props">
-                        <v-icon
-                              icon="mdi-square"
-                              size="x-large"
-                              :style="{color: item.raw.value}"
-                          />
-                      </v-chip>
+
                   </template>
 
                   <template v-slot:item="{ props, item }">
@@ -165,6 +159,24 @@
                       </template>
                   </template>
                 </v-autocomplete>
+                <v-row justify="center" class="my-10">
+                  <v-chip v-for="(color , colorIndex) in createFromModel.colors" class="ma-2"   :key="`selectedColor${colorIndex}`">
+                    <v-icon
+                        class=""
+                        icon="mdi-square"
+                        size="x-large"
+                        :style="{color: color.value}"
+
+                    />
+                    <v-icon
+                        @click="removeOneColor(colorIndex)"
+                        icon="mdi-close"
+                        size="small"
+
+                    />
+
+                  </v-chip>
+                </v-row>
               </v-col>
             </v-row>
 
@@ -179,7 +191,7 @@
                           </span>
                       </v-chip>
                 </v-col>
-                
+
                 <v-col cols="2" v-for="(attributeValue , index) in skuAttribute.values">
                     <v-chip class="d-block mb-3 create-product__chip">
                         <span class="flex-grow-1 text-center">
@@ -201,7 +213,7 @@
                             {{ labels.attributes }}
                         </span>
                     </div>
-                    
+
                     <v-autocomplete
                         :items="attributeList"
                         v-model='createFromModel.attributes[i]'
@@ -223,7 +235,7 @@
                     class="mt-5"
                   />
                 </v-col>
-                
+
                 <v-col
                     cols="6"
                     class="d-flex justify-content-between align-items-center w-100 selected-attribute__values"
@@ -235,7 +247,7 @@
                             </span>
                         </div>
 
-                        <template 
+                        <template
                             v-for="(item, index) in items"
                             :key="index"
                         >
@@ -313,7 +325,7 @@
                             {{ labels.unit }}
                         </span>
                     </div>
-                    
+
                     <v-select
                         v-model="unitTypeModel"
                         class="t1330"
@@ -356,9 +368,9 @@
             </v-row>
 
 
-            
+
             <v-row class="numbers-list">
-                <v-col 
+                <v-col
                     v-for="(unitNumber, index) in unitNumbersList"
                     :key="index"
                     cols="4"
@@ -595,7 +607,7 @@ export default {
         return  false
       }
     },
-    
+
     groupedColors() {
         const groupedColors = [];
         const uniqueValues = new Set();
@@ -721,14 +733,24 @@ export default {
   },
 
   methods: {
+    removeOneColor(index){
+      console.log(index)
+      this.createFromModel.colors.splice(index , 1)
+      this.saveCreateFromModel();
+      this.addBadge(this.labels.color,'color')
+    },
     getGroupColor(item){
       try {
         const filtersColor = this.groupedColors.filter(color=> color.group === item)
         if (filtersColor.length){
           filtersColor.forEach(element=>{
-            this.createFromModel.colors.push(element)
+            const findColor =  this.createFromModel.colors.findIndex(color=> color.id == element.id)
+            if (findColor === -1) this.createFromModel.colors.push(element)
+            else this.createFromModel.colors.splice(findColor , 1)
           })
         }
+        this.saveCreateFromModel();
+        this.addBadge(this.labels.color,'color')
       }
       catch (e) {
 
@@ -1102,7 +1124,6 @@ export default {
       if (localStorage.getItem('createFromModelStep1')){
         const jsonForm = JSON.parse(localStorage.getItem('createFromModelStep1'))
         this.createFromModel = jsonForm
-        console.log(jsonForm.attributes ,'asdad')
         jsonForm.attributes.forEach((element, i) => {
           // const attrobj = this.attributeList.find(el => el.id == element.id)
           // this.attrNumbers.forEach((element, i) => {

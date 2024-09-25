@@ -5,27 +5,32 @@
       <h3 class="t14 w500 create-product__header">ساخت محصول یکتا</h3>
 
       <template v-if="step === 1">
-        <CreateProductFromStep1 
-          :volumeList="volumeList"
-          :brandList="brandList"
-          :colorList="colorList"
-          :operatorList="operatorList"
-          ref="skuForm1"
-          :state="createSkuState"
-          :getAllAttributes="getAllAttributes"
+       <keep-alive>
+         <CreateProductFromStep1
+             :volumeList="volumeList"
+             :brandList="brandList"
+             :colorList="colorList"
+             :operatorList="operatorList"
+             ref="skuForm1"
+             :state="createSkuState"
+             :getAllAttributes="getAllAttributes"
 
-        />
+         />
+       </keep-alive>
       </template>
 
       <template v-else-if="step === 2">
-        <CreateProductFromStep2
-            ref="skuForm2"
-            :heightList="heightList"
-            :widthList="widthList"
-            :lengthLis="lengthList"
-            :weightList="weightList"
-            :volumeUnitList="volumeUnitList"
-        />
+        <keep-alive>
+          <CreateProductFromStep2
+              ref="skuForm2"
+              :heightList="heightList"
+              :widthList="widthList"
+              :lengthLis="lengthList"
+              :weightList="weightList"
+              :volumeUnitList="volumeUnitList"
+          />
+        </keep-alive>
+
       </template>
 
       <template v-else-if="step === 3">
