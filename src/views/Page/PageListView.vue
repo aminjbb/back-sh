@@ -232,6 +232,10 @@ export default {
         label: 'گروه کالا',
         value: 'skugroup',
       },
+      {
+        label: 'صفحات استاتیک',
+        value: 'static_page',
+      },
     ]
     const {
       pageLength,
