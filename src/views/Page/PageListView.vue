@@ -234,7 +234,7 @@ export default {
       },
       {
         label: 'صفحات استاتیک',
-        value: 'static_page',
+        value: 'static',
       },
     ]
     const {
