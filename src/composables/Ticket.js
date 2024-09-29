@@ -40,7 +40,8 @@ export default function setup() {
         { name: 'موضوع', type:'select', value:'parent_topic_id'},
         { name: 'زیر موضوع', type:'select', value:'topic_id'},
         { name: 'ادمین', type:'auto-complete', value:'admin_id'},
-        { name: 'امتیاز کاربر', type:'select', value:'rate'}
+        { name: 'امتیاز کاربر', type:'select', value:'rate'},
+        { name: 'برچسب', type:'select', value:'tag_id'},
     ];
 
     const item = []

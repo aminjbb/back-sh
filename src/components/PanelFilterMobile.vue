@@ -327,6 +327,19 @@
                     :item-value="`value`"
                 />
 
+                <!-- tag fields -->
+                <sh-autocomplete
+                    v-if="filter.value == 'tag_id'"
+                    :items="tagList"
+                    v-model="values[index].value"
+                    :clearable="`clearable`"
+                    :density="`compact`"
+                    :variant="`outlined`"
+                    single-line
+                    :item-title="`title`"
+                    :item-value="`value`"
+                />
+
                   <!-- province fields -->
                   <v-autocomplete
                       v-if="filter.value == 'receive_state_id' || filter.value === 'state_id'"
@@ -654,6 +667,7 @@ export default {
       userSearchList:[],
       cities: [],
       topic: [],
+      tags: [],
       provinces: [],
       parentTopices: [],
 
@@ -687,6 +701,7 @@ export default {
 
     if (this.path === 'ticket/index') {
       this.getParentTopic()
+      this.getTags()
     }
 
     else if (this.path === 'product/get/skus/index') {
@@ -889,6 +904,21 @@ export default {
         return []
       }
     },
+    tagList() {
+      try {
+        let topicList = []
+        this.tags.forEach(tag => {
+          const form = {
+            title: tag.title,
+            value: tag.id
+          }
+          topicList.push(form)
+        })
+        return topicList
+      } catch (e) {
+        return []
+      }
+    },
   },
 
   methods: {
@@ -1029,6 +1059,21 @@ export default {
       let data = await AxiosMethod.axios_get()
       if (data) {
         this.topic = data.data.children
+      }
+    },
+
+    async getTags() {
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'system/admin/tag/crud/index'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.tags = data.data
       }
     },
 

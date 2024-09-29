@@ -12,13 +12,14 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7">
-            <div class="text-left pl-5">
+          <v-col cols="8">
+            <div class="text-center pl-5">
               <span class="t14500">
                 {{title}}
               </span>
             </div>
           </v-col>
+          <v-col cols="2"/>
         </v-row>
         <div class="mt-3 mb-8  px-5">
           <v-divider/>

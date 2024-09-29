@@ -225,12 +225,13 @@
                       @click="removeLabel(oneTicket.id,label.id)"/>
                 </div>
 
-                <div
+                <v-btn
+                    variant="text"
                     v-if="oneTicket.tags.length >= 7"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>
-                </div>
+                </v-btn>
               </div>
             </div>
 
@@ -414,6 +415,10 @@ export default {
       } else {
         this.statusModel = 'open'
       }
+    },
+
+    search() {
+      this.$forceUpdate
     }
   },
 
@@ -452,7 +457,7 @@ export default {
     },
 
     isDisable() {
-      return this.tagList.some((tag) => tag.label === this.search) || this.search == null;
+      return !this.search || this.tagList.some((tag) => tag.label === this.search) ;
     }
   },
 
@@ -471,8 +476,9 @@ export default {
           let data = await AxiosMethod.axios_post();
           if (data) {
             openToast(this.$store, data.message, "success")
-            this.getTages()
+           await this.getTages()
             this.form.tag = null
+            this.search = null
           }
           this.tagLoading = false;
         }
@@ -490,7 +496,7 @@ export default {
       let data = await AxiosMethod.axios_post();
       if (data) {
         openToast(this.$store, data.message, "success")
-        this.getTicket()
+       await this.getTicket()
         this.tagLoading = false;
         this.form.tag = null
         this.search = null
