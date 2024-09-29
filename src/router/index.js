@@ -1131,7 +1131,7 @@ const router = createRouter({
                 name: 'PageListing',
                 component: PageListView,
                 meta: {
-                    name: 'لیست صفحهات'
+                    name: 'لیست صفحات'
                 }
             },
                 {
@@ -1382,7 +1382,7 @@ const router = createRouter({
                     name: 'HomePageBrandList',
                     component: HomePageBrandSectionView,
                     meta: {
-                        name: 'لیست یرند ها'
+                        name: 'لیست برند ها'
                     }
                 },
                 {
@@ -1390,7 +1390,7 @@ const router = createRouter({
                     name: 'HomePageAddSkuSection',
                     component: HomePageAddSkuSectionView,
                     meta: {
-                        name: 'لیست یرند ها'
+                        name: 'لیست برند ها'
                     }
                 },
                 {
@@ -1398,7 +1398,7 @@ const router = createRouter({
                     name: 'HomePageGiftAddSkuSection',
                     component: HomePageGiftSectionView,
                     meta: {
-                        name: 'لیست یرند ها'
+                        name: 'لیست برند ها'
                     }
                 },
                 {
@@ -1406,7 +1406,7 @@ const router = createRouter({
                     name: 'HomePageBlogList',
                     component: HomePageBlogSectionView,
                     meta: {
-                        name: 'لیست یرند ها'
+                        name: 'لیست برند ها'
                     }
                 },
             ],

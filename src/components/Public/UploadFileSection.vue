@@ -155,13 +155,13 @@ const progressUpload = computed(function () {
 });
 
 watch(confirmModal, (newVal, oldValue) => {
-    if (!newVal) {
-        if (localStorage.getItem('deleteObject') === 'done') {
-            let findImageIndex = images.value.findIndex(image => image.imageId == imageId.value)
-            images.value.splice(findImageIndex, 1)
-            localStorage.removeItem('deleteObject')
-        }
-    }
+    // if (!newVal) {
+    //     if (localStorage.getItem('deleteObject') === 'done') {
+    //         let findImageIndex = images.value.findIndex(image => image.imageId == imageId.value)
+    //         images.value.splice(findImageIndex, 1)
+    //         localStorage.removeItem('deleteObject')
+    //     }
+    // }
 });
 
 onMounted(() => {

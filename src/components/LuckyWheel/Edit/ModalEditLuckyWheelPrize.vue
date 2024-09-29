@@ -65,7 +65,7 @@
                 <span>IMG-{{ form.image }}</span>
                 <span class="mr-15">
                 <v-icon
-                    @click="removeItem(form.image , 'mobile')"
+                    @click="removeItem(form.image , 'desktop')"
                     color="error">mdi-delete</v-icon></span>
               </div>
             </v-col>
@@ -114,6 +114,7 @@ import {
   AxiosCall
 } from '@/assets/js/axios_call.js'
 import {defineAsyncComponent} from "vue";
+import {openConfirm, openToast} from "@/assets/js/functions";
 const UploadFileSection = defineAsyncComponent(() => import('@/components/Public/UploadFileSection.vue'))
 
 
@@ -125,6 +126,7 @@ export default {
       dialog:false,
       imageId: null,
       valid: true,
+      statusImage:'',
       rule: [v => !!v || "این فیلد الزامی است"],
       form: {
         name: null,
@@ -147,7 +149,22 @@ export default {
     getLuckyWheelPrize:{type:Function},
 
   },
+
   methods: {
+    getImage(image){
+      this.form.image = image.data.data.image_id
+    },
+
+    getImageMobile(image) {
+      this.form.imageMobile = image.data.data.image_id
+    },
+
+    removeItem(id, status) {
+      this.imageId = id;
+      this.statusImage = status
+      openConfirm(this.$store, "آیا از حذف آیتم مطمئن هستید؟", "حذف آیتم", "delete", 'file-manager/direct/delete/image/' + id, false)
+    },
+
     close() {
       closeModal(this.$store, 'set_orderDetailsModal')
     },
@@ -190,6 +207,26 @@ export default {
 
   mounted() {
     this.setForm()
+  },
+
+  computed:{
+    confirmModal() {
+      return this.$store.getters['get_confirmForm'].confirmModal
+    }
+  },
+
+  watch:{
+    confirmModal(val) {
+      if (localStorage.getItem('deleteObject') === 'done') {
+        if (!val) {
+          console.log(this.statusImage)
+          if (this.statusImage === 'desktop') this.form.image = null
+          else if (this.statusImage === 'mobile') this.form.imageMobile = null
+          localStorage.removeItem('deleteObject')
+        }
+      }
+    },
+
   }
 
 }

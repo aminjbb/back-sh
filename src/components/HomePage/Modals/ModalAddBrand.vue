@@ -25,9 +25,7 @@
 
           <v-col cols="7">
             <div class="text-left pl-5">
-              <span class="t14 w500">
-                           افزودن  دسته بندی
-              </span>
+              <span class="t14 w500">افزودن برند</span>
             </div>
           </v-col>
         </v-row>

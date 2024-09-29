@@ -191,7 +191,7 @@ export default {
 
   methods: {
     changeHeaderShow(index, value) {
-      this.bannerHeader[index].show = value
+      this.specialSalesHeader[index].show = value
     },
 
     removeItem(id) {

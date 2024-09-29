@@ -277,12 +277,13 @@ export default {
               this.homeBrand.data.forEach((item) => {
                   this.itemListTable.push(
                       {
-                          data: item,
-                          id: item.id,
-                          label: item.label,
-                          link: item.link,
-                          priority: item.priority,
-                          creator: item.creator?.first_name+' '+item.creator?.last_name,
+                        data: item,
+                        id: item.id,
+                        label: item.label,
+                        link: item.link,
+                        priority: item.priority,
+                        description: item.description,
+                        creator: item.creator?.first_name+' '+item.creator?.last_name,
                        })
 
                   this.imageUrl.push(item.image.image_url)
