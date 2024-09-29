@@ -320,6 +320,10 @@ import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.v
 import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
 import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
 import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vue";
+import GiftShpsView from "@/views/GiftShps/GiftShpsView.vue";
+import GiftShpsCreate from "@/views/GiftShps/GiftShpsCreate.vue";
+import UsersListView from "@/views/GiftShps/UsersListView.vue";
+import OrdersListView from "@/views/GiftShps/OrdersListView.vue";
 
 
 const router = createRouter({
@@ -2681,6 +2685,46 @@ const router = createRouter({
                     component: SellerCartableRequesListView,
                     meta: {
                         name: 'فروشگاه'
+                    }
+                },
+            ]
+        },
+        {
+            path: '/gift-shps', // Zone
+            meta: {
+                name: 'مارکتینگ'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'GiftShpsView',
+                    component:  GiftShpsView,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'GiftShpsCreate',
+                    component: GiftShpsCreate,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: ':userId/users',
+                    name: 'UsersListView',
+                    component: UsersListView,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: ':orderId/orders',
+                    name: 'UsersListView',
+                    component: OrdersListView,
+                    meta: {
+                        name: 'کالای هدیه'
                     }
                 },
             ]
