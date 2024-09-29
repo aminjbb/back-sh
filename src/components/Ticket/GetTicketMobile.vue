@@ -202,6 +202,7 @@
                     :hide-no-data="false"
                     :items="tagList"
                     variant="outlined"
+                    prepend-inner-icon="mdi-map-marker"
                     item-title="label"
                     item-value="id"
                     hide-selected
@@ -216,20 +217,21 @@
                       </div>
                     </v-list-item>
                   </template>
+                  <template v-slot:prepend-inner>
+                    <v-btn
+                        :disabled="isDisable"
+                        size="27"
+                        rounded
+                        flat
+                        :color="isDisable? 'gray100' :'primary400'"
+                        class="position__absolute top-0 left-0 mt-2 ml-2 d-flex justify-center items-center"
+                        @click="createTage()">
+                      <v-icon
+                          icon="mdi-plus"
+                          size="16"/>
+                    </v-btn>
+                  </template>
                 </v-combobox>
-
-                <v-btn
-                    :disabled="isDisable"
-                    size="27"
-                    rounded
-                    flat
-                    :color="isDisable? 'gray100' :'primary400'"
-                    class="position__absolute top-0 left-0 mt-2 ml-2 d-flex justify-center items-center"
-                    @click="createTage()">
-                  <v-icon
-                      icon="mdi-plus"
-                      size="16"/>
-                </v-btn>
               </div>
 
               <div v-if="oneTicket && oneTicket.tags" class="d-flex justify-start align-center ga-2 mt-2">
@@ -246,12 +248,13 @@
                       @click="removeLabel(oneTicket.id,label.id)"/>
                 </div>
 
-                <div
+                <v-btn
+                    variant="text"
                     v-if="oneTicket.tags.length >= 3"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>
-                </div>
+                </v-btn>
               </div>
             </div>
 
@@ -413,27 +416,30 @@ export default {
     },
 
     isDisable() {
-      return this.tagList.some((tag) => tag.label === this.search) || this.search == null;
+      return (this.search === null || this.search ==='') || this.tagList.some((tag) => tag.label === this.search)
     }
   },
 
   methods: {
     async createTage() {
-      if (this.form.tag) {
-        const exists = this.tages.find(label =>label.title === this.form.tag)
+      if (this.search) {
+        const exists = this.tages.find(label =>label.title === this.search)
         if (!exists) {
           this.tagLoading = true;
           const AxiosMethod = new AxiosCall();
-          AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tag}`
+          AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.search}`
           AxiosMethod.store = this.$store;
           AxiosMethod.using_auth = true;
           AxiosMethod.token = this.$cookies.get('adminToken')
 
           let data = await AxiosMethod.axios_post();
           if (data) {
+            console.log(data)
+            this.attachTage(this.$route.params.ticketId ,data?.data?.id )
             openToast(this.$store, data.message, "success")
-            this.getTages()
+            await this.getTages()
             this.form.tag = null
+            this.search = null
           }
           this.tagLoading = false;
         }
@@ -451,9 +457,10 @@ export default {
       let data = await AxiosMethod.axios_post();
       if (data) {
         openToast(this.$store, data.message, "success")
-        this.getTicket()
+        await this.getTicket()
         this.tagLoading = false;
         this.form.tag = null
+        this.search = null
       }
     },
 
