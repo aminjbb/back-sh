@@ -12,13 +12,14 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="7">
-            <div class="text-left pl-5">
+          <v-col cols="8">
+            <div class="text-center pl-5">
               <span class="t14500">
                 {{title}}
               </span>
             </div>
           </v-col>
+          <v-col cols="2"/>
         </v-row>
         <div class="mt-3 mb-8  px-5">
           <v-divider/>
@@ -32,29 +33,46 @@
           <v-divider />
         </div>
 
-        <div class="d-flex justify-space-between pb-5 px-10" v-if="hasAction">
-          <v-btn
-              @click="successAction()"
-              :color="successColor"
-              :loading="loading"
-              height="40"
-              rounded
-              class="px-8 mt-1">
-            {{ successTitle }}
-          </v-btn>
-          <v-btn
-              :color="cancelColor"
-              :variant="cancelVariant"
-              :loading="cancelLoading"
-              height="40"
-              rounded
-              class="px-5 mt-1"
-              @click="cancelAction()"
-          >
+        <div v-if="hasAction">
+          <div class="d-flex justify-space-between pb-5 px-3" v-if="hasClose">
+            <v-btn
+                :color="cancelColor"
+                :variant="cancelVariant"
+                height="40"
+                rounded
+                @click="closeAction()"
+            >
+              {{ closeTitle }}
+            </v-btn>
+          </div>
 
-            {{ cancelTitle }}
-          </v-btn>
+          <div class="d-flex justify-space-between pb-5 px-10" v-else>
+            <v-btn
+                @click="successAction()"
+                :color="successColor"
+                :loading="loading"
+                height="40"
+                rounded
+                class="px-8 mt-1">
+              {{ successTitle }}
+            </v-btn>
+            <v-btn
+                :color="cancelColor"
+                :variant="cancelVariant"
+                :loading="cancelLoading"
+                height="40"
+                rounded
+                class="px-5 mt-1"
+                @click="cancelAction()"
+            >
+
+              {{ cancelTitle }}
+            </v-btn>
+          </div>
         </div>
+
+
+
       </v-card>
     </v-dialog>
   </div>
@@ -73,6 +91,11 @@ export  default {
       default: true
     },
 
+    hasClose:{
+      type:Boolean,
+      default: false
+    },
+
     width:{
       type:Number,
       default:908
@@ -88,15 +111,16 @@ export  default {
     cancelTitle:{
       type:String, default:'انصراف'
     },
+
+    closeTitle:{
+      type:String, default:'بستن'
+    },
     cancelColor:{
       type:String, default:''
     },
     cancelVariant:{
       type:String, default:'text'
-    },
-
-
-
+    }
   },
 
   data(){
@@ -114,6 +138,10 @@ export  default {
 
     cancelAction(){
       this.$emit('cancelAction')
+    },
+
+    closeAction(){
+      this.$emit('closeAction')
     },
 
     close(){

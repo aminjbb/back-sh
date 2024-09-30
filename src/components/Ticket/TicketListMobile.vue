@@ -9,6 +9,7 @@
             :filterField="filterField"
             :statusItems="statusTicket"
             :priorityItems="priorityList"
+            :scoreItems="scoreItems"
         />
       </div>
 
@@ -21,8 +22,21 @@
           <div class="d-flex align-center justify-space-between">
                 <div class="">
                   <v-icon icon="mdi-circle-small"/>
-                  <span class="t12 w500"> عنوان : </span>
-                  <span class="t12 w500 number-font"> {{ item.topic_title }} </span>
+                  <span class="t12 w500"> موضوع : </span>
+                  <div class="">
+                    <span v-if="item.parent_topic" class="t12 w500 number-font"> {{ item.parent_topic }} </span>
+                    <span v-else class="t12 w500 number-font"> - </span>
+                  </div>
+
+                </div>
+                <div class="">
+                  <v-icon icon="mdi-circle-small"/>
+                  <span class="t12 w500"> زیر موضوع : </span>
+                  <div class="">
+                    <span v-if="item.topic_title" class="t12 w500 number-font"> {{ item.topic_title }} </span>
+                    <span v-else class="t12 w500 number-font"> - </span>
+                  </div>
+
                 </div>
                 <div class="">
                   <v-chip
@@ -60,13 +74,29 @@
                 </div>
               </div>
 
-<!--          <div class="d-flex align-center justify-space-between">-->
-<!--                <div class="mt-3">-->
-<!--                  <v-icon icon="mdi-circle-small"/>-->
-<!--                  <span class="t12 w500"> امتیاز: </span>-->
-<!--                  <span class="t12 w500 number-font"> یسرا فیلی </span>-->
-<!--                </div>-->
-<!--              </div>-->
+          <div class="d-flex align-center justify-space-between mt-3">
+            <div class="">
+              <v-icon icon="mdi-circle-small"/>
+              <span class="t12 w500"> امتیاز کاربر: </span>
+            </div>
+
+            <span v-if="item.rate === null">-</span>
+            <v-rating
+                v-else
+                v-model="item.rate"
+                half-increments
+                readonly
+                class="me-3"
+                style="direction: ltr!important;">
+              <template v-slot:item="props">
+                <v-icon
+                    size="large"
+                    :color="props.isFilled ? 'rgb(243, 193, 28)' : 'grey-lighten-1'">
+                  mdi-star
+                </v-icon>
+              </template>
+            </v-rating>
+          </div>
 
           <div class="d-flex justify-space-between mt-3">
             <BottomSheetTicket :item="item" :title="`اطلاعات تیکت`"/>
@@ -124,14 +154,17 @@ import Table from '@/components/Ticket/TicketTable/TicketTable.vue'
 import Ticket from '@/composables/Ticket';
 import PanelFilterMobile from "@/components/PanelFilterMobile.vue";
 import BottomSheetTicket from "@/components/BottomSheetTicket.vue";
+import PanelFilter from "@/components/PanelFilter/PanelFilter.vue";
 
 export default {
   data() {
     return {
-      perPageFilter: false
+      perPageFilter: false,
+      scoreItems: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     }
   },
   components: {
+    PanelFilter,
     PanelFilterMobile,
     Table,
     BottomSheetTicket,
