@@ -169,7 +169,8 @@ export default {
       page,
       header,
       loading,
-      getGiftList
+      getGiftList,
+      giftList
     } = GiftShps()
 
     return {
@@ -179,14 +180,38 @@ export default {
       page,
       header,
       loading,
-      getGiftList
+      getGiftList,
+      giftList
     }
   },
 
   data() {
     return {
       perPageFilter:false,
-      itemListTable: [],
+      itemListTable: [
+        {
+          title:'شامپو هدیه' ,
+          shps_id:123 ,
+          image:'' ,
+          shps_count:3 ,
+          order_limit:3 ,
+          user_limit:3 ,
+          created_at: '1402/06/12 11:24:52',
+          last_login: '1402/06/12 11:24:52',
+          is_active: 1,
+        },
+        {
+          title:'شامپو هدیه' ,
+          shps_id:123 ,
+          image:'' ,
+          shps_count:3 ,
+          order_limit:3 ,
+          user_limit:3 ,
+          created_at: '1402/06/12 11:24:52',
+          last_login: '1402/06/12 11:24:52',
+          is_active: 0,
+        }
+      ],
       removeTableItem: {
         text: "آیا از حذف آیتم مطمئن هستید؟",
         title: "حذف آیتم",
@@ -224,24 +249,28 @@ export default {
   },
 
   watch: {
-    // adminList() {
-    //   this.itemListTable = []
-    //
-    //   this.adminList.forEach((item) =>
-    //       this.itemListTable.push(
-    //           {
-    //             id: item.id,
-    //             first_name:item.first_name,
-    //             last_name:item.last_name,
-    //             phone_number:item.phone_number,
-    //             role: item.role.label,
-    //             created_at: convertDateToJalai(item.created_at , '-' , true),
-    //             email:item.email,
-    //             switch: item.is_ban,
-    //           },
-    //       ),
-    //   )
-    // },
+    giftList() {
+      this.itemListTable = []
+
+      this.giftList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                title: item,
+                shps_id: item,
+                image: item,
+                shps_count: item,
+                order_count: item,
+                order_limit: item,
+                user_limit: item,
+                created_at: item,
+                last_login: item,
+                is_active: item.is_active,
+                is_active_id: item.id,
+              },
+          ),
+      )
+    },
 
     dataTableLength() {
       this.perPageFilter = true

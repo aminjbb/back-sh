@@ -5,13 +5,13 @@
       <Header />
 
       <div class="create-product flex-column d-flex h-100vh">
-        <v-card class="ma-5 br--12 pb-15 flex-grow-1" height="600">
+        <v-card class="ma-5 br--12 pb-15 flex-grow-1 rounded-lg" height="600">
+          <div class="t14 w500 text-center my-4">ساخت کالای هدیه</div>
+          <v-divider class="mt-3"/>
           <v-form
               ref="createGift"
               class="create-product__info-form scroller"
               v-model="valid">
-            <div class="t14 w500 text-center">ساخت کالای هدیه</div>
-            <v-divider class="mt-3"/>
             <v-row justify="start" align="center">
               <v-col cols="6">
                 <div class="text-right mt-5">
