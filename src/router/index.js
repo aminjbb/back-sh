@@ -320,6 +320,9 @@ import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.v
 import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
 import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
 import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vue";
+import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModalView.vue";
+import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
+import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
 
 
 const router = createRouter({
@@ -2683,6 +2686,39 @@ const router = createRouter({
                         name: 'فروشگاه'
                     }
                 },
+            ]
+        },
+
+        {
+            path: '/first-time-user',
+            meta: {
+                name: ' مارکتینگ'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'FirstTimeUserModalView',
+                    component: FirstTimeUserModalView,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'FirstTimeUserCreate',
+                    component: FirstTimeUserCreate,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                },
+                {
+                    path: ':id/modal-edit',
+                    name: 'FirstTimeUserEdit',
+                    component: FirstTimeUserEdit,
+                    meta: {
+                        name: 'تنظیمات مودال خانه'
+                    }
+                }
             ]
         },
     ]

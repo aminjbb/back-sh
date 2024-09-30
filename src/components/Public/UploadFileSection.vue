@@ -40,6 +40,8 @@
             </div>
             <v-progress-linear v-model="progressUpload" color="success"></v-progress-linear>
         </v-col>
+
+
     </div>
 </template>
 </template>
@@ -64,7 +66,7 @@ const store = useStore()
 const route = useRoute()
 let loading = ref(false)
 const router = useRouter()
-const props = defineProps(['module'])
+const props = defineProps(['module' , 'acceptFile'])
 
 function onDrop(e) {
     files.value = e.dataTransfer.files
@@ -76,6 +78,7 @@ function onDrop(e) {
  */
 function selectFile() {
     var input = document.createElement('input');
+    if(props?.acceptFile) input.accept = props?.acceptFile;
     input.type = 'file';
     input.onchange = e => {
         file = e.target.files[0];
