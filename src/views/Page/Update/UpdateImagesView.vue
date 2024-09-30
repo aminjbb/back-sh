@@ -11,12 +11,15 @@
           </div>
           <v-card class="ma-5 mt-0 br--12 flex-grow-1 d-flex flex-column align-stretch v-field pb-16">
             <ShTable
+                ref="pageImageTable"
                 class="flex-grow-1"
                 :headers="imageHeader"
                 :items="itemListTable"
                 :loading="loading"
                 :activePath="'product/sku/crud/update/activation/'"
-                :dataSelect="positionImageList">
+                :dataSelect="positionImageList"
+                :deviceData="deviceData"
+            >
 
               <template v-slot:customSlot="item">
                 <img :src="itemListTable[item.index].imageUrl" width="68" height="28" alt="" class="br br--4">
@@ -196,13 +199,11 @@ export default {
     },
 
     async updateImage(index) {
-      console.log(this.itemListTable[index].position, 'this.itemListTable[index].position')
-      console.log(this.itemListTable[index].priority, 'this.itemListTable[index].priority')
       this.itemListTable[index].loading = true
       const formData = new FormData()
       formData.append('image_id', this.itemListTable[index].image)
       formData.append('image_position_id', this.itemListTable[index].position)
-      formData.append('priority', this.itemListTable[index].priority)
+      formData.append('priority', this.itemListTable[index].show_order)
       formData.append('device_type', this.itemListTable[index].deviceType)
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
@@ -282,7 +283,7 @@ export default {
                 image: item.id,
                 imageId: item.id,
                 imageUrl: item.image_url,
-                priority: item.priority,
+                show_order: item.priority,
                 loading: false
               },
           ),
