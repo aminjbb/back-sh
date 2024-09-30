@@ -17,6 +17,7 @@ export default function setup() {
     const header =ref([
         { name: 'ردیف', title: 'ردیف', show: true , sortable:false, align:'center', key:'row'},
         { name: 'شناسه فاکتور', title: 'شناسه فاکتور', show: true, align:'center', key:'id' },
+        { name: 'شماره پیش فاکتور', title: 'شماره پیش فاکتور', show: true, align:'center', key:'pre_factor' },
         { name: 'تامین کننده', title: 'تامین کننده', show: true, sortable: false, align:'center', key:'supplier'},
         { name: 'سازنده', title: 'سازنده', show: true , sortable: false, align:'center', key:'creator'},
         { name: 'شماره فاکتور تامین کننده', title: 'شماره فاکتور تامین کننده', show: true, sortable: false, align:'center', key:'factor_number' },
@@ -44,10 +45,11 @@ export default function setup() {
     ]);
 
     const filterField = [
-        {name:'شناسه فاکتور' , type:'text', value:'id'},
+        { name:'شناسه فاکتور' , type:'text', value:'id'},
         { name:'سازنده' , type: 'select', value:'creator_id'},
         { name: 'تامین کننده', type:'select', value:'supplier_id'},
         { name: 'شماره فاکتور تامین کننده', type:'text', value:'factor_number'},
+        { name:'شماره پیش فاکتور' , type:'text', value:'pre_factor_number'},
         { name: 'تاریخ ساخت', type: 'date', value: 'created_at'},
         { name: 'وضعیت', type:'select', value:'status'},
     ];
