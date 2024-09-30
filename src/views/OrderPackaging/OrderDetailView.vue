@@ -244,8 +244,7 @@ export default {
             })
             this.orderDetail = sortedItem
             this.loading = false
-
-            setTimeout(()=>{this.shpsItem = null},1000)
+            this.shpsItem = null
           })
           .catch((err) => {
             this.shpsItem = null
