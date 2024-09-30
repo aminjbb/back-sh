@@ -21,6 +21,7 @@ export default function setup() {
     const cargoReceivingHeader = ref([
         {name:'ردیف' ,title:'ردیف' , show:true , key: 'row', sortable: false, align:'center'},
         {name:'شناسه کالا' ,title:'شناسه کالا' , show:true , key:'shps', sortable: false, align:'center'},
+        {name:'تصویر کالا' ,title:'تصویر کالا' , show:true , key:'image', sortable: false, align:'center'},
         {name:'نام کالا' ,title:'نام کالا' , show:true , key:'sku_label', sortable: false, align:'center'},
         {name:'تعداد کالا ' ,title:'تعداد کالا ' , show:true, key:'packed_count', sortable: false, align:'center'},
         {name:' شناسه محموله ' ,title:' شناسه محموله ' , show:true, key:'shipment_id', sortable: false, align:'center'},
