@@ -297,7 +297,7 @@ export default {
     },
 
     specsFromModal: {
-      specifications: 'مشخصات',
+      specifications: '',
       advantages: '',
       disAdvantages: '',
       instructions: '',
