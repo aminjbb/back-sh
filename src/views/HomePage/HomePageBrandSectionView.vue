@@ -242,9 +242,7 @@ export default {
       },
 
       updateList(status) {
-        if (status === 'true') {
-          this.getHomeBrand();
-        }
+        this.getHomeBrand();
       },
   },
 
@@ -274,6 +272,8 @@ export default {
     homeBrand() {
           if(this.homeBrand.data) {
               this.itemListTable = []
+              this.description = []
+              this.imageUrl = []
               this.homeBrand.data.forEach((item) => {
                   this.itemListTable.push(
                       {
