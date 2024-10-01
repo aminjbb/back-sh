@@ -323,6 +323,7 @@ import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vu
 import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModalView.vue";
 import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
 import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
+import RominaCampaignView from "@/views/RominaCamping/RominaCampaignView.vue";
 
 
 const router = createRouter({
@@ -2717,6 +2718,23 @@ const router = createRouter({
                     component: FirstTimeUserEdit,
                     meta: {
                         name: 'تنظیمات مودال خانه'
+                    }
+                }
+            ]
+        },
+
+        {
+            path: '/romina-campaign',
+            meta: {
+                name: ' کمپین ها'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'RominaCampaignView',
+                    component: RominaCampaignView,
+                    meta: {
+                        name: 'کمپین رومینا'
                     }
                 }
             ]

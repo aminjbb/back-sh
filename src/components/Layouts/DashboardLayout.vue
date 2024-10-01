@@ -516,6 +516,34 @@
                 </span>
           </v-list-item>
 
+          <v-list-group value="campaign">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-account-box-outline</v-icon>
+                </template>
+
+                <span class="t14 w500">کمپین ها</span>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+                v-for="([title, to, icon], i) in campaign"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14 w500">{{title}}</span>
+            </v-list-item>
+
+          </v-list-group>
+
         </v-list>
 
         ></div> </v-navigation-drawer>
@@ -647,7 +675,10 @@ export default {
             message: [
                 ['پیام های کاربران', '/contact-us/index', 'mdi-checkbox-blank-circle-outline'],
                 ['پیام های سیستمی', '/notifications/index', 'mdi-checkbox-blank-circle-outline'],
-            ]
+            ],
+          campaign: [
+            ['کمپین رومینا', '/romina-campaign/index', 'mdi-checkbox-blank-circle-outline']
+          ]
 
         }
     },
