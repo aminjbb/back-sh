@@ -220,7 +220,7 @@
                 <div
                     v-for="(label, index) in oneTicket.tags.slice(0,7)"
                     :key="index"
-                    class="bg-gray200 rounded-xl px-2">
+                    class="d-flex align-center bg-gray200 rounded-xl px-2">
                   <span class="t14 w400">{{ label.title }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
@@ -233,7 +233,7 @@
                 <v-btn
                     variant="text"
                     v-if="oneTicket.tags.length >= 7"
-                    class="text-primary t14 w400 cursor-pointer"
+                    class="text-primary500 t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>
                 </v-btn>
@@ -492,7 +492,6 @@ export default {
       if (this.search) {
         const exists = this.tages.find(label =>label.title === this.search)
         if (!exists) {
-
           this.tagLoading = true;
           const AxiosMethod = new AxiosCall();
           AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.search}`

@@ -238,7 +238,7 @@
                 <div
                     v-for="(label, index) in oneTicket.tags.slice(0,3)"
                     :key="index"
-                    class="bg-gray200 rounded-xl px-2">
+                    class="d-flex align-center bg-gray200 rounded-xl px-2">
                   <span class="t14 w400">{{ label.title }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
