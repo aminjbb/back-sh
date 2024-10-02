@@ -33,7 +33,7 @@
             </div>
 
             <div v-if="voucherDetail?.name" class="mt-6">
-              <span class="t14 w500 mr-6">سازنده کد تخفیف: </span>
+              <span class="t14 w500 mr-6">عنوان کد تخفیف: </span>
               <span class="t14 w500 text-gray500"> {{voucherDetail?.name }} </span>
               <v-divider class="mt-6"/>
             </div>
