@@ -176,8 +176,9 @@
               </div>
               <div class="position position__relative">
                 <v-combobox
+                    @keyup.enter="attachTageEnter()"
                     v-model="form.tag"
-                    v-model:search="search"
+                    v-model:search.sync="search"
                     :hide-no-data="false"
                     :items="tagList"
                     variant="outlined"
@@ -466,10 +467,32 @@ export default {
   },
 
   methods: {
+    async  attachTageEnter(){
+      const exists = this.tages.find(label =>label.title === this.form.tag[0])
+      if (!exists) {
+        this.tagLoading = true;
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tag[0]}`
+        AxiosMethod.store = this.$store;
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken')
+
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.attachTage(this.$route.params.ticketId ,data?.data?.id )
+          openToast(this.$store, data.message, "success")
+          this.form.tag = []
+          await this.getTages()
+          this.search = null
+        }
+        this.tagLoading = false;
+      }
+    },
     async createTage() {
       if (this.search) {
         const exists = this.tages.find(label =>label.title === this.search)
         if (!exists) {
+
           this.tagLoading = true;
           const AxiosMethod = new AxiosCall();
           AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.search}`
@@ -501,11 +524,15 @@ export default {
 
       let data = await AxiosMethod.axios_post();
       if (data) {
-        openToast(this.$store, data.message, "success")
-       await this.getTicket()
         this.tagLoading = false;
-        this.form.tag = null
-        this.search = null
+
+        openToast(this.$store, data.message, "success")
+        await this.getTicket()
+        setTimeout(()=>{
+          this.form.tag = []
+          this.search = null
+        }, 2000)
+
       }
     },
 
@@ -521,6 +548,9 @@ export default {
      let data = await AxiosMethod.axios_get()
      if (data) {
        this.tages = data.data
+       this.tages.forEach((element)=>{
+
+       })
      }
     },
 
