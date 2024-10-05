@@ -23,7 +23,7 @@
                     class="mt-1"
                     variant="outlined"
                     :rules="rule"
-                    v-model="form.title"
+                    v-model="form.name"
                     rounded="lg">
 
                 </v-text-field>
@@ -198,7 +198,7 @@ export default {
       valid: false,
       rule: [v => !!v || 'این فیلد الزامی است'],
       form:{
-        title: '',
+        name: '',
         shps_count: null,
         select_shps: null
       },

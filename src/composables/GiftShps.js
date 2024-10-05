@@ -5,6 +5,8 @@ import {useRoute} from "vue-router";
 
 export default function setup() {
     const giftList = ref([]);
+    const ordersList = ref([]);
+    const usersList = ref([]);
     const dataTableLength = ref(25)
     const page = ref(1)
     const pageLength =ref(1)
@@ -52,10 +54,9 @@ export default function setup() {
     ]);
 
     const filterField = [
-        { name: 'عنوان', type:'text', value:'title'},
-        { name: 'شناسه کالا', type:'text', value:'shps_id'},
-        { name:'نام کالا', type: 'text', value:'shps_name'},
-        { name:'نام کالا', type: 'text', value:'shps_name'},
+        { name: 'عنوان', type:'text', value:'name'},
+        { name: 'شناسه کالا', type:'text', value:'sku_id'},
+        { name:'نام کالا', type: 'text', value:'sku_name'},
         { name:'تاریخ شروع ' , type:'date', value:'start_time'},
         { name:'تاریخ پایان ' , type:'date', value:'end_time'},
         { name:'وضعیت' , type:'select', value:'is_active'},
@@ -63,10 +64,10 @@ export default function setup() {
         { name:'تعداد کالا' , type: 'text', value:'shps_count_to', place:'تا'},
         { name:'کمترین شماره سفارش' , type:'text', value:'order_count_from', place:'از'},
         { name:'بیشترین شماره سفارش' , type:'text', value:'order_count_to', place: 'تا'},
-        { name:'کمترین تعداد استفاده کاربر' , type:'text', value:'order_count_from', place:'از'},
-        { name:'بیشترین تعداد استفاده کاربر' , type:'text', value:'order_count_to', place: 'تا'},
-        { name:'کمترین هزینه سفارش' , type:'text', value:'order_count_from', place:'از'},
-        { name:'بیشترین هزینه' , type:'text', value:'order_count_to', place: 'تا'},
+        { name:'کمترین تعداد استفاده کاربر' , type:'text', value:'user_limit_from', place:'از'},
+        { name:'بیشترین تعداد استفاده کاربر' , type:'text', value:'user_limit_to', place: 'تا'},
+        { name:'کمترین هزینه سفارش' , type:'text', value:'min_order_price_from', place:'از'},
+        { name:'بیشترین هزینه' , type:'text', value:'min_order_price_to', place: 'تا'},
     ];
 
     const filterFieldUsersList = [
@@ -77,18 +78,22 @@ export default function setup() {
     ];
 
     const filterFieldOrdersList = [
-        { name: 'شناسه سفارش', type:'text', value:'shps_id'},
+        { name: 'شناسه سفارش', type:'text', value:'id'},
         { name:'شماره تماس کاربر', type: 'text', value:'phone_number'},
-        { name:'نام کاربر', type: 'text', value:'user_name'},
+        { name:'نام کاربر', type: 'text', value:'user_id'},
         { name:'نام خانوادگی کاربر', type: 'text', value:'last_name'},
+
         { name:'کمترین شماره سفارش' , type:'text', value:'order_count_from', place:'از'},
         { name:'بیشترین شماره سفارش' , type:'text', value:'order_count_to', place: 'تا'},
+
         { name:'کمترین تعداد آیتم' , type:'text', value:'shps_count_from', place:'از'},
         { name:'بیشترین تعداد آیتم' , type: 'text', value:'shps_count_to', place:'تا'},
-        { name:'کمترین مبلغ سفارش' , type:'text', value:'order_count_from', place:'از'},
-        { name:'بیشترین مبلغ سفارش' , type:'text', value:'order_count_to', place: 'تا'},
+
+        { name:'کمترین مبلغ سفارش' , type:'text', value:'paid_price_from', place:'از'},
+        { name:'بیشترین مبلغ سفارش' , type:'text', value:'paid_price_to', place: 'تا'},
+
         { name: 'کد تخفیف', type:'text', value:'voucher'},
-        { name:'تاریخ ثبت سفارش' , type:'date', value:'start_time'}
+        { name:'تاریخ ثبت سفارش' , type:'date', value:'submit_date'}
     ];
 
     async function getGiftList() {
@@ -136,7 +141,7 @@ export default function setup() {
         }
         AxiosMethod.using_auth = true
         AxiosMethod.token = cookies.cookies.get('adminToken')
-        AxiosMethod.end_point = `admin/crud/index/`
+        AxiosMethod.end_point = 'gift/crud/index'
         let data = await AxiosMethod.axios_get()
         if (data) {
             pageLength.value = data.data.last_page
@@ -149,36 +154,27 @@ export default function setup() {
         }
     };
 
-    async function getAdmins ( query) {
-        const filter = {
-            per_page : 100000,
-        }
+    async function getOrders () {
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = 'admin/crud/index'
-        AxiosMethod.form = filter
+        AxiosMethod.end_point = `gift/crud/${route.params.orderId}/orders/index`
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =  true
         let data = await AxiosMethod.axios_get()
         if (data) {
-            pageLength.value = Math.ceil(data.data.total / data.data.per_page)
-            admin.value = data.data
+            ordersList.value = data.data
         }
-        else {
-        }
-    };
-    
-    async function getAdmin () {
+    }
+
+    async function getUsers () {
         const AxiosMethod = new AxiosCall()
-        AxiosMethod.end_point = `admin/crud/get/${route.params.adminId}`
+        AxiosMethod.end_point = `gift/crud/get/${route.params.userId}`
         AxiosMethod.token = cookies.cookies.get('adminToken')
         AxiosMethod.using_auth =  true
         let data = await AxiosMethod.axios_get()
         if (data) {
-            adminForEdit.value = data.data
+            usersList.value = data.data
         }
-        else {
-        }
-    };
+    }
 
 
 
@@ -194,7 +190,11 @@ export default function setup() {
         headerUsersList,
         filterFieldUsersList,
         headerOrdersList,
-        filterFieldOrdersList
+        filterFieldOrdersList,
+        getOrders,
+        ordersList,
+        getUsers,
+        usersList
     }
 }
 

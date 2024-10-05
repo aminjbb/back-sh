@@ -48,7 +48,8 @@
               :items="itemListTable"
               :page="page"
               :perPage="dataTableLength"
-              :loading="loading">
+              :loading="loading"
+              activePath="gift/crud/activation/">
             <template v-slot:actionSlot="item">
               <div class="text-center">
                 <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
@@ -97,7 +98,7 @@
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
               <v-col cols="3">
-                <ModalExcelDownload getEndPoint="admin/csv/get/export" />
+                <ModalExcelDownload getEndPoint="gift/crud/export" />
               </v-col>
 
               <v-col cols="6">
@@ -213,9 +214,10 @@ export default {
         }
       ],
       removeTableItem: {
-        text: "آیا از حذف آیتم مطمئن هستید؟",
+        text: "با حذف کالای هدیه دیگر به جزئیات آن دسترسی نخواهید داشت.\n" +
+            "آیا از انجام این کار اطمینان دارید؟",
         title: "حذف آیتم",
-        path: `admin/crud/delete/`,
+        path: `gift/crud/delete/`,
       },
     }
   },
@@ -238,7 +240,7 @@ export default {
     },
 
     removeItem(id) {
-      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+      openConfirm(this.$store, 'this.removeTableItem.text', this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
     },
   },
 

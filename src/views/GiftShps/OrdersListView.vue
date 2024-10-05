@@ -39,7 +39,7 @@
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
               <v-col cols="3">
-                <ModalExcelDownload getEndPoint="admin/csv/get/export" />
+                <ModalExcelDownload getEndPoint="gift/4/orders/export" />
               </v-col>
 
               <v-col cols="6">
