@@ -61,7 +61,7 @@
                           mdi-eye-outline
                         </v-icon>
                         <span class="mr-2 text-grey-darken-1 t14 w300">نمایش جزییات ارسال
-                          <DetailsModal />
+                          <DetailsModalRomina />
                         </span>
                       </div>
                     </v-list-item-title>
@@ -71,30 +71,21 @@
               </v-menu>
             </template>
           </ShTable>
-          <Modal
-              ref="groupPrintModal"
-              :title="`پرینت گروهی برچسب ارسال`"
-              width="468"
-              @successAction="confirmedGroupPrint()"
-              @cancelAction="closeModalGroupPrint()">
-            <template v-slot:modalBody>
-              <div class="text-right mb-1">
-                <span class="text-scanError mr-1">*</span>
-                <span class="t12 w400 text-gray600">تعداد برچسب </span>
-              </div>
-              <div class="mb-4">
-                <v-text-field
-                    v-model="label_count"
-                    variant="outlined"/>
-              </div>
-            </template>
-
-          </Modal>
           <v-divider />
 
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
-              <v-col cols="3"/>
+              <v-col cols="3">
+                <v-btn
+                    @click="openModalGroupPrint"
+                    variant="outlined"
+                    rounded class="px-3 mt-1">
+                  <template v-slot:prepend>
+                    <img src="@/assets/img/Download.svg" alt="shavaz image">
+                  </template>
+                  پرینت گروهی برچسب ارسال
+                </v-btn>
+              </v-col>
 
               <v-col cols="6">
                 <div class="text-center">
@@ -114,19 +105,35 @@
                     align="center"
                     id="rowSection"
                     class="d-flex align-center">
-                        <span class="ml-5">
-                            تعداد سطر در هر صفحه
-                        </span>
+                  <span class="ml-5">تعداد سطر در هر صفحه</span>
                   <span class="mt-2" id="row-selector">
-                            <v-select
-                                v-model="dataTableLength"
-                                class="t1330"
-                                variant="outlined"
-                                :items="[25,50,100]" />
-                        </span>
+                     <v-select
+                         v-model="dataTableLength"
+                         class="t1330"
+                         variant="outlined"
+                         :items="[25,50,100]" />
+                  </span>
                 </div>
               </v-col>
             </v-row>
+            <Modal
+                ref="groupPrintModal"
+                :title="`پرینت گروهی برچسب ارسال`"
+                width="468"
+                @successAction="confirmedGroupPrint()"
+                @cancelAction="closeModalGroupPrint()">
+              <template v-slot:modalBody>
+                <div class="text-right mb-1">
+                  <span class="text-scanError mr-1">*</span>
+                  <span class="t12 w400 text-gray600">تعداد برچسب </span>
+                </div>
+                <div class="mb-4">
+                  <v-text-field
+                      v-model="label_count"
+                      variant="outlined"/>
+                </div>
+              </template>
+            </Modal>
           </v-card-actions>
         </v-card>
       </div>
@@ -147,12 +154,12 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
 import {convertDateToJalai} from "@/assets/js/functions";
 import Modal from "@/components/Components/Modal/Modal.vue";
-import DetailsModal from "@/components/Orders/Modal/DetailsModal.vue";
+import DetailsModalRomina from "@/views/RominaCamping/DetailsModalRomina.vue";
 
 export default {
   name: "RominaCampingView",
   components: {
-    DetailsModal,
+    DetailsModalRomina,
     Modal,
     ShTable,
     ModalExcelDownload,
