@@ -56,12 +56,12 @@
 
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push(`/admin/edit/${item.data.id}`)">
+                      <div class="ma-5 pointer">
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-eye-outline
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">نمایش جزییات ارسال
-                          <DetailsModalRomina />
+                        <span class="mr-2 text-grey-darken-1 t14 w300">
+                          <DetailsModalRomina :id="item.data.id" />
                         </span>
                       </div>
                     </v-list-item-title>
@@ -120,18 +120,21 @@
                 ref="groupPrintModal"
                 :title="`پرینت گروهی برچسب ارسال`"
                 width="468"
-                @successAction="confirmedGroupPrint()"
+                @successAction="validation()"
                 @cancelAction="closeModalGroupPrint()">
               <template v-slot:modalBody>
-                <div class="text-right mb-1">
-                  <span class="text-scanError mr-1">*</span>
-                  <span class="t12 w400 text-gray600">تعداد برچسب </span>
-                </div>
-                <div class="mb-4">
-                  <v-text-field
-                      v-model="label_count"
-                      variant="outlined"/>
-                </div>
+                <v-form ref="bulkForm" v-model="valid">
+                  <div class="text-right mb-1">
+                    <span class="text-scanError mr-1">*</span>
+                    <span class="t12 w400 text-gray600">تعداد برچسب </span>
+                  </div>
+                  <div class="mb-4">
+                    <v-text-field
+                        v-model="count"
+                        :rules="rule"
+                        variant="outlined"/>
+                  </div>
+                </v-form>
               </template>
             </Modal>
           </v-card-actions>
@@ -152,9 +155,9 @@ import Campaign from "@/composables/Campaign";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
-import {convertDateToJalai} from "@/assets/js/functions";
 import Modal from "@/components/Components/Modal/Modal.vue";
 import DetailsModalRomina from "@/views/RominaCamping/DetailsModalRomina.vue";
+import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "RominaCampingView",
@@ -197,7 +200,9 @@ export default {
     return {
       perPageFilter:false,
       itemListTable: [],
-      label_count: null
+      count: null,
+      rule: [v => !!v || 'این فیلد الزامی است'],
+      valid: false,
     }
   },
 
@@ -226,36 +231,73 @@ export default {
       this.$refs.groupPrintModal.dialog = false
     },
 
-    confirmedGroupPrint() {
-      console.log('confirmed')
-    }
+    translateSendingMethode(item){
+      if (item === "nafis"){
+        return 'نفیس اکسپرس'
+      }
+      else if (item === "post"){
+        return 'پست'
+      }
+      else if (item === "pishtaz"){
+        return 'پست پیشتاز'
+      }
+      else if (item === "tipax"){
+        return 'تیپاکس'
+      }
+      else return '-'
+    },
 
+    validation() {
+      this.$refs.groupPrintModal.$refs.bulkForm.validate()
+      setTimeout(()=>{
+        if (this.$refs.groupPrintModal.valid) this.confirmedGroupPrint()
+      }, 200)
+    },
+
+    async confirmedGroupPrint() {
+      console.log('confirmed')
+      this.loading = true
+      let formData = new FormData();
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.end_point = `admin/campaign/post-print/bulk?count=${this.count}`
+      AxiosMethod.form = formData
+      AxiosMethod.store = this.$store
+      AxiosMethod.toast_error = true
+      AxiosMethod.using_auth =true
+      AxiosMethod.token =this.$cookies.get('adminToken')
+      let data = await AxiosMethod.axios_post()
+      if (data) {
+        this.loading=false
+      }
+      else{
+        this.loading=false
+      }
+    }
   },
 
   watch: {
-    // rominaList() {
-    //   this.itemListTable = []
-    //
-    //   this.rominaList.forEach((item) =>
-    //       this.itemListTable.push(
-    //           {
-    //             id: item.id,
-    //             order_id:item,
-    //             order_number: item.order_number ? item.order_number : '-',
-    //             user: item.user ? item.user.first_name +' '+ item.user.last_name : '-',
-    //             phone_number: item.user.phone_number ? item.user.phone_number : '-',
-    //             packed_status: item.packed_status === 1 ? 'mdi-check-bold|success' : 'mdi-close-thick|error',
-    //             new_sending_method: item,
-    //             submit_date_fa: item.submit_date_fa +' '+ item.submit_date.split(' ')[1],
-    //             send_date_fa: item.submit_date_fa +' '+ item.submit_date.split(' ')[1],
-    //             logistic_date_fa: item.submit_date_fa +' '+ item.submit_date.split(' ')[1],
-    //             state:item,
-    //             city:item,
-    //             label:item
-    //           },
-    //       ),
-    //   )
-    // },
+    rominaList() {
+      this.itemListTable = []
+
+      this.rominaList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                data: item,
+                order_id:item.id,
+                order_number: item.order_number ? item.order_number : '-',
+                user: item.user ? item.user.first_name +' '+ item.user.last_name : '-',
+                phone_number: item.user.phone_number ? item.user.phone_number : '-',
+                sending_method: item.sending_method ? this.translateSendingMethode(item.sending_method) : '-',
+                created_at: item.created_at_fa +' '+ item.created_at_fa.split(' ')[1],
+                submit_date: item.receive_date_fa +' '+ item.receive_date_fa.split(' ')[1],
+                logistic_date: item.submit_date_fa +' '+ item.submit_date_fa.split(' ')[1],
+                state:item.state.label ? item.state.label : '-',
+                city:item.city.label ? item.city.label : '-',
+                status: item.status === 'sending' ? 'mdi-check-bold|success' : 'mdi-close-thick|error',
+              },
+          ),
+      )
+    },
 
     dataTableLength() {
       this.perPageFilter = true
@@ -291,7 +333,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
