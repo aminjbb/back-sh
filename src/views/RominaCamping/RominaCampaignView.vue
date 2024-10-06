@@ -120,7 +120,7 @@
                 ref="groupPrintModal"
                 :title="`پرینت گروهی برچسب ارسال`"
                 width="468"
-                @successAction="validation()"
+                @successAction="validate()"
                 @cancelAction="closeModalGroupPrint()">
               <template v-slot:modalBody>
                 <v-form ref="bulkForm" v-model="valid">
@@ -161,6 +161,7 @@ import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "RominaCampingView",
+
   components: {
     DetailsModalRomina,
     Modal,
@@ -247,20 +248,18 @@ export default {
       else return '-'
     },
 
-    validation() {
-      this.$refs.groupPrintModal.$refs.bulkForm.validate()
+    validate() {
+      this.$refs.bulkForm.validate()
       setTimeout(()=>{
-        if (this.$refs.groupPrintModal.valid) this.confirmedGroupPrint()
+        if (this.valid) this.confirmedGroupPrint()
       }, 200)
     },
 
     async confirmedGroupPrint() {
       console.log('confirmed')
       this.loading = true
-      let formData = new FormData();
       const AxiosMethod = new AxiosCall()
       AxiosMethod.end_point = `admin/campaign/post-print/bulk?count=${this.count}`
-      AxiosMethod.form = formData
       AxiosMethod.store = this.$store
       AxiosMethod.toast_error = true
       AxiosMethod.using_auth =true
