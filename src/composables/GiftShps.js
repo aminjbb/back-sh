@@ -34,9 +34,8 @@ export default function setup() {
 
     const headerUsersList =ref( [
         {name:'ردیف', title:'ردیف', key:'row', show:true, align:'center', sortable: false},
-        {name:'عنوان' , title:'عنوان',key:'name', show:true, align:'center', sortable: false},
-        {name:'شناسه کاربر' , title:'شناسه کاربر', key:'user_id', show:true, align:'center', sortable: false},
-        {name:'نام کاربر' , title:'نام کاربر', key:'user_name', show:true, align:'center', sortable: false},
+        {name:'شناسه کاربر' , title:'شناسه کاربر', key:'id', show:true, align:'center', sortable: false},
+        {name:'نام کاربر' , title:'نام کاربر', key:'first_name', show:true, align:'center', sortable: false},
         {name:'نام خانوادگی کاربر' , title:'نام خانوادگی کاربر', key:'last_name', show:true, align:'center', sortable: false},
         {name:'شماره تماس' , title:'شماره تماس', key:'phone_number', show:true, align:'center', sortable: false},
     ])
@@ -78,8 +77,8 @@ export default function setup() {
     ]
 
     const filterFieldUsersList = [
-        { name: 'شناسه کاربر', type:'text', value:'user_id'},
-        { name:'نام کاربر', type: 'text', value:'user_name'},
+        { name: 'شناسه کاربر', type:'text', value:'id'},
+        { name:'نام کاربر', type: 'text', value:'first_name'},
         { name:'نام خانوادگی کاربر', type: 'text', value:'last_name'},
         { name:'شماره تماس', type: 'text', value:'phone_number'},
     ]
@@ -267,9 +266,8 @@ export default function setup() {
         AxiosMethod.end_point = `gift/crud/${route.params.id}/users/index`
         let data = await AxiosMethod.axios_get()
         if (data) {
-            console.log(data, 'data')
             pageLength.value = data.data.last_page
-            usersList.value = data.data
+            usersList.value = data.data.data
             loading.value = false
             setTimeout(()=>{
                 isFilter.value =false

@@ -76,7 +76,6 @@
           </v-card-actions>
         </v-card>
       </div>
-
     </v-main>
   </v-layout>
 </template>
@@ -90,10 +89,10 @@ import GiftShps from "@/composables/GiftShps";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import {convertDateToJalai, openConfirm, openToast} from "@/assets/js/functions";
 
 export default {
   name: "GiftShpsView",
+
   components: {
     ModalColumnFilter,
     ShTable,
@@ -134,9 +133,9 @@ export default {
     }
   },
 
-  // mounted() {
-  //   this.getUsers()
-  // },
+  mounted() {
+    this.getUsers()
+  },
 
   methods:{
     resetPage(){
@@ -149,24 +148,20 @@ export default {
   },
 
   watch: {
-    // usersList() {
-    //   this.itemListTable = []
-    //
-    //   this.usersList.forEach((item) =>
-    //       this.itemListTable.push(
-    //           {
-    //             id: item.id,
-    //             first_name:item.first_name,
-    //             last_name:item.last_name,
-    //             phone_number:item.phone_number,
-    //             role: item.role.label,
-    //             created_at: convertDateToJalai(item.created_at , '-' , true),
-    //             email:item.email,
-    //             switch: item.is_ban,
-    //           },
-    //       ),
-    //   )
-    // },
+    usersList() {
+      this.itemListTable = []
+
+      this.usersList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                first_name:item.first_name ? item.first_name : '-',
+                last_name:item.last_name ? item.last_name : '-',
+                phone_number:item.phone_number ? item.phone_number : '-',
+              },
+          ),
+      )
+    },
 
     dataTableLength() {
       this.perPageFilter = true
@@ -191,12 +186,12 @@ export default {
     },
 
     $route(){
-      // this.getUsers()
+      this.getUsers()
     },
 
     page(){
       if (!this.perPageFilter){
-        // this.getUsers()
+        this.getUsers()
       }
     }
   }

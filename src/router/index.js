@@ -2721,7 +2721,7 @@ const router = createRouter({
                 },
                 {
                     path: ':id/orders',
-                    name: 'UsersListView',
+                    name: 'OrdersListView',
                     component: OrdersListView,
                     meta: {
                         name: 'کالای هدیه'
