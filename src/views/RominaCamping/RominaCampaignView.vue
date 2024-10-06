@@ -20,7 +20,9 @@
                     path="romina-campaign/index"
                     :filterField="filterField"
                     :page="page"
-                    :perPage="dataTableLength"/>
+                    :perPage="dataTableLength"
+                    :statusItems="status"
+                    :sendingItems="sendingMethod"/>
               </v-row>
             </v-col>
           </v-row>
@@ -45,7 +47,7 @@
                 <v-list class="c-table__more-options">
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push(`/admin/edit/${item.data.id}`)">
+                      <div class="ma-5 pointer" @click="$router.push(`/romina-campaign/single/${item.data.id}`)">
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-printer-outline
                         </v-icon>
@@ -57,12 +59,7 @@
                   <v-list-item>
                     <v-list-item-title>
                       <div class="ma-5 pointer">
-                        <v-icon size="small" class="text-grey-darken-1">
-                          mdi-eye-outline
-                        </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">
-                          <DetailsModalRomina :id="item.data.id" />
-                        </span>
+                        <DetailsModalRomina :id="item.data.id" />
                       </div>
                     </v-list-item-title>
                   </v-list-item>
@@ -146,18 +143,15 @@
 
 <script>
 import {defineAsyncComponent} from "vue";
-
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
 import Campaign from "@/composables/Campaign";
-
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
 import Modal from "@/components/Components/Modal/Modal.vue";
 import DetailsModalRomina from "@/views/RominaCamping/DetailsModalRomina.vue";
-import {AxiosCall} from "@/assets/js/axios_call";
 
 export default {
   name: "RominaCampingView",
@@ -174,6 +168,35 @@ export default {
   },
 
   setup() {
+    const status = [
+      {
+        label: 'در حال ارسال',
+        value: 'sending'
+      },
+      {
+        label: 'بسته بندی شده',
+        value: 'boxing'
+      },
+    ]
+    const sendingMethod = [
+      {
+        title: 'پست',
+        value: 'post'
+      },
+      {
+        title: 'نفیس اکسپرس',
+        value: 'nafis'
+      },
+      {
+        title: 'پست پیشتاز',
+        value: 'pishtaz'
+      },
+      {
+        title: 'تیپاکس',
+        value: 'tipax'
+      },
+    ]
+
     const {
       header,
       pageLength,
@@ -193,7 +216,9 @@ export default {
       loading,
       getRominaCampaignList,
       rominaList,
-      filterField
+      filterField,
+      status,
+      sendingMethod
     }
   },
 
@@ -256,21 +281,7 @@ export default {
     },
 
     async confirmedGroupPrint() {
-      console.log('confirmed')
-      this.loading = true
-      const AxiosMethod = new AxiosCall()
-      AxiosMethod.end_point = `admin/campaign/post-print/bulk?count=${this.count}`
-      AxiosMethod.store = this.$store
-      AxiosMethod.toast_error = true
-      AxiosMethod.using_auth =true
-      AxiosMethod.token =this.$cookies.get('adminToken')
-      let data = await AxiosMethod.axios_post()
-      if (data) {
-        this.loading=false
-      }
-      else{
-        this.loading=false
-      }
+      this.$router.push(`/romina-campaign/multi/${this.count}`)
     }
   },
 
@@ -282,17 +293,18 @@ export default {
           this.itemListTable.push(
               {
                 data: item,
-                order_id:item.id,
+                id: item.id,
+                order_id:item.id ? item.id : '-',
                 order_number: item.order_number ? item.order_number : '-',
-                user: item.user ? item.user.first_name +' '+ item.user.last_name : '-',
+                user_name: item.user ? item.user.first_name +' '+ item.user.last_name : '-',
                 phone_number: item.user.phone_number ? item.user.phone_number : '-',
                 sending_method: item.sending_method ? this.translateSendingMethode(item.sending_method) : '-',
-                created_at: item.created_at_fa +' '+ item.created_at_fa.split(' ')[1],
-                submit_date: item.receive_date_fa +' '+ item.receive_date_fa.split(' ')[1],
-                logistic_date: item.submit_date_fa +' '+ item.submit_date_fa.split(' ')[1],
+                created_at: item.created_at ? item.created_at_fa +' '+ item.created_at.split('T')[1].split('.')[0] : '-',
+                receive_date: item.receive_date ? item.receive_date_fa +' '+ item.receive_date.split('T')[1].split('.')[0] : '-',
+                send_date: item.submit_date ? item.submit_date_fa +' '+ item.submit_date.split(' ')[1] : '-',
                 state:item.state.label ? item.state.label : '-',
                 city:item.city.label ? item.city.label : '-',
-                status: item.status === 'sending' ? 'mdi-check-bold|success' : 'mdi-close-thick|error',
+                is_post_receipt_printed: item.is_post_receipt_printed === 1 ? 'mdi-check-bold|success' : 'mdi-close-thick|error',
               },
           ),
       )

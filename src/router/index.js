@@ -324,6 +324,8 @@ import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModa
 import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
 import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
 import RominaCampaignView from "@/views/RominaCamping/RominaCampaignView.vue";
+import PrintSingleRominaListView from "@/views/RominaCamping/PrintSingleRominaListView.vue";
+import PrintMultiRominaListView from "@/views/RominaCamping/PrintMultiRominaListView.vue";
 
 
 const router = createRouter({
@@ -2736,7 +2738,23 @@ const router = createRouter({
                     meta: {
                         name: 'کمپین رومینا'
                     }
-                }
+                },
+                {
+                    path: 'single/:orderId',
+                    name: 'PrintSingleRominaListView',
+                    component: PrintSingleRominaListView,
+                    meta: {
+                        name: 'پرینت'
+                    }
+                },
+                {
+                    path: 'multi/:count',
+                    name: 'PrintMultiRominaListView',
+                    component: PrintMultiRominaListView,
+                    meta: {
+                        name: 'پرینت'
+                    }
+                },
             ]
         },
     ]
