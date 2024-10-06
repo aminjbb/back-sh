@@ -9,7 +9,7 @@
           <div class="d-flex justify-end px-5 mt-3">
             <PanelFilter
                 @resetPage="resetPage"
-                path="admin/index"
+                :path="`gift-shps/${$route.params.id}/users`"
                 :filterField="filterFieldUsersList"
                 :page="page"
                 :perPage="dataTableLength"/>
@@ -39,7 +39,7 @@
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
               <v-col cols="3">
-                <ModalExcelDownload getEndPoint="admin/csv/get/export" />
+                <ModalExcelDownload :getEndPoint="`gift/${$route.params.id}/users/export`" />
               </v-col>
 
               <v-col cols="6">
@@ -111,7 +111,8 @@ export default {
       page,
       headerUsersList,
       loading,
-      getGiftList
+      getUsers,
+      usersList
     } = GiftShps()
 
     return {
@@ -121,7 +122,8 @@ export default {
       page,
       headerUsersList,
       loading,
-      getGiftList
+      getUsers,
+      usersList
     }
   },
 
@@ -129,47 +131,28 @@ export default {
     return {
       perPageFilter:false,
       itemListTable: [],
-      removeTableItem: {
-        text: "آیا از حذف آیتم مطمئن هستید؟",
-        title: "حذف آیتم",
-        path: `admin/crud/delete/`,
-      },
     }
   },
 
   // mounted() {
-  //   this.getGiftList()
+  //   this.getUsers()
   // },
 
   methods:{
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    },
-
-    removeItem(id) {
-      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
-    },
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
     }
   },
 
   watch: {
-    // adminList() {
+    // usersList() {
     //   this.itemListTable = []
     //
-    //   this.adminList.forEach((item) =>
+    //   this.usersList.forEach((item) =>
     //       this.itemListTable.push(
     //           {
     //             id: item.id,
@@ -207,27 +190,13 @@ export default {
       this.perPageFilter = false
     },
 
-    confirmModal(val) {
-      if (localStorage.getItem('deleteObject') === 'done') {
-        if (!val) {
-          this.getGiftList();
-          openToast(
-              this.$store,
-              'ادمین با موفقیت حذف شد',
-              "success"
-          );
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
-
     $route(){
-      // this.getGiftList()
+      // this.getUsers()
     },
 
     page(){
       if (!this.perPageFilter){
-        // this.getGiftList()
+        // this.getUsers()
       }
     }
   }

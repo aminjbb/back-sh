@@ -35,7 +35,8 @@
                     path="gift-shps/index"
                     :filterField="filterField"
                     :page="page"
-                    :perPage="dataTableLength"/>
+                    :perPage="dataTableLength"
+                    :statusItems="activeStatus" />
               </v-row>
             </v-col>
           </v-row>
@@ -60,18 +61,18 @@
                 <v-list class="c-table__more-options">
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push(`/admin/edit/${item.data.id}`)">
+                      <div class="ma-5 pointer" @click="$router.push(`/gift-shps/${item.data.id}/users`)">
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-eye-outline
                         </v-icon>
-                        <span class="mr-2 text-grey-darken-1 t14 w300">نمایش کاربر ها</span>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">نمایش کاربرها</span>
                       </div>
                     </v-list-item-title>
                   </v-list-item>
 
                   <v-list-item>
                     <v-list-item-title>
-                      <div class="ma-5 pointer" @click="$router.push(`/admin/edit/${item.data.id}`)">
+                      <div class="ma-5 pointer" @click="$router.push(`/gift-shps/${item.data.id}/orders`)">
                         <v-icon size="small" class="text-grey-darken-1">
                           mdi-text-box-multiple-outline
                         </v-icon>
@@ -140,7 +141,7 @@
   </v-layout>
 </template>
 <script>
-import {defineAsyncComponent} from "vue";
+import {defineAsyncComponent, ref} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
 const PanelFilter = defineAsyncComponent(()=> import('@/components/PanelFilter/PanelFilter.vue'))
@@ -163,6 +164,20 @@ export default {
   },
 
   setup() {
+    const activeStatus = ref([
+      {
+        label: 'همه',
+        value: '',
+      },
+      {
+        label: 'فعال',
+        value: '1',
+      },
+      {
+        label: 'غیرفعال',
+        value: '0',
+      }
+    ])
     const {
       pageLength,
       filterField,
@@ -182,7 +197,8 @@ export default {
       header,
       loading,
       getGiftList,
-      giftList
+      giftList,
+      activeStatus
     }
   },
 
@@ -217,7 +233,7 @@ export default {
     },
 
     removeItem(id) {
-      openConfirm(this.$store, 'this.removeTableItem.text', this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
+      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
     },
   },
 
@@ -238,12 +254,13 @@ export default {
                 name: item.name ? item.name : '-',
                 shps_id: item.shps.id ? item.shps.id : '-',
                 image: item.shps.image ? item.shps.image : '-',
+                shps_name: item.shps.name ? item.shps.name : '-',
                 shps_count: item.shps_count ? item.shps_count : '-',
                 order_count: item.order_count ? item.order_count : '-',
-                min_order_price: item.min_order_price ? item.min_order_price : '-',
+                min_order_price: item.min_order_price ? this.splitChar(item.min_order_price) : '-',
                 user_limit: item.user_limit ? item.user_limit : '-',
-                start_time: item.start_time_fa ? item.start_time_fa : '-',
-                end_time: item.end_time_fa ? item.end_time_fa : '-',
+                start_time: item.start_time_fa ? item.start_time_fa + ' ' + item.start_time.split(' ')[1] : '-',
+                end_time: item.end_time_fa ? item.end_time_fa + ' ' + item.end_time.split(' ')[1] : '-',
                 is_active: item.is_active,
                 is_active_id: item.id,
               },
@@ -279,8 +296,8 @@ export default {
           this.getGiftList();
           openToast(
               this.$store,
-              'ادمین با موفقیت حذف شد',
-              "success"
+              '. کالای هدیه با موفقیت حذف شد',
+              "error"
           );
           localStorage.removeItem('deleteObject')
         }

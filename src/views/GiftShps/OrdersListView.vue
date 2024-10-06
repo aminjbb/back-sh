@@ -9,7 +9,7 @@
           <div class="d-flex justify-end px-5 mt-3">
             <PanelFilter
                 @resetPage="resetPage"
-                path="admin/index"
+                :path="`gift-shps/${$route.params.id}/orders`"
                 :filterField="filterFieldOrdersList"
                 :page="page"
                 :perPage="dataTableLength"/>
@@ -39,7 +39,7 @@
           <v-card-actions class="pb-3">
             <v-row class="pr-5">
               <v-col cols="3">
-                <ModalExcelDownload getEndPoint="gift/4/orders/export" />
+                <ModalExcelDownload :getEndPoint="`gift/${$route.params.id}/orders/export`" />
               </v-col>
 
               <v-col cols="6">
@@ -90,7 +90,6 @@ import GiftShps from "@/composables/GiftShps";
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import ShTable from "@/components/Components/Table/sh-table.vue";
 import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
-import {convertDateToJalai, openConfirm, openToast} from "@/assets/js/functions";
 
 export default {
   name: "GiftShpsView",
@@ -111,7 +110,8 @@ export default {
       page,
       headerOrdersList,
       loading,
-      getGiftList
+      getOrders,
+      ordersList
     } = GiftShps()
 
     return {
@@ -121,69 +121,52 @@ export default {
       page,
       headerOrdersList,
       loading,
-      getGiftList
+      getOrders,
+      ordersList
     }
   },
 
   data() {
     return {
       perPageFilter:false,
-      itemListTable: [],
-      removeTableItem: {
-        text: "آیا از حذف آیتم مطمئن هستید؟",
-        title: "حذف آیتم",
-        path: `admin/crud/delete/`,
-      },
+      itemListTable: []
     }
   },
 
-  // mounted() {
-  //   this.getGiftList()
-  // },
+  mounted() {
+    this.getOrders()
+  },
 
   methods:{
-    changeHeaderShow(index, value) {
-      this.header[index].show = value
-    },
-
     resetPage(){
       this.perPageFilter = true
       this.page = 1
       setTimeout(()=>{
         this.perPageFilter = false
       }, 1000)
-    },
-
-    removeItem(id) {
-      openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
-    },
-  },
-
-  computed: {
-    confirmModal() {
-      return this.$store.getters['get_confirmForm'].confirmModal
     }
   },
 
   watch: {
-    // adminList() {
-    //   this.itemListTable = []
-    //
-    //   this.adminList.forEach((item) =>
-    //       this.itemListTable.push(
-    //           {
-    //             id: item.id,
-    //             first_name:item.first_name,
-    //             last_name:item.last_name,
-    //             phone_number:item.phone_number,
-    //             role: item.role.label,
-    //             created_at: convertDateToJalai(item.created_at , '-' , true),
-    //             email:item.email,
-    //             switch: item.is_ban,
-    //           },
-    //       ),
-    //   )
-    // },
+    ordersList() {
+      this.itemListTable = []
+
+      this.ordersList.forEach((item) =>
+          this.itemListTable.push(
+              {
+                id: item.id,
+                first_name:item.user.first_name ? item.user.first_name : '-',
+                last_name:item.user.last_name ? item.user.last_name : '-',
+                phone_number:item.user.phone_number ? item.user.phone_number : '-',
+                voucher_code: item.user.voucher_code ? item.user.voucher_code : '-',
+                order_number:item.order_number ? item.order_number : '-',
+                details_count:item.details_count ? item.details_count : '-',
+                paid_price: item.paid_price ? this.splitChar(item.paid_price) : '-',
+                created_at: item.created_at_fa ?  item.created_at.split('T')[1].split('.')[0] + ' ' + item.created_at_fa : '-',
+              },
+          ),
+      )
+    },
 
     dataTableLength() {
       this.perPageFilter = true
@@ -207,27 +190,13 @@ export default {
       this.perPageFilter = false
     },
 
-    confirmModal(val) {
-      if (localStorage.getItem('deleteObject') === 'done') {
-        if (!val) {
-          this.getGiftList();
-          openToast(
-              this.$store,
-              'ادمین با موفقیت حذف شد',
-              "success"
-          );
-          localStorage.removeItem('deleteObject')
-        }
-      }
-    },
-
     $route(){
-      // this.getGiftList()
+      this.getOrders()
     },
 
     page(){
       if (!this.perPageFilter){
-        // this.getGiftList()
+        this.getOrders()
       }
     }
   }

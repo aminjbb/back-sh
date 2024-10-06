@@ -2712,7 +2712,7 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: ':userId/users',
+                    path: ':id/users',
                     name: 'UsersListView',
                     component: UsersListView,
                     meta: {
@@ -2720,7 +2720,7 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: ':orderId/orders',
+                    path: ':id/orders',
                     name: 'UsersListView',
                     component: OrdersListView,
                     meta: {

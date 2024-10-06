@@ -113,12 +113,9 @@ export default {
             AxiosMethod.token = this.$cookies.get('adminToken')
             let data = await AxiosMethod.axios_get()
             if (data) {
+              console.log(data.message, 'data')
                 this.excelLoading = false
-                openToast(
-                    this.$store,
-                    'درخواست شما ثبت شد',
-                    "success"
-                );
+                openToast(this.$store, data.message ||'درخواست شما ثبت شد', "success");
             }
             else {
                 this.excelLoading = false

@@ -49,14 +49,16 @@
                   <span class="t12 w500 text-scanError">*</span>
                 </div>
 
-                <v-select
-                    class="mt-1"
+                <v-autocomplete
+                    v-model="form.shps_id"
+                    variant="outlined"
+                    prepend-inner-icon-cb="mdi-map-marker"
+                    rounded="lg"
                     :rules="rule"
                     :items="shpsList"
-                    variant="outlined"
-                    v-model="form.shps"
-                    rounded="lg">
-                </v-select>
+                    item-title="name"
+                    item-value="value"
+                    v-debounce="searchSku"/>
 
               </v-col>
               <v-col cols="6">
@@ -94,7 +96,7 @@
                 </v-autocomplete>
               </v-col>
               <!--   for condition   -->
-              <v-col cols="12" sm="6" v-for="(condition , index) in voucherForm.voucherCondition">
+              <v-col cols="12" sm="6" v-for="(condition , index) in form.voucherCondition">
                 <div class="text-right mt-5 mb-1">
                 <span class="t12 text-gray600">
                    {{ condition.title }}
@@ -189,6 +191,7 @@ const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue
 
 export default {
   name: "GiftShpsCreate",
+
   components: {
     datePicker: VuePersianDatetimePicker,
     DashboardLayout,
@@ -203,9 +206,10 @@ export default {
       rule: [v => !!v || 'این فیلد الزامی است'],
 
       form:{
-        name: '',
+        name: null,
         shps_count: null,
-        shps: null
+        shps_id: '',
+        voucherCondition: new Set()
       },
       voucherConditions: [
         {
@@ -233,74 +237,90 @@ export default {
           inputType:'date'
         }
       ],
-      voucherForm: {
-        title: null,
-        code: null,
-        voucherType: null,
-        voucherCount: 1,
-        voucherAmountType: null,
-        voucherAmount: null,
-        voucherActive: '1',
-        sending: null,
-        voucherCondition: new Set()
-      },
+      skuSearchList: [],
     }
   },
 
-  methods: {
-    addCondition(value){
-      this.voucherForm.voucherCondition.add(value)
+  computed: {
+    shpsList() {
+      try {
+        let sku = []
+        this.skuSearchList.forEach(skuSearch => {
+          const form = {
+            name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
+            value: skuSearch.id,
+          }
+          sku.push(form)
+        })
+        return sku
+      } catch (e) {
+        return []
+      }
     },
+  },
 
-    validate() {
-      this.$refs.createGift.validate()
-      if (this.$refs.createGift.valid) {
-        this.createGift()
+  methods: {
+    async searchSku(search) {
+      this.skuSearchList = []
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `seller/sku/search?q=${search}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.skuSearchList = data.data.data
       }
     },
 
+    addCondition(value){
+      this.form.voucherCondition.add(value)
+    },
+
+    validate(){
+      this.$refs.createGift.validate()
+      setTimeout(()=>{
+        if (this.valid) this.createGift()
+      }, 200)
+    },
+
    async createGift() {
-      console.log('createGift')
      try {
        this.loading = true
        let formData = new FormData();
        const AxiosMethod = new AxiosCall()
        AxiosMethod.end_point = 'gift/crud/create'
        formData.append('name', this.form.name)
-       // formData.append('is_active', '')
-       // formData.append('order_count', )
-       // formData.append('user_limit', this.$refs.CreateVoucherFrom.voucherForm.voucherAmount)
-       // formData.append('min_order_price', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
        formData.append('shps_count', this.form.shps_count)
-       formData.append('shps',this.form.shps)
-       // if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
-       // this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
-       //   if (condition.value === 'start-and-end-time'){
-       //     const startDateSplit = condition.raw.data[0].split(' ')
-       //     const endDateSplit = condition.raw.data[1].split(' ')
-       //     formData.append('start_time', convertDateToGregorian(startDateSplit[0] , '/' , false) + ' ' + startDateSplit[1]+':00')
-       //     formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
-       //   }
-       //   else {
-       //     formData.append(condition.value, condition.raw.data)
-       //   }
-       // })
+       formData.append('shps', this.form.shps_id)
+       this.form.voucherCondition.forEach((condition, index) => {
+         if (condition.value === 'start-and-end-time'){
+           const startDateSplit = condition.raw.data[0].split(' ')
+           const endDateSplit = condition.raw.data[1].split(' ')
+           formData.append('start_time', convertDateToGregorian(startDateSplit[0] , '/' , false) + ' ' + startDateSplit[1]+':00')
+           formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
+         }
+         else {
+           formData.append(condition.value, condition.raw.data)
+         }
+       })
        AxiosMethod.form = formData
        AxiosMethod.store = this.$store
+       AxiosMethod.toast_error = true
        AxiosMethod.using_auth = true
        AxiosMethod.token = this.$cookies.get('adminToken')
        let data = await AxiosMethod.axios_post()
        if (data) {
          this.loading = false
-         openToast(this.$store, 'کالای هدیه با موفقیت ایجاد شد.', "success")
+         openToast(this.$store, '. کالای هدیه با موفقیت ایجاد شد', "success")
          this.$router.push('/gift-shps/index')
        }
        else {
          this.loading = false
-         openToast(this.$store, 'ایجاد کد تخفیف مشکل مواجه شد', "error")
        }
      }
      catch (e) {
+       const errorMsg = e.response?.data?.message
+       openToast(this.$store, errorMsg, "error")
        this.loading = false
      }
     }
