@@ -18,22 +18,22 @@ export default function setup() {
 
     const header =ref( [
         {name:'ردیف', title:'ردیف', key:'row', show:true, align:'center', sortable: false},
-        {name:'عنوان' , title:'عنوان',key:'title', show:true, align:'center', sortable: false},
+        {name:'عنوان' , title:'عنوان',key:'name', show:true, align:'center', sortable: false},
         {name:'شناسه کالا' , title:'شناسه کالا', key:'shps_id', show:true, align:'center', sortable: false},
         {name:'تصویر کالا' ,title:'تصویر کالا', key:'image', show:true, align:'center', sortable: false},
         {name:'تعداد کالا' ,title:'تعداد کالا', key:'shps_count', show:true,  align:'center', sortable: false},
         {name:'چندمین سفارش' ,title:'چندمین سفارش', key:'order_count', show:true,  align:'center', sortable: false},
         {name:'تعداد استفاده کاربر' ,title:'تعداد استفاده کاربر', key:'user_limit', show:true,  align:'center', sortable: false},
-        {name:'حداقل هزینه سفارش' ,title:'حداقل هزینه سفارش', key:'order_limit', show:true,  align:'center', sortable: false},
-        {name:'تاریخ شروع' ,title:'تاریخ شروع', key:'created_at', show:true, align:'center'},
-        {name:'تاریخ پایان' , title:'تاریخ پایان' ,key:'last_login', show:false, align:'center'},
+        {name:'حداقل هزینه سفارش' ,title:'حداقل هزینه سفارش', key:'min_order_price', show:true,  align:'center', sortable: false},
+        {name:'تاریخ شروع' ,title:'تاریخ شروع', key:'start_time', show:true, align:'center'},
+        {name:'تاریخ پایان' , title:'تاریخ پایان' ,key:'end_time', show:false, align:'center'},
         {name:'وضعیت' ,title:'وضعیت', key:'is_active', show:true, align:'center', sortable: false},
         { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
     const headerUsersList =ref( [
         {name:'ردیف', title:'ردیف', key:'row', show:true, align:'center', sortable: false},
-        {name:'عنوان' , title:'عنوان',key:'title', show:true, align:'center', sortable: false},
+        {name:'عنوان' , title:'عنوان',key:'name', show:true, align:'center', sortable: false},
         {name:'شناسه کاربر' , title:'شناسه کاربر', key:'user_id', show:true, align:'center', sortable: false},
         {name:'نام کاربر' , title:'نام کاربر', key:'user_name', show:true, align:'center', sortable: false},
         {name:'نام خانوادگی کاربر' , title:'نام خانوادگی کاربر', key:'last_name', show:true, align:'center', sortable: false},
@@ -144,6 +144,7 @@ export default function setup() {
         AxiosMethod.end_point = 'gift/crud/index'
         let data = await AxiosMethod.axios_get()
         if (data) {
+            console.log(data.data.data, 'data')
             pageLength.value = data.data.last_page
             giftList.value = data.data.data
             loading.value = false

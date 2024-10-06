@@ -54,7 +54,7 @@
                     :rules="rule"
                     :items="shpsList"
                     variant="outlined"
-                    v-model="form.select_shps"
+                    v-model="form.shps"
                     rounded="lg">
                 </v-select>
 
@@ -155,7 +155,7 @@
               <v-btn
                   variant="outlined"
                   :loading="loading"
-                  @click="validate()"
+                  @click="$router.go(-1)"
                   height="40"
                   rounded
                   class="px-8 mt-1">
@@ -181,6 +181,8 @@
 <script>
 import {defineAsyncComponent} from "vue";
 import VuePersianDatetimePicker from "vue3-persian-datetime-picker";
+import {AxiosCall} from "@/assets/js/axios_call";
+import {convertDateToGregorian, openToast} from "@/assets/js/functions";
 
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
@@ -196,13 +198,15 @@ export default {
   data() {
     return {
       valid: false,
+      loading: false,
+
       rule: [v => !!v || 'این فیلد الزامی است'],
+
       form:{
         name: '',
         shps_count: null,
-        select_shps: null
+        shps: null
       },
-
       voucherConditions: [
         {
           title: 'چندمین سفارش',
@@ -229,7 +233,6 @@ export default {
           inputType:'date'
         }
       ],
-
       voucherForm: {
         title: null,
         code: null,
@@ -248,6 +251,59 @@ export default {
     addCondition(value){
       this.voucherForm.voucherCondition.add(value)
     },
+
+    validate() {
+      this.$refs.createGift.validate()
+      if (this.$refs.createGift.valid) {
+        this.createGift()
+      }
+    },
+
+   async createGift() {
+      console.log('createGift')
+     try {
+       this.loading = true
+       let formData = new FormData();
+       const AxiosMethod = new AxiosCall()
+       AxiosMethod.end_point = 'gift/crud/create'
+       formData.append('name', this.form.name)
+       // formData.append('is_active', '')
+       // formData.append('order_count', )
+       // formData.append('user_limit', this.$refs.CreateVoucherFrom.voucherForm.voucherAmount)
+       // formData.append('min_order_price', this.$refs.CreateVoucherFrom.voucherForm.voucherActive)
+       formData.append('shps_count', this.form.shps_count)
+       formData.append('shps',this.form.shps)
+       // if (this.$refs.CreateVoucherFrom.voucherForm.voucherType === 'group')  formData.append('count', this.$refs.CreateVoucherFrom.voucherForm.voucherCount)
+       // this.$refs.CreateVoucherFrom.voucherForm.voucherCondition.forEach((condition, index) => {
+       //   if (condition.value === 'start-and-end-time'){
+       //     const startDateSplit = condition.raw.data[0].split(' ')
+       //     const endDateSplit = condition.raw.data[1].split(' ')
+       //     formData.append('start_time', convertDateToGregorian(startDateSplit[0] , '/' , false) + ' ' + startDateSplit[1]+':00')
+       //     formData.append('end_time', convertDateToGregorian(endDateSplit[0] , '/' , false) +  ' ' + endDateSplit[1]+':00')
+       //   }
+       //   else {
+       //     formData.append(condition.value, condition.raw.data)
+       //   }
+       // })
+       AxiosMethod.form = formData
+       AxiosMethod.store = this.$store
+       AxiosMethod.using_auth = true
+       AxiosMethod.token = this.$cookies.get('adminToken')
+       let data = await AxiosMethod.axios_post()
+       if (data) {
+         this.loading = false
+         openToast(this.$store, 'کالای هدیه با موفقیت ایجاد شد.', "success")
+         this.$router.push('/gift-shps/index')
+       }
+       else {
+         this.loading = false
+         openToast(this.$store, 'ایجاد کد تخفیف مشکل مواجه شد', "error")
+       }
+     }
+     catch (e) {
+       this.loading = false
+     }
+    }
   }
 }
 </script>

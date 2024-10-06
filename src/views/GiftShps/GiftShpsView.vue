@@ -32,7 +32,7 @@
 
                 <PanelFilter
                     @resetPage="resetPage"
-                    path="admin/index"
+                    path="gift-shps/index"
                     :filterField="filterField"
                     :page="page"
                     :perPage="dataTableLength"/>
@@ -189,30 +189,7 @@ export default {
   data() {
     return {
       perPageFilter:false,
-      itemListTable: [
-        {
-          title:'شامپو هدیه' ,
-          shps_id:123 ,
-          image:'' ,
-          shps_count:3 ,
-          order_limit:3 ,
-          user_limit:3 ,
-          created_at: '1402/06/12 11:24:52',
-          last_login: '1402/06/12 11:24:52',
-          is_active: 1,
-        },
-        {
-          title:'شامپو هدیه' ,
-          shps_id:123 ,
-          image:'' ,
-          shps_count:3 ,
-          order_limit:3 ,
-          user_limit:3 ,
-          created_at: '1402/06/12 11:24:52',
-          last_login: '1402/06/12 11:24:52',
-          is_active: 0,
-        }
-      ],
+      itemListTable: [],
       removeTableItem: {
         text: "با حذف کالای هدیه دیگر به جزئیات آن دسترسی نخواهید داشت.\n" +
             "آیا از انجام این کار اطمینان دارید؟",
@@ -222,9 +199,9 @@ export default {
     }
   },
 
-  // mounted() {
-  //   this.getGiftList()
-  // },
+  mounted() {
+    this.getGiftList()
+  },
 
   methods:{
     changeHeaderShow(index, value) {
@@ -258,15 +235,15 @@ export default {
           this.itemListTable.push(
               {
                 id: item.id,
-                title: item,
-                shps_id: item,
-                image: item,
-                shps_count: item,
-                order_count: item,
-                order_limit: item,
-                user_limit: item,
-                created_at: item,
-                last_login: item,
+                name: item.name ? item.name : '-',
+                shps_id: item.shps.id ? item.shps.id : '-',
+                image: item.shps.image ? item.shps.image : '-',
+                shps_count: item.shps_count ? item.shps_count : '-',
+                order_count: item.order_count ? item.order_count : '-',
+                min_order_price: item.min_order_price ? item.min_order_price : '-',
+                user_limit: item.user_limit ? item.user_limit : '-',
+                start_time: item.start_time_fa ? item.start_time_fa : '-',
+                end_time: item.end_time_fa ? item.end_time_fa : '-',
                 is_active: item.is_active,
                 is_active_id: item.id,
               },
@@ -311,12 +288,12 @@ export default {
     },
 
     $route(){
-      // this.getGiftList()
+      this.getGiftList()
     },
 
     page(){
       if (!this.perPageFilter){
-        // this.getGiftList()
+        this.getGiftList()
       }
     }
   }
