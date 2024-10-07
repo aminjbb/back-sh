@@ -63,8 +63,8 @@ export default function setup() {
 
         { name:'وضعیت' , type:'select', value:'is_active'},
 
-        { name:'تعداد کالا' , type:'text', value:'shps_count_from', place:'از'},
-        { name:'تعداد کالا' , type: 'text', value:'shps_count_to', place:'تا'},
+        { name:'تعداد کالا از' , type:'text', value:'shps_count_from', place:'از'},
+        { name:'تعداد کالا تا' , type: 'text', value:'shps_count_to', place:'تا'},
 
         { name:'کمترین شماره سفارش' , type:'text', value:'order_count_from', place:'از'},
         { name:'بیشترین شماره سفارش' , type:'text', value:'order_count_to', place: 'تا'},
@@ -73,7 +73,7 @@ export default function setup() {
         { name:'بیشترین تعداد استفاده کاربر' , type:'text', value:'user_limit_to', place: 'تا'},
 
         { name:'کمترین هزینه سفارش' , type:'text', value:'min_order_price_from', place:'از'},
-        { name:'بیشترین هزینه' , type:'text', value:'min_order_price_to', place: 'تا'},
+        { name:'بیشترین هزینه سفارش ' , type:'text', value:'min_order_price_to', place: 'تا'},
     ]
 
     const filterFieldUsersList = [
@@ -84,21 +84,16 @@ export default function setup() {
     ]
 
     const filterFieldOrdersList = [
-        { name: 'شناسه سفارش', type:'text', value:'id'},
-        { name:'شماره تماس کاربر', type: 'text', value:'phone_number'},
-        { name:'نام کاربر', type: 'text', value:'user_id'},
-        { name:'نام خانوادگی کاربر', type: 'text', value:'last_name'},
+        { name:'شناسه سفارش', type:'text', value:'id'},
+        { name:'شماره تماس کاربر', type:'select', value:'user_id'},
 
-        { name:'کمترین شماره سفارش' , type:'text', value:'order_count_from', place:'از'},
-        { name:'بیشترین شماره سفارش' , type:'text', value:'order_count_to', place: 'تا'},
-
-        { name:'کمترین تعداد آیتم' , type:'text', value:'shps_count_from', place:'از'},
-        { name:'بیشترین تعداد آیتم' , type: 'text', value:'shps_count_to', place:'تا'},
+        { name:'کمترین تعداد آیتم' , type:'text', value:'details_count_from', place:'از'},
+        { name:'بیشترین تعداد آیتم' , type: 'text', value:'details_count_to', place:'تا'},
 
         { name:'کمترین مبلغ سفارش' , type:'text', value:'paid_price_from', place:'از'},
         { name:'بیشترین مبلغ سفارش' , type:'text', value:'paid_price_to', place: 'تا'},
 
-        { name: 'کد تخفیف', type:'text', value:'voucher'},
+        { name:'کد تخفیف', type:'text', value:'voucher_code'},
         { name:'تاریخ ثبت سفارش' , type:'date', value:'submit_date'}
     ]
 

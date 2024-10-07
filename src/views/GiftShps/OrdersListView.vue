@@ -158,7 +158,7 @@ export default {
                 first_name:item.user.first_name ? item.user.first_name : '-',
                 last_name:item.user.last_name ? item.user.last_name : '-',
                 phone_number:item.user.phone_number ? item.user.phone_number : '-',
-                voucher_code: item.user.voucher_code ? item.user.voucher_code : '-',
+                voucher_code: item.voucher_code ? item.voucher_code : '-',
                 order_number:item.order_number ? item.order_number : '-',
                 details_count:item.details_count ? item.details_count : '-',
                 paid_price: item.paid_price ? this.splitChar(item.paid_price) : '-',

@@ -156,7 +156,6 @@
             <v-row justify="space-between" class="mx-5 pt-5">
               <v-btn
                   variant="outlined"
-                  :loading="loading"
                   @click="$router.go(-1)"
                   height="40"
                   rounded
