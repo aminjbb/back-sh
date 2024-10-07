@@ -2690,7 +2690,7 @@ const router = createRouter({
             ]
         },
         {
-            path: '/gift-shps', // Zone
+            path: '/gift-shps',
             meta: {
                 name: 'مارکتینگ'
             },
