@@ -5,7 +5,7 @@
       <Header/>
       <!--      <DetailsDiscountCode/>-->
       <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
-        <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="780">
+        <v-card class="ma-5 py-5 br--12 flex-grow-1 d-flex flex-column align-stretch scroller" height="780">
           <div v-if="voucherDetail?.code" class="my-6 text-center">
             <span class="t14 w500 mr-6"> کد تخفیف: </span>
             <span class="t14 w500 text-gray500"> {{voucherDetail?.code}} </span>
