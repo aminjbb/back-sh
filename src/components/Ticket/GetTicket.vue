@@ -232,7 +232,7 @@
 
                 <v-btn
                     variant="text"
-                    v-if="oneTicket.tags.length >= 7"
+                    v-if="oneTicket.tags.length >= 8"
                     class="text-primary500 t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>

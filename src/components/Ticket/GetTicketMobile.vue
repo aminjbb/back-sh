@@ -250,7 +250,7 @@
 
                 <v-btn
                     variant="text"
-                    v-if="oneTicket.tags.length >= 3"
+                    v-if="oneTicket.tags.length >= 4"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>
