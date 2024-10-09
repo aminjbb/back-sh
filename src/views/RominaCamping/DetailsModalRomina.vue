@@ -5,8 +5,8 @@
       <span class="mr-2 text-grey-darken-1 t14 w300">نمایش جزئیات</span>
     </div>
 
-    <v-dialog v-model="dialog">
-      <v-card class="pa-5 ">
+    <v-dialog v-model="dialog" width="1060">
+      <v-card class="pa-5">
         <v-expansion-panels class="accordion" variant="inset">
           <v-expansion-panel>
             <v-expansion-panel-title class="accordion__header">

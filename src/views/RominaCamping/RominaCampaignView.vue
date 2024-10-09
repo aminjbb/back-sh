@@ -300,7 +300,7 @@ export default {
                 phone_number: item.user.phone_number ? item.user.phone_number : '-',
                 sending_method: item.sending_method ? this.translateSendingMethode(item.sending_method) : '-',
                 created_at: item.created_at ? item.created_at_fa +' '+ item.created_at.split('T')[1].split('.')[0] : '-',
-                receive_date: item.receive_date ? item.receive_date_fa +' '+ item.receive_date.split('T')[1].split('.')[0] : '-',
+                receive_date: item.receive_date ? item.receive_date_fa +' '+ item?.receive_date.split(' ')[1] : '-',
                 send_date: item.submit_date ? item.submit_date_fa +' '+ item.submit_date.split(' ')[1] : '-',
                 state:item.state.label ? item.state.label : '-',
                 city:item.city.label ? item.city.label : '-',
