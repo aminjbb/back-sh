@@ -45,7 +45,7 @@
               </div>
               <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false">
                 <v-list class="c-table__more-options">
-                  <v-list-item>
+                  <v-list-item :disabled="item.data.data.status === 'boxing'">
                     <v-list-item-title>
                       <div class="ma-5 pointer" @click="$router.push(`/romina-campaign/single/${item.data.id}`)">
                         <v-icon size="small" class="text-grey-darken-1">
