@@ -113,6 +113,7 @@
                   <v-row justify="center">
                     <v-col cols="12" sm="6">
                       <v-text-field
+                          :rules="rule"
                           v-model="condition.raw.data[0]"
                           variant="outlined"
                           class="custom-input-start-date"
@@ -130,6 +131,7 @@
                     </v-col>
                     <v-col cols="12" sm="6">
                       <v-text-field
+                          :rules="rule"
                           v-model="condition.raw.data[1]"
                           variant="outlined"
                           class="custom-input-end-date"
@@ -214,19 +216,19 @@ export default {
         {
           title: 'چندمین سفارش',
           value: 'order_count',
-          data:null,
+          data:'',
           inputType:'text'
         },
         {
           title: 'تعداد استفاده کاربر',
           value: 'user_limit',
-          data:null,
+          data:'',
           inputType:'text'
         },
         {
           title: 'حداقل هزینه سفارش',
           value: 'min_order_price',
-          data:null,
+          data:'',
           inputType:'text'
         },
         {
@@ -318,15 +320,9 @@ export default {
        }
      }
      catch (e) {
-       const errorMsg = e.response?.data?.message
-       openToast(this.$store, errorMsg, "error")
        this.loading = false
      }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
