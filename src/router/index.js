@@ -323,6 +323,9 @@ import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vu
 import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModalView.vue";
 import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
 import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
+import RominaCampaignView from "@/views/RominaCamping/RominaCampaignView.vue";
+import PrintSingleRominaListView from "@/views/RominaCamping/PrintSingleRominaListView.vue";
+import PrintMultiRominaListView from "@/views/RominaCamping/PrintMultiRominaListView.vue";
 
 
 const router = createRouter({
@@ -2719,6 +2722,39 @@ const router = createRouter({
                         name: 'تنظیمات مودال خانه'
                     }
                 }
+            ]
+        },
+
+        {
+            path: '/romina-campaign',
+            meta: {
+                name: ' کمپین ها'
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'RominaCampaignView',
+                    component: RominaCampaignView,
+                    meta: {
+                        name: 'کمپین رومینا'
+                    }
+                },
+                {
+                    path: 'single/:orderId',
+                    name: 'PrintSingleRominaListView',
+                    component: PrintSingleRominaListView,
+                    meta: {
+                        name: 'پرینت'
+                    }
+                },
+                {
+                    path: 'multi/:count',
+                    name: 'PrintMultiRominaListView',
+                    component: PrintMultiRominaListView,
+                    meta: {
+                        name: 'پرینت'
+                    }
+                },
             ]
         },
     ]

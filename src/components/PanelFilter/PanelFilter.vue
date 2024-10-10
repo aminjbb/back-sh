@@ -719,6 +719,7 @@ export default {
 
     else if (
         this.path === 'supplier/index' ||
+        this.path === 'romina-campaign/index' ||
         this.path === 'seller/index' ||
         this.path === 'voucher/index' ||
         this.path === 'orders/manual-order-list' ||
