@@ -181,14 +181,12 @@
               {{ lables.advantages }}
           </span>
         </div>
-
-        <v-textarea
-            :placeholder="lables.advantages"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.advantages"
-            @update:modelValue="saveCreateFromModel()"
-        />
+        <keep-alive>
+          <TinymceVue @input="fillAdvantages" v-if="load" :value="specsFromModal.advantages" id="TinymceVueAdvantages"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </div>
 
       <div>
@@ -197,14 +195,12 @@
               {{ lables.disAdvantages }}
           </span>
         </div>
-
-        <v-textarea
-            :placeholder="lables.disAdvantages"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.disAdvantages"
-            @update:modelValue="saveCreateFromModel()"
-        />
+        <keep-alive>
+          <TinymceVue @input="fillDisAdvantages" v-if="load" :value="specsFromModal.disAdvantages" id="TinymceVueDisAdvantages"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </div>
 
       <div>
@@ -213,14 +209,13 @@
                 {{ lables.instructions }}
             </span>
         </div>
+        <keep-alive>
+          <TinymceVue @input="fillInstructions" v-if="load" :value="specsFromModal.instructions" id="TinymceVueInstructions"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
 
-        <v-textarea
-            :placeholder="lables.instructions"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.instructions"
-            @update:modelValue="saveCreateFromModel()"
-        />
       </div>
 
       <div>
@@ -230,13 +225,12 @@
             </span>
         </div>
 
-        <v-textarea
-            :placeholder="lables.usage"
-            variant="outlined"
-            rows="8"
-            v-model="specsFromModal.usage"
-            @update:modelValue="saveCreateFromModel()"
-        />
+        <keep-alive>
+          <TinymceVue @input="fillUsage" v-if="load" :value="specsFromModal.usage" id="TinymceVueUsage"
+                      class="mb-8"
+                      :other_options="options">
+          </TinymceVue>
+        </keep-alive>
       </div>
     </v-form>
   </div>
@@ -323,6 +317,23 @@ export default {
   methods: {
     fillDescription(e) {
       this.specsFromModal.specifications = e
+      this.saveCreateFromModel()
+    },
+    fillAdvantages(e) {
+      this.specsFromModal.advantages = e
+      this.saveCreateFromModel()
+    },
+    fillDisAdvantages(e) {
+      this.specsFromModal.disAdvantages = e
+      this.saveCreateFromModel()
+    },
+    fillInstructions(e) {
+      this.specsFromModal.instructions = e
+      this.saveCreateFromModel()
+    },
+    fillUsage(e) {
+      this.specsFromModal.usage = e
+      this.saveCreateFromModel()
     },
     saveCreateFromModel() {
       const createFromModelJson = JSON.stringify(this.specsFromModal);
