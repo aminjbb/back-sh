@@ -27,6 +27,13 @@
           variant="outlined"
           :items="dataSelect"/>
 
+
+      <v-select
+          v-if="header.model === 'deviceSelect'"
+          v-model="props.item[header.key]"
+          variant="outlined"
+          :items="deviceData"/>
+
       <v-text-field
           v-if="header.model === 'number_input'"
           v-model="props.item[header.key]"
@@ -143,6 +150,7 @@ export default {
     },
     items: Array,
     dataSelect: Array,
+    deviceData: Array,
     loading: Boolean,
     isSelect: Boolean,
     page: {
