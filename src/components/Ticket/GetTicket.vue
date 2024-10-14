@@ -253,6 +253,7 @@
               </v-btn>
               <v-btn
                   :loading="sendMsgLoading"
+                  :disabled="ticketStatus === 'resolved'"
                   @click="sendMessage()"
                   color="primary500"
                   height="40"
