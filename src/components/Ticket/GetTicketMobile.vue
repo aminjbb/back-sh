@@ -238,7 +238,7 @@
                 <div
                     v-for="(label, index) in oneTicket.tags.slice(0,3)"
                     :key="index"
-                    class="bg-gray200 rounded-xl px-2">
+                    class="d-flex align-center bg-gray200 rounded-xl px-2">
                   <span class="t14 w400">{{ label.title }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
@@ -250,7 +250,7 @@
 
                 <v-btn
                     variant="text"
-                    v-if="oneTicket.tags.length >= 3"
+                    v-if="oneTicket.tags.length >= 4"
                     class="text-primary t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>

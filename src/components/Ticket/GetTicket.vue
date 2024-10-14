@@ -176,8 +176,9 @@
               </div>
               <div class="position position__relative">
                 <v-combobox
+                    @keyup.enter="attachTageEnter()"
                     v-model="form.tag"
-                    v-model:search="search"
+                    v-model:search.sync="search"
                     :hide-no-data="false"
                     :items="tagList"
                     variant="outlined"
@@ -219,7 +220,7 @@
                 <div
                     v-for="(label, index) in oneTicket.tags.slice(0,7)"
                     :key="index"
-                    class="bg-gray200 rounded-xl px-2">
+                    class="d-flex align-center bg-gray200 rounded-xl px-2">
                   <span class="t14 w400">{{ label.title }}</span>
                   <v-icon
                       class="mr-1 cursor-pointer"
@@ -231,8 +232,8 @@
 
                 <v-btn
                     variant="text"
-                    v-if="oneTicket.tags.length >= 7"
-                    class="text-primary t14 w400 cursor-pointer"
+                    v-if="oneTicket.tags.length >= 8"
+                    class="text-primary500 t14 w400 cursor-pointer"
                     @click="openModalTage()">
                   <span class="cursor-pointer"> مشاهده بیشتر</span>
                 </v-btn>
@@ -466,6 +467,27 @@ export default {
   },
 
   methods: {
+    async  attachTageEnter(){
+      const exists = this.tages.find(label =>label.title === this.form.tag[0])
+      if (!exists) {
+        this.tagLoading = true;
+        const AxiosMethod = new AxiosCall();
+        AxiosMethod.end_point = `system/admin/tag/crud/store?title=${this.form.tag[0]}`
+        AxiosMethod.store = this.$store;
+        AxiosMethod.using_auth = true;
+        AxiosMethod.token = this.$cookies.get('adminToken')
+
+        let data = await AxiosMethod.axios_post();
+        if (data) {
+          this.attachTage(this.$route.params.ticketId ,data?.data?.id )
+          openToast(this.$store, data.message, "success")
+          this.form.tag = []
+          await this.getTages()
+          this.search = null
+        }
+        this.tagLoading = false;
+      }
+    },
     async createTage() {
       if (this.search) {
         const exists = this.tages.find(label =>label.title === this.search)
@@ -501,11 +523,15 @@ export default {
 
       let data = await AxiosMethod.axios_post();
       if (data) {
-        openToast(this.$store, data.message, "success")
-       await this.getTicket()
         this.tagLoading = false;
-        this.form.tag = null
-        this.search = null
+
+        openToast(this.$store, data.message, "success")
+        await this.getTicket()
+        setTimeout(()=>{
+          this.form.tag = []
+          this.search = null
+        }, 2000)
+
       }
     },
 
@@ -521,6 +547,9 @@ export default {
      let data = await AxiosMethod.axios_get()
      if (data) {
        this.tages = data.data
+       this.tages.forEach((element)=>{
+
+       })
      }
     },
 
