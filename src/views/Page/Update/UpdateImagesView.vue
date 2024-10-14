@@ -16,13 +16,10 @@
                 :headers="imageHeader"
                 :items="itemListTable"
                 :loading="loading"
-                :activePath="'product/sku/crud/update/activation/'"
-                :dataSelect="positionImageList"
-                :deviceData="deviceData"
-            >
+                :activePath="'product/sku/crud/update/activation/'">
 
               <template v-slot:customSlot="item">
-                <img :src="itemListTable[item.index].imageUrl" width="68" height="28" alt="" class="br br--4">
+                <img :src="item.data.data.image_url" width="68" height="28" alt="" class="br br--4">
                 <span>
                 <v-icon
                     color="gray500"
@@ -33,15 +30,31 @@
 
               <template v-slot:customSlot2="item">
                 <v-progress-circular
-                    v-if="itemListTable[item.index].loading"
+                    v-if="item.data.loading"
                     indeterminate
                     color="primary"/>
                 <div
                     v-else
-                    @click="updateImage(item.index)"
+                    @click="updateImage(item)"
                     class="seller__add-sku-btn d-flex justify-center align-center pointer">
                   <v-icon size="15">mdi-plus</v-icon>
                 </div>
+              </template>
+
+              <template v-slot:customSlot3="item">
+                <v-select
+                    v-model="item.data.data.device_type"
+                    variant="outlined"
+                    :items="deviceData"/>
+              </template>
+
+              <template v-slot:customSlot4="item">
+                <v-select
+                    density="compact"
+                    single-line
+                    v-model="item.data.position"
+                    variant="outlined"
+                    :items="positionImageList"/>
               </template>
 
               <template v-slot:actionSlot="item">
@@ -182,7 +195,6 @@ export default {
       AxiosMethod.form = formData
       let data = await AxiosMethod.axios_image_upload()
       if (data) {
-        console.log(data.data.data.url, 'url')
         this.itemListTable[index].imageUrl = data.data.data.url
         this.itemListTable[index].image = data.data.data.image_id
       }
@@ -198,24 +210,24 @@ export default {
       input.click();
     },
 
-    async updateImage(index) {
-      this.itemListTable[index].loading = true
+    async updateImage(item) {
+      item.data.loading = true
       const formData = new FormData()
-      formData.append('image_id', this.itemListTable[index].image)
-      formData.append('image_position_id', this.itemListTable[index].position)
-      formData.append('priority', this.itemListTable[index].show_order)
-      formData.append('device_type', this.itemListTable[index].deviceType)
+      formData.append('image_id',item.data.imageId)
+      formData.append('image_position_id', item.data.position)
+      formData.append('priority',item.data.show_order)
+      formData.append('device_type', item.data.data.device_type)
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.form = formData
       AxiosMethod.token = this.$cookies.get('adminToken')
-      AxiosMethod.end_point = `page/crud/update/image/${this.$route.params.pageId}/${this.itemListTable[index].imageId}`
+      AxiosMethod.end_point = `page/crud/update/image/${this.$route.params.pageId}/${item.data.imageId}`
       let data = await AxiosMethod.axios_post()
       if (data) {
-        this.itemListTable[index].loading = false
+        item.data.loading = false
         openToast(this.$store, 'اطلاعات با موفقیت ویرایش شد', 'success')
-        if (this.itemListTable[index].image !== this.itemListTable[index].imageId) {
-          this.deleteImage(this.itemListTable[index].imageId)
+        if (item.data.image !== item.data.imageId) {
+          this.deleteImage(item.data.imageId)
         }
       }
     },
@@ -277,9 +289,10 @@ export default {
       this.images.forEach((item) =>
           this.itemListTable.push(
               {
+                data:item,
                 id: item.id,
-                deviceType: item.device_type,
-                position: item.position ?.id,
+                custom3: item.device_type,
+                position: item.position?.id,
                 image: item.id,
                 imageId: item.id,
                 imageUrl: item.image_url,
