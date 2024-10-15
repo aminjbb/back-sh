@@ -18,7 +18,7 @@
               return-object
               clearable
               variant="outlined"
-              no-data-text="محصولی برای نمایش وجود ندارد"
+              no-data-text="کاربری برای نمایش وجود ندارد"
               v-debounce="searchUser"/>
         </v-col>
 
