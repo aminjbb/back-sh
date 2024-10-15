@@ -246,7 +246,7 @@
             </span>
           </div>
           <keep-alive>
-            <TinymceVue @input="fillDisAdvantages" v-if="load" :value="specsFromModal.disAdvantages" id="tinyInstructions" class="mb-8"
+            <TinymceVue @input="fillInstructions" v-if="load" :value="specsFromModal.instructions" id="tinyInstructions" class="mb-8"
                         :other_options="options">
             </TinymceVue>
           </keep-alive>
