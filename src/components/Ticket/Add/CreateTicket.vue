@@ -1,100 +1,127 @@
 <template>
   <div class="h-100 d-flex flex-column align-stretch">
 
-    <v-card height="150" class="ma-5 br--12 ">
-      <v-row
-          justify="center"
-          align="center"
-          class="pa-5 pt-7">
-        <v-col cols="3">
-          <div class="text-right mb-3">
+    <v-card class="pa-15 flex-grow-1 d-flex flex-column align-stretch">
+      <div>
+        <v-form ref="createTicket" v-model="valid">
+          <v-row
+              justify="center"
+              align="center"
+              class="pa-5 pt-7">
+            <v-col cols="4">
+              <div class="text-right mb-3">
                     <span class="t14 w500">
                         کاربر
                     </span>
-          </div>
-          <v-autocomplete
-              :items="userList"
-              v-model="selectedUser"
-              return-object
-              clearable
-              variant="outlined"
-              no-data-text="کاربری برای نمایش وجود ندارد"
-              v-debounce="searchUser"/>
-        </v-col>
-
-        <v-col cols="3">
-          <div class="text-right mb-3">
+                <span class="text-error">*</span>
+              </div>
+              <v-autocomplete
+                  :items="userList"
+                  v-model="selectedUser"
+                  return-object
+                  clearable
+                  :rules="rule"
+                  variant="outlined"
+                  no-data-text="کاربری برای نمایش وجود ندارد"
+                  v-debounce=" searchUser"/>
+            </v-col>
+            <v-col cols="4">
+              <div class="text-right mb-3">
                     <span class="t14 w500">
-                        عنوان
+                        موضوع
                     </span>
-          </div>
-          <v-text-field
-              v-model="title"
-              clearable
-              variant="outlined"
-              type="text"/>
-        </v-col>
+                <span class="text-error">*</span>
+              </div>
+              <v-autocomplete
+                  :items="parentTopices"
+                  v-model="parentTopicId"
+                  return-object
+                  clearable
+                  :rules="rule"
+                  variant="outlined"
+                  no-data-text="موضوع ای برای نمایش وجود ندارد"
+                  @update:model-value="getTopic"
+              />
+            </v-col>
+            <v-col cols="4">
+              <div class="text-right mb-3">
+                    <span class="t14 w500">
+                        زیر موضوع
+                    </span>
 
-        <v-col cols="3">
-          <div class="text-right mb-3">
+              </div>
+              <v-autocomplete
+                  :items="topic"
+                  v-model="topicId"
+                  return-object
+                  clearable
+
+                  variant="outlined"
+                  no-data-text="زیر موضوع ای برای نمایش وجود ندارد"
+                  v-debounce=" searchUser"/>
+            </v-col>
+            <v-col cols="6">
+              <div class="text-right mb-3">
                     <span class="t14 w500">
                         اولیت
                     </span>
-          </div>
-          <v-select
-              v-model="priority"
-              variant="outlined"
-              :items="priorities"/>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-card class="pa-15 flex-grow-1 d-flex flex-column align-stretch">
-      <v-row justify="center" class="mb-5">
-        <v-col cols="10">
-          <div class="text-right mb-3">
+                <span class="text-error">*</span>
+              </div>
+              <v-select
+                  v-model="priority"
+                  variant="outlined"
+                  :rules="rule"
+                  :items="priorities"/>
+            </v-col>
+            <v-col cols="10">
+              <div class="text-right mb-3">
                     <span class="t14 w500">
                         پیام
                     </span>
+              </div>
+              <keep-alive>
+                <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
+                            :other_options="options">
+                </TinymceVue>
+              </keep-alive>
+
+            </v-col>
+
+          </v-row>
+        </v-form>
+      </div>
+
+
+      <footer class="create-product__actions pl-15">
+        <v-row justify="space-between" class="pl-10 pt-8">
+          <div>
+            <v-btn
+                @click="$router.go(-1)"
+                variant="outlined"
+                height="40"
+                rounded
+                class="px-8 mt-1 mr-5">
+
+              انصراف
+            </v-btn>
+
           </div>
-          <keep-alive>
-            <TinymceVue @input="fillDescription" v-if="load" :value="content" id="d2" class="mb-8"
-                        :other_options="options">
-            </TinymceVue>
-          </keep-alive>
 
-        </v-col>
-      </v-row>
+          <div>
+            <v-btn
+                :loading="loading"
+                color="primary500"
+                height="40"
+                rounded
+                class="px-8 mt-1"
+                @click="createTicket()">
 
-      <v-card-actions>
-        <v-row justify="end">
-          <v-btn
-              :loading="loading"
-              color="primary500"
-              height="40"
-              rounded
-              class="px-8 mt-1"
-              variant="outlined"
-              @click="createTicket()">
-            <template v-slot:prepend>
-              <v-icon>mdi-plus</v-icon>
-            </template>
-            تایید
-          </v-btn>
+              تایید
+            </v-btn>
 
-          <v-btn
-              @click="$router.go(-1)"
-              variant="outlined"
-              height="40"
-              rounded
-              class="px-8 mt-1 mr-5">
-            <template v-slot:prepend>
-              <v-icon>mdi-cancel</v-icon>
-            </template>
-            انصراف
-          </v-btn>
+          </div>
         </v-row>
-      </v-card-actions>
+      </footer>
     </v-card>
   </div>
 </template>
@@ -122,6 +149,14 @@ export default {
   },
 
   data: () => ({
+    valid: true,
+    rule: [v => !!v || 'این فیلد الزامی است'],
+    parentTopices: [],
+    parentTopicId: null,
+    topicId: null,
+    topic: [],
+    tags: [],
+    selectTags: [],
     options: {
       height: 500,
     },
@@ -151,6 +186,17 @@ export default {
   }),
 
   methods: {
+    async getTags() {
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `system/admin/tag/crud/index`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.tags = data.data
+
+      }
+    },
     fillDescription(e) {
       this.content = e
     },
@@ -160,6 +206,11 @@ export default {
         phone_number: e
       }
       this.getUsers(filter)
+    },
+
+    async validate() {
+      await this.$refs.createTicket.validate()
+      if (this.valid) this.createTicket()
     },
 
     async createTicket() {
@@ -173,7 +224,8 @@ export default {
       formdata.append('priority', this.priority)
       formdata.append('content', this.content)
       formdata.append('status', 'open')
-
+      if (this.topicId) formdata.append('topic_id', this.topicId.id)
+      else formdata.append('topic_id', this.parentTopicId.id)
       AxiosMethod.store = this.$store
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
@@ -185,10 +237,43 @@ export default {
       } else {
         this.loading = false
       }
-    }
+    },
+    async getParentTopic() {
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = 'ticket/topic/crud/index'
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.parentTopices = data.data.data
+      }
+    },
+
+    async getTopic(topicId) {
+      this.topic = []
+      this.topicId = null
+      const form = {
+        per_page: 10000
+      }
+      const AxiosMethod = new AxiosCall()
+      AxiosMethod.using_auth = true
+      AxiosMethod.form = form
+      AxiosMethod.token = this.$cookies.get('adminToken')
+      AxiosMethod.end_point = `ticket/topic/crud/get/${this.parentTopicId?.id}`
+      let data = await AxiosMethod.axios_get()
+      if (data) {
+        this.topic = data.data.children
+      }
+    },
   },
 
   mounted() {
+    this.getTags()
+    this.getParentTopic()
     const filter = {
       per_page: 10
     }
