@@ -3,7 +3,6 @@
     <DashboardLayout />
     <v-main class="h-100vh">
       <Header/>
-<!--      <CommentList/>-->
       <div class="h-100 d-flex flex-column align-stretch ticket__dashboard">
         <v-card
             height="70"
@@ -23,7 +22,8 @@
                 :filterField="filterField"
                 :brandsList="brandsList"
                 :scoreItems="scoreItems"
-                :statusItems="statusComment"/>
+                :statusItems="statusComment"
+                :typeItems="typeComment" />
           </v-row>
         </v-card>
 
@@ -37,8 +37,7 @@
               :items="itemListTable"
               :page="page"
               :perPage="dataTableLength"
-              :loading="loading"
-          >
+              :loading="loading">
 
             <template v-slot:customSlot="item">
               <v-sheet  class=" br--12 py-2 px-5 "  :color="getStatusClass(item.data.custom)" width="100">
@@ -64,12 +63,18 @@
                                     </span>
                       </div>
                     </v-list-item-title>
+
+                    <v-list-item-title>
+                      <div class=" pointer" @click="removeItem(item.data.id)" v-if="item.data.type === 'شاواز'">
+                        <v-icon class="text-grey-darken-1">mdi-trash-can-outline</v-icon>
+                        <span class="mr-2 text-grey-darken-1 t14 w300">حذف</span>
+                      </div>
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
             </template>
           </ShTable>
-
 
           <v-divider/>
 
@@ -124,14 +129,18 @@
   import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
   import ModalColumnFilter from "@/components/Public/ModalColumnFilter.vue";
   import ShTable from "@/components/Components/Table/sh-table.vue";
-  // const CommentList = defineAsyncComponent(()=> import ('@/components/Comments/CommentList.vue'))
+  import {openConfirm, openToast} from "@/assets/js/functions";
 
   export default {
     data() {
       return {
         perPageFilter: false,
-        scoreItems: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
-        itemListTable: []
+        itemListTable: [],
+        removeTableItem: {
+          text: "آیا از انجام این کار مطمئن هستید؟",
+          title: "حذف آیتم",
+          path: "product/comment/crud/fake/delete/",
+        },
       }
     },
 
@@ -160,6 +169,42 @@
           value: 'waiting'
         }
       ]
+      const typeComment = [
+        {
+          label: 'نظر شاواز',
+          value: 'shavaz'
+        },
+        {
+          label: 'نظر کاربران',
+          value: 'users'
+        }
+      ]
+      const scoreItems = [
+        {
+          label: 'بدون امتیاز',
+          value: '0'
+        },
+        {
+          label: '۱ ستاره',
+          value: '1'
+        },
+        {
+          label: '۲ ستاره',
+          value: '2'
+        },
+        {
+          label: '۳ ستاره',
+          value: '3'
+        },
+        {
+          label: '۴ ستاره',
+          value: '4'
+        },
+        {
+          label: '۵ ستاره',
+          value: '5'
+        },
+      ]
       const {
         header,
         filterField,
@@ -169,8 +214,8 @@
         page,
         pageLength,
         dataTableLength,
+      } = new commentsComposable()
 
-      } = new commentsComposable();
       return {
         header,
         filterField,
@@ -182,7 +227,9 @@
         dataTableLength,
         allBrands,
         getAllBrands,
-        statusComment
+        statusComment,
+        typeComment,
+        scoreItems
       };
     },
 
@@ -190,12 +237,17 @@
       changeHeaderShow(index, value) {
         this.header[index].show = value
       },
+
       resetPage() {
         this.perPageFilter = true
         this.page = 1
         setTimeout(() => {
           this.perPageFilter = false
         }, 1000)
+      },
+
+      removeItem(id) {
+        openConfirm(this.$store, this.removeTableItem.text, this.removeTableItem.title, "delete", this.removeTableItem.path + id, true)
       },
 
       getStatusClass(status){
@@ -212,6 +264,10 @@
     },
 
     computed:{
+      confirmModal() {
+        return this.$store.getters['get_confirmForm'].confirmModal
+      },
+
       brandsList() {
         try {
           const brands = []
@@ -235,6 +291,20 @@
     },
 
     watch: {
+      confirmModal(val) {
+        if (localStorage.getItem('deleteObject') === 'done') {
+          if (!val) {
+            this.getComments()
+            openToast(
+                this.$store,
+                'کامنت با موفقیت حذف شد',
+                "success"
+            );
+            localStorage.removeItem('deleteObject')
+          }
+        }
+      },
+
       dataTableLength() {
         this.perPageFilter = true
         this.page = 1
@@ -283,6 +353,7 @@
                   admin: item.creator.first_name !== null ? item.creator.first_name + ' ' + item.creator.last_name : '-',
                   created_at: item.created_at_fa,
                   updated_at: item.updated_at_fa,
+                  type: item.type,
                   custom: item.status /* for customSlot*/
                 },
             ),

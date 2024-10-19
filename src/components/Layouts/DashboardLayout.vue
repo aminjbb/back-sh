@@ -502,19 +502,33 @@
                 </span>
             </v-list-item>
 
-          <v-list-item
-              v-for="([title, to, icon], index) in comments"
-              :key="index"
-              active-class="bg-active"
-              :to="to">
-            <template v-slot:prepend>
-              <v-icon>{{icon}}</v-icon>
+          <v-list-group value="comments">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" active-class="bg-active">
+                <template v-slot:prepend>
+                  <v-icon>mdi-comment-text-outline</v-icon>
+                </template>
+
+                <span class="t14 w500">نظرات</span>
+              </v-list-item>
             </template>
 
-            <span class="t14 w500">
-                    {{title}}
-                </span>
-          </v-list-item>
+            <v-list-item
+                v-for="([title, to, icon], i) in comments"
+                v-bind="props"
+                :key="i"
+                :value="title"
+                :to="to"
+                active-class="bg-active"
+                style="padding-right:16px !important">
+              <template v-slot:prepend>
+                <v-icon size="x-small">{{icon}}</v-icon>
+              </template>
+
+              <span class="t14 w500">{{title}}</span>
+            </v-list-item>
+
+          </v-list-group>
 
           <v-list-group value="campaign">
             <template v-slot:activator="{ props }">
@@ -562,7 +576,8 @@ export default {
                 // ['ارسال', '/send/index', 'mdi-truck-outline'],
             ],
             comments: [
-                ['نظرات', '/comment/index', 'mdi-message-reply-text-outline'],
+                ['نظرات', '/comment/index', 'mdi-checkbox-blank-circle-outline'],
+                ['نظرات شاواز', '/fake-comment/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             chat: [
                 ['گفتگو', '/chat', 'mdi-chat-outline'],
