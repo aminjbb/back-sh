@@ -75,7 +75,7 @@
         </v-card>
 
         <!-- fake comment and reply -->
-        <v-card height="416" class="mx-5 mt-3 py-2 rounded-lg scroller">
+        <v-card class="mx-5 mb-2 mt-3 py-2 rounded-lg">
           <v-sheet class="d-flex flex-column mx-auto" width="60%">
             <span class="ma-2 text-left t14 w400 text-gray600">
               {{userFakeComment?.user?.first_name}} {{userFakeComment?.user?.last_name}}
@@ -96,7 +96,6 @@
             </v-sheet>
           </v-sheet>
 
-          <!-- btns -->
           <v-divider/>
           <v-card-actions>
             <v-row justify="space-between" class="px-8">
@@ -117,7 +116,6 @@
                   :class= "[ adminReply !== null  ? 'bg-primary500' : 'bg-grey', 'px-8','mt-1']">
                 ثبت پاسخ
               </v-btn>
-              <!---->
             </v-row>
           </v-card-actions>
         </v-card>
