@@ -172,8 +172,8 @@
 
                <v-col cols="6" class="d-flex justify-end align-center">
                  <v-rating
-                     :rules="rule"
                      v-model="form.score"
+                     :rules="ratingRule"
                      half-increments
                      class="me-3"
                      style="direction: ltr!important;">
@@ -348,12 +348,13 @@ export default {
       valid: false,
       form:{
         user_id: null,
-        submit:[],
+        submit:null,
         score: null,
         shps: null,
         comment: null
       },
       rule: [v => !!v || "این فیلد الزامی است"],
+      ratingRule: [v => v !== null || "امتیاز الزامی است"],
       skuSearchList: [],
       userSearchList: []
     }
@@ -479,8 +480,6 @@ export default {
         if (this.valid) {
           this.$refs.fakeCommentModal.dialog = false
           this.$refs.approvedFakeCommentModal.dialog = true
-          // this.createFakeComment();
-
         }
       }, 200);
     },
@@ -510,7 +509,7 @@ export default {
         this.form.comment = null
         this.form.shps = null
         this.form.score = null
-        this.form.submit = []
+        this.form.submit = null
         this.form.user_id = null
        await this.getAllFakeComments()
       }
