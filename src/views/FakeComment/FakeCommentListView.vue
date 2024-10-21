@@ -474,10 +474,13 @@ export default {
     },
 
     validate() {
+      if (this.form.score === null) {
+        openToast( this.$store, 'وارد کردن امتیاز الزامی است', "error")
+      }
       this.$refs.createFakeComment.validate();
 
       setTimeout(() => {
-        if (this.valid) {
+        if (this.valid && this.form.score !== null) {
           this.$refs.fakeCommentModal.dialog = false
           this.$refs.approvedFakeCommentModal.dialog = true
         }
