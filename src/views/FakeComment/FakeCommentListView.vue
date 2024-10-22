@@ -190,8 +190,9 @@
 
                <v-col cols="6">
                  <div class="text-right my-5">
-                   <span class="t12 w400 text-gray600">نام کالا</span>
+                   <span class="t12 w400 text-gray600"> کالا</span>
                  </div>
+
                  <v-autocomplete
                      density="compact"
                      variant="outlined"
@@ -201,7 +202,7 @@
                      rules="rule"
                      v-model="form.shps"
                      item-title="name"
-                     item-value="value"
+                     item-value="id"
                      v-debounce="searchSku"/>
                </v-col>
 
@@ -370,8 +371,8 @@ export default {
         let sku = []
         this.skuSearchList.forEach(skuSearch => {
           const form = {
-            name: skuSearch.sku?.label,
-            value: skuSearch.id
+            name: skuSearch.sku?.label + '(' + skuSearch.id + ')',
+            id: skuSearch.id,
           }
           sku.push(form)
         })
@@ -456,6 +457,11 @@ export default {
 
     closeModal() {
       this.$refs.fakeCommentModal.dialog = false
+      this.form.comment = null
+      this.form.shps = null
+      this.form.score = null
+      this.form.submit = null
+      this.form.user_id = null
     },
 
     closeModalApproveModal() {
@@ -521,9 +527,8 @@ export default {
       }
     },
 
-    async searchSku(search) {
+   async searchSku(search) {
       this.skuSearchList = []
-
       const AxiosMethod = new AxiosCall()
       AxiosMethod.using_auth = true
       AxiosMethod.token = this.$cookies.get('adminToken')
