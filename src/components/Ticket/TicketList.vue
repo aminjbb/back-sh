@@ -227,16 +227,16 @@ export default {
         const color = '';
 
         if (status == 'open') {
-          return 'warningRow';
+          return 'Orange400';
         }
         if (status == 'answered') {
-          return 'green';
+          return 'success';
         }
         if (status == 'resolved') {
-          return 'grey-lighten-1';
+          return 'gray600';
         }
         if (status == 'pending') {
-          return 'warning';
+          return 'primary700';
         }
 
         return '';
