@@ -287,7 +287,7 @@ export default {
                 custom: item.amount? item.amount : '---' ,
                 custom2: item.amount? item.amount : '---',
                 wallet_value: splitChar(item.latest_balance),
-                create_at:  item.created_at_fa + ' ' +item.created_at.split('T')[1].split('.')[0],
+                create_at:  item.created_at_fa + ' ' +item.created_at.split(' ')[1].split('.')[0],
               },
           ),
       )
