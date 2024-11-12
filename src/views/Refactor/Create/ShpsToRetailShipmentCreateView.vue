@@ -167,6 +167,7 @@ import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast } from "@/assets/js/functions";
 import { AxiosCall } from "@/assets/js/axios_call";
 import ShTable from "@/components/Components/Table/sh-table.vue";
+import Table from "@/components/Public/Table.vue";
 
 export default {
     setup() {
