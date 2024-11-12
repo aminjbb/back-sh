@@ -399,7 +399,6 @@ export default {
      */
     async updateRetailShipment(index) {
       try {
-        console.log(this.form[index].minTolerance, this.form[index].maxTolerance)
         if (parseInt(this.form[index].count) >= 0 && parseInt(this.form[index].minTolerance) >= 0 && parseInt(this.form[index].maxTolerance) >= 0) {
           if (parseInt(this.form[index].minTolerance) > parseInt(this.form[index].maxTolerance)) {
             openToast(

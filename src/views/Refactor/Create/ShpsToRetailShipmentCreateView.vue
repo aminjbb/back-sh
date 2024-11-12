@@ -59,21 +59,51 @@
                 </v-card>
 
                 <v-card class="ma-5 br--12 flex-grow-1 d-flex flex-column align-stretch" height="580">
-                    <Table
-                        :deleteFunction="deleteSku"
-                        ref="retailShipmentShps"
-                        class="flex-grow-1"
-                        :header="headerShps"
-                        :items="shpsList"
-                        editUrl="/seller/edit/"
-                        activePath="seller/crud/update/activation/"
-                        deletePath="seller/crud/update/activation/"
-                        changeStatusUrl="seller/crud/update/contract/"
-                        :updateSkuUrl="`page/home/section/slider/${$route.params.specialId}/sku/attach`"
-                        :loading="loading"
-                        @updateList="updateList"
-                        updateUrl="seller/csv/mass-update"
-                        model="addShps" />
+                  <ShTable
+                      ref="retailShipmentShps"
+                      class="flex-grow-1"
+                      :headers="headerShps"
+                      :items="itemListTable"
+                  >
+                    <template v-slot:customSlot="item">
+                      <v-text-field v-model="item.data.custom" variant="outlined"/>
+                    </template>
+                    <template v-slot:customSlot2="item">
+                      <v-text-field v-model="item.data.custom2" variant="outlined"/>
+                    </template>
+                    <template v-slot:customSlot3="item">
+                      <v-text-field v-model="item.data.custom3" type="number" variant="outlined"/>
+                    </template>
+
+<!--                    <template v-slot:customSlot4="item">-->
+<!--                      <div @click="updateRetailShipment(item.index, item.data)"-->
+<!--                           class="seller__add-sku-btn d-flex justify-center align-center pointer">-->
+<!--                        <v-icon size="15"> {{item.data.custom4}}</v-icon>-->
+<!--                      </div>-->
+<!--                    </template>-->
+
+
+                    <template v-slot:actionSlot="item">
+                      <div class="text-center">
+                        <v-icon :id="`menuActions${item.index}`" class="pointer mx-auto" >
+                          mdi-dots-vertical
+                        </v-icon>
+                      </div>
+
+                      <v-menu :activator="`#menuActions${item.index}`" :close-on-content-click="false" >
+                        <v-list class="c-table__more-options">
+                          <v-list-item  >
+                            <div  class="ma-5 pointer d--rtl"  @click=" deleteSku(item.data.id)">
+                              <v-icon class="text-grey-darken-1" size="small">mdi-delete</v-icon>
+                              <span class="mr-2 text-grey-darken-1 t13 w400">
+                                                حذف
+                                            </span>
+                            </div>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </template>
+                  </ShTable>
 
                     <v-divider />
 
@@ -130,14 +160,13 @@
 import {defineAsyncComponent} from "vue";
 const DashboardLayout = defineAsyncComponent(()=> import ('@/components/Layouts/DashboardLayout.vue'))
 const Header = defineAsyncComponent(()=> import ('@/components/Public/Header.vue'))
-
-import Table from '@/components/RetailShipment/Table/RetailShipmentShpsTable.vue'
 import RetailShipment from "@/composables/RetailShipment";
 import ModalColumnFilter from '@/components/Public/ModalColumnFilter.vue'
 import ModalGroupAdd from '@/components/Public/ModalGroupAdd.vue'
 import ModalExcelDownload from "@/components/Public/ModalExcelDownload.vue";
 import { openToast } from "@/assets/js/functions";
 import { AxiosCall } from "@/assets/js/axios_call";
+import ShTable from "@/components/Components/Table/sh-table.vue";
 
 export default {
     setup() {
@@ -154,11 +183,13 @@ export default {
         return{
             skuSearchList:[],
             shpsList:[],
-            loading:false
+            loading:false,
+          itemListTable:[]
         }
     },
 
     components: {
+      ShTable,
         DashboardLayout,
         Header,
         Table,
@@ -224,11 +255,11 @@ export default {
             try {
                 this.loading = true
                 const formData = new FormData()
-                this.$refs.retailShipmentShps.form.forEach((shps , index) => {
-                    formData.append(`shps_list[${index}][shps]`, shps.shps.id)
-                    formData.append(`shps_list[${index}][count]`, shps.count)
-                    formData.append(`shps_list[${index}][min_tolerance]`, shps.minTolerance)
-                    formData.append(`shps_list[${index}][max_tolerance]`, shps.maxTolerance)
+                this.itemListTable.forEach((shps , index) => {
+                    formData.append(`shps_list[${index}][shps]`, shps.id)
+                    formData.append(`shps_list[${index}][count]`, shps.custom)
+                    formData.append(`shps_list[${index}][min_tolerance]`, shps.custom2)
+                    formData.append(`shps_list[${index}][max_tolerance]`, shps.custom3)
                 })
                 formData.append('factor_id' , this.$route.params.factorId)
                 formData.append('type' , 'consignment')
@@ -257,21 +288,36 @@ export default {
             }
         },
         async assignSku(shps) {
-            const form = {
-                shps : shps,
-                maxTolerance :'200',
-                minTolerance :'0',
-                count:shps?.count
-            }
-            this.$refs.retailShipmentShps.form.push(form)
-            this.shpsList.push(shps)
+            // const form = {
+            //     shps : shps,
+            //     maxTolerance :'200',
+            //     minTolerance :'0',
+            //     count:shps?.count
+            // }
+            // this.$refs.retailShipmentShps.form.push(form)
+          this.itemListTable.push(
+              {
+                /*
+                custom  count
+                custom2  low_tolerance
+                custom3  max_tolerance
+                custom4  icon
+                * */
+                data: shps,
+                id: shps.id,
+                sku_label: shps.sku.label,
+                custom:  '',
+                custom2:  '0',
+                custom3:  '200',
+                custom4: 'mdi-plus',
+              }
+          )
 
         },
         deleteSku(shps){
-            const index = this.shpsList.findIndex(skuShps => skuShps.id === shps)
+            const index = this.itemListTable.findIndex(skuShps => skuShps.id === shps)
             if (index > -1) {
-                this.shpsList.splice(index , 1)
-                this.$refs.retailShipmentShps.form.splice(index , 1)
+                this.itemListTable.splice(index , 1)
             }
         }
     },
@@ -280,6 +326,16 @@ export default {
     },
 
     watch: {
+      shpsList(){
+        console.log(this.shpsList , 'shpsList')
+        if(this.shpsList) {
+
+          this.itemListTable = []
+          this.shpsList.forEach((item) => {
+
+          })
+        }
+      },
 
         confirmModal(val) {
             if (this.$cookies.get('deleteItem')) {
