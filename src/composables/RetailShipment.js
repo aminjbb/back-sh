@@ -30,7 +30,7 @@ export default function setup() {
         { name: 'تعداد کالا',title: 'تعداد کالا', show: true, key:'custom' , sortable: false, align:'center'},
         { name: 'تلورانس پایین',title: 'تلورانس پایین', show: true , key:'custom2', sortable: false, align:'center'},
         { name: 'تلورانس بالا',title: 'تلورانس بالا', show: true, key:'custom3', sortable: false, align:'center'},
-        { name: 'عملیات',title: 'عملیات', show: true, key:'custom4', sortable: false, align:'center'},
+        // { name: 'عملیات',title: 'عملیات', show: true, key:'custom4', sortable: false, align:'center'},
         { name: 'عملیات',title: 'عملیات', key:'action', show: true , align:'center', sortable: false, fixed: true},
     ]);
 
