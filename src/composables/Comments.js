@@ -18,14 +18,26 @@ export default function setup() {
         {name: ' تاریخ ثبت ', title: ' تاریخ ثبت ', show: true, key: 'created_at', align:'center'},
         {name: ' تاریخ بررسی ', title: ' تاریخ بررسی ', show: true, key: 'updated_at', align:'center'},
         {name: 'وضعیت', title: 'وضعیت', show: true, key: 'custom', align:'center'},
+        {name: 'نوع نظر', title: 'نوع نظر', show: true, key: 'type', align:'center'},
         {name: 'عملیات', title: 'عملیات', show: true, align:'center', sortable: false, key:'action', fixed: true},
 
+    ]);
+
+    const headerFakeComment = ref([
+        {name: 'ردیف', title: 'ردیف', show: true, key: 'row', sortable: false, align:'center'},
+        {name: 'SKU شناسه', title: 'SKU شناسه', show: true, key: 'sku_id', align:'center'},
+        {name: 'نام کالا', title: 'نام کالا', show: true, key: 'label', sortable: false, align:'center'},
+        {name: 'امتیاز', title: 'امتیاز', show: true, key: 'score', align:'center'},
+        {name: 'برند', title: 'برند', show: true, key: 'brand', sortable: false, align:'center'},
+        {name: 'نام ادمین ', title: 'نام ادمین ', show: true, key: 'admin', sortable: false, align:'center'},
+        {name: ' تاریخ ثبت ', title: ' تاریخ ثبت ', show: true, key: 'created_at', align:'center'},
+        {name: 'وضعیت', title: 'وضعیت', show: true, key: 'custom', align:'center'},
+        {name: 'عملیات', title: 'عملیات', show: true, align:'center', sortable: false, key:'action', fixed: true}
     ]);
 
     const filterField = ref([
         {name: 'شناسه SKU', type: 'text', value: 'sku_id'},
         {name: 'نام کالا', type: 'text', value: 'sku_name'},
-        {name: 'وضعیت', type:'select', value:'status'},
         {name: 'امتیاز', type: 'select', value: 'score'},
         {name: 'برند', type: 'auto-complete', value: 'brand_id'},
         {name: 'نام کاربر', type: 'auto-complete', value: 'user_id'},
@@ -34,6 +46,18 @@ export default function setup() {
         {name: 'نام ادمین', type: 'auto-complete', value: 'creator_id'},
         {name: 'تاریخ ثبت', type: 'date', value: 'created_at'},
         {name: 'تاریخ بررسی', type: 'date', value: 'updated_at'},
+        {name: 'وضعیت', type:'select', value:'status'},
+        {name: 'نوع نظر', type:'select', value:'type'}
+    ]);
+
+    const filterFieldFakeComment = ref([
+        {name: 'شناسه SKU', type: 'text', value: 'sku_id'},
+        {name: 'نام کالا', type: 'text', value: 'sku_name'},
+        {name: 'وضعیت', type:'select', value:'status'},
+        {name: 'امتیاز', type: 'select', value: 'score'},
+        {name: 'برند', type: 'auto-complete', value: 'brand_id'},
+        {name: 'نام ادمین', type: 'auto-complete', value: 'creator_id'},
+        {name: 'تاریخ ثبت', type: 'date', value: 'created_at'},
     ]);
 
     const page = ref(1)
@@ -43,6 +67,9 @@ export default function setup() {
 
     const cookies = useCookies()
     const route = useRoute()
+
+    const fakeCommentData = ref([]);
+    const userFakeComment = ref([]);
 
     /* all comments*/
     /* const CommentList = ref([]);
@@ -143,5 +170,91 @@ export default function setup() {
         }
     }
 
-    return {header, filterField, page, pageLength, dataTableLength, loading, getComments, CommentData, getComment, userComment}
+    async function getAllFakeComments() {
+        loading.value = true
+        const AxiosMethod = new AxiosCall()
+        let query = route.query
+        AxiosMethod.using_auth = true
+
+        if ( !route.query.per_page ){
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else {
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                }
+            }
+        }
+        else{
+            if (!route.query.order && !route.query.order_type){
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value,
+                    order:'created_at',
+                    order_type:'desc'
+                }
+            }
+            else{
+                AxiosMethod.form = {
+                    ...query,
+                    page:page.value,
+                    per_page : dataTableLength.value
+                }
+            }
+        }
+
+
+        AxiosMethod.token = cookies.cookies.get('adminToken')
+        AxiosMethod.end_point = `product/comment/crud/fake/index`
+        let res = await AxiosMethod.axios_get()
+        if (res) {
+            pageLength.value = Math.ceil(res.data.total / res.data.per_page)
+            fakeCommentData.value = res.data.data
+            loading.value = false
+        }
+    }
+
+    async function getFakeComment() {
+        loading.value = false
+        const AxiosMethod = new AxiosCall()
+        AxiosMethod.using_auth = true
+        AxiosMethod.token = this.$cookies.get('adminToken')
+        AxiosMethod.end_point = `product/comment/crud/fake/get/`  + this.$route.params.id
+
+        let res = await AxiosMethod.axios_get()
+        if (res) {
+            userFakeComment.value = res.data
+            loading.value = true
+        }
+    }
+
+    return {
+        header,
+        filterField,
+        page,
+        pageLength,
+        dataTableLength,
+        loading,
+        getComments,
+        CommentData,
+        getComment,
+        userComment,
+        headerFakeComment,
+        filterFieldFakeComment,
+        getAllFakeComments,
+        fakeCommentData,
+        getFakeComment,
+        userFakeComment
+    }
 }
+

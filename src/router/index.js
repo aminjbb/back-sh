@@ -326,6 +326,8 @@ import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue"
 import RominaCampaignView from "@/views/RominaCamping/RominaCampaignView.vue";
 import PrintSingleRominaListView from "@/views/RominaCamping/PrintSingleRominaListView.vue";
 import PrintMultiRominaListView from "@/views/RominaCamping/PrintMultiRominaListView.vue";
+import FakeCommentListView from "@/views/FakeComment/FakeCommentListView.vue";
+import DetailFakeCommentView from "@/views/FakeComment/DetailFakeCommentView.vue";
 
 
 const router = createRouter({
@@ -2522,6 +2524,30 @@ const router = createRouter({
                         name: ' بررسی کامنت '
                     }
                 }]
+        },
+        {
+            path: '/fake-comment',
+            meta: {
+                name: ' نظرات '
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'FakeCommentListView',
+                    component: FakeCommentListView,
+                    meta: {
+                        name: 'نظرات شاواز'
+                    }
+                },
+                {
+                    path: 'get/:id',
+                    name: 'DetailFakeCommentView',
+                    component: DetailFakeCommentView,
+                    meta: {
+                        name: ' نمایش جزئیات '
+                    }
+                }
+            ]
         },
         {
             path: '/report-bug-task', // Zone
