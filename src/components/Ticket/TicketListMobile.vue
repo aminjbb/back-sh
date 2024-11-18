@@ -275,7 +275,7 @@ export default {
       const text = '';
 
       if (priority == 'urgent') {
-        return 'فوری';
+        return 'ضروری';
       }
       if (priority == 'low') {
         return 'پایین';
@@ -294,16 +294,16 @@ export default {
       const color = '';
 
       if (status == 'open') {
-        return 'blue';
+        return 'Orange400';
       }
       if (status == 'answered') {
-        return 'green';
+        return 'success';
       }
       if (status == 'resolved') {
-        return 'grey-lighten-1';
+        return 'gray600';
       }
       if (status == 'pending') {
-        return 'warning';
+        return 'primary700';
       }
 
       return '';
@@ -313,7 +313,7 @@ export default {
       const text = '';
 
       if (status == 'open') {
-        return 'باز';
+        return 'باز نشده';
       }
       if (status == 'answered') {
         return 'پاسخ داده شده';
