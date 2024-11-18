@@ -59,6 +59,7 @@
           </div>
 
           <v-btn
+              v-if="oneTicket?.status === 'open'"
               :loading="loading"
               @click="updateTicket()"
               color="primary500"
@@ -675,6 +676,9 @@ export default {
       }
       if (status == 'seen') {
         return 'دیده شده';
+      }
+      if (status == 'pending') {
+        return 'در حال بررسی';
       }
 
       return 'نامعلوم';

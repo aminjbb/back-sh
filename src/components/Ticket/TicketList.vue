@@ -66,8 +66,7 @@
         <template v-slot:customSlot="item">
           <v-chip
               class="ma-2 rounded-lg t10 w400"
-              :color="getStatusColor(item.data.custom)"
-              text-color="white">
+              :color="getStatusColor(item.data.custom)">
             {{getStatusText(item.data.custom)}}
           </v-chip>
         </template>
@@ -228,16 +227,16 @@ export default {
         const color = '';
 
         if (status == 'open') {
-          return 'blue';
+          return 'Orange400';
         }
         if (status == 'answered') {
-          return 'green';
+          return 'success';
         }
         if (status == 'resolved') {
-          return 'grey-lighten-1';
+          return 'gray600';
         }
         if (status == 'pending') {
-          return 'warning';
+          return 'primary700';
         }
 
         return '';
@@ -266,7 +265,7 @@ export default {
         const text = '';
 
         if (status == 'open') {
-          return 'باز';
+          return 'باز نشده';
         }
         if (status == 'answered') {
           return 'پاسخ داده شده';
@@ -321,7 +320,7 @@ export default {
                   custom2: item.rate ,
                   user_name: item.user.first_name+ ' ' + item.user.last_name,
                   mobile: item.user.phone_number,
-                  created_at: item.created_at_fa + ' ' + item.updated_at.split('T')[1].split('.')[0],
+                  created_at: item.created_at_fa + ' ' + item.created_at.split(' ')[1],
                   latest_date: item.latest_date_fa ,
                 },
             )

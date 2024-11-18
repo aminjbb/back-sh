@@ -38,6 +38,7 @@ const vuetify = createVuetify({
                     primary: colors.red.darken1, // #E53935
                     primary600: '#EC407A', // #E53935
                     primary500: '#E91E63', // #E53935
+                    primary700: '#2196F3', // #E53935
                     primary300: '#9c5788', // #E53935
                     primary400: '#FCE4EC',
                     secondary: colors.red.lighten4, // #FFCDD2
@@ -60,6 +61,7 @@ const vuetify = createVuetify({
                     scanSuccess: '#43A047',
                     Orange600: '#FB8C00',
                     Purple500: '#673AB7',
+                    Orange400:'#FFA726'
                 }
             },
         },
