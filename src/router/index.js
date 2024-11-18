@@ -320,6 +320,10 @@ import CreateSubTitleTicket from "../views/SubTitleTicket/CreateSubTitleTicket.v
 import AddSubTopicToSubject from "../views/SubTitleTicket/AddSubTopicToSubject.vue";
 import EditSubTitleTicket from "../views/SubTitleTicket/EditSubTitleTicket.vue";
 import DetailSubTitleTicket from "@/views/SubTitleTicket/DetailSubTitleTicket.vue";
+import GiftShpsView from "@/views/GiftShps/GiftShpsView.vue";
+import GiftShpsCreate from "@/views/GiftShps/GiftShpsCreate.vue";
+import UsersListView from "@/views/GiftShps/UsersListView.vue";
+import OrdersListView from "@/views/GiftShps/OrdersListView.vue";
 import FirstTimeUserModalView from "@/views/FirstTimeUserModal/FirstTimeUserModalView.vue";
 import FirstTimeUserCreate from "@/views/FirstTimeUserModal/FirstTimeUserCreate.vue";
 import FirstTimeUserEdit from "@/views/FirstTimeUserModal/FirstTimeUserEdit.vue";
@@ -2779,6 +2783,48 @@ const router = createRouter({
                     component: PrintMultiRominaListView,
                     meta: {
                         name: 'پرینت'
+                    }
+                },
+            ]
+        },
+
+        {
+            path: '/gift-shps',
+            meta: {
+                name: 'مارکتینگ'
+
+            },
+            children: [
+                {
+                    path: 'index',
+                    name: 'GiftShpsView',
+                    component:  GiftShpsView,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'GiftShpsCreate',
+                    component: GiftShpsCreate,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: ':id/users',
+                    name: 'UsersListView',
+                    component: UsersListView,
+                    meta: {
+                        name: 'کالای هدیه'
+                    }
+                },
+                {
+                    path: ':id/orders',
+                    name: 'OrdersListView',
+                    component: OrdersListView,
+                    meta: {
+                        name: 'کالای هدیه'
                     }
                 },
             ]

@@ -667,6 +667,7 @@ export default {
                 ['ارسال رایگان', '/free-delivery/index', 'mdi-checkbox-blank-circle-outline'],
                 ['گردونه شانس', '/lucky-wheel/index', 'mdi-checkbox-blank-circle-outline'],
                 ['تنظیمات مودال خانه', '/first-time-user/index', 'mdi-checkbox-blank-circle-outline'],
+                ['کالای هدیه', '/gift-shps/index', 'mdi-checkbox-blank-circle-outline'],
             ],
             smsNotification: [
                 ['لیست پیامک ها', '/sms-notification/index', 'mdi-checkbox-blank-circle-outline'],
