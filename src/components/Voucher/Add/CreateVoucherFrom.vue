@@ -146,7 +146,7 @@
 
                 <v-col cols="4">
 
-                  <div @click="addCondition(item)" class="seller__add-sku-btn d-flex justify-center align-center">
+                  <div @click="addCondition(item.raw)" class="seller__add-sku-btn d-flex justify-center align-center">
                     <v-icon>mdi-plus</v-icon>
                   </div>
 
@@ -171,29 +171,28 @@
                    {{ condition.title }}
                 </span>
         </div>
-
-        <template v-if="condition.raw.inputType === 'select'">
+        <template v-if="condition?.inputType === 'select'">
           <v-autocomplete
               :items="provinceList"
-              v-model="condition.raw.data"
+              v-model="condition.data"
               variant="outlined"
               item-title="title"
               item-value="value"
               rounded="lg">
           </v-autocomplete>
         </template>
-        <template v-else-if="condition.raw.inputType === 'text'">
+        <template v-else-if="condition?.inputType === 'text'">
           <v-text-field
-              v-model="condition.raw.data"
+              v-model="condition.data"
               variant="outlined"
               rounded="lg">
           </v-text-field>
         </template>
-        <template v-else-if="condition.raw.inputType === 'date'">
+        <template v-else-if="condition?.inputType === 'date'">
         <v-row justify="center">
           <v-col cols="12" sm="6">
             <v-text-field
-                v-model="condition.raw.data[0]"
+                v-model="condition.data[0]"
                 variant="outlined"
                 class="custom-input-start-date"
                 clearable
@@ -204,7 +203,7 @@
                 type="datetime"
                 class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
 
-                v-model="condition.raw.data[0]"
+                v-model="condition.data[0]"
                 variant="outlined"
                 placeholder="تاریخ تولد"
                 custom-input=".custom-input-start-date"
@@ -212,7 +211,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-                v-model="condition.raw.data[1]"
+                v-model="condition.data[1]"
                 variant="outlined"
                 class="custom-input-end-date"
                 clearable
@@ -223,7 +222,7 @@
                 type="datetime"
                 class="d--rtl flex-grow-1 c-modal-table-filter__date-picker"
 
-                v-model="condition.raw.data[1]"
+                v-model="condition.data[1]"
                 variant="outlined"
                 placeholder="تاریخ تولد"
                 custom-input=".custom-input-end-date"
@@ -231,11 +230,11 @@
           </v-col>
         </v-row>
         </template>
-        <template v-else-if="condition.raw.inputType === 'file'">
+        <template v-else-if="condition?.inputType === 'file'">
         <div class="d-flex">
           <v-text-field
               readonly
-              v-model="condition.raw.data"
+              v-model="condition.data"
               variant="outlined"
               rounded="lg">
           </v-text-field>
